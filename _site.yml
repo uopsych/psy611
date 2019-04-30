@@ -1,7 +1,7 @@
-name: Your Course Title Here
+name: Data Analysis I
 output_dir: "."
 navbar:
-  title: "Your Navigation Title Here"
+  title: "Navitation Title"
   left:
     - text: "Description"
       href: index.html
@@ -9,5 +9,5 @@ navbar:
       href: materials.html
     - text: "Schedule"
       href: schedule.html
-    - text: "Email Prof. Your Name"
-      href: mailto:Your Email Address
+    - text: "Email Prof. Sara Weston"
+      href: mailto:sweston2@uoregon.edu
