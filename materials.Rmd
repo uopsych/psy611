@@ -1,0 +1,33 @@
+---
+title: "Materials"
+output: 
+  html_document:
+    toc: TRUE
+    toc_depth: 2
+    toc_float: TRUE
+    theme: cosmo
+---
+
+# Textbook
+
+We will primarily be referring to chapters in [_Learning Statistics with R_](https://learningstatisticswithr-bookdown.netlify.com/index.html) by Danielle Navarro. This textbook is available for free online. You may choose to purchase a paper copy if you wish, but it is not required. Additional readings assignments will be posted here. 
+
+# R and RStudio
+
+Students must have the latest version of R, which can be downloaded [here](https://ftp.osuosl.org/pub/cran/). It is strongly recommended that students also download the RStudio GUI, available [here](https://www.rstudio.com/products/rstudio/download/#download). Both softwares are free. 
+
+## Resources for R and RStudio
+
+While we will be covering the use of R and RStudio extensively in both lecture and lab, one of the key skills required to use R is the ability to find answers on the Internet. The R commmunity (sometimes referred to as the useR community) tends to be friendly and helpful and enjoys solving R-related problems in their spare time. For that reason, many common questions or problems have been posted to spaces online and answered by smart people. Finding and deciphering those answers is the key skill you should seek to hone this year. It's much more important than remembering function names. 
+
+Here are some sites where you can find the answers to many R questions and learn new tricks:
+
+### For learning the basics
+ - [_YaRrr, the Pirate's Guide to R_](https://bookdown.org/ndphillips/YaRrr/) by Nathaniel Phillips
+ - [_R for Data Science_](https://r4ds.had.co.nz/) by Hadley Wickham
+ - [_R Cookbook_](http://www.cookbook-r.com/) by Winston Chang
+
+### For plotting
+  - The [Graphs chapter of _R Cookbook_](http://www.cookbook-r.com/Graphs/) by Winston Chang
+
+

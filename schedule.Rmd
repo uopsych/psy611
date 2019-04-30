@@ -1,0 +1,11 @@
+---
+title: "Weekly schedule"
+output: 
+  html_document:
+    toc: TRUE
+    toc_depth: 2
+    toc_float: TRUE
+    theme: cosmo
+---
+
+Schedule goes here.
