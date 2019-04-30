@@ -1,7 +1,7 @@
 name: Data Analysis I
 output_dir: "."
 navbar:
-  title: "Navitation Title"
+  title: "PSY 611"
   left:
     - text: "Description"
       href: index.html
