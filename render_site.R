@@ -56,9 +56,7 @@ yml <- paste0('name: ',courseTitle,'\n',
               'navbar:','\n',
               '  title: \"',navTitle,'\"','\n',
               '  left:','\n',
-              pages, 
-              '    - text: \"Email Prof. ',profName,'\"\n',
-              '      href: mailto:',profEmail)
+              pages)
 
 # finally, this writes everything generated above into (what should be) a valid `_site.yml` file. 
 # Commit the folder to github and everything should be updated!

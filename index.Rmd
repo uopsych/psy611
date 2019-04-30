@@ -1,6 +1,6 @@
 ---
 title: "Psy 611: Data Analysis I"
-subtitle: "Department of Psychology, Univeristy of Oregon"
+subtitle: "Department of Psychology, University of Oregon"
 author: "Fall 2019. Instructor: Sara J. Weston"
 output: 
   html_document:
