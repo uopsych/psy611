@@ -1,11 +1,13 @@
-name: "my-website-name"
+name: Your Course Title Here
 output_dir: "."
 navbar:
-  title: "Website title"
+  title: "Your Navigation Title Here"
   left:
-    - text: "Overview"
+    - text: "Description"
       href: index.html
-    - text: "Weekly schedule"
-      href: schedule.html
     - text: "Materials"
       href: materials.html
+    - text: "Schedule"
+      href: schedule.html
+    - text: "Email Prof. Your Name"
+      href: mailto:Your Email Address
