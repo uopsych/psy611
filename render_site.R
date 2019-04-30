@@ -22,7 +22,7 @@ lapply(files, function(x) {
 
 # here I set a few variables for the course that I can paste into the strings below
 courseTitle <- "Data Analysis I"
-navTitle <- "Navitation Title"
+navTitle <- "PSY 611"
 profName <- "Sara Weston"
 profEmail <- "sweston2@uoregon.edu"
 
