@@ -26,8 +26,18 @@ Here are some sites where you can find the answers to many R questions and learn
  - [_YaRrr, the Pirate's Guide to R_](https://bookdown.org/ndphillips/YaRrr/) by Nathaniel Phillips
  - [_R for Data Science_](https://r4ds.had.co.nz/) by Hadley Wickham
  - [_R Cookbook_](http://www.cookbook-r.com/) by Winston Chang
+ - [_An Introduction to Statistical Learning_](http://www-bcf.usc.edu/~gareth/ISL) by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani
 
 ## For plotting
   - The [Graphs chapter of _R Cookbook_](http://www.cookbook-r.com/Graphs/) by Winston Chang
+  
+## Quick resources
+
+  - [Cheat Sheets](https://www.rstudio.com/resources/cheatsheets) 
+  - [Quick-R](https://www.statmethods.net) 
+  
+## Online forums
+  - [Stack Overflow](https://stackoverflow.com) \
+  - [Cross Validated](https://stats.stackexchange.com)
 
 

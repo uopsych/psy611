@@ -21,10 +21,10 @@ lapply(files, function(x) {
 })
 
 # here I set a few variables for the course that I can paste into the strings below
-courseTitle <- "Your Course Title Here"
-navTitle <- "Your Navigation Title Here"
-profName <- "Your Name"
-profEmail <- "Your Email Address"
+courseTitle <- "Data Analysis I"
+navTitle <- "Navitation Title"
+profName <- "Sara Weston"
+profEmail <- "sweston2@uoregon.edu"
 
 # this generates a list of the HTML files created in lines 8-10
 html_files <- list.files(path = ".", pattern = '*.html', full.names = FALSE)
