@@ -1,0 +1,11 @@
+---
+title: "Reading assignments"
+output: 
+  html_document:
+    toc: TRUE
+    toc_depth: 2
+    toc_float: TRUE
+    theme: cosmo
+---
+
+Reading assignments go here.
