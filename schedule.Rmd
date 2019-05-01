@@ -8,4 +8,28 @@ output:
     theme: cosmo
 ---
 
-Schedule goes here.
+
+| Week | Date  |  Topic                                 |LSR readings       | Additional Readings  |
+-------|-------|----------------------------------------|--------------------|----------------------|
+| 1    | 10/01 | Introduction and overview              |                    |                      |
+| -    | 10/03 | Threats to measurement validity        |                    |                      |
+| 2    | 10/08 | Describing data                        |                    |                      |
+| -    | 10/10 | Describing data                        |                    |                      |
+| 3    | 10/15 | Matrix algebra and GLM                 |                    |                      |
+| -    | 10/17 | Probability                            |                    |                      |
+| 4    | 10/22 | Probability                            |                    |                      |
+| -    | 10/24 | Probability                            |                    |                      |
+| 5    | 10/29 | Sampling                               |                    |                      |
+| -    | 10/31 | Hypothesis testing                     |                    |                      |
+| 6    | 11/05 | Hypothesis testing                     |                    |                      |
+| -    | 11/07 | Critiques of hypothesis testing        |                    |                      |
+| 7    | 11/12 | Categorical data analysis              |                    |                      |
+| -    | 11/14 | Categorical data analysis              |                    |                      |
+| 8    | 11/19 | One-sample tests                       |                    |                      |
+| -    | 11/21 | Comparing two means                    |                    |                      |
+| 9    | 11/26 | Comparing two means                    |                    |                      |
+| -    | 11/28 | _Thanksgiving_                         |                    |                      |
+| 10   | 12/03 | Comparing two means                    |                    |                      |
+| -    | 12/05 | Comparing two means                    |                    |                      |
+
+**Final:** Take home exam due XXXX.
