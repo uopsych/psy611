@@ -42,4 +42,4 @@ output:
 | -    | 12/05 | Comparing two means                    |                    |  Quiz 8    |             |
 | -    | 12/06 | _Lab: Paired sample t-tests_           |                    |            |             |
 
-**Final:** Take home exam due Monday, December 9 by midnight.
+**Final:** Take home exam due Wednesday, December 11 by midnight.
