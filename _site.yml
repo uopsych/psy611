@@ -5,8 +5,9 @@ navbar:
   left:
     - text: "Description"
       href: index.html
-    - text: "Readings"
-      href: readings.html
     - text: "Schedule"
       href: schedule.html
+    - text: "Readings"
+      href: readings.html
+
 
