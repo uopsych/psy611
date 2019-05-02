@@ -1,11 +1,23 @@
 ---
-title: "Reading assignments"
-output: 
-  html_document:
-    toc: TRUE
-    toc_depth: 2
-    toc_float: TRUE
-    theme: cosmo
+title: "Readings"
+output: html_document
 ---
 
-Reading assignments go here.
+Learning Stats for R (LSR) is our main textbook but there will be additional chapters, articles and blogposts. These are found below:
+
+
+```{r,include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=FALSE)
+suppressPackageStartupMessages(library(dplyr))
+```
+
+
+```{r, results='asis'}
+dir <- "readings/"
+list.files(dir) %>%
+  sort %>% 
+  grep("\\.html$", ., value=TRUE, invert=TRUE) %>% 
+  paste0("- [", ., "](", paste0(dir, .), ")") %>% 
+  cat(sep="\n") 
+```

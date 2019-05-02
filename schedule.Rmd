@@ -12,7 +12,7 @@ output:
 | Week | Date  |  Topic                                 |Readings            | Quiz       | Homework    |
 -------|-------|----------------------------------------|--------------------|------------|-------------|
 | 1    | 10/01 | Introduction and overview              |                    |            |             |
-| -    | 10/03 | Threats to measurement validity        |                    |            |             |
+| -    | 10/03 | Threats to measurement validity        | Cronbach \& Meehl (1955) |            |             |
 | -    | 10/04 | _Lab: Introduction to R_               |                    |            |             |
 | 2    | 10/08 | Describing data                        |                    |            |             |
 | -    | 10/10 | Describing data                        |                    |  Quiz 1    |             |
