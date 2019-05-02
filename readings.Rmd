@@ -3,7 +3,7 @@ title: "Readings"
 output: html_document
 ---
 
-Learning Stats for R (LSR) is our main textbook but there will be additional chapters, articles and blogposts. These are found below:
+[Learning Stats for R (LSR)](https://learningstatisticswithr-bookdown.netlify.com/) is our main textbook but there will be additional chapters, articles and blogposts. These are found below:
 
 
 ```{r,include=FALSE}
