@@ -47,16 +47,50 @@ output:
 
 # Graded materials
 
+Your final grade is comprised of three components:
+
+  - Quizzes: 40\% 
+  - Homework: 40\% 
+  - Take-home exam: 20\% 
+
 ## Quizzes
+
+Quizzes are intended to assess your understanding of the theoretical principles underlying statistics. There will be a quiz every Thursday, with the exception of the first week of the term and Thanksgiving. 
+
+Quizzes may be resubmitted with corrections and receive full credit. To resubmit a quiz, attach a separate piece of paper to your quiz; for each question that was answered incorrectly, identify the correct answer and explain why this is the correct answer. Only if the explaination sufficiently conveys understanding of the theoretical principles will credit be given. There are no limits to the number of times a quiz may be resubmitted.
 
 ## Homework assignments
 
+Homework assignments are intended to gauge your ability to apply the topics covered in class to the practice of data analysis. They are due at the time class starts on the day the assignment is listed.  
+
+Homework assignments may be resubmitted with corrections and receive full credit. There are no limits to the number of times a homework assignment may be resubmitted. 
+
+Late assignments will receive 50\% of the points earned. For example, if you answer 8 of the 10 questions correctly, the assignment will receive 4 points. If you resubmit this assignment with corrected answers and get them all correct, the assignment will receive 5 points.
+
+You may discuss homework assignments with your classmantes; however, it is important that you complete each assignment on your own and do not simply copy someone else's code. If we believe one student has copied another's work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points. 
+
 ## Take-home Exam
+
+The take-home exam will consist of two parts: (1) a multiple-choice exam that will take place on Canvas and (2) an application section using R. You may not collaborate on the take-home exam, nor discuss the take-home exam with your classmates. Your TA and I will provide only limited clarifications to questions and will not help with any portion of the exam. The take-home exam will be available two weeks before it is due.
 
 # Materials needed
 
+We will be using R for all data wrangling, visulaization, and analysis. You may not use another statistical program in this course.
+Students must have the latest version of R, which can be downloaded [here](https://ftp.osuosl.org/pub/cran/). It is strongly recommended that students also download the RStudio GUI, available [here](https://www.rstudio.com/products/rstudio/download/#download). Both softwares are free. 
+
+All reading assignments will be posted online. 
+
 # Times and locations
 
-# Expectations
+**Lecture:** Tuesdays and Thursdays, 10 - 11:20am, McKenzie Hall Rm 121 
 
-# 
+**Lab:** Friday, 9-10:20am or 10:30-11:50am, Straub Hall Rm 008
+
+**Office Hours:** 
+Dr. Sara Weston: XXXX, Straub Hall Rm 325
+
+# Policies
+
+**Cheating and plagarism.** Any student caught cheating on an assignment, quiz, or exam will receive a 0 on that assignment. Frankly, you're in graduate school, and the purpose of work is to create opportunities to learn and improve. Even if cheating helps you in the short term, you'll quickly find yourself ill-prepared for the career you have chosen. If you find yourself tempted to cheat, please come speak to Dr. Weston about an extension and developing tools to improve your success. 
+
+**Students with special needs.** The UO works to create inclusive learning environments. If there are aspects of the instruction or design of this course that result in disability-related barriers to your participation, please notify me as soon as possible. You may also wish to contact Disability Services in 164 Oregon Hall at 541-346-1155 or [disabsrv@uoregon.edu](mailto:disabsrv@uoregon.edu).
