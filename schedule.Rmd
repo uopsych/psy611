@@ -1,5 +1,5 @@
 ---
-title: "Weekly schedule"
+title: "Syllabus"
 output: 
   html_document:
     toc: TRUE
@@ -8,6 +8,7 @@ output:
     theme: cosmo
 ---
 
+# Weekly schedule
 
 | Week | Date  |  Topic                                 |Readings            | Quiz       | Homework    |
 -------|-------|----------------------------------------|--------------------|------------|-------------|
@@ -43,3 +44,19 @@ output:
 | -    | 12/06 | _Lab: Paired sample t-tests_           |                    |            |             |
 
 **Final:** Take home exam due Wednesday, December 11 by midnight.
+
+# Graded materials
+
+## Quizzes
+
+## Homework assignments
+
+## Take-home Exam
+
+# Materials needed
+
+# Times and locations
+
+# Expectations
+
+# 
