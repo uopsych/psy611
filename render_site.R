@@ -46,7 +46,7 @@ pages <- lapply(html_files, function(x) {
 # knew you'd want to rename consistently every time you generated the site, you could use the `sub` function to do so.  
 
 pages <- paste(pages, collapse = "")
-pages <- sub("Index","Description", pages)
+pages <- sub("Index", pages)
 
 # this pastes the standard boilerplate from the top of the `_site.yml` file together with the list of pages 
 # generated above. This also adds a final menu item with a link to email the professor established in the variables above. 
