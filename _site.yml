@@ -3,13 +3,11 @@ output_dir: "."
 navbar:
   title: "PSY 611"
   left:
-    - text: "Index"
-      href: index.html
-    - text: "syllabus"
+    - text: "Syllabus"
       href: schedule.html
-    - text: lectures
+    - text: Lectures
       menu:
-      - text: introduction
+      - text: Introduction
         href: introduction.html
 output:
   html_document:
