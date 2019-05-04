@@ -5,7 +5,7 @@ navbar:
   left:
     - text: "Index"
       href: index.html
-    - text: "Schedule"
+    - text: "syllabus"
       href: schedule.html
     - text: lectures
       menu:
