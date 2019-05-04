@@ -1,17 +1,13 @@
-introduction
+PSY 611: Data Analysis I
 ========================================================
 author: 
-date: 
+date: 10/01/19
 autosize: true
 
-First Slide
+Goals of this course
 ========================================================
 
-For more details on authoring R presentations please visit <https://support.rstudio.com/hc/en-us/articles/200486468>.
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
+Write goals.
 
 Slide With Code
 ========================================================

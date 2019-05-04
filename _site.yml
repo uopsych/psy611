@@ -7,4 +7,8 @@ navbar:
       href: index.html
     - text: "Schedule"
       href: schedule.html
+    - text: Lectures
+      menu:
+      - text: introduction
+        href: lectures/introduction.html
 
