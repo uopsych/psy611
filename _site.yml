@@ -10,7 +10,7 @@ navbar:
     - text: lectures
       menu:
       - text: introduction
-        href: lectures/introduction.html
+        href: introduction.html
 output:
   html_document:
     lib_dir: site_libs
