@@ -11,4 +11,7 @@ navbar:
       menu:
       - text: "introduction"
         href: lectures/introduction.html
-
+output:
+  html_document:
+    lib_dir: site_libs
+    self_contained: no
