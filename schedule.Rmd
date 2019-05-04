@@ -20,13 +20,13 @@ output:
 | 3    | 10/15 | Matrix algebra and GLM                 |                    |            |             |
 | -    | 10/17 | Probability                            | LSR Intro to Part IV and Ch 9           |  Quiz 2    |             |
 | -    | 10/18 | _Lab: Matrix multiplication_           |                    |            |             |
-| 4    | 10/22 | Probability                            |[Wetzels et al. (2011)](readings/Wetzels_etal_2011.pdf) |            |             |
-| -    | 10/24 | Probability                            |                    |  Quiz 3    |             |
+| 4    | 10/22 | Probability                            |                    |            |             |
+| -    | 10/24 | Probability                            |[Wetzels et al. (2011)](readings/Wetzels_etal_2011.pdf)|  Quiz 3    |             |
 | -    | 10/25 | _Lab: Probability distributions_       |                    |            |             |
 | 5    | 10/29 | Sampling                               | LSR Ch 10          |            |             |
 | -    | 10/31 | Hypothesis testing                     | LSR Ch 11          |  Quiz 4    |             |
 | -    | 11/01 | _Lab: Data wrangling_                  |                    |            |             |
-| 6    | 11/05 | Hypothesis testing                     |                    |            |             |
+| 6    | 11/05 | Hypothesis testing                     | [Sainani (2012)](readings/Sainani_2012.pdf) |            |             |
 | -    | 11/07 | Critiques of hypothesis testing        | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf) [Cumming (2014)](readings/Cumming_2014.pdf)                                           |  Quiz 5    |             |
 | -    | 11/08 | _Lab: Graphing with ggplot2_           |                    |                      |            |             |
 | 7    | 11/12 | Categorical data analysis              | LSR Ch 12          |            |             |
