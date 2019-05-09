@@ -13,6 +13,7 @@ navbar:
       menu:
       - text: "Introduction to R and RStudio"
         href: "labs/lab-1.html"
+  right:
     - icon: fab fa-github
       href: https://uopsych.github.io/psy611
 output:
