@@ -11,7 +11,7 @@ navbar:
         href: introduction.html
     - text: Labs
       menu:
-      - text: Introduction to R and RStudio
+      - text: "Introduction to R and RStudio"
         href: lab-1.html
 output:
   html_document:
