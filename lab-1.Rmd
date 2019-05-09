@@ -1,0 +1,43 @@
+---
+title: "Lab: Introduction to R and RStudio"
+html_document:
+    toc: TRUE
+    toc_depth: 2
+    toc_float: TRUE
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Downloading R and RStudio
+
+# Features of RStudio
+## Source
+## Console
+## Enivornment/History
+## Files/Plots/Packages/Help
+
+# Packages
+## Installing a package
+```{r,eval=FALSE}
+install.packages("yarrr")
+```
+
+## Loading a package
+```{r}
+library(yarrr)
+```
+# Try commands in R
+Adapted from [__YaRrr: A Pirate's Guide to R__](https://bookdown.org/ndphillips/YaRrr/).
+
+```{r}
+?pirates
+
+head(pirates)
+```
+
+
+
+# Projects
