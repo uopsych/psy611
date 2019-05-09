@@ -8,11 +8,11 @@ navbar:
     - text: Lectures
       menu:
       - text: Introduction
-        href: introduction.html
+        href: lectures/intro.html
     - text: Labs
       menu:
       - text: "Introduction to R and RStudio"
-        href: lab-1.html
+        href: "lab-1.html"
 output:
   html_document:
     lib_dir: site_libs
