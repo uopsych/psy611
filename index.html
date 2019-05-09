@@ -9,20 +9,16 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Fall 2019. Instructor: Sara J. Weston" />
 
 
-<title>Psy 611: Data Analysis I</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -264,6 +260,311 @@ $(document).ready(function () {
 
 
 
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PSY 611</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="schedule.html">Syllabus</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Lectures
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="introduction.html">Introduction</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Labs
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab-1.html">Introduction to R and RStudio</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<p><meta charset="utf-8" /> <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> <meta name="generator" content="pandoc" /></p>
+<p><meta name="author" content="Fall 2019. Instructor: Sara J. Weston" /></p>
+<title>
+Psy 611: Data Analysis I
+</title>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" /> <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+<!-- tabsets -->
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+<!-- code folding -->
 <script>
 $(document).ready(function ()  {
 
@@ -290,7 +591,6 @@ $(document).ready(function ()  {
     var toc = $("#TOC").tocify(options).data("toc-tocify");
 });
 </script>
-
 <style type="text/css">
 
 #TOC {
@@ -348,135 +648,197 @@ div.tocify {
 
 
 </style>
-
-
-
 </head>
-
 <body>
-
-
 <div class="container-fluid main-container">
-
-
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
-</div>
-</div>
 
+</div>
+</div>
 <div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">PSY 611</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-  <a href="schedule.html">Syllabus</a>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<pre><code>&lt;div class=&quot;navbar-header&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;navbar-toggle collapsed&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#navbar&quot;&gt;
+    &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;a class=&quot;navbar-brand&quot; href=&quot;index.html&quot;&gt;PSY 611&lt;/a&gt;
+&lt;/div&gt;
+&lt;div id=&quot;navbar&quot; class=&quot;navbar-collapse collapse&quot;&gt;
+  &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+    &lt;li&gt;</code></pre>
+<a href="schedule.html">Syllabus</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Lectures
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="introduction.html">Introduction</a>
-    </li>
-  </ul>
+<p><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Lectures</p>
+<pre><code>&lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;</code></pre>
+</a>
+<ul class="dropdown-menu" role="menu">
+<pre><code>&lt;li&gt;
+  &lt;a href=&quot;introduction.html&quot;&gt;Introduction&lt;/a&gt;
+&lt;/li&gt;</code></pre>
+</ul>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
-
-<div class="fluid-row" id="header">
-
-
-
-<h1 class="title toc-ignore">Psy 611: Data Analysis I</h1>
-<h3 class="subtitle">Department of Psychology, University of Oregon</h3>
-<h4 class="author">Fall 2019. Instructor: Sara J. Weston</h4>
-
+<pre><code>  &lt;/ul&gt;
+  &lt;ul class=&quot;nav navbar-nav navbar-right&quot;&gt;
+    
+  &lt;/ul&gt;
+&lt;/div&gt;&lt;!--/.nav-collapse --&gt;</code></pre>
 </div>
-
-
+<!--/.container -->
+</div>
+<!--/.navbar -->
+<div id="header" class="fluid-row">
+<h1 class="title toc-ignore">
+Psy 611: Data Analysis I
+</h1>
+<h3 class="subtitle">
+Department of Psychology, University of Oregon
+</h3>
+<h4 class="author">
+Fall 2019. Instructor: Sara J. Weston
+</h4>
+</div>
 <div id="overview" class="section level1">
-<h1>Overview</h1>
-<p>This course is the first in a 3-term sequence of classes designed to provide a thorough grounding in statistical concepts, methods, and applications of relevance to psychological science and related sciences. The aim of the course is to help students develop skills in the analysis and interpretation of real psychological data. Our focus will be both conceputal and mathematical – that is, understanding the underlying mathematical principals of statistics enhances ones’ ability to interpret and think critically about the use of statistics. Students will also learn the basics of the R language and use this program to wrangle, visualize, summarize, and test hypotheses with data.</p>
+<h1>
+Overview
+</h1>
+<p>
+This course is the first in a 3-term sequence of classes designed to provide a thorough grounding in statistical concepts, methods, and applications of relevance to psychological science and related sciences. The aim of the course is to help students develop skills in the analysis and interpretation of real psychological data. Our focus will be both conceputal and mathematical – that is, understanding the underlying mathematical principals of statistics enhances ones’ ability to interpret and think critically about the use of statistics. Students will also learn the basics of the R language and use this program to wrangle, visualize, summarize, and test hypotheses with data.
+</p>
 </div>
 <div id="meeting-times-and-locations" class="section level1">
-<h1>Meeting times and locations</h1>
-<p><strong>Lecture:</strong> Tuesdays and Thursdays, 10 - 11:20am, McKenzie Hall Rm 121</p>
-<p><strong>Lab:</strong> Friday, 9-10:20am or 10:30-11:50am, Straub Hall Rm 008</p>
+<h1>
+Meeting times and locations
+</h1>
+<p>
+<strong>Lecture:</strong> Tuesdays and Thursdays, 10 - 11:20am, McKenzie Hall Rm 121
+</p>
+<p>
+<strong>Lab:</strong> Friday, 9-10:20am or 10:30-11:50am, Straub Hall Rm 008
+</p>
 </div>
 <div id="materials" class="section level1">
-<h1>Materials</h1>
+<h1>
+Materials
+</h1>
 <div id="textbook" class="section level2">
-<h2>Textbook</h2>
-<p>We will primarily be referring to chapters in <a href="https://learningstatisticswithr-bookdown.netlify.com/index.html"><em>Learning Statistics with R</em></a> by Danielle Navarro. This textbook is available for free online. You may choose to purchase a paper copy if you wish, but it is not required. Additional readings assignments will be posted here.</p>
+<h2>
+Textbook
+</h2>
+<p>
+We will primarily be referring to chapters in <a href="https://learningstatisticswithr-bookdown.netlify.com/index.html"><em>Learning Statistics with R</em></a> by Danielle Navarro. This textbook is available for free online. You may choose to purchase a paper copy if you wish, but it is not required. Additional readings assignments will be posted here.
+</p>
 </div>
 <div id="r-and-rstudio" class="section level2">
-<h2>R and RStudio</h2>
-<p>Students must have the latest version of R, which can be downloaded <a href="https://ftp.osuosl.org/pub/cran/">here</a>. It is strongly recommended that students also download the RStudio GUI, available <a href="https://www.rstudio.com/products/rstudio/download/#download">here</a>. Both softwares are free.</p>
+<h2>
+R and RStudio
+</h2>
+<p>
+Students must have the latest version of R, which can be downloaded <a href="https://ftp.osuosl.org/pub/cran/">here</a>. It is strongly recommended that students also download the RStudio GUI, available <a href="https://www.rstudio.com/products/rstudio/download/#download">here</a>. Both softwares are free.
+</p>
 </div>
 <div id="resources-for-r-and-rstudio" class="section level2">
-<h2>Resources for R and RStudio</h2>
-<p>While we will be covering the use of R and RStudio extensively in both lecture and lab, one of the key skills required to use R is the ability to find answers on the Internet. The R commmunity (sometimes referred to as the useR community) tends to be friendly and helpful and enjoys solving R-related problems in their spare time. For that reason, many common questions or problems have been posted to spaces online and answered by smart people. Finding and deciphering those answers is the key skill you should seek to hone this year. It’s much more important than remembering function names.</p>
-<p>Here are some sites where you can find the answers to many R questions and learn new tricks:</p>
+<h2>
+Resources for R and RStudio
+</h2>
+<p>
+While we will be covering the use of R and RStudio extensively in both lecture and lab, one of the key skills required to use R is the ability to find answers on the Internet. The R commmunity (sometimes referred to as the useR community) tends to be friendly and helpful and enjoys solving R-related problems in their spare time. For that reason, many common questions or problems have been posted to spaces online and answered by smart people. Finding and deciphering those answers is the key skill you should seek to hone this year. It’s much more important than remembering function names.
+</p>
+<p>
+Here are some sites where you can find the answers to many R questions and learn new tricks:
+</p>
 <div id="for-learning-the-basics" class="section level3">
-<h3>For learning the basics</h3>
+<h3>
+For learning the basics
+</h3>
 <ul>
-<li><a href="https://bookdown.org/ndphillips/YaRrr/"><em>YaRrr, the Pirate’s Guide to R</em></a> by Nathaniel Phillips</li>
-<li><a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> by Hadley Wickham</li>
-<li><a href="http://www.cookbook-r.com/"><em>R Cookbook</em></a> by Winston Chang</li>
-<li><a href="http://www-bcf.usc.edu/~gareth/ISL"><em>An Introduction to Statistical Learning</em></a> by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani</li>
+<li>
+<a href="https://bookdown.org/ndphillips/YaRrr/"><em>YaRrr, the Pirate’s Guide to R</em></a> by Nathaniel Phillips
+</li>
+<li>
+<a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> by Hadley Wickham
+</li>
+<li>
+<a href="http://www.cookbook-r.com/"><em>R Cookbook</em></a> by Winston Chang
+</li>
+<li>
+<a href="http://www-bcf.usc.edu/~gareth/ISL"><em>An Introduction to Statistical Learning</em></a> by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani
+</li>
 </ul>
 </div>
 <div id="for-plotting" class="section level3">
-<h3>For plotting</h3>
+<h3>
+For plotting
+</h3>
 <ul>
-<li>The <a href="http://www.cookbook-r.com/Graphs/">Graphs chapter of <em>R Cookbook</em></a> by Winston Chang</li>
+<li>
+The <a href="http://www.cookbook-r.com/Graphs/">Graphs chapter of <em>R Cookbook</em></a> by Winston Chang
+</li>
 </ul>
 </div>
 <div id="quick-resources" class="section level3">
-<h3>Quick resources</h3>
+<h3>
+Quick resources
+</h3>
 <ul>
-<li><a href="https://www.rstudio.com/resources/cheatsheets">Cheat Sheets</a></li>
-<li><a href="https://www.statmethods.net">Quick-R</a></li>
+<li>
+<a href="https://www.rstudio.com/resources/cheatsheets">Cheat Sheets</a>
+</li>
+<li>
+<a href="https://www.statmethods.net">Quick-R</a>
+</li>
 </ul>
 </div>
 <div id="online-forums" class="section level3">
-<h3>Online forums</h3>
+<h3>
+Online forums
+</h3>
 <ul>
-<li><a href="https://stackoverflow.com">Stack Overflow</a><br />
+<li>
+<a href="https://stackoverflow.com">Stack Overflow</a><br />
 </li>
-<li><a href="https://stats.stackexchange.com">Cross Validated</a></li>
+<li>
+<a href="https://stats.stackexchange.com">Cross Validated</a>
+</li>
 </ul>
 </div>
 </div>
 </div>
-
-
-
 </div>
 </div>
+</div>
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+</html>
+
+
+
 
 </div>
 
