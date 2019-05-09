@@ -1,10 +1,11 @@
 ---
 title: "Lab: Introduction to R and RStudio"
-html_document:
-    toc: TRUE
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
     toc_depth: 2
     toc_float: TRUE
-    theme: cosmo
 ---
 
 ```{r setup, include=FALSE}
@@ -30,14 +31,54 @@ install.packages("yarrr")
 library(yarrr)
 ```
 # Try commands in R
+
 Adapted from [__YaRrr: A Pirate's Guide to R__](https://bookdown.org/ndphillips/YaRrr/).
 
 ```{r}
 ?pirates
 
 head(pirates)
+
+mean(pirates$age)
+max(pirates$age)
+table(pirates$sex)
+
+plot(pirates$height, pirates$weight)
+
+#customize
+plot(x = pirates$height, y = pirates$weight, 
+     main = "Look, Ma! A scatterplot!",
+     xlab = "Height (in cm)",
+     ylab = "Weight (in cm)",
+     pch = 16, 
+     col = gray(.0, .1))
+
+pirateplot(formula = age ~ sword.type,
+           data = pirates, 
+           main = "Pirateplot of age by favorite sword")
+
+# run a t-test
+t.test(formula = age ~ headband, 
+       data = pirates, 
+       alternative = "two.sided")
+
+# Create tattoos model
+tat.sword.lm <- lm(formula = tattoos ~ sword.type,
+                   data = pirates)
+
+# Get ANOVA table
+anova(tat.sword.lm)
 ```
 
+# Commands
+## Arithmetic commands
+## Functions
+### Names
+### Arguments
+# Variables
+## Creating
+## Altering elements
+# Functions and vectors
+## Arithmetic functions on vectors
+## `Length()`
 
-
-# Projects
