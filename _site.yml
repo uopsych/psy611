@@ -12,7 +12,7 @@ navbar:
     - text: Labs
       menu:
       - text: "Introduction to R and RStudio"
-        href: lab-1.html
+        href: "lab-1.html"
 output:
   html_document:
     lib_dir: site_libs

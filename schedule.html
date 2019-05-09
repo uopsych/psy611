@@ -11,330 +11,11 @@
 
 
 
-<title></title>
+<title>Syllabus</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
-
-
-
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
-
-
-
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-summary {
-  display: list-item;
-}
-</style>
-
-
-<style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.dropdown-submenu {
-  position: relative;
-}
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-</style>
-
-<script>
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark it active
-  menuAnchor.parent().addClass('active');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
-});
-</script>
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
-<!-- code folding -->
-
-
-
-
-</head>
-
-<body>
-
-
-<div class="container-fluid main-container">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">PSY 611</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-  <a href="schedule.html">Syllabus</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Lectures
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="introduction.html">Introduction</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Labs
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="lab-1.html">Introduction to R and RStudio</a>
-    </li>
-  </ul>
-</li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
-
-<div class="fluid-row" id="header">
-
-
-
-
-</div>
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<p><meta charset="utf-8" /> <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> <meta name="generator" content="pandoc" /></p>
-<title>
-Syllabus
-</title>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" /> <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -344,6 +25,7 @@ Syllabus
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
   pre:not([class]) {
@@ -359,6 +41,9 @@ if (window.hljs) {
   }
 }
 </script>
+
+
+
 <style type="text/css">
 h1 {
   font-size: 34px;
@@ -385,6 +70,10 @@ h6 {
   text-align: left;
 }
 </style>
+
+
+
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -412,6 +101,8 @@ summary {
   display: list-item;
 }
 </style>
+
+
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
@@ -481,6 +172,7 @@ body {
   border-radius: 6px 0 6px 6px;
 }
 </style>
+
 <script>
 // manage active state of menu based on current page
 $(document).ready(function () {
@@ -498,7 +190,9 @@ $(document).ready(function () {
   menuAnchor.closest('li.dropdown').addClass('active');
 });
 </script>
+
 <!-- tabsets -->
+
 <style type="text/css">
 .tabset-dropdown > .nav-tabs {
   display: inline-table;
@@ -552,6 +246,7 @@ $(document).ready(function () {
   display: none;
 }
 </style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -563,7 +258,11 @@ $(document).ready(function () {
   });
 });
 </script>
+
 <!-- code folding -->
+
+
+
 <script>
 $(document).ready(function ()  {
 
@@ -590,6 +289,7 @@ $(document).ready(function ()  {
     var toc = $("#TOC").tocify(options).data("toc-tocify");
 });
 </script>
+
 <style type="text/css">
 
 #TOC {
@@ -647,8 +347,14 @@ div.tocify {
 
 
 </style>
+
+
+
 </head>
+
 <body>
+
+
 <div class="container-fluid main-container">
 
 
@@ -656,60 +362,73 @@ div.tocify {
 <div class="row-fluid">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
+</div>
+</div>
 
-</div>
-</div>
 <div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-<div class="container">
-<pre><code>&lt;div class=&quot;navbar-header&quot;&gt;
-  &lt;button type=&quot;button&quot; class=&quot;navbar-toggle collapsed&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#navbar&quot;&gt;
-    &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
-    &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
-    &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
-  &lt;/button&gt;
-  &lt;a class=&quot;navbar-brand&quot; href=&quot;index.html&quot;&gt;PSY 611&lt;/a&gt;
-&lt;/div&gt;
-&lt;div id=&quot;navbar&quot; class=&quot;navbar-collapse collapse&quot;&gt;
-  &lt;ul class=&quot;nav navbar-nav&quot;&gt;
-    &lt;li&gt;</code></pre>
-<a href="schedule.html">Syllabus</a>
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PSY 611</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="schedule.html">Syllabus</a>
 </li>
 <li class="dropdown">
-<p><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Lectures</p>
-<pre><code>&lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;</code></pre>
-</a>
-<ul class="dropdown-menu" role="menu">
-<pre><code>&lt;li&gt;
-  &lt;a href=&quot;introduction.html&quot;&gt;Introduction&lt;/a&gt;
-&lt;/li&gt;</code></pre>
-</ul>
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Lectures
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="introduction.html">Introduction</a>
+    </li>
+  </ul>
 </li>
-<pre><code>  &lt;/ul&gt;
-  &lt;ul class=&quot;nav navbar-nav navbar-right&quot;&gt;
-    
-  &lt;/ul&gt;
-&lt;/div&gt;&lt;!--/.nav-collapse --&gt;</code></pre>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Labs
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab-1.html">Introduction to R and RStudio</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Syllabus</h1>
+
 </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
-<div id="header" class="fluid-row">
-<h1 class="title toc-ignore">
-Syllabus
-</h1>
-</div>
+
+
 <div id="weekly-schedule" class="section level1">
-<h1>
-Weekly schedule
-</h1>
-<p>
-LSR readings can be found in the free, online textbook, <a href="https://learningstatisticswithr-bookdown.netlify.com/index.html"><em>Learning Statistics with R</em></a> by Danielle Navarro.
-</p>
+<h1>Weekly schedule</h1>
+<p>LSR readings can be found in the free, online textbook, <a href="https://learningstatisticswithr-bookdown.netlify.com/index.html"><em>Learning Statistics with R</em></a> by Danielle Navarro.</p>
 <table>
 <colgroup>
 <col width="7%" />
@@ -721,686 +440,306 @@ LSR readings can be found in the free, online textbook, <a href="https://learnin
 </colgroup>
 <thead>
 <tr class="header">
-<th>
-Week
-</th>
-<th>
-Date
-</th>
-<th>
-Topic
-</th>
-<th>
-Readings
-</th>
-<th>
-Quiz
-</th>
-<th>
-Homework
-</th>
+<th>Week</th>
+<th>Date</th>
+<th>Topic</th>
+<th>Readings</th>
+<th>Quiz</th>
+<th>Homework</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>
-1
-</td>
-<td>
-10/01
-</td>
-<td>
-Introduction and overview
-</td>
-<td>
-LSR Ch 1 &amp; 3
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>1</td>
+<td>10/01</td>
+<td>Introduction and overview</td>
+<td>LSR Ch 1 &amp; 3</td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
--
-</td>
-<td>
-10/03
-</td>
-<td>
-Threats to measurement validity
-</td>
-<td>
-LSR CH 2 &amp; 4, <a href="readings/Cronbach_Meehl_1955.pdf">Cronbach &amp; Meehl (1955)</a>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>-</td>
+<td>10/03</td>
+<td>Threats to measurement validity</td>
+<td>LSR CH 2 &amp; 4, <a href="readings/Cronbach_Meehl_1955.pdf">Cronbach &amp; Meehl (1955)</a></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
--
-</td>
-<td>
-10/04
-</td>
-<td>
-<em>Lab: Introduction to R</em>
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>-</td>
+<td>10/04</td>
+<td><em>Lab: Introduction to R</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
-2
-</td>
-<td>
-10/08
-</td>
-<td>
-Describing data
-</td>
-<td>
-LSR Ch 5
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>2</td>
+<td>10/08</td>
+<td>Describing data</td>
+<td>LSR Ch 5</td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
--
-</td>
-<td>
-10/10
-</td>
-<td>
-Describing data
-</td>
-<td>
-</td>
-<td>
-Quiz 1
-</td>
-<td>
-</td>
+<td>-</td>
+<td>10/10</td>
+<td>Describing data</td>
+<td></td>
+<td>Quiz 1</td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
--
-</td>
-<td>
-10/11
-</td>
-<td>
-<em>Lab: R basics and descriptives</em>
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>-</td>
+<td>10/11</td>
+<td><em>Lab: R basics and descriptives</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
-3
-</td>
-<td>
-10/15
-</td>
-<td>
-Matrix algebra and GLM
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>3</td>
+<td>10/15</td>
+<td>Matrix algebra and GLM</td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
--
-</td>
-<td>
-10/17
-</td>
-<td>
-Probability
-</td>
-<td>
-LSR Intro to Part IV and Ch 9
-</td>
-<td>
-Quiz 2
-</td>
-<td>
-</td>
+<td>-</td>
+<td>10/17</td>
+<td>Probability</td>
+<td>LSR Intro to Part IV and Ch 9</td>
+<td>Quiz 2</td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
--
-</td>
-<td>
-10/18
-</td>
-<td>
-<em>Lab: Matrix multiplication</em>
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>-</td>
+<td>10/18</td>
+<td><em>Lab: Matrix multiplication</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
-4
-</td>
-<td>
-10/22
-</td>
-<td>
-Probability
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>4</td>
+<td>10/22</td>
+<td>Probability</td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
--
-</td>
-<td>
-10/24
-</td>
-<td>
-Probability
-</td>
-<td>
-<a href="readings/Wetzels_etal_2011.pdf">Wetzels et al. (2011)</a>
-</td>
-<td>
-Quiz 3
-</td>
-<td>
-</td>
+<td>-</td>
+<td>10/24</td>
+<td>Probability</td>
+<td><a href="readings/Wetzels_etal_2011.pdf">Wetzels et al. (2011)</a></td>
+<td>Quiz 3</td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
--
-</td>
-<td>
-10/25
-</td>
-<td>
-<em>Lab: Probability distributions</em>
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>-</td>
+<td>10/25</td>
+<td><em>Lab: Probability distributions</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
-5
-</td>
-<td>
-10/29
-</td>
-<td>
-Sampling
-</td>
-<td>
-LSR Ch 10
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>5</td>
+<td>10/29</td>
+<td>Sampling</td>
+<td>LSR Ch 10</td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
--
-</td>
-<td>
-10/31
-</td>
-<td>
-Hypothesis testing
-</td>
-<td>
-LSR Ch 11
-</td>
-<td>
-Quiz 4
-</td>
-<td>
-</td>
+<td>-</td>
+<td>10/31</td>
+<td>Hypothesis testing</td>
+<td>LSR Ch 11</td>
+<td>Quiz 4</td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
--
-</td>
-<td>
-11/01
-</td>
-<td>
-<em>Lab: Data wrangling</em>
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>-</td>
+<td>11/01</td>
+<td><em>Lab: Data wrangling</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
-6
-</td>
-<td>
-11/05
-</td>
-<td>
-Hypothesis testing
-</td>
-<td>
-<a href="readings/Sainani_2012.pdf">Sainani (2012)</a>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>6</td>
+<td>11/05</td>
+<td>Hypothesis testing</td>
+<td><a href="readings/Sainani_2012.pdf">Sainani (2012)</a></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
--
-</td>
-<td>
-11/07
-</td>
-<td>
-Critiques of hypothesis testing
-</td>
-<td>
-<a href="readings/Simmons_etal_2011.pdf">Simmons et al. (2011)</a> <a href="readings/Cumming_2014.pdf">Cumming (2014)</a>
-</td>
-<td>
-Quiz 5
-</td>
-<td>
-</td>
+<td>-</td>
+<td>11/07</td>
+<td>Critiques of hypothesis testing</td>
+<td><a href="readings/Simmons_etal_2011.pdf">Simmons et al. (2011)</a> <a href="readings/Cumming_2014.pdf">Cumming (2014)</a></td>
+<td>Quiz 5</td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
--
-</td>
-<td>
-11/08
-</td>
-<td>
-<em>Lab: Graphing with ggplot2</em>
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>-</td>
+<td>11/08</td>
+<td><em>Lab: Graphing with ggplot2</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
-7
-</td>
-<td>
-11/12
-</td>
-<td>
-Categorical data analysis
-</td>
-<td>
-LSR Ch 12
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>7</td>
+<td>11/12</td>
+<td>Categorical data analysis</td>
+<td>LSR Ch 12</td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
--
-</td>
-<td>
-11/14
-</td>
-<td>
-Categorical data analysis
-</td>
-<td>
-</td>
-<td>
-Quiz 6
-</td>
-<td>
-</td>
+<td>-</td>
+<td>11/14</td>
+<td>Categorical data analysis</td>
+<td></td>
+<td>Quiz 6</td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
--
-</td>
-<td>
-11/15
-</td>
-<td>
-<em>Lab: Chi-square tests</em>
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>-</td>
+<td>11/15</td>
+<td><em>Lab: Chi-square tests</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
-8
-</td>
-<td>
-11/19
-</td>
-<td>
-One-sample tests
-</td>
-<td>
-LSR Ch 13.1-13.2
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>8</td>
+<td>11/19</td>
+<td>One-sample tests</td>
+<td>LSR Ch 13.1-13.2</td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
--
-</td>
-<td>
-11/21
-</td>
-<td>
-Comparing two means
-</td>
-<td>
-LSR Ch 13.3-13.11
-</td>
-<td>
-Quiz 7
-</td>
-<td>
-</td>
+<td>-</td>
+<td>11/21</td>
+<td>Comparing two means</td>
+<td>LSR Ch 13.3-13.11</td>
+<td>Quiz 7</td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
--
-</td>
-<td>
-11/22
-</td>
-<td>
-<em>Lab: One- and indepedent sample t-tests</em>
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>-</td>
+<td>11/22</td>
+<td><em>Lab: One- and indepedent sample t-tests</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
-9
-</td>
-<td>
-11/26
-</td>
-<td>
-Comparing two means
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>9</td>
+<td>11/26</td>
+<td>Comparing two means</td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
--
-</td>
-<td>
-11/28
-</td>
-<td>
-<strong>Thanksgiving</strong>
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>-</td>
+<td>11/28</td>
+<td><strong>Thanksgiving</strong></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
--
-</td>
-<td>
-11/29
-</td>
-<td>
-<em>Lab: No Lab</em>
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>-</td>
+<td>11/29</td>
+<td><em>Lab: No Lab</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
-10
-</td>
-<td>
-12/03
-</td>
-<td>
-Comparing two means
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>10</td>
+<td>12/03</td>
+<td>Comparing two means</td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>
--
-</td>
-<td>
-12/05
-</td>
-<td>
-Comparing two means
-</td>
-<td>
-</td>
-<td>
-Quiz 8
-</td>
-<td>
-</td>
+<td>-</td>
+<td>12/05</td>
+<td>Comparing two means</td>
+<td></td>
+<td>Quiz 8</td>
+<td></td>
 </tr>
 <tr class="even">
-<td>
--
-</td>
-<td>
-12/06
-</td>
-<td>
-<em>Lab: Paired sample t-tests</em>
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
+<td>-</td>
+<td>12/06</td>
+<td><em>Lab: Paired sample t-tests</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<p>
-<strong>Final:</strong> Take home exam due Wednesday, December 11 by midnight.
-</p>
+<p><strong>Final:</strong> Take home exam due Wednesday, December 11 by midnight.</p>
 </div>
 <div id="graded-materials" class="section level1">
-<h1>
-Graded materials
-</h1>
-<p>
-Your final grade is comprised of three components:
-</p>
+<h1>Graded materials</h1>
+<p>Your final grade is comprised of three components:</p>
 <ul>
-<li>
-Quizzes: 40%
-</li>
-<li>
-Homework: 40%
-</li>
-<li>
-Take-home exam: 20%
-</li>
+<li>Quizzes: 40%</li>
+<li>Homework: 40%</li>
+<li>Take-home exam: 20%</li>
 </ul>
 <div id="quizzes" class="section level2">
-<h2>
-Quizzes
-</h2>
-<p>
-Quizzes are intended to assess your understanding of the theoretical principles underlying statistics. There will be a quiz every Thursday, with the exception of the first week of the term and Thanksgiving.
-</p>
-<p>
-Quizzes may be resubmitted with corrections and receive full credit. To resubmit a quiz, attach a separate piece of paper to your quiz; for each question that was answered incorrectly, identify the correct answer and explain why this is the correct answer. Only if the explaination sufficiently conveys understanding of the theoretical principles will credit be given. There are no limits to the number of times a quiz may be resubmitted.
-</p>
+<h2>Quizzes</h2>
+<p>Quizzes are intended to assess your understanding of the theoretical principles underlying statistics. There will be a quiz every Thursday, with the exception of the first week of the term and Thanksgiving.</p>
+<p>Quizzes may be resubmitted with corrections and receive full credit. To resubmit a quiz, attach a separate piece of paper to your quiz; for each question that was answered incorrectly, identify the correct answer and explain why this is the correct answer. Only if the explaination sufficiently conveys understanding of the theoretical principles will credit be given. There are no limits to the number of times a quiz may be resubmitted.</p>
 </div>
 <div id="homework-assignments" class="section level2">
-<h2>
-Homework assignments
-</h2>
-<p>
-Homework assignments are intended to gauge your ability to apply the topics covered in class to the practice of data analysis. They are due at the time class starts on the day the assignment is listed.
-</p>
-<p>
-Homework assignments may be resubmitted with corrections and receive full credit. There are no limits to the number of times a homework assignment may be resubmitted.
-</p>
-<p>
-Late assignments will receive 50% of the points earned. For example, if you answer 8 of the 10 questions correctly, the assignment will receive 4 points. If you resubmit this assignment with corrected answers and get them all correct, the assignment will receive 5 points.
-</p>
-<p>
-You may discuss homework assignments with your classmantes; however, it is important that you complete each assignment on your own and do not simply copy someone else’s code. If we believe one student has copied another’s work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points.
-</p>
+<h2>Homework assignments</h2>
+<p>Homework assignments are intended to gauge your ability to apply the topics covered in class to the practice of data analysis. They are due at the time class starts on the day the assignment is listed.</p>
+<p>Homework assignments may be resubmitted with corrections and receive full credit. There are no limits to the number of times a homework assignment may be resubmitted.</p>
+<p>Late assignments will receive 50% of the points earned. For example, if you answer 8 of the 10 questions correctly, the assignment will receive 4 points. If you resubmit this assignment with corrected answers and get them all correct, the assignment will receive 5 points.</p>
+<p>You may discuss homework assignments with your classmantes; however, it is important that you complete each assignment on your own and do not simply copy someone else’s code. If we believe one student has copied another’s work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points.</p>
 </div>
 <div id="take-home-exam" class="section level2">
-<h2>
-Take-home Exam
-</h2>
-<p>
-The take-home exam will consist of two parts: (1) a multiple-choice exam that will take place on Canvas and (2) an application section using R. You may not collaborate on the take-home exam, nor discuss the take-home exam with your classmates. Your TA and I will provide only limited clarifications to questions and will not help with any portion of the exam. The take-home exam will be available two weeks before it is due.
-</p>
+<h2>Take-home Exam</h2>
+<p>The take-home exam will consist of two parts: (1) a multiple-choice exam that will take place on Canvas and (2) an application section using R. You may not collaborate on the take-home exam, nor discuss the take-home exam with your classmates. Your TA and I will provide only limited clarifications to questions and will not help with any portion of the exam. The take-home exam will be available two weeks before it is due.</p>
 </div>
 </div>
 <div id="materials-needed" class="section level1">
-<h1>
-Materials needed
-</h1>
-<p>
-We will be using R for all data wrangling, visulaization, and analysis. You may not use another statistical program in this course. Students must have the latest version of R, which can be downloaded <a href="https://ftp.osuosl.org/pub/cran/">here</a>. It is strongly recommended that students also download the RStudio GUI, available <a href="https://www.rstudio.com/products/rstudio/download/#download">here</a>. Both softwares are free.
-</p>
-<p>
-All reading assignments will be posted online.
-</p>
+<h1>Materials needed</h1>
+<p>We will be using R for all data wrangling, visulaization, and analysis. You may not use another statistical program in this course. Students must have the latest version of R, which can be downloaded <a href="https://ftp.osuosl.org/pub/cran/">here</a>. It is strongly recommended that students also download the RStudio GUI, available <a href="https://www.rstudio.com/products/rstudio/download/#download">here</a>. Both softwares are free.</p>
+<p>All reading assignments will be posted online.</p>
 </div>
 <div id="times-and-locations" class="section level1">
-<h1>
-Times and locations
-</h1>
-<p>
-<strong>Lecture:</strong> Tuesdays and Thursdays, 10 - 11:20am, McKenzie Hall Rm 121
-</p>
-<p>
-<strong>Lab:</strong> Friday, 9-10:20am or 10:30-11:50am, Straub Hall Rm 008
-</p>
-<p>
-<strong>Office Hours:</strong>
-</p>
-<p>
-Dr. Sara Weston: XXXX, Straub Hall Rm 325
-</p>
+<h1>Times and locations</h1>
+<p><strong>Lecture:</strong> Tuesdays and Thursdays, 10 - 11:20am, McKenzie Hall Rm 121</p>
+<p><strong>Lab:</strong> Friday, 9-10:20am or 10:30-11:50am, Straub Hall Rm 008</p>
+<p><strong>Office Hours:</strong></p>
+<p>Dr. Sara Weston: XXXX, Straub Hall Rm 325</p>
 </div>
 <div id="policies" class="section level1">
-<h1>
-Policies
-</h1>
-<p>
-<strong>Cheating and plagarism.</strong> Any student caught cheating on an assignment, quiz, or exam will receive a 0 on that assignment. Frankly, you’re in graduate school, and the purpose of work is to create opportunities to learn and improve. Even if cheating helps you in the short term, you’ll quickly find yourself ill-prepared for the career you have chosen. If you find yourself tempted to cheat, please come speak to Dr. Weston about an extension and developing tools to improve your success.
-</p>
-<p>
-<strong>Students with special needs.</strong> The UO works to create inclusive learning environments. If there are aspects of the instruction or design of this course that result in disability-related barriers to your participation, please notify me as soon as possible. You may also wish to contact Disability Services in 164 Oregon Hall at 541-346-1155 or <a href="mailto:disabsrv@uoregon.edu">disabsrv@uoregon.edu</a>.
-</p>
+<h1>Policies</h1>
+<p><strong>Cheating and plagarism.</strong> Any student caught cheating on an assignment, quiz, or exam will receive a 0 on that assignment. Frankly, you’re in graduate school, and the purpose of work is to create opportunities to learn and improve. Even if cheating helps you in the short term, you’ll quickly find yourself ill-prepared for the career you have chosen. If you find yourself tempted to cheat, please come speak to Dr. Weston about an extension and developing tools to improve your success.</p>
+<p><strong>Students with special needs.</strong> The UO works to create inclusive learning environments. If there are aspects of the instruction or design of this course that result in disability-related barriers to your participation, please notify me as soon as possible. You may also wish to contact Disability Services in 164 Oregon Hall at 541-346-1155 or <a href="mailto:disabsrv@uoregon.edu">disabsrv@uoregon.edu</a>.</p>
+</div>
+
+
+
 </div>
 </div>
-</div>
-</div>
-<script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
-</body>
-</html>
-
-
-
 
 </div>
 
