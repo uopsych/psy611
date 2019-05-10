@@ -15,7 +15,7 @@ navbar:
         href: "labs/lab-1.html"
   right:
     - icon: fa-github
-      href: https://uopsych.github.io/psy611
+      href: https://github.com/uopsych/psy611
 output:
   html_document:
     lib_dir: site_libs

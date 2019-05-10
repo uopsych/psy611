@@ -1,22 +1,43 @@
 ---
 title: 'Psy 611: Data Analysis I'
-author: "Sara"
-date: "5/4/2019"
 output: ioslides_presentation
+widescreen: TRUE
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+## Goals of this course
 
-# Goals of this course
-- Goal 1
-- Goal 2
+- Develop skills in the analysis and interpretation of real psychological data
 
-# Format
-- Lectures
-- Labs
-- Readings
-- Quizzes
-- Homework
-- Take-home Final
+    - Understand how and why we analyze data
+    - Wrangle, summarize, test, and display data using R
+    
+## The challenge
+
+Many basic statistical tests were developed a century ago
+
+<div class="notes">
+We continue to build off of these tests today. For example, MLM is built off basics of regression and correlation. We need to understand these methods to move forward. 
+
+But the world is changing rapidly. Heuristics don't apply, there are better ways to do things, and we've messed up these statistics a lot. We'll discuss what's often left out of most statistics courses. 
+
+Goal: don't just do the test, understand what the test does, why you might want to use it, and how you can avoid abusing it
+</div>
+
+
+## Format
+
+- Learn 
+    - Lectures
+    - Labs
+    - Readings
+- Practice 
+    - Quizzes
+    - Homework
+- Demonstrate mastery
+    - Take-home Final
+    
+## Materials
+
+- Everything is free and available online
+
+- Materials for this course: [uopsych.github.io/psy611](https://uopsych.github.io/psy611/)
