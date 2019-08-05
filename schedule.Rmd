@@ -45,7 +45,7 @@ LSR readings can be found in the free, online textbook, [_Learning Statistics wi
 | -    | 12/05 | Comparing two means                    |                    |  Quiz 8    |             |
 | -    | 12/06 | _Lab: Paired sample t-tests_           |                    |            |             |
 
-**Final:** Take home exam due Wednesday, December 11 by midnight.
+**Final:** Oral exam will take place the week of December 10.
 
 # Graded materials
 
@@ -71,9 +71,13 @@ Late assignments will receive 50\% of the points earned. For example, if you ans
 
 You may discuss homework assignments with your classmantes; however, it is important that you complete each assignment on your own and do not simply copy someone else's code. If we believe one student has copied another's work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points. 
 
-## Take-home Exam
+## Oral exam
 
-The take-home exam will consist of two parts: (1) a multiple-choice exam that will take place on Canvas and (2) an application section using R. You may not collaborate on the take-home exam, nor discuss the take-home exam with your classmates. Your TA and I will provide only limited clarifications to questions and will not help with any portion of the exam. The take-home exam will be available two weeks before it is due.
+The oral exam will take place during finals week. About two weeks prior, you will be asked to schedule a time to complete the exam. The exam will take roughly 15 minutes. You will be asked to explain basic and elemental concepts, as if you were teaching an advanced undergraduate or new graduate student. 
+
+<!-- ## Take-home Exam -->
+
+<!-- The take-home exam will consist of two parts: (1) a multiple-choice exam that will take place on Canvas and (2) an application section using R. You may not collaborate on the take-home exam, nor discuss the take-home exam with your classmates. Your TA and I will provide only limited clarifications to questions and will not help with any portion of the exam. The take-home exam will be available two weeks before it is due. -->
 
 # Materials needed
 

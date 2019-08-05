@@ -1,0 +1,196 @@
+---
+title: 'Psy 611: Data Analysis I'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, rladies, rladies-fonts]
+    incremental: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+## You are a scientist
+
+ - Roots in philosophy and theology
+ 
+???
+What separates you from the philosophers and the theologians
+
+---
+
+## Goals of this sequence
+
+- Develop the basic quantitative skills necessary to be a research scientist
+    - Not all the skills you will need (not the only courses you need)
+    - Foundations of statistics, methods, and data science
+
+- Contextualize those skills
+    - Building a toolbox, not a cookbook
+    - How can I use this? Under what circumstances? When should I not use this?
+
+---
+
+## Goals of this course
+
+  - Conceptualize __statistics__ as a method for specifying and testing a model of how the world works
+  
+  - Execute and understand of the use and limitations of null hypothesis significance testing
+  
+  - (in labs) Wrangle, summarize, test, and display data using R
+  
+  - *Ideally* everyone will learn at least one thing they can use in their research this term.
+
+---
+
+## Challenges
+
+Many basic statistical tests were developed a century ago.
+
+  - Developed for small samples and hand calculations. 
+  
+  - Example: minimum sample size = 30 per cell. Why?
+  
+This class has variance.
+
+???
+We continue to build off of these tests today. For example, MLM is built off basics of regression and correlation. We need to understand these methods to move forward. 
+
+But the world is changing rapidly. Heuristics don't apply, there are better ways to do things, and we've messed up these statistics a lot. We'll discuss what's often left out of most statistics courses. 
+
+Goal: don't just do the test, understand what the test does, why you might want to use it, and how you can avoid abusing it
+
+
+---
+## Format
+
+- Learn 
+    - Lectures
+    - Labs
+    - Readings
+    
+- Practice 
+    - Weekly Quizzes (8 total)
+    - Homework (3 total)
+    
+- Demonstrate mastery
+    - Oral exam
+    
+---
+
+## Materials
+
+- Everything is free and available online
+
+- Materials for this course: [uopsych.github.io/psy611](https://uopsych.github.io/psy611/)
+
+---
+
+## R
+
+This course will use R and RStudio for all analyses. Why?
+
+- Statistical tool
+- Reproducibility
+- Workflow
+- Marketability
+
+---
+
+# Questions?
+
+For the rest of today:
+- some terminology
+- scales of measurement
+
+---
+
+## Kinds of statistics
+
+- Descriptive
+- Inferential
+
+???
+Which is more important? -- Neither
+
+Descriptive -- about the data
+Inferential -- about the world
+- assessing risk or uncertainty. How likely?
+
+---
+
+## Kinds of statistics
+
+- Exploratory
+- Confirmatory
+
+--
+
+
+
+
+.center[Exploratory ---------------------------------------- Confirmatory]
+
+???
+Which is more important? -- Neither
+
+Exploratory -- I don't have a hypothesis or theory. I don't know what's going to happen
+Confirmatory -- if theory X is true, then data should look like Y
+
+Really more of a continuum
+
+---
+
+## Kinds of research
+
+- Experimental
+- Observational
+
+--
+
+Typically we pair some kinds of statistical tests with experimental work and other kinds of tests with observational work. Examples?
+
+--
+
+In reality, most statistical tests can be used with most kinds of research. It's not so much the kind of research that matters, but __which statistic helps to answer your question__ and __what types of variables do you have?__
+
+- We'll discuss the first point throughout the course
+- Let's discuss variables now
+
+---
+
+## Scales of measurement
+
+Four scales
+- Nominal
+- Ordinal
+- Interval 
+- Ratio
+
+---
+
+## Scales of measurement
+
+Two types
+- Categorical
+- Continuous
+
+---
+
+## Scales of measurement
+
+.pull-left[
+- Nominal
+- Ordinal
+- Interval 
+- Ratio
+]
+
+.pull-right[
+- Categorical
+- Continuous
+]
+
+How do these two methods of describing scales match up?
+
