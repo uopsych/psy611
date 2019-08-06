@@ -170,6 +170,86 @@ Four scales
 
 ---
 
+## Nominal
+
+- response options are groups
+- no specific order
+- example: What is your favorite fruit? Blueberries, apples, coconuts
+
+
+---
+
+## Ordinal
+
+- response options are ordered
+- no consistent distance between possible scores
+- example: List the following fruits in order of preference: peaches, grapes, raspberries
+
+---
+
+## Interval
+
+- response options are ordered
+- distance between response options is the same
+- no meaningful 0 
+- example: On a scale from 0-5, how much do you like bananas?
+
+
+---
+
+## Ratio
+
+- response options are ordered
+- distance between response options is the same
+- 0 indicates an _absence_ of something
+- example: how many times have you eaten watermelon in the last 6 months?
+
+
+---
+
+## Scales of measurement
+
+.pull-left[
+- Nominal
+
+- Ordinal
+
+- Interval 
+
+- Ratio]
+.pull-right[
+**Why does this matter?**]
+
+--
+.pull-right[
+- Different amounts of information]
+--
+.pull-right[
+- Different mathematical properties
+
+     - Example: Bobby scores 6 and Megan scores 3. If the scale is interval, can we say Bobby scored twice as high as Megan?
+]
+
+---
+
+## Scales of measurement
+
+.pull-left[
+- Nominal
+
+- Ordinal
+
+- Interval 
+
+- Ratio]
+
+.pull-right[
+**What is this?**
+
+- "On a scale from 1 to 6, how much does the word *outgoing* describe you?"]
+
+---
+
 ## Scales of measurement
 
 Two types
