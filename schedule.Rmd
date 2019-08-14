@@ -17,32 +17,32 @@ LSR readings can be found in the free, online textbook, [_Learning Statistics wi
 | 1    | 10/01 | Introduction and overview              | LSR Ch 1 \& 3      |            |             |
 | -    | 10/03 | Threats to measurement validity        | LSR CH 2 \& 4, [Cronbach \& Meehl (1955)](readings/Cronbach_Meehl_1955.pdf)                                    |            |             |
 | -    | 10/04 | _Lab: Introduction to R_               |                    |            |             |
-| 2    | 10/08 | Describing data                        | LSR Ch 5           |            |             |
-| -    | 10/10 | Describing data                        | [Ozer & Funder (2019)](readings/Ozer_Funder_2019.pdf)                   |  Quiz 1    |             |
+| 2    | 10/08 | Describing data                        | LSR Ch 5           |  Quiz 1    |             |
+| -    | 10/10 | Describing data                        | [Ozer & Funder (2019)](readings/Ozer_Funder_2019.pdf)                   |      |             |
 | -    | 10/11 | _Lab: R basics and descriptives_       |                    |            |             |
-| 3    | 10/15 | Matrix algebra and GLM                 |                    |            |             |
-| -    | 10/17 | Probability                            | LSR Intro to Part IV and Ch 9           |  Quiz 2    |             |
+| 3    | 10/15 | Matrix algebra and GLM                 |                    | Quiz 2     |             |
+| -    | 10/17 | Probability                            | LSR Intro to Part IV and Ch 9   |   |             |
 | -    | 10/18 | _Lab: Matrix multiplication_           |                    |            |             |
-| 4    | 10/22 | Probability                            |                    |            |             |
-| -    | 10/24 | Probability                            |[Wetzels et al. (2011)](readings/Wetzels_etal_2011.pdf)|  Quiz 3    |             |
+| 4    | 10/22 | Probability                            |                    |  Quiz 3    |             |
+| -    | 10/24 | Probability                            |[Wetzels et al. (2011)](readings/Wetzels_etal_2011.pdf)|  |             |
 | -    | 10/25 | _Lab: Probability distributions_       |                    |            |             |
-| 5    | 10/29 | Sampling                               | LSR Ch 10          |            |             |
-| -    | 10/31 | Hypothesis testing                     | LSR Ch 11          |  Quiz 4    |             |
+| 5    | 10/29 | Sampling                               | LSR Ch 10          |  Quiz 4    |             |
+| -    | 10/31 | Hypothesis testing                     | LSR Ch 11          |            |             |
 | -    | 11/01 | _Lab: Data wrangling_                  |                    |            |             |
-| 6    | 11/05 | Hypothesis testing                     | [Sainani (2012)](readings/Sainani_2012.pdf) |            |             |
-| -    | 11/07 | Critiques of hypothesis testing        | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf) [Cumming (2014)](readings/Cumming_2014.pdf)                                           |  Quiz 5    |             |
+| 6    | 11/05 | Hypothesis testing                     | [Sainani (2012)](readings/Sainani_2012.pdf) | Quiz 5      |             |
+| -    | 11/07 | Critiques of hypothesis testing        | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf) [Cumming (2014)](readings/Cumming_2014.pdf)                                           |            |             |
 | -    | 11/08 | _Lab: Graphing with ggplot2_           |                    |                      |            |             |
-| 7    | 11/12 | Categorical data analysis              | LSR Ch 12          |            |             |
-| -    | 11/14 | Categorical data analysis              |                    |  Quiz 6    |             |
+| 7    | 11/12 | Categorical data analysis              | LSR Ch 12          | Quiz 6     |             |
+| -    | 11/14 | Categorical data analysis              |                    |            |             |
 | -    | 11/15 | _Lab: Chi-square tests_                |                    |            |             |
-| 8    | 11/19 | One-sample tests                       | LSR Ch 13.1-13.2   |            |             |
-| -    | 11/21 | Comparing two means                    | LSR Ch 13.3-13.11  |  Quiz 7    |             |
+| 8    | 11/19 | One-sample tests                       | LSR Ch 13.1-13.2   | Quiz 7    |             |
+| -    | 11/21 | Comparing two means                    | LSR Ch 13.3-13.11  |            |             |
 | -    | 11/22 | _Lab: One- and indepedent sample t-tests_  |                    |            |             |
-| 9    | 11/26 | Comparing two means                    |                    |            |             |
+| 9    | 11/26 | Comparing two means                    |                    | Quiz 8     |             |
 | -    | 11/28 | __Thanksgiving__                       |                    |            |             |
 | -    | 11/29 | _Lab: No Lab_                          |                    |            |             |
 | 10   | 12/03 | Comparing two means                    |                    |            |             |
-| -    | 12/05 | Comparing two means                    |                    |  Quiz 8    |             |
+| -    | 12/05 | Comparing two means                    |                    |  Quiz 9    |             |
 | -    | 12/06 | _Lab: Paired sample t-tests_           |                    |            |             |
 
 **Final:** Oral exam will take place the week of December 10.
@@ -57,7 +57,7 @@ Your final grade is comprised of three components:
 
 ## Quizzes
 
-Quizzes are intended to assess your understanding of the theoretical principles underlying statistics. There will be a quiz every Thursday, with the exception of the first week of the term and Thanksgiving. 
+Quizzes are intended to assess your understanding of the theoretical principles underlying statistics. There will be a quiz every Tuesday, with the exception of the first week, when there will be no quiz, and the final week, when the quiz will be on Thursday. 
 
 Quizzes may be resubmitted with corrections and receive full credit. To resubmit a quiz, attach a separate piece of paper to your quiz; for each question that was answered incorrectly, identify the correct answer and explain why this is the correct answer. Only if the explaination sufficiently conveys understanding of the theoretical principles will credit be given. There are no limits to the number of times a quiz may be resubmitted.
 
