@@ -32,8 +32,8 @@ LSR readings can be found in the free, online textbook, [_Learning Statistics wi
 | 6    | 11/05 | Hypothesis testing                     | [Sainani (2012)](readings/Sainani_2012.pdf) | Quiz 5      |             |
 | -    | 11/07 | Critiques of hypothesis testing        | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf) [Cumming (2014)](readings/Cumming_2014.pdf)                                           |            |             |
 | -    | 11/08 | _Lab: Graphing with ggplot2_           |                    |                      |            |             |
-| 7    | 11/12 | Categorical data analysis              | LSR Ch 12          | Quiz 6     |             |
-| -    | 11/14 | Categorical data analysis              |                    |            |             |
+| 7    | 11/12 | Open Science                           | [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/)         | Quiz 6     |             |
+| -    | 11/14 | Categorical data analysis              | LSR Ch 12          |            |             |
 | -    | 11/15 | _Lab: Chi-square tests_                |                    |            |             |
 | 8    | 11/19 | One-sample tests                       | LSR Ch 13.1-13.2   | Quiz 7    |             |
 | -    | 11/21 | Comparing two means                    | LSR Ch 13.3-13.11  |            |             |
