@@ -53,7 +53,7 @@ Your final grade is comprised of three components:
 
   - Quizzes: 40\% 
   - Homework: 40\% 
-  - Take-home exam: 20\% 
+  - Oral exam: 20\% 
 
 ## Quizzes
 

@@ -274,3 +274,4 @@ Two types
 
 How do these two methods of describing scales match up?
 
+---
