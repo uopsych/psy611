@@ -63,9 +63,9 @@ Quizzes may be resubmitted with corrections and receive full credit. To resubmit
 
 ## Homework assignments
 
-Homework assignments are intended to gauge your ability to apply the topics covered in class to the practice of data analysis. They are due at the time class starts on the day the assignment is listed.  
+Homework assignments are intended to gauge your ability to apply the topics covered in class to the practice of data analysis. They are due at the time class starts on the day the assignment is listed. Homework assignments may be resubmitted with corrections and receive full credit. Please note, however, that corrections can only be made to problems that were answered at initial submission. There is no limit to the number of times a homework assignment may be resubmitted.
 
-Late assignments will receive 50\% of the points earned. For example, if you answer 8 of the 10 questions correctly, the assignment will receive 4 points. If you resubmit this assignment with corrected answers and get them all correct, the assignment will receive 5 points.
+Late assignments will receive 50\% of the points earned. For example, if you correctly answer questions totalling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points.
 
 You may discuss homework assignments with your classmates; however, it is important that you complete each assignment on your own and do not simply copy someone else's code. If we believe one student has copied another's work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points. 
 
