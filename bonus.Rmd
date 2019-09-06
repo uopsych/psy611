@@ -1,0 +1,15 @@
+---
+title: "Helpful and/or interesting material"
+output: 
+  html_document:
+    toc: TRUE
+    toc_depth: 2
+    toc_float: TRUE
+    theme: cosmo
+---
+
+This page contains links to journal articles, blog posts, webpages, etc., that we (the instructors) believe may be useful to you, or at the very least interesting. 
+
+## On data collection, measuring constructs, scales
+
+Lord (1953) ["On the statistical treatment of football numbers."](readings/Lord_1953.pdf) -- This one is worth reading several times, ideally with a friend. Don't worry, it's quite short. A small note: "Tchebycheff" is sometimes written as "Chebyshev" and in either case is pronounced Cheb-ee-sheve. 
