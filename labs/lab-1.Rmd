@@ -1,10 +1,10 @@
 ---
-title: "Lab: Introduction to R and RStudio"
+title: "Lab 1: Introduction to R and RStudio"
 output: 
   html_document: 
     theme: cosmo
     toc: yes
-    toc_depth: 2
+    toc_depth: 4
     toc_float: TRUE
 ---
 
@@ -12,7 +12,33 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Downloading R and RStudio
+# Getting Started
+
+[R](https://en.wikipedia.org/wiki/R_(programming_language)) is a highly flexible, yet intuitive, open-source programming language used for statistical computing. It is relatively new (as relatively new as one of your GEs), but it has an engaged following of data scientists and developers. Unlike other statistics programs (e.g., SPSS, SAS), [R](https://en.wikipedia.org/wiki/R_(programming_language)) is free. 
+
+Only one piece of software is required to get started using [R](https://en.wikipedia.org/wiki/R_(programming_language)) but there is a second piece of software that we highly recommend. The first piece of software is, confusingly, *R* or what I, less confusingly, refer to as the *R Engine*. The *R Engine* essentially allows the computer to understand the *R* programming language, turning your lines of text into computer operations. [Instructions for downloading the R Engine](#download_r) are included below.
+
+The second, piece of software is [RStudio](https://www.rstudio.com). [RStudio](https://www.rstudio.com) is an integrated development environment (IDE). In the simplest terms, it provides a clean, organized way of interacting with the *R Engine*. [Instructions for downloading the RStudio](#download_rstudio) are included below.
+
+## Downloading the R Engine {#download_r}
+
+1. Navigate to the webpage for the [Comprehensive R Archive Network](https://cran.r-project.org) (commonly referred to as CRAN).
+1. Under "Download and Install R" click the link for your operating system. I am using a Mac, so I would click [Download R for (Mac) OS X](https://cran.r-project.org/bin/macosx/).
+1. Click the link for the latest release. As of writing this, the newest package is `R 3.6.1. "Action of the Toes"` (all version nicknames are references to the [Peanuts comic strip](https://twitter.com/snoopy/status/976452382480531458)). I would click `R-3.6.1.pkg` to start the download.
+1. Once the file is downloaded, click on it to open it. Your operating system should guide you through the rest of the installation process. 
+
+*Note.* Unintuitively, the same steps are used to update the R Engine. You are simply replacing the old version of the R Engine with the new version.
+
+## Downloading RStudio {#download_rstudio}
+<!--1. Navigate to the webpage for [RStudio](https://www.rstudio.com).
+1. Click [Download RStudio](https://www.rstudio.com/products/rstudio/download/).
+1. Click the [Download](https://www.rstudio.com/products/rstudio/download/#download) listed under the free version. For our purposes (and, in fact, for most people's purposes) the free version is all that is needed.-->
+1. Navigate to the webpage for the free version of [RStudio](https://www.rstudio.com/products/rstudio/download/#download). For our purposes (and, in fact, for most people's purposes) the free version is all that is needed. The available installers are listed at the bottom of the page under the heeader "Installers for Supported Platforms."
+1. Select the installer for your operating system. Since I am using a Mac, I would click `RStudio 1.2.1335 - macOS 10.12+ (64-bit)`.
+1. Once the file is downloaded, click on it to open it. Your operating system should guide you through the rest of the installation process. 
+
+*Note.* To update [RStudio](https://www.rstudio.com) after it is already installed, all you have to do is navigate to `Help > Check for Updates` in the menubar. 
+
 
 # Features of RStudio
 ## Source
