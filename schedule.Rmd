@@ -10,7 +10,7 @@ output:
 
 # Weekly schedule
 
-LSR readings can be found in the free, online textbook, [_Learning Statistics with R_](https://learningstatisticswithr-bookdown.netlify.com/index.html) by Danielle Navarro.
+LSR readings can be found in the free, online textbook, [_Learning Statistics with R_](https://learningstatisticswithr-bookdown.netlify.com/index.html) by Danielle Navarro. For those interested in taking notes, I recommend the use of the [Hypothes.is](http://Hypothes.is) app to annotate webpages, or you can download a [PDF version](https://learningstatisticswithr.com/lsr-0.6.pdf) of the book. 
 
 | Week | Date  |  Topic                                 |Readings            | Quiz       | Homework    |
 -------|-------|----------------------------------------|--------------------|------------|-------------|
@@ -63,7 +63,9 @@ Quizzes may be resubmitted with corrections and receive full credit. To resubmit
 
 ## Homework assignments
 
-Homework assignments are intended to gauge your ability to apply the topics covered in class to the practice of data analysis. They are due at the time class starts on the day the assignment is listed. Homework assignments may be resubmitted with corrections and receive full credit. Please note, however, that corrections can only be made to problems that were answered at initial submission. There is no limit to the number of times a homework assignment may be resubmitted.
+Homework assignments are intended to gauge your ability to apply the topics covered in class to the practice of data analysis. Homework assignments are to be done using R and RMarkdown; completed assignments should be emailed to Dr. Weston and students must attach both the .Rmd file and the compiled HTML file. 
+
+Homework assignments are due at the time class starts on the day the assignment is listed. Homework assignments may be resubmitted with corrections and receive full credit. Please note, however, that corrections can only be made to problems that were answered at initial submission. There is no limit to the number of times a homework assignment may be resubmitted.
 
 Late assignments will receive 50\% of the points earned. For example, if you correctly answer questions totalling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points.
 
