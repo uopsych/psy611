@@ -4,7 +4,7 @@ output:
   html_document: 
     theme: cosmo
     toc: yes
-    toc_depth: 4
+    toc_depth: 3
     toc_float: TRUE
 ---
 
@@ -27,7 +27,7 @@ The second, piece of software is [RStudio](https://www.rstudio.com). [RStudio](h
 1. Click the link for the latest release. As of writing this, the newest package is `R 3.6.1. "Action of the Toes"` (all version nicknames are references to the [Peanuts comic strip](https://twitter.com/snoopy/status/976452382480531458)). I would click `R-3.6.1.pkg` to start the download.
 1. Once the file is downloaded, click on it to open it. Your operating system should guide you through the rest of the installation process. 
 
-*Note.* Unintuitively, the same steps are used to update the R Engine. You are simply replacing the old version of the R Engine with the new version.
+*Note.* Perhaps unintuitively, the same steps are used to update the R Engine. You are simply replacing the old version of the R Engine with the new version.
 
 ## Downloading RStudio {#download_rstudio}
 <!--1. Navigate to the webpage for [RStudio](https://www.rstudio.com).
@@ -39,23 +39,75 @@ The second, piece of software is [RStudio](https://www.rstudio.com). [RStudio](h
 
 *Note.* To update [RStudio](https://www.rstudio.com) after it is already installed, all you have to do is navigate to `Help > Check for Updates` in the menubar. 
 
-
 # Features of RStudio
-## Source
-## Console
-## Enivornment/History
-## Files/Plots/Packages/Help
 
-# Packages
+As shown in the image below, an [RStudio](https://www.rstudio.com) session is split into four sections (also called panes): [the source pane](#rstudio_source), [the console](#rstudio_console), [the environment/history pane](#rstudio_environment), and the succinctly named [files/plots/packages/help pane](#rstudio_files).
+
+![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_4panel.jpg")` "Four Panes of RStudio")
+
+## Source {#rstudio_source}
+
+![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_source.png")` "RStudio Source Pane")
+
+## Console {#rstudio_console}
+
+In RStudio, the console pane essentially shows you the R-engine. The console evaluates the code you provide it (including the code stored in [the source pane](#rstudio_source). 
+
+![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_console.png")` "RStudio Console Pane")
+
+## Enivornment/History {#rstudio_environment}
+![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_environment.png")` "RStudio Environment Pane")
+
+## Files/Plots/Packages/Help {#rstudio_files}
+![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_files.png")` "RStudio Files Pane")
+
+# Variables
+
+## Creating Variables
+
+```{r }
+my_number  <- 10
+another_number <- 15
+another_number  <- 5
+
+my_string      <- "hello"
+another_string <- "world"
+```
+
+## Altering elements
+
+# Functions and vectors
+
+## Arithmetic functions on vectors
+
+## `Length()`
+
+# Packages and function
+
+A package is collection of code, documentation for that code, and, potentially data. A helpful way to think of packages is as a toolbox full of tools. There are general purpose toolboxes that contain tools for running common analyses in psychology (e.g., `psych`), toolboxes for helping your run advanced statistical models (e.g., `lavaan`; `lmer`), toolboxes for text mining (e.g., `tidytext`), and toolboxes for plotting (e.g., `ggplot2`, `gganimate`). If you have a problem that needs to be solved, there will likely be a package for it. 
+
+The tools of these toolboxes are called functions. Functions take a number of inputs (i.e., `arguments`) and returns some output (called the `values`). For example, the `corr.test` function in the `psych` package takes a dataframe and returns the correlations of all the variables in the dataset and the p-values for each of those correlations.
+
 ## Installing a package
-```{r,eval=FALSE}
+
+To install a package onto your computer, you simply pass the name of the package to `install.packages()`. As a demonstration, we install the the `yarrr` package below. 
+
+```{r, eval = FALSE}
 install.packages("yarrr")
 ```
 
+*Note.* When installing packages, the package name must be enclosed in quotes: `install.packages("yarrr")` *NOT* `install.packages(yarrr)`.
+
 ## Loading a package
+
+Just because we've installed a package doesn't mean we have access to its functions. Returning to our analogy from above, just because we have a toolbox doesn't mean we have access to it. If it is the basement, we need to get it before we start working in the attic. To load the `yarrr` package and make its tools available to us
+
 ```{r}
 library(yarrr)
 ```
+
+*Note.* A package can be loaded with or without quotes: `library("yarrr")` *OR* `library(yarrr)`.
+
 # Try commands in R
 
 Adapted from [__YaRrr: A Pirate's Guide to R__](https://bookdown.org/ndphillips/YaRrr/).
@@ -97,14 +149,30 @@ anova(tat.sword.lm)
 ```
 
 # Commands
+
 ## Arithmetic commands
+
+```{r}
+10 + 5
+10 - 5
+10 * 5
+10 / 5
+10 ^ 5
+(10 + 5) * 2
+10 + 5 * 2
+```
+
 ## Functions
+```{r}
+mean(c(10, 10, 20, 20, 30))
+median(c(10, 10, 20, 20, 30))
+sum(c(10, 10, 20, 20, 30))
+sd(c(10, 10, 20, 20, 30))
+```
+
 ### Names
+
 ### Arguments
-# Variables
-## Creating
-## Altering elements
-# Functions and vectors
-## Arithmetic functions on vectors
-## `Length()`
+
+
 
