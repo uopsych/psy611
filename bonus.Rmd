@@ -14,6 +14,8 @@ This page contains links to journal articles, blog posts, webpages, etc., that w
 
 Lord (1953) ["On the statistical treatment of football numbers."](readings/Lord_1953.pdf) -- This one is worth reading several times, ideally with a friend. Don't worry, it's quite short. A small note: "Tchebycheff" is sometimes written as "Chebyshev" and in either case is pronounced Cheb-ee-sheve. 
 
+Malone & Goldstone (2019) ["Episode 936: The Modal American."](https://www.npr.org/2019/08/28/755191639/episode-936-the-modal-american) -- This episode of NPR's podcast, _Planet Money_, is a great discussion of what we mean when we say "average," why the mean can be a bad measure of central tendency, and how complicated calculating simple statistics are. They don't use the words "artifact" or "collinearity", but they discuss both and how they can lead to bad answers. 
+
 ## On the credibility revolution (aka replication crisis or reproducibility crisis)
 
 **Ioannidis (2005) ["Why most published findings are false."](readings/Ioannidis_2005.pdf)** -- This is one of the articles that kick-started the concern. 
