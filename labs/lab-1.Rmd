@@ -10,20 +10,25 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+# suppress scientific notation
+options(scipen = 999)
 ```
 
 # Getting Started
 
-[R](https://en.wikipedia.org/wiki/R_(programming_language)) is a highly flexible, yet intuitive, open-source programming language used for statistical computing. It is relatively new (as relatively new as one of your GEs), but it has an engaged following of data scientists and developers. Unlike other statistics programs (e.g., SPSS, SAS), [R](https://en.wikipedia.org/wiki/R_(programming_language)) is free. 
+R is a highly flexible, yet intuitive, open-source programming language used for statistical computing. It is relatively new (as relatively new as one of your GEs), but it has an engaged following of data scientists and developers.
 
-Only one piece of software is required to get started using [R](https://en.wikipedia.org/wiki/R_(programming_language)) but there is a second piece of software that we highly recommend. The first piece of software is, confusingly, *R* or what I, less confusingly, refer to as the *R Engine*. The *R Engine* essentially allows the computer to understand the *R* programming language, turning your lines of text into computer operations. [Instructions for downloading the R Engine](#download_r) are included below.
+![](`r here::here("labs", "resources", "lab1", "lab1_flow.png")` "Flow")
 
-The second, piece of software is [RStudio](https://www.rstudio.com). [RStudio](https://www.rstudio.com) is an integrated development environment (IDE). In the simplest terms, it provides a clean, organized way of interacting with the *R Engine*. [Instructions for downloading the RStudio](#download_rstudio) are included below.
+Only one piece of software is required to get started using the *R* programming language and, confusingly, it is also called *R*. I will refer to it here as the *R Engine*. The *R Engine* essentially allows the computer to understand the *R* programming language, turning your lines of text into computer operations. [Instructions for downloading the R Engine](#download_r) are below.
+
+A second piece of software that is not required to use R but is nonetheless useful is [RStudio](https://www.rstudio.com). [RStudio](https://www.rstudio.com) is an *integrated development environment* (IDE) or, in potentially overly simplistic terms, a tool that helps you interact with the *R Engine*. [Instructions for downloading the RStudio](#download_rstudio) are below.
 
 ## Downloading the R Engine {#download_r}
 
 1. Navigate to the webpage for the [Comprehensive R Archive Network](https://cran.r-project.org) (commonly referred to as CRAN).
-1. Under "Download and Install R" click the link for your operating system. I am using a Mac, so I would click [Download R for (Mac) OS X](https://cran.r-project.org/bin/macosx/).
+1. Under "Download and Install R" click the appropriate link for your operating system. I am using a Mac, so I would click [Download R for (Mac) OS X](https://cran.r-project.org/bin/macosx/).
 1. Click the link for the latest release. As of writing this, the newest package is `R 3.6.1. "Action of the Toes"` (all version nicknames are references to the [Peanuts comic strip](https://twitter.com/snoopy/status/976452382480531458)). I would click `R-3.6.1.pkg` to start the download.
 1. Once the file is downloaded, click on it to open it. Your operating system should guide you through the rest of the installation process. 
 
@@ -55,36 +60,103 @@ In RStudio, the console pane essentially shows you the R-engine. The console eva
 
 ![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_console.png")` "RStudio Console Pane")
 
-## Enivornment/History {#rstudio_environment}
+## Environment/History {#rstudio_environment}
 ![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_environment.png")` "RStudio Environment Pane")
 
 ## Files/Plots/Packages/Help {#rstudio_files}
 ![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_files.png")` "RStudio Files Pane")
 
-# Variables
+# The Basics of Coding in R
+
+## Arithmetic commands
+
+R has arithmetic commands for adding,
+```{r}
+10 + 5
+```
+subtracting,
+```{r}
+10 - 5
+```
+multiplying,
+```{r}
+10 * 5
+```
+dividing, 
+```{r}
+10 / 5
+```
+and, even, exponentiating.
+```{r}
+10^5
+```
+
+Much like the *Texas Instruments TI-84 Plus Graphics Calculator*, you can use paranthesis to tell R what parts of the equation you want to be evaluated first. As shown below, `(10 + 5) * 2` and `10 + 5 * 2` do not result in the same value.
+
+```{r}
+(10 + 5) * 2
+10 + 5 * 2
+```
+
+## Functions
+
+Functions are essentially snippets of code that you can use to make your code more efficient.
 
 ## Creating Variables
 
-```{r }
-my_number  <- 10
-another_number <- 15
-another_number  <- 5
-
-my_string      <- "hello"
-another_string <- "world"
+```{r}
+x <- 10
 ```
 
-## Altering elements
+## Creating Vectors
 
-# Functions and vectors
+```{r}
+paste("hello", "world")
 
-## Arithmetic functions on vectors
+mean(c(1, 2, 3, 4, 5))
 
-## `Length()`
 
-# Packages and function
 
-A package is collection of code, documentation for that code, and, potentially data. A helpful way to think of packages is as a toolbox full of tools. There are general purpose toolboxes that contain tools for running common analyses in psychology (e.g., `psych`), toolboxes for helping your run advanced statistical models (e.g., `lavaan`; `lmer`), toolboxes for text mining (e.g., `tidytext`), and toolboxes for plotting (e.g., `ggplot2`, `gganimate`). If you have a problem that needs to be solved, there will likely be a package for it. 
+mean(c(10, 10, 20, 20, 30)) 
+(10 + 10 + 20 + 20 + 30) / 5
+
+
+
+median(c(10, 10, 20, 20, 30))
+sum(c(10, 10, 20, 20, 30))
+sd(c(10, 10, 20, 20, 30))
+```
+
+
+
+## Comments
+
+Comments are pieces of text that are not interpreted by the computer. In R we use an octothorp/pound-sign/hashmark/hashtag at the beginning of the line to denote a comment. In the example below, the first and third line of code would not not be evaluated while the second and fourth line would be.
+
+```{r, eval = FALSE}
+# 1 + 1
+2 + 2
+# 3 + 3
+4 + 4
+```
+
+## Help Documentation
+
+Sometimes when working in R you will want to know more about a function. For example, you might want to know what arguments the function `sd` takes. You can use `?` at the beginning of any function call to display the help documentation.
+
+```{r, eval = FALSE}
+?sd
+```
+
+![](`r here::here("labs", "resources", "lab1", "lab1_help.png")` "Help Documentation")
+
+From the help documentation we can see that `sd` takes two arguments: (1) An R object and (2) a TRUE or FALSE statement indicating whether `NA`s should be removed from the dataset.
+
+The help documentation for a function also often includes an example of how to use the function and details on what the output will be.
+
+# Packages
+
+A package is collection of code, documentation for that code, and, potentially data. A helpful way to think of packages and functions is as a toolbox full of tools. There are general purpose toolboxes that contain tools for running common analyses in psychology (e.g., `psych`), toolboxes for helping your run advanced statistical models (e.g., `lavaan`; `lmer`), toolboxes for text mining (e.g., `tidytext`), and toolboxes for plotting (e.g., `ggplot2`, `gganimate`). If you have a problem that needs to be solved, there will likely be a package for it. 
 
 The tools of these toolboxes are called functions. Functions take a number of inputs (i.e., `arguments`) and returns some output (called the `values`). For example, the `corr.test` function in the `psych` package takes a dataframe and returns the correlations of all the variables in the dataset and the p-values for each of those correlations.
 
@@ -113,6 +185,7 @@ library(yarrr)
 Adapted from [__YaRrr: A Pirate's Guide to R__](https://bookdown.org/ndphillips/YaRrr/).
 
 ```{r}
+# to get help documentation for any package or function use a question mark
 ?pirates
 
 head(pirates)
@@ -148,31 +221,19 @@ tat.sword.lm <- lm(formula = tattoos ~ sword.type,
 anova(tat.sword.lm)
 ```
 
+
+# Functions and vectors
+
+## Arithmetic functions on vectors
+
+## `Length()`
+
+
 # Commands
 
-## Arithmetic commands
 
-```{r}
-10 + 5
-10 - 5
-10 * 5
-10 / 5
-10 ^ 5
-(10 + 5) * 2
-10 + 5 * 2
-```
 
-## Functions
-```{r}
-mean(c(10, 10, 20, 20, 30))
-median(c(10, 10, 20, 20, 30))
-sum(c(10, 10, 20, 20, 30))
-sd(c(10, 10, 20, 20, 30))
-```
 
-### Names
-
-### Arguments
 
 
 
