@@ -21,7 +21,7 @@ R is a highly flexible, yet intuitive, open-source programming language used for
 
 ![](`r here::here("labs", "resources", "lab1", "lab1_flow.png")` "Flow")
 
-Only one piece of software is required to get started using the *R* programming language and, confusingly, it is also called *R*. I will refer to it here as the *R Engine*. The *R Engine* essentially allows the computer to understand the *R* programming language, turning your lines of text into computer operations. [Instructions for downloading the R Engine](#download_r) are below.
+Only one piece of software is required to get started using the *R* programming language and, confusingly, it is also called *R*. I will refer to it here as the *R Engine*. The *R Engine* essentially allows the computer to understand the *R* programming language, turning your lines of text into computer operations. Unlike other statistics programs (e.g., SPSS, SAS), the *R Engine* is free. [Instructions for downloading the R Engine](#download_r) are below.
 
 A second piece of software that is not required to use R but is nonetheless useful is [RStudio](https://www.rstudio.com). [RStudio](https://www.rstudio.com) is an *integrated development environment* (IDE) or, in potentially overly simplistic terms, a tool that helps you interact with the *R Engine*. [Instructions for downloading the RStudio](#download_rstudio) are below.
 
@@ -46,31 +46,38 @@ A second piece of software that is not required to use R but is nonetheless usef
 
 # Features of RStudio
 
-As shown in the image below, an [RStudio](https://www.rstudio.com) session is split into four sections (also called panes): [the source pane](#rstudio_source), [the console](#rstudio_console), [the environment/history pane](#rstudio_environment), and the succinctly named [files/plots/packages/help pane](#rstudio_files).
+As shown in the image below, an [RStudio](https://www.rstudio.com) session is split into four sections called panes: [the source pane](#rstudio_source), [the console](#rstudio_console), [the environment/history pane](#rstudio_environment), and the succinctly named [files/plots/packages/help pane](#rstudio_files).
 
 ![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_4panel.jpg")` "Four Panes of RStudio")
 
-## Source {#rstudio_source}
+## The Console {#rstudio_console}
 
-![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_source.png")` "RStudio Source Pane")
-
-## Console {#rstudio_console}
-
-In RStudio, the console pane essentially shows you the R-engine. The console evaluates the code you provide it (including the code stored in [the source pane](#rstudio_source). 
+In RStudio, the console is the access point to the underlying R-engine. It evaluates the code you provide it (including code called using the [the source pane](#rstudio_source)). You can pass commands to the R-engine by typing in commands after the `>`.
 
 ![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_console.png")` "RStudio Console Pane")
 
+## Source {#rstudio_source}
+
+The source pane shows you a collection of code called a script. In R, we primarily work with `R Script` files (files ending in `.R`) or `R Markdown` files (files ending in `.Rmd`). In this class, we will primarily be working with `R Markdown` files. The document you are reading right now was made with `R Markdown`.
+
+![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_source.png")` "RStudio Source Pane")
+
 ## Environment/History {#rstudio_environment}
+
+The environment and history pane shows, well, your environment and history. Specifically, if you have the "Environment" tab selected, you will see a list of all the variables that exist in your work environment. If you have the "History" tab selected, you will see previous commands that you passed to the console. 
+
 ![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_environment.png")` "RStudio Environment Pane")
 
 ## Files/Plots/Packages/Help {#rstudio_files}
+The final pane, the files/plots/packages/help pane, includes a number of helpful tabs. The "Files" tab shows you the files in your current working directory, the "Plots" tab shows you a preview of any plots you have created, the "Packages" tab shows you a list of the packages currently installed on your computer, and the "Help" tab is where help documentation will appear. We will discuss packages and help documentation later in this lab.
+
 ![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_files.png")` "RStudio Files Pane")
 
 # The Basics of Coding in R
 
 ## Arithmetic commands
 
-R has arithmetic commands for adding,
+As mentioned above, you can pass commands to the R-engine via the console. R has arithmetic commands for adding,
 ```{r}
 10 + 5
 ```
@@ -86,12 +93,12 @@ dividing,
 ```{r}
 10 / 5
 ```
-and, even, exponentiating.
+and exponentiating.
 ```{r}
 10^5
 ```
 
-Much like the *Texas Instruments TI-84 Plus Graphics Calculator*, you can use paranthesis to tell R what parts of the equation you want to be evaluated first. As shown below, `(10 + 5) * 2` and `10 + 5 * 2` do not result in the same value.
+You can use parenthesss to tell R what parts of the equation you want to be evaluated first. As shown below and as expected, `(10 + 5) * 2` and `10 + 5 * 2` do not result in the same value.
 
 ```{r}
 (10 + 5) * 2
