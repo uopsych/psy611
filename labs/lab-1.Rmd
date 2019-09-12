@@ -19,7 +19,7 @@ options(scipen = 999)
 
 R is a highly flexible, yet intuitive, open-source programming language used for statistical computing. It is relatively new (as relatively new as one of your GEs), but it has an engaged following of data scientists and developers.
 
-![](`r here::here("labs", "resources", "lab1", "lab1_flow.png")` "Flow")
+![](`r here::here("labs", "resources", "lab1", "other", "lab1_flow.png")` "Flow")
 
 Only one piece of software is required to get started using the *R* programming language and, confusingly, it is also called *R*. I will refer to it here as the *R Engine*. The *R Engine* essentially allows the computer to understand the *R* programming language, turning your lines of text into computer operations. Unlike other statistics programs (e.g., SPSS, SAS), the *R Engine* is free. [Instructions for downloading the R Engine](#download_r) are below.
 
@@ -48,97 +48,108 @@ A second piece of software that is not required to use R but is nonetheless usef
 
 As shown in the image below, an [RStudio](https://www.rstudio.com) session is split into four sections called panes: [the source pane](#rstudio_source), [the console](#rstudio_console), [the environment/history pane](#rstudio_environment), and the succinctly named [files/plots/packages/help pane](#rstudio_files).
 
-![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_4panel.jpg")` "Four Panes of RStudio")
+![](`r here::here("labs", "resources", "lab1", "rstudio", "lab1_rstudio_4panel.jpg")` "Four Panes of RStudio")
 
 ## The Console {#rstudio_console}
 
 In RStudio, the console is the access point to the underlying R-engine. It evaluates the code you provide it (including code called using the [the source pane](#rstudio_source)). You can pass commands to the R-engine by typing in commands after the `>`.
 
-![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_console.png")` "RStudio Console Pane")
+![](`r here::here("labs", "resources", "lab1", "rstudio", "lab1_rstudio_console.png")` "RStudio Console Pane")
 
 ## Source {#rstudio_source}
 
 The source pane shows you a collection of code called a script. In R, we primarily work with `R Script` files (files ending in `.R`) or `R Markdown` files (files ending in `.Rmd`). In this class, we will primarily be working with `R Markdown` files. The document you are reading right now was made with `R Markdown`.
 
-![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_source.png")` "RStudio Source Pane")
+![](`r here::here("labs", "resources", "lab1", "rstudio", "lab1_rstudio_source.png")` "RStudio Source Pane")
 
 ## Environment/History {#rstudio_environment}
 
 The environment and history pane shows, well, your environment and history. Specifically, if you have the "Environment" tab selected, you will see a list of all the variables that exist in your work environment. If you have the "History" tab selected, you will see previous commands that you passed to the console. 
 
-![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_environment.png")` "RStudio Environment Pane")
+![](`r here::here("labs", "resources", "lab1", "rstudio", "lab1_rstudio_environment.png")` "RStudio Environment Pane")
 
 ## Files/Plots/Packages/Help {#rstudio_files}
 The final pane, the files/plots/packages/help pane, includes a number of helpful tabs. The "Files" tab shows you the files in your current working directory, the "Plots" tab shows you a preview of any plots you have created, the "Packages" tab shows you a list of the packages currently installed on your computer, and the "Help" tab is where help documentation will appear. We will discuss packages and help documentation later in this lab.
 
-![](`r here::here("labs", "resources", "lab1", "lab1_rstudio_files.png")` "RStudio Files Pane")
+![](`r here::here("labs", "resources", "lab1", "rstudio", "lab1_rstudio_files.png")` "RStudio Files Pane")
 
 # The Basics of Coding in R
 
 ## Arithmetic commands
 
-As mentioned above, you can pass commands to the R-engine via the console. R has arithmetic commands for adding,
-```{r}
-10 + 5
-```
-subtracting,
-```{r}
-10 - 5
-```
-multiplying,
-```{r}
-10 * 5
-```
-dividing, 
-```{r}
-10 / 5
-```
-and exponentiating.
-```{r}
-10^5
+As mentioned above, you can pass commands to the R-engine via the console. R has arithmetic commands for doing basic math operations, including addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`), and exponentiation (`^`).
+
+```{r, echo = FALSE, out.width = "175px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_addition.png"))
+knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_subtraction.png"))
+knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_multiplication.png"))
+knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_division.png"))
+knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_exponentiation.png"))
 ```
 
-You can use parenthesss to tell R what parts of the equation you want to be evaluated first. As shown below and as expected, `(10 + 5) * 2` and `10 + 5 * 2` do not result in the same value.
+Parentheses can be used to tell R what parts of the equation should be evaluated first. As shown below (and as expected), `(10 + 5) * 2` does not equal `10 + 5 * 2`.
+
+```{r, echo = FALSE, out.width = "175px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_paren.png"))
+knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_noparen.png"))
+```
+
+## Creating Variables
+
+You can create variables using the assignment operator (`<-`). Whatever is on the left of the assignment operator is saved to variable named whatever is to the left of the assignment operator. For example, if we wanted to save `10` to a variable called `x` we would write:
 
 ```{r}
-(10 + 5) * 2
-10 + 5 * 2
+my_number <- 10
+```
+
+If we want to see what is stored in `x`, we can simply enter `x` into the console.
+
+```{r}
+my_number
+```
+
+If we want to overwrite `x`, we simply assign a new value to `x`.
+
+```{r}
+my_number <- 20
+my_number
+```
+
+If we want to remove a variable from our environment, we use `rm()`.
+
+```{r}
+rm(my_number)
+```
+
+### Scalars
+
+If a variable only has one value associated with it, we call it a `scalar`. There are four types of scalars: doubles (e.g., `10.15`), integers (e.g., `10L`), characters (e.g., `"hello"`), and logicals (also called booleans) (e.g., `TRUE/FALSE`). At this point, it is not incredibly important to know the difference between the types of scalars. 
+
+### Vectors
+
+If a variable has more than one value associated with it, we call it a vector. We create vectors be using the concatenate function (`c()`). 
+
+```{r}
+my_vector <- c(10, 20, 20, 30, 40)
+my_vector
+my_vector[1]
+my_vector[3] <- 999
+my_vector
 ```
 
 ## Functions
 
-Functions are essentially snippets of code that you can use to make your code more efficient.
-
-## Creating Variables
+Functions are essentially pre-packaged snippets of code that make your life easier. A function takes some input (called arguments) and returns some values. For example, the `mean()` function takes a numeric vector as an argument and returns the average of the vector.
 
 ```{r}
-x <- 10
+(10 + 20 + 20 + 30 + 40) / 5
+
+mean(c(10, 20, 20, 30, 40))
 ```
-
-## Creating Vectors
-
-```{r}
-paste("hello", "world")
-
-mean(c(1, 2, 3, 4, 5))
-
-
-
-mean(c(10, 10, 20, 20, 30)) 
-(10 + 10 + 20 + 20 + 30) / 5
-
-
-
-median(c(10, 10, 20, 20, 30))
-sum(c(10, 10, 20, 20, 30))
-sd(c(10, 10, 20, 20, 30))
-```
-
-
 
 ## Comments
 
-Comments are pieces of text that are not interpreted by the computer. In R we use an octothorp/pound-sign/hashmark/hashtag at the beginning of the line to denote a comment. In the example below, the first and third line of code would not not be evaluated while the second and fourth line would be.
+Comments are pieces of text that are not interpreted by the computer. They are mostly used as a way to remind yourself what your code is doing or why you did something a certain way. In R we use an octothorp/pound-sign/hashmark/hashtag at the beginning of the line to denote a comment. In the example below, the first and third line of code would not not be evaluated while the second and fourth line would be.
 
 ```{r, eval = FALSE}
 # 1 + 1
@@ -162,6 +173,8 @@ From the help documentation we can see that `sd` takes two arguments: (1) An R o
 The help documentation for a function also often includes an example of how to use the function and details on what the output will be.
 
 # Packages
+
+If a function is a data science tool,then a package is a toolbox. 
 
 A package is collection of code, documentation for that code, and, potentially data. A helpful way to think of packages and functions is as a toolbox full of tools. There are general purpose toolboxes that contain tools for running common analyses in psychology (e.g., `psych`), toolboxes for helping your run advanced statistical models (e.g., `lavaan`; `lmer`), toolboxes for text mining (e.g., `tidytext`), and toolboxes for plotting (e.g., `ggplot2`, `gganimate`). If you have a problem that needs to be solved, there will likely be a package for it. 
 
@@ -228,19 +241,9 @@ tat.sword.lm <- lm(formula = tattoos ~ sword.type,
 anova(tat.sword.lm)
 ```
 
-
 # Functions and vectors
 
 ## Arithmetic functions on vectors
 
 ## `Length()`
-
-
-# Commands
-
-
-
-
-
-
 
