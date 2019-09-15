@@ -10,14 +10,14 @@ output:
 
 # Weekly schedule
 
-LSR readings can be found in the free, online textbook, [_Learning Statistics with R_](https://learningstatisticswithr-bookdown.netlify.com/index.html) by Danielle Navarro. For those interested in taking notes, I recommend the use of the [Hypothes.is](http://Hypothes.is) app to annotate webpages, or you can download a [PDF version](https://learningstatisticswithr.com/lsr-0.6.pdf) of the book. 
+LSR readings can be found in the free, online textbook, [_Learning Statistics with R_](https://learningstatisticswithr-bookdown.netlify.com/index.html) by Danielle Navarro. For those interested in taking notes, I recommend the use of the [Hypothes.is](http://Hypothes.is) app to annotate webpages. I will note that the formatting of the book online is wonky in a few places. If this bothers you, or you prefer to work offline, you can download a [PDF version](https://learningstatisticswithr.com/lsr-0.6.pdf) of the book. 
 
 | Week | Date  |  Topic                                 |Readings            | Quiz       | Homework    |
 -------|-------|----------------------------------------|--------------------|------------|-------------|
 | 1    | 10/01 | Introduction and overview              | LSR Ch 1 \& 3      |            |             |
 | -    | 10/03 | Threats to measurement validity        | LSR CH 2 \& 4, [Cronbach \& Meehl (1955)](readings/Cronbach_Meehl_1955.pdf)                                    |            |             |
 | -    | 10/04 | _Lab: Introduction to R_               |                    |            |             |
-| 2    | 10/08 | Describing data                        | LSR Ch 5           |  Quiz 1    |             |
+| 2    | 10/08 | Describing data                        | LSR Ch 5 \& 6      |  Quiz 1    |             |
 | -    | 10/10 | Describing data                        | [Ozer & Funder (2019)](readings/Ozer_Funder_2019.pdf)                   |      |             |
 | -    | 10/11 | _Lab: R basics and descriptives_       |                    |            |             |
 | 3    | 10/15 | Matrix algebra and GLM                 |                    | Quiz 2     |             |
