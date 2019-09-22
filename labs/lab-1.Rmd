@@ -15,15 +15,17 @@ knitr::opts_chunk$set(echo = TRUE)
 options(scipen = 999)
 ```
 
+***
+
 # Getting Started
 
-R is a highly flexible, yet intuitive, open-source programming language used for statistical computing. It is relatively new (as relatively new as one of your GEs), but it has an engaged following of data scientists and developers.
+R is a highly flexible and intuitive open-source programming language used for statistical computing. It is relatively new compared to other programmning languages, but it has an engaged following of data scientists and developers.
 
 ![](`r here::here("labs", "resources", "lab1", "other", "lab1_flow.png")` "Flow")
 
 Only one piece of software is required to get started using the *R* programming language and, confusingly, it is also called *R*. I will refer to it here as the *R Engine*. The *R Engine* essentially allows the computer to understand the *R* programming language, turning your lines of text into computer operations. Unlike other statistics programs (e.g., SPSS, SAS), the *R Engine* is free. [Instructions for downloading the R Engine](#download_r) are below.
 
-A second piece of software that is not required to use R but is nonetheless useful is [RStudio](https://www.rstudio.com). [RStudio](https://www.rstudio.com) is an *integrated development environment* (IDE) or, in potentially overly simplistic terms, a tool that helps you interact with the *R Engine*. [Instructions for downloading the RStudio](#download_rstudio) are below.
+A second piece of software that is not required to use R but is nonetheless useful is [RStudio](https://www.rstudio.com). [RStudio](https://www.rstudio.com) is an *integrated development environment* (IDE) or, in potentially overly simplistic terms, a tool that makes interacting with the *R Engine* easier. [Instructions for downloading the RStudio](#download_rstudio) are below.
 
 ## Downloading the R Engine {#download_r}
 
@@ -43,6 +45,8 @@ A second piece of software that is not required to use R but is nonetheless usef
 1. Once the file is downloaded, click on it to open it. Your operating system should guide you through the rest of the installation process. 
 
 *Note.* To update [RStudio](https://www.rstudio.com) after it is already installed, all you have to do is navigate to `Help > Check for Updates` in the menubar. 
+
+***
 
 # Features of RStudio
 
@@ -73,6 +77,52 @@ The final pane, the files/plots/packages/help pane, includes a number of helpful
 
 ![](`r here::here("labs", "resources", "lab1", "rstudio", "lab1_rstudio_files.png")` "RStudio Files Pane")
 
+***
+
+# R Markdown
+
+As noted above, you will mostly be using `R Markdown` documents in this course. 
+
+## Creating an R Markdown Document
+
+(@) Click on the blank piece of paper with the plus sign over it in the upper left-hand side of RStudio.
+
+(@) Click on `R Markdown...`.
+
+```{r, echo = FALSE, out.width = "250px", fig.align="center"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "rmarkdown", "lab1_menu_an.png"))
+```
+
+(@) Enter the title of document and your name. For the purposes of this example, I have chosen to title the document `lab_1` and I have chosen--for the 9,701st day in a row--to name myself `Cameron`.
+
+<center>
+![](`r here::here("labs", "resources", "lab1", "rmarkdown", "lab1_doc_pref.png")` "R Markdown Document Preferences")
+</center>
+
+Congratulations! You now have an `R Markdown` document!
+
+## Using an R Markdown Document
+
+The content of `R Markdown` documents is split into main types: text and R code. Text will not be evaluated by the computer other than to be formatted according to the markdown syntax. If you answering a question or interpreting some results for your homeworks you will be using text.
+
+Code will be shown in the R Code chunks. R code chunks are surround by ` ```{r} ` and ` ``` `. The code chunks are evaluated by the computer. 
+
+<center>
+![](`r here::here("labs", "resources", "lab1", "rmarkdown", "lab1_raw.png")` "R Markdown Document Preferences")
+</center>
+
+## Knitting an R Markdown Document
+
+In order to knit (i.e., evaluate) an R Markdown document, either click `command + shift + k` or click the button at the top of the R Markdown document that says `Knit` with a role of yarn beside it. 
+
+There should be a new document wherever you saved your `R Markdown` document. The new document will end in `.html`. The knitted version of the `R Mardown 
+
+<center>
+![](`r here::here("labs", "resources", "lab1", "rmarkdown", "lab1_knit.png")` "R Markdown Document Preferences")
+</center>
+
+***
+
 # The Basics of Coding in R
 
 ## Arithmetic commands
@@ -96,62 +146,148 @@ knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "l
 
 ## Creating Variables
 
-You can create variables using the assignment operator (`<-`). Whatever is on the left of the assignment operator is saved to variable named whatever is to the left of the assignment operator. For example, if we wanted to save `10` to a variable called `x` we would write:
+You can create variables using the assignment operator (`<-`). Whatever is on the left of the assignment operator is saved to name specified on the right of the assignment operator. For example, if we wanted to save `10` to a variable called `my_number` we would write:
 
 ```{r}
 my_number <- 10
 ```
 
-If we want to see what is stored in `x`, we can simply enter `x` into the console.
+If we want to see what is stored in `my_number`, we can simply type `my_number` into the console and press `enter`.
 
 ```{r}
 my_number
 ```
 
-If we want to overwrite `x`, we simply assign a new value to `x`.
+If we want to overwrite `my_number` with a new value, we simply assign a new value to `my_number`.
 
 ```{r}
 my_number <- 20
+```
+
+Looking at `my_number` again, we can see that it is now `20`.
+
+```{r}
 my_number
 ```
 
-If we want to remove a variable from our environment, we use `rm()`.
+You can treat variables (e.g., `my_number`) just like you would the underlying values. For example, you could add `5` to my number.
+
+```{r}
+my_number + 5
+```
+
+Keep in mind, the above operation does not save the result of `my_number + 5` to `my_number`. To do that, you would have to assign the result of `my_number + 5` to `my_number`.
+
+```{r}
+my_number <- my_number + 5
+
+my_number
+```
+
+If we want to remove a variable from our environment, we can use `rm()`.
 
 ```{r}
 rm(my_number)
 ```
 
-### Scalars
+### Types of Variables
 
-If a variable only has one value associated with it, we call it a `scalar`. There are four types of scalars: doubles (e.g., `10.15`), integers (e.g., `10L`), characters (e.g., `"hello"`), and logicals (also called booleans) (e.g., `TRUE/FALSE`). At this point, it is not incredibly important to know the difference between the types of scalars. 
+If a variable only has one value associated with it, we call it a `scalar`. As shown below, there are four types of values: (1) `logical` values (also called `booleans`) that can be either `TRUE` or `FALSE`, (2) `integer` values, which are denoted by the suffix `L` and are whole numbers (i.e., numbers without decimal values), (3) `doubles` are numbers that include values before and after the decimal point (most `numeric` values in R default to doubles), and (4) `character` values (also called `strings`), which are pieces of text enclosed in quotation marks (`"`).
+
+| Type            | Examples             |
+|-----------------|----------------------|   
+| Logical/Boolean |    `TRUE`,   `FALSE` |
+| Integer         |     `10L`,    `-10L` |
+| Double          |   `10.50`,  `-10.50` |
+| Character       | `"Hello"`, `"World"` |
 
 ### Vectors
 
-If a variable has more than one value associated with it, we call it a vector. We create vectors be using the concatenate function (`c()`). 
+A collection of values is called a `vector` (sometimes called `arrays` in other languages). In R, we use the `c()` command to concatenate (combine) values. Just as we did with the `scalar` values above, we can assign a vector to a variable.
 
 ```{r}
-my_vector <- c(10, 20, 20, 30, 40)
-my_vector
-my_vector[1]
-my_vector[3] <- 999
+my_vector <- c(10, 20, 20, 40, 50, 60)
+```
+
+To print out the entire vector, we can simply type `my_vector` into the console.
+
+```{r}
 my_vector
 ```
 
-## Functions
-
-Functions are essentially pre-packaged snippets of code that make your life easier. A function takes some input (called arguments) and returns some values. For example, the `mean()` function takes a numeric vector as an argument and returns the average of the vector.
+In order to select just one value from the vector, we use square brackets (`[]`). For example, if we wanted the third value from `my_vector` we would type `my_vector[3]`^[1](#foot_vector)^. 
 
 ```{r}
-(10 + 20 + 20 + 30 + 40) / 5
+my_vector[3]
+```
 
-mean(c(10, 20, 20, 30, 40))
+If we want to replace a specific value in a vector, we use the assignment operator in conjunction with the square brackets.
+
+```{r}
+my_vector[3] <- 30
+
+my_vector
+```
+
+You can perform arithmetic operations on vectors, but the behaviour is not identical to single values. If the vectors are the same length each value from one vector will be paired with the corresponding value from the other vector. See below for an example of this in action.
+
+```{r}
+my_vector
+
+my_vector_2 <- c(1, 2, 3, 4, 5, 6)
+
+my_vector_2
+
+my_vector + my_vector_2
+```
+
+If the vectors of different lengths, the shorter vector will be recycled (i.e., repeated) to be the same length as the longer vector.
+
+```{r}
+my_vector
+
+my_vector_3 <- c(1000, 2000)
+
+my_vector_3
+
+my_vector + my_vector_3
+```
+
+If the vectors are of different lengths and the longer vector is not a multiple of the shorter vector, R will still recycle the shorter vector, but you will get a warning.
+
+```{r}
+my_vector
+
+my_vector_4 <- c(1000, 2000, 3000, 4000)
+
+my_vector_4
+
+my_vector + my_vector_4
+```
+
+***
+
+###### 1. Unlike most other coding languages (e.g., python), indices in R start at `1` instead of `0`. For instance, if you want to select the first element of a vector, you write `my_vector[1]` instead of `my_vector[0]`. A second difference to keep in mind is that, in R, `-` will remove the value matching that index value from the vector rather than counting back from the end of the string. By way of illustration, if your vector was `c(10, 20, 30, 40, 50, 60)` using `vector[-2]` in R would return `c(10, 30, 40, 50, 60)` and in python it would return `50`. {#foot_vector} 
+
+## Functions
+
+Functions are essentially pre-packaged snippets of code that make your life easier. A function takes input (called arguments) and returns output (called values). For example, `length()` function takes a vector as its sole argument and returns the length of the vector as its output. 
+
+```{r}
+length(my_vector)
+```
+
+A second example is `mean()`, which takes a numeric vector as one of its arguments and returns the average of that fector as its output.
+
+```{r}
+mean(c(10, 20, 30, 40, 50, 60))
 ```
 
 ## Comments
 
-Comments are pieces of text that are not interpreted by the computer. They are mostly used as a way to remind yourself what your code is doing or why you did something a certain way. In R we use an octothorp/pound-sign/hashmark/hashtag at the beginning of the line to denote a comment. In the example below, the first and third line of code would not not be evaluated while the second and fourth line would be.
+Comments are pieces of text that are not interpreted by the computer. They are mostly used as a way to remind yourself what your code is doing or why you did something a certain way. In R we use the octothorp/pound-sign/hashmark/hashtag at the beginning of the line to denote a comment. In the example below, the first and third line of code would not not be evaluated while the second and fourth line would be.
 
-```{r, eval = FALSE}
+```{r}
 # 1 + 1
 2 + 2
 # 3 + 3
@@ -168,19 +304,22 @@ Sometimes when working in R you will want to know more about a function. For exa
 
 ![](`r here::here("labs", "resources", "lab1", "lab1_help.png")` "Help Documentation")
 
-From the help documentation we can see that `sd` takes two arguments: (1) An R object and (2) a TRUE or FALSE statement indicating whether `NA`s should be removed from the dataset.
+From the help documentation we can see that `sd` takes two arguments: (1) An R object and (2) a `TRUE` or `FALSE` statement indicating whether `NA`s (unknown values) should be removed from the dataset.
 
 The help documentation for a function also often includes an example of how to use the function and details on what the output will be.
 
-# Packages
+***
 
-If a function is a data science tool,then a package is a toolbox. 
+## Packages
 
-A package is collection of code, documentation for that code, and, potentially data. A helpful way to think of packages and functions is as a toolbox full of tools. There are general purpose toolboxes that contain tools for running common analyses in psychology (e.g., `psych`), toolboxes for helping your run advanced statistical models (e.g., `lavaan`; `lmer`), toolboxes for text mining (e.g., `tidytext`), and toolboxes for plotting (e.g., `ggplot2`, `gganimate`). If you have a problem that needs to be solved, there will likely be a package for it. 
+A `package` is collection of code, documentation for that code, and, potentially data. 
 
-The tools of these toolboxes are called functions. Functions take a number of inputs (i.e., `arguments`) and returns some output (called the `values`). For example, the `corr.test` function in the `psych` package takes a dataframe and returns the correlations of all the variables in the dataset and the p-values for each of those correlations.
+![](`r here::here("labs", "resources", "lab1", "packages", "psych_toolbox_2.png")` "RStudio Source Pane")
 
-## Installing a package
+A helpful way to think of packages is as a toolbox full of data analysis tools (e.g., functions). There are general purpose toolboxes that contain tools for running common analyses in psychology (e.g., `psych`), toolboxes for helping your run advanced statistical models (e.g., `lavaan`; `lmer`), toolboxes for text mining (e.g., `tidytext`), and toolboxes for plotting (e.g., `ggplot2`, `gganimate`). If you have a problem that needs to be solved, there will probably be a package for it. 
+
+
+### Installing a package
 
 To install a package onto your computer, you simply pass the name of the package to `install.packages()`. As a demonstration, we install the the `yarrr` package below. 
 
@@ -188,35 +327,42 @@ To install a package onto your computer, you simply pass the name of the package
 install.packages("yarrr")
 ```
 
-*Note.* When installing packages, the package name must be enclosed in quotes: `install.packages("yarrr")` *NOT* `install.packages(yarrr)`.
+*Note.* When installing packages, the package name must be enclosed in quotes: `install.packages("yarrr")` **NOT** `install.packages(yarrr)`.
 
-## Loading a package
+### Loading a package
 
-Just because we've installed a package doesn't mean we have access to its functions. Returning to our analogy from above, just because we have a toolbox doesn't mean we have access to it. If it is the basement, we need to get it before we start working in the attic. To load the `yarrr` package and make its tools available to us
+Just because we've installed a package to our computer doesn't mean we have access to its functions. We need to explicitely tell R that we want access to the functions. You only need to do this once per R session. 
+
+To load the `yarrr` package and make its tools available to us, we use `library()`.
 
 ```{r}
 library(yarrr)
 ```
 
-*Note.* A package can be loaded with or without quotes: `library("yarrr")` *OR* `library(yarrr)`.
+*Note.* A package can be loaded with or without quotes: `library("yarrr")` **OR** `library(yarrr)`.
 
-# Try commands in R
+### Try `yarrr` commands
 
-Adapted from [__YaRrr: A Pirate's Guide to R__](https://bookdown.org/ndphillips/YaRrr/).
+Now that we have installed and loaded the `yarrr` package, let's try out of some its commands (adapted from [__YaRrr: A Pirate's Guide to R__](https://bookdown.org/ndphillips/YaRrr/)).
 
 ```{r}
-# to get help documentation for any package or function use a question mark
+# we can look at the documentation for the pirates dataset
 ?pirates
 
+# we can look at the first six rows of the dataset
 head(pirates)
 
+# we can calculate the mean age of the pirates in the dataset
 mean(pirates$age)
+# the maximum age
 max(pirates$age)
+# and create a count table of the pirates' genders
 table(pirates$sex)
 
+# we can make a scatterplot with the pirates' height on the x-axis and the pirates' weight on the y-axis
 plot(pirates$height, pirates$weight)
 
-#customize
+# we can customize that plot
 plot(x = pirates$height, y = pirates$weight, 
      main = "Look, Ma! A scatterplot!",
      xlab = "Height (in cm)",
@@ -224,26 +370,46 @@ plot(x = pirates$height, y = pirates$weight,
      pch = 16, 
      col = gray(.0, .1))
 
+# we can make violin plots looking comparing the ages of the pirates across their swords of choice
 pirateplot(formula = age ~ sword.type,
            data = pirates, 
            main = "Pirateplot of age by favorite sword")
 
-# run a t-test
+# we can run a t-test comparing the mean age of pirates with a headband and the mean age of pirates without a headband
 t.test(formula = age ~ headband, 
        data = pirates, 
        alternative = "two.sided")
 
-# Create tattoos model
+# we can construct a linear model predicting the number of tattoos a pirate has from their sword of choice
 tat.sword.lm <- lm(formula = tattoos ~ sword.type,
                    data = pirates)
 
-# Get ANOVA table
+# and we can conducted an analysis of variance looking at whether the number of tattoos differs by their sword of choice
 anova(tat.sword.lm)
 ```
 
-# Functions and vectors
+***
 
-## Arithmetic functions on vectors
+# Minihacks
 
-## `Length()`
+## Minihack 1: R Markdown
 
+Create an `R Markdown` document call `lab1_minihacks`.
+
+## Minihack 2: Arithmetic Commands
+
+Use R to solve for $x$: $$x = \frac{(102 + 68) \times (3 + 2) + 1250}{50}$$
+
+## Minihack 3: Creating Variables
+
+## Minihack 4: Loading and installing packages
+
+Install and load the `Hmisc` packages. 
+
+Use the `capitalize()` function in the `Hmisc` package to capitalize the vector of character scalars you made in Minihack 2.
+
+## Minihack 5: Using functions
+
+## Minihack 6: Accessing help documentation
+
+Use the help documentation to learn how many arguments the function `unique` accepts. 
