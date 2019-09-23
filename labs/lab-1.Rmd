@@ -269,6 +269,40 @@ my_vector + my_vector_4
 
 ###### 1. Unlike most other coding languages (e.g., python), indices in R start at `1` instead of `0`. For instance, if you want to select the first element of a vector, you write `my_vector[1]` instead of `my_vector[0]`. A second difference to keep in mind is that, in R, `-` will remove the value matching that index value from the vector rather than counting back from the end of the string. By way of illustration, if your vector was `c(10, 20, 30, 40, 50, 60)` using `vector[-2]` in R would return `c(10, 30, 40, 50, 60)` and in python it would return `50`. {#foot_vector} 
 
+### Data Frames
+
+In R you will mostly be working with data frames. Data frames are lists of lists. It is not important to know what that means here, but understanding how to access values from within a data frame will be very important.
+
+Let's look at a data frame built into R. Type `mtcars` to print out data from the 1974 Motor Trend US magazine. 
+
+```{r}
+mtcars
+```
+
+With data frames, you can extract a value using the `[row, col]` immediately after the object. For example, if we wanted to extract the number of gears (`gear`) in the `Mazda RX4` we could use `mtcars[1, 10]` to extract the value of the first row in the tenth column.
+
+```{r}
+mtcars[1, 10]
+```
+
+Since the rows and columns are named, we can also use the names.
+
+```{r}
+mtcars["Mazda RX4", "gear"]
+```
+
+If you want to extract an entire column, you can either not specify a row (i.e., `[, 10]`) 
+
+```{r}
+mtcars[, 10]
+```
+
+You can use extract columns using `$` followed by the column name.
+
+```{r}
+mtcars$gear
+```
+
 ## Functions
 
 Functions are essentially pre-packaged snippets of code that make your life easier. A function takes input (called arguments) and returns output (called values). For example, `length()` function takes a vector as its sole argument and returns the length of the vector as its output. 
@@ -282,6 +316,15 @@ A second example is `mean()`, which takes a numeric vector as one of its argumen
 ```{r}
 mean(c(10, 20, 30, 40, 50, 60))
 ```
+
+The function `typeof()` takes any object and tells you what type of variable it is.
+
+```{r}
+
+```
+
+Using the suite of `as.*()` functions: `as.numeric()`, `as.integer()`
+
 
 ## Comments
 
@@ -324,7 +367,7 @@ A helpful way to think of packages is as a toolbox full of data analysis tools (
 To install a package onto your computer, you simply pass the name of the package to `install.packages()`. As a demonstration, we install the the `yarrr` package below. 
 
 ```{r, eval = FALSE}
-install.packages("yarrr")
+install.packages("rio")
 ```
 
 *Note.* When installing packages, the package name must be enclosed in quotes: `install.packages("yarrr")` **NOT** `install.packages(yarrr)`.
@@ -333,19 +376,19 @@ install.packages("yarrr")
 
 Just because we've installed a package to our computer doesn't mean we have access to its functions. We need to explicitely tell R that we want access to the functions. You only need to do this once per R session. 
 
-To load the `yarrr` package and make its tools available to us, we use `library()`.
+To load the `rio` package and make its tools available to us, we use `library()`.
 
 ```{r}
-library(yarrr)
+library(rio)
 ```
 
-*Note.* A package can be loaded with or without quotes: `library("yarrr")` **OR** `library(yarrr)`.
+*Note.* A package can be loaded with or without quotes: `library("rio")` **OR** `library(rio)`.
 
-### Try `yarrr` commands
+<!--### Try `yarrr` commands-->
 
-Now that we have installed and loaded the `yarrr` package, let's try out of some its commands (adapted from [__YaRrr: A Pirate's Guide to R__](https://bookdown.org/ndphillips/YaRrr/)).
+<!--Now that we have installed and loaded the `yarrr` package, let's try out of some its commands (adapted from [__YaRrr: A Pirate's Guide to R__](https://bookdown.org/ndphillips/YaRrr/)).-->
 
-```{r}
+```{r, eval = FALSE, include = FALSE}
 # we can look at the documentation for the pirates dataset
 ?pirates
 
@@ -363,21 +406,21 @@ table(pirates$sex)
 plot(pirates$height, pirates$weight)
 
 # we can customize that plot
-plot(x = pirates$height, y = pirates$weight, 
+plot(x = pirates$height, y = pirates$weight,
      main = "Look, Ma! A scatterplot!",
      xlab = "Height (in cm)",
      ylab = "Weight (in cm)",
-     pch = 16, 
+     pch = 16,
      col = gray(.0, .1))
 
 # we can make violin plots looking comparing the ages of the pirates across their swords of choice
 pirateplot(formula = age ~ sword.type,
-           data = pirates, 
+           data = pirates,
            main = "Pirateplot of age by favorite sword")
 
 # we can run a t-test comparing the mean age of pirates with a headband and the mean age of pirates without a headband
-t.test(formula = age ~ headband, 
-       data = pirates, 
+t.test(formula = age ~ headband,
+       data = pirates,
        alternative = "two.sided")
 
 # we can construct a linear model predicting the number of tattoos a pirate has from their sword of choice
@@ -386,6 +429,30 @@ tat.sword.lm <- lm(formula = tattoos ~ sword.type,
 
 # and we can conducted an analysis of variance looking at whether the number of tattoos differs by their sword of choice
 anova(tat.sword.lm)
+```
+
+## Loading Data
+
+[Download the data](https://docs.google.com/spreadsheets/d/1mOXibOSMMm-43oIkgVQffl_UAgOtwI19bc2uZZs_22Y/export?format=xlsx).
+
+```{r}
+data <- import("~/Downloads/vox_hiphop_data.xlsx")
+library(ggplot2)
+```
+
+```{r, warning = FALSE, message = FALSE}
+library(tidyverse)
+data %>%
+  mutate(era   = parse_number(era),
+         words = parse_number(words)) %>%
+  group_by(era) %>%
+  summarise(words_m = mean(words, na.rm =  TRUE),
+            count   = n()) %>%
+  ggplot(aes(x = era, y = words_m)) +
+    geom_smooth() +
+    theme_bw() +
+    labs(y = "Vocabulary",
+         x = "Era")
 ```
 
 ***
