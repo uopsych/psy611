@@ -15,17 +15,32 @@ knitr::opts_chunk$set(echo = TRUE)
 options(scipen = 999)
 ```
 
+# Purpose
+
+The purpose of today's lab is not teach you everything there is to know about coding in R. It is not even to describe why the code in R works the way it does. Instead, it is intended to provide a functional understanding of R so that you may begin to play around with the language. We also hope to provide you tools for learning new concepts on your own. 
+
+The content of today's lab includes:
+1. [How to download and install R and RStudio](#gs)
+1. [An overview of RStudio](#rstudio)
+1. [how to create and use R Markdown Documents](#rmarkdown)
+1. [The different types of variables in R](#variables)
+1. [A description of functions](#functions)
+1. [How to install and load packages](#packages)
+1. [How to load data](#data)
+
+After the content of the lab is covered, we will move onto Minihacks, which test what has been learned. 
+
 ***
 
-# Getting Started
+# Getting Started {#gs}
 
-R is a highly flexible and intuitive open-source programming language used for statistical computing. It is relatively new compared to other programmning languages, but it has an engaged following of data scientists and developers.
+R is a highly flexible and intuitive open-source programming language used, most often, for data science. It is relatively new compared to other programming languages, but it has an engaged following of data scientists and developers.
 
 ![](`r here::here("labs", "resources", "lab1", "other", "lab1_flow.png")` "Flow")
 
-Only one piece of software is required to get started using the *R* programming language and, confusingly, it is also called *R*. I will refer to it here as the *R Engine*. The *R Engine* essentially allows the computer to understand the *R* programming language, turning your lines of text into computer operations. Unlike other statistics programs (e.g., SPSS, SAS), the *R Engine* is free. [Instructions for downloading the R Engine](#download_r) are below.
+Only one piece of software is required to get started using the R programming language and, confusingly, it is also called R. I will refer to it here as the *R Engine*. The R Engine essentially allows the computer to understand the R programming language, turning your lines of text into computer operations. Unlike other popular statistics programs (e.g., SPSS, SAS), the R Engine is free. [Instructions for downloading the R Engine](#download_r) are below.
 
-A second piece of software that is not required to use R but is nonetheless useful is [RStudio](https://www.rstudio.com). [RStudio](https://www.rstudio.com) is an *integrated development environment* (IDE) or, in potentially overly simplistic terms, a tool that makes interacting with the *R Engine* easier. [Instructions for downloading the RStudio](#download_rstudio) are below.
+A second piece of software that is not required to use R but is nonetheless useful is [RStudio](https://www.rstudio.com). [RStudio](https://www.rstudio.com) is an *integrated development environment* (IDE) or, in potentially overly simplistic terms, a tool that makes interacting with the R Engine easier. [Instructions for downloading the RStudio](#download_rstudio) are below.
 
 ## Downloading the R Engine {#download_r}
 
@@ -34,13 +49,13 @@ A second piece of software that is not required to use R but is nonetheless usef
 1. Click the link for the latest release. As of writing this, the newest package is `R 3.6.1. "Action of the Toes"` (all version nicknames are references to the [Peanuts comic strip](https://twitter.com/snoopy/status/976452382480531458)). I would click `R-3.6.1.pkg` to start the download.
 1. Once the file is downloaded, click on it to open it. Your operating system should guide you through the rest of the installation process. 
 
-*Note.* Perhaps unintuitively, the same steps are used to update the R Engine. You are simply replacing the old version of the R Engine with the new version.
+*Note.* The same steps are used to update the R Engine: You install a new version, replacing the old version in the process.
 
 ## Downloading RStudio {#download_rstudio}
 <!--1. Navigate to the webpage for [RStudio](https://www.rstudio.com).
 1. Click [Download RStudio](https://www.rstudio.com/products/rstudio/download/).
 1. Click the [Download](https://www.rstudio.com/products/rstudio/download/#download) listed under the free version. For our purposes (and, in fact, for most people's purposes) the free version is all that is needed.-->
-1. Navigate to the webpage for the free version of [RStudio](https://www.rstudio.com/products/rstudio/download/#download). For our purposes (and, in fact, for most people's purposes) the free version is all that is needed. The available installers are listed at the bottom of the page under the heeader "Installers for Supported Platforms."
+1. Navigate to the webpage for the free version of [RStudio](https://www.rstudio.com/products/rstudio/download/#download). For our purposes (and, in fact, for most people's purposes) the free version is all that you need. The available installers are listed at the bottom of the page under the heeader "Installers for Supported Platforms."
 1. Select the installer for your operating system. Since I am using a Mac, I would click `RStudio 1.2.1335 - macOS 10.12+ (64-bit)`.
 1. Once the file is downloaded, click on it to open it. Your operating system should guide you through the rest of the installation process. 
 
@@ -62,30 +77,31 @@ In RStudio, the console is the access point to the underlying R-engine. It evalu
 
 ## Source {#rstudio_source}
 
-The source pane shows you a collection of code called a script. In R, we primarily work with `R Script` files (files ending in `.R`) or `R Markdown` files (files ending in `.Rmd`). In this class, we will primarily be working with `R Markdown` files. The document you are reading right now was made with `R Markdown`.
+The source pane shows you a collection of code called a script. In R, we primarily work with `R Script` files (files ending in `.R`) or `R Markdown` files (files ending in `.Rmd`). In this class, we will mostly be working with `R Markdown` files. In fact, the document you are reading right now was made with `R Markdown`.
 
 ![](`r here::here("labs", "resources", "lab1", "rstudio", "lab1_rstudio_source.png")` "RStudio Source Pane")
 
 ## Environment/History {#rstudio_environment}
 
-The environment and history pane shows, well, your environment and history. Specifically, if you have the "Environment" tab selected, you will see a list of all the variables that exist in your work environment. If you have the "History" tab selected, you will see previous commands that you passed to the console. 
+The environment and history pane shows, well, your environment and history. Specifically, if you have the "Environment" tab selected, you will see a list of all the variables that exist in your global environment. If you have the "History" tab selected, you will see previous commands that you passed to the console. 
 
 ![](`r here::here("labs", "resources", "lab1", "rstudio", "lab1_rstudio_environment.png")` "RStudio Environment Pane")
 
 ## Files/Plots/Packages/Help {#rstudio_files}
-The final pane, the files/plots/packages/help pane, includes a number of helpful tabs. The "Files" tab shows you the files in your current working directory, the "Plots" tab shows you a preview of any plots you have created, the "Packages" tab shows you a list of the packages currently installed on your computer, and the "Help" tab is where help documentation will appear. We will discuss packages and help documentation later in this lab.
+
+The final pane---the files/plots/packages/help pane--includes a number of helpful tabs. The "Files" tab shows you the files in your current working directory, the "Plots" tab shows you a preview of any plots you have created, the "Packages" tab shows you a list of the packages currently installed on your computer, and the "Help" tab is where help documentation will appear. We will discuss packages and help documentation later in this lab.
 
 ![](`r here::here("labs", "resources", "lab1", "rstudio", "lab1_rstudio_files.png")` "RStudio Files Pane")
 
 ***
 
-# R Markdown
+# R Markdown {#rmarkdown}
 
-As noted above, you will mostly be using `R Markdown` documents in this course. 
+As noted above, you will mostly be using `R Markdown` documents in this course (i.e., it is required that your homeworks be created using `R Markdown` documents). 
 
 ## Creating an R Markdown Document
 
-(@) Click on the blank piece of paper with the plus sign over it in the upper left-hand side of RStudio.
+(@) Click on the blank piece of paper with the plus sign over it in the upper left-hand corner of RStudio.
 
 (@) Click on `R Markdown...`.
 
@@ -103,9 +119,9 @@ Congratulations! You now have an `R Markdown` document!
 
 ## Using an R Markdown Document
 
-The content of `R Markdown` documents is split into main types: text and R code. Text will not be evaluated by the computer other than to be formatted according to the markdown syntax. If you answering a question or interpreting some results for your homeworks you will be using text.
+The content of `R Markdown` documents is split into main types. I will call the first type *simple text*. Simple text will not be evaluated by the computer other than to be formatted according to markdown syntax. If you are answering a homework question or interpreting the results from analysis, you will likely be using simple text. The markdown syntax allows you to format the text such as italicizing words when they are enclosed in asterisks (e.g., `*this is italicized*` becomes *this is italicized*) or bolding words when they are enclosed in double-asterisks (e.g., `**this is bold**` becomes **this is bold**). For a quick run down of R Markdown formatting, I suggest you check out the Markdown section of the [R Markdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf). 
 
-Code will be shown in the R Code chunks. R code chunks are surround by ` ```{r} ` and ` ``` `. The code chunks are evaluated by the computer. 
+In addition to simple text, `R Markdown` documents support blocks (also called chunks) of *R code*. The blocks of R code **are** evaluated by the computer. R code chunks are surround by ` ```{r} ` and ` ``` ` to tell the computer that the contents should be evaluated. In the example image below, the `1 + 2` in the R Code chunk will be evaluated when the document is "knitted" (rendered). 
 
 <center>
 ![](`r here::here("labs", "resources", "lab1", "rmarkdown", "lab1_raw.png")` "R Markdown Document Preferences")
@@ -113,13 +129,13 @@ Code will be shown in the R Code chunks. R code chunks are surround by ` ```{r} 
 
 ## Knitting an R Markdown Document
 
-In order to knit (i.e., evaluate) an R Markdown document, either click `command + shift + k` or click the button at the top of the R Markdown document that says `Knit` with a role of yarn beside it. 
-
-There should be a new document wherever you saved your `R Markdown` document. The new document will end in `.html`. The knitted version of the `R Mardown 
+In order to knit an R Markdown document, either click `command + shift + k` or click the button at the top of the R Markdown document that says `Knit` with a role of yarn beside it. The computer will take several seconds (or, depending on the length of the R Markdown document, several minutes to an eternity) to knit the document. Once the computer has finished knitting the document, a new document will appear in the same location that the `R Markdown` document is saved. In this example, the new document will end with a `.html` extension. 
 
 <center>
 ![](`r here::here("labs", "resources", "lab1", "rmarkdown", "lab1_knit.png")` "R Markdown Document Preferences")
 </center>
+
+As shown in the above image, the simple text in the `R Markdown` document on the left was rendered into a formatted in the knitted document on the right. The equation in the code chunk was also evaluated in the knitted document, returning the value `3`.
 
 ***
 
@@ -137,16 +153,16 @@ knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "l
 knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_exponentiation.png"))
 ```
 
-Parentheses can be used to tell R what parts of the equation should be evaluated first. As shown below (and as expected), `(10 + 5) * 2` does not equal `10 + 5 * 2`.
+R will automatically follow the PEMDAS order of operations (BEDMAS if you are Canadian). Parentheses can be used to tell R what parts of the equation should be evaluated first. As shown below (and as expected), `(10 + 5) * 2` is not equivalent to `10 + 5 * 2`.
 
 ```{r, echo = FALSE, out.width = "175px"}
 knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_paren.png"))
 knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_noparen.png"))
 ```
 
-## Creating Variables
+## Creating Variables {#variables}
 
-You can create variables using the assignment operator (`<-`). Whatever is on the left of the assignment operator is saved to name specified on the right of the assignment operator. For example, if we wanted to save `10` to a variable called `my_number` we would write:
+You can create variables using the assignment operator (`<-`). Whatever is on the left of the assignment operator is saved to name specified on the right of the assignment operator. I like to imagine that there is a box with a name on it and you are placing the value inside it. For example, if we wanted to place `10` inot a variable called `my_number` we would write:
 
 ```{r}
 my_number <- 10
@@ -184,7 +200,7 @@ my_number <- my_number + 5
 my_number
 ```
 
-If we want to remove a variable from our environment, we can use `rm()`.
+Finally, if we want to remove a variable from our environment, we can use `rm()`.
 
 ```{r}
 rm(my_number)
@@ -192,7 +208,7 @@ rm(my_number)
 
 ### Types of Variables
 
-If a variable only has one value associated with it, we call it a `scalar`. As shown below, there are four types of values: (1) `logical` values (also called `booleans`) that can be either `TRUE` or `FALSE`, (2) `integer` values, which are denoted by the suffix `L` and are whole numbers (i.e., numbers without decimal values), (3) `doubles` are numbers that include values before and after the decimal point (most `numeric` values in R default to doubles), and (4) `character` values (also called `strings`), which are pieces of text enclosed in quotation marks (`"`).
+<!--If a variable only has one value associated with it, we call it a `scalar`.-->Variables can be of four types (also shown in the table below): (1) `logical` values (also called `booleans`) that can be either `TRUE` or `FALSE`, (2) `integer` values, which are denoted by the suffix `L` and are whole numbers (i.e., numbers without decimal values), (3) `doubles` are numbers that include values before and after the decimal point (most `numeric` values in R default to doubles), and (4) `character` values (also called `strings`), which are pieces of text enclosed in quotation marks (`"`).
 
 | Type            | Examples             |
 |-----------------|----------------------|   
@@ -203,7 +219,13 @@ If a variable only has one value associated with it, we call it a `scalar`. As s
 
 ### Vectors
 
-A collection of values is called a `vector` (sometimes called `arrays` in other languages). In R, we use the `c()` command to concatenate (combine) values. Just as we did with the `scalar` values above, we can assign a vector to a variable.
+A collection of values is called a `vector`. In R, we use the `c()` command to concatenate (or combine) values. 
+
+```{r}
+c(10, 20, 20, 40, 50, 60)
+```
+
+Just as we did with the `scalar` values above, we can assign a vector to a variable.
 
 ```{r}
 my_vector <- c(10, 20, 20, 40, 50, 60)
@@ -229,7 +251,7 @@ my_vector[3] <- 30
 my_vector
 ```
 
-You can perform arithmetic operations on vectors, but the behaviour is not identical to single values. If the vectors are the same length each value from one vector will be paired with the corresponding value from the other vector. See below for an example of this in action.
+As with single-value objects, we can perform arithmetic operations on vectors, but the behaviour is not identical to single values. If the vectors are the same length, each value from one vector will be paired with the corresponding value from the other vector. See below for an example of this in action.
 
 ```{r}
 my_vector
@@ -253,7 +275,7 @@ my_vector_3
 my_vector + my_vector_3
 ```
 
-If the vectors are of different lengths and the longer vector is not a multiple of the shorter vector, R will still recycle the shorter vector, but you will get a warning.
+This also works when the longer vector is not a multiple of the shorter vector, but you will get the warning: `longer object length is not a multiple of shorter object length`.
 
 ```{r}
 my_vector
@@ -271,70 +293,84 @@ my_vector + my_vector_4
 
 ### Data Frames
 
-In R you will mostly be working with data frames. Data frames are lists of lists. It is not important to know what that means here, but understanding how to access values from within a data frame will be very important.
+In R you will mostly be working with data frames. Data frames are technically lists of lists, but it is not important to discuss that here. For our purposes, we can think of data frames as a kind of matrix that can hold a bunch of different types of data^[2](#foot_dataframes)^. They have rows and columns and you can access values of the data frame by using certain commands.  
 
-Let's look at a data frame built into R. Type `mtcars` to print out data from the 1974 Motor Trend US magazine. 
+Let's look at a data frame that is automatically loaded when you open R, `mtcars`. Type `mtcars` to print out the data frame. 
 
 ```{r}
 mtcars
 ```
 
-With data frames, you can extract a value using the `[row, col]` immediately after the object. For example, if we wanted to extract the number of gears (`gear`) in the `Mazda RX4` we could use `mtcars[1, 10]` to extract the value of the first row in the tenth column.
+The data frame `mtcars` has a row for 32 cars featured in the *1974 Motor Trend* magazine. There is a row for the car's miles per gallon (`mpg`), number of cylinders (`cyl`), engine displacement (`disp`), horse power (`hp`), rear axle ratio (`drat`), weight in thousands of pounds (`wt`), quarter mile time (`qsec`), engine shape (`vs`), transmission type (`am`), number of forward gears (`gear`), and number of carburetors
+(`carb`).
+
+With data frames, you can extract a value by including `[row, col]` immediately after the object. For example, if we wanted to extract the number of gears in the `Datsun 710` we could use `mtcars[3, 10]` to extract the value of the third row in the tenth column.
 
 ```{r}
-mtcars[1, 10]
+mtcars[3, 10]
 ```
 
-Since the rows and columns are named, we can also use the names.
+Since the rows and columns have names, we can also be explicit--in coding, the more explicit the better--and use the name of the row and the name of the column instead of the row and column indices.
 
 ```{r}
-mtcars["Mazda RX4", "gear"]
+mtcars["Datsun 710", "gear"]
 ```
 
-If you want to extract an entire column, you can either not specify a row (i.e., `[, 10]`) 
+If you want to extract an entire column or an entire row, you just drop the idnex for the row or for the column, respectively. For example, to extract all values stored in the gear column, we can use `[, 10]` or `[, "gear"]`
 
 ```{r}
 mtcars[, 10]
+mtcars[, "gear"]
 ```
 
-You can use extract columns using `$` followed by the column name.
+To extract all values associated with the Datsun 710, we can use `[3, ]` or `["Datsun 710", ]`.
+
+```{r}
+mtcars[3, ]
+mtcars["Datsun 710", ]
+```
+
+You can also extract columns using `$` followed by the column name without quotes. 
 
 ```{r}
 mtcars$gear
 ```
 
-## Functions
+###### 2. There *is* a `matrix` type in R. An object that is of type `matrix` is only able to hold values of one type, while data frames are able to hold values of many different types. {#foot_dataframes} 
 
-Functions are essentially pre-packaged snippets of code that make your life easier. A function takes input (called arguments) and returns output (called values). For example, `length()` function takes a vector as its sole argument and returns the length of the vector as its output. 
+## Functions {#functions}
+
+Functions are essentially pre-packaged snippets of code that make your life easier. A function takes input (called `arguments`) and returns output (called `values`). For example, `length()` function takes a vector as its sole argument and returns the length of the vector as its value. 
 
 ```{r}
-length(my_vector)
+length(c(10, 20, 30, 40, 50, 60))
 ```
 
-A second example is `mean()`, which takes a numeric vector as one of its arguments and returns the average of that fector as its output.
+Another useful function is `mean()`, which takes a numeric vector as one of its arguments and returns the average of that fector as its output.
 
 ```{r}
 mean(c(10, 20, 30, 40, 50, 60))
 ```
 
+We can also see the type of any object using the function `typeof()`
+
 The function `typeof()` takes any object and tells you what type of variable it is.
 
 ```{r}
-
+typeof(10L)
+typeof(10)
+typeof("hello")
+typeof(TRUE)
 ```
 
-Using the suite of `as.*()` functions: `as.numeric()`, `as.integer()`
-
-
-## Comments
-
-Comments are pieces of text that are not interpreted by the computer. They are mostly used as a way to remind yourself what your code is doing or why you did something a certain way. In R we use the octothorp/pound-sign/hashmark/hashtag at the beginning of the line to denote a comment. In the example below, the first and third line of code would not not be evaluated while the second and fourth line would be.
+Using the suite of `as.*()` functions (e.g., `as.numeric()`, `as.character()`, `as.logical()`, `as.integer()`), we can coerce objects to other types.
 
 ```{r}
-# 1 + 1
-2 + 2
-# 3 + 3
-4 + 4
+as.numeric("10")
+as.character(10)
+as.character(TRUE)
+as.numeric(TRUE)
+as.integer(10.30)
 ```
 
 ## Help Documentation
@@ -347,42 +383,88 @@ Sometimes when working in R you will want to know more about a function. For exa
 
 ![](`r here::here("labs", "resources", "lab1", "lab1_help.png")` "Help Documentation")
 
-From the help documentation we can see that `sd` takes two arguments: (1) An R object and (2) a `TRUE` or `FALSE` statement indicating whether `NA`s (unknown values) should be removed from the dataset.
+From the help documentation we can see that `sd` takes two arguments: (1) An R object and (2) a `TRUE` or `FALSE` statement indicating whether `NA`s (unknown values) should be removed before the standard deviation is calculated. 
+
+Normally R will infer, based on the order, what values you are passing to what argument. For example, since `sd()` expects that the argument `x` will be provided first and the argument `na.rm` will be provided second, the following works:
+
+```{r}
+sd(c(10, 20, 30, 40, 50, 60), FALSE)
+```
+
+However, we can make it explicit and tell R what values are associated with which arguments.
+
+```{r}
+sd(x = c(10, 20, 30, 40, 50, 60), na.rm = FALSE)
+```
 
 The help documentation for a function also often includes an example of how to use the function and details on what the output will be.
 
+<!--## Comments
+
+Comments are pieces of text that are not interpreted by the computer. They are mostly used as a way to remind yourself what your code is doing or why you did something a certain way. In R we use the octothorp/pound-sign/hashmark/hashtag at the beginning of the line to denote a comment. In the example below, the first and third line of code would not not be evaluated while the second and fourth line would be.-->
+
+```{r, eval = FALSE, include = FALSE}
+# 1 + 1
+2 + 2
+# 3 + 3
+4 + 4
+```
+
 ***
 
-## Packages
+## Packages {#packages}
 
-A `package` is collection of code, documentation for that code, and, potentially data. 
+A `package` can include code, documentation for that code, and data. A helpful way to think of packages is as a toolbox full of data analysis tools (e.g., functions).
 
 ![](`r here::here("labs", "resources", "lab1", "packages", "psych_toolbox_2.png")` "RStudio Source Pane")
 
-A helpful way to think of packages is as a toolbox full of data analysis tools (e.g., functions). There are general purpose toolboxes that contain tools for running common analyses in psychology (e.g., `psych`), toolboxes for helping your run advanced statistical models (e.g., `lavaan`; `lmer`), toolboxes for text mining (e.g., `tidytext`), and toolboxes for plotting (e.g., `ggplot2`, `gganimate`). If you have a problem that needs to be solved, there will probably be a package for it. 
+ There are general purpose toolboxes that contain tools for running common analyses in psychology (e.g., `psych`), toolboxes for helping your run advanced statistical models (e.g., `lavaan`; `lmer`), toolboxes for text mining (e.g., `tidytext`), and toolboxes for plotting (e.g., `ggplot2`, `gganimate`). If you have a problem that needs to be solved, there will probably be a package for it. 
 
+### Installing packages
 
-### Installing a package
-
-To install a package onto your computer, you simply pass the name of the package to `install.packages()`. As a demonstration, we install the the `yarrr` package below. 
+To install a package onto your computer, you simply pass the name of the package to `install.packages()`. As a demonstration, we install the `psych` package below. The `psych` package is used to easily load data into R. You generally only need to install a package once.  
 
 ```{r, eval = FALSE}
-install.packages("rio")
+install.packages("psych")
 ```
 
-*Note.* When installing packages, the package name must be enclosed in quotes: `install.packages("yarrr")` **NOT** `install.packages(yarrr)`.
+*Note.* When installing packages, the package name must be enclosed in quotes: `install.packages("psych")` **NOT** `install.packages(psych)`.
 
 ### Loading a package
 
-Just because we've installed a package to our computer doesn't mean we have access to its functions. We need to explicitely tell R that we want access to the functions. You only need to do this once per R session. 
+Just because we've installed a package to our computer doesn't mean we have access to its functions. Buying a toolbox doesn't necessarily give you access to its tools. You also have to open the toolbox. In other words, we need to explicitely tell R that we want access to the functions. You only need to do this once per R session. 
 
-To load the `rio` package and make its tools available to us, we use `library()`.
+To load the `psych` package and make its tools available to us, we use `library()`.
 
 ```{r}
-library(rio)
+library(psych)
 ```
 
-*Note.* A package can be loaded with or without quotes: `library("rio")` **OR** `library(rio)`.
+*Note.* A package can be loaded with or without quotes: `library("psych")` **OR** `library(psych)`.
+
+### Try `psych` commands
+
+Now that we have installed and loaded the `psych` package, let's try out of some its commands.
+
+Using `corr.test()` we can make a correlation matrix of the variables in `mtcars`.
+
+```{r}
+corr.test(mtcars)
+```
+
+Using `skew`, we can look at the skew of all of the columns in `mtcars`.
+
+```{r}
+skew(mtcars)
+```
+
+We can use `t2d` to calculate the Cohen's *d* for a t-value of 3.00 with 300 participants.
+
+```{r}
+t2d(t = 3.00, n = 300)
+```
+
+This is a small subset of the functions available in the `psych` package, and `psych` is only one package of over 11,000 on CRAN (as of 2018). This is not to mention the tens of thousands of packages hosted on online repositoris like GitHub.
 
 <!--### Try `yarrr` commands-->
 
@@ -431,7 +513,17 @@ tat.sword.lm <- lm(formula = tattoos ~ sword.type,
 anova(tat.sword.lm)
 ```
 
-## Loading Data
+## Loading Data {#data}
+
+The finally topic that we will cover in this lab is how to load data. Over the course of your grad school careers (and in this class) there will many cases when you have data that you want to get into R to analyze. The present example 
+
+```{r, eval = FALSE}
+install.packages("rio")
+```
+
+```{r}
+library(rio)
+```
 
 [Download the data](https://docs.google.com/spreadsheets/d/1mOXibOSMMm-43oIkgVQffl_UAgOtwI19bc2uZZs_22Y/export?format=xlsx).
 
