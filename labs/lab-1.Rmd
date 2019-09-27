@@ -17,24 +17,24 @@ options(scipen = 999)
 
 # Purpose
 
-The purpose of today's lab is not teach you everything there is to know about coding in R. It is not even to describe why the code in R works the way it does. Instead, it is intended to provide a functional understanding of R so that you may begin to play around with the language. We also hope to provide you tools for learning new concepts on your own. 
+The purpose of today's lab is not teach you everything there is to know about coding in R. It is not even to describe why the code in R works the way it does. Instead it takes an applied approach to R. We hope to provide you with a functional understanding of R so that you may begin to play around with the language.
 
-The content of today's lab includes:
+To that end, today's lab will cover:
 1. [How to download and install R and RStudio](#gs)
-1. [An overview of RStudio](#rstudio)
-1. [how to create and use R Markdown Documents](#rmarkdown)
-1. [The different types of variables in R](#variables)
-1. [A description of functions](#functions)
-1. [How to install and load packages](#packages)
+1. [The panes of RStudio](#rstudio)
+1. [How to create and use R Markdown Documents](#rmarkdown)
+1. [(Some of) the different types of variables in R](#variables)
+1. [Functions](#functions)
+1. [How to install and load packages](#packages) and...
 1. [How to load data](#data)
 
-After the content of the lab is covered, we will move onto Minihacks, which test what has been learned. 
+After we have discusssed the content of the lab, we will move onto [Minihacks](#minihacks).
 
 ***
 
 # Getting Started {#gs}
 
-R is a highly flexible and intuitive open-source programming language used, most often, for data science. It is relatively new compared to other programming languages, but it has an engaged following of data scientists and developers.
+R is a highly flexible and mostly intuitive open-source programming language used for data science. It is relatively new compared to other programming languages, but it has an engaged following of data scientists and developers.
 
 ![](`r here::here("labs", "resources", "lab1", "other", "lab1_flow.png")` "Flow")
 
@@ -119,9 +119,9 @@ Congratulations! You now have an `R Markdown` document!
 
 ## Using an R Markdown Document
 
-The content of `R Markdown` documents is split into main types. I will call the first type *simple text*. Simple text will not be evaluated by the computer other than to be formatted according to markdown syntax. If you are answering a homework question or interpreting the results from analysis, you will likely be using simple text. The markdown syntax allows you to format the text such as italicizing words when they are enclosed in asterisks (e.g., `*this is italicized*` becomes *this is italicized*) or bolding words when they are enclosed in double-asterisks (e.g., `**this is bold**` becomes **this is bold**). For a quick run down of R Markdown formatting, I suggest you check out the Markdown section of the [R Markdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf). 
+The content of `R Markdown` documents is split into main types. I will call the first type *simple text*. Simple text will not be evaluated by the computer other than to be formatted according to markdown syntax. If you are answering a homework question or interpreting the results of an analysis, you will likely be using simple text. The markdown syntax allows you to format the text such as italicizing words when they are enclosed in asterisks (e.g., `*this is italicized*` becomes *this is italicized*) or bolding words when they are enclosed in double-asterisks (e.g., `**this is bold**` becomes **this is bold**). For a quick run down of R Markdown formatting, I suggest you check out the Markdown section of the [R Markdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf). 
 
-In addition to simple text, `R Markdown` documents support blocks (also called chunks) of *R code*. The blocks of R code **are** evaluated by the computer. R code chunks are surround by ` ```{r} ` and ` ``` ` to tell the computer that the contents should be evaluated. In the example image below, the `1 + 2` in the R Code chunk will be evaluated when the document is "knitted" (rendered). 
+In addition to simple text, `R Markdown` documents support blocks (also called chunks) of *R code*. The blocks of R code **are** evaluated by the computer. R code chunks are surround by ` ```{r} ` and ` ``` ` to tell the computer that the contents should be evaluated. In the example image below, the `1 + 2` in the R Code chunk will be evaluated when the document is "knitted" (rendered). A code chunk is where you will write the analyses for your homeworks.
 
 <center>
 ![](`r here::here("labs", "resources", "lab1", "rmarkdown", "lab1_raw.png")` "R Markdown Document Preferences")
@@ -129,7 +129,7 @@ In addition to simple text, `R Markdown` documents support blocks (also called c
 
 ## Knitting an R Markdown Document
 
-In order to knit an R Markdown document, either click `command + shift + k` or click the button at the top of the R Markdown document that says `Knit` with a role of yarn beside it. The computer will take several seconds (or, depending on the length of the R Markdown document, several minutes to an eternity) to knit the document. Once the computer has finished knitting the document, a new document will appear in the same location that the `R Markdown` document is saved. In this example, the new document will end with a `.html` extension. 
+In order to knit an R Markdown document, you can either click `command + shift + k` or click the button at the top of the R Markdown document that says `Knit`. The computer will take several seconds (or, depending on the length of the R Markdown document, several minutes) to knit the document. Once the computer has finished knitting the document, a new document will appear in the same location that the `R Markdown` document is saved. In this example, the new document will end with a `.html` extension. 
 
 <center>
 ![](`r here::here("labs", "resources", "lab1", "rmarkdown", "lab1_knit.png")` "R Markdown Document Preferences")
@@ -162,53 +162,51 @@ knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "l
 
 ## Creating Variables {#variables}
 
-You can create variables using the assignment operator (`<-`). Whatever is on the left of the assignment operator is saved to name specified on the right of the assignment operator. I like to imagine that there is a box with a name on it and you are placing the value inside it. For example, if we wanted to place `10` inot a variable called `my_number` we would write:
+You can create variables using the assignment operator (`<-`). Whatever is on the left of the assignment operator is saved to name specified on the right of the assignment operator. I like to imagine that there is a box with a name on it and you are placing a value, inside of the box. For example, if we wanted to place `10` into a variable called `my_number` we would write:
 
-```{r}
-my_number <- 10
+```{r, echo = FALSE, out.width = "450px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_assign.png"))
 ```
 
-If we want to see what is stored in `my_number`, we can simply type `my_number` into the console and press `enter`.
+If we want to see what is stored in `my_number`, we can simply type `my_number` into the console and press `enter`. It is essentially asking the computer, "What's in the box?"
 
-```{r}
-my_number
+```{r, echo = FALSE, out.width = "450px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_peek.png"))
 ```
 
 If we want to overwrite `my_number` with a new value, we simply assign a new value to `my_number`.
 
-```{r}
-my_number <- 20
+```{r, echo = FALSE, out.width = "450px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_reassign.png"))
 ```
 
 Looking at `my_number` again, we can see that it is now `20`.
 
-```{r}
-my_number
+```{r, echo = FALSE, out.width = "450px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_peek2.png"))
 ```
 
 You can treat variables (e.g., `my_number`) just like you would the underlying values. For example, you could add `5` to my number.
 
-```{r}
-my_number + 5
+```{r, echo = FALSE, out.width = "450px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_var_add.png"))
 ```
 
 Keep in mind, the above operation does not save the result of `my_number + 5` to `my_number`. To do that, you would have to assign the result of `my_number + 5` to `my_number`.
 
-```{r}
-my_number <- my_number + 5
-
-my_number
+```{r, echo = FALSE, out.width = "450px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_reassign_add.png"))
 ```
 
 Finally, if we want to remove a variable from our environment, we can use `rm()`.
 
-```{r}
-rm(my_number)
+```{r, echo = FALSE, out.width = "450px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_rm.png"))
 ```
 
 ### Types of Variables
 
-<!--If a variable only has one value associated with it, we call it a `scalar`.-->Variables can be of four types (also shown in the table below): (1) `logical` values (also called `booleans`) that can be either `TRUE` or `FALSE`, (2) `integer` values, which are denoted by the suffix `L` and are whole numbers (i.e., numbers without decimal values), (3) `doubles` are numbers that include values before and after the decimal point (most `numeric` values in R default to doubles), and (4) `character` values (also called `strings`), which are pieces of text enclosed in quotation marks (`"`).
+<!--If a variable only has one value associated with it, we call it a `scalar`.-->Variables can be of four types (also shown in the table below): (1) `logical` values (also called `booleans`) that can be either `TRUE` or `FALSE`, (2) `integer` values, which are denoted by the suffix `L` and are whole numbers (i.e., numbers without decimal values), (3) `doubles`, which arenumbers that include values before and after the decimal point (most `numeric` values in R default to doubles), and (4) `character` values (also called `strings`), which are pieces of text enclosed in quotation marks (`"`).
 
 | Type            | Examples             |
 |-----------------|----------------------|   
@@ -219,7 +217,9 @@ rm(my_number)
 
 ### Vectors
 
-A collection of values is called a `vector`. In R, we use the `c()` command to concatenate (or combine) values. 
+#### Atomic Vectors
+
+A collection of values is called a `vector`. If they are all of the same type, we call them `atomic vectors`. In R, we use the `c()` command to concatenate (or combine) values into an `atomic vector`.
 
 ```{r}
 c(10, 20, 20, 40, 50, 60)
@@ -243,7 +243,7 @@ In order to select just one value from the vector, we use square brackets (`[]`)
 my_vector[3]
 ```
 
-If we want to replace a specific value in a vector, we use the assignment operator in conjunction with the square brackets.
+If we want to replace a specific value in a vector, we use the assignment operator (`<-`) in conjunction with the square brackets (`[]`).
 
 ```{r}
 my_vector[3] <- 30
@@ -251,7 +251,7 @@ my_vector[3] <- 30
 my_vector
 ```
 
-As with single-value objects, we can perform arithmetic operations on vectors, but the behaviour is not identical to single values. If the vectors are the same length, each value from one vector will be paired with the corresponding value from the other vector. See below for an example of this in action.
+As with single-value objects, we can perform arithmetic operations on vectors, but the behaviour is not identical to that for single values. If the vectors are the same length, each value from one vector will be paired with the corresponding value from the other vector. See below for an example of this in action.
 
 ```{r}
 my_vector
@@ -291,9 +291,14 @@ my_vector + my_vector_4
 
 ###### 1. Unlike most other coding languages (e.g., python), indices in R start at `1` instead of `0`. For instance, if you want to select the first element of a vector, you write `my_vector[1]` instead of `my_vector[0]`. A second difference to keep in mind is that, in R, `-` will remove the value matching that index value from the vector rather than counting back from the end of the string. By way of illustration, if your vector was `c(10, 20, 30, 40, 50, 60)` using `vector[-2]` in R would return `c(10, 30, 40, 50, 60)` and in python it would return `50`. {#foot_vector} 
 
+#### Lists
+
+If a vector has values of different types, we would use `list()` instead of `c()`. For example, if we want to create a vector with the values `10`, `"hello"`, and `TRUE` we would use `list(10, "hello", TRUE)`. We are not going to go too much into lists here. 
+
+
 ### Data Frames
 
-In R you will mostly be working with data frames. Data frames are technically lists of lists, but it is not important to discuss that here. For our purposes, we can think of data frames as a kind of matrix that can hold a bunch of different types of data^[2](#foot_dataframes)^. They have rows and columns and you can access values of the data frame by using certain commands.  
+In R you will mostly be working with data frames. Data frames are technically lists of atomic vectors, but it is not important to discuss that here. For our purposes, we can think of data frames as a spread sheet<!--^[2](#foot_dataframes)^-->. They have rows and columns and you can access values of the data frame by using certain commands.  
 
 Let's look at a data frame that is automatically loaded when you open R, `mtcars`. Type `mtcars` to print out the data frame. 
 
@@ -316,14 +321,14 @@ Since the rows and columns have names, we can also be explicit--in coding, the m
 mtcars["Datsun 710", "gear"]
 ```
 
-If you want to extract an entire column or an entire row, you just drop the idnex for the row or for the column, respectively. For example, to extract all values stored in the gear column, we can use `[, 10]` or `[, "gear"]`
+If you want to extract an entire column or an entire row, you just drop the idnex for the row or for the column, respectively. For example, to extract all values stored in the gear column, we drop the row index (e.g., `[, 10]` or `[, "gear"]`).
 
 ```{r}
 mtcars[, 10]
 mtcars[, "gear"]
 ```
 
-To extract all values associated with the Datsun 710, we can use `[3, ]` or `["Datsun 710", ]`.
+To extract all values associated with the Datsun 710, we drop the column index (e.g., `[3, ]` or `["Datsun 710", ]`)
 
 ```{r}
 mtcars[3, ]
@@ -336,7 +341,14 @@ You can also extract columns using `$` followed by the column name without quote
 mtcars$gear
 ```
 
-###### 2. There *is* a `matrix` type in R. An object that is of type `matrix` is only able to hold values of one type, while data frames are able to hold values of many different types. {#foot_dataframes} 
+If we want to extract multiple columns (or multiple rows) we can also use vectors. For example, if we wanted number of gears and carboraters of the Datsun 710 and the Duster 360 we can use `[c("Datsun 710", "Duster 360"), c("gear", "carb")]`.
+
+```{r}
+mtcars[c("Datsun 710", "Duster 360"), c("gear", "carb")]
+```
+
+
+<!--###### 2. There *is* a `matrix` type in R. An object that is of type `matrix` is only able to hold values of one type, while data frames are able to hold values of many different types. {#foot_dataframes}-->
 
 ## Functions {#functions}
 
@@ -346,7 +358,7 @@ Functions are essentially pre-packaged snippets of code that make your life easi
 length(c(10, 20, 30, 40, 50, 60))
 ```
 
-Another useful function is `mean()`, which takes a numeric vector as one of its arguments and returns the average of that fector as its output.
+Another useful function is `mean()`, which takes a numeric vector as one of its arguments and returns the average of that vector as its output.
 
 ```{r}
 mean(c(10, 20, 30, 40, 50, 60))
@@ -363,7 +375,7 @@ typeof("hello")
 typeof(TRUE)
 ```
 
-Using the suite of `as.*()` functions (e.g., `as.numeric()`, `as.character()`, `as.logical()`, `as.integer()`), we can coerce objects to other types.
+Using the suite of `as.*()` functions (e.g., `as.numeric()`, `as.character()`, `as.logical()`, `as.integer()`), we can also coerce objects to other types.
 
 ```{r}
 as.numeric("10")
@@ -464,7 +476,7 @@ We can use `t2d` to calculate the Cohen's *d* for a t-value of 3.00 with 300 par
 t2d(t = 3.00, n = 300)
 ```
 
-This is a small subset of the functions available in the `psych` package, and `psych` is only one package of over 11,000 on CRAN (as of 2018). This is not to mention the tens of thousands of packages hosted on online repositoris like GitHub.
+This is a small subset of the functions available in the `psych` package, and `psych` is only one package of over 11,000 on CRAN (as of 2018). This is not to mention the tens of thousands of packages hosted on online repositoris like GitHub. As Cory Costello noted during the R Bootcamp, the question in R is never *if* but *how*.
 
 <!--### Try `yarrr` commands-->
 
@@ -513,62 +525,74 @@ tat.sword.lm <- lm(formula = tattoos ~ sword.type,
 anova(tat.sword.lm)
 ```
 
-## Loading Data {#data}
+## Importing Data into R {#data}
 
-The finally topic that we will cover in this lab is how to load data. Over the course of your grad school careers (and in this class) there will many cases when you have data that you want to get into R to analyze. The present example 
+The final topic that we will cover in this lab is how to load data into R. Over the course of your grad school careers (and many times in this class) you will need to import data into R to be analyzed.
+
+For this example, we will be using the planet's dataset from Star Wars. [The data can be downloaded here.](https://docs.google.com/spreadsheets/d/1W577PILjAkOSTNw7r85jjHrJaaXuOkiPuQcu2yA6F58/export?format=xlsx)
+
+In the past, you would have to use file-type-specific functions to load data (e.g., `read.csv`, `read_excel`). The `rio` package streamlines this process by having a single import function (`import()`) that interprets the file type to be imported from its extension (e.g., `.csv`, `.xlsx`, `.sav`). As we did for `psych`, we will first need to install `rio`.
 
 ```{r, eval = FALSE}
 install.packages("rio")
 ```
 
+Second, we will need to load `rio`.
+
 ```{r}
 library(rio)
 ```
 
-[Download the data](https://docs.google.com/spreadsheets/d/1mOXibOSMMm-43oIkgVQffl_UAgOtwI19bc2uZZs_22Y/export?format=xlsx).
+Once this is does, importing the data is as easy as passing the location of the downloaded file to `import` and saving the data into a variable (called `planets_data` here). In this case, the `sw_planets.xlsx` was saved to my `downloads` folder. If it was in a folder called `data_sets` on my desktop, I would have used `"~/Downloads/data_sets/sw_people.xlsx"` as the argument.
 
-```{r}
-data <- import("~/Downloads/vox_hiphop_data.xlsx")
-library(ggplot2)
+```{r, eval = FALSE}
+planets_data <- import("~/Downloads/sw_planets.xlsx")
 ```
 
-```{r, warning = FALSE, message = FALSE}
-library(tidyverse)
-data %>%
-  mutate(era   = parse_number(era),
-         words = parse_number(words)) %>%
-  group_by(era) %>%
-  summarise(words_m = mean(words, na.rm =  TRUE),
-            count   = n()) %>%
-  ggplot(aes(x = era, y = words_m)) +
-    geom_smooth() +
-    theme_bw() +
-    labs(y = "Vocabulary",
-         x = "Era")
+We can look at the first six rows of the imported dataset by using the `head()` function.
+
+```{r, eval = FALSE}
+head(people_data)
 ```
 
 ***
 
-# Minihacks
+# Minihacks {#minihacks}
 
 ## Minihack 1: R Markdown
 
 Create an `R Markdown` document call `lab1_minihacks`.
 
-## Minihack 2: Arithmetic Commands
+## Minihack 2: Creating and Coercing Variables
 
-Use R to solve for $x$: $$x = \frac{(102 + 68) \times (3 + 2) + 1250}{50}$$
+Assign the intger `50` to a variable called `x`. Use `typeof()` to confirm that it is an integer.
 
-## Minihack 3: Creating Variables
+Assign the integer `50.` to a variable called `y`. Use `typeof()` to confirm that it is an integer.
+
+Assign the word `hello` to a variable called `my_character`. Use `typeof()` to confirm that it is a character.
+
+Assign the numbers `10`, `20`, and `30` to a vector called `my_vector`. 
+
+## Minihack 3: Arithmetic Commands
+
+In the console, use R to solve for $x$: $$x = \frac{(102 + 68) \times (3 + 2) + 1250}{50}$$
+
+Add numbers to numeric vector,  
 
 ## Minihack 4: Loading and installing packages
 
-Install and load the `Hmisc` packages. 
-
-Use the `capitalize()` function in the `Hmisc` package to capitalize the vector of character scalars you made in Minihack 2.
+Use the `capitalize()` function from the `Hmisc` package to capitalize `a_character_var` (the character variable created in Minihack 3). 
 
 ## Minihack 5: Using functions
 
 ## Minihack 6: Accessing help documentation
 
 Use the help documentation to learn how many arguments the function `unique` accepts. 
+
+## Minihack 7: Importing Data
+
+Download the [Star Wars' people dataset.](https://docs.google.com/spreadsheets/d/1AOYucRfucMR2TCBqzIdnlZoqXK4nyzPZCRzMztftCSg/export?format=xlsx). Import it into R.
+
+## Minihack 8: Indexing Data Frames
+
+
