@@ -17,9 +17,10 @@ options(scipen = 999)
 
 # Purpose
 
-The purpose of today's lab is not teach you everything there is to know about coding in R. It is not even to describe why the code in R works the way it does. Instead it takes an applied approach to R. We hope to provide you with a functional understanding of R so that you may begin to play around with the language.
+The purpose of today's lab is not teach you everything there is to know about coding in R. It is not even to describe why the code in R works the way it does. Instead, we take an applied approach to learning R. We hope that giving you a functional understanding of R and suggesting some strategies for overcoming coding obstacles you will be able to begin playing around with the language. As with other coding languages, getting hands-on experience with R is one of the fastest ways to learn the language.
 
 To that end, today's lab will cover:
+
 1. [How to download and install R and RStudio](#gs)
 1. [The panes of RStudio](#rstudio)
 1. [How to create and use R Markdown Documents](#rmarkdown)
@@ -28,13 +29,15 @@ To that end, today's lab will cover:
 1. [How to install and load packages](#packages) and...
 1. [How to load data](#data)
 
-After we have discusssed the content of the lab, we will move onto [Minihacks](#minihacks).
+After we have covered the lab content, we will move on to [Minihacks](#minihacks). Minihacks are small coding projects intended to test your knowledge of the day's material. The minihacks will be similar to, but slightly narrower in focus, than the homework questions. If you are able succesfully complete all the minihacks, you should be well equipped to tackle the homeworks. 
 
 ***
 
 # Getting Started {#gs}
 
-R is a highly flexible and mostly intuitive open-source programming language used for data science. It is relatively new compared to other programming languages, but it has an engaged following of data scientists and developers.
+So what is R? 
+
+In the simplest possible terms, R is a programming language used for conducting analyses and producing graphics. It is substantially more flexible than GUI-based statistics programs (e.g., SPSS, LISREL), but less flexible compared to other programming languages. In this case, its lack of flexibility is an asset; it allows the code to written in a far more efficient and intuitive way than other programming languages. R *is* relatively new compared to other programming languages, but it is quickly becoming one of the most used languages by data scientists.
 
 ![](`r here::here("labs", "resources", "lab1", "other", "lab1_flow.png")` "Flow")
 
@@ -221,70 +224,50 @@ knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "l
 
 A collection of values is called a `vector`. If they are all of the same type, we call them `atomic vectors`. In R, we use the `c()` command to concatenate (or combine) values into an `atomic vector`.
 
-```{r}
-c(10, 20, 20, 40, 50, 60)
+```{r, echo = FALSE, out.width = "350px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vector.png"))
 ```
 
 Just as we did with the `scalar` values above, we can assign a vector to a variable.
 
-```{r}
-my_vector <- c(10, 20, 20, 40, 50, 60)
+```{r, echo = FALSE, out.width = "350px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_assign.png"))
 ```
 
 To print out the entire vector, we can simply type `my_vector` into the console.
 
-```{r}
-my_vector
+```{r, echo = FALSE, out.width = "350px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_print.png"))
 ```
 
 In order to select just one value from the vector, we use square brackets (`[]`). For example, if we wanted the third value from `my_vector` we would type `my_vector[3]`^[1](#foot_vector)^. 
 
-```{r}
-my_vector[3]
+```{r, echo = FALSE, out.width = "350px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_index.png"))
 ```
 
 If we want to replace a specific value in a vector, we use the assignment operator (`<-`) in conjunction with the square brackets (`[]`).
 
-```{r}
-my_vector[3] <- 30
-
-my_vector
+```{r, echo = FALSE, out.width = "350px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_index_assign.png"))
 ```
 
 As with single-value objects, we can perform arithmetic operations on vectors, but the behaviour is not identical to that for single values. If the vectors are the same length, each value from one vector will be paired with the corresponding value from the other vector. See below for an example of this in action.
 
-```{r}
-my_vector
-
-my_vector_2 <- c(1, 2, 3, 4, 5, 6)
-
-my_vector_2
-
-my_vector + my_vector_2
+```{r, echo = FALSE, out.width = "350px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_add.png"))
 ```
 
 If the vectors of different lengths, the shorter vector will be recycled (i.e., repeated) to be the same length as the longer vector.
 
-```{r}
-my_vector
-
-my_vector_3 <- c(1000, 2000)
-
-my_vector_3
-
-my_vector + my_vector_3
+```{r, echo = FALSE, out.width = "350px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_recycle.png"))
 ```
 
 This also works when the longer vector is not a multiple of the shorter vector, but you will get the warning: `longer object length is not a multiple of shorter object length`.
 
-```{r}
-my_vector
-
-my_vector_4 <- c(1000, 2000, 3000, 4000)
-
-my_vector_4
-
-my_vector + my_vector_4
+```{r, echo = FALSE, out.width = "350px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_recycle_odd.png"))
 ```
 
 ***
@@ -293,49 +276,54 @@ my_vector + my_vector_4
 
 #### Lists
 
-If a vector has values of different types, we would use `list()` instead of `c()`. For example, if we want to create a vector with the values `10`, `"hello"`, and `TRUE` we would use `list(10, "hello", TRUE)`. We are not going to go too much into lists here. 
+A vector that can accomodate more than one type of value (e.g., a `double` AND a `character`) is called a `list`. To create a list, we use `list()` instead of `c()`. For instance, if we wanted to create a vector with the values `10`, `"hello"`, and `TRUE` we would use `list(10, "hello", TRUE)` as shown below.
 
+```{r, echo = FALSE, out.width = "300px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_lists.png"))
+```
+
+
+Although `lists` are an incredibly powerful type of data structure, dealing with them can be quite frustrating (especially for beginning coders). Since you are unlikely to need to know the inner workings of `list`s for anything we will be doing in this course, I have chosen not to include much about them here. However, as you become a more advanced user, learning to leverage lists will make your code far more efficient. 
 
 ### Data Frames
 
-In R you will mostly be working with data frames. Data frames are technically lists of atomic vectors, but it is not important to discuss that here. For our purposes, we can think of data frames as a spread sheet<!--^[2](#foot_dataframes)^-->. They have rows and columns and you can access values of the data frame by using certain commands.  
+In R you will mostly be working with data frames. A dataframe is technically a list of atomic vectors. For our purposes, we can think of data frames as a spread sheet that has columns for variables and rows for observations. 
 
 Let's look at a data frame that is automatically loaded when you open R, `mtcars`. Type `mtcars` to print out the data frame. 
 
-```{r}
-mtcars
+```{r, echo = FALSE, out.width = "600px"}
+knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_mtcars.png"))
 ```
 
-The data frame `mtcars` has a row for 32 cars featured in the *1974 Motor Trend* magazine. There is a row for the car's miles per gallon (`mpg`), number of cylinders (`cyl`), engine displacement (`disp`), horse power (`hp`), rear axle ratio (`drat`), weight in thousands of pounds (`wt`), quarter mile time (`qsec`), engine shape (`vs`), transmission type (`am`), number of forward gears (`gear`), and number of carburetors
-(`carb`).
+The data frame `mtcars` has a row for 32 cars featured in the *1974 Motor Trend* magazine. There is a row for the car's miles per gallon (`mpg`), number of cylinders (`cyl`), engine displacement (`disp`), horse power (`hp`), rear axle ratio (`drat`), weight in thousands of pounds (`wt`), quarter-mile time (`qsec`), engine shape (`vs`), transmission type (`am`), number of forward gears (`gear`), and number of carburetors (`carb`).
 
-With data frames, you can extract a value by including `[row, col]` immediately after the object. For example, if we wanted to extract the number of gears in the `Datsun 710` we could use `mtcars[3, 10]` to extract the value of the third row in the tenth column.
+With data frames, you can extract a value by including `[row, col]` immediately after the object. For example, if we wanted to extract the value for the number of gears in the `Datsun 710` we could use `mtcars[3, 10]` to extract the value of the third row in the tenth column.
 
 ```{r}
 mtcars[3, 10]
 ```
 
-Since the rows and columns have names, we can also be explicit--in coding, the more explicit the better--and use the name of the row and the name of the column instead of the row and column indices.
+Since the rows and columns have names, we can also be explicit and use the name of the row and the name of the column instead of the row and column indices.
 
 ```{r}
 mtcars["Datsun 710", "gear"]
 ```
 
-If you want to extract an entire column or an entire row, you just drop the idnex for the row or for the column, respectively. For example, to extract all values stored in the gear column, we drop the row index (e.g., `[, 10]` or `[, "gear"]`).
+If you want to extract an entire column or an entire row, you can drop the index value for the row or column, respectively. Since you don't specify a given row or column that you want, the computer assumes you want all values. For example, to extract all values stored in the gear column, we drop the row index (e.g., `[, 10]` or `[, "gear"]`).
 
 ```{r}
 mtcars[, 10]
 mtcars[, "gear"]
 ```
 
-To extract all values associated with the Datsun 710, we drop the column index (e.g., `[3, ]` or `["Datsun 710", ]`)
+To extract all values associated with the `Datsun 710`, we drop the column index (e.g., `[3, ]` or `["Datsun 710", ]`)
 
 ```{r}
 mtcars[3, ]
 mtcars["Datsun 710", ]
 ```
 
-You can also extract columns using `$` followed by the column name without quotes. 
+You can also extract columns using `$` followed by the column name without quotes.
 
 ```{r}
 mtcars$gear
@@ -347,26 +335,28 @@ If we want to extract multiple columns (or multiple rows) we can also use vector
 mtcars[c("Datsun 710", "Duster 360"), c("gear", "carb")]
 ```
 
-
-<!--###### 2. There *is* a `matrix` type in R. An object that is of type `matrix` is only able to hold values of one type, while data frames are able to hold values of many different types. {#foot_dataframes}-->
-
 ## Functions {#functions}
 
-Functions are essentially pre-packaged snippets of code that make your life easier. A function takes input (called `arguments`) and returns output (called `values`). For example, `length()` function takes a vector as its sole argument and returns the length of the vector as its value. 
+Functions are essentially pre-packaged snippets of code that make your life easier. A function takes one or more pieces of input (called `arguments`) and returns one or more pieces called output (called `values`). For example, `length()` is a function that takes a vector as its sole argument and returns the length of the vector as its value. 
 
 ```{r}
 length(c(10, 20, 30, 40, 50, 60))
 ```
 
-Another useful function is `mean()`, which takes a numeric vector as one of its arguments and returns the average of that vector as its output.
+The function `unique()` also takes a vector as its primary argument, but---instead of returning the length of the vector as its value---it returns the vector's unique values.
+
+```{r}
+unique(c("condition_a", "condition_a", "condition_b", "condition_a", "condition_b"))
+```
+
+The `mean()` function and `sd()` function are two functions that you will end up using a lot. The former takes a numeric vector as one of its arguments and returns the average of that vector as its output. The latter also takes a numeric vector as one of its arguments, but it returns the standard deviation of that vector as its output. 
 
 ```{r}
 mean(c(10, 20, 30, 40, 50, 60))
+sd(c(10, 20, 30, 40, 50, 60))
 ```
 
-We can also see the type of any object using the function `typeof()`
-
-The function `typeof()` takes any object and tells you what type of variable it is.
+Although it is more conceptual, it would also be useful to mention the `typeof()` function here. The function `typeof()` takes any object and tells you what type of variable it is.
 
 ```{r}
 typeof(10L)
@@ -397,7 +387,7 @@ Sometimes when working in R you will want to know more about a function. For exa
 
 From the help documentation we can see that `sd` takes two arguments: (1) An R object and (2) a `TRUE` or `FALSE` statement indicating whether `NA`s (unknown values) should be removed before the standard deviation is calculated. 
 
-Normally R will infer, based on the order, what values you are passing to what argument. For example, since `sd()` expects that the argument `x` will be provided first and the argument `na.rm` will be provided second, the following works:
+Normally R will infer, based on the order, what values are being passed as what argument. For example, since `sd()` expects that the argument `x` will be provided first and the argument `na.rm` will be provided second, the following works:
 
 ```{r}
 sd(c(10, 20, 30, 40, 50, 60), FALSE)
@@ -426,16 +416,15 @@ Comments are pieces of text that are not interpreted by the computer. They are m
 
 ## Packages {#packages}
 
-A `package` can include code, documentation for that code, and data. A helpful way to think of packages is as a toolbox full of data analysis tools (e.g., functions).
+A `package` can include code, documentation for that code, and/or data. A helpful way to think of packages is as a toolbox full of data analysis tools. 
 
 ![](`r here::here("labs", "resources", "lab1", "packages", "psych_toolbox_2.png")` "RStudio Source Pane")
 
- There are general purpose toolboxes that contain tools for running common analyses in psychology (e.g., `psych`), toolboxes for helping your run advanced statistical models (e.g., `lavaan`; `lmer`), toolboxes for text mining (e.g., `tidytext`), and toolboxes for plotting (e.g., `ggplot2`, `gganimate`). If you have a problem that needs to be solved, there will probably be a package for it. 
+There are general purpose toolboxes that contain tools for running common analyses in psychology (e.g., `psych`), toolboxes for helping your run advanced statistical models (e.g., `lavaan`; `lmer`), toolboxes for text mining (e.g., `tidytext`), and toolboxes for plotting (e.g., `ggplot2`, `gganimate`). If you have a problem that needs to be solved, there will probably be a package for it. 
 
 ### Installing packages
 
-To install a package onto your computer, you simply pass the name of the package to `install.packages()`. As a demonstration, we install the `psych` package below. The `psych` package is used to easily load data into R. You generally only need to install a package once.  
-
+To install a package onto your computer, you simply pass the name of the package to `install.packages()`. As a demonstration, we install the `psych` package below. The `psych` package has a panoply of useful data analysis tools for psychologists. You generally only need to install a package once.  
 ```{r, eval = FALSE}
 install.packages("psych")
 ```
@@ -444,13 +433,13 @@ install.packages("psych")
 
 ### Loading a package
 
-Just because we've installed a package to our computer doesn't mean we have access to its functions. Buying a toolbox doesn't necessarily give you access to its tools. You also have to open the toolbox. In other words, we need to explicitely tell R that we want access to the functions. You only need to do this once per R session. 
-
-To load the `psych` package and make its tools available to us, we use `library()`.
+Just because we've installed a package to our computer doesn't mean we have access to its functions. Buying a toolbox doesn't necessarily give you access to its tools. You also have to open the toolbox. To open the toolbox and load its tools, we use `library()`. Below we load the `psych` pacakge.
 
 ```{r}
 library(psych)
 ```
+
+We have to load a package every time R is restarted.
 
 *Note.* A package can be loaded with or without quotes: `library("psych")` **OR** `library(psych)`.
 
@@ -476,7 +465,7 @@ We can use `t2d` to calculate the Cohen's *d* for a t-value of 3.00 with 300 par
 t2d(t = 3.00, n = 300)
 ```
 
-This is a small subset of the functions available in the `psych` package, and `psych` is only one package of over 11,000 on CRAN (as of 2018). This is not to mention the tens of thousands of packages hosted on online repositoris like GitHub. As Cory Costello noted during the R Bootcamp, the question in R is never *if* but *how*.
+This is only a small subset of the functions available in the `psych` package, and `psych` is only one package of over 11,000 on CRAN (as of 2018). This is not to mention the tens of thousands of packages hosted on online repositories like (GitHub)[https://github.com]. As Cory Costello noted during R Bootcamp, the question in R is never *if* but *how*.
 
 <!--### Try `yarrr` commands-->
 
@@ -531,7 +520,7 @@ The final topic that we will cover in this lab is how to load data into R. Over 
 
 For this example, we will be using the planet's dataset from Star Wars. [The data can be downloaded here.](https://docs.google.com/spreadsheets/d/1W577PILjAkOSTNw7r85jjHrJaaXuOkiPuQcu2yA6F58/export?format=xlsx)
 
-In the past, you would have to use file-type-specific functions to load data (e.g., `read.csv`, `read_excel`). The `rio` package streamlines this process by having a single import function (`import()`) that interprets the file type to be imported from its extension (e.g., `.csv`, `.xlsx`, `.sav`). As we did for `psych`, we will first need to install `rio`.
+When I took this course, you would have to use file-type-specific functions to load data (e.g., `read.csv`, `read_excel`). The `rio` package streamlines this process by having a single import function (`import()`) that interprets the file type to be imported from its extension (e.g., `.csv`, `.xlsx`, `.sav`). As we did for `psych`, we will first need to install `rio`.
 
 ```{r, eval = FALSE}
 install.packages("rio")
@@ -543,56 +532,67 @@ Second, we will need to load `rio`.
 library(rio)
 ```
 
-Once this is does, importing the data is as easy as passing the location of the downloaded file to `import` and saving the data into a variable (called `planets_data` here). In this case, the `sw_planets.xlsx` was saved to my `downloads` folder. If it was in a folder called `data_sets` on my desktop, I would have used `"~/Downloads/data_sets/sw_people.xlsx"` as the argument.
+Once this is done, importing the data is as easy as passing the location of the downloaded file to `import` and saving the data into a variable (called `planets_data` here). In this case, the `sw_planets.xlsx` was saved to my `downloads` folder. If it was in a folder called `data_sets` on my desktop, I would have used `"~/Downloads/data_sets/sw_people.xlsx"` as the argument.
 
 ```{r, eval = FALSE}
 planets_data <- import("~/Downloads/sw_planets.xlsx")
 ```
 
-We can look at the first six rows of the imported dataset by using the `head()` function.
+The tilde (`~`) in the above string is a shortcut for the home directory on my computer. On my computer, it represents `/Users/cameronkay`. Replacing the tilde with the path to the home directory should have the exact same result as using the tilde.
+
+```{r, eval = FALSE}
+planets_data <- import("/Users/cameronkay/Downloads/sw_planets.xlsx")
+```
+
+To ensure it was read in properly, we can look at the first six rows of the imported dataset by using the `head()` function and the last six rows by using the `tail()` function.
 
 ```{r, eval = FALSE}
 head(people_data)
+tail(people_data)
 ```
 
 ***
 
 # Minihacks {#minihacks}
 
-## Minihack 1: R Markdown
+## Minihack 1: Create an R Markdown Document
 
-Create an `R Markdown` document call `lab1_minihacks`.
+1. Create an `R Markdown` document called `lab1_minihacks`.
 
-## Minihack 2: Creating and Coercing Variables
+## Minihack 2: Arithmetic Commands
 
-Assign the intger `50` to a variable called `x`. Use `typeof()` to confirm that it is an integer.
+1. Use R to solve for $x$: $$x = \frac{(102 + 68) \times (3 + 2) + 1250}{50}$$
 
-Assign the integer `50.` to a variable called `y`. Use `typeof()` to confirm that it is an integer.
+1. Assign the $x$ to a variable called `x`. 
 
-Assign the word `hello` to a variable called `my_character`. Use `typeof()` to confirm that it is a character.
+1. Assign the numbers `10`, `20`, and `30` to a vector called `y`.
 
-Assign the numbers `10`, `20`, and `30` to a vector called `my_vector`. 
+1. Add `x` to the length of `y` (*hint.* Use `length()`), and assign the result to a variable called `z`.
 
-## Minihack 3: Arithmetic Commands
+## Minihack 3: Functions
 
-In the console, use R to solve for $x$: $$x = \frac{(102 + 68) \times (3 + 2) + 1250}{50}$$
+1. Assign the string `"I AM NOT YELLING"` to a variable called `exclamation`.
 
-Add numbers to numeric vector,  
+1. Use the function `tolower()` to uncapitalize `exclamation`. Assign the result to `exclamation`.
 
-## Minihack 4: Loading and installing packages
+1. Use the `capitalize()` function from the `Hmisc` package to capitalize the first letter of `exclamation` (*hint.* You will need to install and load `Hmisc`).
 
-Use the `capitalize()` function from the `Hmisc` package to capitalize `a_character_var` (the character variable created in Minihack 3). 
+## Minihack 4: Accessing Help Documentation
 
-## Minihack 5: Using functions
+1. I wanted to create a vector of `5` values between `10` and `50` using `seq()`, but the code I wrote is creating a vector of 9 values between `10` and `50`. I believe it has something to do with the arguments I used, but I can't remember how to access the help documention to check. Without changing the values, can you fix my code?
 
-## Minihack 6: Accessing help documentation
+```{r}
+seq(10, 50, 5)
+```
 
-Use the help documentation to learn how many arguments the function `unique` accepts. 
+## Minihack 5: Data Frames
 
-## Minihack 7: Importing Data
+1. Download the [Star Wars' people dataset](https://docs.google.com/spreadsheets/d/1AOYucRfucMR2TCBqzIdnlZoqXK4nyzPZCRzMztftCSg/export?format=xlsx).
 
-Download the [Star Wars' people dataset.](https://docs.google.com/spreadsheets/d/1AOYucRfucMR2TCBqzIdnlZoqXK4nyzPZCRzMztftCSg/export?format=xlsx). Import it into R.
+1. Import the data into R and assign it to a variable called `people_data`. 
 
-## Minihack 8: Indexing Data Frames
+1. Using `$` and `mean()`, calculate the mean age of the characters from Star Wars. (*hint.* You may need to supply an additional argument to exclude *NA*s). 
+
+1. Extract `Lando Calrissian`'s homeworld from the dataset using square brackets (`[]`) and assign to a variable called `landos_homeworld`. 
 
 
