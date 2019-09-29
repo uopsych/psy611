@@ -282,8 +282,7 @@ A vector that can accomodate more than one type of value (e.g., a `double` AND a
 knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_lists.png"))
 ```
 
-
-Although `lists` are an incredibly powerful type of data structure, dealing with them can be quite frustrating (especially for beginning coders). Since you are unlikely to need to know the inner workings of `list`s for anything we will be doing in this course, I have chosen not to include much about them here. However, as you become a more advanced user, learning to leverage lists will make your code far more efficient. 
+Although `lists` are an incredibly powerful type of data structure, dealing with them can be quite frustrating (especially for beginning coders). Since you are unlikely to need to know the inner workings of `list`s for anything we will be doing in this course, I have chosen not to include much about them here. However, as you become a more advanced user, learning to leverage lists will allow you to write code that is far more efficient.
 
 ### Data Frames
 
@@ -297,26 +296,26 @@ knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "l
 
 The data frame `mtcars` has a row for 32 cars featured in the *1974 Motor Trend* magazine. There is a row for the car's miles per gallon (`mpg`), number of cylinders (`cyl`), engine displacement (`disp`), horse power (`hp`), rear axle ratio (`drat`), weight in thousands of pounds (`wt`), quarter-mile time (`qsec`), engine shape (`vs`), transmission type (`am`), number of forward gears (`gear`), and number of carburetors (`carb`).
 
-With data frames, you can extract a value by including `[row, col]` immediately after the object. For example, if we wanted to extract the value for the number of gears in the `Datsun 710` we could use `mtcars[3, 10]` to extract the value of the third row in the tenth column.
+With data frames, you can extract a value by including `[row, col]` immediately after the object. For example, if we wanted to extract the value for the number of gears in the `Datsun 710` we could use `mtcars[3, 10]` to extract the value stored in the third row, tenth column.
 
 ```{r}
 mtcars[3, 10]
 ```
 
-Since the rows and columns have names, we can also be explicit and use the name of the row and the name of the column instead of the row and column indices.
+Since the rows and columns have names, we can also be explicit and use the name of the row (`"Datsun  710"`) and the name of the column (`"gear"`) instead of the row and column indices.
 
 ```{r}
 mtcars["Datsun 710", "gear"]
 ```
 
-If you want to extract an entire column or an entire row, you can drop the index value for the row or column, respectively. Since you don't specify a given row or column that you want, the computer assumes you want all values. For example, to extract all values stored in the gear column, we drop the row index (e.g., `[, 10]` or `[, "gear"]`).
+If you want to extract an entire column, you can drop the index value for the row. Since you don't specify a given row, the computer assumes you want all of the values in the column. For example, to extract all values stored in the gear column, we drop the row index (e.g., `[, 10]` or `[, "gear"]`).
 
 ```{r}
 mtcars[, 10]
 mtcars[, "gear"]
 ```
 
-To extract all values associated with the `Datsun 710`, we drop the column index (e.g., `[3, ]` or `["Datsun 710", ]`)
+To extract an entire row, we drop the column index. To extract all of the values associated with the `Datsun 710` we would drop the column index (e.g., `[3, ]` or `["Datsun 710", ]`)
 
 ```{r}
 mtcars[3, ]
@@ -329,10 +328,12 @@ You can also extract columns using `$` followed by the column name without quote
 mtcars$gear
 ```
 
-If we want to extract multiple columns (or multiple rows) we can also use vectors. For example, if we wanted number of gears and carboraters of the Datsun 710 and the Duster 360 we can use `[c("Datsun 710", "Duster 360"), c("gear", "carb")]`.
+If we want to extract multiple columns (or multiple rows) we can also use vectors. For example, if we wanted number of gears and carboraters of the Datsun 710 and the Duster 360 we can use `[c("Datsun 710", "Duster 360"), c("gear", "carb")]` or `[c(3, 7), c(10:11)]`.
 
 ```{r}
 mtcars[c("Datsun 710", "Duster 360"), c("gear", "carb")]
+
+mtcars[c(3, 7), c(10:11)]
 ```
 
 ## Functions {#functions}
@@ -346,13 +347,18 @@ length(c(10, 20, 30, 40, 50, 60))
 The function `unique()` also takes a vector as its primary argument, but---instead of returning the length of the vector as its value---it returns the vector's unique values.
 
 ```{r}
-unique(c("condition_a", "condition_a", "condition_b", "condition_a", "condition_b"))
+unique(c("cond_a", "cond_a", "cond_b", "cond_a", "cond_b"))
 ```
 
-The `mean()` function and `sd()` function are two functions that you will end up using a lot. The former takes a numeric vector as one of its arguments and returns the average of that vector as its output. The latter also takes a numeric vector as one of its arguments, but it returns the standard deviation of that vector as its output. 
+The `mean()` function and `sd()` function are two functions that you will end up using a lot. The former (`mean()`) takes a numeric vector as one of its arguments and returns the average of that vector as its output.
 
 ```{r}
 mean(c(10, 20, 30, 40, 50, 60))
+```
+
+The latter (`sd()`) also takes a numeric vector as one of its arguments, but it returns the standard deviation of that vector as its output. 
+
+```{r}
 sd(c(10, 20, 30, 40, 50, 60))
 ```
 
@@ -370,14 +376,13 @@ Using the suite of `as.*()` functions (e.g., `as.numeric()`, `as.character()`, `
 ```{r}
 as.numeric("10")
 as.character(10)
-as.character(TRUE)
-as.numeric(TRUE)
+as.logical(1)
 as.integer(10.30)
 ```
 
 ## Help Documentation
 
-Sometimes when working in R you will want to know more about a function. For example, you might want to know what arguments the function `sd` takes. You can use `?` at the beginning of any function call to display the help documentation.
+Sometimes when working in R you will want to know more about a function. For example, you might want to know what arguments the function `sd()` takes. You can use `?` at the beginning of any function call to display the help documentation.
 
 ```{r, eval = FALSE}
 ?sd
@@ -385,7 +390,7 @@ Sometimes when working in R you will want to know more about a function. For exa
 
 ![](`r here::here("labs", "resources", "lab1", "lab1_help.png")` "Help Documentation")
 
-From the help documentation we can see that `sd` takes two arguments: (1) An R object and (2) a `TRUE` or `FALSE` statement indicating whether `NA`s (unknown values) should be removed before the standard deviation is calculated. 
+From the help documentation we can see that `sd()` takes two arguments: (1) An R object and (2) a `TRUE` or `FALSE` statement indicating whether `NA`s (unknown values) should be removed before the standard deviation is calculated. 
 
 Normally R will infer, based on the order, what values are being passed as what argument. For example, since `sd()` expects that the argument `x` will be provided first and the argument `na.rm` will be provided second, the following works:
 
@@ -401,15 +406,26 @@ sd(x = c(10, 20, 30, 40, 50, 60), na.rm = FALSE)
 
 The help documentation for a function also often includes an example of how to use the function and details on what the output will be.
 
-<!--## Comments
+## Comments
 
-Comments are pieces of text that are not interpreted by the computer. They are mostly used as a way to remind yourself what your code is doing or why you did something a certain way. In R we use the octothorp/pound-sign/hashmark/hashtag at the beginning of the line to denote a comment. In the example below, the first and third line of code would not not be evaluated while the second and fourth line would be.-->
+Comments are pieces of code text that are not interpreted by the computer. In R we use the octothorpe/pound sign/hashtag (`#`) at the beginning of the line to denote a comment. The first and third line of code below are not evaluated, whereas the second and fourth line are.
 
-```{r, eval = FALSE, include = FALSE}
+```{r}
 # 1 + 1
 2 + 2
 # 3 + 3
 4 + 4
+```
+
+Comments are mostly used to remind yourself (or other people) what a piece of code does **AND** why the code is written the way it is. Below is a piece of code that checks if a string is a valid phone number. 
+
+```{r}
+# assign the phone number
+phone_number <-  "(541)-346-4921" 
+
+# validate the phone number; I did not account for country codes because all of
+# the numbers are either from the US or Canada
+grepl("^\\(*\\d{3}\\)*( |-)*\\d{3}( |-)*\\d{4}$", phone_number)
 ```
 
 ***
@@ -453,13 +469,13 @@ Using `corr.test()` we can make a correlation matrix of the variables in `mtcars
 corr.test(mtcars)
 ```
 
-Using `skew`, we can look at the skew of all of the columns in `mtcars`.
+Using `skew()`, we can look at the skew of all of the columns in `mtcars`.
 
 ```{r}
 skew(mtcars)
 ```
 
-We can use `t2d` to calculate the Cohen's *d* for a t-value of 3.00 with 300 participants.
+We can use `t2d()` to calculate the Cohen's *d* for a t-value of 3.00 with 300 participants.
 
 ```{r}
 t2d(t = 3.00, n = 300)
@@ -555,7 +571,7 @@ tail(people_data)
 
 # Minihacks {#minihacks}
 
-## Minihack 1: Create an R Markdown Document
+## Minihack 1:  R Markdown
 
 1. Create an `R Markdown` document called `lab1_minihacks`.
 
@@ -587,12 +603,45 @@ seq(10, 50, 5)
 
 ## Minihack 5: Data Frames
 
-1. Download the [Star Wars' people dataset](https://docs.google.com/spreadsheets/d/1AOYucRfucMR2TCBqzIdnlZoqXK4nyzPZCRzMztftCSg/export?format=xlsx).
+1. Download the [Marvel character dataset](https://docs.google.com/spreadsheets/d/1n59gFMfvLXN1rUwRjFV5qf5VNp3im_bj6AgHuv7mXTs/export?format=xlsx).
 
-1. Import the data into R and assign it to a variable called `people_data`. 
+1. Import the data into R and assign it to a variable called `marvel_data`. 
 
-1. Using `$` and `mean()`, calculate the mean age of the characters from Star Wars. (*hint.* You may need to supply an additional argument to exclude *NA*s). 
+1. Using `mean()`, calculate the average number of appearences of marvel characters. Assign the result to a variable called `mean_appearances`.
 
-1. Extract `Lando Calrissian`'s homeworld from the dataset using square brackets (`[]`) and assign to a variable called `landos_homeworld`. 
+1.  Install and load the package `ggplot2` (or `tidyverse`).
+
+1. If you succesfully completed the proceeding steps, you should be able to run the following code. 
+
+```{r, eval = FALSE}
+ggplot(marvel_data, aes(x      = reorder(align, -appearances), 
+                        y      = appearances,
+                        fill   = align)) +
+  geom_bar(stat = "summary", fun.y = "mean") +
+  geom_point(shape    = 21,
+             alpha    = .7,
+             position = position_jitter(w = 0.4, h = 0)) +
+  geom_hline(yintercept = mean_appearances,
+             linetype   = "twodash",
+             lwd        = 1,
+             colour     = "firebrick") +
+  annotate(geom   = "text", 
+           x      = 3, 
+           y      = 800, 
+           size   = 5,
+           label  = paste("Mean = ", round(mean_appearances, 2)),
+           colour = "firebrick") +
+  scale_fill_viridis_d() +
+  theme_bw(base_size = 15) +
+  theme(legend.position = "none") + 
+  labs(title    = "Alignment and Appearances",
+       subtitle = "Marvel character appearances by alignment",
+       x        = "Alignment",
+       y        = "Appearances")
+```
+
+
+
+
 
 
