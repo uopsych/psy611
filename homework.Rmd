@@ -1,0 +1,13 @@
+---
+title: "Homework Assignments"
+output: 
+  html_document:
+    toc: TRUE
+    toc_depth: 2
+    toc_float: TRUE
+    theme: cosmo
+---
+
+Homework assignments will appear here. You'll be able to access the assignment, as well as any data that may be used. Homework assignments will be posted **at least one week** before they are due. Submit homework assignments to the course instructor by the due date and time. Homework assignments are due prior to the start of the first lab section on the day they are listed. 
+
+*No homework assignments are available at this time.*
