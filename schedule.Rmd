@@ -23,28 +23,28 @@ LSR readings can be found in the free, online textbook, [_Learning Statistics wi
 | 3    | 10/15 | Matrix algebra                 |                    | Quiz 2     |             |
 | -    | 10/17 | Probability                            | LSR Intro to Part IV and Ch 9.1-9.3   |   |             |
 | -    | 10/18 | _Lab: Matrix multiplication_           |                    |            |             |
-| 4    | 10/22 | Probability                            | LSR Ch 9.4                   |  Quiz 3    |             |
+| 4    | 10/22 | Probability                            | LSR Ch 9.4                   |  Quiz 3    |            |
 | -    | 10/24 | Probability                            | LSR Ch 9.5-9.6, [Wetzels et al. (2011)](readings/Wetzels_etal_2011.pdf)|  |             |
-| -    | 10/25 | _Lab: Probability distributions_       |                    |            |             |
-| 5    | 10/29 | Sampling                               | LSR Ch 10          |  Quiz 4    |             |
+| -    | 10/25 | _Lab: Probability distributions_       |                    |            | HW 1 Due      |
+| 5    | 10/29 | Sampling                               | LSR Ch 10          |  Quiz 4    |            |
 | -    | 10/31 | Hypothesis testing                     | LSR Ch 11          |            |             |
 | -    | 11/01 | _Lab: Data wrangling_                  |                    |            |             |
 | 6    | 11/05 | Hypothesis testing                     | [Sainani (2012)](readings/Sainani_2012.pdf) | Quiz 5      |             |
 | -    | 11/07 | Critiques of hypothesis testing        | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf) [Cumming (2014)](readings/Cumming_2014.pdf) [Hullman (2019)](https://www.scientificamerican.com/article/how-to-get-better-at-embracing-unknowns/)                                           |            |             |
-| -    | 11/08 | _Lab: Graphing with ggplot2_           |                    |                      |            |             |
+| -    | 11/08 | _Lab: Graphing with ggplot2_           |                    |                      | HW 2 Due           |             |
 | 7    | 11/12 | Open Science                           | [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/)         | Quiz 6     |             |
 | -    | 11/14 | Categorical data analysis              | LSR Ch 12          |            |             |
 | -    | 11/15 | _Lab: Chi-square tests_                |                    |            |             |
 | 8    | 11/19 | One-sample tests and GLM                      | LSR Ch 13.1-13.2   | Quiz 7    |             |
 | -    | 11/21 | Comparing two means                    | LSR Ch 13.3-13.11  |            |             |
-| -    | 11/22 | _Lab: One- and indepedent sample t-tests_  |                    |            |             |
+| -    | 11/22 | _Lab: One- and indepedent sample t-tests_  |                    |            | HW 3 Due          |
 | 9    | 11/26 | Comparing two means                    |                    | Quiz 8     |             |
 | -    | 11/28 | __Thanksgiving__                       |                    |            |             |
 | -    | 11/29 | _Lab: No Lab_                          |                    |            |             |
 | 10   | 12/03 | Comparing two means                    |                    |            |             |
 | -    | 12/05 | Comparing two means                    |                    |  Quiz 9    |             |
 | -    | 12/06 | _Lab: Paired sample t-tests_           |                    |            |             |
-
+|Finals| 12/13 |                                        |                    |            | HW 4 Due [^1]  9am|         
 **Final:** Oral exam will take place the week of December 10.
 
 # Graded materials
@@ -65,7 +65,7 @@ Quizzes may be resubmitted with corrections and receive full credit. To resubmit
 
 Homework assignments are intended to gauge your ability to apply the topics covered in class to the practice of data analysis. Homework assignments are to be done using R and RMarkdown; completed assignments should be emailed to Dr. Weston and students must attach both the .Rmd file and the compiled HTML file. 
 
-Homework assignments are due at the time class starts on the day the assignment is listed. Homework assignments may be resubmitted with corrections and receive full credit. Please note, however, that corrections can only be made to problems that were answered at initial submission. There is no limit to the number of times a homework assignment may be resubmitted.
+Homework assignments are due at the time the first lab starts on the day the assignment is listed. Homework assignments may be resubmitted with corrections and receive full credit. Please note, however, that corrections can only be made to problems that were answered at initial submission. There is no limit to the number of times a homework assignment may be resubmitted.
 
 Late assignments will receive 50\% of the points earned. For example, if you correctly answer questions totalling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points.
 
@@ -97,3 +97,5 @@ All reading assignments will be posted online.
 **Cheating and plagarism.** Any student caught cheating on an assignment, quiz, or exam will receive a 0 on that assignment. Frankly, you're in graduate school, and the purpose of work is to create opportunities to learn and improve. Even if cheating helps you in the short term, you'll quickly find yourself ill-prepared for the career you have chosen. If you find yourself tempted to cheat, please come speak to Dr. Weston about an extension and developing tools to improve your success. 
 
 **Students with special needs.** The UO works to create inclusive learning environments. If there are aspects of the instruction or design of this course that result in disability-related barriers to your participation, please notify me as soon as possible. You may also wish to contact Disability Services in 164 Oregon Hall at 541-346-1155 or [disabsrv@uoregon.edu](mailto:disabsrv@uoregon.edu).
+
+[^1]: Final grades are due the following Tuesday, so there are limited opportunties to redo this particular assignment for points. I will do my best to grade these within 24 hours of receipt so you have a chance to retry any missed points. Consider Monday 12/16 at 9am that last possible moment to turn in this assignment.
