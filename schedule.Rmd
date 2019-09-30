@@ -30,7 +30,7 @@ LSR readings can be found in the free, online textbook, [_Learning Statistics wi
 | -    | 10/31 | Hypothesis testing                     | LSR Ch 11          |            |             |
 | -    | 11/01 | _Lab: Data wrangling_                  |                    |            |             |
 | 6    | 11/05 | Hypothesis testing                     | [Sainani (2012)](readings/Sainani_2012.pdf) | Quiz 5      |             |
-| -    | 11/07 | Critiques of hypothesis testing        | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf) [Cumming (2014)](readings/Cumming_2014.pdf) [Hullman (2019)](https://www.scientificamerican.com/article/how-to-get-better-at-embracing-unknowns/)                                           |            |             |
+| -    | 11/07 | Critiques of hypothesis testing        | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf) [Cumming (2014)](readings/Cumming_2014.pdf)                                            |            |             |
 | -    | 11/08 | _Lab: Graphing with ggplot2_           |                    |                      | HW 2 Due           |             |
 | 7    | 11/12 | Open Science                           | [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/)         | Quiz 6     |             |
 | -    | 11/14 | Categorical data analysis              | LSR Ch 12          |            |             |
