@@ -1,0 +1,550 @@
+---
+title: 'Describing Data II'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, rladies, rladies-fonts]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+library(MASS) # for simulating variables with specific correlations
+library(tidyverse) # for graphing
+library(ggExtra) # for marginal distributions
+library(psych) # for dataset showing content overlap
+```
+### Last time
+
+.pull-left[### Population Variability
+
+**Sums of squares**
+$$SS = \Sigma(X_i-\mu_x)^2$$
+**Variance**
+$$\sigma^2 = \frac{\Sigma(X_i-\mu_x)^2}{N} = \frac{SS}{N}$$
+**Standard devation**
+$$\sigma = \sqrt{\frac{\Sigma(X_i-\mu_x)^2}{N}}= \sqrt{\frac{SS}{N}} = \sqrt{\sigma^2}$$]
+
+
+.pull-right[
+###Sample variability
+**Sums of squares**
+$$SS = \Sigma(X_i-\bar{X})^2$$
+**Variance**
+$$s^2 = \frac{\Sigma(X_i-\bar{X})^2}{N-1} = \frac{SS}{N-1}$$
+**Standard devation**
+$$s = \sqrt{\frac{\Sigma(X_i-\bar{X})^2}{N-1}}= \sqrt{\frac{SS}{N-1}} = \sqrt{s^2}$$]
+---
+
+## Bi-variate descriptives
+
+### Covariation 
+Sort of like the sums of squares of two variables
+
+.pull-left[
+### Population
+$$SP_{XY} =\Sigma(X_i−\mu_X)(Y_i−\mu_Y)$$
+]
+.pull-right[
+### Sample
+$$SP_{XY} =\Sigma(X_i−\bar{X})(Y_i−\bar{Y})$$
+]
+
+???
+
+**What does a large, positive SP indicate?**
+A positive relationship, same sign
+
+**What does a large, negatve SP indicate?**
+A negative relationship, different sign
+
+**What does SP close to 0 indicate?**
+No relationship
+
+## Covariance
+Sort of like the variance of two variables
+
+.pull-left[
+### Population
+$$\sigma_{XY} =\frac{\Sigma(X_i−\mu_X)(Y_i−\mu_Y)}{N}$$
+]
+.pull-right[
+### Sample
+$$s_{XY} = cov_{XY} =\frac{\Sigma(X_i−\bar{X})(Y_i−\bar{Y})}{N-1}$$
+]
+
+---
+
+## Covariance table
+
+
+.large[
+$$\mathbf{K_{XX}} = \left[\begin{array}
+{rrr}
+\sigma^2_X & cov_{XY} & cov_{XZ} \\
+cov_{YX} & \sigma^2_Y & cov_{YZ} \\
+cov_{ZX} & cov_{ZY} & \sigma^2_Z
+\end{array}\right]$$
+]
+
+???
+Point out that $cov_{xy}$ is the same as $cov_{yx}$
+
+**Write on board:**
+
+$cov_{xy} = 126.5$
+$cov_{xz} = 5.2$
+
+Which variable, Y or Z, does X have greater relationship with?
+Can't know because you don't know what units they're measured in!
+
+---
+
+## Correlation
+
+- Measure of association
+
+- How much two variables are *linearly* related
+
+- -1 to 1
+
+- Sign indicates direction of relationship
+
+- Invariant to changes in mean or scaling
+
+---
+
+## Correlation
+
+Pearson product moment correlation
+
+### Population
+$$\rho_{XY} = \frac{\Sigma z_Xz_Y}{N} = \frac{SP}{\sqrt{SS_X}\sqrt{SS_Y}} = \frac{\sigma_{XY}}{\sigma_X \sigma_Y}$$
+### Sample
+$$r_{XY} = \frac{\Sigma z_Xz_Y}{n-1} = \frac{SP}{\sqrt{SS_X}\sqrt{SS_Y}} = \frac{s_{XY}}{s_X s_Y}$$
+???
+
+**Why is it called the Pearson Product Moment correlation?**
+Pearson = Karl Pearson
+Product = multiply
+Moment = variance is the second moment of a distribution
+---
+
+```{r, echo = FALSE}
+set.seed(101019) # so we all get the same random numbers
+mu = c(50, 5)
+Sigma = matrix(c(.8, .5, .5, .7), ncol =2) #diagonals are reliabilites, off-diagonals are correlations
+data = mvrnorm(n = 150, mu = mu, Sigma = Sigma)
+data = as.data.frame(data)
+colnames(data) = c("x", "y")
+```
+
+```{r}
+data %>% ggplot(aes(x = x, y = y)) + geom_point(size = 3) + theme_bw()
+```
+
+What is the correlation between these two variables?
+
+???
+Correlation = `r round(cor(data$x, data$y),2)`
+
+---
+```{r, echo = FALSE}
+set.seed(101019) # so we all get the same random numbers
+mu = c(10, 100)
+Sigma = matrix(c(.8, -.3, -.3, .7), ncol =2) #diagonals are reliabilites, off-diagonals are correlations
+data = mvrnorm(n = 150, mu = mu, Sigma = Sigma)
+data = as.data.frame(data)
+colnames(data) = c("x", "y")
+```
+
+```{r}
+data %>% ggplot(aes(x = x, y = y)) + geom_point(size = 3) + theme_bw()
+```
+
+What is the correlation between these two variables?
+
+???
+Correlation = `r round(cor(data$x, data$y),2)`
+
+---
+```{r, echo = FALSE}
+set.seed(101019) # so we all get the same random numbers
+mu = c(3, 4)
+Sigma = matrix(c(.8, 0, 0, .7), ncol =2) #diagonals are reliabilites, off-diagonals are correlations
+data = mvrnorm(n = 150, mu = mu, Sigma = Sigma)
+data = as.data.frame(data)
+colnames(data) = c("x", "y")
+```
+
+```{r}
+data %>% ggplot(aes(x = x, y = y)) + geom_point(size = 3) + theme_bw()
+```
+
+What is the correlation between these two variables?
+
+???
+Correlation = `r round(cor(data$x, data$y),2)`
+
+---
+
+## Effect size
+
+- Recall that *z*-scores allow us to compare across units of measure; the products of standardized scores are themselves standardized. 
+
+- The correlation coefficient is a **standardized effect size** which can be used communicate the strength of a relationship.
+
+- Correlations can be compared across studies, measures, constructs, time. 
+
+- Example: the correlation between age and height among children is $r = .70$. The correlation between self- and other-ratings of extraversion is $r = .25$. 
+    
+---
+
+## What is a large correlation?
+
+- [Cohen (1988)](http://www.utstat.toronto.edu/~brunner/oldclass/378f16/readings/CohenPower.pdf): .1 (small), .3 (medium), .5 (large)
+    - Often forgot: Cohen said only to use them when you had nothing else to go on, and has since regretted even suggesting benchmarks to begin with. 
+
+- $r^2$: Proportion of variance "explained"
+    - as [Ozer & Funder (2019)](https://uopsych.github.io/psy611/readings/Ozer_Funder_2019.pdf) discuss, we're not really explaining anything and the change in scale can mess up our interpretations if we're not careful.
+
+- [Rosenthal & Rubin (1982)](https://psycnet.apa.org/fulltext/1982-22591-001.pdf): life and death (the Binomial Effect Size Display)
+  - treatment success rate $= .50 + .5(r)$ and the control success rate $= .50 - .5(r)$.
+
+---
+
+## Ozer & Funder (2019)
+
+???
+**What are good benchmarks?**
+- Classic social psych studies: $r$ between .35 and .45
+- scarcity increases the perceived value of a commodity ($r = .12$), 
+- people attribute failures to bad luck ($r = .10$), 
+- communicators perceived as more credible are more persuasive ($r = .10$)
+- people in a bad mood are more aggressive ($r = .41$)
+- SES and IQ predicting mortality $r = 25$
+
+- Antihistomine and symptom relief: $r = .11$
+- Ibuprofen and pain relief: $r = .14$
+- Men weigh more than women: $r = .26$
+- High elevations have lower annual temps: $r = .34$
+- Height and weight $r = .44$
+
+**Implications**
+- Don't dismiss small effects
+- Be skeptical of large effects
+
+**Recommendations**
+- Report effect sizes 
+- Use large samples -- remember bias?
+- Report effect sizes in context
+- Stop using empty terminology
+- Revise guildelines
+---
+
+## What affects correlations?
+
+It's not enough to calculate a correlation between two variables. You should always look at a figure of the data to make sure the number accurately describes the relationship. Correlations can be easily fooled by qualities of your data, like:
+
+- Skewed distributions
+
+- Outliers
+
+- Restriction of range
+
+- Nonlinearity
+
+---
+
+## Skewed distributions
+
+```{r, echo = FALSE}
+set.seed(101019) # so we all get the same random numbers
+mu = c(3, 4)
+Sigma = matrix(c(.8, .2, .2, .7), ncol =2) #diagonals are reliabilites, off-diagonals are correlations
+data = mvrnorm(n = 150, mu = mu, Sigma = Sigma)
+data = as.data.frame(data)
+colnames(data) = c("x", "y")
+data$x = data$x^4
+```
+
+```{r, fig.height = 5}
+p = data %>% ggplot(aes(x=x, y=y)) + geom_point()
+ggMarginal(p, type = "density")
+```
+---
+
+## Outliers
+
+```{r, echo = FALSE}
+set.seed(101019) # so we all get the same random numbers
+mu = c(3, 4)
+Sigma = matrix(c(.8, 0, 0, .7), ncol =2) #diagonals are reliabilites, off-diagonals are correlations
+data = mvrnorm(n = 50, mu = mu, Sigma = Sigma)
+data = as.data.frame(data)
+colnames(data) = c("x", "y")
+data[51, ] = c(7, 10)
+```
+
+```{r, fig.height = 5}
+data %>% ggplot(aes(x=x, y=y)) + geom_point() 
+```
+---
+
+## Outliers
+
+```{r, fig.height = 5}
+data %>% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red") + geom_smooth(data = data[-51,], method = "lm", se = FALSE)
+```
+
+---
+
+## Outliers
+
+```{r, echo = FALSE}
+set.seed(101019) # so we all get the same random numbers
+mu = c(3, 4)
+Sigma = matrix(c(.9, .6, .6, .9), ncol =2) #diagonals are reliabilites, off-diagonals are correlations
+data = mvrnorm(n = 50, mu = mu, Sigma = Sigma)
+data = as.data.frame(data)
+colnames(data) = c("x", "y")
+data[51, ] = c(1.5, 5.5)
+```
+
+```{r, fig.height = 5}
+data %>% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red") + geom_smooth(data = data[-51,], method = "lm", se = FALSE)
+```
+---
+
+## Restriction of range
+
+```{r, echo = FALSE}
+set.seed(1010191) # so we all get the same random numbers
+mu = c(100, 4)
+Sigma = matrix(c(.7, .4, 4, .75), ncol = 2) #diagonals are reliabilites, off-diagonals are correlations
+data = mvrnorm(n = 150, mu = mu, Sigma = Sigma)
+data = as.data.frame(data)
+colnames(data) = c("x", "y")
+real_data = data
+data = filter(data, x >100 & x < 101)
+```
+
+```{r, fig.height = 5}
+data %>% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red")
+```
+
+???
+
+What if I told you there were scores on X could range from 97 to 103?
+
+---
+
+## Restriction of range
+
+```{r, fig.height = 5}
+data %>% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red") + geom_point(data = real_data) + geom_smooth(method = "lm", se = FALSE, data = real_data, color = "blue")
+```
+
+???
+
+**Can you think of example where this might occur in psychology?**
+My idea: that many psychology studies only look at undergraduates (restricted age, restricted education) -- can't use these as predictors or covariates
+
+---
+
+## Nonlinearity
+
+```{r, echo = FALSE, warning = FALSE}
+x = runif(n = 150, min = -2, max = 2)
+y = x^2 +rnorm(n = 150, sd = .5)
+data = data.frame(x,y)
+```
+
+```{r, fig.height = 5}
+data %>% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red")
+```
+
+---
+
+## It's not always apparent
+
+Sometimes issues that affect correlations won't appear in your graph, but you still need to know how to look for them.
+
+- Low reliability
+
+- Content overlap
+
+- Multiple groups
+
+---
+
+## Reliability
+
+Recall from last week:
+
+$$r_{xy} = \rho_{xy}\sqrt{r_{xx}r_{yy}}$$
+
+Meaning that our estimate of the population correlation coefficient is attenuated in proportion to reduction in reliability.  
+
+**If you have a bad measure of X or Y, you will have a lower estimate of $\rho$.**
+
+---
+
+## Content overlap
+
+- Trait impulsivity is associated with BMI ([Terracianno et al., 2009](https://www.ncbi.nlm.nih.gov/pubmed/19414622)).
+
+- But two of the items used to measure impulsivity are "I am able to control my cravings" and "I rarely overindulge." 
+
+- What would the correlation look like if these items were removed?
+
+---
+
+Data source: [sapa-project.org](sapa-project.org), scales developed by [Condon (2017)](https://sapa-project.org/research/SPI/SPIdevelopment.pdf).
+
+```{r, echo = FALSE}
+new_sc_keys = list(spi.keys$SelfControl[-which(spi.keys$SelfControl %in% c("q_56", "q_1590"))])
+keys = c(spi.keys, "new" = new_sc_keys)
+scored_spi = scoreItems(keys, spi)
+data_spi = as.data.frame(cbind(spi,scored_spi$scores))
+set.seed(100919)
+```
+
+```{r, warning=FALSE, message=FALSE}
+data_spi %>% ggplot(aes(x = SelfControl, y = exer)) + geom_jitter(alpha = .2) + geom_smooth(method = "lm", se = F) 
+```
+---
+
+Data source: [sapa-project.org](sapa-project.org), scales developed by [Condon (2017)](https://sapa-project.org/research/SPI/SPIdevelopment.pdf).
+
+```{r, echo = FALSE}
+set.seed(100919)
+```
+
+```{r, warning=FALSE, message=FALSE}
+data_spi %>% ggplot(aes(x = SelfControl, y = exer)) + geom_jitter(alpha = .2) + geom_smooth(method = "lm", se = F) + geom_smooth(aes(x = new), method = "lm", se = F, color = "red")
+```
+
+---
+## Multiple groups
+
+```{r, echo = FALSE}
+set.seed(101019) # so we all get the same random numbers
+m_mu = c(100, 4)
+m_Sigma = matrix(c(.7, .4, 4, .75), ncol = 2) #diagonals are reliabilites, off-diagonals are correlations
+m_data = mvrnorm(n = 150, mu = m_mu, Sigma = m_Sigma)
+m_data = as.data.frame(m_data)
+colnames(m_data) = c("x", "y")
+
+f_mu = c(102, 3)
+f_Sigma = matrix(c(.7, .4, 4, .75), ncol = 2) #diagonals are reliabilites, off-diagonals are correlations
+f_data = mvrnorm(n = 150, mu = f_mu, Sigma = f_Sigma)
+f_data = as.data.frame(f_data)
+colnames(f_data) = c("x", "y")
+
+m_data$gender = "male"
+f_data$gender = "female"
+
+data = rbind(m_data, f_data)
+```
+
+```{r, fig.height = 5}
+data %>% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red")
+```
+
+---
+
+## Multiple groups
+
+```{r, fig.height = 5}
+data %>% ggplot(aes(x=x, y=y, color = gender)) + geom_point() + geom_smooth(method = "lm", se = FALSE)
+```
+---
+
+### Special cases of the Pearson correlation
+
+- **Spearman correlation coefficient**
+    - Applies when both X and Y are ranks (ordinal data) instead of continuous
+    - Denoted $\rho$ by your textbook, although I prefer to save Greek letters for population parameters. 
+
+- **Point-biserial correlation coefficient**
+    - Applies when Y is binary.
+        - NOTE: This is not an appropriate statistic when you artificially<sup>1</sup> dichotomize data.
+    - $$r_{pb} = \frac{M_1-M_0}{\sqrt{\frac{1}{n-1}\Sigma(X_i-\bar{X})^2}}\sqrt{\frac{n_1n_0}{n(n-1)}}$$
+
+- **Phi (
+$\phi$
+) coefficient**
+  - Both X and Y are dichotomous.
+
+.footnote[
+<sup>1</sup> It is almost [never appropriate](readings/Cohen_1983.pdf) to artifically dichotomize data.
+]
+
+---
+## Do the special cases matter?
+
+For Spearman, you'll get a different answer. 
+```{r}
+x = rnorm(n = 10); y = rnorm(n = 10) #randomly generate 10 numbers from normal distribution
+```
+
+.pull-left[
+```{r, echo = T}
+head(cbind(x,y))
+cor(x,y, method = "pearson")
+```
+]
+.pull-right[
+```{r}
+head(cbind(x,y, rank(x), rank(y)))
+cor(x,y, method = "spearman")
+```
+]
+
+---
+## Do the special cases matter?
+
+If your data are naturally binary, no difference between Pearson and point-biserial.
+
+```{r}
+x = rnorm(n = 10); y = rbinom(n = 10, size = 1, prob = .3)
+head(cbind(x,y))
+```
+
+.pull-left[
+```{r, echo = T}
+cor(x,y, method = "pearson")
+```
+]
+.pull-right[
+```{r}
+ltm::biserial.cor(x,y)
+```
+]
+---
+## Do the special cases matter?
+
+If your data are artifically binary, there can be big differences.
+
+```{r}
+x = rnorm(n = 10); y = rnorm(n = 10)
+```
+
+.pull-left[
+```{r, echo = T}
+head(cbind(x,y))
+cor(x,y, method = "pearson")
+```
+]
+.pull-right[
+```{r}
+d_y = ifelse(y < median(y), 0, 1)
+head(cbind(x,y, d_y))
+ltm::biserial.cor(x,d_y)
+```
+]
+
+### Don't use median splits!
