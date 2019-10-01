@@ -322,3 +322,9 @@ Two types
 
 How do these two methods of describing scales match up?
 
+---
+class: inverse 
+
+## Next time
+
+Measurement validity
