@@ -299,7 +299,7 @@ Let's look at a `data frame` that is automatically loaded when you open R, `mtca
 knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_mtcars.png"))
 ```
 
-The data frame `mtcars` has a row for 32 cars featured in the *1974 Motor Trend* magazine. There is a row for the car's miles per gallon (`mpg`), number of cylinders (`cyl`), engine displacement (`disp`), horse power (`hp`), rear axle ratio (`drat`), weight in thousands of pounds (`wt`), quarter-mile time (`qsec`), engine shape (`vs`), transmission type (`am`), number of forward gears (`gear`), and number of carburetors (`carb`).
+The data frame `mtcars` has a row for 32 cars featured in the *1974 Motor Trend* magazine. There is a column for the car's miles per gallon (`mpg`), number of cylinders (`cyl`), engine displacement (`disp`), horse power (`hp`), rear axle ratio (`drat`), weight in thousands of pounds (`wt`), quarter-mile time (`qsec`), engine shape (`vs`), transmission type (`am`), number of forward gears (`gear`), and number of carburetors (`carb`).
 
 With data frames, you can extract a value by including `[row, col]` immediately after the object. For example, if we wanted to extract the number of gears in the `Datsun 710` we could use `mtcars[3, 10]` to extract the value stored in the third row, tenth column.
 
