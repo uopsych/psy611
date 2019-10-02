@@ -1,0 +1,77 @@
+---
+title: "Lab 4: Probability Distributions"
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# suppress scientific notation
+options(scipen = 999)
+```
+
+# Purpose
+
+The purpose of today's lab 
+
+Today's lab will cover:
+
+1. [How to download and install R and RStudio](#gs)
+1. [The panes of RStudio](#rstudio)
+1. [How to create and use R Markdown Documents](#rmarkdown)
+1. [Arithmetic commands](#ac)
+
+After we have 
+***
+
+# Getting Started {#gs}
+
+So what is R? 
+
+In the simplest possible terms, 
+
+![](`r here::here("labs", "resources", "lab1", "other", "lab1_flow.png")` "Flow")
+
+Only one piece of software is
+
+***
+
+# Minihacks {#minihacks}
+
+Now that we have covered the lab material, we will move on to the Minihacks. You are welcome to work with a partner or in a small group of 2-3 people. If you have any questions, I would be happy to answer them!
+
+## Minihack 1: R Markdown
+
+1. Create an `R Markdown` document called `lab1_minihacks`.
+
+## Minihack 2: Arithmetic Commands
+
+1. Use R to solve for $x$: $$x = \frac{(102 + 68) \times (3 + 2) + 1250}{50}$$
+
+## Minihack 3: Functions
+
+1. Assign the string `"I AM NOT YELLING"` to a variable called `exclamation`.
+
+## Minihack 4: Help Documentation
+
+1. I wanted to create a vector of `5`
+
+```{r}
+seq(from = 10, to = 50, by = 5)
+```
+
+## Minihack 5: Data Frames
+
+1. Download the [Marvel character dataset](https://docs.google.com/spreadsheets/d/1n59gFMfvLXN1rUwRjFV5qf5VNp3im_bj6AgHuv7mXTs/export?format=xlsx) to your computer. 
+
+1. Import the data into R and assign it to a variable called `marvel_data`. 
+
+1. Ah! The value for the number of appearances of Spider-Man seems to be an error! It should be `4043` not `40430`! Use square brackets (`[]`) to replace the erroneous value with the correct value (*hint:* The value is stored in the first row of the eighth column).
+
+
+
