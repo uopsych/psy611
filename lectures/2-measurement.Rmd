@@ -10,6 +10,11 @@ output:
       countIncrementalSlides: false
 ---
 
+## GitHub
+
+[https://uopsych.github.io/psy611](https://uopsych.github.io/psy611/)
+
+---
 
 ## Why statistics
 
