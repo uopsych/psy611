@@ -3,7 +3,7 @@ title: 'Describing Data II'
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: [default, rladies, rladies-fonts]
+    css: [default, rladies, rladies-fonts, "my-theme.css"]
     nature:
       highlightStyle: github
       highlightLines: true
@@ -21,21 +21,21 @@ library(psych) # for dataset showing content overlap
 .pull-left[### Population Variability
 
 **Sums of squares**
-$$SS = \Sigma(X_i-\mu_x)^2$$
+$$\small SS = \Sigma(X_i-\mu_x)^2$$
 **Variance**
-$$\sigma^2 = \frac{\Sigma(X_i-\mu_x)^2}{N} = \frac{SS}{N}$$
+$$\small \sigma^2 = \frac{\Sigma(X_i-\mu_x)^2}{N} = \frac{SS}{N}$$
 **Standard devation**
-$$\sigma = \sqrt{\frac{\Sigma(X_i-\mu_x)^2}{N}}= \sqrt{\frac{SS}{N}} = \sqrt{\sigma^2}$$]
+$$\scriptsize \sigma = \sqrt{\frac{\Sigma(X_i-\mu_x)^2}{N}}= \sqrt{\frac{SS}{N}} = \sqrt{\sigma^2}$$]
 
 
 .pull-right[
 ###Sample variability
 **Sums of squares**
-$$SS = \Sigma(X_i-\bar{X})^2$$
+$$\small SS = \Sigma(X_i-\bar{X})^2$$
 **Variance**
-$$s^2 = \frac{\Sigma(X_i-\bar{X})^2}{N-1} = \frac{SS}{N-1}$$
+$$\small s^2 = \frac{\Sigma(X_i-\bar{X})^2}{N-1} = \frac{SS}{N-1}$$
 **Standard devation**
-$$s = \sqrt{\frac{\Sigma(X_i-\bar{X})^2}{N-1}}= \sqrt{\frac{SS}{N-1}} = \sqrt{s^2}$$]
+$$\scriptsize s = \sqrt{\frac{\Sigma(X_i-\bar{X})^2}{N-1}}= \sqrt{\frac{SS}{N-1}} = \sqrt{s^2}$$]
 ---
 
 ## Bi-variate descriptives
@@ -45,11 +45,11 @@ Sort of like the sums of squares of two variables
 
 .pull-left[
 ### Population
-$$SP_{XY} =\Sigma(X_i−\mu_X)(Y_i−\mu_Y)$$
+$$\small SP_{XY} =\Sigma(X_i−\mu_X)(Y_i−\mu_Y)$$
 ]
 .pull-right[
 ### Sample
-$$SP_{XY} =\Sigma(X_i−\bar{X})(Y_i−\bar{Y})$$
+$$\small SP_{XY} =\Sigma(X_i−\bar{X})(Y_i−\bar{Y})$$
 ]
 
 ???
@@ -402,7 +402,7 @@ Meaning that our estimate of the population correlation coefficient is attenuate
 
 ---
 
-Data source: [sapa-project.org](sapa-project.org), scales developed by [Condon (2017)](https://sapa-project.org/research/SPI/SPIdevelopment.pdf).
+.small[Data source: [sapa-project.org](sapa-project.org), scales developed by [Condon (2017)](https://sapa-project.org/research/SPI/SPIdevelopment.pdf).]
 
 ```{r, echo = FALSE}
 new_sc_keys = list(spi.keys$SelfControl[-which(spi.keys$SelfControl %in% c("q_56", "q_1590"))])
@@ -412,18 +412,18 @@ data_spi = as.data.frame(cbind(spi,scored_spi$scores))
 set.seed(100919)
 ```
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, fig.height=6}
 data_spi %>% ggplot(aes(x = SelfControl, y = exer)) + geom_jitter(alpha = .2) + geom_smooth(method = "lm", se = F) 
 ```
 ---
 
-Data source: [sapa-project.org](sapa-project.org), scales developed by [Condon (2017)](https://sapa-project.org/research/SPI/SPIdevelopment.pdf).
+.small[Data source: [sapa-project.org](sapa-project.org), scales developed by [Condon (2017)](https://sapa-project.org/research/SPI/SPIdevelopment.pdf).]
 
 ```{r, echo = FALSE}
 set.seed(100919)
 ```
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, fig.height = 6}
 data_spi %>% ggplot(aes(x = SelfControl, y = exer)) + geom_jitter(alpha = .2) + geom_smooth(method = "lm", se = F) + geom_smooth(aes(x = new), method = "lm", se = F, color = "red")
 ```
 
@@ -471,17 +471,13 @@ data %>% ggplot(aes(x=x, y=y, color = gender)) + geom_point() + geom_smooth(meth
 
 - **Point-biserial correlation coefficient**
     - Applies when Y is binary.
-        - NOTE: This is not an appropriate statistic when you artificially<sup>1</sup> dichotomize data.
-    - $$r_{pb} = \frac{M_1-M_0}{\sqrt{\frac{1}{n-1}\Sigma(X_i-\bar{X})^2}}\sqrt{\frac{n_1n_0}{n(n-1)}}$$
+        - NOTE: This is not an appropriate statistic when you [artificially dichotomize data](readings/Cohen_1983.pdf).
 
 - **Phi (
 $\phi$
 ) coefficient**
   - Both X and Y are dichotomous.
 
-.footnote[
-<sup>1</sup> It is almost [never appropriate](readings/Cohen_1983.pdf) to artifically dichotomize data.
-]
 
 ---
 ## Do the special cases matter?
@@ -548,3 +544,29 @@ ltm::biserial.cor(x,d_y)
 ]
 
 ### Don't use median splits!
+---
+
+### Special cases of the Pearson correlation
+
+Why do we have special cases of the correlation?
+
+- Sometimes we get different results
+  - If we treat ordinal data like interval/ratio data, our estimate will be incorrect
+  
+- Sometimes we get the same result
+
+  - Even when formulas are different
+  
+  - Example: Point biserial formula
+      - $$r_{pb} = \frac{M_1-M_0}{\sqrt{\frac{1}{n-1}\Sigma(X_i-\bar{X})^2}}\sqrt{\frac{n_1n_0}{n(n-1)}}$$
+
+  
+???
+
+We don't have different formulas because the correlation is mathematically different -- these formulas were developed when we did things by hand. These formulas are short cuts!
+
+---
+
+## Next time...
+
+matrix algebra

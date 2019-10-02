@@ -6,6 +6,7 @@
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -28,16 +29,13 @@ Correations, covariances
 
 - Underlying mathematics of statistics includes a lot of algebra and calculus
   - Many textbooks and academic methods papers will use matrix algebra to explain statistical concepts
-  - We'll cover calculus next time
-  
+
 - Goal of this class: understand **why** 
-   - It's not enough to just be able to run statistics on data
    - Understand how statistics are related to each other, what factors can change your results, what's going on under the hood
 
 --
 
 - Another goal: find the framework for statistics that makes sense to you
-  - Each time we learn a new statistic, we'll talk about the formula, the matrix algebra, the general linear model, and a path model that goes along with the statistic.
   
 ---
 
@@ -45,16 +43,16 @@ Correations, covariances
 
 A *matrix* is a rectangular array of numbers with n rows and m columns. It is symbolized with a bold, upper case letter, and subscripted to indicate its order.
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
  
-`$$\huge \mathbf{G_{3,2}} = \left(\begin{array}
+`$$\LARGE \mathbf{G_{3,2}} = \left(\begin{array}
 {rrr}
 g_{11} &amp; g_{12}  \\
 g_{21} &amp; g_{22} \\
 g_{31} &amp; g_{32} 
 \end{array}\right)$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 The individual elements in a matrix are called *scalars*, subscripted to indicated their position in the matrix.
 
@@ -62,17 +60,17 @@ The individual elements in a matrix are called *scalars*, subscripted to indicat
 
 ### Vectors
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 
-`$$\huge \mathbf{G_{3,2}} = \left(\begin{array}
+
+`$$\LARGE \mathbf{G_{3,2}} = \left(\begin{array}
 {rrr}
 g_{11} &amp; g_{12}  \\
 g_{21} &amp; g_{22} \\
 g_{31} &amp; g_{32} 
 \end{array}\right)$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 The columns in a matrix are called *vectors*, and are symbolized with lower case, bold letters. This matrix has two vectors (
 `\(\mathbf{g}_1\)`
@@ -84,7 +82,7 @@ The columns in a matrix are called *vectors*, and are symbolized with lower case
 
 ### Transpose
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 
 `$$\Large \mathbf{g_{3,1}} = \left(\begin{array}
@@ -99,14 +97,14 @@ g_{31}
 This vector is also a 3 x 1 matrix. When it is displayed as a row, it is symbolized differently:
 
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 `$$\Large \mathbf{g'_{1,3}} = \left(\begin{array}
 {rrr}
 g_{11} &amp; g_{12} &amp; g_{13} \\
 \end{array}\right)$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 This is called the *transpose* of the vector.
 
@@ -114,8 +112,6 @@ This is called the *transpose* of the vector.
 ---
 
 ### Square vs rectangular
-
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
  
 `$$\Large \mathbf{G_{3,2}} = \left(\begin{array}
 {rrr}
@@ -126,15 +122,13 @@ g_{31} &amp; g_{32}
 
 This matrix is *rectangular*. When the number of rows and columns are equal, the matrix is *square*:
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
-
 `$$\Large \mathbf{F_{3,3}} = \left(\begin{array}
 {rrr}
 f_{11} &amp; f_{12} &amp; f_{13}  \\
 f_{21} &amp; f_{22} &amp; f_{23} \\
 f_{31} &amp; f_{32} &amp; f_{33} 
 \end{array}\right)$$`
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 Data matrices are typically rectangular; correlation matrices and covariance matrices are always square.
 
@@ -144,7 +138,7 @@ Data matrices are typically rectangular; correlation matrices and covariance mat
 
 A square matrix has a main diagonal. The sum of the elements of the main diagonal is called the *trace* of the matrix.
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 `$$\Large \mathbf{F_{3,3}} = \left(\begin{array}
 {rrr}
@@ -153,7 +147,7 @@ f_{21} &amp; \underline{f_{22}} &amp; f_{23} \\
 f_{31} &amp; f_{32} &amp; \underline{f_{33} } 
 \end{array}\right)$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 `$$Trace = f_{11} + f_{22} + f_{33}$$`
 
@@ -161,11 +155,11 @@ f_{31} &amp; f_{32} &amp; \underline{f_{33} }
 
 ### Symmetric
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 If `\(f_{i,j} = f_{j,i}\)` for all i and j, the matrix is *symmetric.*
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 `$$\Large \mathbf{F_{3,3}} = \left(\begin{array}
 {rrr}
@@ -174,7 +168,7 @@ If `\(f_{i,j} = f_{j,i}\)` for all i and j, the matrix is *symmetric.*
 -4 &amp; 7 &amp; 2  
 \end{array}\right)$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 `\(\mathbf{F}\)` is a symmetric matrix with a trace of 14. 
 
@@ -184,11 +178,11 @@ Correlation matrices and covariance matrices are symmetric.
 
 ### Diagonal
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 If all elements of a symmetric matrix except the main diagonal are zero, the matrix is a *diagonal* matrix:
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 `$$\Large \mathbf{F_{3,3}} = \left(\begin{array}
 {rrr}
@@ -197,7 +191,7 @@ If all elements of a symmetric matrix except the main diagonal are zero, the mat
 0 &amp; 0 &amp; 2  
 \end{array}\right)$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 `\(\mathbf{F}\)` is a symmetric, diagonal matrix with a trace of 14. 
 
@@ -226,9 +220,9 @@ If all elements of a symmetric matrix except the main diagonal are zero, the mat
 ]
 
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-`$$\large \mathbf{F_{3,2}} + \mathbf{H_{3,2}} = \mathbf{K_{3,2}} = \left(\begin{array}
+
+`$$\mathbf{F_{3,2}} + \mathbf{H_{3,2}} = \mathbf{K_{3,2}} = \left(\begin{array}
 {rrr}
 1+4 &amp; \underline{3+-1}  \\
 3+6 &amp; 11+2  \\
@@ -242,10 +236,6 @@ If all elements of a symmetric matrix except the main diagonal are zero, the mat
 \end{array}\right)$$`
 
 ---
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
-
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
-
 
 .pull-left[
 `$$\large \mathbf{F_{3,2}} = \left(\begin{array}
@@ -265,9 +255,9 @@ If all elements of a symmetric matrix except the main diagonal are zero, the mat
 ]
 
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-`$$\large \mathbf{F_{3,2}} - \mathbf{H_{3,2}} = \mathbf{K_{3,2}} = \left(\begin{array}
+
+`$$\mathbf{F_{3,2}} - \mathbf{H_{3,2}} = \mathbf{K_{3,2}} = \left(\begin{array}
 {rrr}
 1-4 &amp; \underline{3--1}  \\
 3-6 &amp; 11-2  \\
@@ -286,15 +276,15 @@ If all elements of a symmetric matrix except the main diagonal are zero, the mat
 
 
 **Matrix addition is commutative and associative:**
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 `$$\large \mathbf{A}+\mathbf{B}=\mathbf{B}+\mathbf{A}$$`
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 `$$\large \mathbf{A} + \mathbf{B} + \mathbf{C} = (\mathbf{A} + \mathbf{B}) + \mathbf{C} = \mathbf{A} + (\mathbf{B} + \mathbf{C})$$`
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 **Matrix subtraction is distributive:**
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 `$$\large \mathbf{A} – (\mathbf{B} + \mathbf{C}) = \mathbf{A} – \mathbf{B} – \mathbf{C}$$` 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 `$$\large \mathbf{A} – (\mathbf{B} – \mathbf{C}) = \mathbf{A} – \mathbf{B} + \mathbf{C}$$`
 ---
 
@@ -303,9 +293,9 @@ If all elements of a symmetric matrix except the main diagonal are zero, the mat
 
 A matrix of zeros is called a *zero matrix* or a *null matrix*. It is used in solving equations:
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-`$$\large \left(\begin{array}
+
+`$$\small \left(\begin{array}
 {rrr}
 5 &amp; 7  \\
 4 &amp; 2  \\
@@ -326,9 +316,9 @@ y_{31} &amp; y_{32}
 8 &amp; 3
 \end{array}\right)$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-`$$\large \left(\begin{array}
+
+`$$\small \left(\begin{array}
                 {rrr}
                 -5 &amp; -7  \\
                 -4 &amp; -2  \\
@@ -363,7 +353,7 @@ y_{31} &amp; y_{32}
            8 &amp; 3
            \end{array}\right)$$`
     
-`$$\large \left(\begin{array}
+`$$\small \left(\begin{array}
 {rrr}
 0 &amp; 0  \\
 0 &amp; 0  \\
@@ -391,7 +381,7 @@ y_{31} &amp; y_{32}
 Scalar multiplication is accomplished by multiplying every element of a matrix by a constant scalar:
 
 .pull-left[
-`$$\LARGE \mathbf{F_{3,3}} = \left(\begin{array}
+`$$\large \mathbf{F_{3,3}} = \left(\begin{array}
 {rrr}
 1 &amp; 3 &amp; -4  \\
 3 &amp; 11 &amp; 7 \\
@@ -400,11 +390,11 @@ Scalar multiplication is accomplished by multiplying every element of a matrix b
 ]
 
 .pull-right[
-`$$\LARGE k = 5$$`
+`$$\large k = 5$$`
 ]
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-`$$\LARGE k\mathbf{F} = \left(\begin{array}
+
+`$$\large k\mathbf{F} = \left(\begin{array}
 {rrr}
 1\times5 &amp; 3\times5 &amp; -4\times5  \\
 3\times5 &amp; 11\times5 &amp; 7\times5 \\
@@ -435,10 +425,10 @@ Or
 
 `$$\LARGE \displaystyle\sum_{n=1}^{i}{a_{j,n}\times b_{n,k}}$$`
 ---
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 .pull-left[
-`$$\LARGE \mathbf{A_{3,2}} = \left(\begin{array}
+`$$\large \mathbf{A_{3,2}} = \left(\begin{array}
 {rrr}
 4 &amp; -1\\
 7 &amp; 0 \\
@@ -448,7 +438,7 @@ Or
 
 .pull-right[
 
-`$$\LARGE \mathbf{B_{2,3}} = \left(\begin{array}
+`$$\large \mathbf{B_{2,3}} = \left(\begin{array}
 {rrr}
 1 &amp; 7 &amp; 0 \\
 4 &amp; 2 &amp; 6 
@@ -456,13 +446,13 @@ Or
 
 ]
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-`$$\LARGE \mathbf{A}_{3,2}\mathbf{B}_{2,3} = \mathbf{C}_{3,3}$$`
+
+`$$\large \mathbf{A}_{3,2}\times\mathbf{B}_{2,3} = \mathbf{C}_{3,3}$$`
 
 
 .pull-right[
-`$$\LARGE \mathbf{C}_{3,3} = \left(\begin{array}
+`$$\large \mathbf{C}_{3,3} = \left(\begin{array}
 {rrr}
 0 &amp; 26 &amp; -6   \\
 7 &amp; 49 &amp; 0 \\
@@ -492,35 +482,34 @@ Or
 ### Properties of multiplication
 
 **Matrix multiplication is associative:**
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 `$$\Large \mathbf{ABC} = \mathbf{(AB)C} = \mathbf{A(BC)}$$`
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 **Matrix multiplication is distributive:** 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 `$$\Large \mathbf{A(B+C)} = \mathbf{AB} + \mathbf{AC}$$`
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 **But order is important:**
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 `$$\Large \mathbf{XA} + \mathbf{BX} \neq \mathbf{X(A + B)}$$`
   
   
 ---
 ### Transpose
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 Every matrix has a *transpose* that is obtained by exchanging the rows and columns:
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
-`$$\LARGE \mathbf{X} = \left(\begin{array}
+
+`$$\large \mathbf{X} = \left(\begin{array}
 {rrr}
 4 &amp; -1    \\
 7 &amp; 0  \\
 6 &amp; 2 
 \end{array}\right)$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-`$$\LARGE \mathbf{X'} = \left(\begin{array}
+
+`$$\large \mathbf{X'} = \left(\begin{array}
 {rrr}
 4 &amp; 7 &amp; 6    \\
 -1 &amp; 0 &amp; 2  \\
@@ -532,17 +521,16 @@ Every matrix has a *transpose* that is obtained by exchanging the rows and colum
 
 ###Transpose multiplication
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 
 Transposes are useful for arranging a matrix so that matrix multiplication is possible.
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 
 Example: A common statistical requirement is to generate the sums of squares and cross- products for a data matrix. If `\(\large \mathbf{X_{n,v}}\)` is a matrix of deviation scores, then `\(\large \mathbf{X_{nv}X_{nv}}\)` is not possible. 
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 But, `\(\large \mathbf{X'_{vn}X_{nv}}\)` can be carried out.
 
@@ -558,7 +546,7 @@ But, `\(\large \mathbf{X'_{vn}X_{nv}}\)` can be carried out.
 `\(\mathbf{D}\)` is a matrix of deviation scores for 5 individuals on 2 variables.
 
 .pull-left[
-`$$\Large \mathbf{D} = \left(\begin{array}
+`$$\mathbf{D} = \left(\begin{array}
 {rrr}
 d_{11} &amp; d_{12}    \\
 d_{21} &amp; d_{22}    \\
@@ -569,7 +557,7 @@ d_{51} &amp; d_{52}
 ]
 
 .pull-right[
-`$$\large \mathbf{D'} = \left(\begin{array}
+`$$\mathbf{D'} = \left(\begin{array}
 {rrr}
 d_{11} &amp; d_{12} &amp; d_{13} &amp; d_{14} &amp; d_{15}   \\
 d_{21} &amp; d_{22} &amp; d_{23} &amp; d_{24} &amp; d_{25}   \\
@@ -584,7 +572,7 @@ d_{21} &amp; d_{22} &amp; d_{23} &amp; d_{24} &amp; d_{25}   \\
 `\(\mathbf{D}\)` is a matrix of deviation scores for 5 individuals on 2 variables.
 
 .pull-left[
-`$$\Large \mathbf{D} = \left(\begin{array}
+`$$\mathbf{D} = \left(\begin{array}
 {rrr}
 d_{11} &amp; d_{12}    \\
 d_{21} &amp; d_{22}    \\
@@ -595,7 +583,7 @@ d_{51} &amp; d_{52}
 ]
 
 .pull-right[
-`$$\large \mathbf{D'} = \left(\begin{array}
+`$$\mathbf{D'} = \left(\begin{array}
 {rrr}
 d_{11} &amp; d_{12} &amp; d_{13} &amp; d_{14} &amp; d_{15}   \\
 d_{21} &amp; d_{22} &amp; d_{23} &amp; d_{24} &amp; d_{25}   \\
@@ -631,11 +619,11 @@ Divide by `\(N-1\)`!
 ---
 
 ### Identity matrix
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 The *identity matrix* is a diagonal matrix with ones on the main diagonal:
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 `$$\Large \mathbf{I} = \left(\begin{array}
 {rrrr}
@@ -646,7 +634,7 @@ The *identity matrix* is a diagonal matrix with ones on the main diagonal:
 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
 \end{array}\right)$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 The identity matrix is often a useful target matrix in statistics.
 
@@ -657,7 +645,7 @@ Multiplication by diagonal matrices is especially important in statistics and is
 
 Post-multiplication of a matrix X by a diagonal matrix `\(\mathbf{D}\)` results in the *columns* of `\(\mathbf{X}\)` being multiplied by the corresponding diagonal element in `\(\mathbf{D}\)`.
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 .pull-left[
 `$$\Large \mathbf{X} = \left(\begin{array}
 {rr}
@@ -673,7 +661,7 @@ Post-multiplication of a matrix X by a diagonal matrix `\(\mathbf{D}\)` results 
 \end{array}\right)$$`
 ]
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 `$$\Large \mathbf{XD} = \mathbf{Y} = \left(\begin{array}
 {rr}
@@ -681,7 +669,7 @@ Post-multiplication of a matrix X by a diagonal matrix `\(\mathbf{D}\)` results 
 21 &amp; 24
 \end{array}\right)$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 The first column of X is multiplied by 3; the second column is multiplied by 4.
 
@@ -690,7 +678,7 @@ The first column of X is multiplied by 3; the second column is multiplied by 4.
 Pre-multiplication of a matrix X by a diagonal matrix `\(\mathbf{D}\)` results in the *rows* of `\(\mathbf{X}\)` being multiplied by the corresponding diagonal element in `\(\mathbf{D}\)`.
 
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 .pull-left[
 `$$\Large \mathbf{D} = \left(\begin{array}
 {rr}
@@ -706,7 +694,7 @@ Pre-multiplication of a matrix X by a diagonal matrix `\(\mathbf{D}\)` results i
 \end{array}\right)$$`
 ]
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 `$$\Large \mathbf{DX} = \mathbf{Y} = \left(\begin{array}
 {rr}
@@ -714,7 +702,7 @@ Pre-multiplication of a matrix X by a diagonal matrix `\(\mathbf{D}\)` results i
 14 &amp; 12
 \end{array}\right)$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 The first row of X is multiplied by 3; the second row is multiplied by 2.
 
@@ -722,11 +710,11 @@ The first row of X is multiplied by 3; the second row is multiplied by 2.
 
 ### Scalar multiplication
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 Scalar multiplication is just multiplication by a diagonal matrix with a constant in the diagonal.
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 `$$\Large \left(\begin{array}
 {rr}
@@ -745,7 +733,7 @@ Scalar multiplication is just multiplication by a diagonal matrix with a constan
 21 &amp; 18
 \end{array}\right)$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 `$$\Large \left(\begin{array}
 {rr}
@@ -768,19 +756,19 @@ Scalar multiplication is just multiplication by a diagonal matrix with a constan
 
 ### Determinant
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 Variance-covariance matrices and correlation matrices can be characterized by a single number called the *determinant* that represents the ""generalized variance."
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 For the correlation matrix, this number can take on values from 0 to 1. When all variables are independent (an identity matrix), the determinant is 1. As variables increase in their interdependence, the determinant approaches 0. A singular matrix has a determinant of 0.
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 **The determinant thus indexes the redundancy among variables in a correlation matrix.**
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 The determinant of the matrix, `\(\mathbf{A}\)`, is symbolized: 
 `\(\large |\mathbf{A}|\)`.
@@ -844,7 +832,7 @@ Everything we need to know about the variances and covariances of the linear com
 `\(\Sigma\)`
 ).
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 `$$\Large \Sigma = \left(\begin{array}
 {rrr}
@@ -853,22 +841,22 @@ Everything we need to know about the variances and covariances of the linear com
 \sigma^2_{31} &amp; \sigma^2_{32} &amp; \sigma^2_{3} \\
 \end{array}\right)$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 If `\(\large \mathbf{Y}=\mathbf{XT}\)`,then `\(\large \Sigma_Y =\mathbf{T'\Sigma T}\)`
 ---
 
 &lt;!-- Another common set of transformations that will be made can be summarized as: --&gt;
 
-&lt;!-- &lt;p&gt;&amp;nbsp;&lt;/p&gt; --&gt;
+&lt;!--  --&gt;
 
 &lt;!-- `\(\Large \mathbf{LXM}\)` --&gt;
 
-&lt;!-- &lt;p&gt;&amp;nbsp;&lt;/p&gt; --&gt;
+&lt;!--  --&gt;
 
 &lt;!-- In which `\(\Large \mathbf{X}\)` is a Groups x Variables matrix of means, `\(\Large \mathbf{L}\)` is matrix of weights used to create linear combinations of groups (e.g., group contrasts), and `\(\Large \mathbf{M}\)` is a matrix of weights used to create linear combinations of variables. --&gt;
 
-&lt;!-- &lt;p&gt;&amp;nbsp;&lt;/p&gt; --&gt;
+&lt;!--  --&gt;
 
 &lt;!-- By carefully constructing `\(\Large \mathbf{L}\)` and `\(\Large \mathbf{M}\)`, we can make any group comparisons for any combinations of variables. --&gt;
 
@@ -885,10 +873,10 @@ We can calculate the mean of a vector `\(\mathbf{x}\)` with length `\(n\)` using
 
 Let's show this with a vector `\(\mathbf{x}\)` where `\(\large \mathbf{x'} = [8, 2, 9]\)`
 
-`$$\Large \bar{x} = 1'\mathbf{x}(1'1)^{-1}$$`
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+`$$\large \bar{x} = 1'\mathbf{x}(1'1)^{-1}$$`
 
-`$$\Large \bar{x} = \left[\begin{array}
+
+`$$\large \bar{x} = \left[\begin{array}
 {rrr}
 1 &amp; 1 &amp; 1 \\\end{array}\right]
 \left[\begin{array}
@@ -905,9 +893,9 @@ Let's show this with a vector `\(\mathbf{x}\)` where `\(\large \mathbf{x'} = [8,
 1 \end{array}\right])^{-1}$$`
 
 --
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-`$$\Large \bar{x} = \left[\begin{array}
+
+`$$\large \bar{x} = \left[\begin{array}
 {r}
 19 \end{array}\right](\left[\begin{array}
 {r}
@@ -917,7 +905,7 @@ Now we find the inverse of the matrix `\([3]\)` such that this matrix times `\([
 
 --
 
-`$$\Large \bar{x} = \left[\begin{array}
+`$$\large \bar{x} = \left[\begin{array}
 {r}
 19 \end{array}\right](\left[\begin{array}
 {r}
@@ -942,9 +930,13 @@ We can apply almost the same formula to an `\(n \times c\)` matrix to find the m
 Any vector of `\(N\)` raw scores can be converted into deviation score form by pre-multiplication by a "projection operator" `\(\mathbf{Q}\)`. Diagonal elements of `\(\mathbf{Q}\)` are always equal to `\((N − 1)/N\)` , and off-diagonal elements are always equal to 
 `\(−1/N\)`.
 
+---
+
+### Deviation scores
+
 Imagine we have a vector of scores, `\(\mathbf{x} = [4, 2, 0]\)`. Our projection operator would then be
 
-`$$\mathbf{Q} = \left(\begin{array}
+`$$\small \mathbf{Q} = \left(\begin{array}
 {rrr}
 \frac{2}{3} &amp; -\frac{1}{3} &amp; -\frac{1}{3} \\
 -\frac{1}{3} &amp; \frac{2}{3} &amp; -\frac{1}{3} \\
@@ -953,7 +945,7 @@ Imagine we have a vector of scores, `\(\mathbf{x} = [4, 2, 0]\)`. Our projection
 
 And our deviation scores are
 
-`$$\mathbf{D} = \mathbf{Qx} = \left(\begin{array}
+`$$\small \mathbf{D} = \mathbf{Qx} = \left(\begin{array}
 {rrr}
 \frac{2}{3} &amp; -\frac{1}{3} &amp; -\frac{1}{3} \\
 -\frac{1}{3} &amp; \frac{2}{3} &amp; -\frac{1}{3} \\
@@ -986,15 +978,15 @@ Does this make sense?
 
 We already know that sample variance is the sum of the squared devaition scores divided by `\(N-1\)`, so we can write this as a matrix algebra formula:
 
-`$$\Large S^2_{\mathbf{x}} = \frac{1}{N-1}\mathbf{D'D}$$`
+`$$\large S^2_{\mathbf{x}} = \frac{1}{N-1}\mathbf{D'D}$$`
 
 We can then substitute our formula for the devaition score:
 
-`$$\Large S^2_{\mathbf{x}} = \frac{1}{N-1}\mathbf{(Qx)'(Qx)}$$`
+`$$\large S^2_{\mathbf{x}} = \frac{1}{N-1}\mathbf{(Qx)'(Qx)}$$`
 
 The transpose of a product of matrices is equal to the product of the transposes in reverse order, so:
 
-`$$\Large S^2_{\mathbf{x}} = \frac{1}{N-1}\mathbf{x'Q'Qx}$$`
+`$$\large S^2_{\mathbf{x}} = \frac{1}{N-1}\mathbf{x'Q'Qx}$$`
 ???
 Note that S refers to the matrix of all variables and s refers to a vector for a specific variable.
 ---
@@ -1003,13 +995,13 @@ Note that S refers to the matrix of all variables and s refers to a vector for a
 
 Here's one more weird thing. It turns out that `\(\mathbf{Q'Q} = \mathbf{Q}\)`. (This is a proof we won't get into.) 
 
-`$$\Large S^2_{\mathbf{x}} = \frac{1}{N-1}\mathbf{x'Q'Qx} = \frac{1}{N-1}\mathbf{x'Qx}$$`
+`$$\large S^2_{\mathbf{x}} = \frac{1}{N-1}\mathbf{x'Q'Qx} = \frac{1}{N-1}\mathbf{x'Qx}$$`
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 
 We can generalize this formula to:
 
-`$$\Large S_{\mathbf{xy}} = \frac{1}{N-1}\mathbf{x'Qy}$$`
+`$$\large S_{\mathbf{xy}} = \frac{1}{N-1}\mathbf{x'Qy}$$`
 
 ???
 Students should recognize covariance formula.
@@ -1021,7 +1013,15 @@ A correlation is simply the covariance divided by the standard deviations of the
 
 Let `\(\mathbf{D_{xx}}\)` be a diagonal matrix with the diagonal value being `\(1/s_i\)` or the inverse of the standard deviation of that variable. Then we can calculate `\(\mathbf{R}\)` as
 
-`$$\Large \mathbf{R} = \mathbf{D_{xx}S_{XY}D_{xx}}$$`
+`$$\large \mathbf{R} = \mathbf{D_{xx}S_{XY}D_{xx}}$$`
+
+---
+
+class: inverse
+
+## Next time...
+
+probability!
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

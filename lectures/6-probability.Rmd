@@ -8,8 +8,6 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-      
-      
 ---
 
 In research, we wish to make inferences about the **unknown** state of the world based on **known** data we have in hand.

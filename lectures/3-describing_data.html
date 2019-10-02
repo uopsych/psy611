@@ -6,6 +6,7 @@
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -336,6 +337,7 @@ names(world)
 ## [6] "Freedom"    "Generosity" "Corruption"
 ```
 
+.small[
 **Happiness**: “Please imagine a ladder, with steps numbered from 0 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. On which step of the ladder would you say you personally feel you stand at this time?”
 
 **GDP**: Log gross domestic product per capita
@@ -349,7 +351,7 @@ names(world)
 **Corruption**: “Is corruption widespread throughout the government or not” and “Is corruption widespread within businesses or not?” (average of 2 questions)
 
 **Generosity**: “Have you donated money to a charity in the past month?” (residual, adjusting for GDP)
-
+]
 
 ---
 
@@ -556,7 +558,9 @@ sum((x - mean(x))^2)/length(x)
 ## [1] 6.666667
 ```
 
---
+---
+
+## Variance
 
 ###Good things about variance:
 - It's additive.
@@ -570,7 +574,9 @@ sum((x - mean(x))^2)/length(x)
 ###Bad things about variance:
 - What the heck does it mean?
 
---
+---
+
+
 
 **Standard deviation `\(\sigma\)`** is the square root of the variance. 
 
@@ -622,7 +628,7 @@ leptokurtic: too pointy, positive kurtosis
 
 Where do the names come from?
 
-1. First moment: Mean
+.small[1. First moment: Mean
 `$$\mu = \frac{\Sigma(x_i)}{N}$$`
 2. Second moment: Variance
 `$$\sigma^2 = \frac{\Sigma(X_i-\mu)^2}{N}$$`
@@ -630,6 +636,7 @@ Where do the names come from?
 `$$skewness(X) = \frac{1}{N\sigma^3}\Sigma(X_i-\mu)^3$$`
 4. Fourth moment: Kurtosis
 `$$kurtosis(X) = \frac{1}{N\sigma^4}\Sigma(X_i-\mu)^4-3$$`
+]
 ???
 If you're calculating sample statistics for skewness and kurtosis, replace the `\(\sigma\)` with `\(s\)` and `\(\mu\)` with `\(\bar{X}\)`.
 ---
@@ -722,6 +729,10 @@ var(x)
 ## [1] 8
 ```
 
+---
+
+## Population versus sample
+
 - The value that represents the entire population is called a **parameter**.
   - We collect samples to estimate the properties of populations; the statistic that represents a sample is called a **statistic**.
   - Population parameters are represented with Greek letters (
@@ -744,6 +755,10 @@ var(x)
 - **Bias**: An estimator is biased if its expected value and the true value of the parameter are different. 
 
 - **Efficiency**: Of two alternative estimators, the more efficient one will estimate the parameter with less error for the same sample size.
+
+---
+
+## Bias and efficiency
 
 Robust statistics sacrifice efficiency to control possible bias.
 
@@ -796,6 +811,11 @@ Scores interpreted as distance from the mean, in standard deviations.
 - `\(\Sigma z^2 = N\)`
 - `\(s_z = \frac{\Sigma z}{n}\)`
 
+---
+
+## Standardized scores (z-scores)
+
+$$ z = \frac{x_i - M}{s} $$
 **Why is this useful?**
 
 --
@@ -855,6 +875,12 @@ world %&gt;%
 ## Generosity    7 120    0  1 -1.80 2.90  4.70 0.09
 ## Corruption    8 125    0  1 -3.20 1.14  4.34 0.09
 ```
+
+---
+
+## Next time...
+
+describing relationships
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

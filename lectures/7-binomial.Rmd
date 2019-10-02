@@ -1,0 +1,61 @@
+---
+title: 'Probability: Binomial Distribution'
+output:
+  xaringan::moon_reader:
+    includes: 
+    lib_dir: libs
+    css: [default, rladies, rladies-fonts, "my-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+The binomial distribution is the theoretical probability distribution appropriate when modeling the expected outcome, X, of N trials (or event sequences) that have the following characteristics:
+
+- The outcome on every trial is binary (also called a Bernoulli trial)
+- The probability of the target outcome (usually called a “success”) is the same for all N trials (“with replacement” might be necessary)
+- The trials are independent
+- The number of trials is fixed
+
+---
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+If these assumptions hold then X is a binomial random variable representing the expected number of successes over N trials, with expected success on each trial of q.
+
+<p>&nbsp;</p>
+
+
+A common and compact way of stating the same thing is: 
+
+<p>&nbsp;</p>
+
+
+$$\Huge X \sim B(N, \theta)$$
+---
+<p>&nbsp;</p>
+
+The probability distribution for X is defined by the following **probability mass function**: 
+
+<p>&nbsp;</p>
+
+$$\Large P(X|\theta,N) = \frac{N!}{X!(N-X)!}\theta^X(1-\theta)^{N-X}$$
+<p>&nbsp;</p>
+
+The probability mass function tells us what to expect for any particular X in the sample space.
+
+<p>&nbsp;</p>
+
+All theoretical distributions have a mass function (if discrete) or a density function (if continuous). These are the defining equations that tells us the generating process for the behavior of X.
+
+???
+
+A common way to write the binomial mass function is to think of $\theta$ as the probability of success ($p$) and $1-\theta$ as the probability of failure ($q$). It becomes easier to write the function:
+
+$$ P(X|\theta,N) = \frac{N!}{X!(N-X)!}p^X(q)^{N-X}$$
+---
+
+$$\Large P(X|\theta,N) = \frac{N!}{X!(N-X)!}\theta^X(1-\theta)^{N-X}$$
+
