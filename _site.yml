@@ -7,8 +7,10 @@ navbar:
       href: schedule.html
     - text: Lectures
       menu:
-      - text: Introduction
+      - text: "1-Introduction"
         href: "lectures/1-intro.html"
+      - text: "2-Validity"
+        href: "lectures/2-measurement.html"
     - text: Labs
       menu:
       - text: "Introduction to R and RStudio"
