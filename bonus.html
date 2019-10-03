@@ -7,7 +7,6 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -89,6 +88,7 @@ code {
 }
 img {
   max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -249,9 +249,48 @@ $(document).ready(function () {
 }
 </style>
 
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
 <!-- code folding -->
 
 
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <style type="text/css">
 
@@ -406,6 +445,7 @@ div.tocify {
 <h2>On data collection, measuring constructs, scales</h2>
 <p>Lord (1953) <a href="readings/Lord_1953.pdf">“On the statistical treatment of football numbers.”</a> – This one is worth reading several times, ideally with a friend. Don’t worry, it’s quite short. A small note: “Tchebycheff” is sometimes written as “Chebyshev” and in either case is pronounced Cheb-ee-sheve.</p>
 <p>Malone &amp; Goldstone (2019) <a href="https://www.npr.org/2019/08/28/755191639/episode-936-the-modal-american">“Episode 936: The Modal American.”</a> – This episode of NPR’s podcast, <em>Planet Money</em>, is a great discussion of what we mean when we say “average,” why the mean can be a bad measure of central tendency, and how complicated calculating simple statistics are. They don’t use the words “artifact” or “collinearity”, but they discuss both and how they can lead to bad answers.</p>
+<p>Rohrer (2019) <a href="http://www.the100.ci/2019/10/03/indirect-effect-ex-machina">“Indirect Effect <em>Ex Machina</em>”</a> – come for the ice cream and sauerkraut, stay for the creeping dread that many mediation studies are probably wrong.</p>
 </div>
 <div id="on-probability-and-its-use-and-misuse" class="section level2">
 <h2>On probability and its use and misuse</h2>
@@ -440,49 +480,6 @@ $(document).ready(function () {
 });
 
 
-</script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
-<!-- code folding -->
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
