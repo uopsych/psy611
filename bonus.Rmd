@@ -8,7 +8,7 @@ output:
     theme: cosmo
 ---
 
-This page contains links to journal articles, blog posts, webpages, etc., that we (the instructors) believe may be useful to you, or at the very least interesting. **Bold** articles are ones that we consider **must-reads** but don't have enough time to actually assisn. And to be clear, must-read means that people will probably assume you've read this and know the basic points.  
+This page contains links to journal articles, blog posts, webpages, etc., that we (the instructors) believe may be useful to you, or at the very least interesting. **Bold** articles are ones that we consider **must-reads** but don't have enough time to actually assign. And to be clear, must-read means that people will probably assume you've read this and know the basic points.  
 
 ## On data collection, measuring constructs, scales
 
