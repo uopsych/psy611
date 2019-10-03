@@ -16,6 +16,8 @@ Lord (1953) ["On the statistical treatment of football numbers."](readings/Lord_
 
 Malone & Goldstone (2019) ["Episode 936: The Modal American."](https://www.npr.org/2019/08/28/755191639/episode-936-the-modal-american) -- This episode of NPR's podcast, _Planet Money_, is a great discussion of what we mean when we say "average," why the mean can be a bad measure of central tendency, and how complicated calculating simple statistics are. They don't use the words "artifact" or "collinearity", but they discuss both and how they can lead to bad answers.
 
+Rohrer (2019) ["Indirect Effect *Ex Machina*"](http://www.the100.ci/2019/10/03/indirect-effect-ex-machina) -- come for the ice cream and sauerkraut, stay for the creeping dread that many mediation studies are probably wrong. 
+
 ## On probability and its use and misuse
 
 Fry (2019) ["What statistics can and can't tell us about ourselves"](https://www.newyorker.com/magazine/2019/09/09/what-statistics-can-and-cant-tell-us-about-ourselves). This article in the *New Yorker* explains issues of (frequentist) probability in terms you can explain to your grandma, as well as makes clear the issues of the Fisher tradition of reducing experiments to p-values. 
@@ -31,4 +33,10 @@ Bem (2004) ["Writing the empirical journal article."](readings/Bem_2004.pdf) -- 
 ## On coding and data science
 
 Peters (2004) ["The Zen of Python"](https://www.python.org/dev/peps/pep-0020/) -- A list of 19 principles for writing better Python code; the principles also apply to writing better R code. 
+
+Hill (2019) ["Meet xaringan"](https://arm.rbind.io/slides/xaringan.html#1) -- There are a ton of resource for learning how to make slides using R. Too many to list here. I like this one because it's accessible, funny, visually appealing, and will help you make slides that you're proud of. (By the way, UO has theme you can use.)
+
+Bryan (2019?) ["Happy Git with R"](https://happygitwithr.com) -- Interested in using GitHub for version control? Jenny Bryan will guide you through the process and metaphorically hand you a tissue when you're screaming with frustration. 
+
+
 
