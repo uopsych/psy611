@@ -99,7 +99,7 @@ $$\Large P(X|\theta,N) = \frac{N!}{X!(N-X)!}\theta^X(1-\theta)^{N-X}$$
 
 ***
 
-But a specific sequence of indepenent outcomes is just one way we could have X successful trials out of N. 
+But a specific sequence of independent outcomes is just one way we could have X successful trials out of N. 
 
 - We need to know **how many possible ways** we could get X successes in N trials.
 
