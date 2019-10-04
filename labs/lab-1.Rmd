@@ -15,6 +15,9 @@ knitr::opts_chunk$set(echo = TRUE)
 options(scipen = 999)
 ```
 
+**Download this lab:**
+[lab-1_knit.docx](https://docs.google.com/document/d/1E0nu4og3-TKZIJ1tmp7gt-8KMaxeERlLzV8Zq3dEluU/export?format=doc)
+
 # Purpose
 
 The purpose of today's lab is not to teach you everything there is to know about coding in R. It is not even to describe why the code in R works the way it does. Instead, we take an applied approach to learning R. We hope that giving you a functional understanding of R and suggesting some strategies for overcoming common coding obstacles will allow you to begin playing around with the language. We believe that the easiest way to *learn* R is by *using* R. 
