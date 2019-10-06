@@ -1,0 +1,21 @@
+---
+title: 'Probability: Normal Distribution'
+output:
+  xaringan::moon_reader:
+    includes: 
+    lib_dir: libs
+    css: [default, rladies, rladies-fonts, "my-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+library(tidyverse)
+```
+
+## Today...
+* The normal distribution
+* Why the normal is so important
+* $t$, $F$, and $\chi^2$ distributions (briefly, for now)
