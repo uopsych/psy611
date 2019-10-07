@@ -28,15 +28,15 @@ The purpose of today's lab is to introduce you to some simple tools that will al
 
 Today's lab will cover:
 
-1. Distributions (#dist)
-1. Measures of central tendency (#ct)
-2. Measures of variability
-3. Skew and kurtosis
-4. Summarizing a dataset
-5. Standardized scores
-6. Bivariate descriptives
+1. [Distributions](#dist)
+2. [Measures of central tendency](#ct)
+3. [Measures of variability]
+4. [Skew and kurtosis]
+5. [Summarizing a dataset]
+6. [Standardized scores]
+7. [Bivariate descriptives]
 
-We'll use the same 2015 World Happiness Report dataset from class, which you can [download here](https://drive.google.com/uc?export=download&id=1XXsB4L4wDxGkcc-JuVnotKWCnsDUsskW). 
+We'll use the same 2015 World Happiness Report dataset from class, which you can [download here](https://drive.google.com/uc?export=download&id=1XXsB4L4wDxGkcc-JuVnotKWCnsDUsskW). If you'd like to follow along, go ahead and import the data using the `rio` package (see [here](https://uopsych.github.io/psy611/labs/lab-1.html#importing_data_into_r){target="_blank"} for a refresher on importing data.)
 
 ```{r echo=FALSE}
 world_happiness = import(here("/labs/resources/lab2/purpose/world_happiness_2015.csv"))
@@ -60,5 +60,46 @@ For a given variable in our dataset, we often want to get a sense
 
 ## Mode
 
+***
 
+# Variability
 
+## Range
+
+## IQR
+
+## Variance
+
+## Standard deviation
+
+***
+
+# Skew & Kurtosis
+
+*** 
+
+# Summarizing data
+
+***
+
+# Standardization
+
+***
+
+# Bivariate descriptives
+
+## Covariance 
+
+## Correlation
+
+***
+
+# Minihacks
+
+## Minihack 1:
+
+## Minihack 2:
+
+## Minihack 3:
+
+## Minihack 4:
