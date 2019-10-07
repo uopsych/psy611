@@ -36,17 +36,74 @@ Today's lab will cover:
 6. [Standardized scores]
 7. [Bivariate descriptives]
 
+***
+
+# Getting Started
+
 We'll use the same 2015 World Happiness Report dataset from class, which you can [download here](https://drive.google.com/uc?export=download&id=1XXsB4L4wDxGkcc-JuVnotKWCnsDUsskW). If you'd like to follow along, go ahead and import the data using the `rio` package (see [here](https://uopsych.github.io/psy611/labs/lab-1.html#importing_data_into_r){target="_blank"} for a refresher on importing data.)
 
-```{r echo=FALSE}
+If the file is saved in your `Downloads` folder, your code might look something like this:
+```{r, eval = FALSE}
+install.packages("rio") # if the 'rio' package is not already installed
+library(rio)
+world_happiness <- import("~/Downloads/world_happiness_2015.csv")
+```
+
+
+```{r, echo=FALSE}
 world_happiness = import(here("/labs/resources/lab2/purpose/world_happiness_2015.csv"))
 ```
 
+We can take a peek at the data using the `str()` function, which shows us the structure of the dataset. This tells us we have a data frame with 136 observations of 8 different variables: `Country`, `Happiness`, `GDP`, `Support`, `Life`, `Freedom`, `Generosity` and `Corruption`. 
+
+```{r}
+str(world_happiness)
+```
+
+We can also peek at the first few rows of the data frame using `head()`.
+
+```{r}
+head(world_happiness)
+```
 
 ***
 
 # Distributions {#dist}
 
+Recall from lecture that a **distribution** often refers to a description of the [relative] number of times a variable X will take each of its unique values.
+
+We often visualize a distribution of a given variable using a histogram, which plots the frequencies of different values. 
+
+For example, let's take a look at a distribution of the `Happiness` variable. We do this using the `hist()` function. (Remember, you can check out the help documentation using `?hist`).
+
+```{r}
+hist(x = world_happiness$Happiness)
+```
+
+
+This looks ok, but it's kind of ugly. Let's make it better by adding our own title and a better label for the x-axis. We can also change the number of bars. 
+
+```{r}
+hist(x = world_happiness$Happiness, breaks = 30, main = "Distribution of Happiness Scores", xlab = "Happiness")
+```
+
+This looks a little cleaner. So far we have been plotting in base R. However, the [ggplot2 package](https://www.rdocumentation.org/packages/ggplot2/versions/3.2.1){target="_blank"} is generally a much better tool for plotting. For now we'll stick with base plotting, but in a future class you will learn how to use `ggplot` to make better-looking graphs, such as this:
+
+```{r echo = FALSE}
+ggplot(world_happiness, aes(x = Happiness)) +
+  geom_histogram(fill = "#56B4E9",
+                 color = "white",
+                 alpha = 0.7,
+                 bins = 30) + 
+  labs(x = "Happiness",
+       y = "Frequency",
+       title = "Distribution of Happiness Scores",
+       caption = "Source: 2015 World Happiness Report") +
+  theme_minimal(base_size = 13)
+```
+
+
+Ok, so now that we know how to vizualize a basic distirubtion, let's think about how we commonly characterize distributions...
 
 ***
 
