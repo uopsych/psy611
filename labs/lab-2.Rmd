@@ -24,7 +24,7 @@ library(psych)
 
 # Purpose
 
-The purpose of today's lab is to introduce you to some simple tools that will allow you to calculate and visualize *descriptive statistics* in R. This will not be a deep dive into the theoretical meaning behind descriptives, but rather a guide to some practical steps toward getting the most basic summary information out of a given dataset. Along the way, we will implement some of the skills we learned in [last week's lab](https://uopsych.github.io/psy611/labs/lab-1.html){target="_blank"}, such as creating variables, working with data frames, installing packages, and learning how to use new functions. 
+The purpose of today's lab is to introduce you to some simple tools that will allow you to calculate and visualize **descriptive statistics** in R. This will not be a deep dive into the theoretical meaning behind descriptives, but rather a guide to some practical steps toward getting the most basic summary information out of a given dataset. Along the way, we will implement some of the skills we learned in [last week's lab](https://uopsych.github.io/psy611/labs/lab-1.html){target="_blank"}, such as creating variables, working with data frames, installing packages, and learning how to use new functions. 
 
 Today's lab will cover:
 
