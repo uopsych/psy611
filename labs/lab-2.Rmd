@@ -103,19 +103,39 @@ ggplot(world_happiness, aes(x = Happiness)) +
 ```
 
 
-Ok, so now that we know how to vizualize a basic distirubtion, let's think about how we commonly characterize distributions...
+Ok, so now that we know how to vizualize a basic distribution, let's think about how we commonly *characterize* distributions with descriptive statistics...
 
 ***
 
 # Central Tendency {#ct}
 
-For a given variable in our dataset, we often want to get a sense
+For a given set of observations, measures of central tendency allow us to get the "gist" of the data--e.g. they tell us about where the "average" or the "mid-point" of the data lies. Let's take a really simple example first...the numbers 1 through 5. 
+
+```{r}
+simple_vector <- c(1, 2, 2, 3, 7)
+```
 
 ## Mean
 
+The mean is the arithmetic average of a set of values. It represents the sum of those values divided by the total number of values. To find the mean of a set of observations, we use the aptly named `mean()` function.
+
+```{r}
+mean(simple_vector)
+```
+
+
 ## Median
 
+The median is the middle value of a set of observations: 50% of the data points fall below the median, and 50% fall above. To find the median, we can use `median()` from the `{stats}` package.
+
+```{r}
+median(simple_vector)
+```
+
+
 ## Mode
+
+Oddly enough, the core packages in R do not contain a function to find the mode. In the case of our very simple dataset, it is easy to determine that the mode (i.e. the most common value) is `2`. Your first minihack exercise will be to find the mode of a variable from a real-world dataset using a lesser-known function in R.
 
 ***
 
