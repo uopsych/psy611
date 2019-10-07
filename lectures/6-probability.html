@@ -492,9 +492,62 @@ Before transitioning, need to know probability of rare disease.
 
 `$$\frac{(.99)(.0001)}{(.99)(.0001)+(.01)(.9999)}$$`
 
+---
+## `\(p\)`-values
 
+Soon enough, we'll get to how `\(p\)`-values are derived from data. But it's worth bringing them up now, because they are statments about probability. 
+
+What are `\(p\)`-values representing the probability of?
+
+--
+
+Which view of probability, frequentist or Bayesian, are `\(p\)`-values associated with?
 
 ---
+
+## Likelihood under different views
+
+.pull-left[
+### Frequentist
+
+`$$p = P(\text{Data}|H_0)$$`
+]
+
+.pull-right[
+### Bayesian
+`$$\text{Bayes Factor} = \frac{P(\text{Data}|H_A)}{P(\text{Data}|H_0)}$$`
+]
+
+Which is right?
+
+* `\(p\)`-values and Bayes Factor are highly correlated ([Wetzels et al., 2011](../readings/Wetzels_etal_2011.pdf)).
+
+
+
+???
+
+Note that `\(H_A\)` can be a range of possible parameters, in which case, you get the weighted probability across many, or the integral if a continuous range. 
+
+---
+
+&lt;img src="images/BF_pvalue.png" width="75%" /&gt;
+
+.small[([Wetzels et al., 2011](../readings/Wetzels_etal_2011.pdf))]
+
+???
+But major disagreement in conclusion.
+
+- When `\(p\)`-value falls between .01 and .05, there is a 70% chance that Bayes Factor suggests only anecdotal evidence in favor of alternative. 
+
+Take-away -- Bayes Factor is more conservative when it comes to finding evidence against the null hypothesis. Is that better, or worse?
+
+---
+
+class: inverse
+
+## Next time...
+
+binomial distribution
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
