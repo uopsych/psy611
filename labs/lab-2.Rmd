@@ -82,7 +82,9 @@ This looks ok, but it's kind of ugly. Let's make it better by adding our own tit
 hist(x = world_happiness$Happiness, breaks = 30, main = "Distribution of Happiness Scores", xlab = "Happiness")
 ```
 
-This looks a little cleaner. So far we have been plotting in base R. However, the [ggplot2 package](https://www.rdocumentation.org/packages/ggplot2/versions/3.2.1){target="_blank"} is generally a much better tool for plotting. For now we'll stick with base plotting, but in a future class you will learn how to use `ggplot` to make better-looking plots, such as this:
+## Looking ahead...
+
+Our second plot looks a little cleaner. So far we have been plotting in base R. However, the [ggplot2 package](https://www.rdocumentation.org/packages/ggplot2/versions/3.2.1){target="_blank"} is generally a much better tool for plotting. For now we'll stick with base plotting, but in a future class you will learn how to use `ggplot` to make better-looking plots, such as this:
 
 ```{r echo = FALSE}
 ggplot(world_happiness, aes(x = Happiness)) +
@@ -108,24 +110,44 @@ The most basic
 
 ## Central Tendency
 
-For a given set of observations, measures of central tendency allow us to get the "gist" of the data--e.g. they tell us about where the "average" or the "mid-point" of the data lies. Let's take a really simple example first...the numbers 1 through 5. 
+For a given set of observations, measures of central tendency allow us to get the "gist" of the data--e.g. they tell us about where the "average" or the "mid-point" of the data lies. Let's take a really simple example first. We'll use a simple vector as our dataset. 
 
 ```{r}
-simple_vector <- c(1, 2, 2, 3, 7)
+simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 ```
 
 ### Mean
 
-The mean is the arithmetic average of a set of values. It represents the sum of those values divided by the total number of values. To find the mean of a set of observations, we use the aptly named `mean()` function.
+The mean is the arithmetic average of a set of values. It represents the sum of those values divided by the total number of values. Let's do this in R.
+
+```{r}
+sum(simple_vector)/length(simple_vector)
+```
+
+However, a faster (and better) way to find the mean is to use the aptly named `mean()` function from base R.
 
 ```{r}
 mean(simple_vector)
 ```
 
+Quick aside: What happens if you try to calculate the mean when there are missing values in your data? Let's see what happens when we add a couple `NA`'s to our simple vector and calculate the mean.
+
+```{r}
+simple_vector_missing <- c(1, 1, NA, 1, 2, 2, 2, 2, 2, 3, 5, NA, 5, 6, 7)
+
+mean(simple_vector_missing)
+```
+
+It gives us an `NA`! The reason for this is that the mean, by its nature, involves using every value for a given variable, so if you don't remove (or impute) the missing values before getting the mean, it won't work. If there are missing values in your data (which there often are in real life), then you will have to add an additional argument: `na.rm = TRUE`.
+
+```{r}
+mean(simple_vector_missing, na.rm = TRUE)
+```
+
 
 ### Median
 
-The median is the middle value of a set of observations: 50% of the data points fall below the median, and 50% fall above. To find the median, we can use `median()` from the `{stats}` package.
+The median is the middle value of a set of observations: 50% of the data points fall below the median, and 50% fall above. To find the median, we can use the `median()` function from the `{stats}` package.
 
 ```{r}
 median(simple_vector)
@@ -133,7 +155,7 @@ median(simple_vector)
 
 ### Mode
 
-Oddly enough, the core packages in R do not contain a function to find the mode. In the case of our very simple dataset, it is easy to determine that the mode (i.e. the most common value) is `2`. Your first minihack exercise will be to find the mode of a variable from a real-world dataset using the R package that accompanies your textbook.
+Oddly enough, the core packages in R do not contain a function to find the mode. In the case of our very simple dataset, it is easy to determine that the mode (i.e. the most common value) is `2`. Your first [minihack exercise](#minihacks) will be to find the mode of a set of numbers using the R package that accompanies your textbook.
 
 ## Variability
 
@@ -151,7 +173,7 @@ Oddly enough, the core packages in R do not contain a function to find the mode.
 
 # Summarizing data {#summarize}
 
-## using `psych::describe()`
+## `psych::describe()`
 
 ## Skew and kurtosis
 
@@ -169,7 +191,7 @@ Oddly enough, the core packages in R do not contain a function to find the mode.
 
 ***
 
-# Minihacks
+# Minihacks {#minihacks}
 
 ## Minihack 1: Find the mode
 
