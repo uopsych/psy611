@@ -31,7 +31,7 @@ Today's lab will cover:
 1. [Distributions](#dist)
 2. [Basic Descriptives](#basic)
 3. [Summarizing a dataset](#summarize)
-4. [Bivariate descriptives](#bivar)
+4. [Correlation](#corr)
 
 ***
 
@@ -166,7 +166,7 @@ median(simple_vector)
 
 ### Mode
 
-Oddly enough, the core packages in R do not contain a function to find the mode. In the case of our very simple dataset, it is easy to determine that the mode (i.e. the most common value) is `2`. Your first [minihack exercise](#minihacks) will be to find the mode of a set of numbers using the R package that accompanies your textbook.
+Oddly enough, the core packages in R do not contain a function to find the mode. In the case of our very simple dataset, it is easy to determine that the mode (i.e. the most common value) is `2`. Your first [minihack exercise](#minihacks) will be to find the mode using the R package that accompanies your textbook.
 
 ## Measures of Variability
 
@@ -249,11 +249,7 @@ Note that `psych::describe()` gives us a couple statistics we haven't discussed 
 
 ***
 
-# Bivariate descriptives {#bivar}
-
-## Covariance 
-
-## Correlation
+# Correlation {#corr}
 
 ***
 
@@ -261,8 +257,21 @@ Note that `psych::describe()` gives us a couple statistics we haven't discussed 
 
 ## Minihack 1: Find the mode
 
+1. Install and load the `{lsr}` package, the companion R package to your textbook, [Learning Statistics with R](https://learningstatisticswithr-bookdown.netlify.com/){target="_blank"}.
+
+2. Check out the help documentation for the function `modeOf()`. 
+
+3. Use `modeOf()` to find the mode of `simple_vector`. Make sure that the answer you get is `2`. Save your result to an object called `mode`. If you don't alreay have `simple_vector` loaded in your workspace, here it is again:
+
+```{r eval=FALSE}
+simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
+```
+
+4. Use the function `maxFreq()` to find the frequency of the modal value (i.e. how many time it occurs). Save your result to an object called `modal_freq`.
+
+
 ## Minihack 2: Outliers
 
-## Minihack 3: 
+## Minihack 3: Descriptive plots 
 
-## Minihack 4:
+## Minihack 4: Correlations

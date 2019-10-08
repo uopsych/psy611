@@ -1533,7 +1533,7 @@ div.tocify {
 <li><a href="#dist">Distributions</a></li>
 <li><a href="#basic">Basic Descriptives</a></li>
 <li><a href="#summarize">Summarizing a dataset</a></li>
-<li><a href="#bivar">Bivariate descriptives</a></li>
+<li><a href="#corr">Correlation</a></li>
 </ol>
 <hr />
 </div>
@@ -1632,7 +1632,7 @@ mean(simple_vector_missing)</code></pre>
 </div>
 <div id="mode" class="section level3">
 <h3>Mode</h3>
-<p>Oddly enough, the core packages in R do not contain a function to find the mode. In the case of our very simple dataset, it is easy to determine that the mode (i.e. the most common value) is <code>2</code>. Your first <a href="#minihacks">minihack exercise</a> will be to find the mode of a set of numbers using the R package that accompanies your textbook.</p>
+<p>Oddly enough, the core packages in R do not contain a function to find the mode. In the case of our very simple dataset, it is easy to determine that the mode (i.e. the most common value) is <code>2</code>. Your first <a href="#minihacks">minihack exercise</a> will be to find the mode using the R package that accompanies your textbook.</p>
 </div>
 </div>
 <div id="measures-of-variability" class="section level2">
@@ -1731,29 +1731,32 @@ boxplot(simple_vector_outlier)</code></pre>
 <hr />
 </div>
 </div>
-<div id="bivar" class="section level1">
-<h1>Bivariate descriptives</h1>
-<div id="covariance" class="section level2">
-<h2>Covariance</h2>
-</div>
-<div id="correlation" class="section level2">
-<h2>Correlation</h2>
+<div id="corr" class="section level1">
+<h1>Correlation</h1>
 <hr />
-</div>
 </div>
 <div id="minihacks" class="section level1">
 <h1>Minihacks</h1>
 <div id="minihack-1-find-the-mode" class="section level2">
 <h2>Minihack 1: Find the mode</h2>
+<ol style="list-style-type: decimal">
+<li><p>Install and load the <code>{lsr}</code> package, the companion R package to your textbook, <a href="https://learningstatisticswithr-bookdown.netlify.com/" target="_blank">Learning Statistics with R</a>.</p></li>
+<li><p>Check out the help documentation for the function <code>modeOf()</code>.</p></li>
+<li><p>Use <code>modeOf()</code> to find the mode of <code>simple_vector</code>. Make sure that the answer you get is <code>2</code>. Save your result to an object called <code>mode</code>. If you don’t alreay have <code>simple_vector</code> loaded in your workspace, here it is again:</p></li>
+</ol>
+<pre class="r"><code>simple_vector &lt;- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use the function <code>maxFreq()</code> to find the frequency of the modal value (i.e. how many time it occurs). Save your result to an object called <code>modal_freq</code>.</li>
+</ol>
 </div>
 <div id="minihack-2-outliers" class="section level2">
 <h2>Minihack 2: Outliers</h2>
 </div>
-<div id="minihack-3" class="section level2">
-<h2>Minihack 3:</h2>
+<div id="minihack-3-descriptive-plots" class="section level2">
+<h2>Minihack 3: Descriptive plots</h2>
 </div>
-<div id="minihack-4" class="section level2">
-<h2>Minihack 4:</h2>
+<div id="minihack-4-correlations" class="section level2">
+<h2>Minihack 4: Correlations</h2>
 </div>
 </div>
 
