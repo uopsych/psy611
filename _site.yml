@@ -11,6 +11,8 @@ navbar:
         href: "lectures/1-intro.html"
       - text: "2-Validity"
         href: "lectures/2-measurement.html"
+      - text: "3-Describing data I"
+        href: "lectures/3-describing_data.html"
     - text: Labs
       menu:
       - text: "Introduction to R and RStudio"

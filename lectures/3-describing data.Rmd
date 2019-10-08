@@ -123,7 +123,7 @@ $$\mu = \frac{\Sigma(x_i)}{N}=\frac{7+7+8+3+9+2}{6}=\frac{`r sum(c(7,7,8,3,9,2))
 
 --
 
-- Can only be used with ratio-level variables. 
+- Can only be used with interval- and ratio-level variables. 
 
 ???
 
@@ -314,16 +314,25 @@ If you're calculating sample statistics for skewness and kurtosis, replace the $
 ---
 ## problems
   
-```{r}
+```{r describe}
 psych::describe(world)
 ```
 
 How do we know if there is a problem and what should we do?
   
+---
+## problems
+
+```{r ref.label="describe", highlight.output = c(9,18)}
+
+```
+
+
 ???
   Draw attention to corruption
 - mean and median are very different
 - skew and kurtosis are large (|value| > 1)
+
 
 ---
   
@@ -486,9 +495,9 @@ Scores interpreted as distance from the mean, in standard deviations.
 
 ### Properties of z-scores
 
-- $\Sigma z = 0$
-- $\Sigma z^2 = N$
-- $s_z = \frac{\Sigma z}{n}$
+- $\Large \Sigma z = 0$
+- $\Large \Sigma z^2 = N$
+- $\Large s_z = \frac{\Sigma z}{n}$
 
 ---
 
@@ -523,13 +532,15 @@ psych::describe(world, fast =T)
 
 # Which variable has outliers?
 
-```{r,warning=FALSE, message = FALSE}
+```{r,warning=FALSE, message = FALSE, highlight.output = c(9)}
 world %>%
   mutate_if(is.numeric, scale) %>%
   psych::describe(., fast =T)
 ```
 
 ---
+
+class: inverse
 
 ## Next time...
 
