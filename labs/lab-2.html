@@ -1541,8 +1541,7 @@ div.tocify {
 <h1>Getting Started</h1>
 <p>We’ll use the same 2015 World Happiness Report dataset from class, which you can <a href="https://drive.google.com/uc?export=download&amp;id=1XXsB4L4wDxGkcc-JuVnotKWCnsDUsskW">download here</a>. If you’d like to follow along, go ahead and import the data using the <code>rio</code> package (see <a href="https://uopsych.github.io/psy611/labs/lab-1.html#importing_data_into_r" target="_blank">here</a> for a refresher on importing data.)</p>
 <p>If the file is saved in your <code>Downloads</code> folder, your code might look something like this:</p>
-<pre class="r"><code>install.packages(&quot;rio&quot;) # if the 'rio' package is not already installed
-library(rio)
+<pre class="r"><code>library(rio) # use install.packages(&quot;rio&quot;) if the 'rio' package is not already installed
 world_happiness &lt;- import(&quot;~/Downloads/world_happiness_2015.csv&quot;)</code></pre>
 <p>We can take a peek at the data using the <code>str()</code> function, which shows us the structure of the dataset. This tells us we have a data frame with 136 observations of 8 different variables: <code>Country</code>, <code>Happiness</code>, <code>GDP</code>, <code>Support</code>, <code>Life</code>, <code>Freedom</code>, <code>Generosity</code> and <code>Corruption</code>.</p>
 <pre class="r"><code>str(world_happiness)</code></pre>

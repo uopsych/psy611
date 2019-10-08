@@ -41,8 +41,7 @@ We'll use the same 2015 World Happiness Report dataset from class, which you can
 
 If the file is saved in your `Downloads` folder, your code might look something like this:
 ```{r, eval = FALSE}
-install.packages("rio") # if the 'rio' package is not already installed
-library(rio)
+library(rio) # use install.packages("rio") if the 'rio' package is not already installed
 world_happiness <- import("~/Downloads/world_happiness_2015.csv")
 ```
 
@@ -67,7 +66,7 @@ head(world_happiness)
 
 # Distributions {#dist}
 
-Recall from lecture that a **distribution** often refers to a description of the [relative] number of times a variable X will take each of its unique values.
+Recall from lecture that a **distribution** often refers to a description of the (relative) number of times a given variable will take each of its unique values.
 
 We often visualize a distribution of a given variable using a histogram, which plots the frequencies of different values. 
 
