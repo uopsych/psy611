@@ -6,3 +6,16 @@
 2-measurement.html
 * Replace "units" with something else
 * Remove humor nomological net -- better to use the student generated example
+
+lab-1.html
+* make it shorter -- didn't get to mini-hacks (aim for 20 min for mini-hacks each week)
+  * importing data can be delayed until lab 2 (maybe?)
+  * idea: keep all material in document, but skim sections (e.g., types of variables)
+* next set of RAs add questions throughout (parts where students have to complete code or write answers)
+  * students look at prepared markdown, but TAs live-code (print html so you know where you are)
+  
+3-describing_data_1.html
+* too long! 
+* did we use world happiness? take out description of variables
+* leptokurtic - leaping up, platykurtic -- plate, mesokurtic -- middle
+* is there a more efficient way to make the point about statistical tests of normality being tied to sample size?
