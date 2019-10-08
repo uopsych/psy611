@@ -19,7 +19,7 @@ class: center, middle, inverse, title-slide
 
 ## Last time
 
-Correations, covariances
+Correlations, covariances
 
 ---
 
@@ -132,24 +132,6 @@ f_{31} &amp; f_{32} &amp; f_{33}
 
 Data matrices are typically rectangular; correlation matrices and covariance matrices are always square.
 
----
-
-### Trace
-
-A square matrix has a main diagonal. The sum of the elements of the main diagonal is called the *trace* of the matrix.
-
-
-
-`$$\Large \mathbf{F_{3,3}} = \left(\begin{array}
-{rrr}
-\underline{f_{11}} &amp; f_{12} &amp; f_{13}  \\
-f_{21} &amp; \underline{f_{22}} &amp; f_{23} \\
-f_{31} &amp; f_{32} &amp; \underline{f_{33} } 
-\end{array}\right)$$`
-
-
-
-`$$Trace = f_{11} + f_{22} + f_{33}$$`
 
 ---
 
@@ -167,10 +149,6 @@ If `\(f_{i,j} = f_{j,i}\)` for all i and j, the matrix is *symmetric.*
 3 &amp; 11 &amp; 7 \\
 -4 &amp; 7 &amp; 2  
 \end{array}\right)$$`
-
-
-
-`\(\mathbf{F}\)` is a symmetric matrix with a trace of 14. 
 
 Correlation matrices and covariance matrices are symmetric.
 
@@ -270,6 +248,9 @@ If all elements of a symmetric matrix except the main diagonal are zero, the mat
 -16 &amp; -1   
 \end{array}\right)$$`
 
+???
+
+Matrices must have the same dimensions to be added/subtracted
 ---
 
 ### Properties of addition and subtraction
@@ -526,9 +507,7 @@ Every matrix has a *transpose* that is obtained by exchanging the rows and colum
 Transposes are useful for arranging a matrix so that matrix multiplication is possible.
 
 
-
-
-Example: A common statistical requirement is to generate the sums of squares and cross- products for a data matrix. If `\(\large \mathbf{X_{n,v}}\)` is a matrix of deviation scores, then `\(\large \mathbf{X_{nv}X_{nv}}\)` is not possible. 
+Example: A common statistical requirement is to generate the sums of squares and cross- products for a data matrix. If `\(\large \mathbf{X_{n,v}}\)` is a matrix of scores, then `\(\large \mathbf{X_{nv}X_{nv}}\)` is not possible. 
 
 
 
@@ -618,28 +597,6 @@ Divide by `\(N-1\)`!
 
 ---
 
-### Identity matrix
-
-
-The *identity matrix* is a diagonal matrix with ones on the main diagonal:
-
-
-
-`$$\Large \mathbf{I} = \left(\begin{array}
-{rrrr}
-1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 
-0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
-0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
-0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
-\end{array}\right)$$`
-
-
-
-The identity matrix is often a useful target matrix in statistics.
-
----
-
 Multiplication by diagonal matrices is especially important in statistics and is used to accomplish rescaling (expanding, shrinking, standardizing).
 
 
@@ -708,7 +665,7 @@ The first row of X is multiplied by 3; the second row is multiplied by 2.
 
 ---
 
-### Scalar multiplication
+### Scalar multiplication (again)
 
 
 
@@ -752,30 +709,31 @@ Scalar multiplication is just multiplication by a diagonal matrix with a constan
 21 &amp; 18
 \end{array}\right)$$`
 
----
 
-### Determinant
-
-
-
-Variance-covariance matrices and correlation matrices can be characterized by a single number called the *determinant* that represents the ""generalized variance."
-
-
-
-For the correlation matrix, this number can take on values from 0 to 1. When all variables are independent (an identity matrix), the determinant is 1. As variables increase in their interdependence, the determinant approaches 0. A singular matrix has a determinant of 0.
-
-
-
-**The determinant thus indexes the redundancy among variables in a correlation matrix.**
-
-
-
-The determinant of the matrix, `\(\mathbf{A}\)`, is symbolized: 
-`\(\large |\mathbf{A}|\)`.
-
-The determinant of an identity matrix, `\(\large |\mathbf{I}|\)`, equals 1.
 
 ---
+### Identity matrix
+
+
+The *identity matrix* is a diagonal matrix with ones on the main diagonal:
+
+
+
+`$$\Large \mathbf{I} = \left(\begin{array}
+{rrrr}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
+\end{array}\right)$$`
+
+
+
+The identity matrix is often a useful target matrix in statistics.
+
+---
+
 ### Inverse matrix
 
 Some square matrices have an *inverse* such that `\(\large \mathbf{AA^{-1}} = I\)`. The inverse is useful in solving matrix equations:
@@ -786,6 +744,19 @@ Solving for B:
 
 `$$\Large \mathbf{YR^{-1}} = \mathbf{BRR^{-1}}$$`
 `$$\Large \mathbf{YR^{-1}} = \mathbf{B}$$`
+---
+
+class: inverse
+
+## Statistics through matrix algebra
+
+---
+
+## Linear combinations
+
+Perhaps **the most important rules of matrix algebra** to remember are that post-multiplication transforms columns and pre-multiplication transforms rows.
+
+By applying pre- and post-multiplication to a dataframe of raw scores you can perform transformations to your raw data -- including calculating sum or weighted scores -- and aggregate your data into whatever groups or configurations are necessary.
 
 ---
 
@@ -808,9 +779,9 @@ X_{n1} &amp; X_{n2} &amp; X_{n3}
 .pull-right[
 `$$\large \mathbf{T} = \left(\begin{array}
 {rrr}
-1 &amp; 1 &amp; 1 \\
+1 &amp; -1 &amp; 1 \\
 1 &amp; 0 &amp; -2 \\
-1 &amp; -1 &amp; 1
+1 &amp; 1 &amp; 1
 \end{array}\right)$$`
 ]
 
@@ -821,10 +792,59 @@ What do the new variables represent? What are the variances and covariances of t
 ???
 
 `\(\mathbf{Y}\)` is a `\(n x 3\)` matrix. 
+
+Post-multiplcation = affecting the columns.
+
+
 Each row of Y corresponds to one person.
 First column is the sum of the person's values (e.g., sum all values in a scale)
-Second column = first variable - 3rd var
+Second column = 3rd-1st
 Third column = (1st+3rd)-2*2nd
+
+---
+
+##Linear combinations
+
+If I add a linear combinations as premultiplication:
+
+.pull-left[
+`$$\large \mathbf{T} = \left(\begin{array}
+{rr}
+1 &amp; 1 \\
+1 &amp; 1 \\
+1 &amp; 1 \\
+\vdots &amp; \vdots \\
+0 &amp; -1 \\ 
+0 &amp;  -1\\
+\end{array}\right)$$`
+]
+
+
+.pull-right[
+`$$\large \mathbf{X} = \left(\begin{array}
+{rrr}
+X_{11} &amp; X_{12} &amp; X_{13} \\
+X_{21} &amp; X_{22} &amp; X_{23} \\
+X_{31} &amp; X_{32} &amp; X_{33} \\
+\vdots &amp; \vdots &amp; \vdots \\
+X_{n1} &amp; X_{n2} &amp; X_{n3} 
+\end{array}\right)$$`
+]
+
+`$$\Large \mathbf{TX} = Y$$`
+
+What do the new variables represent? What are the variances and covariances of the new variables?
+
+???
+
+`\(\mathbf{Y}\)` is a `\(2 x 3\)` matrix. 
+
+Pre-multiplcation = affecting the rows
+
+
+Each column of Y corresponds to one variable
+First row is the mean of group 1
+2nd row is difference in means of group 1 and group 2
 
 ---
 
@@ -844,23 +864,8 @@ Everything we need to know about the variances and covariances of the linear com
 
 
 If `\(\large \mathbf{Y}=\mathbf{XT}\)`,then `\(\large \Sigma_Y =\mathbf{T'\Sigma T}\)`
+
 ---
-
-&lt;!-- Another common set of transformations that will be made can be summarized as: --&gt;
-
-&lt;!--  --&gt;
-
-&lt;!-- `\(\Large \mathbf{LXM}\)` --&gt;
-
-&lt;!--  --&gt;
-
-&lt;!-- In which `\(\Large \mathbf{X}\)` is a Groups x Variables matrix of means, `\(\Large \mathbf{L}\)` is matrix of weights used to create linear combinations of groups (e.g., group contrasts), and `\(\Large \mathbf{M}\)` is a matrix of weights used to create linear combinations of variables. --&gt;
-
-&lt;!--  --&gt;
-
-&lt;!-- By carefully constructing `\(\Large \mathbf{L}\)` and `\(\Large \mathbf{M}\)`, we can make any group comparisons for any combinations of variables. --&gt;
-
-&lt;!-- --- --&gt;
 
 ## Descriptive statistics
 
@@ -1014,6 +1019,15 @@ A correlation is simply the covariance divided by the standard deviations of the
 Let `\(\mathbf{D_{xx}}\)` be a diagonal matrix with the diagonal value being `\(1/s_i\)` or the inverse of the standard deviation of that variable. Then we can calculate `\(\mathbf{R}\)` as
 
 `$$\large \mathbf{R} = \mathbf{D_{xx}S_{XY}D_{xx}}$$`
+---
+
+## Matrix Algebra in statistics
+
+Certainly matrix algebra takes relatively simple calculations and makes them more complicated...
+
+... but for some statistics, the matrix algebra version is actually much simpler. 
+
+
 
 ---
 
