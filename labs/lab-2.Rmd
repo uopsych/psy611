@@ -191,7 +191,7 @@ var(simple_vector)
 sd(simple_vector)
 ```
 
-Note: As it pertains to missing data, note that the same rule described above for the `mean()` function also applies to these functions (namely, that you need to add the argument `na.rm = TRUE`.)
+***Note: As it pertains to missing data, the same rule described above for the `mean()` function also applies to these functions (namely, that you need to add the argument `na.rm = TRUE`.)
 
 ## Outliers
 
@@ -236,7 +236,10 @@ Fortunately for us, there is a function called `describe()` from the `{psych}` p
 This function automatically calculates all of the descriptives we reviewed above (and more!) 
 
 ```{r warning=FALSE}
-psych::describe(world_happiness)
+# because "Country" is not a numeric variable, we'll remove it for now 
+world_happiness_num <- world_happiness %>% select(-Country) # don't worry about what this code means for now
+
+psych::describe(world_happiness_num)
 ```
 
 If we want to focus on a particular variable, we can calculate descriptives for that variable only.
@@ -245,21 +248,53 @@ If we want to focus on a particular variable, we can calculate descriptives for 
 psych::describe(world_happiness$Happiness)
 ```
 
-Note that `psych::describe()` also gives us **skew** and **kurtosis**. 
+***Note that `psych::describe()` also gives us skew and kurtosis. 
 
 ***
 
 # Bivariate Descriptives {#bivar}
 
-## Covariance 
+Bivariate descriptives pertain to the relationship between two variables. 
 
 ## Correlation
 
 ### `cor()` function
 
+To find the strength of the association between two varaibles we can use the `cor()` function from the `{psych}` package. For example, in our `world_happiness` dataset, we might want to know the strength of the relationship between a country's `Happiness` and average level of social support, i.e. `Support`. 
+
+```{r}
+cor(world_happiness$Happiness, world_happiness$Support, use = "pairwise.complete.obs")
+```
+
+Not surprisingly, we see that there is a strong positive association between happiness and social support.
+
+***Note the use of `use = "pairwise.complete.obs"`. Because there is missing data in these variables, we can use this argument to tell R to only use observations in which there is no missing data for either variable.
+
+### Scatterplots
+
+If we want to see this relationship graphically, we can create a *scatterplot*. 
+
+```{r}
+plot(world_happiness$Support, world_happiness$Happiness, xlab = "Social Support", ylab = "Happiness", main = "Relationship between social support and happiness \nat the country level")
+```
+
 ### `pairs.panels()` function
 
-### scatterplots
+If we have a dataset with a reasonably small number of variables, we can use `pairs.panels()` (also from the `{psych}` package) to generate a matrix that contains scatterplots between all of the variables below the diagonal and Pearson correlations between all of the variables above the diagonal. 
+
+```{r}
+# use world_happiness_num since we only want correlations between numeric variables
+pairs.panels(world_happiness_num)
+```
+
+
+## Covariance
+
+Lastly, if we want to find the covariance between two variables, we use the `cov()` function.
+
+```{r}
+cov(world_happiness$Happiness, world_happiness$Support, use = "pairwise.complete.obs")
+```
 
 ***
 
