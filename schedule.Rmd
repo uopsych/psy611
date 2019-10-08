@@ -22,7 +22,7 @@ LSR readings can be found in the free, online textbook, [_Learning Statistics wi
 | -    | 10/11 | _Lab: R basics and descriptives_       |                    |            |             |
 | 3    | 10/15 | Matrix algebra                 |                    | Quiz 2     |             |
 | -    | 10/17 | Probability                            | LSR Intro to Part IV and Ch 9.1-9.3, [Wetzels et al. (2011)](readings/Wetzels_etal_2011.pdf)   |   |             |
-| -    | 10/18 | _Lab: Matrix multiplication_           |                    |            |             |
+| -    | 10/18 | _Lab: Matrix algebra_           |                    |            |             |
 | 4    | 10/22 | Probability                            | LSR Ch 9.4                   |  Quiz 3    |            |
 | -    | 10/24 | Probability                            | LSR Ch 9.5-9.6|  |             |
 | -    | 10/25 | _Lab: Probability distributions_       |                    |            |  HW 1 Due     |
