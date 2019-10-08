@@ -68,7 +68,9 @@ head(world_happiness)
 
 Recall from lecture that a **distribution** often refers to a description of the (relative) number of times a given variable will take each of its unique values.
 
-We often visualize a distribution of a given variable using a histogram, which plots the frequencies of different values. 
+## Histogram
+
+One common way of visualizing distributions is using a **histogram**, which plots the frequencies of different values for a given variable.
 
 For example, let's take a look at a distribution of the `Happiness` variable. We do this using the `hist()` function. (Remember, you can check out the help documentation using `?hist`).
 
@@ -79,12 +81,20 @@ hist(x = world_happiness$Happiness)
 This looks ok, but it's kind of ugly. Let's make it better by adding our own title and a better label for the x-axis. We can also change the number of bars using the `breaks` argument. 
 
 ```{r}
-hist(x = world_happiness$Happiness, breaks = 30, main = "Distribution of Happiness Scores", xlab = "Happiness")
+hist(x = world_happiness$Happiness, breaks = 30, main = "Histogram of Happiness Scores", xlab = "Happiness")
+```
+
+## Box Plot
+
+We can also visualize distributions using a **boxplot**, which gives us different information. For a short guide on how to read boxplots, see [here](https://flowingdata.com/2008/02/15/how-to-read-and-use-a-box-and-whisker-plot/){target="_blank"}.
+
+```{r}
+boxplot(x = world_happiness$Happiness, main = "Boxplot of Happiness Scores")
 ```
 
 ## Looking ahead...
 
-Our second plot looks a little cleaner. So far we have been plotting in base R. However, the [ggplot2 package](https://www.rdocumentation.org/packages/ggplot2/versions/3.2.1){target="_blank"} is generally a much better tool for plotting. For now we'll stick with base plotting, but in a future class you will learn how to use `ggplot` to make better-looking plots, such as this:
+So far we have been plotting in base R. However, the [ggplot2 package](https://www.rdocumentation.org/packages/ggplot2/versions/3.2.1){target="_blank"} is generally a much better tool for plotting. For now we'll stick with base plotting to keep things simple, but in a future class you will learn how to use `ggplot` to make better-looking plots, such as this:
 
 ```{r echo = FALSE}
 ggplot(world_happiness, aes(x = Happiness)) +
@@ -94,7 +104,7 @@ ggplot(world_happiness, aes(x = Happiness)) +
                  bins = 30) + 
   labs(x = "Happiness",
        y = "Frequency",
-       title = "Distribution of Happiness Scores",
+       title = "Histogram of Happiness Scores",
        caption = "Source: 2015 World Happiness Report") +
   theme_minimal(base_size = 13)
 ```
@@ -106,11 +116,11 @@ Ok, so now that we know how to vizualize a basic distribution, let's think about
 
 # Basic Descriptives {#basic}
 
-The most basic 
+This section will describe how to calculate some of the most commonly used descriptive statistics using simple functions in R.
 
-## Central Tendency
+## Measures of Central Tendency
 
-For a given set of observations, measures of central tendency allow us to get the "gist" of the data--e.g. they tell us about where the "average" or the "mid-point" of the data lies. Let's take a really simple example first. We'll use a simple vector as our dataset. 
+For a given set of observations, measures of central tendency allow us to get the "gist" of the data--e.g. they tell us about where the "average" or the "mid-point" of the data lies. Let's take a really simple example first. We'll use a vector of integers as our dataset. 
 
 ```{r}
 simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
@@ -118,7 +128,7 @@ simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 
 ### Mean
 
-The mean is the arithmetic average of a set of values. It represents the sum of those values divided by the total number of values. Let's do this in R.
+The mean is the arithmetic average of a set of values. It represents the sum of those values divided by the total number of values. Let's do this using our simple example dataset.
 
 ```{r}
 sum(simple_vector)/length(simple_vector)
@@ -130,15 +140,16 @@ However, a faster (and better) way to find the mean is to use the aptly named `m
 mean(simple_vector)
 ```
 
-Quick aside: What happens if you try to calculate the mean when there are missing values in your data? Let's see what happens when we add a couple `NA`'s to our simple vector and calculate the mean.
+What happens if we try to calculate the mean when there are missing values in our data? Let's see what happens when we add a couple `NA`'s to our simple vector and calculate the mean.
 
 ```{r}
+# add NA's
 simple_vector_missing <- c(1, 1, NA, 1, 2, 2, 2, 2, 2, 3, 5, NA, 5, 6, 7)
 
 mean(simple_vector_missing)
 ```
 
-It gives us an `NA`! The reason for this is that the mean, by its nature, involves using every value for a given variable, so if you don't remove (or impute) the missing values before getting the mean, it won't work. If there are missing values in your data (which there often are in real life), then you will have to add an additional argument: `na.rm = TRUE`.
+...It gives us an `NA`! The reason for this is that the mean, by its nature, involves using every value for a given variable, so if you don't remove (or impute) the missing values before getting the mean, it won't work. If there are missing values in your data (which there often are in real life), then you will have to add an additional argument: `na.rm = TRUE`.
 
 ```{r}
 mean(simple_vector_missing, na.rm = TRUE)
@@ -157,29 +168,84 @@ median(simple_vector)
 
 Oddly enough, the core packages in R do not contain a function to find the mode. In the case of our very simple dataset, it is easy to determine that the mode (i.e. the most common value) is `2`. Your first [minihack exercise](#minihacks) will be to find the mode of a set of numbers using the R package that accompanies your textbook.
 
-## Variability
+## Measures of Variability
 
 ### Range
 
-### IQR
+The range gives us the distance between the smallest and largest value in a dataset. You can find the range using the `range()` function, which will output the minimum and maximum values. 
+
+```{r}
+range(simple_vector)
+```
+
 
 ### Variance and standard deviation
 
+To find the variance and standard deviation, we use `var()` and `sd()`, respectively.
+
+```{r}
+# variance
+var(simple_vector)
+
+# standard deviation
+sd(simple_vector)
+```
+
+Note: As it pertains to missing data, note that the same rule described above for the `mean()` function also applies to these functions (namely, that you need to add the argument `na.rm = TRUE`.)
+
 ## Outliers
 
+Outliers are extreme values in the data. They don't follow the same general pattern as all the other data. One easy way to detect outliers is to visually inspect a distribution for values that stand out. For example, if we add an extreme value to our simple vector, it is easy to see that it is an outlier when we look at the boxplot.
+
+```{r}
+# add extreme value (30)
+simple_vector_outlier <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7, 25)
+
+# visualize outlier with boxplot 
+boxplot(simple_vector_outlier)
+```
+ 
 ### z-scores
+
+Another way to identify outliers is to **standardize** the scores in our dataset, i.e. to convert them to z-scores. To do this, we take each score's distance from the mean and divide it by the standard deviation: 
+
+$$ z = \frac{x_i - M}{s} $$
+
+This tells us, for each score, how many standard deviations it is away from the mean. Some people use the rule of thumb that if a score is above or below 3 standard deviations from the mean, it should be considered an outlier. 
+
+To standardize scores in our dataset, we can use the `scale()` function. 
+
+```{r}
+simple_vector_outlier
+
+scale(simple_vector_outlier)
+```
+
+Based on this output, how many standard deviations above the mean is our extreme value, `25`? Should it be considered an outlier?
 
 *** 
 
 # Summarizing data {#summarize}
 
+So far we have been calculating various descriptive statistics (somewhat painstakingly) using an assortment of different functions. So what if we have a dataset with a bunch of varaibles we want descriptive statistics for? Surely we don't want to calculate descriptives for each variable by hand...
+
+Fortunately for us, there is a function called `describe()` from the `{psych}` package, which we can use to quickly summarize a whole set of variables in a dataset. Let's look back for a minute at our `world_happiness` dataset. 
+
 ## `psych::describe()`
 
-## Skew and kurtosis
+This function automatically calculates all of the descriptives we reviewed above (and more!) 
 
-***
+```{r warning=FALSE}
+psych::describe(world_happiness)
+```
 
-# Standardization
+If we want to focus on a particular variable, we can calculate descriptives for that variable only.
+
+```{r}
+psych::describe(world_happiness$Happiness)
+```
+
+Note that `psych::describe()` gives us a couple statistics we haven't discussed thus far: **skew** and **kurtosis**. 
 
 ***
 
