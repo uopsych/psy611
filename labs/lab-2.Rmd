@@ -28,10 +28,10 @@ The purpose of today's lab is to introduce you to some simple tools that will al
 
 Today's lab will cover:
 
-1. [Distributions](#dist)
+1. [Visualizing Distributions](#dist)
 2. [Basic Descriptives](#basic)
 3. [Summarizing a dataset](#summarize)
-4. [Correlation](#corr)
+4. [Bivariate Descriptives](#bivar)
 
 ***
 
@@ -64,7 +64,7 @@ head(world_happiness)
 
 ***
 
-# Distributions {#dist}
+# Visualizing Distributions {#dist}
 
 Recall from lecture that a **distribution** often refers to a description of the (relative) number of times a given variable will take each of its unique values.
 
@@ -86,7 +86,7 @@ hist(x = world_happiness$Happiness, breaks = 30, main = "Histogram of Happiness 
 
 ## Box Plot
 
-We can also visualize distributions using a **boxplot**, which gives us different information. For a short guide on how to read boxplots, see [here](https://flowingdata.com/2008/02/15/how-to-read-and-use-a-box-and-whisker-plot/){target="_blank"}.
+We can also visualize distributions using a **boxplot**, which gives us different information. For a short guide on how to read boxplots, see [here](https://flowingdata.com/2008/02/15/how-to-read-and-use-a-box-and-whisker-plot/){target="_blank"} or refer to [this section](https://learningstatisticswithr-bookdown.netlify.com/graphics.html#boxplots){target="_blank"} of your textbook.
 
 ```{r}
 boxplot(x = world_happiness$Happiness, main = "Boxplot of Happiness Scores")
@@ -216,7 +216,7 @@ This tells us, for each score, how many standard deviations it is away from the 
 To standardize scores in our dataset, we can use the `scale()` function. 
 
 ```{r}
-simple_vector_outlier
+simple_vector_outlier <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7, 25)
 
 scale(simple_vector_outlier)
 ```
@@ -245,11 +245,21 @@ If we want to focus on a particular variable, we can calculate descriptives for 
 psych::describe(world_happiness$Happiness)
 ```
 
-Note that `psych::describe()` gives us a couple statistics we haven't discussed thus far: **skew** and **kurtosis**. 
+Note that `psych::describe()` also gives us **skew** and **kurtosis**. 
 
 ***
 
-# Correlation {#corr}
+# Bivariate Descriptives {#bivar}
+
+## Covariance 
+
+## Correlation
+
+### `cor()` function
+
+### `pairs.panels()` function
+
+### scatterplots
 
 ***
 
@@ -272,6 +282,49 @@ simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 
 ## Minihack 2: Outliers
 
+Here is a distribution with an outlier. 
+
+```{r echo = FALSE}
+set.seed(100819)
+
+data_normal = rnorm(100, 5, sd = 2)
+data_outlier = replace(data_normal, data_normal[25], 20)
+```
+
+```{r}
+data_outlier
+```
+
+1. Create a simple histogram of this distribution using the `hist()` function. 
+
+```{r}
+hist(data_outlier, main = "Distribution with outlier", xlab = "score")
+```
+
+
+2. Transform the scores using the `scale()` function. How many standard deviations above the mean does is the outlier?
+
+3. Sort the dataset using the `sort()` function. (Again, remember you can look up help documentation for a function you're not familiar with using `?`). 
+
+```{r}
+data_outlier_sorted = sort(data_outlier)
+```
+
+4. Remove the outlier and save the resulting vector to an object called `data_outlier_removed`. 
+
+```{r}
+data_outlier_removed = data_outlier_sorted[-length(data_outlier_sorted)]
+```
+
+5. Recreate this histogram of the data without the outlier.
+
+```{r echo=FALSE}
+hist(data_outlier_removed, main = "Distribution with outlier removed", xlab = "score")
+```
+
+
 ## Minihack 3: Descriptive plots 
+
+
 
 ## Minihack 4: Correlations
