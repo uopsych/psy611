@@ -76,7 +76,6 @@ For example, let's take a look at a distribution of the `Happiness` variable. We
 hist(x = world_happiness$Happiness)
 ```
 
-
 This looks ok, but it's kind of ugly. Let's make it better by adding our own title and a better label for the x-axis. We can also change the number of bars using the `breaks` argument. 
 
 ```{r}
@@ -105,6 +104,8 @@ Ok, so now that we know how to vizualize a basic distribution, let's think about
 
 # Basic Descriptives {#basic}
 
+The most basic 
+
 ## Central Tendency
 
 For a given set of observations, measures of central tendency allow us to get the "gist" of the data--e.g. they tell us about where the "average" or the "mid-point" of the data lies. Let's take a really simple example first...the numbers 1 through 5. 
@@ -132,7 +133,7 @@ median(simple_vector)
 
 ### Mode
 
-Oddly enough, the core packages in R do not contain a function to find the mode. In the case of our very simple dataset, it is easy to determine that the mode (i.e. the most common value) is `2`. Your first minihack exercise will be to find the mode of a variable from a real-world dataset using a lesser-known function in R.
+Oddly enough, the core packages in R do not contain a function to find the mode. In the case of our very simple dataset, it is easy to determine that the mode (i.e. the most common value) is `2`. Your first minihack exercise will be to find the mode of a variable from a real-world dataset using the R package that accompanies your textbook.
 
 ## Variability
 
@@ -170,10 +171,10 @@ Oddly enough, the core packages in R do not contain a function to find the mode.
 
 # Minihacks
 
-## Minihack 1:
+## Minihack 1: Find the mode
 
-## Minihack 2:
+## Minihack 2: Outliers
 
-## Minihack 3:
+## Minihack 3: 
 
 ## Minihack 4:
