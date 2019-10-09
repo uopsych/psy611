@@ -237,7 +237,8 @@ This function automatically calculates all of the descriptives we reviewed above
 
 ```{r warning=FALSE}
 # because "Country" is not a numeric variable, we'll remove it for now 
-world_happiness_num <- world_happiness %>% select(-Country) # don't worry about what this code means for now
+world_happiness_num <- world_happiness %>% 
+  select(-Country) # don't worry about what this code means for now
 
 psych::describe(world_happiness_num)
 ```
@@ -306,7 +307,7 @@ cov(world_happiness$Happiness, world_happiness$Support, use = "pairwise.complete
 
 2. Check out the help documentation for the function `modeOf()`. 
 
-3. Use `modeOf()` to find the mode of `simple_vector`. Make sure that the answer you get is `2`. Save your result to an object called `mode`. If you don't alreay have `simple_vector` loaded in your workspace, here it is again:
+3. Use `modeOf()` to find the mode of `simple_vector`. Make sure that the answer you get is `2`. Save your result to an object called `mode`. If you don't already have `simple_vector` loaded in your workspace, here it is again:
 
 ```{r eval=FALSE}
 simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
@@ -360,6 +361,37 @@ hist(data_outlier_removed, main = "Distribution with outlier removed", xlab = "s
 
 ## Minihack 3: Descriptive plots 
 
+```{r}
+world_happiness2 <- import("~/Downloads/lab2-world.csv")
+
+describeBy(world_happiness2$Service, world_happiness2$World)
+
+hist(world_happiness2$Service)
+```
 
 
 ## Minihack 4: Correlations
+
+For this minihack, we're going to use the `cor()` function from `{psych}` to create a correlation matrix of the entire `world_happiness` dataset
+
+1. First use the following snippet of code to create a version of the dataset that only contains numeric variables (i.e. gets rid of `Country`, as this is a categorical variable.) Don't worry about how this code works for now -- we'll get to that in a later class.
+
+```{r eval=FALSE}
+world_happiness_num <- world_happiness %>% 
+  select(-Country)
+```
+
+2. Use `cor()` to generate a correlation matrix for all the variables in `world_happiness_num`. Use listwise deleting by specifying `use = "complete.obs"`. 
+
+```{r}
+cor(world_happiness_num, use = "complete.obs")
+```
+
+
+3. Now generate another correlation matrix, but this time use pairwise deletion by specifying `use = "pairwise.complete.obs"`.
+
+```{r}
+cor(world_happiness_num, use = "pairwise.complete.obs")
+```
+
+4. Compare your two correlation matrices. Whey do they have different numbers? What is the difference between pairwise and listwise deletion?
