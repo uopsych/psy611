@@ -218,7 +218,7 @@ To standardize scores in our dataset, we can use the `scale()` function.
 ```{r}
 simple_vector_outlier <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7, 25)
 
-scale(simple_vector_outlier)
+scale(simple_vector_outlier) %>% as.numeric() # the as.numeric() here just returns a vector instead of a matrix for formatting purposes
 ```
 
 Based on this output, how many standard deviations above the mean is our extreme value, `25`? Should it be considered an outlier?
