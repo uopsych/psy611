@@ -361,14 +361,31 @@ hist(data_outlier_removed, main = "Distribution with outlier removed", xlab = "s
 
 ## Minihack 3: Descriptive plots 
 
+For this minihack, we're going to work with a slightly different version of the `world_happiness` data. You can [download the new verion here](https://drive.google.com/uc?export=download&id=1U1smVA5X839bJN9eHNR-ViuTYJ2Pw8h4). This version has two new variables:
+
+-`War` represents whether or not a country was an active participant in WWII or was invested in by the US or Soviet Union just after WWII
+
+-`Service` represents the proportion of the population that works in the service industry. ***Note: this variable has been simulated and is completely made up!***  
+
+1. Import the new version of the data and save it to an object called `world_happiness_sim`.
+
 ```{r}
-world_happiness2 <- import("~/Downloads/lab2-world.csv")
-
-describeBy(world_happiness2$Service, world_happiness2$World)
-
-hist(world_happiness2$Service)
+world_happiness_sim <- import("~/Downloads/world_happiness_2015_sim.csv")
 ```
 
+2. Create a histogram of the `Service` variable. Set the number of bins to `30`. (Feel free to use `ggplot` if you already familiar with it!) What do you notice about the shape of this distribution?
+
+```{r}
+hist(world_happiness_sim$Service, breaks = 30, xlab = "Service", main = "Distribution of service scores")
+```
+
+3. Look up the help documentation for `psych::describeBy()`. Use this function to get descriptive statistics for the `Service` variable for countries involved/not involved in WWII. (That is use `War` as your grouping variable). What are the means and standard deviations for the two groups? 
+
+```{r}
+describeBy(world_happiness_sim$Service, world_happiness_sim$War)
+```
+
+4. Based on what you observe about these group means, whow might this explain the shape of the distribution of the `Service` variable?
 
 ## Minihack 4: Correlations
 
@@ -378,7 +395,7 @@ For this minihack, we're going to use the `cor()` function from `{psych}` to cre
 
 ```{r eval=FALSE}
 world_happiness_num <- world_happiness %>% 
-  select(-Country)
+  select_if(is.numeric)
 ```
 
 2. Use `cor()` to generate a correlation matrix for all the variables in `world_happiness_num`. Use listwise deleting by specifying `use = "complete.obs"`. 
