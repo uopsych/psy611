@@ -18,6 +18,8 @@ Malone & Goldstone (2019) ["Episode 936: The Modal American."](https://www.npr.o
 
 Rohrer (2019) ["Indirect Effect *Ex Machina*"](http://www.the100.ci/2019/10/03/indirect-effect-ex-machina) -- come for the ice cream and sauerkraut, stay for the creeping dread that many mediation studies are probably wrong. 
 
+Chester & Lasko (2019) ["Construct Validation of Experimental Manipulations in Social Psychology: Current Practices and Recommendations for the Future"](https://psyarxiv.com/t7ev9) -- a totally brand new preprint about construct validity in social psychology. They do a great job of explaining different kinds of validity in addition to empirically describing the extent to which social psychologists check for construct validity.  Here is a lovely quote: "In the context of archery, construct validity is the practice of checking that the arrow hit the bullseye and internal validity is the practice of preventing the wind and your own breathing from influencing your aim."
+
 ## On probability and its use and misuse
 
 Fry (2019) ["What statistics can and can't tell us about ourselves"](https://www.newyorker.com/magazine/2019/09/09/what-statistics-can-and-cant-tell-us-about-ourselves). This article in the *New Yorker* explains issues of (frequentist) probability in terms you can explain to your grandma, as well as makes clear the issues of the Fisher tradition of reducing experiments to p-values. 

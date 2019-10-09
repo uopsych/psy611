@@ -53,9 +53,6 @@ The individual elements in a matrix are called *scalars*, subscripted to indicat
 
 ### Vectors
 
-
-
-
 $$\LARGE \mathbf{G_{3,2}} = \left(\begin{array}
 {rrr}
 g_{11} & g_{12}  \\
