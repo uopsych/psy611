@@ -60,9 +60,6 @@ The individual elements in a matrix are called *scalars*, subscripted to indicat
 
 ### Vectors
 
-
-
-
 `$$\LARGE \mathbf{G_{3,2}} = \left(\begin{array}
 {rrr}
 g_{11} &amp; g_{12}  \\
@@ -869,64 +866,92 @@ If `\(\large \mathbf{Y}=\mathbf{XT}\)`,then `\(\large \Sigma_Y =\mathbf{T'\Sigma
 
 ## Descriptive statistics
 
-We can calculate the mean of a vector `\(\mathbf{x}\)` with length `\(n\)` using the following formula:
+We can calculate the mean of a vector `\(\mathbf{x}\)` with length `\(n\)` using linear combinations:
 
-`$$\Large \bar{x} = 1'\mathbf{x}(1'1)^{-1} = 1'\mathbf{x}\frac{1}{n}$$`
+
+.pull-left[
+$$ \mathbf{T} = \left(\begin{array}
+{r}
+\frac{1}{n}  \\
+\frac{1}{n}  \\
+\frac{1}{n}  \\
+\vdots \\
+\frac{1}{n}  \\ 
+\frac{1}{n} \\
+\end{array}\right)$$`
+]
+
+
+.pull-right[
+`$$\mathbf{X} = \left(\begin{array}
+{rrr}
+X_{11} &amp; X_{12} &amp; X_{13} \\
+X_{21} &amp; X_{22} &amp; X_{23} \\
+X_{31} &amp; X_{32} &amp; X_{33} \\
+\vdots &amp; \vdots &amp; \vdots \\
+X_{n1} &amp; X_{n2} &amp; X_{n3} 
+\end{array}\right)$$`
+]
+
+This happens to be equivalent to the following formula:
+
+`$$\Large \bar{X} = 1'\mathbf{X}(1'1)^{-1} = 1'\mathbf{X}\frac{1}{n}$$`
+
 
 ---
-###Mean
+&lt;!-- ###Mean --&gt;
 
-Let's show this with a vector `\(\mathbf{x}\)` where `\(\large \mathbf{x'} = [8, 2, 9]\)`
+&lt;!-- Let's show this with a vector `\(\mathbf{x}\)` where `\(\large \mathbf{x'} = [8, 2, 9]\)` --&gt;
 
-`$$\large \bar{x} = 1'\mathbf{x}(1'1)^{-1}$$`
-
-
-`$$\large \bar{x} = \left[\begin{array}
-{rrr}
-1 &amp; 1 &amp; 1 \\\end{array}\right]
-\left[\begin{array}
-{r}
-8 \\
-2 \\
-9 \end{array}\right](\left[\begin{array}
-{rrr}
-1 &amp; 1 &amp; 1 \\\end{array}\right]
-\left[\begin{array}
-{r}
-1 \\
-1 \\
-1 \end{array}\right])^{-1}$$`
-
---
+&lt;!-- `$$\large \bar{x} = 1'\mathbf{x}(1'1)^{-1}$$` --&gt;
 
 
-`$$\large \bar{x} = \left[\begin{array}
-{r}
-19 \end{array}\right](\left[\begin{array}
-{r}
-3\end{array}\right])^{-1}$$`
+&lt;!-- $$\large \bar{x} = \left[\begin{array} --&gt;
+&lt;!-- {rrr} --&gt;
+&lt;!-- 1 &amp; 1 &amp; 1 \\\end{array}\right] --&gt;
+&lt;!-- \left[\begin{array} --&gt;
+&lt;!-- {r} --&gt;
+&lt;!-- 8 \\ --&gt;
+&lt;!-- 2 \\ --&gt;
+&lt;!-- 9 \end{array}\right](\left[\begin{array} --&gt;
+&lt;!-- {rrr} --&gt;
+&lt;!-- 1 &amp; 1 &amp; 1 \\\end{array}\right] --&gt;
+&lt;!-- \left[\begin{array} --&gt;
+&lt;!-- {r} --&gt;
+&lt;!-- 1 \\ --&gt;
+&lt;!-- 1 \\ --&gt;
+&lt;!-- 1 \end{array}\right])^{-1}$$ --&gt;
 
-Now we find the inverse of the matrix `\([3]\)` such that this matrix times `\([3]\)` is equal to 1. 
+&lt;!-- -- --&gt;
 
---
 
-`$$\large \bar{x} = \left[\begin{array}
-{r}
-19 \end{array}\right](\left[\begin{array}
-{r}
-\frac{1}{3}\end{array}\right]) = 6.33$$`
+&lt;!-- $$\large \bar{x} = \left[\begin{array} --&gt;
+&lt;!-- {r} --&gt;
+&lt;!-- 19 \end{array}\right](\left[\begin{array} --&gt;
+&lt;!-- {r} --&gt;
+&lt;!-- 3\end{array}\right])^{-1}$$ --&gt;
 
-???
+&lt;!-- Now we find the inverse of the matrix `\([3]\)` such that this matrix times `\([3]\)` is equal to 1.  --&gt;
 
-Using [ instead of ( so it's easier to read. You'll see both. 
+&lt;!-- -- --&gt;
 
----
+&lt;!-- $$\large \bar{x} = \left[\begin{array} --&gt;
+&lt;!-- {r} --&gt;
+&lt;!-- 19 \end{array}\right](\left[\begin{array} --&gt;
+&lt;!-- {r} --&gt;
+&lt;!-- \frac{1}{3}\end{array}\right]) = 6.33$$ --&gt;
 
-### Column means
+&lt;!-- ??? --&gt;
 
-We can apply almost the same formula to an `\(n \times c\)` matrix to find the means of each column. 
+&lt;!-- Using [ instead of ( so it's easier to read. You'll see both.  --&gt;
 
-`$$\Large \bar{X_C} = 1'\mathbf{X}(1'1)^{-1} = 1'\mathbf{X}\frac{1}{n}$$`
+&lt;!-- --- --&gt;
+
+&lt;!-- ### Column means --&gt;
+
+&lt;!-- We can apply almost the same formula to an `\(n \times c\)` matrix to find the means of each column.  --&gt;
+
+&lt;!-- `$$\Large \bar{X_C} = 1'\mathbf{X}(1'1)^{-1} = 1'\mathbf{X}\frac{1}{n}$$` --&gt;
 
 ---
 
