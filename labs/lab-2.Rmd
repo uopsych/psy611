@@ -198,7 +198,7 @@ sd(simple_vector)
 Outliers are extreme values in the data. They don't follow the same general pattern as all the other data. One easy way to detect outliers is to visually inspect a distribution for values that stand out. For example, if we add an extreme value to our simple vector, it is easy to see that it is an outlier when we look at the boxplot.
 
 ```{r}
-# add extreme value (30)
+# add extreme value (25)
 simple_vector_outlier <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7, 25)
 
 # visualize outlier with boxplot 
@@ -320,6 +320,32 @@ simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 
 Here is a distribution with an outlier. 
 
+
+```{r}
+corruption_std = world_happiness %>% 
+  select(Country, Corruption) %>% 
+  drop_na() %>% 
+  mutate(Corruption_scaled = as.numeric(scale(Corruption))) %>% 
+  arrange(desc(Corruption_scaled))
+```
+
+
+```{r}
+hist(corruption_std$Corruption)
+```
+
+
+```{r}
+corruption_std_rm_outlier <- corruption_std[-c(124,125),]
+```
+
+
+```{r}
+hist(corruption_std_rm_outlier$Corruption)
+```
+
+
+
 ```{r echo = FALSE}
 set.seed(100819)
 
@@ -336,7 +362,6 @@ data_outlier
 ```{r}
 hist(data_outlier, main = "Distribution with outlier", xlab = "score")
 ```
-
 
 2. Transform the scores using the `scale()` function. How many standard deviations above the mean does is the outlier?
 
