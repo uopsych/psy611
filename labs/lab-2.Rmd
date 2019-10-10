@@ -352,7 +352,7 @@ simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 
 3. View `corruption_std`. Based on the z-scores (i.e. `Corruption_scaled`), which countries would be considered outliers on the `Corruption` variable?
 
-4. After identifying which countries are outliers, use what you learned in last week's lab about [indexing dataframes](https://uopsych.github.io/psy611/labs/lab-1.html#data_frames){target="_blank"} to remove these rows from the data frame. 
+4. After identifying which countries are outliers, use what you learned in last week's lab about [indexing data frames](https://uopsych.github.io/psy611/labs/lab-1.html#data_frames){target="_blank"} to remove these rows from the data frame. 
 
 -Hint #1: you can use the minus sign (`-`) for de-selecting.
 <br /> 
@@ -362,7 +362,7 @@ simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 
 ## Minihack 3: Descriptive plots 
 
-For this minihack, we're going to work with a slightly different version of the `world_happiness` data. You can [download the new verion here](https://drive.google.com/uc?export=download&id=1U1smVA5X839bJN9eHNR-ViuTYJ2Pw8h4). This version has two new variables:
+For this minihack, we're going to work with a slightly different version of the `world_happiness` data. You can [download the new version here](https://drive.google.com/uc?export=download&id=1U1smVA5X839bJN9eHNR-ViuTYJ2Pw8h4). This version has two new variables:
 
 -`War` represents whether or not a country was an active participant in WWII or was invested in by the US or Soviet Union just after WWII
 
