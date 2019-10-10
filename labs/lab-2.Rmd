@@ -149,7 +149,7 @@ simple_vector_missing <- c(1, 1, NA, 1, 2, 2, 2, 2, 2, 3, 5, NA, 5, 6, 7)
 mean(simple_vector_missing)
 ```
 
-...It gives us an `NA`! The reason for this is that the mean, by its nature, involves using every value for a given variable, so if you don't remove (or impute) the missing values before getting the mean, it won't work. If there are missing values in your data (which there often are in real life), then you will have to add an additional argument: `na.rm = TRUE`.
+...It gives us an `NA`! The reason for this is that the mean is calulated by using every value for a given variable, so if you don't remove (or impute) the missing values before getting the mean, it won't work. If there are missing values in your data (which there often are in real life), then you will have to add an additional argument: `na.rm = TRUE`.
 
 ```{r}
 mean(simple_vector_missing, na.rm = TRUE)
@@ -318,10 +318,14 @@ simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 
 ## Minihack 2: Outliers
 
-Here is a distribution with an outlier. 
+1. Make sure you have the `world_happiness` data frame loaded into your environment. The following chunk of code creates a data frame with the `Corruption` variable and a scaled version of this variable called `Corruption_scaled`.
 
+Run the following code:
 
-```{r}
+```{r }
+#install.packages("tidyverse") # if tidyverse is not already installed
+library(tidyverse)
+
 corruption_std = world_happiness %>% 
   select(Country, Corruption) %>% 
   drop_na() %>% 
@@ -329,58 +333,21 @@ corruption_std = world_happiness %>%
   arrange(desc(Corruption_scaled))
 ```
 
+2. Create a histogram of `corruption_std$Corruption`. What do you notice about the shape of this distribution? How would you describe the skewness?
 
 ```{r}
 hist(corruption_std$Corruption)
 ```
 
+3. View `corruption_std`. Based on the z-scores (i.e. `Corruption_scaled`), which countries would be considered outliers on the `Corruption` variable?
+
+4. After identifying which countries are outliers, use what you learned in last week's lab about [indexing dataframes](https://uopsych.github.io/psy611/labs/lab-1.html#data_frames) to remove these rows from the data frame. 
+
+-Hint #1: you can use the minus sign (`-`) for de-selecting.
+-Hint #2: pay attention to rows `124` and `125`
 
 ```{r}
 corruption_std_rm_outlier <- corruption_std[-c(124,125),]
-```
-
-
-```{r}
-hist(corruption_std_rm_outlier$Corruption)
-```
-
-
-
-```{r echo = FALSE}
-set.seed(100819)
-
-data_normal = rnorm(100, 5, sd = 2)
-data_outlier = replace(data_normal, data_normal[25], 20)
-```
-
-```{r}
-data_outlier
-```
-
-1. Create a simple histogram of this distribution using the `hist()` function. 
-
-```{r}
-hist(data_outlier, main = "Distribution with outlier", xlab = "score")
-```
-
-2. Transform the scores using the `scale()` function. How many standard deviations above the mean does is the outlier?
-
-3. Sort the dataset using the `sort()` function. (Again, remember you can look up help documentation for a function you're not familiar with using `?`). 
-
-```{r}
-data_outlier_sorted = sort(data_outlier)
-```
-
-4. Remove the outlier and save the resulting vector to an object called `data_outlier_removed`. 
-
-```{r}
-data_outlier_removed = data_outlier_sorted[-length(data_outlier_sorted)]
-```
-
-5. Recreate this histogram of the data without the outlier.
-
-```{r echo=FALSE}
-hist(data_outlier_removed, main = "Distribution with outlier removed", xlab = "score")
 ```
 
 
@@ -398,7 +365,7 @@ For this minihack, we're going to work with a slightly different version of the 
 world_happiness_sim <- import("~/Downloads/world_happiness_2015_sim.csv")
 ```
 
-2. Create a histogram of the `Service` variable. Set the number of bins to `30`. (Feel free to use `ggplot` if you already familiar with it!) What do you notice about the shape of this distribution?
+2. Create a histogram of the `Service` variable. Set the number of bins to `30`. What do you notice about the shape of this distribution?
 
 ```{r}
 hist(world_happiness_sim$Service, breaks = 30, xlab = "Service", main = "Distribution of service scores")
@@ -410,7 +377,7 @@ hist(world_happiness_sim$Service, breaks = 30, xlab = "Service", main = "Distrib
 describeBy(world_happiness_sim$Service, world_happiness_sim$War)
 ```
 
-4. Based on what you observe about these group means, whow might this explain the shape of the distribution of the `Service` variable?
+4. Based on what you observe about these group means, how might this explain the shape of the distribution of the `Service` variable?
 
 ## Minihack 4: Correlations
 
