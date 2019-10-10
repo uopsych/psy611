@@ -336,6 +336,7 @@ simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 
 4. Use the function `maxFreq()` to find the frequency of the modal value (i.e. how many time it occurs). Save your result to an object called `modal_freq`.
 
+***
 
 ## Minihack 2: Outliers
 
@@ -347,15 +348,7 @@ simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 <br /> 
 -`Corruption_scaled` (a standardized, i.e. z-scored, version of the `Corruption` variable)
 
-```{r}
-corruption_std <- import(here("labs/resources/lab2/corruption_standardized.csv"))
-```
-
 2. Create a histogram of `Corruption`. What do you notice about the shape of this distribution? How would you describe the skewness?
-
-```{r}
-hist(corruption_std$Corruption)
-```
 
 3. View `corruption_std`. Based on the z-scores (i.e. `Corruption_scaled`), which countries would be considered outliers on the `Corruption` variable?
 
@@ -365,10 +358,7 @@ hist(corruption_std$Corruption)
 <br /> 
 -Hint #2: pay attention to rows `124` and `125`
 
-```{r}
-corruption_std_rm_outlier <- corruption_std[-c(124,125),]
-```
-
+***
 
 ## Minihack 3: Descriptive plots 
 
@@ -380,46 +370,24 @@ For this minihack, we're going to work with a slightly different version of the 
 
 1. Import the new version of the data and save it to an object called `world_happiness_sim`.
 
-```{r}
-world_happiness_sim <- import(here("/labs/resources/lab2/world_happiness_2015_sim.csv"))
-```
-
 2. Create a histogram of the `Service` variable. Set the number of bins to `30`. What do you notice about the shape of this distribution?
-
-```{r}
-hist(world_happiness_sim$Service, breaks = 30, xlab = "Service", main = "Distribution of service scores")
-```
 
 3. Look up the help documentation for `psych::describeBy()`. Use this function to get descriptive statistics for the `Service` variable for countries involved/not involved in WWII. (That is use `War` as your grouping variable). What are the means and standard deviations for the two groups? 
 
-```{r}
-describeBy(world_happiness_sim$Service, world_happiness_sim$War)
-```
-
 4. Based on what you observe about these group means, how might this explain the shape of the distribution of the `Service` variable?
+
+***
 
 ## Minihack 4: Correlations {#minihack4}
 
-For this minihack, we're going to use the `cor()` function from `{psych}` to create a correlation matrix of the entire `world_happiness` dataset. Be sure to use the original `world_happiness` data frame without the added variables.
+For this minihack, we're going to use the `cor()` function from `{psych}` to create a correlation matrix of the entire `world_happiness` dataset. Be sure to use the original `world_happiness` data frame without the added variables from Minihack #3.
 
 1. First remove the `Country` variable because this variable is not numeric and will not yield meaningful correlations with the other variables in the dataset. Save the resulting dataframe to a new object called `world_happiness_num`.
 
-```{r}
-world_happiness_num <- world_happiness[, -1]
-```
-
 2. Use `cor()` to generate a correlation matrix for all the variables in `world_happiness_num`. Use listwise deletion by specifying `use = "complete.obs"`. 
-
-```{r}
-cor(world_happiness_num, use = "complete.obs")
-```
 
 3. What is the correlation between `Freedom` and `Happiness`? Between `Freedom` and `Corruption`? Do these correlations make intuitive sense?
 
-3. Now generate another correlation matrix, but this time use pairwise deletion by specifying `use = "pairwise.complete.obs"`.
+4. Now generate another correlation matrix, but this time use pairwise deletion by specifying `use = "pairwise.complete.obs"`.
 
-```{r}
-cor(world_happiness_num, use = "pairwise.complete.obs")
-```
-
-4. Compare your two correlation matrices. Whey do they have different numbers? What is the difference between pairwise and listwise deletion?
+5. Compare your two correlation matrices. Whey do they have different numbers? What is the difference between pairwise and listwise (aka "casewise") deletion? Hint: look at the help documentation for `cor()`.
