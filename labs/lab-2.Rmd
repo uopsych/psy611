@@ -341,7 +341,7 @@ hist(corruption_std$Corruption)
 
 3. View `corruption_std`. Based on the z-scores (i.e. `Corruption_scaled`), which countries would be considered outliers on the `Corruption` variable?
 
-4. After identifying which countries are outliers, use what you learned in last week's lab about [indexing dataframes](https://uopsych.github.io/psy611/labs/lab-1.html#data_frames) to remove these rows from the data frame. 
+4. After identifying which countries are outliers, use what you learned in last week's lab about [indexing dataframes](https://uopsych.github.io/psy611/labs/lab-1.html#data_frames){target="_blank"} to remove these rows from the data frame. 
 
 -Hint #1: you can use the minus sign (`-`) for de-selecting.
 <br /> 
