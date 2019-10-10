@@ -37,11 +37,24 @@ Today's lab will cover:
 
 # Getting Started
 
-We'll use the same 2015 World Happiness Report dataset from class, which you can [download here](https://drive.google.com/uc?export=download&id=1XXsB4L4wDxGkcc-JuVnotKWCnsDUsskW). Go ahead and import the data using the `rio` package (see [here](https://uopsych.github.io/psy611/labs/lab-1.html#importing_data_into_r){target="_blank"} for a refresher on importing data.)
+We'll use the same 2015 World Happiness Report dataset from lecture throughout today's lab.
+
+1. [Download the data here](https://drive.google.com/uc?export=download&id=1XXsB4L4wDxGkcc-JuVnotKWCnsDUsskW). 
+
+2. Create a new `.Rmd` document to follow along with the examples. Go ahead and load `{rio}` and `{psych}`, as we are going to need functions from these packages throughout. You will need to install these packages using `install.packages()` if you have not already done so.
+
+```{r eval = FALSE}
+# load libraries
+library(rio)
+library(psych)
+```
+
+
+3. Import the World Happiness data using the `rio` packageand save it to an object called `world_happiness`. (See [here](https://uopsych.github.io/psy611/labs/lab-1.html#importing_data_into_r){target="_blank"} for a refresher on importing data.)
 
 If the file is saved in your `Downloads` folder, your code might look something like this:
+
 ```{r, eval = FALSE}
-library(rio) # use install.packages("rio") if the 'rio' package is not already installed
 world_happiness <- import("~/Downloads/world_happiness_2015.csv")
 ```
 
@@ -56,7 +69,7 @@ We can take a peek at the data using the `str()` function, which shows us the st
 str(world_happiness)
 ```
 
-We can also peek at the first few rows of the data frame using `head()`.
+We can also look at the first few rows of the data frame using `head()`. Notice that there are some `NA`'s, indicating that there is missing data. This will become important later.
 
 ```{r}
 head(world_happiness)
@@ -84,7 +97,7 @@ This looks ok, but it's kind of ugly. Let's make it better by adding our own tit
 hist(x = world_happiness$Happiness, main = "Histogram of Happiness Scores", xlab = "Happiness")
 ```
 
-You can also change the number of bins (i.e. bars) in your histogram using the `breaks` argument. Try different values and see how they affect the histogram. 
+You can also change the number of bins (i.e. bars) in your histogram using the `breaks` argument. Try different values and see how they affect how the histogram looks. 
 
 ## Box Plot
 
@@ -118,11 +131,9 @@ Ok, so now that we know how to vizualize a basic distribution, let's think about
 
 # Basic Descriptives {#basic}
 
-This section will describe how to calculate some of the most commonly used descriptive statistics using simple functions in R.
-
 ## Measures of Central Tendency
 
-For a given set of observations, measures of central tendency allow us to get the "gist" of the data--e.g. they tell us about where the "average" or the "mid-point" of the data lies. Let's take a really simple example first. We'll use a vector of integers as our dataset. 
+For a given set of observations, measures of central tendency allow us to get the "gist" of the data. They tell us about where the "average" or the "mid-point" of the data lies. Let's take a really simple example first. We'll use a vector of integers as our dataset. 
 
 ```{r}
 simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
@@ -160,7 +171,7 @@ mean(simple_vector_missing, na.rm = TRUE)
 
 ### Median
 
-The median is the middle value of a set of observations: 50% of the data points fall below the median, and 50% fall above. To find the median, we can use the `median()` function from the `{stats}` package.
+The median is the middle value of a set of observations: 50% of the data points fall below the median, and 50% fall above. To find the median, we can use the `median()` function.
 
 ```{r}
 median(simple_vector)
@@ -168,7 +179,7 @@ median(simple_vector)
 
 ### Mode
 
-Oddly enough, the core packages in R do not contain a function to find the mode. In the case of our very simple dataset, it is easy to determine that the mode (i.e. the most common value) is `2`. Your first [minihack exercise](#minihacks) will be to find the mode using the R package that accompanies your textbook.
+Oddly enough, the core packages in R do not contain a function to find the mode. In the case of our very simple dataset, it is easy to determine that the mode (i.e. the most common value) is `2`. Your first [minihack exercise](#minihack1) will be to find the mode using the R package that accompanies your textbook.
 
 ## Measures of Variability
 
@@ -193,7 +204,7 @@ var(simple_vector)
 sd(simple_vector)
 ```
 
-***Note: As it pertains to missing data, the same rule described above for the `mean()` function also applies to these functions (namely, that you need to add the argument `na.rm = TRUE`.)
+***Note: As it pertains to missing data, the same rule described above for the `mean()` function also applies to these functions (namely, that you need to add the argument `na.rm = TRUE` when there is missing data).
 
 ## Outliers
 
@@ -220,7 +231,7 @@ To standardize scores in our dataset, we can use the `scale()` function.
 ```{r}
 simple_vector_outlier <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7, 25)
 
-scale(simple_vector_outlier) %>% as.numeric() # the as.numeric() here just returns a vector instead of a matrix for formatting purposes
+as.numeric(scale(simple_vector_outlier)) # the as.numeric() here just returns a vector instead of a matrix for formatting purposes
 ```
 
 Based on this output, how many standard deviations above the mean is our extreme value, `25`? Should it be considered an outlier?
@@ -229,9 +240,11 @@ Based on this output, how many standard deviations above the mean is our extreme
 
 # Summarizing data {#summarize}
 
-So far we have been calculating various descriptive statistics (somewhat painstakingly) using an assortment of different functions. So what if we have a dataset with a bunch of varaibles we want descriptive statistics for? Surely we don't want to calculate descriptives for each variable by hand...
+So far we have been calculating various descriptive statistics (somewhat painstakingly) using an assortment of different functions. So what if we have a dataset with a bunch of variables we want descriptive statistics for? Surely we don't want to calculate descriptives for each variable by hand...
 
-Fortunately for us, there is a function called `describe()` from the `{psych}` package, which we can use to quickly summarize a whole set of variables in a dataset. Let's look back for a minute at our `world_happiness` dataset. 
+Fortunately for us, there is a function called `describe()` from the `{psych}` package, which we can use to quickly summarize a whole set of variables in a dataset. 
+
+Let's look back at our `world_happiness` dataset...
 
 ## `psych::describe()`
 
@@ -241,7 +254,7 @@ This function automatically calculates all of the descriptives we reviewed above
 psych::describe(world_happiness)
 ```
 
-NOTE: `Country` is not `numeric`, it is a a **categorical** variable of type `character`. By default, the `describe()` function forces non-numeric variables to be numeric and attempts to calculate descriptives for them. These variables are marked with an asterisk (`*`). In this case, it doesn't make sense to describe `Country`, so we get a warning message and a bunch of `NaN`'s and `NA`'s for this variable. 
+NOTE: `Country` is not `numeric`, it is a **categorical** variable of type `character`. By default, the `describe()` function forces non-numeric variables to be numeric and attempts to calculate descriptives for them. These variables are marked with an asterisk (`*`). In this case, it doesn't make sense to calculate descriptive statistics for `Country`, so we get a warning message and a bunch of `NaN`'s and `NA`'s for this variable. 
 
 A better approach would be to remove non-numeric variables before you attempt to run numerical calculations on your dataset. You will do just that in [Minihack #4](#minihack4). 
 
@@ -263,7 +276,9 @@ Bivariate descriptives pertain to the relationship between two variables.
 
 ### `cor()` function
 
-To find the strength of the association between two varaibles we can use the `cor()` function from the `{psych}` package. For example, in our `world_happiness` dataset, we might want to know the strength of the relationship between a country's `Happiness` and average level of social support, i.e. `Support`. 
+To find the strength of the association between two variables, we can use the `cor()` function from the `{psych}` package. 
+
+For example, in our `world_happiness` dataset, we might want to know the strength of the relationship between a country's `Happiness` and average level of social support, i.e. `Support`. 
 
 ```{r}
 cor(world_happiness$Happiness, world_happiness$Support, use = "pairwise.complete.obs")
@@ -271,7 +286,7 @@ cor(world_happiness$Happiness, world_happiness$Support, use = "pairwise.complete
 
 Not surprisingly, we see that there is a strong positive association between happiness and social support.
 
-***Note the use of `use = "pairwise.complete.obs"`. Because there is missing data in these variables, we can use this argument to tell R to only use observations in which there is no missing data for either variable.
+***Note the use of `use = "pairwise.complete.obs"`. Because there is missing data in these variables, this argument is used to tell R to only use observations (i.e. rows in the data frame) for which there is no missing data for either variable.
 
 ### Scatterplots
 
@@ -289,7 +304,7 @@ If we have a dataset with a reasonably small number of variables, we can use `pa
 pairs.panels(world_happiness)
 ```
 
-Again, note that we can't interpret the results for `Country` because it is a character variable.
+Again, note that we can't interpret the results for `Country` because it is a non-numeric character variable.
 
 ## Covariance
 
@@ -299,11 +314,15 @@ Lastly, if we want to find the covariance between two variables, we use the `cov
 cov(world_happiness$Happiness, world_happiness$Support, use = "pairwise.complete.obs")
 ```
 
+NOTE: You can also generate a covariance matrix for a whole dataframe by passing a dataframe to `cov()` instead of only two specific variables. The same goes for generating a correlation matrix using `cor()`.
+
 ***
 
 # Minihacks {#minihacks}
 
-## Minihack 1: Find the mode
+Feel free to work in groups of 2-3, and ask for help when you get stuck!
+
+## Minihack 1: Find the mode {#minihack1}
 
 1. Install and load the `{lsr}` package, the companion R package to your textbook, [Learning Statistics with R](https://learningstatisticswithr-bookdown.netlify.com/){target="_blank"}.
 
