@@ -1775,7 +1775,7 @@ pairs.panels(world_happiness_num)</code></pre>
 <pre class="r"><code>#install.packages(&quot;tidyverse&quot;) # if tidyverse is not already installed
 library(tidyverse)
 
-corruption_std = world_happiness %&gt;% 
+corruption_std &lt;- world_happiness %&gt;% 
   select(Country, Corruption) %&gt;% 
   drop_na() %&gt;% 
   mutate(Corruption_scaled = as.numeric(scale(Corruption))) %&gt;% 
@@ -1834,7 +1834,7 @@ corruption_std = world_happiness %&gt;%
 <pre class="r"><code>world_happiness_num &lt;- world_happiness %&gt;% 
   select_if(is.numeric)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Use <code>cor()</code> to generate a correlation matrix for all the variables in <code>world_happiness_num</code>. Use listwise deleting by specifying <code>use = &quot;complete.obs&quot;</code>.</li>
+<li>Use <code>cor()</code> to generate a correlation matrix for all the variables in <code>world_happiness_num</code>. Use listwise deletion by specifying <code>use = &quot;complete.obs&quot;</code>.</li>
 </ol>
 <pre class="r"><code>cor(world_happiness_num, use = &quot;complete.obs&quot;)</code></pre>
 <pre><code>##             Happiness          GDP    Support        Life    Freedom

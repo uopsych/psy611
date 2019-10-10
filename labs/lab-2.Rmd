@@ -322,11 +322,11 @@ simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 
 Run the following code:
 
-```{r }
+```{r}
 #install.packages("tidyverse") # if tidyverse is not already installed
 library(tidyverse)
 
-corruption_std = world_happiness %>% 
+corruption_std <- world_happiness %>% 
   select(Country, Corruption) %>% 
   drop_na() %>% 
   mutate(Corruption_scaled = as.numeric(scale(Corruption))) %>% 
@@ -391,7 +391,7 @@ world_happiness_num <- world_happiness %>%
   select_if(is.numeric)
 ```
 
-2. Use `cor()` to generate a correlation matrix for all the variables in `world_happiness_num`. Use listwise deleting by specifying `use = "complete.obs"`. 
+2. Use `cor()` to generate a correlation matrix for all the variables in `world_happiness_num`. Use listwise deletion by specifying `use = "complete.obs"`. 
 
 ```{r}
 cor(world_happiness_num, use = "complete.obs")
