@@ -37,7 +37,7 @@ Today's lab will cover:
 
 # Getting Started
 
-We'll use the same 2015 World Happiness Report dataset from class, which you can [download here](https://drive.google.com/uc?export=download&id=1XXsB4L4wDxGkcc-JuVnotKWCnsDUsskW). If you'd like to follow along, go ahead and import the data using the `rio` package (see [here](https://uopsych.github.io/psy611/labs/lab-1.html#importing_data_into_r){target="_blank"} for a refresher on importing data.)
+We'll use the same 2015 World Happiness Report dataset from class, which you can [download here](https://drive.google.com/uc?export=download&id=1XXsB4L4wDxGkcc-JuVnotKWCnsDUsskW). Go ahead and import the data using the `rio` package (see [here](https://uopsych.github.io/psy611/labs/lab-1.html#importing_data_into_r){target="_blank"} for a refresher on importing data.)
 
 If the file is saved in your `Downloads` folder, your code might look something like this:
 ```{r, eval = FALSE}
