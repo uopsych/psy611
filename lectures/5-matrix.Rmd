@@ -750,6 +750,8 @@ Perhaps **the most important rules of matrix algebra** to remember are that post
 
 By applying pre- and post-multiplication to a dataframe of raw scores you can perform transformations to your raw data -- including calculating sum or weighted scores -- and aggregate your data into whatever groups or configurations are necessary.
 
+When we create a **linear combination**, we simply mean we're weighting values and then adding them together. 
+
 ---
 
 ##Linear combinations
@@ -800,20 +802,16 @@ Third column = (1st+3rd)-2*2nd
 If I add a linear combinations as premultiplication:
 
 .pull-left[
-$$\large \mathbf{T} = \left(\begin{array}
+$$\mathbf{T} = \left(\begin{array}
 {rr}
-1 & 1 \\
-1 & 1 \\
-1 & 1 \\
-\vdots & \vdots \\
-0 & -1 \\ 
-0 &  -1\\
+1 & 1 & 1 & \dots & 0 & 0 \\
+1 & 1 & 1 & \dots & -1 & -1 \\
 \end{array}\right)$$
 ]
 
 
 .pull-right[
-$$\large \mathbf{X} = \left(\begin{array}
+$$\mathbf{X} = \left(\begin{array}
 {rrr}
 X_{11} & X_{12} & X_{13} \\
 X_{21} & X_{22} & X_{23} \\
@@ -861,198 +859,128 @@ If $\large \mathbf{Y}=\mathbf{XT}$,then $\large \Sigma_Y =\mathbf{T'\Sigma T}$
 
 ## Descriptive statistics
 
-We can calculate the mean of a vector $\mathbf{x}$ with length $n$ using linear combinations:
+We can calculate the mean of a vector $\mathbf{x}$ with length $n$ using linear combinations.
 
-
-.pull-left[
-$$ \mathbf{T} = \left(\begin{array}
-{r}
-\frac{1}{n}  \\
-\frac{1}{n}  \\
-\frac{1}{n}  \\
-\vdots \\
-\frac{1}{n}  \\ 
-\frac{1}{n} \\
+$$\mathbf{T} = \left(\begin{array}
+\frac{1}{n}  & \frac{1}{n}  & \frac{1}{n}  & \dots & \frac{1}{n}  & \frac{1}{n} \\
 \end{array}\right)$$
-]
+
+This happens to be equivalent to the following formula:
+
+$$\Large \bar{X} = T\mathbf{X} = 1'\mathbf{X}(1'1)^{-1} = 1'\mathbf{X}\frac{1}{n}$$
+---
+  
+In other words, the mean (of a variable) is a linear combination of rows/observations/people. 
+
+$$\bar{x} = \frac{1}{n}x_1 + \frac{1}{n}x_2 + \frac{1}{n}x_3 + ... +\frac{1}{n}x_n $$
+  
+$$ \mathbf{T} = \left(\begin{array}
+                         {rrr}
+                         \frac{1}{n}  & \frac{1}{n} & \frac{1}{n}  & \dots & \frac{1}{n}  & \frac{1}{n} \\
+                         \end{array}\right) $$
+    
+Our transformation matrices are simply the weights we use when adding values together. (Note: if we subtract a value, our weight would be -1.)
+
+---
+    
+Imagine we only wanted to know the mean of a subset of participants, perhaps the participants in some group, G.
+  
+  
+Our linear transformation of all the scores would look like:
+    
+$$\bar{x_G} = \frac{1}{n_G}x_1 + \frac{1}{n_G}x_2 + \frac{1}{n_G}x_3 + \dots +0x_{n-1}+0x_n$$
+Participants are given a weight equal to 1 over the sample size of the group if they are a member of that group. 
+
+If they are not part of the group, they are given the weight 0. 
+
+$$\mathbf{T} = \left(\begin{array}
+                          {rrr}
+                          \frac{1}{n_G}  & \frac{1}{n_G}  & \frac{1}{n_G}  & \dots & 0  & 0 \\
+                          \end{array}\right)$$
+    
+    
+
+---
+    
+The beauty of using matrices is we can perform multiple calculations all at once. With one matrix, we can find the average of all scores, the average of scores in group 1, the average of scores in group 2 and the difference in average scores between the two groups!
+    
+$$\mathbf{T} = \left(\begin{array}
+                          {rrrrrr}
+                          \frac{1}{n} & \frac{1}{n} & \frac{1}{n} &\dots & \frac{1}{n} & \frac{1}{n} \\
+                          \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \dots & 0 & 0 \\
+                          0 & 0 & 0 & \dots & \frac{1}{n_{G2}} & \frac{1}{n_{G2}} \\
+                          \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \dots & -\frac{1}{n_{G2}} & -\frac{1}{n_{G2}} \\
+                          \end{array}\right)$$
+    
+    
+If we pre-multiply this to a matrix X of scores, it will perform these four calculations for all variables (columns) in X. 
+
+---
+    
+
+$$\small 
+      \mathbf{T} = \left(\begin{array}
+                          {rrrr}
+                          \frac{1}{n} & \frac{1}{n} & \frac{1}{n} &\dots & \frac{1}{n} & \frac{1}{n} \\
+                          \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \dots & 0 & 0 \\
+                          0 & 0 & 0 & \dots & \frac{1}{n_{G2}} & \frac{1}{n_{G2}} \\
+                          \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \dots & -\frac{1}{n_{G2}} & -\frac{1}{n_{G2}} \\
+                          \end{array}\right)$$
+                          
 
 
 .pull-right[
 $$\mathbf{X} = \left(\begin{array}
 {rrr}
-X_{11} & X_{12} & X_{13} \\
-X_{21} & X_{22} & X_{23} \\
-X_{31} & X_{32} & X_{33} \\
-\vdots & \vdots & \vdots \\
-X_{n1} & X_{n2} & X_{n3} 
+1 & 5 & 45 \\
+1 & 3 & 34 \\
+1 & 5 & 27 \\
+2 & 8 & 32 \\
+2 & 5 & 71 \\
 \end{array}\right)$$
 ]
 
-This happens to be equivalent to the following formula:
-
-$$\Large \bar{X} = 1'\mathbf{X}(1'1)^{-1} = 1'\mathbf{X}\frac{1}{n}$$
-
-
-
-<!-- ###Mean -->
-
-<!-- Let's show this with a vector $\mathbf{x}$ where $\large \mathbf{x'} = [8, 2, 9]$ -->
-
-<!-- $$\large \bar{x} = 1'\mathbf{x}(1'1)^{-1}$$ -->
-
-
-<!-- $$\large \bar{x} = \left[\begin{array} -->
-<!-- {rrr} -->
-<!-- 1 & 1 & 1 \\\end{array}\right] -->
-<!-- \left[\begin{array} -->
-<!-- {r} -->
-<!-- 8 \\ -->
-<!-- 2 \\ -->
-<!-- 9 \end{array}\right](\left[\begin{array} -->
-<!-- {rrr} -->
-<!-- 1 & 1 & 1 \\\end{array}\right] -->
-<!-- \left[\begin{array} -->
-<!-- {r} -->
-<!-- 1 \\ -->
-<!-- 1 \\ -->
-<!-- 1 \end{array}\right])^{-1}$$ -->
-
-<!-- -- -->
-
-
-<!-- $$\large \bar{x} = \left[\begin{array} -->
-<!-- {r} -->
-<!-- 19 \end{array}\right](\left[\begin{array} -->
-<!-- {r} -->
-<!-- 3\end{array}\right])^{-1}$$ -->
-
-<!-- Now we find the inverse of the matrix $[3]$ such that this matrix times $[3]$ is equal to 1.  -->
-
-<!-- -- -->
-
-<!-- $$\large \bar{x} = \left[\begin{array} -->
-<!-- {r} -->
-<!-- 19 \end{array}\right](\left[\begin{array} -->
-<!-- {r} -->
-<!-- \frac{1}{3}\end{array}\right]) = `r round(19/3,2)`$$ -->
-
-<!-- ??? -->
-
-<!-- Using [ instead of ( so it's easier to read. You'll see both.  -->
-
-<!-- --- -->
-
-<!-- ### Column means -->
-
-<!-- We can apply almost the same formula to an $n \times c$ matrix to find the means of each column.  -->
-
-<!-- $$\Large \bar{X_C} = 1'\mathbf{X}(1'1)^{-1} = 1'\mathbf{X}\frac{1}{n}$$ -->
-
----
-
-<!-- ### Deviation scores -->
-
-<!-- Any vector of $N$ raw scores can be converted into deviation score form by pre-multiplication by a "projection operator" $\mathbf{Q}$. Diagonal elements of $\mathbf{Q}$ are always equal to $(N − 1)/N$ , and off-diagonal elements are always equal to  -->
-<!-- $−1/N$. -->
-
-<!-- --- -->
-
-<!-- ### Deviation scores -->
-
-<!-- Imagine we have a vector of scores, $\mathbf{x} = [4, 2, 0]$. Our projection operator would then be -->
-
-<!-- $$\small \mathbf{Q} = \left(\begin{array} -->
-<!-- {rrr} -->
-<!-- \frac{2}{3} & -\frac{1}{3} & -\frac{1}{3} \\ -->
-<!-- -\frac{1}{3} & \frac{2}{3} & -\frac{1}{3} \\ -->
-<!-- -\frac{1}{3} & -\frac{1}{3} & \frac{2}{3} \\ -->
-<!-- \end{array}\right)$$ -->
-
-<!-- And our deviation scores are -->
-
-<!-- $$\small \mathbf{D} = \mathbf{Qx} = \left(\begin{array} -->
-<!-- {rrr} -->
-<!-- \frac{2}{3} & -\frac{1}{3} & -\frac{1}{3} \\ -->
-<!-- -\frac{1}{3} & \frac{2}{3} & -\frac{1}{3} \\ -->
-<!-- -\frac{1}{3} & -\frac{1}{3} & \frac{2}{3} \\ -->
-<!-- \end{array}\right) -->
-<!-- \left(\begin{array} -->
-<!-- {r} -->
-<!-- 4 \\ -->
-<!-- 2 \\ -->
-<!-- 0 \\ -->
-<!-- \end{array}\right) =  -->
-<!-- \left(\begin{array} -->
-<!-- {r} -->
-<!-- 2 \\ -->
-<!-- 0 \\ -->
-<!-- -2 \\ -->
-<!-- \end{array}\right)$$ -->
-
-<!-- ??? -->
-
-<!-- A conclusion of this is that a deviation score is always a linear combination of all the elements of its column, such that -->
-
-<!-- $$dev_i = \frac{n-1}{n}x_i-\Sigma\frac{1}{n}x_{\neg i}$$ -->
-
-<!-- Does this make sense? -->
-
-<!-- --- -->
-
-<!-- ### Sample variance -->
-
-<!-- We already know that sample variance is the sum of the squared devaition scores divided by $N-1$, so we can write this as a matrix algebra formula: -->
-
-<!-- $$\large S^2_{\mathbf{x}} = \frac{1}{N-1}\mathbf{D'D}$$ -->
-
-<!-- We can then substitute our formula for the devaition score: -->
-
-<!-- $$\large S^2_{\mathbf{x}} = \frac{1}{N-1}\mathbf{(Qx)'(Qx)}$$ -->
-
-<!-- The transpose of a product of matrices is equal to the product of the transposes in reverse order, so: -->
-
-<!-- $$\large S^2_{\mathbf{x}} = \frac{1}{N-1}\mathbf{x'Q'Qx}$$ -->
-<!-- ??? -->
-<!-- Note that S refers to the matrix of all variables and s refers to a vector for a specific variable. -->
-<!-- --- -->
-
-<!-- ### Variance/covariance matrix -->
-
-<!-- Here's one more weird thing. It turns out that $\mathbf{Q'Q} = \mathbf{Q}$. (This is a proof we won't get into.)  -->
-
-<!-- $$\large S^2_{\mathbf{x}} = \frac{1}{N-1}\mathbf{x'Q'Qx} = \frac{1}{N-1}\mathbf{x'Qx}$$ -->
-
-
-
-<!-- We can generalize this formula to: -->
-
-<!-- $$\large S_{\mathbf{xy}} = \frac{1}{N-1}\mathbf{x'Qy}$$ -->
-
-<!-- ??? -->
-<!-- Students should recognize covariance formula. -->
-
+We can premultiply X (only the last two colunms) by T:
+  
+  
+```{r, echo = F}
+  X = matrix(
+    c(5,3,5,8,5,45,34,27,32,71),
+    byrow = F, ncol = 2
+  )
+  
+  T = matrix(
+    c(rep(.2, 5),
+      rep(1/3,3), rep(0,2),
+      rep(0, 3), rep(.5,2),
+      rep(1/3, 3), rep(-.5, 2)),
+    byrow = T, ncol = 5)
+```
+```{r}
+  T %*% X
+```
 ---
 ### Correlation matrix, $\large \mathbf{R}$
-
+    
 A correlation is simply the covariance divided by the standard deviations of the two variables, so we can create a new formula to calculate that.
-
+  
 Let $\mathbf{D_{xx}}$ be a diagonal matrix with the diagonal value being $1/s_i$ or the inverse of the standard deviation of that variable. Then we can calculate $\mathbf{R}$ as
-
+  
 $$\large \mathbf{R} = \mathbf{D_{xx}S_{XY}D_{xx}}$$
+
 ---
-
+    
 ## Matrix Algebra in statistics
-
+    
 Certainly matrix algebra takes relatively simple calculations and makes them more complicated...
-
+  
 ... but for some statistics, the matrix algebra version is actually much simpler. 
-
-
 
 ---
 
 class: inverse
-
+  
 ## Next time...
-
+  
 probability!
+    
