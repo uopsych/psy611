@@ -78,11 +78,13 @@ For example, let's take a look at a distribution of the `Happiness` variable. We
 hist(x = world_happiness$Happiness)
 ```
 
-This looks ok, but it's kind of ugly. Let's make it better by adding our own title and a better label for the x-axis. We can also change the number of bars using the `breaks` argument. 
+This looks ok, but it's kind of ugly. Let's make it better by adding our own title and a better label for the x-axis.
 
 ```{r}
-hist(x = world_happiness$Happiness, breaks = 30, main = "Histogram of Happiness Scores", xlab = "Happiness")
+hist(x = world_happiness$Happiness, main = "Histogram of Happiness Scores", xlab = "Happiness")
 ```
+
+You can also change the number of bins (i.e. bars) in your histogram using the `breaks` argument. Try different values and see how they affect the histogram. 
 
 ## Box Plot
 
