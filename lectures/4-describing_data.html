@@ -43,16 +43,16 @@ class: center, middle, inverse, title-slide
 ## Bi-variate descriptives
 
 ### Covariation 
-Sort of like the sums of squares of two variables
 
-.pull-left[
+"Sum of the cross-products"
+
+
 ### Population
-`$$\small SP_{XY} =\Sigma(X_i−\mu_X)(Y_i−\mu_Y)$$`
-]
-.pull-right[
+`$$SP_{XY} =\Sigma(X_i−\mu_X)(Y_i−\mu_Y)$$`
+
 ### Sample
-`$$\small SP_{XY} =\Sigma(X_i−\bar{X})(Y_i−\bar{Y})$$`
-]
+$$ SP_{XY} =\Sigma(X_i−\bar{X})(Y_i−\bar{Y})$$
+
 
 ???
 
@@ -65,17 +65,19 @@ A negative relationship, different sign
 **What does SP close to 0 indicate?**
 No relationship
 
+
+
+---
+
 ## Covariance
 Sort of like the variance of two variables
 
-.pull-left[
 ### Population
 `$$\sigma_{XY} =\frac{\Sigma(X_i−\mu_X)(Y_i−\mu_Y)}{N}$$`
-]
-.pull-right[
+
 ### Sample
 `$$s_{XY} = cov_{XY} =\frac{\Sigma(X_i−\bar{X})(Y_i−\bar{Y})}{N-1}$$`
-]
+
 
 ---
 
@@ -83,7 +85,7 @@ Sort of like the variance of two variables
 
 
 .large[
-`$$\mathbf{K_{XX}} = \left[\begin{array}
+`$$\Large \mathbf{K_{XX}} = \left[\begin{array}
 {rrr}
 \sigma^2_X &amp; cov_{XY} &amp; cov_{XZ} \\
 cov_{YX} &amp; \sigma^2_Y &amp; cov_{YZ} \\
@@ -194,11 +196,16 @@ Correlation = 0
 
 ## What is a large correlation?
 
+--
 - [Cohen (1988)](http://www.utstat.toronto.edu/~brunner/oldclass/378f16/readings/CohenPower.pdf): .1 (small), .3 (medium), .5 (large)
     - Often forgot: Cohen said only to use them when you had nothing else to go on, and has since regretted even suggesting benchmarks to begin with. 
 
+--
+
 - `\(r^2\)`: Proportion of variance "explained"
     - as [Ozer &amp; Funder (2019)](https://uopsych.github.io/psy611/readings/Ozer_Funder_2019.pdf) discuss, we're not really explaining anything and the change in scale can mess up our interpretations if we're not careful.
+
+--
 
 - [Rosenthal &amp; Rubin (1982)](https://psycnet.apa.org/fulltext/1982-22591-001.pdf): life and death (the Binomial Effect Size Display)
   - treatment success rate `\(= .50 + .5(r)\)` and the control success rate `\(= .50 - .5(r)\)`.
@@ -290,7 +297,7 @@ data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se
 
 
 ```r
-data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red") + geom_smooth(data = data[-51,], method = "lm", se = FALSE)
+data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red") + geom_smooth(data = data[-c(n+1),], method = "lm", se = FALSE)
 ```
 
 ![](4-describing_data_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
@@ -368,37 +375,13 @@ Meaning that our estimate of the population correlation coefficient is attenuate
 
 ## Content overlap
 
-- Trait impulsivity is associated with BMI ([Terracianno et al., 2009](https://www.ncbi.nlm.nih.gov/pubmed/19414622)).
+If your Operation Y of Construct B includes items (or tasks or manipulations) that could also be influenced by Constrct A, then the correlation between X and Y will be inflated.
 
-- But two of the items used to measure impulsivity are "I am able to control my cravings" and "I rarely overindulge." 
-
-- What would the correlation look like if these items were removed?
-
----
-
-.small[Data source: [sapa-project.org](sapa-project.org), scales developed by [Condon (2017)](https://sapa-project.org/research/SPI/SPIdevelopment.pdf).]
+- Example: SAT scores and IQ tests
+- Example: Depression and number of hours sleeping
 
 
-
-
-```r
-data_spi %&gt;% ggplot(aes(x = SelfControl, y = exer)) + geom_jitter(alpha = .2) + geom_smooth(method = "lm", se = F) 
-```
-
-![](4-describing_data_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
----
-
-.small[Data source: [sapa-project.org](sapa-project.org), scales developed by [Condon (2017)](https://sapa-project.org/research/SPI/SPIdevelopment.pdf).]
-
-
-
-
-```r
-data_spi %&gt;% ggplot(aes(x = SelfControl, y = exer)) + geom_jitter(alpha = .2) + geom_smooth(method = "lm", se = F) + geom_smooth(aes(x = new), method = "lm", se = F, color = "red")
-```
-
-![](4-describing_data_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
-
+- Which kind of validity is this associated with?
 ---
 ## Multiple groups
 
@@ -409,7 +392,7 @@ data_spi %&gt;% ggplot(aes(x = SelfControl, y = exer)) + geom_jitter(alpha = .2)
 data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red")
 ```
 
-![](4-describing_data_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](4-describing_data_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -417,10 +400,10 @@ data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se
 
 
 ```r
-data %&gt;% ggplot(aes(x=x, y=y, color = gender)) + geom_point() + geom_smooth(method = "lm", se = FALSE)
+data %&gt;% ggplot(aes(x=x, y=y, color = gender)) + geom_point() + geom_smooth(method = "lm", se = FALSE) + guides(color = F)
 ```
 
-![](4-describing_data_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](4-describing_data_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 ---
 
 ### Special cases of the Pearson correlation
@@ -431,7 +414,7 @@ data %&gt;% ggplot(aes(x=x, y=y, color = gender)) + geom_point() + geom_smooth(m
 
 - **Point-biserial correlation coefficient**
     - Applies when Y is binary.
-        - NOTE: This is not an appropriate statistic when you [artificially dichotomize data](readings/Cohen_1983.pdf).
+        - NOTE: This is not an appropriate statistic when you [artificially dichotomize data](../readings/Cohen_1983.pdf).
 
 - **Phi (
 `\(\phi\)`
@@ -621,6 +604,8 @@ Why do we have special cases of the correlation?
 We don't have different formulas because the correlation is mathematically different -- these formulas were developed when we did things by hand. These formulas are short cuts!
 
 ---
+
+class: inverse
 
 ## Next time...
 
