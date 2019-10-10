@@ -47,7 +47,7 @@ world_happiness <- import("~/Downloads/world_happiness_2015.csv")
 
 
 ```{r, echo=FALSE}
-world_happiness = import(here("/labs/resources/lab2/purpose/world_happiness_2015.csv"))
+world_happiness <- import(here("/labs/resources/lab2/world_happiness_2015.csv"))
 ```
 
 We can take a peek at the data using the `str()` function, which shows us the structure of the dataset. This tells us we have a data frame with 136 observations of 8 different variables: `Country`, `Happiness`, `GDP`, `Support`, `Life`, `Freedom`, `Generosity` and `Corruption`. 
@@ -365,7 +365,7 @@ For this minihack, we're going to work with a slightly different version of the 
 1. Import the new version of the data and save it to an object called `world_happiness_sim`.
 
 ```{r}
-world_happiness_sim <- import("~/Downloads/world_happiness_2015_sim.csv")
+world_happiness_sim <- import(here("/labs/resources/lab2/world_happiness_2015_sim.csv"))
 ```
 
 2. Create a histogram of the `Service` variable. Set the number of bins to `30`. What do you notice about the shape of this distribution?
