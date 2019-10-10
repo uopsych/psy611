@@ -1789,7 +1789,7 @@ corruption_std = world_happiness %&gt;%
 <li><p>View <code>corruption_std</code>. Based on the z-scores (i.e. <code>Corruption_scaled</code>), which countries would be considered outliers on the <code>Corruption</code> variable?</p></li>
 <li><p>After identifying which countries are outliers, use what you learned in last week’s lab about <a href="https://uopsych.github.io/psy611/labs/lab-1.html#data_frames">indexing dataframes</a> to remove these rows from the data frame.</p></li>
 </ol>
-<p>-Hint #1: you can use the minus sign (<code>-</code>) for de-selecting. -Hint #2: pay attention to rows <code>124</code> and <code>125</code></p>
+<p>-Hint #1: you can use the minus sign (<code>-</code>) for de-selecting. <br /> -Hint #2: pay attention to rows <code>124</code> and <code>125</code></p>
 <pre class="r"><code>corruption_std_rm_outlier &lt;- corruption_std[-c(124,125),]</code></pre>
 </div>
 <div id="minihack-3-descriptive-plots" class="section level2">

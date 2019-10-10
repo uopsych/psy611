@@ -344,6 +344,7 @@ hist(corruption_std$Corruption)
 4. After identifying which countries are outliers, use what you learned in last week's lab about [indexing dataframes](https://uopsych.github.io/psy611/labs/lab-1.html#data_frames) to remove these rows from the data frame. 
 
 -Hint #1: you can use the minus sign (`-`) for de-selecting.
+<br /> 
 -Hint #2: pay attention to rows `124` and `125`
 
 ```{r}
