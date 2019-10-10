@@ -237,13 +237,13 @@ Fortunately for us, there is a function called `describe()` from the `{psych}` p
 
 This function automatically calculates all of the descriptives we reviewed above (and more!) 
 
-```{r warning=FALSE}
-# because "Country" is not a numeric variable, we'll remove it for now 
-world_happiness_num <- world_happiness %>% 
-  select(-Country) # don't worry about what this code means for now
-
-psych::describe(world_happiness_num)
+```{r}
+psych::describe(world_happiness)
 ```
+
+NOTE: `Country` is not `numeric`, it is a a **categorical** variable of type `character`. By default, the `describe()` function forces non-numeric variables to be numeric and attempts to calculate descriptives for them. These variables are marked with an asterisk (`*`). In this case, it doesn't make sense to describe `Country`, so we get a warning message and a bunch of `NaN`'s and `NA`'s for this variable. 
+
+A better approach would be to remove non-numeric variables before you attempt to run numerical calculations on your dataset. You will do just that in [Minihack #4](#minihack4). 
 
 If we want to focus on a particular variable, we can calculate descriptives for that variable only.
 
@@ -286,10 +286,10 @@ plot(world_happiness$Support, world_happiness$Happiness, xlab = "Social Support"
 If we have a dataset with a reasonably small number of variables, we can use `pairs.panels()` (also from the `{psych}` package) to generate a matrix that contains scatterplots between all of the variables below the diagonal and Pearson correlations between all of the variables above the diagonal. 
 
 ```{r}
-# use world_happiness_num since we only want correlations between numeric variables
-pairs.panels(world_happiness_num)
+pairs.panels(world_happiness)
 ```
 
+Again, note that we can't interpret the results for `Country` because it is a character variable.
 
 ## Covariance
 
@@ -382,15 +382,14 @@ describeBy(world_happiness_sim$Service, world_happiness_sim$War)
 
 4. Based on what you observe about these group means, how might this explain the shape of the distribution of the `Service` variable?
 
-## Minihack 4: Correlations
+## Minihack 4: Correlations {#minihack4}
 
-For this minihack, we're going to use the `cor()` function from `{psych}` to create a correlation matrix of the entire `world_happiness` dataset
+For this minihack, we're going to use the `cor()` function from `{psych}` to create a correlation matrix of the entire `world_happiness` dataset. Be sure to use the original `world_happiness` data frame without the added variables.
 
-1. First use the following snippet of code to create a version of the dataset that only contains numeric variables (i.e. gets rid of `Country`, as this is a categorical variable.) Don't worry about how this code works for now -- we'll get to that in a later class.
+1. First remove the `Country` variable because this variable is not numeric and will not yield meaningful correlations with the other variables in the dataset. Save the resulting dataframe to a new object called `world_happiness_num`.
 
-```{r eval=FALSE}
-world_happiness_num <- world_happiness %>% 
-  select_if(is.numeric)
+```{r}
+world_happiness_num <- world_happiness[, -1]
 ```
 
 2. Use `cor()` to generate a correlation matrix for all the variables in `world_happiness_num`. Use listwise deletion by specifying `use = "complete.obs"`. 
@@ -399,6 +398,7 @@ world_happiness_num <- world_happiness %>%
 cor(world_happiness_num, use = "complete.obs")
 ```
 
+3. What is the correlation between `Freedom` and `Happiness`? Between `Freedom` and `Corruption`? Do these correlations make intuitive sense?
 
 3. Now generate another correlation matrix, but this time use pairwise deletion by specifying `use = "pairwise.complete.obs"`.
 
