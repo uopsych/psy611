@@ -497,7 +497,7 @@ Scores interpreted as distance from the mean, in standard deviations.
 
 - $\Large \Sigma z = 0$
 - $\Large \Sigma z^2 = N$
-- $\Large s_z = \frac{\Sigma z}{n}$
+- $\Large s_z = \frac{\Sigma z^2}{n}$
 
 ---
 
@@ -518,7 +518,7 @@ $$ z = \frac{x_i - M}{s} $$
 
 Note for the standard deviation property
 
-$$s_z = \frac{\Sigma z}{n} = \frac{n}{n} = 1$$
+$$s_z = \frac{\Sigma z^2}{n} = \frac{n}{n} = 1$$
 
 ---
 
