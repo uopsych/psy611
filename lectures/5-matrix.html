@@ -25,8 +25,6 @@ Correlations, covariances
 
 ## Matrix algebra
 
-### This is statistics, not algebra
-
 - Underlying mathematics of statistics includes a lot of algebra and calculus
   - Many textbooks and academic methods papers will use matrix algebra to explain statistical concepts
 
@@ -70,10 +68,7 @@ g_{31} &amp; g_{32}
 
 
 The columns in a matrix are called *vectors*, and are symbolized with lower case, bold letters. This matrix has two vectors (
-`\(\mathbf{g}_1\)`
-, 
-`\(\mathbf{g}_2\)`
-), each containing three scalars.
+`\(\large \mathbf{g}_1\)`, `\(\large \mathbf{g}_2\)`), each containing three scalars.
 
 ---
 
@@ -109,17 +104,19 @@ This is called the *transpose* of the vector.
 ---
 
 ### Square vs rectangular
- 
-`$$\Large \mathbf{G_{3,2}} = \left(\begin{array}
+
+This matrix is *rectangular*. 
+
+`$$\large \mathbf{G_{3,2}} = \left(\begin{array}
 {rrr}
 g_{11} &amp; g_{12}  \\
 g_{21} &amp; g_{22} \\
 g_{31} &amp; g_{32} 
 \end{array}\right)$$`
 
-This matrix is *rectangular*. When the number of rows and columns are equal, the matrix is *square*:
+When the number of rows and columns are equal, the matrix is *square*:
 
-`$$\Large \mathbf{F_{3,3}} = \left(\begin{array}
+`$$\large \mathbf{F_{3,3}} = \left(\begin{array}
 {rrr}
 f_{11} &amp; f_{12} &amp; f_{13}  \\
 f_{21} &amp; f_{22} &amp; f_{23} \\
@@ -168,7 +165,7 @@ If all elements of a symmetric matrix except the main diagonal are zero, the mat
 
 
 
-`\(\mathbf{F}\)` is a symmetric, diagonal matrix with a trace of 14. 
+`\(\mathbf{F}\)` is a symmetric, diagonal matrix. 
 
 ---
 ##Matrix Addition and Subtraction:
@@ -253,9 +250,11 @@ Matrices must have the same dimensions to be added/subtracted
 ### Properties of addition and subtraction
 
 
-**Matrix addition is commutative and associative:**
+**Matrix addition is commutative:**
 
 `$$\large \mathbf{A}+\mathbf{B}=\mathbf{B}+\mathbf{A}$$`
+
+**and associative:**
 
 `$$\large \mathbf{A} + \mathbf{B} + \mathbf{C} = (\mathbf{A} + \mathbf{B}) + \mathbf{C} = \mathbf{A} + (\mathbf{B} + \mathbf{C})$$`
 
@@ -394,7 +393,7 @@ Matrix multiplication requires attending to a few important rules:
 ---
 
 `$$\LARGE \mathbf{A}_{j,i} \times \mathbf{B}_{i,k} = \mathbf{C}_{j,k}$$`
-
+--
 The elements of C are defined as:
 
 - the scalar in the *j*th row and *k*th column of `\(\mathbf{C}\)` is the sum of the scalar products of the *j*th row of `\(\mathbf{A}\)`  and the *k*th column of `\(\mathbf{B}\)`.
@@ -428,6 +427,7 @@ Or
 
 `$$\large \mathbf{A}_{3,2}\times\mathbf{B}_{2,3} = \mathbf{C}_{3,3}$$`
 
+--
 
 .pull-right[
 `$$\large \mathbf{C}_{3,3} = \left(\begin{array}
@@ -511,7 +511,8 @@ Example: A common statistical requirement is to generate the sums of squares and
 But, `\(\large \mathbf{X'_{vn}X_{nv}}\)` can be carried out.
 
  - Also useful: the transpose of a product of matrices is equal to the product of the transposed matrices in reverse order
- `$$(\mathbf{XY})' = \mathbf{Y'X'}$$`
+ 
+ `$$\large (\mathbf{XY})' = \mathbf{Y'X'}$$`
 
 ???
 
@@ -749,15 +750,38 @@ class: inverse
 
 ## Statistics through matrix algebra
 
+
 ---
 
 ## Linear combinations
 
-Perhaps **the most important rules of matrix algebra** to remember are that post-multiplication transforms columns and pre-multiplication transforms rows.
+When we create a **linear combination**, we simply mean we're weighting values and then adding them together. 
+
+For example:
+
+`$$y = 5x_1 + \frac{1}{7}x_2 - 12x_3$$`
+
+- What are the weights?
+
+--
+
+Matrix algebra is simply representing one or more linear combinations by sorting the weights inside a matrix.
+
+--
+
+Linear combinations can be done to rows or to columns. 
+
+---
+
+## Linear combinations
+
+Perhaps **the most important rules of matrix algebra** to remember are that :
+
+- post-multiplication creates linear combinations of columns, and 
+- pre-multiplication creates linear combinations of rows.
 
 By applying pre- and post-multiplication to a dataframe of raw scores you can perform transformations to your raw data -- including calculating sum or weighted scores -- and aggregate your data into whatever groups or configurations are necessary.
 
-When we create a **linear combination**, we simply mean we're weighting values and then adding them together. 
 
 ---
 
@@ -788,7 +812,7 @@ X_{n1} &amp; X_{n2} &amp; X_{n3}
 
 `$$\Large \mathbf{XT} = Y$$`
 
-What do the new variables represent? What are the variances and covariances of the new variables?
+What do the new variables represent? 
 
 ???
 
@@ -806,7 +830,7 @@ Third column = (1st+3rd)-2*2nd
 
 ##Linear combinations
 
-If I add a linear combinations as premultiplication:
+If I add a linear combinations as pre-multiplication:
 
 .pull-left[
 `$$\mathbf{T} = \left(\begin{array}
@@ -830,7 +854,7 @@ X_{n1} &amp; X_{n2} &amp; X_{n3}
 
 `$$\Large \mathbf{TX} = Y$$`
 
-What do the new variables represent? What are the variances and covariances of the new variables?
+What do the new variables represent? 
 
 ???
 
@@ -843,33 +867,16 @@ Each column of Y corresponds to one variable
 First row is the mean of group 1
 2nd row is difference in means of group 1 and group 2
 
----
-
-Everything we need to know about the variances and covariances of the linear combinations is contained in the variance-covariance matrix of the original variables (
-`\(\Sigma\)`
-).
-
-
-
-`$$\Large \Sigma = \left(\begin{array}
-{rrr}
-\sigma^2_{1} &amp; \sigma^2_{12} &amp; \sigma^2_{13} \\
-\sigma^2_{21} &amp; \sigma^2_{2} &amp; \sigma^2_{23} \\
-\sigma^2_{31} &amp; \sigma^2_{32} &amp; \sigma^2_{3} \\
-\end{array}\right)$$`
-
-
-
-If `\(\large \mathbf{Y}=\mathbf{XT}\)`,then `\(\large \Sigma_Y =\mathbf{T'\Sigma T}\)`
 
 ---
+
 
 ## Descriptive statistics
 
 We can calculate the mean of a vector `\(\mathbf{x}\)` with length `\(n\)` using linear combinations.
 
-`$$\mathbf{T} = \left(\begin{array}
-\frac{1}{n}  &amp; \frac{1}{n}  &amp; \frac{1}{n}  &amp; \dots &amp; \frac{1}{n}  &amp; \frac{1}{n} \\
+`$$\mathbf{T} = \left(\begin{array} 
+&amp; \frac{1}{n}  &amp; \frac{1}{n}  &amp; \dots &amp; \frac{1}{n}  &amp; \frac{1}{n} \\
 \end{array}\right)$$`
 
 This happens to be equivalent to the following formula:
@@ -886,7 +893,9 @@ $$ \mathbf{T} = \left(\begin{array}
                          \frac{1}{n}  &amp; \frac{1}{n} &amp; \frac{1}{n}  &amp; \dots &amp; \frac{1}{n}  &amp; \frac{1}{n} \\
                          \end{array}\right) $$
     
-Our transformation matrices are simply the weights we use when adding values together. (Note: if we subtract a value, our weight would be -1.)
+Our transformation matrices are simply the weights we use when adding values together. 
+
+(Note: when we subtract a value, we assign it the weight of -1.)
 
 ---
     
@@ -909,7 +918,9 @@ If they are not part of the group, they are given the weight 0.
 
 ---
     
-The beauty of using matrices is we can perform multiple calculations all at once. With one matrix, we can find the average of all scores, the average of scores in group 1, the average of scores in group 2 and the difference in average scores between the two groups!
+With matrices, we can perform multiple calculations all at once. 
+
+With one matrix, we can find the average of all scores, the average of scores in group 1, the average of scores in group 2 and the difference in average scores between the two groups:
     
 `$$\mathbf{T} = \left(\begin{array}
                           {rrrrrr}
@@ -937,7 +948,7 @@ If we pre-multiply this to a matrix X of scores, it will perform these four calc
 
 
 .pull-right[
-`$$\mathbf{X} = \left(\begin{array}
+`$$\small \mathbf{X} = \left(\begin{array}
 {rrr}
 1 &amp; 5 &amp; 45 \\
 1 &amp; 3 &amp; 34 \\
@@ -947,7 +958,7 @@ If we pre-multiply this to a matrix X of scores, it will perform these four calc
 \end{array}\right)$$`
 ]
 
-We can premultiply X (only the last two colunms) by T:
+We can pre-multiply X by T:
   
   
 
@@ -957,28 +968,36 @@ We can premultiply X (only the last two colunms) by T:
 ```
 
 ```
-##           [,1]      [,2]
-## [1,]  5.200000  41.80000
-## [2,]  4.333333  35.33333
-## [3,]  6.500000  51.50000
-## [4,] -2.166667 -16.16667
+##      [,1]      [,2]      [,3]
+## [1,]  1.4  5.200000  41.80000
+## [2,]  1.0  4.333333  35.33333
+## [3,]  2.0  6.500000  51.50000
+## [4,] -1.0 -2.166667 -16.16667
 ```
 ---
-### Correlation matrix, `\(\large \mathbf{R}\)`
-    
-A correlation is simply the covariance divided by the standard deviations of the two variables, so we can create a new formula to calculate that.
-  
-Let `\(\mathbf{D_{xx}}\)` be a diagonal matrix with the diagonal value being `\(1/s_i\)` or the inverse of the standard deviation of that variable. Then we can calculate `\(\mathbf{R}\)` as
-  
-`$$\large \mathbf{R} = \mathbf{D_{xx}S_{XY}D_{xx}}$$`
+&lt;!-- ### Correlation matrix, `\(\large \mathbf{R}\)` --&gt;
 
----
+&lt;!-- A correlation is simply the covariance divided by the standard deviations of the two variables, so we can create a new formula to calculate that. --&gt;
+
+&lt;!-- Let `\(\mathbf{D_{xx}}\)` be a diagonal matrix with the diagonal value being `\(1/s_i\)` or the inverse of the standard deviation of that variable. Then we can calculate `\(\mathbf{R}\)` as --&gt;
+
+&lt;!-- `$$\large \mathbf{R} = \mathbf{D_{xx}S_{XY}D_{xx}}$$` --&gt;
+
+&lt;!-- --- --&gt;
     
 ## Matrix Algebra in statistics
     
-Certainly matrix algebra takes relatively simple calculations and makes them more complicated...
+
+For the next two (3?) terms, we'll use matrix algebra as one of the ways to represent the statistics we're calculating. 
+
+--
+
+Your statistical tool kit now includes
+  - validity (pre-data collection)
+  - descriptive statistics (information about your sample, estimates of the population)
+  - matrix algebra (ways to combine raw data into statistics or indices)
   
-... but for some statistics, the matrix algebra version is actually much simpler. 
+At this point, we'll switch gears and talk about the branch of mathematics that drives statistical inference...
 
 ---
 
