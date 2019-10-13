@@ -23,20 +23,73 @@ library(gganimate)
 
 # Purpose
 
-The purpose of today's lab 
+Today we will be exploring the world of probability distributions. The content of the lab will be split into two sections: The first half will discuss binomial and multinomial distributions. The second half will discuss normal distributions. At the end, we will briefly discuss other types of distributions. The Minihacks will ask you to put to test
 
 Today's lab will cover:
 
-1. [How to download and install R and RStudio](#gs)
+1. [Binomial Distributions](#binomial)
 1. [The panes of RStudio](#rstudio)
 1. [How to create and use R Markdown Documents](#rmarkdown)
 1. [Arithmetic commands](#ac)
 
 ***
 
-# Binomial and Multinomial Distributions
+# Binomial and Multinomial Distributions {#binomial}
+
+```{r, echo = FALSE}
+# preallocate memory for flip data
+binom_hist <- data.frame(event  = 1,
+                         flip   = 1, 
+                         result = rbinom(1, 1, 1/2))
+
+
+
+for (i in 2:100) {
+  binom_hist <- rbind(binom_hist,
+                        data.frame(event  = rep(i, i),
+                                   flip   = 1:i, 
+                                   result = c(subset(binom_hist, event == i - 1)$result,
+                                              rbinom(1, 1, 1/2))))
+}
+
+
+binom_hist %>%
+  mutate(result = if_else(result == 1, "Heads", "Tails")) %>%
+  ggplot(aes(x = result, fill = result)) +
+    geom_bar(width = .5) +
+    scale_fill_manual(values = c("turquoise3",
+                                 "darkorchid4")) +
+    transition_reveal(event) +
+    theme_bw(base_size = 16) +
+    theme(legend.position = "none") +
+    labs(y = "Frequency",
+         x = "",
+         caption = "Number of flips {frame_along}")
+
+
+```
+
+
 
 ```{r}
+x <- seq(1, 100, 1)
+likelihood <- dbinom(x, 100, 1/2)
+sim <- data.frame(x, likelihood)
+
+
+data <- data.frame(x    = rep(x, times = 100),
+                   y    = rep(x, each  = 100),
+                   prob = rep(likelihood, 100))
+
+pp <- ggplot(data, aes(x, y, colour = prob)) +
+  geom_point(size = 3) +
+  scale_fill_viridis_c(option = "C")
+
+plot_gg(pp, width = 5, height = 4, scale = 300, multicore = TRUE, windowsize = c(1000, 800))
+render_camera(fov = 70, zoom = 0.5, theta = 130, phi = 35)
+render_snapshot(clear = TRUE)
+
+
 x <- seq(1, 100, 1)
 likelihood <- dbinom(x, 100, 1/2)
 sim <- data.frame(x, likelihood)
@@ -45,11 +98,12 @@ plot1 <- ggplot(sim, aes(x, likelihood)) +
   geom_point(size = 3,  colour = "cyan3") +
   labs(x       = "Number of Heads: {as.integer(frame_along)}",
        y       = "Probability") +
-  theme_bw(base_size = 15) +
-  transition_reveal(x)
+  theme_bw(base_size = 15) 
 
-animate(plot1, nframes = 90, fps = 24)
 
+plot_gg(pp, width = 5, height = 4, scale = 300, multicore = TRUE, windowsize = c(1000, 800))
+render_camera(fov = 70, zoom = 0.5, theta = 130, phi = 35)
+render_snapshot(clear = TRUE)
 ```
 
 ```{r}
@@ -73,27 +127,20 @@ plot2 <- ggplot(sim, aes(x = flips, y = prop, colour = prop)) +
 animate(plot2, nframes = 120, fps = 12)
 ```
 
-## dbinom
+## rbinom
 
-What's the probability of getting one head of flipping one coin with a 50/50 chance of getting a heads
+Flip 2 coins 10 times
+
 ```{r}
-dbinom(1, 1, 1/2)
+rbinom(10, 2, 1/2)
+
+mean(rbinom(10, 2, 1/2))
+
+mean(rbinom(100000, 2, 1/2))
+
+hist(rbinom(10, 1, 1/2))
 ```
 
-What's the probability of getting one heads of flipping two coins with a 50/50 chance of getting a heads
-```{r}
-dbinom(1, 2, 1/2)
-```
-
-What's the probability of getting two heads of flipping two coins with a 50/50 chance of getting a heads
-```{r}
-dbinom(2, 2, 1/2)
-```
-
-What's the probability of getting two heads of flipping one coins with a 50/50 chance of getting a heads
-```{r}
-dbinom(2, 1, 1/2)
-```
 
 ## pbinom
 
@@ -133,22 +180,28 @@ What is the minimum value that has a 25% probability of occuring with 100 coin f
 qbinom(.25, 100, 1/2, lower.tail = FALSE)
 ```
 
+## dbinom
 
-
-
-## rbinom
-
-Flip 2 coins 10 times
-
+What's the probability of getting one head of flipping one coin with a 50/50 chance of getting a heads
 ```{r}
-rbinom(10, 2, 1/2)
-
-mean(rbinom(10, 2, 1/2))
-
-mean(rbinom(100000, 2, 1/2))
-
-hist(rbinom(10, 1, 1/2))
+dbinom(1, 1, 1/2)
 ```
+
+What's the probability of getting one heads of flipping two coins with a 50/50 chance of getting a heads
+```{r}
+dbinom(1, 2, 1/2)
+```
+
+What's the probability of getting two heads of flipping two coins with a 50/50 chance of getting a heads
+```{r}
+dbinom(2, 2, 1/2)
+```
+
+What's the probability of getting two heads of flipping one coins with a 50/50 chance of getting a heads
+```{r}
+dbinom(2, 1, 1/2)
+```
+
 
 # Normal Distributions
 
@@ -172,8 +225,7 @@ sim <- map_df(samples, ~data_frame(sample_size = rep(.x, .x), sample = rnorm(.x,
 
 plot3 <- ggplot(sim, aes(x = sample)) +
   geom_histogram(fill = "turquoise3", colour = "white", alpha = .7) +
-  theme(base_size = 15) + 
-  theme_bw() +
+  theme_bw(base_size = 15) +
   labs(x        = "x",
        y        = "Frequency",
        title    = "Sample Histogram",
@@ -279,7 +331,6 @@ ball_plot(0)
 ```{r}
 qnorm(0.5, 0, 1)
 pnorm(0.2533471, 0, 1)
-qnorm(.50, 0, 1)
 ```
 
 for probability .975
