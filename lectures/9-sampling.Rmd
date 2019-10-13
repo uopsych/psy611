@@ -1,0 +1,27 @@
+---
+title: 'Sampling'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, rladies, rladies-fonts, "my-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+To this point, we have assumed that features of the population -- the parameters -- are known.  That is rarely the case.
+
+The major goal that we have in statistical inference is to make confident claims about the population based on a small representation of it, the sample.
+
+Our confidence in the sample as a representation of the population relies on sampling theory.
+
+--
+
+## Terms
+
+**Sample**: The particular units from a population on which measures are collected (the data).
+
+**Population**: The complete set of units (e.g., people, countries, etc.) from which a sample is selected.  
+**Sampling method**: The procedure used to create a sample.
+
