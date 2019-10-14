@@ -1,0 +1,44 @@
+---
+title: "Lab 3: Matrix Algebra"
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# suppress scientific notation
+options(scipen = 999)
+
+# load libraries
+
+```
+
+
+# Purpose
+
+
+
+Today's lab will cover:
+
+1. [Visualizing Distributions](#dist)
+
+
+***
+
+***
+
+# Visualizing Distributions {#dist}
+
+
+# Minihacks {#minihacks}
+
+Feel free to work in groups of 2-3, and ask for help when you get stuck!
+
+## Minihack 1: Find the mode {#minihack1}
+
+
