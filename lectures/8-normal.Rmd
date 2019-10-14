@@ -217,12 +217,12 @@ Approximately 68% of the data in a normal distribution will be within one standa
 
 In other words, nearly all of the data will fall within 3 standard deviations of the mean in a normal distribution.
 
-These benchmarks are convenient for determining if a score (and later, a mean) is rare or unusual in the context of a particular distribution.  
+These benchmarks are convenient for determining if a score (and later, a mean) is rare or unusual in the context of a particular distribution. 
 
 ---
 ## Standard normal distribution
 
-A normal distribution with $\mu$=0 and $\sigma$=1 is called standard normal.  
+The normal distribution with $\mu$=0 and $\sigma$=1 is called standard normal.  
 
 Variables with quite different means and standard deviations can be standardized so that they can be compared in the same metric (standard deviation units). This allows statements such as "relative to the mean, I am more conscientious (e.g., $Z=2$) than I am extraverted (e.g., $Z=1$)."
 
@@ -240,6 +240,21 @@ Why?
 - not the same units -- what I'm twice as heavy as I am tall?
 - Z-score is comparison to other people
 
+---
+
+### Standard normal distribution
+
+There is only one (1) standard normal distribution. 
+  
+**How is this useful?**
+  - Given any s-score, we can calculate the probaiblity of getting a value greater than that z-score. *(Or less than that z-score.)*
+  
+  - Given any two z-scores, we can calculate the probability of getting a value between these scores. *(Or outside those z-scores)*
+  
+  - Given a probability $p$, we can identify the z-score at which the proportion of scores below *(or above)* $p$ falls. 
+  
+  - Given a probability $p$, we can identify the z-score at which the proportion of scores that fall above $-Z$ and below $Z$ is equal to $p$.
+  
 ---
 ### Sampling distributions are normal 
 
@@ -358,6 +373,7 @@ The sampling distribution of the mean will also follow a $t$ distribution.
 The $t$ distribution is used when data are normally distributed but we do not know the population mean or standard deviation.  
 
 This must be estimated from the sample and the added uncertainty produces a distribution with heavier tails. As sample size increases, the $t$ distribution converges on the normal distribution.
+
 ]
 ]
 
@@ -382,6 +398,11 @@ ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
   ggtitle("The Normal and t Distributions") +
   theme(text = element_text(size=20),legend.position = "bottom")
 ```
+
+??? 
+
+Just like with the standard normal (Z) distribution, there are 1-1 relationships between probablility and "$t$-scores".
+
 ---
 
 Sometimes our interest will be in variability rather than means.  When we want to make inferences about sample variability, we need to know the sampling distribution.  We can make use of the $\chi^2$ distribution here. It has a single parameter, $\nu$, related to the sample size, $N$.  There is an important relationship between the normal distribution and the $\chi^2$ distribution:
@@ -406,6 +427,7 @@ and we can use the $\chi^2$ distribution to inform us about the expected samplin
 ???
 
 ## On the board
+
 Write the formula (will it work if I just move the screen up?)
 
 We have X's but if we can turn these into Z's, we might be able to simply with a new distribution. How do we get from X to Z?

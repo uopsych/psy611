@@ -24,6 +24,8 @@ Chester & Lasko (2019) ["Construct Validation of Experimental Manipulations in S
 
 Fry (2019) ["What statistics can and can't tell us about ourselves"](https://www.newyorker.com/magazine/2019/09/09/what-statistics-can-and-cant-tell-us-about-ourselves). This article in the *New Yorker* explains issues of (frequentist) probability in terms you can explain to your grandma, as well as makes clear the issues of the Fisher tradition of reducing experiments to p-values. 
 
+Resnick (2017) [W"hat a nerdy debate about p-values shows about science -- and how to fix it."](https://www.vox.com/science-and-health/2017/7/31/16021654/p-values-statistical-significance-redefine-0005). Another great article, this time on *Vox*, about p-values
+
 ## On the credibility revolution (aka replication crisis or reproducibility crisis)
 
 **Ioannidis (2005) ["Why most published findings are false."](readings/Ioannidis_2005.pdf)** -- This is one of the articles that kick-started the concern. 
