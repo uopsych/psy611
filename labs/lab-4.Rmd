@@ -216,22 +216,53 @@ dbinom(x = 2, size = 2, prob = 12/13)
 
 ## pbinom
 
-If we want to calculate the cumulative probability of getting a certain result, we would use the function `pbinom`. Cumulative probability might not make too much sense now, but by going through a couple examples it should help. For example, if we wanted to get the probability of getting at least `1` head when we are flipping two coinds, we would write `pbinom(q = 1, size = 2, prob = 1/2)`
+If we want to calculate the cumulative probability of getting a certain result, or the probability of getting a result equal to or less than what we expect, we would use the function `pbinom()`. This may not sound too important, but it is when you think about a p-value being the probability of getting a result equal to or more extreme than that observed in the sample. The function `pbinom()` takes essentially the same arguments as `dbinom()`, but instead using `x` for result of interest, we use `q`.
+
+Returning to the example from above, if weanted to get the probability of getting `1` or less heads when we flip two coins, we would write `pbinom(q = 1, size = 2, prob = 1/2)`.
 
 ```{r}
 pbinom(q = 1, size = 2, prob = 1/2)
 ```
 
-Essentially, the probability of getting `0` heads plus the probability of getting `1` heads in 
+The result is `.75` because there is a `.50` probability of getting `1` head and a `.25` chance of getting `0` heads. We can check this explicitely.
 
-
-
-The function `pbinom()` takes the additional argument `lower.tail`, which defaults to `TRUE`. 
-
-
-What's the probability of getting more than one head of flipping two coins with a 50/50 chance of getting a heads
 ```{r}
-pbinom(1, 2, 1/2, lower.tail = FALSE)
+# HT
+.5 * .5
+
+# TH
+.5 * .5
+
+# TT
+.5 * .5
+```
+
+We can repeat this example with three coins.
+
+```{r}
+pbinom(q = 1, size = 3, prob = 1/2)
+```
+
+The result if `.50` because there was a `0.125` probability of getting `HTT`, a `0.125` probability of getting `THT`, a `0.125` probability of getting `TTH`, and a `0.125` probability of getting `TTT`. 
+
+The function `pbinom()` also takes the argument `lower.tail`, which defaults to `TRUE`. The argument `lower.tail` is what specifies what side of the probability distribution we should be testing from. In practical terms, it is what decided that we wanted `1 or less` heads rather than `greather than 1` heads.
+
+If we wanted to test the probability of getting `greater than 1` heads when flipping two coins, we would simple specify that `lower.tail = FALSE`.
+
+```{r}
+pbinom(q = 1, size = 2, prob = 1/2, lower.tail = FALSE)
+```
+
+*What's the probability of getting `1 or less` `6`s when  rolling `1` dice?*
+
+```{r}
+pbinom(q = 1, size = 1, prob = 1/6)
+```
+
+*What's the probability of getting `greater than 3` `6`s when  rolling `9` dice?*
+
+```{r}
+pbinom(q = 3, size = 9, prob = 1/6, lower.tail = FALSE)
 ```
 
 ## qbinom
