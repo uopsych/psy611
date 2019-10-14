@@ -36,118 +36,198 @@ Today's lab will cover:
 
 # Binomial and Multinomial Distributions {#binomial}
 
+Binomial - for example, flipping a coin 100 times
+
 ```{r, echo = FALSE}
-# preallocate memory for flip data
-binom_hist <- data.frame(event  = 1,
+# set seed
+set.seed(2)
+
+# flip first coin
+data_binom <- data.frame(event  = 1,
                          flip   = 1, 
                          result = rbinom(1, 1, 1/2))
 
 
-
+# flip 99 other coins and repeat the data frame each time
 for (i in 2:100) {
-  binom_hist <- rbind(binom_hist,
+  data_binom <- rbind(data_binom,
                         data.frame(event  = rep(i, i),
                                    flip   = 1:i, 
-                                   result = c(subset(binom_hist, event == i - 1)$result,
+                                   result = c(subset(data_binom, 
+                                                     event == i - 1)$result,
                                               rbinom(1, 1, 1/2))))
 }
 
-
-binom_hist %>%
+# plot and animate the results of the flips 
+data_binom %>%
   mutate(result = if_else(result == 1, "Heads", "Tails")) %>%
   ggplot(aes(x = result, fill = result)) +
-    geom_bar(width = .5) +
+    geom_bar(width = .5, alpha = .8) +
     scale_fill_manual(values = c("turquoise3",
                                  "darkorchid4")) +
     transition_reveal(event) +
-    theme_bw(base_size = 16) +
+    theme_bw(base_size = 15) +
     theme(legend.position = "none") +
-    labs(y = "Frequency",
+    labs(y = "Count",
          x = "",
          caption = "Number of flips {frame_along}")
 
-
 ```
 
-
-
 ```{r}
-x <- seq(1, 100, 1)
-likelihood <- dbinom(x, 100, 1/2)
-sim <- data.frame(x, likelihood)
+# set seed
+set.seed(2)
 
+# create probability curve
+data_binom <- data.frame(flip = seq(1, 100, 1),
+                         prob = dbinom(x, 100, 1/2))
 
-data <- data.frame(x    = rep(x, times = 100),
-                   y    = rep(x, each  = 100),
-                   prob = rep(likelihood, 100))
-
-pp <- ggplot(data, aes(x, y, colour = prob)) +
-  geom_point(size = 3) +
-  scale_fill_viridis_c(option = "C")
-
-plot_gg(pp, width = 5, height = 4, scale = 300, multicore = TRUE, windowsize = c(1000, 800))
-render_camera(fov = 70, zoom = 0.5, theta = 130, phi = 35)
-render_snapshot(clear = TRUE)
-
-
-x <- seq(1, 100, 1)
-likelihood <- dbinom(x, 100, 1/2)
-sim <- data.frame(x, likelihood)
-plot1 <- ggplot(sim, aes(x, likelihood)) +
-  geom_line(size = 1.5, colour = "cyan3") +
-  geom_point(size = 3,  colour = "cyan3") +
-  labs(x       = "Number of Heads: {as.integer(frame_along)}",
+# plot probability curve
+ggplot(data_binom, aes(x = flip, y = prob)) +
+  geom_line(size   = 1.5, 
+            colour = "turquoise3",
+            alpha  = .8) +
+  labs(x       = "Number of Heads",
        y       = "Probability") +
   theme_bw(base_size = 15) 
-
-
-plot_gg(pp, width = 5, height = 4, scale = 300, multicore = TRUE, windowsize = c(1000, 800))
-render_camera(fov = 70, zoom = 0.5, theta = 130, phi = 35)
-render_snapshot(clear = TRUE)
 ```
 
 ```{r}
+# set seed
 set.seed(2)
-flips <- seq(1, 1000, 1)
 
-sim <- data.frame(flips = flips, prop = map_dbl(flips, ~mean(rbinom(n    = .x, 
-                                                                    size = 1, 
-                                                                    prob = 1/2))))
+# create data
+data_binom <- data.frame(flips = seq(1, 1000, 1), 
+                         prop  = map_dbl(seq(1, 1000, 1), 
+                                         ~mean(rbinom(n    = .x, 
+                                                      size = 1, 
+                                                      prob = 1/2))))
 
-plot2 <- ggplot(sim, aes(x = flips, y = prop, colour = prop)) +
+# plot proportion of heads by number of flips
+ggplot(data_binom, aes(x = flips, y = prop, colour = prop)) +
   geom_line(size = 1) +
-  labs(x       = "Number of Flips: {as.integer(frame_along)}",
-       y       = "Proportion of Heads") +
-  scale_colour_gradient2(low = "cyan3", mid = "cyan",
-  high = "cyan3", midpoint = 0.5) +
-  theme_bw(base_size = 15) +
+  labs(x = "Number of Flips",
+       y = "Proportion of Heads") +
+  scale_colour_gradient2(low      = "turquoise3", 
+                         mid      = "turquoise",
+                         high     = "turquoise3", 
+                         midpoint = 0.5) +
   scale_y_continuous(limits = c(0, 1)) +
-  transition_reveal(flips)
+  theme_bw(base_size = 15) +
+  theme(legend.position = "none")
 
-animate(plot2, nframes = 120, fps = 12)
 ```
 
 ## rbinom
 
-Flip 2 coins 10 times
+If we want to randomely sample trials from a binomial distribution, we can use the `rbinom()` function. The function takes three arguments: (1) `n`: the number of event, (2) `size`: the number of events associated with each observation, and (3) `prob`: the probability of success on a given trial.
 
-```{r}
-rbinom(10, 2, 1/2)
+For example, if we wanted to flip `2` coins `10` times, we would use `rbinom(n = 10, size = 2, .5)`.
 
-mean(rbinom(10, 2, 1/2))
-
-mean(rbinom(100000, 2, 1/2))
-
-hist(rbinom(10, 1, 1/2))
+```{r, include = FALSE}
+set.seed(3)
 ```
 
+```{r}
+rbinom(n = 10, size = 2, prob = .5)
+```
+
+From the results, we can see we got `0` heads on the first toss of our two coins, `2` heads on the second toss our two coins, and `1` head on the third toss of our two coins.
+
+*How would we change this if we were flipping `3` coins `10` times?*
+
+```{r}
+rbinom(n = 10, size = 3, prob = .5)
+```
+
+*What about rolling `5` `6`-sided die `10` times?*
+
+```{r}
+rbinom(n = 10, size = 5, prob = 1/6)
+```
+
+*What about pulling an Ace out of `1` deck of cards `100` times?*
+
+```{r}
+rbinom(n = 100, size = 1, prob = 1/13)
+```
+
+<!--Which should be about 7.69% of the time mean(rbinom(n = 100, size = 1, prob = 1/13))-->
+
+## dbinom
+
+The function `dbinom` gives us the probability of getting any one result. It takes four arguments, but we will only concern ourselves with the first three: (1) `x` - a value, (2) `size` - the number of events, and (3) `prob` - the probability of success on a given event. 
+
+To get the probability of getting `1` head by flipping `1` coin, we could run the following code.
+
+```{r}
+dbinom(x = 1, size = 1, prob = .50)
+```
+
+As you might expect, especially considering we set the probability at .50, there is a 50% probability of getting a head when you flip one coin.
+
+**What about the probability of getting `1` head when you flip `2` coins?**
+
+```{r}
+# HT
+.5 * .5
+
+# TH
+.5 * .5
+
+dbinom(x = 1, size = 2, prob = .5)
+```
+
+**What about the probability of getting `1` head when you flip `3` coins?**
+
+```{r}
+# HTT
+.5 * .5 * .5
+
+# THT
+.5 * .5 * .5
+
+# TTH
+.5 * .5 * .5
+
+dbinom(x = 1, size = 3, prob = .5)
+```
+
+**The probability of getting `2` heads when you flip `2` coins?**
+```{r}
+dbinom(x = 2, size = 2, prob = .5)
+```
+
+**What's the probability of drawing `2` Aces out of a deck of cards (with replacement)?**
+```{r}
+# AA
+(1 / 13) * (1 / 13)
+
+dbinom(x = 2, size = 2, prob = 1/13)
+```
+
+**What's the probability of drawing anything but `2` Aces out of a deck of cards (with replacement)?**
+```{r}
+# OO
+(12 / 13) * (12 / 13)
+
+dbinom(x = 2, size = 2, prob = 12/13)
+```
 
 ## pbinom
 
-What's the probability of getting one or less heads of flipping two coins with a 50/50 chance of getting a heads
+If we want to calculate the cumulative probability of getting a certain result, we would use the function `pbinom`. Cumulative probability might not make too much sense now, but by going through a couple examples it should help. For example, if we wanted to get the probability of getting at least `1` head when we are flipping two coinds, we would write `pbinom(q = 1, size = 2, prob = 1/2)`
+
 ```{r}
-pbinom(1, 2, 1/2)
+pbinom(q = 1, size = 2, prob = 1/2)
 ```
+
+Essentially, the probability of getting `0` heads plus the probability of getting `1` heads in 
+
+
+
+The function `pbinom()` takes the additional argument `lower.tail`, which defaults to `TRUE`. 
+
 
 What's the probability of getting more than one head of flipping two coins with a 50/50 chance of getting a heads
 ```{r}
@@ -180,27 +260,6 @@ What is the minimum value that has a 25% probability of occuring with 100 coin f
 qbinom(.25, 100, 1/2, lower.tail = FALSE)
 ```
 
-## dbinom
-
-What's the probability of getting one head of flipping one coin with a 50/50 chance of getting a heads
-```{r}
-dbinom(1, 1, 1/2)
-```
-
-What's the probability of getting one heads of flipping two coins with a 50/50 chance of getting a heads
-```{r}
-dbinom(1, 2, 1/2)
-```
-
-What's the probability of getting two heads of flipping two coins with a 50/50 chance of getting a heads
-```{r}
-dbinom(2, 2, 1/2)
-```
-
-What's the probability of getting two heads of flipping one coins with a 50/50 chance of getting a heads
-```{r}
-dbinom(2, 1, 1/2)
-```
 
 
 # Normal Distributions
@@ -417,7 +476,7 @@ Now that we have covered the lab material, we will move on to the Minihacks. You
 
 ## Minihack 1: Binomial Distributions
 
-1. 
+1. You are playing Dungeons and Dragons and your Dungeon master instutued
 
 ## Minihack 2: Normal Distributions
 
