@@ -159,7 +159,7 @@ b_mat == d_mat
 
 # Transpose {#transpose}
 
-As Elliot discussed, transposing a matrix consists of exchanging the row and column for each element in the matrix.
+Transposing a matrix consists of exchanging the row and column for each element in the matrix.
 
 __Example:__
 
@@ -351,7 +351,7 @@ Feel free to work in groups of 2-3, and ask for help when you get stuck!
 
 -double check your answer with cov() and var() functions 
 
-## Minihack 3: Statistics with Matrices
+## Minihack 3: Descriptive statistics with matrices
 
 You run an experiment to test the effectiveness of an memory-improvement intervention. As part of the study, participants take a difficult memory test at time 1, then participate in the intervention, and then retake the memory test one week later. Half the participants are assigned to a control condition, and half are assigned to the intervention. Use the following code to create a matrix representing a dataset of scores, $X_{10,3}$:
 
