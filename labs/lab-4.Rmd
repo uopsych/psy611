@@ -8,9 +8,7 @@ output:
     toc_float: TRUE
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
+```{r setup, include = FALSE}
 # suppress scientific notation
 options(scipen = 999)
 
@@ -23,14 +21,222 @@ library(gganimate)
 
 # Purpose
 
-Today we will be exploring the world of probability distributions. The content of the lab will be split into two sections: The first half will discuss binomial and multinomial distributions. The second half will discuss normal distributions. At the end, we will briefly discuss other types of distributions. The Minihacks will ask you to put to test
+The purpose of today's lab is to introduce tools for sampling from and calculating statistics for different types of distributions. The content of the lab will be largely split into two sections. The first section will focus on binomial distributions. The second section will focus on normal distributions. At the end, we will briefly discuss tools for other types of distributions. As always, there are [Minihacks](#minihacks) at the end of this document to test your knowledge.
 
 Today's lab will cover:
 
 1. [Binomial Distributions](#binomial)
-1. [The panes of RStudio](#rstudio)
-1. [How to create and use R Markdown Documents](#rmarkdown)
-1. [Arithmetic commands](#ac)
+1. [Normal Distributions](#normal)
+
+***
+# Normal Distributions
+
+## rnorm (most popular)
+
+Drawn 10 values from a normal distribution with a mean of 0 and an sd of 1
+```{r}
+rnorm(10, mean = 0, sd = 1)
+
+hist(rnorm(10, mean = 0, sd = 1))
+hist(rnorm(100000, mean = 0, sd = 1))
+
+```
+
+```{r}
+set.seed(2)
+sample_size <- c(1, 5, 10, 15, 25, 50, 100, 250, 500, 750, 1000, 5000, 10000)
+
+sim <- map_df(sample_size, function(sample_size) {
+  set.seed(2)
+  data_frame(sample_size = rep(sample_size, sample_size), 
+             sample      = rnorm(sample_size, mean = 0, sd = 1))
+  })
+
+plot3 <- ggplot(sim, aes(x = sample)) +
+  geom_histogram(fill = "turquoise3", colour = "white", alpha = .7) +
+  theme_bw(base_size = 16) +
+  labs(x        = "x",
+       y        = "Frequency",
+       title    = "Sample Histogram",
+       subtitle = "Sample Size: {closest_state}") + 
+  scale_x_continuous(limits = c(-4, 4))  + 
+  transition_states(sample_size, state_length = 2, wrap = FALSE) +
+  view_follow(fixed_x = TRUE)
+
+animate(plot3, nframes = 180, fps = 12)
+```
+
+```{r}
+mean(rnorm(1000, mean = 0, sd = 1))
+
+mean(rnorm(1000, mean = 10, sd = 1))
+
+sd(rnorm(1000, mean = 0, sd = 1))
+
+sd(rnorm(1000, mean = 0, sd = 10))
+```
+
+## pnorm
+```{r}
+x <- seq(-4, 4, 0.001)
+likelihood <- dnorm(x, 0, 1)
+sim <- data.frame(x, likelihood)
+ggplot(sim, aes(x, likelihood)) +
+    stat_function(fun = dnorm, 
+                xlim = c(-5,0),
+                geom = "area",
+                fill = "turquoise3") +
+  geom_line(size = 1.2) +
+  theme_bw()
+```
+
+```{r}
+ball_plot <- function(q, lower.tail = TRUE){
+  if (lower.tail == TRUE) {
+  discretized <- data.frame(x = qnorm(ppoints(100), 0, 1)) %>% 
+  mutate(include = ifelse(x <= q, "no", "yes"))
+  } else {
+  discretized <- data.frame(x = qnorm(ppoints(100), 0, 1)) %>% 
+  mutate(include = ifelse(x >= q, "no", "yes"))
+  }
+
+ggplot(discretized, aes(x)) +
+  geom_dotplot(aes(fill = include), binwidth = 0.29, alpha = .7, colour = "white") +
+  geom_vline(xintercept = q, color = "firebrick", linetype = 2, size = 1.4) +
+  scale_fill_manual(
+    values = c("turquoise3", "gray40"),
+    guide = "none") +
+  theme_bw() +
+  scale_y_continuous(name = "", 
+                     breaks = NULL)
+}
+```
+
+```{r}
+ball_plot(0)
+```
+
+What's the probabiltiy of getting 0 or less when the mean is 0 and the sd = 1
+```{r}
+pnorm(0, mean = 0, sd = 1)
+```
+
+What's the probabiltiy of getting 1 or less when the mean is 0 and the sd = 1 (50 + half of 68)
+
+```{r}
+ball_plot(1)
+```
+
+```{r}
+pnorm(1, mean = 0, sd = 1)
+```
+
+What's the probabiltiy of getting -1 or less when the mean is 0 and the sd = 1 (100 - 68 /2 )
+```{r}
+ball_plot(-1)
+```
+
+```{r}
+pnorm(-1, mean = 0, sd = 1)
+```
+
+What's the probabiltiy of getting 2 or greater when the mean is 0 and the sd = 1 
+```{r}
+ball_plot(2, lower.tail = FALSE)
+```
+
+```{r}
+pnorm(2, mean = 0, sd = 1, lower.tail = FALSE)
+```
+
+
+## qnorm 
+
+for probability .50
+```{r}
+ball_plot(0)
+```
+
+```{r}
+qnorm(0.5, 0, 1)
+pnorm(0.2533471, 0, 1)
+```
+
+for probability .975
+```{r}
+ball_plot(qnorm(0.975, 0, 1))
+```
+
+```{r}
+qnorm(0.975, 0, 1)
+```
+
+for probability .97 upper
+```{r}
+ball_plot(qnorm(0.975, 0, 1), lower.tail = FALSE)
+```
+
+```{r}
+qnorm(0.975, 0, 1, lower.tail = FALSE)
+```
+
+## dnorm
+
+```{r}
+dnorm_plot <- function(value) {
+  ggplot(sim, aes(x, likelihood)) +
+  geom_line(size = 1.2) +
+  geom_segment(x = -4, 
+               xend = value, 
+               y = dnorm(value, mean = 0, sd = 1),
+               yend = dnorm(value, mean = 0, sd = 1), 
+               color = "turquoise3", 
+               linetype = 2, 
+               size = 1.4) +
+  geom_segment(x = value, 
+               xend = value, 
+               y = 0,
+               yend = dnorm(value, mean = 0, sd = 1), 
+               color = "turquoise3", 
+               linetype = 2, 
+               size = 1.4) +
+  annotate(geom = "label", x = value + .8, y = dnorm(value, mean = 0, sd = 1), label = round(dnorm(value, mean = 0, sd = 1), 3), colour = "turquoise3", size = 5) +
+  geom_point(aes(x = value, y = dnorm(value, mean = 0, sd = 1)), size = 5, colour = "turquoise3") +
+  scale_x_continuous(limits = c(-4, 4)) +
+  theme_bw(base_size = 16)
+}
+```
+
+Probability of a zero
+
+```{r}
+dnorm_plot(0)
+```
+
+```{r}
+dnorm(0, mean = 0, sd = 1)
+```
+
+Probability of a 1
+
+```{r}
+dnorm_plot(1)
+```
+
+```{r}
+dnorm(1, mean = 0, sd = 1)
+```
+
+
+Probability of -2
+
+```{r}
+dnorm_plot(-2)
+```
+
+```{r}
+dnorm(-2, mean = 0, sd = 1)
+```
 
 ***
 
@@ -297,216 +503,10 @@ qbinom(p = .25, size = 100, prob = 1/2)
 qbinom(p = .25, size = 100, prob = 1/2, lower.tail = FALSE)
 ```
 
-# Normal Distributions
-
-## rnorm (most popular)
-
-Drawn 10 values from a normal distribution with a mean of 0 and an sd of 1
-```{r}
-rnorm(10, mean = 0, sd = 1)
-
-hist(rnorm(10, mean = 0, sd = 1))
-hist(rnorm(1000, mean = 0, sd = 1))
-
-```
-
-```{r}
-set.seed(2)
-samples <- c(1, 5, 10, 15, 25, 50, 100, 250, 500, 750, 1000, 10000)
-
-sim <- map_df(samples, ~data_frame(sample_size = rep(.x, .x), sample = rnorm(.x, mean = 0, sd = 1)))
-
-plot3 <- ggplot(sim, aes(x = sample)) +
-  geom_histogram(fill = "turquoise3", colour = "white", alpha = .7) +
-  theme_bw(base_size = 16) +
-  labs(x        = "x",
-       y        = "Frequency",
-       title    = "Sample Histogram",
-       subtitle = "Sample Size: {closest_state}") + 
-  scale_x_continuous(limits = c(-4, 4))  + 
-  transition_states(sample_size, state_length = 2, wrap = FALSE) +
-  view_follow(fixed_x = TRUE)
-
-animate(plot3, nframes = 180, fps = 12)
-```
-
-```{r}
-mean(rnorm(1000, mean = 0, sd = 1))
-
-mean(rnorm(1000, mean = 10, sd = 1))
-
-sd(rnorm(1000, mean = 0, sd = 1))
-
-sd(rnorm(1000, mean = 0, sd = 10))
-```
-
-## pnorm
-```{r}
-x <- seq(-4, 4, 0.001)
-likelihood <- dnorm(x, 0, 1)
-sim <- data.frame(x, likelihood)
-ggplot(sim, aes(x, likelihood)) +
-    stat_function(fun = dnorm, 
-                xlim = c(-5,0),
-                geom = "area",
-                fill = "turquoise3") +
-  geom_line(size = 1.2) +
-  theme_bw()
-```
-
-```{r}
-ball_plot <- function(q, lower.tail = TRUE){
-  if (lower.tail == TRUE) {
-  discretized <- data.frame(x = qnorm(ppoints(100), 0, 1)) %>% 
-  mutate(include = ifelse(x <= q, "no", "yes"))
-  } else {
-  discretized <- data.frame(x = qnorm(ppoints(100), 0, 1)) %>% 
-  mutate(include = ifelse(x >= q, "no", "yes"))
-  }
-
-ggplot(discretized, aes(x)) +
-  geom_dotplot(aes(fill = include), binwidth = 0.29, alpha = .7, colour = "white") +
-  geom_vline(xintercept = q, color = "firebrick", linetype = 2, size = 1.4) +
-  scale_fill_manual(
-    values = c("turquoise3", "gray40"),
-    guide = "none") +
-  theme_bw() +
-  scale_y_continuous(name = "", 
-                     breaks = NULL)
-}
-```
-
-```{r}
-ball_plot(0)
-```
-
-What's the probabiltiy of getting 0 or less when the mean is 0 and the sd = 1
-```{r}
-pnorm(0, mean = 0, sd = 1)
-```
-
-What's the probabiltiy of getting 1 or less when the mean is 0 and the sd = 1 (50 + half of 68)
-
-```{r}
-ball_plot(1)
-```
-
-```{r}
-pnorm(1, mean = 0, sd = 1)
-```
-
-What's the probabiltiy of getting -1 or less when the mean is 0 and the sd = 1 (100 - 68 /2 )
-```{r}
-ball_plot(-1)
-```
-
-```{r}
-pnorm(-1, mean = 0, sd = 1)
-```
-
-What's the probabiltiy of getting 2 or greater when the mean is 0 and the sd = 1 
-```{r}
-ball_plot(2, lower.tail = FALSE)
-```
-
-```{r}
-pnorm(2, mean = 0, sd = 1, lower.tail = FALSE)
-```
-
-
-## qnorm 
-
-for probability .50
-```{r}
-ball_plot(0)
-```
-
-```{r}
-qnorm(0.5, 0, 1)
-pnorm(0.2533471, 0, 1)
-```
-
-for probability .975
-```{r}
-ball_plot(qnorm(0.975, 0, 1))
-```
-
-```{r}
-qnorm(0.975, 0, 1)
-```
-
-for probability .97 upper
-```{r}
-ball_plot(qnorm(0.975, 0, 1), lower.tail = FALSE)
-```
-
-```{r}
-qnorm(0.975, 0, 1, lower.tail = FALSE)
-```
-
-## dnorm
-
-```{r}
-dnorm_plot <- function(value) {
-  ggplot(sim, aes(x, likelihood)) +
-  geom_line(size = 1.2) +
-  geom_segment(x = -4, 
-               xend = value, 
-               y = dnorm(value, mean = 0, sd = 1),
-               yend = dnorm(value, mean = 0, sd = 1), 
-               color = "turquoise3", 
-               linetype = 2, 
-               size = 1.4) +
-  geom_segment(x = value, 
-               xend = value, 
-               y = 0,
-               yend = dnorm(value, mean = 0, sd = 1), 
-               color = "turquoise3", 
-               linetype = 2, 
-               size = 1.4) +
-  annotate(geom = "label", x = value + .8, y = dnorm(value, mean = 0, sd = 1), label = round(dnorm(value, mean = 0, sd = 1), 3), colour = "turquoise3", size = 5) +
-  geom_point(aes(x = value, y = dnorm(value, mean = 0, sd = 1)), size = 5, colour = "turquoise3") +
-  scale_x_continuous(limits = c(-4, 4)) +
-  theme_bw(base_size = 16)
-}
-```
-
-Probability of a zero
-
-```{r}
-dnorm_plot(0)
-```
-
-```{r}
-dnorm(0, mean = 0, sd = 1)
-```
-
-Probability of a 1
-
-```{r}
-dnorm_plot(1)
-```
-
-```{r}
-dnorm(1, mean = 0, sd = 1)
-```
-
-
-Probability of -2
-
-```{r}
-dnorm_plot(-2)
-```
-
-```{r}
-dnorm(-2, mean = 0, sd = 1)
-```
-
-***
 
 # Minihacks {#minihacks}
 
-Now that we have covered the lab material, we will move on to the Minihacks. You are welcome to work with a partner or in a small group of 2-3 people. If you have any questions, I would be happy to answer them!
+You are welcome to work with a partner or in a small group of 2-3 people. If you have any questions, I would be happy to answer them!
 
 ## Minihack 1: Binomial Distributions
 
