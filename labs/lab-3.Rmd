@@ -31,7 +31,7 @@ Today's lab will cover:
 1. [Transpose](#transpose)
 1. [Addition/subtraction](#add_sub)
 1. [Multiplication](#mult)
-1. 
+1. [Diagonal Matrices](#diag)
 
 
 ***
@@ -334,24 +334,18 @@ And we could test if $CI_2 = I_2C$
 c_mat %*% id_mat == id_mat %*% c_mat
 ```
 
+# Diagonal Matrices {#diag}
+
+## Creating diagnoal matrices
+
+## Pre-multiplication
+
+## Post-multiplication
+
 
 # Minihacks {#minihacks}
 
-Feel free to work in groups of 2-3, and ask for help when you get stuck!
-
-## Minihack 1:
-
-## Minihack 2: Reproducing a covariance matrix
-
--multiply a matrix of deviation scores by the transpose of that matrix —this gives you sum of squares 
-
--then multiply by a scalar 1/(n-1) to generate a covariance matrix 
-
--use diag() to get the variances 
-
--double check your answer with cov() and var() functions 
-
-## Minihack 3: Descriptive statistics with matrices
+The minihacks for today are based on the following example:
 
 You run an experiment to test the effectiveness of an memory-improvement intervention. As part of the study, participants take a difficult memory test at time 1, then participate in the intervention, and then retake the memory test one week later. Half the participants are assigned to a control condition, and half are assigned to the intervention. Use the following code to create a matrix representing a dataset of scores, $X_{10,3}$:
 
@@ -365,7 +359,15 @@ X = matrix(c(45, 52, 54, 52, 50, 72, 43, 56, 62, 47,
 
 You should how have a matrix with three columns, named T1 (memory score at time 1), T2 (memory score at time 2), and G (group, 1 = control, 2 = intervention).
 
-Use matrix algebra to:
+## Minihack 1: Linear transformations
+
+1. Mean 
+
+2. Some linear combination of variables 
+
+## Minihack 2: Descriptives statistics with matrices
+
+Use matrix algebra to do the following:
 
 1. Create a new vector representing the difference between T1 and T2.
 
@@ -373,7 +375,8 @@ Use matrix algebra to:
 
 1. Calculate the average T1 score for each group.
 
-1. Calculate the difference in T1 and T2 for each group.
+## Minihack 3: Calculate the covariance matrix
 
+Calculate the covariance matrix of X. (Hint: you'll need to create a matrix to subtract from X in order to get deviation scores.) Use the `cov()` function to show that you calculated this matrix correctly.
 
 

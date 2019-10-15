@@ -1536,7 +1536,7 @@ div.tocify {
 <li><a href="#transpose">Transpose</a></li>
 <li><a href="#add_sub">Addition/subtraction</a></li>
 <li><a href="#mult">Multiplication</a></li>
-<li></li>
+<li><a href="#diag">Diagonal Matrices</a></li>
 </ol>
 <hr />
 </div>
@@ -1843,21 +1843,21 @@ print(c_mat)</code></pre>
 </div>
 </div>
 </div>
+<div id="diag" class="section level1">
+<h1>Diagonal Matrices</h1>
+<div id="creating-diagnoal-matrices" class="section level2">
+<h2>Creating diagnoal matrices</h2>
+</div>
+<div id="pre-multiplication" class="section level2">
+<h2>Pre-multiplication</h2>
+</div>
+<div id="post-multiplication" class="section level2">
+<h2>Post-multiplication</h2>
+</div>
+</div>
 <div id="minihacks" class="section level1">
 <h1>Minihacks</h1>
-<p>Feel free to work in groups of 2-3, and ask for help when you get stuck!</p>
-<div id="minihack-1" class="section level2">
-<h2>Minihack 1:</h2>
-</div>
-<div id="minihack-2-reproducing-a-covariance-matrix" class="section level2">
-<h2>Minihack 2: Reproducing a covariance matrix</h2>
-<p>-multiply a matrix of deviation scores by the transpose of that matrix —this gives you sum of squares</p>
-<p>-then multiply by a scalar 1/(n-1) to generate a covariance matrix</p>
-<p>-use diag() to get the variances</p>
-<p>-double check your answer with cov() and var() functions</p>
-</div>
-<div id="minihack-3-descriptive-statistics-with-matrices" class="section level2">
-<h2>Minihack 3: Descriptive statistics with matrices</h2>
+<p>The minihacks for today are based on the following example:</p>
 <p>You run an experiment to test the effectiveness of an memory-improvement intervention. As part of the study, participants take a difficult memory test at time 1, then participate in the intervention, and then retake the memory test one week later. Half the participants are assigned to a control condition, and half are assigned to the intervention. Use the following code to create a matrix representing a dataset of scores, <span class="math inline">\(X_{10,3}\)</span>:</p>
 <pre class="r"><code>X = matrix(c(45, 52, 54, 52, 50, 72, 43, 56, 62, 47,
              41, 51, 57, 52, 45, 83, 55, 70, 75, 57,
@@ -1865,13 +1865,25 @@ print(c_mat)</code></pre>
            ncol = 3, byrow = F, 
            dimnames = list(NULL, c(&quot;T1&quot;, &quot;T2&quot;, &quot;G&quot;)))</code></pre>
 <p>You should how have a matrix with three columns, named T1 (memory score at time 1), T2 (memory score at time 2), and G (group, 1 = control, 2 = intervention).</p>
-<p>Use matrix algebra to:</p>
+<div id="minihack-1-linear-transformations" class="section level2">
+<h2>Minihack 1: Linear transformations</h2>
+<ol style="list-style-type: decimal">
+<li><p>Mean</p></li>
+<li><p>Some linear combination of variables</p></li>
+</ol>
+</div>
+<div id="minihack-2-descriptives-statistics-with-matrices" class="section level2">
+<h2>Minihack 2: Descriptives statistics with matrices</h2>
+<p>Use matrix algebra to do the following:</p>
 <ol style="list-style-type: decimal">
 <li><p>Create a new vector representing the difference between T1 and T2.</p></li>
 <li><p>Calculate the average T1 score for the whole sample.</p></li>
 <li><p>Calculate the average T1 score for each group.</p></li>
-<li><p>Calculate the difference in T1 and T2 for each group.</p></li>
 </ol>
+</div>
+<div id="minihack-3-calculate-the-covariance-matrix" class="section level2">
+<h2>Minihack 3: Calculate the covariance matrix</h2>
+<p>Calculate the covariance matrix of X. (Hint: you’ll need to create a matrix to subtract from X in order to get deviation scores.) Use the <code>cov()</code> function to show that you calculated this matrix correctly.</p>
 </div>
 </div>
 
