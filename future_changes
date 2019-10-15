@@ -20,5 +20,15 @@ lab-1.html
 * leptokurtic - leaping up, platykurtic -- plate, mesokurtic -- middle
 * is there a more efficient way to make the point about statistical tests of normality being tied to sample size?
 
+lab-2.html
+* more interactive throughout
+* ask more questions (sometimes on html doc, or not)
+
+5-matrix.html
+* For XT and TX, give example in slides
+* post-multiply -- affecting columns, doing this to every single row
+* pre-multiply -- affecting row, doing this to every single column
+* add orders to all matrix notations
+
 quiz-2.docx
 * replace word "masquerade"
