@@ -1696,8 +1696,6 @@ dim(b_mat) == dim(c_mat)</code></pre>
 </div>
 <div id="additionsubtraction" class="section level1">
 <h1>Addition/Subtraction</h1>
-<div id="adding-and-subtracting" class="section level3">
-<h3>(4) Adding and subtracting</h3>
 <pre class="r"><code>A &lt;- matrix(data = c(6,1, 2,10), nrow = 2, ncol = 2, byrow = T) 
 B &lt;- matrix(data = c(2,1, 1,6), nrow = 2, ncol = 2, byrow = T) 
 C &lt;- matrix(data = c(4,1, 3,2), nrow = 2, ncol = 2, byrow = T) 
@@ -1734,13 +1732,120 @@ A-B</code></pre>
 ## [1,] FALSE FALSE
 ## [2,] FALSE FALSE</code></pre>
 </div>
+<div id="mult" class="section level1">
+<h1>Multiplication</h1>
+<p>Two matrices are “conformable for multiplication” if they have dimensions allowing them to be multiplied (i.e. if the inner dimensions match).</p>
+<div id="example-1" class="section level2">
+<h2>Example 1:</h2>
+<p><span class="math display">\[ A=\begin{bmatrix}
+1 &amp; 3 \\
+2 &amp; 1 \\
+4 &amp; 6
+\end{bmatrix},
+B=\begin{bmatrix}
+1 &amp; 5 &amp; 8 &amp; 3 \\
+4 &amp; 2 &amp; 6 &amp; 4 
+\end{bmatrix}\]</span></p>
+<ol style="list-style-type: decimal">
+<li>What is the order of <span class="math inline">\(A\)</span>? And what about <span class="math inline">\(B\)</span>?</li>
+<li>Is <span class="math inline">\(AB\)</span> conformable?</li>
+<li>Is <span class="math inline">\(BA\)</span> conformable?</li>
+<li>For <span class="math inline">\(AB\)</span>, what will the order of the resulting matrix be?</li>
+</ol>
+<p><span class="math display">\[AB=\begin{bmatrix}
+(1 \times 1)+(3 \times 4) &amp; (1 \times 5)+(3 \times 2) &amp; (1 \times 8)+(3 \times 6) &amp; (1 \times 3)+(3 \times 4) \\
+(2 \times 1)+(1 \times 4) &amp; (2 \times 5)+(1 \times 2) &amp; (2 \times 8)+(1 \times 6) &amp; (2 \times 3)+(1 \times 4) \\
+(4 \times 1)+(6 \times 4) &amp; (4 \times 5)+(6 \times 2) &amp; (4 \times 8)+(6 \times 6) &amp; (4 \times 3)+(6 \times 4)
+\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[AB=\begin{bmatrix}
+13 &amp; 11 &amp; 26 &amp; 15 \\
+6 &amp; 12 &amp; 22 &amp; 10 \\
+28 &amp; 32 &amp; 68 &amp; 36
+\end{bmatrix}
+\]</span></p>
+</div>
+<div id="example-2" class="section level2">
+<h2>Example 2:</h2>
+<p><span class="math display">\[ A=\begin{bmatrix}
+1 &amp; 2 \\
+3 &amp; 2 \\
+4 &amp; 1
+\end{bmatrix},
+B=\begin{bmatrix}
+2 &amp; 3 &amp; 4 \\
+1 &amp; 2 &amp; 4 
+\end{bmatrix}\]</span></p>
+<ol style="list-style-type: decimal">
+<li>What is the order of A? And what about B?</li>
+<li>Is <span class="math inline">\(AB\)</span> conformable?</li>
+<li>is <span class="math inline">\(BA\)</span> conformable?</li>
+<li>Does <span class="math inline">\(AB = BA\)</span>? In other words, does the matrix product possess the commutative property?</li>
+</ol>
+<p><em>Note:</em> the matrix product does possess the associative property: <span class="math inline">\(A(BC)=(AB)C\)</span>.</p>
+</div>
+<div id="matrix-multiplication-in-r" class="section level2">
+<h2>Matrix multiplication in R</h2>
+<p>To multiple matrices in R, we have to use the matrix multiplication operator, <code>%*%</code> (potentially helpful mneumonic: it sort of looks like an M).</p>
+<pre class="r"><code>a_mat &lt;- matrix(data = c(1, 2, 
+                     3, 2, 
+                     4, 1), 
+            nrow = 3, ncol = 2, byrow = TRUE) 
+b_mat &lt;- matrix(data = c(2, 3, 4, 
+                     1, 2, 4), 
+            nrow = 2, ncol = 3, byrow = TRUE)
+a_mat %*% b_mat</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    4    7   12
+## [2,]    8   13   20
+## [3,]    9   14   20</code></pre>
+</div>
+<div id="multiplying-by-the-identity-matrix" class="section level2">
+<h2>Multiplying by the Identity Matrix</h2>
+<div id="example" class="section level3">
+<h3>Example</h3>
+<p><span class="math display">\[ C=\begin{bmatrix}
+2 &amp; 5 \\
+4 &amp; 3
+\end{bmatrix}
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li>If C is multiplied by its identity matrix (<span class="math inline">\(I_{2}\)</span>), what will the resulting matrix be?</li>
+<li>Does <span class="math inline">\(CI_{2} = I_{2}C\)</span>?</li>
+</ol>
+<p><em>Note:</em> for your homework, you can’t just say <span class="math inline">\(CI_{2} = C\)</span>, you need to go through the steps of the multiplication to prove it.</p>
+</div>
+<div id="identity-matrix-in-r" class="section level3">
+<h3>Identity Matrix in R</h3>
+<p>The simplest way to get an identity matrix in R is to use <code>diag(x)</code> where x is the the order of the matrix (the number of rows or columns).</p>
+<p>First we’ll create a matrix C.</p>
+<pre class="r"><code>c_mat &lt;- matrix(data = c(2, 5,
+                         4, 3), 
+                nrow = 2, ncol = 2, byrow = TRUE)
+print(c_mat)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    2    5
+## [2,]    4    3</code></pre>
+<p>And next we can get the identity matrix for C, or <span class="math inline">\(I_2\)</span></p>
+<pre class="r"><code>id_mat &lt;- diag(nrow(c_mat))
+# Equivalently, 
+#id_mat &lt;- diag(2)</code></pre>
+<p>And finally, multiply them together with <code>%*%</code></p>
+<pre class="r"><code>c_mat %*% id_mat</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    2    5
+## [2,]    4    3</code></pre>
+<p>And we could test if <span class="math inline">\(CI_2 = I_2C\)</span></p>
+<pre class="r"><code>c_mat %*% id_mat == id_mat %*% c_mat</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,] TRUE TRUE
+## [2,] TRUE TRUE</code></pre>
+</div>
+</div>
 </div>
 <div id="minihacks" class="section level1">
 <h1>Minihacks</h1>
 <p>Feel free to work in groups of 2-3, and ask for help when you get stuck!</p>
-<div id="minihack1" class="section level2">
-<h2>Minihack 1: Find the mode</h2>
-</div>
 </div>
 
 
