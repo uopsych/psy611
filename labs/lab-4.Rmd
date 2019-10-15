@@ -123,19 +123,17 @@ ggplot(data_binom, aes(x = flips, y = prop, colour = prop)) +
 
 ## rbinom
 
-If we want to randomely sample trials from a binomial distribution, we can use the `rbinom()` function. The function takes three arguments: (1) `n`: the number of event, (2) `size`: the number of events associated with each observation, and (3) `prob`: the probability of success on a given trial.
-
-For example, if we wanted to flip `2` coins `10` times, we would use `rbinom(n = 10, size = 2, .5)`.
+If we want to randomely sample trials from a binomial distribution, we can use the `rbinom()` function. The function takes three arguments. The first argument (`n`) is the number of trials to sample. If we wanted to flip `2` coins `10` times, we would write `n = 10`. The second argument (`size`) is the number of events associated with each trial. If we are flipping `2` coins, we would include `size = 2`. The third argument (`prob`) is the probability of success on a given trial. If we consider a `heads` a success and everything else a failure, we would include the argument `prob = 1/2`. Putting that altogether, we get `rbinom(n = 10, size = 2, .5)`.
 
 ```{r, include = FALSE}
 set.seed(3)
 ```
 
 ```{r}
-rbinom(n = 10, size = 2, prob = .5)
+rbinom(n = 10, size = 2, prob = 1/2)
 ```
 
-From the results, we can see we got `0` heads on the first toss of our two coins, `2` heads on the second toss our two coins, and `1` head on the third toss of our two coins.
+From the results, we can see we got `0` `heads` on the first toss of our two coins, `2` `heads` on the second toss our two coins, and `1` `head` on the third toss of our two coins.
 
 *How would we change this if we were flipping `3` coins `10` times?*
 
@@ -143,25 +141,23 @@ From the results, we can see we got `0` heads on the first toss of our two coins
 rbinom(n = 10, size = 3, prob = .5)
 ```
 
-*What about rolling `5` `6`-sided die `10` times?*
+*What about rolling `5` `6`-sided die `10` times where getting a `6` is considered a sucessful outcome?*
 
 ```{r}
 rbinom(n = 10, size = 5, prob = 1/6)
 ```
 
-*What about pulling an Ace out of `1` deck of cards `100` times?*
+*What about pulling an `Ace` out of `1` deck of cards `100` times?*
 
 ```{r}
 rbinom(n = 100, size = 1, prob = 1/13)
 ```
 
-<!--Which should be about 7.69% of the time mean(rbinom(n = 100, size = 1, prob = 1/13))-->
-
 ## dbinom
 
-The function `dbinom` gives us the probability of getting any one result. It takes four arguments, but we will only concern ourselves with the first three: (1) `x` - a value, (2) `size` - the number of events, and (3) `prob` - the probability of success on a given event. 
+The function `dbinom` gives us the probability of getting any one result. It takes four arguments, but we will only concern ourselves with the first three: (1) `x` - the number of succesful outcomes, (2) `size` - the number of events, and (3) `prob` - the probability of success on a given event. 
 
-To get the probability of getting `1` head by flipping `1` coin, we could run the following code.
+To get the probability of getting `1` `head` by flipping `1` coin, we could run the following code.
 
 ```{r}
 dbinom(x = 1, size = 1, prob = .50)
@@ -181,8 +177,15 @@ As you might expect, especially considering we set the probability at .50, there
 dbinom(x = 1, size = 2, prob = .5)
 ```
 
-**What about the probability of getting `1` head when you flip `3` coins?**
+**What is the probability of getting `2` heads when you flip `2` coins?**
+```{r}
+# HH
+.5 * .5
 
+dbinom(x = 2, size = 2, prob = .5)
+```
+
+**What about the probability of getting `1` head when you flip `3` coins?**
 ```{r}
 # HTT
 .5 * .5 * .5
@@ -196,11 +199,6 @@ dbinom(x = 1, size = 2, prob = .5)
 dbinom(x = 1, size = 3, prob = .5)
 ```
 
-**The probability of getting `2` heads when you flip `2` coins?**
-```{r}
-dbinom(x = 2, size = 2, prob = .5)
-```
-
 **What's the probability of drawing `2` Aces out of a deck of cards (with replacement)?**
 ```{r}
 # AA
@@ -209,13 +207,18 @@ dbinom(x = 2, size = 2, prob = .5)
 dbinom(x = 2, size = 2, prob = 1/13)
 ```
 
-**What's the probability of drawing anything but `2` Aces out of a deck of cards (with replacement)?**
+**What's the probability of drawing `0` Aces out of a deck of cards (with replacement)?**
 ```{r}
-# OO
+# 00
 (12 / 13) * (12 / 13)
 
+# method 1
+dbinom(x = 0, size = 2, prob = 1/13)
+
+# method 2
 dbinom(x = 2, size = 2, prob = 12/13)
 ```
+
 
 ## pbinom
 
