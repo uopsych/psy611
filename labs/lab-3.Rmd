@@ -21,18 +21,210 @@ options(scipen = 999)
 
 # Purpose
 
-
+The purpose of today's lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus on how you can calculate basic descriptive statistics (which we discussed in [last week's lab](https://uopsych.github.io/psy611/labs/lab-2.html){target="_blank"}) using matrix algebra. 
 
 Today's lab will cover:
 
-1. [Visualizing Distributions](#dist)
+1. [Review of matrix types](#types)
+1. [How to create a matrix](#create)
+1. [Testing for equality](#equality)
+1. [Transpose](#transpose)
+1. [Addition/subtraction](#add_sub)
+1. [Multiplication](#mult)
+1. 
 
 
 ***
 
+# Review of matrix types {#types}
+
+__Notation and Terminology:__
+
+$a_{rc}$ refers to the entry at row $r$ and column $c$ in matrix $a$.  
+"Order" refers to the dimensions of a matrix: the number of rows and the number of columns $(r,c)$.
+
+1. Rectangular: $r \neq c$  
+\[ A = \begin{bmatrix}
+1 & 5 & 7 \\
+2 & 1 & 2
+\end{bmatrix} \]
+
+2. Square:  $r = c$  
+\[ a = \begin{bmatrix}
+2 & 9\\
+4 & 6
+\end{bmatrix} \]
+
+3. Vector:  A matrix where the row or column (not both) is 1.  
+\[ A = \begin{bmatrix}
+5 & 6 & 9
+\end{bmatrix} \]
+
+4. Diagonal:  A square matrix where all of the elements equal zero except for those making up the principal diagonal.  
+\[ A = \begin{bmatrix}
+1 & 0 & 0 \\
+0 & 4 & 0 \\
+0 & 0 & 3
+\end{bmatrix} \]
+
+5. Identity:  The diagonal matrix with 1s along the principal diagonal.  
+\[ A = \begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix} \]
+
+6. Null:  A matrix that consists entirely of 0s.  
+\[ 0 = \begin{bmatrix}
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{bmatrix} \]
+
 ***
 
-# Visualizing Distributions {#dist}
+# How to create a matrix {#create}
+
+We create matrices in R by using the `matrix()` function. To specify a matrix using the `matrix()` function, we need to provide the `data` (i.e., the elements, or numbers in the matrix), the number of rows (`nrow`), the number of columns (`ncol`), and then tell it whether the order of elements is entered `byrow` or not. If you're entering it row-wise, you want to set `byrow = TRUE`. If you're entering it column wise, you want to set `byrow = FALSE`.
+
+Let's practice creating a few matrices:
+
+```{r equality_1_spec_marices}
+a_mat <- matrix(data = c(1, 2, 3, 
+                         1, 2, 3), 
+                nrow = 2, ncol = 3, byrow = TRUE) # spacing is irrelevant
+                                                  # but I find it easier to read
+print(a_mat)
+
+b_mat <- matrix(data = c(1, 1, 
+                         2, 2, 
+                         3, 3), 
+                nrow = 3, ncol = 2, byrow = TRUE) 
+print(b_mat)
+
+c_mat <- matrix(data = c(1, 1, 
+                         2, 4, 
+                         3, 5), 
+                nrow = 3, ncol = 2, byrow = TRUE) 
+print(c_mat)
+
+d_mat <- matrix(data = c(1, 1,
+                         2, 2, 
+                         3, 3), 
+                nrow = 3, ncol = 2, byrow = TRUE) 
+print(d_mat)
+```
+
+*** 
+
+# Testing for equality {#equality}
+
+Next, we'll Check if the order is the same using a combination of `dim()`, which returns the dimensions of the matrix (rows, columns) and the equality test `==`. REMEMBER: `=` is to define things (arguments in functions & objects) and `==` tests for equality. 
+
+We get two results for each test, which correspond to (in order): 
+<br /> 
+1. same number of rows? 
+<br /> 
+2. same number of columns?
+
+First let's check A against the others
+
+```{r equality_2_a}
+# check a against the others
+dim(a_mat) == dim(b_mat)
+dim(a_mat) == dim(c_mat)
+dim(a_mat) == dim(d_mat)
+```
+
+As we knew (from looking at them ourselves), a is not the same shape as b, c, and d.
+
+Next we'll check B angainst C and D:
+
+```{r equality_2_b}
+# Check B against C and D.
+dim(b_mat) == dim(c_mat)
+dim(b_mat) == dim(d_mat)
+```
+
+Dimensions of b, c, and d match.
+
+Q: Why didn't we test c and d?
+A:
+
+The dimensions of B, C, and D are the same, so let's test the equality of the elements.
+```{r equality_2_c}
+b_mat == c_mat
+b_mat == d_mat
+```
+
+# Transpose {#transpose}
+
+As Elliot discussed, transposing a matrix consists of exchanging the row and column for each element in the matrix.
+
+__Example:__
+
+\[ A = \begin{bmatrix}
+1 & 2 \\
+5 & 1 \\
+7 & 2
+\end{bmatrix} = \begin{bmatrix}
+1_{11} & 2_{12} \\
+5_{21} & 1_{22} \\
+7_{31} & 2_{32}
+\end{bmatrix} \]
+
+To create the transpose, the following happens:
+
+$1_{11} \rightarrow 1_{11}$
+
+$5_{21} \rightarrow 5_{12}$
+
+$7_{31} \rightarrow 7_{13}$
+
+$2_{12} \rightarrow 2_{21}$
+
+$1_{22} \rightarrow 1_{22}$
+
+$2_{32} \rightarrow 2_{23}$
+
+Since the order of the above matrix is 3x2, what will the order of its transpose be?  
+\[ A' = \begin{bmatrix}
+1 & 5 & 7 \\
+2 & 1 & 2
+\end{bmatrix} \]
+
+## Transpose in R
+
+To transpose in R, just use the function `t()`. Let's take a look at the transpose of matrix C
+
+```{r transpose}
+print(c_mat)
+t(c_mat)
+```
+
+# Addition/Subtraction 
+
+
+### (4) Adding and subtracting
+```{r}
+A <- matrix(data = c(6,1, 2,10), nrow = 2, ncol = 2, byrow = T) 
+B <- matrix(data = c(2,1, 1,6), nrow = 2, ncol = 2, byrow = T) 
+C <- matrix(data = c(4,1, 3,2), nrow = 2, ncol = 2, byrow = T) 
+
+# YOUR TURN: Do these problems
+# (1) A + B
+A + B
+# (2) Is this true: A + B = B + A
+A+B==B+A
+# (3) Is this true: (A + B) + C = A + (B + C)
+(A + B) + C == A + (B + C)
+# (4) A - B
+A-B
+# (5) Is this true: A - B = B - A
+ A - B == B - A
+# (6) Is this true: (A - B) - C = A - (B - C)
+ (A - B) - C == A - (B - C)
+```
 
 
 # Minihacks {#minihacks}
