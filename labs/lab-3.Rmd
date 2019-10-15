@@ -341,7 +341,15 @@ Feel free to work in groups of 2-3, and ask for help when you get stuck!
 
 ## Minihack 1:
 
-## Minihack 2:
+## Minihack 2: Reproducing a covariance matrix
+
+-multiply a matrix of deviation scores by the transpose of that matrix —this gives you sum of squares 
+
+-then multiply by a scalar 1/(n-1) to generate a covariance matrix 
+
+-use diag() to get the variances 
+
+-double check your answer with cov() and var() functions 
 
 ## Minihack 3: Statistics with Matrices
 

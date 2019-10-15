@@ -1849,8 +1849,12 @@ print(c_mat)</code></pre>
 <div id="minihack-1" class="section level2">
 <h2>Minihack 1:</h2>
 </div>
-<div id="minihack-2" class="section level2">
-<h2>Minihack 2:</h2>
+<div id="minihack-2-reproducing-a-covariance-matrix" class="section level2">
+<h2>Minihack 2: Reproducing a covariance matrix</h2>
+<p>-multiply a matrix of deviation scores by the transpose of that matrix —this gives you sum of squares</p>
+<p>-then multiply by a scalar 1/(n-1) to generate a covariance matrix</p>
+<p>-use diag() to get the variances</p>
+<p>-double check your answer with cov() and var() functions</p>
 </div>
 <div id="minihack-3-statistics-with-matrices" class="section level2">
 <h2>Minihack 3: Statistics with Matrices</h2>
