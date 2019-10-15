@@ -339,5 +339,33 @@ c_mat %*% id_mat == id_mat %*% c_mat
 
 Feel free to work in groups of 2-3, and ask for help when you get stuck!
 
+## Minihack 1:
+
+## Minihack 2:
+
+## Minihack 3: Statistics with Matrices
+
+You run an experiment to test the effectiveness of an memory-improvement intervention. As part of the study, participants take a difficult memory test at time 1, then participate in the intervention, and then retake the memory test one week later. Half the participants are assigned to a control condition, and half are assigned to the intervention. Use the following code to create a matrix representing a dataset of scores, $X_{10,3}$:
+
+```{r create_data, eval = FALSE}
+X = matrix(c(45, 52, 54, 52, 50, 72, 43, 56, 62, 47,
+             41, 51, 57, 52, 45, 83, 55, 70, 75, 57,
+             1, 1, 1, 1, 1, 2, 2, 2, 2, 2), 
+           ncol = 3, byrow = F, 
+           dimnames = list(NULL, c("T1", "T2", "G")))
+```
+
+You should how have a matrix with three columns, named T1 (memory score at time 1), T2 (memory score at time 2), and G (group, 1 = control, 2 = intervention).
+
+Use matrix algebra to:
+
+1. Create a new vector representing the difference between T1 and T2.
+
+1. Calculate the average T1 score for the whole sample.
+
+1. Calculate the average T1 score for each group.
+
+1. Calculate the difference in T1 and T2 for each group.
+
 
 

@@ -1846,6 +1846,29 @@ print(c_mat)</code></pre>
 <div id="minihacks" class="section level1">
 <h1>Minihacks</h1>
 <p>Feel free to work in groups of 2-3, and ask for help when you get stuck!</p>
+<div id="minihack-1" class="section level2">
+<h2>Minihack 1:</h2>
+</div>
+<div id="minihack-2" class="section level2">
+<h2>Minihack 2:</h2>
+</div>
+<div id="minihack-3-statistics-with-matrices" class="section level2">
+<h2>Minihack 3: Statistics with Matrices</h2>
+<p>You run an experiment to test the effectiveness of an memory-improvement intervention. As part of the study, participants take a difficult memory test at time 1, then participate in the intervention, and then retake the memory test one week later. Half the participants are assigned to a control condition, and half are assigned to the intervention. Use the following code to create a matrix representing a dataset of scores, <span class="math inline">\(X_{10,3}\)</span>:</p>
+<pre class="r"><code>X = matrix(c(45, 52, 54, 52, 50, 72, 43, 56, 62, 47,
+             41, 51, 57, 52, 45, 83, 55, 70, 75, 57,
+             1, 1, 1, 1, 1, 2, 2, 2, 2, 2), 
+           ncol = 3, byrow = F, 
+           dimnames = list(NULL, c(&quot;T1&quot;, &quot;T2&quot;, &quot;G&quot;)))</code></pre>
+<p>You should how have a matrix with three columns, named T1 (memory score at time 1), T2 (memory score at time 2), and G (group, 1 = control, 2 = intervention).</p>
+<p>Use matrix algebra to:</p>
+<ol style="list-style-type: decimal">
+<li><p>Create a new vector representing the difference between T1 and T2.</p></li>
+<li><p>Calculate the average T1 score for the whole sample.</p></li>
+<li><p>Calculate the average T1 score for each group.</p></li>
+<li><p>Calculate the difference in T1 and T2 for each group.</p></li>
+</ol>
+</div>
 </div>
 
 
