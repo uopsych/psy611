@@ -1755,9 +1755,9 @@ C &lt;- matrix(data = c(4,1, 3,2), nrow = 2, ncol = 2, byrow = T) </code></pre>
 </div>
 <div id="mult" class="section level1">
 <h1>Multiplication</h1>
-<p>Two matrices are “conformable for multiplication” if they have dimensions allowing them to be multiplied. That is, the number of columns of the first matrix must be equal to the number of rows of the second matrix.</p>
-<div id="example" class="section level2">
-<h2>Example</h2>
+<p>Two matrices are “conformable for multiplication” if they have dimensions allowing them to be multiplied. Specifically, the number of columns of the first matrix must be equal to the number of rows of the second matrix.</p>
+<div id="example-1" class="section level2">
+<h2>Example 1</h2>
 <p><span class="math display">\[ A=\begin{bmatrix}
 1 &amp; 3 \\
 2 &amp; 1 \\
@@ -1772,7 +1772,6 @@ B=\begin{bmatrix}
 <li>Is <span class="math inline">\(AB\)</span> conformable?</li>
 <li>Is <span class="math inline">\(BA\)</span> conformable?</li>
 <li>For <span class="math inline">\(AB\)</span>, what will the order of the resulting matrix be?</li>
-<li>Does <span class="math inline">\(AB = BA\)</span>? In other words, does the matrix product possess the commutative property?</li>
 </ol>
 <p><span class="math display">\[AB=\begin{bmatrix}
 (1 \times 1)+(3 \times 4) &amp; (1 \times 5)+(3 \times 2) &amp; (1 \times 8)+(3 \times 6) &amp; (1 \times 3)+(3 \times 4) \\
@@ -1786,28 +1785,80 @@ B=\begin{bmatrix}
 28 &amp; 32 &amp; 68 &amp; 36
 \end{bmatrix}
 \]</span></p>
-<p><em>Note:</em> the matrix product does possess the associative property: <span class="math inline">\(A(BC)=(AB)C\)</span>.</p>
-</div>
-<div id="matrix-multiplication-in-r" class="section level2">
-<h2>Matrix multiplication in R</h2>
-<p>To multiple matrices in R, we have to use the special matrix multiplication operator, <code>%*%</code></p>
-<pre class="r"><code>a_mat &lt;- matrix(data = c(1, 2, 
-                     3, 2, 
-                     4, 1), 
+<div id="example-1-in-r" class="section level3">
+<h3>Example 1 in R</h3>
+<pre class="r"><code># Define the matrices
+A &lt;- matrix(data = c(1, 3,
+                     2, 1,
+                     4, 6),
             nrow = 3, ncol = 2, byrow = TRUE) 
-b_mat &lt;- matrix(data = c(2, 3, 4, 
+
+B &lt;- matrix(data = c(1, 5, 8, 3, 
+                     4, 2, 6, 4), 
+            nrow = 2, ncol = 4, byrow = TRUE)</code></pre>
+<p>To multiply matrices in R, we have to use the special matrix multiplication operator, <code>%*%</code></p>
+<pre class="r"><code>#multiply A by B
+A %*% B</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]   13   11   26   15
+## [2,]    6   12   22   10
+## [3,]   28   32   68   36</code></pre>
+<p><strong>Question</strong>: What would happen if we tried <code>B %*% A</code>?</p>
+</div>
+</div>
+<div id="example-2" class="section level2">
+<h2>Example 2</h2>
+<p><span class="math display">\[ A=\begin{bmatrix}
+1 &amp; 2 \\
+3 &amp; 2 \\
+4 &amp; 1
+\end{bmatrix},
+B=\begin{bmatrix}
+2 &amp; 3 &amp; 4 \\
+1 &amp; 2 &amp; 4 
+\end{bmatrix}\]</span></p>
+<ol style="list-style-type: decimal">
+<li>What is the order of A? And what about B?</li>
+<li>Is <span class="math inline">\(AB\)</span> conformable?</li>
+<li>is <span class="math inline">\(BA\)</span> conformable?</li>
+<li>Does <span class="math inline">\(AB = BA\)</span>? In other words, does the matrix product possess the commutative property?</li>
+</ol>
+<div id="example-2-in-r" class="section level3">
+<h3>Example 2 in R</h3>
+<pre class="r"><code># Define the matrices
+A &lt;- matrix(data = c(1, 2,
+                     3, 2,
+                     4, 1),
+            nrow = 3, ncol = 2, byrow = TRUE) 
+
+B &lt;- matrix(data = c(2, 3, 4, 
                      1, 2, 4), 
-            nrow = 2, ncol = 3, byrow = TRUE)
-a_mat %*% b_mat</code></pre>
+            nrow = 2, ncol = 3, byrow = TRUE)</code></pre>
+<pre class="r"><code># multiply A by B
+A %*% B</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    4    7   12
 ## [2,]    8   13   20
 ## [3,]    9   14   20</code></pre>
+<pre class="r"><code># multiply B by A
+B %*% A</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]   27   14
+## [2,]   23   10</code></pre>
+<p><strong>Question</strong>: What would happen if we tried <code>A %*% B == B %*% A</code>?</p>
+<p><em>Note:</em> Matrix multiplication <em>does</em> possess the associative property: <span class="math inline">\(A(BC)=(AB)C\)</span>.</p>
 </div>
-<div id="multiplying-by-the-identity-matrix" class="section level2">
-<h2>Multiplying by the Identity Matrix</h2>
-<div id="example-1" class="section level3">
-<h3>Example</h3>
+</div>
+<div id="identity-matrix" class="section level2">
+<h2>Identity Matrix</h2>
+<p>Again, the <strong>identity matrix</strong> is a diagonal matrix with 1s along the principal diagonal. For example…</p>
+<p><span class="math display">\[ I = \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix} \]</span></p>
+<p>Let’s take an example matrix <code>C</code>:</p>
 <p><span class="math display">\[ C=\begin{bmatrix}
 2 &amp; 5 \\
 4 &amp; 3
@@ -1817,7 +1868,6 @@ a_mat %*% b_mat</code></pre>
 <li>If C is multiplied by its identity matrix (<span class="math inline">\(I_{2}\)</span>), what will the resulting matrix be?</li>
 <li>Does <span class="math inline">\(CI_{2} = I_{2}C\)</span>?</li>
 </ol>
-</div>
 <div id="identity-matrix-in-r" class="section level3">
 <h3>Identity Matrix in R</h3>
 <p>The simplest way to get an identity matrix in R is to use <code>diag(x)</code> where x is the the order of the matrix (the number of rows or columns).</p>
@@ -1825,13 +1875,14 @@ a_mat %*% b_mat</code></pre>
 <pre class="r"><code>c_mat &lt;- matrix(data = c(2, 5,
                          4, 3), 
                 nrow = 2, ncol = 2, byrow = TRUE)
-print(c_mat)</code></pre>
+c_mat</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    2    5
 ## [2,]    4    3</code></pre>
 <p>And next we can get the identity matrix for C, or <span class="math inline">\(I_2\)</span></p>
-<pre class="r"><code>id_mat &lt;- diag(nrow(c_mat))
-# Equivalently, 
+<pre class="r"><code>id_mat &lt;- diag(nrow(c_mat)) #nrow() gives us the number of rows in c_mat
+ 
+# Or we could have done: 
 #id_mat &lt;- diag(2)</code></pre>
 <p>And finally, multiply them together with <code>%*%</code></p>
 <pre class="r"><code>c_mat %*% id_mat</code></pre>
@@ -1843,12 +1894,13 @@ print(c_mat)</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,] TRUE TRUE
 ## [2,] TRUE TRUE</code></pre>
+<p><em>Note</em>: Multiplying by the identity matrix is a special case in which the commutative property holds true for matrix multiplication.</p>
 </div>
 </div>
 </div>
 <div id="diag" class="section level1">
 <h1>Diagonal Matrices</h1>
-<p>As we saw above, the identity matrix is a special case of diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are <code>1</code>’s. But we can create diagonal matrices that contain other values as well, again using the <code>diag()</code> function.</p>
+<p>As we saw above, the identity matrix is a special case of a diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are <code>1</code>’s. But we can create diagonal matrices that contain other values as well, again using the <code>diag()</code> function.</p>
 <div id="creating-diagonal-matrices" class="section level2">
 <h2>Creating diagonal matrices</h2>
 </div>
