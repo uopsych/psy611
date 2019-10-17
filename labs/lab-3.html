@@ -1756,8 +1756,8 @@ C &lt;- matrix(data = c(4,1, 3,2), nrow = 2, ncol = 2, byrow = T) </code></pre>
 <div id="mult" class="section level1">
 <h1>Multiplication</h1>
 <p>Two matrices are “conformable for multiplication” if they have dimensions allowing them to be multiplied. That is, the number of columns of the first matrix must be equal to the number of rows of the second matrix.</p>
-<div id="example-1" class="section level2">
-<h2>Example 1:</h2>
+<div id="example" class="section level2">
+<h2>Example</h2>
 <p><span class="math display">\[ A=\begin{bmatrix}
 1 &amp; 3 \\
 2 &amp; 1 \\
@@ -1772,6 +1772,7 @@ B=\begin{bmatrix}
 <li>Is <span class="math inline">\(AB\)</span> conformable?</li>
 <li>Is <span class="math inline">\(BA\)</span> conformable?</li>
 <li>For <span class="math inline">\(AB\)</span>, what will the order of the resulting matrix be?</li>
+<li>Does <span class="math inline">\(AB = BA\)</span>? In other words, does the matrix product possess the commutative property?</li>
 </ol>
 <p><span class="math display">\[AB=\begin{bmatrix}
 (1 \times 1)+(3 \times 4) &amp; (1 \times 5)+(3 \times 2) &amp; (1 \times 8)+(3 \times 6) &amp; (1 \times 3)+(3 \times 4) \\
@@ -1785,24 +1786,6 @@ B=\begin{bmatrix}
 28 &amp; 32 &amp; 68 &amp; 36
 \end{bmatrix}
 \]</span></p>
-</div>
-<div id="example-2" class="section level2">
-<h2>Example 2:</h2>
-<p><span class="math display">\[ A=\begin{bmatrix}
-1 &amp; 2 \\
-3 &amp; 2 \\
-4 &amp; 1
-\end{bmatrix},
-B=\begin{bmatrix}
-2 &amp; 3 &amp; 4 \\
-1 &amp; 2 &amp; 4 
-\end{bmatrix}\]</span></p>
-<ol style="list-style-type: decimal">
-<li>What is the order of A? And what about B?</li>
-<li>Is <span class="math inline">\(AB\)</span> conformable?</li>
-<li>is <span class="math inline">\(BA\)</span> conformable?</li>
-<li>Does <span class="math inline">\(AB = BA\)</span>? In other words, does the matrix product possess the commutative property?</li>
-</ol>
 <p><em>Note:</em> the matrix product does possess the associative property: <span class="math inline">\(A(BC)=(AB)C\)</span>.</p>
 </div>
 <div id="matrix-multiplication-in-r" class="section level2">
@@ -1823,7 +1806,7 @@ a_mat %*% b_mat</code></pre>
 </div>
 <div id="multiplying-by-the-identity-matrix" class="section level2">
 <h2>Multiplying by the Identity Matrix</h2>
-<div id="example" class="section level3">
+<div id="example-1" class="section level3">
 <h3>Example</h3>
 <p><span class="math display">\[ C=\begin{bmatrix}
 2 &amp; 5 \\

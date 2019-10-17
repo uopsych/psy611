@@ -299,7 +299,7 @@ A - (B - C) == A - B + C
 
 Two matrices are "conformable for multiplication" if they have dimensions allowing them to be multiplied. That is, the number of columns of the first matrix must be equal to the number of rows of the second matrix.
 
-## Example 1:
+## Example
 \[ A=\begin{bmatrix}
 1 & 3 \\
 2 & 1 \\
@@ -310,10 +310,15 @@ B=\begin{bmatrix}
 4 & 2 & 6 & 4 
 \end{bmatrix}\]
 
+```{r}
+
+```
+
 1. What is the order of $A$? And what about $B$?
 2. Is $AB$ conformable? 
 3. Is $BA$ conformable? 
 4. For $AB$, what will the order of the resulting matrix be?
+5. Does $AB = BA$?  In other words, does the matrix product possess the commutative property?
 
 \[AB=\begin{bmatrix}
 (1 \times 1)+(3 \times 4) & (1 \times 5)+(3 \times 2) & (1 \times 8)+(3 \times 6) & (1 \times 3)+(3 \times 4) \\
@@ -329,24 +334,7 @@ B=\begin{bmatrix}
 \end{bmatrix}
 \]
 
-## Example 2:
-\[ A=\begin{bmatrix}
-1 & 2 \\
-3 & 2 \\
-4 & 1
-\end{bmatrix},
-B=\begin{bmatrix}
-2 & 3 & 4 \\
-1 & 2 & 4 
-\end{bmatrix}\]
-
-1. What is the order of A? And what about B?
-2. Is $AB$ conformable?
-3. is $BA$ conformable?
-4. Does $AB = BA$?  In other words, does the matrix product possess the commutative property?
-
 *Note:* the matrix product does possess the associative property: $A(BC)=(AB)C$.
-
 
 ## Matrix multiplication in R
 
