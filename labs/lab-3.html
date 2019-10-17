@@ -1527,7 +1527,7 @@ div.tocify {
 
 <div id="purpose" class="section level1">
 <h1>Purpose</h1>
-<p>The purpose of today’s lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus during the minihacks on how you can calculate basic descriptive statistics (which we discussed in <a href="https://uopsych.github.io/psy611/labs/lab-2.html" target="_blank">last week’s lab</a>) using matrix algebra.</p>
+<p>The purpose of today’s lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus during the minihacks on applying what you learned in lecture to calculate basic descriptive statistics (which we discussed in <a href="https://uopsych.github.io/psy611/labs/lab-2.html" target="_blank">last week’s lab</a>) using matrix algebra.</p>
 <p>Today’s lab will cover:</p>
 <ol style="list-style-type: decimal">
 <li><a href="#types">Review of matrix types</a></li>
@@ -1552,7 +1552,7 @@ div.tocify {
 2 &amp; 1 &amp; 2
 \end{bmatrix} \]</span></p></li>
 <li><p>Square: <span class="math inline">\(r = c\)</span><br />
-<span class="math display">\[ a = \begin{bmatrix}
+<span class="math display">\[ A = \begin{bmatrix}
 2 &amp; 9\\
 4 &amp; 6
 \end{bmatrix} \]</span></p></li>
@@ -1567,7 +1567,7 @@ div.tocify {
 0 &amp; 0 &amp; 3
 \end{bmatrix} \]</span></p></li>
 <li><p>Identity: The diagonal matrix with 1s along the principal diagonal.<br />
-<span class="math display">\[ A = \begin{bmatrix}
+<span class="math display">\[ I = \begin{bmatrix}
 1 &amp; 0 &amp; 0 &amp; 0 \\
 0 &amp; 1 &amp; 0 &amp; 0 \\
 0 &amp; 0 &amp; 1 &amp; 0 \\
@@ -1583,7 +1583,7 @@ div.tocify {
 </div>
 <div id="create" class="section level1">
 <h1>How to create a matrix</h1>
-<p>We create matrices in R by using the <code>matrix()</code> function. To specify a matrix using the <code>matrix()</code> function, we need to provide the <code>data</code> (i.e., the elements, or numbers in the matrix), the number of rows (<code>nrow</code>), the number of columns (<code>ncol</code>), and then tell it whether the order of elements is entered <code>byrow</code> or not. If you’re entering it row-wise, you want to set <code>byrow = TRUE</code>. If you’re entering it column wise, you want to set <code>byrow = FALSE</code>.</p>
+<p>We create matrices in R by using the <code>matrix()</code> function. To do this, we need to provide the <code>data</code> (i.e., the elements, or numbers in the matrix), the number of rows (<code>nrow</code>), the number of columns (<code>ncol</code>), and then tell it whether the order of elements is entered <code>byrow</code> or not. If you’re entering it row-wise, you want to set <code>byrow = TRUE</code>. If you’re entering it column-wise, you want to set <code>byrow = FALSE</code> or leave this argument blank (as <code>byrow = FALSE</code> by default).</p>
 <p>Let’s practice creating a few matrices:</p>
 <pre class="r"><code>a_mat &lt;- matrix(data = c(1, 2, 3, 
                          1, 2, 3), 
@@ -1620,40 +1620,49 @@ d_mat # print d_mat</code></pre>
 ## [1,]    1    1
 ## [2,]    2    2
 ## [3,]    3    3</code></pre>
-<div id="naming-rows-and-comlumns" class="section level2">
-<h2>Naming rows and comlumns</h2>
-<p>If you want the rows and columns of your data to have labels, you can specify these using the <code>dimnames</code> argument of the <code>matrix()</code> function. Commonly, you would want to name your columns (which generally correspond to varaibles) and not your rows (which generally correspond to observations).</p>
-<p>For example, let’s re-create <code>a_mat</code> from above, but give our columns the (super interesting) names <code>var1</code>, <code>var2</code> and <code>var3</code>.</p>
+<div id="naming-rows-and-columns" class="section level2">
+<h2>Naming rows and columns</h2>
+<p>If you want the rows and columns of your data to have labels, you can specify these using the <code>dimnames</code> argument of the <code>matrix()</code> function. Commonly, you would want to name your columns (which generally correspond to variables) but not your rows (which generally correspond to observations).</p>
+<p>For example, let’s re-create <code>a_mat</code> from above, but give our columns the names <code>var1</code>, <code>var2</code> and <code>var3</code>.</p>
 <pre class="r"><code>a_mat_named &lt;- matrix(data = c(1, 2, 3,
                                1, 2, 3),
                       nrow = 2, ncol = 3, byrow = TRUE,
-                      dimnames = list(NULL, c(&quot;var1&quot;, &quot;var2&quot;, &quot;var3&quot;)))</code></pre>
-<p>Notice that the <code>dimnames</code> argument expects a list (hence the use of <code>list()</code>) of length 2 that gives the names of the rows and columns, respectively. Since we didn’t want rownames, we set that to <code>NULL</code>.</p>
+                      dimnames = list(NULL, c(&quot;var1&quot;, &quot;var2&quot;, &quot;var3&quot;)))
+
+a_mat_named</code></pre>
+<pre><code>##      var1 var2 var3
+## [1,]    1    2    3
+## [2,]    1    2    3</code></pre>
+<p>Notice that the <code>dimnames</code> argument expects a list (hence the use of <code>list()</code>) of length 2 that gives the names of the rows and columns, respectively. Since we didn’t want to add row names, we set the first element of the list to <code>NULL</code>.</p>
 <hr />
 </div>
 </div>
 <div id="equality" class="section level1">
 <h1>Testing for equality</h1>
-<p>Next, we’ll check if the order is the same using a combination of <code>dim()</code>, which returns the dimensions of the matrix (rows, columns) and the equality test <code>==</code>.</p>
+<div id="equality-of-dimensions" class="section level2">
+<h2>Equality of dimensions</h2>
+<p>We can check whether or not the order of two matrices are the same using a combination of <code>dim()</code>, which returns the dimensions of the matrix (rows, columns) and the equality test <code>==</code>.</p>
 <p><br /> <strong>NOTE</strong>: <code>=</code> is to define things (arguments in functions &amp; objects) and <code>==</code> tests for equality.</p>
-<p>We get two results for each test, which correspond to (in order): <br /> 1. same number of rows? <br /> 2. same number of columns?</p>
-<p>First let’s check A against the others</p>
-<pre class="r"><code># check a against the others
+<p>We get two results for each test, which correspond to (in order): <br /> 1. Do the matrices have the same number of rows? <br /> 2. Do the matrices have the same number of columns?</p>
+<p>First let’s check <code>A</code> against the others</p>
+<pre class="r"><code># check A against the others
 dim(a_mat) == dim(b_mat)</code></pre>
 <pre><code>## [1] FALSE FALSE</code></pre>
 <pre class="r"><code>dim(a_mat) == dim(c_mat)</code></pre>
 <pre><code>## [1] FALSE FALSE</code></pre>
 <pre class="r"><code>dim(a_mat) == dim(d_mat)</code></pre>
 <pre><code>## [1] FALSE FALSE</code></pre>
-<p>As we knew (from looking at them ourselves), a is not the same shape as b, c, and d.</p>
-<p>Next we’ll check B against C and D:</p>
+<p>As we knew (from looking at them ourselves), <code>A</code> is not the same shape as <code>B</code>, <code>C</code>, and <code>D</code>.</p>
+<p>Next we’ll check <code>B</code> against <code>C</code> and <code>D</code>:</p>
 <pre class="r"><code># Check B against C and D.
 dim(b_mat) == dim(c_mat)</code></pre>
 <pre><code>## [1] TRUE TRUE</code></pre>
 <pre class="r"><code>dim(b_mat) == dim(d_mat)</code></pre>
 <pre><code>## [1] TRUE TRUE</code></pre>
-<p>Dimensions of b, c, and d match.</p>
-<p>The dimensions of B, C, and D are the same, so let’s test the equality of the elements.</p>
+</div>
+<div id="equality-of-elements" class="section level2">
+<h2>Equality of elements</h2>
+<p>The dimensions of <code>B</code>, <code>C</code>, and <code>D</code> are the same, so now let’s test the equality of the elements.</p>
 <pre class="r"><code>b_mat == c_mat</code></pre>
 <pre><code>##      [,1]  [,2]
 ## [1,] TRUE  TRUE
@@ -1664,12 +1673,14 @@ dim(b_mat) == dim(c_mat)</code></pre>
 ## [1,] TRUE TRUE
 ## [2,] TRUE TRUE
 ## [3,] TRUE TRUE</code></pre>
+<p>We can see that <code>B</code> and <code>D</code> are identical matrices because they have the exact same elements. This is a simple trivial example, because we could already tell they were the same just by looking at them – however, testing the equality of matrices can be very useful when you have much larger matrices that you can’t compare by eye.</p>
+</div>
 </div>
 <div id="transpose" class="section level1">
 <h1>Transpose</h1>
 <p>Transposing a matrix consists of exchanging the row and column for each element in the matrix.</p>
 <p><strong>Example:</strong></p>
-<p><span class="math display">\[ A = \begin{bmatrix}
+<p><span class="math display">\[ X = \begin{bmatrix}
 1 &amp; 2 \\
 5 &amp; 1 \\
 7 &amp; 2
@@ -1686,65 +1697,65 @@ dim(b_mat) == dim(c_mat)</code></pre>
 <p><span class="math inline">\(1_{22} \rightarrow 1_{22}\)</span></p>
 <p><span class="math inline">\(2_{32} \rightarrow 2_{23}\)</span></p>
 <p>Since the order of the above matrix is 3x2, what will the order of its transpose be?<br />
-<span class="math display">\[ A' = \begin{bmatrix}
+<span class="math display">\[ X' = \begin{bmatrix}
 1 &amp; 5 &amp; 7 \\
 2 &amp; 1 &amp; 2
 \end{bmatrix} \]</span></p>
 <div id="transpose-in-r" class="section level2">
 <h2>Transpose in R</h2>
-<p>To transpose in R, just use the function <code>t()</code>. Let’s take a look at the transpose of matrix C</p>
-<pre class="r"><code>print(c_mat)</code></pre>
+<p>To transpose in R, just use the function <code>t()</code>. Let’s take a look at the transpose of matrix X from above.</p>
+<pre class="r"><code># create the matrix
+X &lt;- matrix(c(1, 2,
+            5, 1, 
+            7, 2), 
+            nrow = 3, ncol = 2, byrow = TRUE)
+
+# view the matrix
+X</code></pre>
 <pre><code>##      [,1] [,2]
-## [1,]    1    1
-## [2,]    2    4
-## [3,]    3    5</code></pre>
-<pre class="r"><code>t(c_mat)</code></pre>
+## [1,]    1    2
+## [2,]    5    1
+## [3,]    7    2</code></pre>
+<pre class="r"><code># take the transpose of the matrix
+t(X)</code></pre>
 <pre><code>##      [,1] [,2] [,3]
-## [1,]    1    2    3
-## [2,]    1    4    5</code></pre>
+## [1,]    1    5    7
+## [2,]    2    1    2</code></pre>
 </div>
 </div>
 <div id="additionsubtraction" class="section level1">
 <h1>Addition/Subtraction</h1>
-<pre class="r"><code>A &lt;- matrix(data = c(6,1, 2,10), nrow = 2, ncol = 2, byrow = T) 
+<p>Matrices of the same order can be added and subtracted. Recall from lecture the rules about addition and subtraction:</p>
+<center>
+Matrix addition is <strong>commutative</strong>…
+</center>
+<p><span class="math display">\[\large \mathbf{A}+\mathbf{B}=\mathbf{B}+\mathbf{A}\]</span></p>
+<center>
+…and <strong>associative</strong>:
+</center>
+<span class="math display">\[\large \mathbf{A} + \mathbf{B} + \mathbf{C} = (\mathbf{A} + \mathbf{B}) + \mathbf{C} = \mathbf{A} + (\mathbf{B} + \mathbf{C})\]</span>
+<center>
+Matrix subtraction is <strong>distributive</strong>
+</center>
+<p><span class="math display">\[\large \mathbf{A} – (\mathbf{B} + \mathbf{C}) = \mathbf{A} – \mathbf{B} – \mathbf{C}\]</span></p>
+<p><span class="math display">\[\large \mathbf{A} – (\mathbf{B} – \mathbf{C}) = \mathbf{A} – \mathbf{B} + \mathbf{C}\]</span></p>
+<p>Let’s test out these rules using R!</p>
+<pre class="r"><code># define some matrices to use as examples
+A &lt;- matrix(data = c(6,1, 2,10), nrow = 2, ncol = 2, byrow = T) 
 B &lt;- matrix(data = c(2,1, 1,6), nrow = 2, ncol = 2, byrow = T) 
-C &lt;- matrix(data = c(4,1, 3,2), nrow = 2, ncol = 2, byrow = T) 
-
-# YOUR TURN: Do these problems
-# (1) A + B
-A + B</code></pre>
-<pre><code>##      [,1] [,2]
-## [1,]    8    2
-## [2,]    3   16</code></pre>
-<pre class="r"><code># (2) Is this true: A + B = B + A
-A+B==B+A</code></pre>
-<pre><code>##      [,1] [,2]
-## [1,] TRUE TRUE
-## [2,] TRUE TRUE</code></pre>
-<pre class="r"><code># (3) Is this true: (A + B) + C = A + (B + C)
-(A + B) + C == A + (B + C)</code></pre>
-<pre><code>##      [,1] [,2]
-## [1,] TRUE TRUE
-## [2,] TRUE TRUE</code></pre>
-<pre class="r"><code># (4) A - B
-A-B</code></pre>
-<pre><code>##      [,1] [,2]
-## [1,]    4    0
-## [2,]    1    4</code></pre>
-<pre class="r"><code># (5) Is this true: A - B = B - A
- A - B == B - A</code></pre>
-<pre><code>##       [,1]  [,2]
-## [1,] FALSE  TRUE
-## [2,] FALSE FALSE</code></pre>
-<pre class="r"><code># (6) Is this true: (A - B) - C = A - (B - C)
- (A - B) - C == A - (B - C)</code></pre>
-<pre><code>##       [,1]  [,2]
-## [1,] FALSE FALSE
-## [2,] FALSE FALSE</code></pre>
+C &lt;- matrix(data = c(4,1, 3,2), nrow = 2, ncol = 2, byrow = T) </code></pre>
+<p>See if the following statements are true…</p>
+<ol style="list-style-type: decimal">
+<li><p>A + B = B + A ???</p></li>
+<li><p>(A + B) + C = A + (B + C) ???</p></li>
+<li><p>A - B = B - A ???</p></li>
+<li><p>A - (B - C) = A - B - C ???</p></li>
+<li><p>A - (B - C) = A - B + C ???</p></li>
+</ol>
 </div>
 <div id="mult" class="section level1">
 <h1>Multiplication</h1>
-<p>Two matrices are “conformable for multiplication” if they have dimensions allowing them to be multiplied (i.e. if the inner dimensions match).</p>
+<p>Two matrices are “conformable for multiplication” if they have dimensions allowing them to be multiplied. That is, the number of columns of the first matrix must be equal to the number of rows of the second matrix.</p>
 <div id="example-1" class="section level2">
 <h2>Example 1:</h2>
 <p><span class="math display">\[ A=\begin{bmatrix}
@@ -1796,7 +1807,7 @@ B=\begin{bmatrix}
 </div>
 <div id="matrix-multiplication-in-r" class="section level2">
 <h2>Matrix multiplication in R</h2>
-<p>To multiple matrices in R, we have to use the matrix multiplication operator, <code>%*%</code> (potentially helpful mneumonic: it sort of looks like an M).</p>
+<p>To multiple matrices in R, we have to use the special matrix multiplication operator, <code>%*%</code></p>
 <pre class="r"><code>a_mat &lt;- matrix(data = c(1, 2, 
                      3, 2, 
                      4, 1), 
@@ -1854,9 +1865,9 @@ print(c_mat)</code></pre>
 </div>
 <div id="diag" class="section level1">
 <h1>Diagonal Matrices</h1>
-<p>As we saw above, the identity matrix is a special case of diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are <code>1</code>’s. But we can create diagnoal matrices that contain other values as well, again using the <code>diag()</code> function.</p>
-<div id="creating-diagnoal-matrices" class="section level2">
-<h2>Creating diagnoal matrices</h2>
+<p>As we saw above, the identity matrix is a special case of diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are <code>1</code>’s. But we can create diagonal matrices that contain other values as well, again using the <code>diag()</code> function.</p>
+<div id="creating-diagonal-matrices" class="section level2">
+<h2>Creating diagonal matrices</h2>
 </div>
 <div id="pre-multiplication" class="section level2">
 <h2>Pre-multiplication</h2>
@@ -1865,6 +1876,9 @@ print(c_mat)</code></pre>
 <div id="post-multiplication" class="section level2">
 <h2>Post-multiplication</h2>
 <p>Post-multiplication of a matrix X by a diagonal matrix <code>D</code> results in the <strong>columns</strong> of <code>X</code> being multiplied by the corresponding diagonal element in <code>D</code>.</p>
+</div>
+<div id="simultaneous-pre--and-post-multiplication" class="section level2">
+<h2>Simultaneous pre- and post-multiplication</h2>
 </div>
 </div>
 <div id="minihacks" class="section level1">
