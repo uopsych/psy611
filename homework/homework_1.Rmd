@@ -177,7 +177,7 @@ world = world[complete.cases(world), ]
 
 $$\Large \bar{X} = T\mathbf{X} = 1'\mathbf{X}(1'1)^{-1} = 1'\mathbf{X}\frac{1}{n}$$
 
-  - Create a vector $\mathbf{s}$ by extracting the diagonal of your variance-covariance matrix. Use $\mathbf{s}$ to create a diagonal matrix where the diagonal is 1/$\sqrt{\mathbf{s}}$. Pre- and post-multiply the variance-covariance matrix by this diagonal matrix. What have you created? How does this process to the formula for this thing (covered in class)?
+  - Create a vector $\mathbf{s}$ by extracting the diagonal of your variance-covariance matrix. Use $\mathbf{s}$ to create a diagonal matrix where the values on the diagonal are all $\frac{1}{\sqrt{\mathbf{s}}}$. Pre- and post-multiply the variance-covariance matrix by this diagonal matrix. What have you created? How does this process to the formula for this thing (covered in class)?
 
   
 # 20-point questions
