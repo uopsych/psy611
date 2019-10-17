@@ -21,7 +21,7 @@ options(scipen = 999)
 
 # Purpose
 
-The purpose of today's lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus on how you can calculate basic descriptive statistics (which we discussed in [last week's lab](https://uopsych.github.io/psy611/labs/lab-2.html){target="_blank"}) using matrix algebra. 
+The purpose of today's lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus during the minihacks on how you can calculate basic descriptive statistics (which we discussed in [last week's lab](https://uopsych.github.io/psy611/labs/lab-2.html){target="_blank"}) using matrix algebra. 
 
 Today's lab will cover:
 
@@ -94,32 +94,50 @@ a_mat <- matrix(data = c(1, 2, 3,
                          1, 2, 3), 
                 nrow = 2, ncol = 3, byrow = TRUE) # spacing is irrelevant
                                                   # but I find it easier to read
-print(a_mat)
+a_mat # print a_mat
 
 b_mat <- matrix(data = c(1, 1, 
                          2, 2, 
                          3, 3), 
                 nrow = 3, ncol = 2, byrow = TRUE) 
-print(b_mat)
+b_mat # print b_mat
 
 c_mat <- matrix(data = c(1, 1, 
                          2, 4, 
                          3, 5), 
                 nrow = 3, ncol = 2, byrow = TRUE) 
-print(c_mat)
+c_mat # print c_mat
 
 d_mat <- matrix(data = c(1, 1,
                          2, 2, 
                          3, 3), 
                 nrow = 3, ncol = 2, byrow = TRUE) 
-print(d_mat)
+d_mat # print d_mat
 ```
+
+## Naming rows and comlumns
+
+If you want the rows and columns of your data to have labels, you can specify these using the `dimnames` argument of the `matrix()` function. Commonly, you would want to name your columns (which generally correspond to varaibles) and not your rows (which generally correspond to observations).
+
+For example, let's re-create `a_mat` from above, but give our columns the (super interesting) names `var1`, `var2` and `var3`. 
+
+```{r}
+a_mat_named <- matrix(data = c(1, 2, 3,
+                               1, 2, 3),
+                      nrow = 2, ncol = 3, byrow = TRUE,
+                      dimnames = list(NULL, c("var1", "var2", "var3")))
+```
+
+Notice that the `dimnames` argument expects a list (hence the use of `list()`) of length 2 that gives the names of the rows and columns, respectively. Since we didn't want to add rownames, we set that to `NULL`.
 
 *** 
 
 # Testing for equality {#equality}
 
-Next, we'll Check if the order is the same using a combination of `dim()`, which returns the dimensions of the matrix (rows, columns) and the equality test `==`. REMEMBER: `=` is to define things (arguments in functions & objects) and `==` tests for equality. 
+Next, we'll check if the order is the same using a combination of `dim()`, which returns the dimensions of the matrix (rows, columns) and the equality test `==`.
+
+<br />
+**NOTE**: `=` is to define things (arguments in functions & objects) and `==` tests for equality. 
 
 We get two results for each test, which correspond to (in order): 
 <br /> 
@@ -138,7 +156,7 @@ dim(a_mat) == dim(d_mat)
 
 As we knew (from looking at them ourselves), a is not the same shape as b, c, and d.
 
-Next we'll check B angainst C and D:
+Next we'll check B against C and D:
 
 ```{r equality_2_b}
 # Check B against C and D.
@@ -147,9 +165,6 @@ dim(b_mat) == dim(d_mat)
 ```
 
 Dimensions of b, c, and d match.
-
-Q: Why didn't we test c and d?
-A:
 
 The dimensions of B, C, and D are the same, so let's test the equality of the elements.
 ```{r equality_2_c}
@@ -303,8 +318,6 @@ a_mat %*% b_mat
 1. If C is multiplied by its identity matrix ($I_{2}$), what will the resulting matrix be?
 2. Does $CI_{2} = I_{2}C$?
 
-*Note:* for your homework, you can't just say $CI_{2} = C$, you need to go through the steps of the multiplication to prove it.
-
 ### Identity Matrix in R
 
 The simplest way to get an identity matrix in R is to use `diag(x)` where x is the the order of the matrix (the number of rows or columns).
@@ -336,12 +349,22 @@ c_mat %*% id_mat == id_mat %*% c_mat
 
 # Diagonal Matrices {#diag}
 
+As we saw above, the identity matrix is a special case of diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are `1`'s. But we can create diagnoal matrices that contain other values as well, again using the `diag()` function.
+
+```{r}
+
+```
+
+
 ## Creating diagnoal matrices
 
 ## Pre-multiplication
 
+Pre-multiplication of a matrix X by a diagonal matrix `D` results in the **rows** of `X` being multiplied by the corresponding diagonal element in `D`.
+
 ## Post-multiplication
 
+Post-multiplication of a matrix X by a diagonal matrix `D` results in the **columns** of `X` being multiplied by the corresponding diagonal element in `D`.
 
 # Minihacks {#minihacks}
 

@@ -1527,7 +1527,7 @@ div.tocify {
 
 <div id="purpose" class="section level1">
 <h1>Purpose</h1>
-<p>The purpose of today’s lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus on how you can calculate basic descriptive statistics (which we discussed in <a href="https://uopsych.github.io/psy611/labs/lab-2.html" target="_blank">last week’s lab</a>) using matrix algebra.</p>
+<p>The purpose of today’s lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus during the minihacks on how you can calculate basic descriptive statistics (which we discussed in <a href="https://uopsych.github.io/psy611/labs/lab-2.html" target="_blank">last week’s lab</a>) using matrix algebra.</p>
 <p>Today’s lab will cover:</p>
 <ol style="list-style-type: decimal">
 <li><a href="#types">Review of matrix types</a></li>
@@ -1589,7 +1589,7 @@ div.tocify {
                          1, 2, 3), 
                 nrow = 2, ncol = 3, byrow = TRUE) # spacing is irrelevant
                                                   # but I find it easier to read
-print(a_mat)</code></pre>
+a_mat # print a_mat</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    1    2    3</code></pre>
@@ -1597,7 +1597,7 @@ print(a_mat)</code></pre>
                          2, 2, 
                          3, 3), 
                 nrow = 3, ncol = 2, byrow = TRUE) 
-print(b_mat)</code></pre>
+b_mat # print b_mat</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    1
 ## [2,]    2    2
@@ -1606,7 +1606,7 @@ print(b_mat)</code></pre>
                          2, 4, 
                          3, 5), 
                 nrow = 3, ncol = 2, byrow = TRUE) 
-print(c_mat)</code></pre>
+c_mat # print c_mat</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    1
 ## [2,]    2    4
@@ -1615,16 +1615,27 @@ print(c_mat)</code></pre>
                          2, 2, 
                          3, 3), 
                 nrow = 3, ncol = 2, byrow = TRUE) 
-print(d_mat)</code></pre>
+d_mat # print d_mat</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    1
 ## [2,]    2    2
 ## [3,]    3    3</code></pre>
+<div id="naming-rows-and-comlumns" class="section level2">
+<h2>Naming rows and comlumns</h2>
+<p>If you want the rows and columns of your data to have labels, you can specify these using the <code>dimnames</code> argument of the <code>matrix()</code> function. Commonly, you would want to name your columns (which generally correspond to varaibles) and not your rows (which generally correspond to observations).</p>
+<p>For example, let’s re-create <code>a_mat</code> from above, but give our columns the (super interesting) names <code>var1</code>, <code>var2</code> and <code>var3</code>.</p>
+<pre class="r"><code>a_mat_named &lt;- matrix(data = c(1, 2, 3,
+                               1, 2, 3),
+                      nrow = 2, ncol = 3, byrow = TRUE,
+                      dimnames = list(NULL, c(&quot;var1&quot;, &quot;var2&quot;, &quot;var3&quot;)))</code></pre>
+<p>Notice that the <code>dimnames</code> argument expects a list (hence the use of <code>list()</code>) of length 2 that gives the names of the rows and columns, respectively. Since we didn’t want rownames, we set that to <code>NULL</code>.</p>
 <hr />
+</div>
 </div>
 <div id="equality" class="section level1">
 <h1>Testing for equality</h1>
-<p>Next, we’ll Check if the order is the same using a combination of <code>dim()</code>, which returns the dimensions of the matrix (rows, columns) and the equality test <code>==</code>. REMEMBER: <code>=</code> is to define things (arguments in functions &amp; objects) and <code>==</code> tests for equality.</p>
+<p>Next, we’ll check if the order is the same using a combination of <code>dim()</code>, which returns the dimensions of the matrix (rows, columns) and the equality test <code>==</code>.</p>
+<p><br /> <strong>NOTE</strong>: <code>=</code> is to define things (arguments in functions &amp; objects) and <code>==</code> tests for equality.</p>
 <p>We get two results for each test, which correspond to (in order): <br /> 1. same number of rows? <br /> 2. same number of columns?</p>
 <p>First let’s check A against the others</p>
 <pre class="r"><code># check a against the others
@@ -1635,14 +1646,13 @@ dim(a_mat) == dim(b_mat)</code></pre>
 <pre class="r"><code>dim(a_mat) == dim(d_mat)</code></pre>
 <pre><code>## [1] FALSE FALSE</code></pre>
 <p>As we knew (from looking at them ourselves), a is not the same shape as b, c, and d.</p>
-<p>Next we’ll check B angainst C and D:</p>
+<p>Next we’ll check B against C and D:</p>
 <pre class="r"><code># Check B against C and D.
 dim(b_mat) == dim(c_mat)</code></pre>
 <pre><code>## [1] TRUE TRUE</code></pre>
 <pre class="r"><code>dim(b_mat) == dim(d_mat)</code></pre>
 <pre><code>## [1] TRUE TRUE</code></pre>
 <p>Dimensions of b, c, and d match.</p>
-<p>Q: Why didn’t we test c and d? A:</p>
 <p>The dimensions of B, C, and D are the same, so let’s test the equality of the elements.</p>
 <pre class="r"><code>b_mat == c_mat</code></pre>
 <pre><code>##      [,1]  [,2]
@@ -1813,7 +1823,6 @@ a_mat %*% b_mat</code></pre>
 <li>If C is multiplied by its identity matrix (<span class="math inline">\(I_{2}\)</span>), what will the resulting matrix be?</li>
 <li>Does <span class="math inline">\(CI_{2} = I_{2}C\)</span>?</li>
 </ol>
-<p><em>Note:</em> for your homework, you can’t just say <span class="math inline">\(CI_{2} = C\)</span>, you need to go through the steps of the multiplication to prove it.</p>
 </div>
 <div id="identity-matrix-in-r" class="section level3">
 <h3>Identity Matrix in R</h3>
@@ -1845,14 +1854,17 @@ print(c_mat)</code></pre>
 </div>
 <div id="diag" class="section level1">
 <h1>Diagonal Matrices</h1>
+<p>As we saw above, the identity matrix is a special case of diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are <code>1</code>’s. But we can create diagnoal matrices that contain other values as well, again using the <code>diag()</code> function.</p>
 <div id="creating-diagnoal-matrices" class="section level2">
 <h2>Creating diagnoal matrices</h2>
 </div>
 <div id="pre-multiplication" class="section level2">
 <h2>Pre-multiplication</h2>
+<p>Pre-multiplication of a matrix X by a diagonal matrix <code>D</code> results in the <strong>rows</strong> of <code>X</code> being multiplied by the corresponding diagonal element in <code>D</code>.</p>
 </div>
 <div id="post-multiplication" class="section level2">
 <h2>Post-multiplication</h2>
+<p>Post-multiplication of a matrix X by a diagonal matrix <code>D</code> results in the <strong>columns</strong> of <code>X</code> being multiplied by the corresponding diagonal element in <code>D</code>.</p>
 </div>
 </div>
 <div id="minihacks" class="section level1">
