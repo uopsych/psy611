@@ -110,13 +110,6 @@ class: center
 
 ![](6-probability_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
 
----
-
-class: center
-
-
-![](6-probability_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
-
 ???
 
 Probability can be determined as:
@@ -126,7 +119,7 @@ but only if the events are equally probable
 ---
 
 class: center
-![](6-probability_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](6-probability_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -226,7 +219,7 @@ The utility here is that we know what the truth is and can see how closely we ap
 
 ---
 
-Simulation here will confirm what we know must be true given the defined model, but will also give a sense of how far off the mark short-run results can be.  This is valuable because we never have an infinite series of events; rarely to we have very long ones.  We live in a short-run world and need to know how that affects inferences that we want to make.
+Simulation here will confirm what we know must be true given the defined model, but will also give a sense of how far off the mark short-run results can be.  This is valuable because we never have an infinite series of events; rarely do we have very long ones.  We live in a short-run world and need to know how that affects inferences that we want to make.
 
 
 ```r
@@ -247,10 +240,10 @@ class: center
 
 
 ```r
-X %&gt;% ggplot(aes(x = num, y = coin)) + geom_line() + geom_hline(aes(yintercept = .5), color = "red", linetype = 2) + scale_x_continuous("Number of tosses") + scale_y_continuous("Proportion of heads", breaks = seq(0, 1, .1), limits = c(0,1)) + ggtitle("Proportion of heads as a function of number of tosses")
+X %&gt;% ggplot(aes(x = num, y = coin)) + geom_line() + geom_hline(aes(yintercept = .5), color = "red", linetype = 2) + scale_x_continuous("Number of tosses") + scale_y_continuous("Proportion of heads", breaks = seq(0, 1, .1), limits = c(0,1)) + ggtitle("Proportion of heads as a\nfunction of number of tosses")+ theme_gray(base_size = 20) 
 ```
 
-![](6-probability_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+![](6-probability_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 
 ???
 
@@ -263,10 +256,10 @@ class: center
 
 
 ```r
-X %&gt;% ggplot(aes(x = num, y = die)) + geom_line() + geom_hline(aes(yintercept = 1/6), color = "red", linetype = 2) + scale_x_continuous("Number of rolls") + scale_y_continuous("Proportion of sixes", breaks = seq(0, 1, .1), limits = c(0,1)) + ggtitle("Proportion of sixes as a function of number of rolls")
+X %&gt;% ggplot(aes(x = num, y = die)) + geom_line() + geom_hline(aes(yintercept = 1/6), color = "red", linetype = 2) + scale_x_continuous("Number of rolls") + scale_y_continuous("Proportion of sixes", breaks = seq(0, 1, .1), limits = c(0,1)) + ggtitle("Proportion of sixes as a\nfunction of number of rolls")+ theme_gray(base_size = 20) 
 ```
 
-![](6-probability_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+![](6-probability_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 ???
 
@@ -276,16 +269,15 @@ It converges on the expected value faster.
 
 ---
 
----
 
 class: center
 
 
 ```r
-X %&gt;% ggplot(aes(x = num, y = scrabble)) + geom_line() + geom_hline(aes(yintercept = .01), color = "red", linetype = 2) + scale_x_continuous("Number of draws") + scale_y_continuous("Proportion of Z tiles", breaks = seq(0, 1, .1), limits = c(0,1)) + ggtitle("Proportion of Z tiles as a function of number of draws")  + theme_gray(base_size = 20)
+X %&gt;% ggplot(aes(x = num, y = scrabble)) + geom_line() + geom_hline(aes(yintercept = .01), color = "red", linetype = 2) + scale_x_continuous("Number of draws") + scale_y_continuous("Proportion of Z tiles", breaks = seq(0, 1, .1), limits = c(0,1)) + ggtitle("Proportion of Z tiles as a\nfunction of number of draws")  + theme_gray(base_size = 20) 
 ```
 
-![](6-probability_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](6-probability_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 
 ???
 
@@ -303,11 +295,11 @@ On the other hand, in real life, "the long run" may not have a simple or realist
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-"The probability that Mike has his phone with him today is .2, or 20%."
+"The probability that Sara has her phone with her today is .8, or 80%."
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-At one level, we all have an intuitive feel for what this means and understand it to tell us that Mike likely does not have his phone.
+At one level, we all have an intuitive feel for what this means and understand it to tell us that Sara likely does not have her phone.
 
 ---
 
@@ -315,11 +307,11 @@ But, in the strict sense, that statement doesn’t have a sensible meaning in th
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-I either do or I do not have my phone with me today (there are only two outcomes in the sample space); it makes no sense to say that I have 20% of my phone with me today and the event is not repeatable (having my phone today) in the strict sense, so the “long run” doesn’t seem to apply.
+I either do or I do not have my phone with me today (there are only two outcomes in the sample space); it makes no sense to say that I have 80% of my phone with me today and the event is not repeatable (having my phone today) in the strict sense, so the “long run” doesn’t seem to apply.
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-Instead, we have to say something like, on days like today (which can be repeated), the probability that Mike has his phone with him is .2.  
+Instead, we have to say something like, on days like today (which can be repeated), the probability that Sara has her phone with her is .8.  
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
@@ -363,18 +355,107 @@ This is statistical inference.  It relies upon assuming some generating process 
 Probability and probability distributions provide a frame of reference for making inferences.
 
 ---
+
+## Example: Which model?
+
+Three competing models are available to explain the occurrence of a target event.
+
+- Model A: `\(p(E) = .70\)`
+- Model B: `\(p(E) = .75\)`
+- Model C: `\(p(E) = .45\)`
+
+I assume that this target event follows a binomial probability distribution. If that model is correct, at what point can I distinguish the models and declare a winner?
+
+---
+
 class: center
 
-![](6-probability_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+
+
+
+![](6-probability_files/figure-html/test_models-1.png)&lt;!-- --&gt;
 
 Three competing models are available to explain the occurrence of a target event.  
 
 I assume that this target event follows a binomial probability distribution. If that model is correct, at what point can I distinguish the models and declare a winner?
 
 ---
+
 class: center
 
-![](6-probability_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+
+
+![](6-probability_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+
+Three competing models are available to explain the occurrence of a target event.  
+
+I assume that this target event follows a binomial probability distribution. If that model is correct, at what point can I distinguish the models and declare a winner?
+---
+
+class: center
+
+
+
+
+![](6-probability_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+
+Three competing models are available to explain the occurrence of a target event.  
+
+I assume that this target event follows a binomial probability distribution. If that model is correct, at what point can I distinguish the models and declare a winner?
+
+---
+
+class: center
+
+## Example: Same model?
+
+My theory claims that the same underlying process (an assumption, here the binomial) governs the outcomes in three populations.  At what point can I make a confident claim about that assertion?
+
+
+---
+
+class: center
+
+
+
+
+
+![](6-probability_files/figure-html/which_samp-1.png)&lt;!-- --&gt;
+
+My theory claims that the same underlying process (an assumption, here the binomial) governs the outcomes in three populations.  At what point can I make a confident claim about that assertion?
+
+???
+
+Are the data in these populations generated by the same underlying process (model)?
+
+---
+
+class: center
+
+
+
+
+![](6-probability_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+My theory claims that the same underlying process (an assumption, here the binomial) governs the outcomes in three populations.  At what point can I make a confident claim about that assertion?
+
+???
+
+Are the data in these populations generated by the same underlying process (model)?
+
+---
+
+class: center
+
+
+
+
+
+![](6-probability_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 My theory claims that the same underlying process (an assumption, here the binomial) governs the outcomes in three populations.  At what point can I make a confident claim about that assertion?
 
@@ -443,11 +524,21 @@ I have the personal theory that, generally speaking, Bayesians are smug.  I meet
 
 `$$\large \text{Bayesian | Smug} = P(B|S) = \frac{P(S|B)P(B)}{P(S|B)P(B) + P(S|\neg B)P(\neg B)}$$`
 `\(P(B) = .1 \text{(Bayesian are not common, overall)}\)`
+
 `\(P(S|B) = .8\)`
+
 `\(P(S|\neg B) = .3\)`
 
 `$$\large \text{Bayesian | Smug} = P(B|S) = \frac{(.8)(.1)}{(.8)(.1) + (.3)(.9)} = 0.229$$`
 ---
+
+`\(P(B) = .1\)`
+
+`\(P(S|B) = .8\)`
+
+`\(P(S|\neg B) = .3\)`
+
+`\(P(B|S) = 0.229\)`
 
 From a pure baserate standpoint I should assume the probability is .1 that this person is a Bayesian.  Bayesian reasoning tells me to take my prior beliefs into account given what I believe to be true about the relation of smugness to Bayesian status.
 
@@ -482,6 +573,7 @@ My doctor calls me with the results of a diagnostic test for a very rare but alw
 Assume that in the population, 1 out of every 10,000 people gets the condition: P(Disease) = .0001. 
 
 The sensitivity tells me that P(Positive Test|Disease) is .99.
+
 The specificity tells me that P(Positive Test|No Disease) is .01.
 
 What is the probability that I will get this disease given that I have a positive test?  P(Disease|Positive Test) = .0098
