@@ -413,6 +413,7 @@ $(document).ready(function () {
 <li><p>After the homework has been graded, you may retry questions to earn full credit, but you may only retry the questions you attempted on the first round.</p></li>
 <li><p>The first time you complete this assignment, it must be turned in by 9am on the due date (October 25). Late assignments will receive 50% of the points earned. For example, if you correctly answer questions totalling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points.</p></li>
 <li><p>You may discuss homework assignments with your classmates; however, it is important that you complete each assignment on your own and do not simply copy someone else’s code. If we believe one student has copied another’s work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points.</p></li>
+<li><p>Some of the homework problems can be completed using only the functions covered in lab. Some will require functions covered in the textbook. Some will require a combination of creativity and Google. Have fun!</p></li>
 </ol>
 <p><strong>Data:</strong> Some of the questions in this homework assignment use the dataset referred to as <code>homework-world</code>. [Link to data goes here.] This dataset is similar to one you’ve seen in class and contains a new variable called <code>World</code>. So-called “first world” countries (coded 1) are those that were aligned with the United States after World War II (e.g., members of NATO) or were considered to be clearly in the U.S. sphere of influence. “Second world” countries (coded 2) are former members of the Soviet Union or countries considered to have been clearly in the Soviet Union’s sphere of influence. “Third world” countries (coded 3) include those considered by the United Nations to be among the least developed countries in the world. The remaining countries are coded 4 for this variable.</p>
 </div>
@@ -524,7 +525,7 @@ $(document).ready(function () {
 <ul>
 <li><p>The variables are scored in a consistent direction (higher is “better”) with one exception: Corruption. Begin by reversing the direction of this variable.</p></li>
 <li><p>The variables are in different metrics, so transform them to Z scores.</p></li>
-<li><p>Create a mean of the Z scores. Note that there are missing data for some countries. Average the variables that are available for each country.</p></li>
+<li><p>Calculate the mean of each country’s Z-scores; in other words, for each country, take the average of these standardized variables. Note that there are missing data for some countries. Average the variables that are available for each country.</p></li>
 <li><p>Create a figure (or two?) for this new variable. Is it normally distributed? Any outliers?</p></li>
 <li><p>Identify the 10 countries with the highest scores and the 10 countries with the lowest scores.</p></li>
 <li><p>By collapsing all of these variables into one composite score we are claiming them to be good proxies for some “thing.” What might you name that thing and how would you justify it quantitatively?</p></li>

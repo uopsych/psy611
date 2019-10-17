@@ -20,6 +20,8 @@ To receive full credit on this homework assignment, you must earn **30 points**.
 
 4. You may discuss homework assignments with your classmates; however, it is important that you complete each assignment on your own and do not simply copy someone else’s code. If we believe one student has copied another’s work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points.
 
+5. Some of the homework problems can be completed using only the functions covered in lab. Some will require functions covered in the textbook. Some will require a combination of creativity and Google. Have fun!
+
 **Data:** Some of the questions in this homework assignment use the dataset referred to as `homework-world`. [Link to data goes here.] This dataset is similar to one you've seen in class and contains a new variable called `World`. So-called "first world" countries (coded 1) are those that were aligned with the United States after World War II (e.g., members of NATO) or were considered to be clearly in the U.S. sphere of influence. "Second world" countries (coded 2) are former members of the Soviet Union or countries considered to have been clearly in the Soviet Union’s sphere of influence. "Third world" countries (coded 3) include those considered by the United Nations to be among the least developed countries in the world. The remaining countries are coded 4 for this variable.
 
 
@@ -146,7 +148,7 @@ Create a composite score for the non-categorical variables (`Happiness`, `GDP`, 
 
   - The variables are in different metrics, so transform them to Z scores.
 
-  - Create a mean of the Z scores. Note that there are missing data for some countries. Average the variables that are available for each country.
+  - Calculate the mean of each country's Z-scores; in other words, for each country, take the average of these standardized variables. Note that there are missing data for some countries. Average the variables that are available for each country.
   
   - Create a figure (or two?) for this new variable. Is it normally distributed? Any outliers?
   
