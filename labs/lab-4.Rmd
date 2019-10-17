@@ -358,20 +358,12 @@ sd(x)
 
 ## dnorm
 
-The normal distribution of `dbinom`
-
+The normal distribution version of `dbinom` is `dnorm`. Similar to `rnorm`, it takes a mean (`mean`) and a standard deviation (`sd`) argument, but instead of an argument for the number of observations (`n`) you prrovide it a value (`x`). As mentioned in class, the probability of any one value in a normal distribution is `0.00`, because the total probability of the distribution is `1.00` and there are infinite values in any distribution. The reason `dnorm` exists is mostly mathematical, but we can use it to the height of the probability curve for any value.
 
 ```{r, include = FALSE}
 x <- seq(-4, 4, 0.001)
 likelihood <- dnorm(x, 0, 1)
 sim <- data.frame(x, likelihood)
-ggplot(sim, aes(x, likelihood)) +
-    stat_function(fun = dnorm, 
-                xlim = c(-5,0),
-                geom = "area",
-                fill = "turquoise3") +
-  geom_line(size = 1.2) +
-  theme_bw()
 ```
 
 ```{r, include = FALSE}
@@ -395,36 +387,36 @@ dnorm_plot <- function(value) {
   annotate(geom = "label", x = value + .8, y = dnorm(value, mean = 0, sd = 1), label = round(dnorm(value, mean = 0, sd = 1), 3), colour = "turquoise3", size = 5) +
   geom_point(aes(x = value, y = dnorm(value, mean = 0, sd = 1)), size = 5, colour = "turquoise3") +
   scale_x_continuous(limits = c(-4, 4)) +
-  theme_bw(base_size = 16)
+  theme_bw(base_size = 15) + 
+  labs(y = "Probability")
 }
-```
-
-Probability of a zero
-
-```{r}
-dnorm_plot(0)
 ```
 
 ```{r}
 dnorm(0, mean = 0, sd = 1)
 ```
 
-Probability of a 1
+For example, if we enter the value `0`, a mean of `0`, and a standard deviation `1`, we get `0.3989423`
 
 ```{r}
-dnorm_plot(1)
+dnorm_plot(0)
 ```
+
+As shown in the plot above, the height of the probability curve at a value of `0` is `.399`. 
+
+Likewise, if we calculate the height of the probability plot at an `x` value of `1`, we see the result `0.2419707.`
 
 ```{r}
 dnorm(1, mean = 0, sd = 1)
 ```
 
-
-Probability of -2
+Looking at the plotted normal distribution, this also is as expected. 
 
 ```{r}
-dnorm_plot(-2)
+dnorm_plot(1)
 ```
+
+**What would be the height of the probability line at a value of -1 when the `mean` is `0` and the `sd` is `1`?**
 
 ```{r}
 dnorm(-2, mean = 0, sd = 1)
@@ -432,8 +424,19 @@ dnorm(-2, mean = 0, sd = 1)
 
 ***
 
-
 ## pnorm
+
+
+
+```{r}
+ggplot(sim, aes(x, likelihood)) +
+    stat_function(fun = dnorm, 
+                xlim = c(-5,0),
+                geom = "area",
+                fill = "turquoise3") +
+  geom_line(size = 1.2) +
+  theme_bw()
+```
 
 
 ```{r}
