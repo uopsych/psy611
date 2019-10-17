@@ -538,11 +538,40 @@ You are welcome to work with a partner or in a small group of 2-3 people. If you
 
 ## Minihack 1: Binomial Distributions
 
-1. You are playing Dungeons and Dragons and your Dungeon master instutued
+1. You are playing Dungeons and Dragons and, to you Dungeon Master's displeasure, you run immediately to the dragon that is meant to be encountered at the end of the campaign. Yo must roll `2` `20`-sided die. However, in order to slay the dragon, you must roll two `20`s. What is the the probability of getting this result?
+
+```{r}
+dbinom(x = 2, size = 2, 1/20)
+```
+
+1. Your dungeon master has a change of heart and she decides to take pity on you. She says, if you roll at least `1` `20` she will let you live. What is the probability of getting rolling more than `0` `20`s when rolling `2` dice?
+
+```{r}
+pbinom(q = 0, size = 2, 1/20, lower.tail = FALSE)
+
+```
+
+
+1. Lottery
+
+Has been buying a lottery ticket for the last 52 weeks. The probabiliy that they win the lottery is 1/10000. What is the probability that they win at least one?
+
+```{r}
+dbinom(100, size = 100, prob = 1 / 1000)
+
+(1/1000)^100
+
+HTTT 
+THTT
+TTHT
+TTTH
+
+```
+
 
 ## Minihack 2: Normal Distributions
 
-## Minihack 3: Other Distributions
+## Minihack 3: Other Distributions to Extend your Knowledge
 
 1. My collaborater wants me to calculate a p-value for her, but I've sworn off null hypothesis testing. Fortunately, I was in the middle of writing this lab when I received her email. Use the `pchisq()` function to calculate the p-value for her Chi-Square test. She told me the following information about the test:
 the chi-square value (`q`) was `1.00` 
