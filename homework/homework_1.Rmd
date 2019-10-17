@@ -1,0 +1,205 @@
+---
+title: 'PSY 611 Homework #1'
+author: YOUR NAME HERE
+output: 
+  html_document:
+    toc: TRUE
+---
+
+# Instructions
+
+Please complete this assignment using the RMarkdown file provided ([download here](homework_1.Rmd)). To use this file, create a new RMarkdown (.Rmd) file, then copy and paste everything inside the linked file. Be sure to (1) include your name in the preamble, (2) save the file, including your last name (e.g., "weston_homework_1.Rmd"). When you turn in the assignment, include both the .Rmd and knitted .html files.  
+
+To receive full credit on this homework assignment, you must earn **30 points**. You may notice that the total number of points available to earn on this assignment is 65 -- this means you do not have to answer all of the questions. You may choose which questions to answer. You cannot earn more than 30 points, but it may be worth attempting many questions. Here are a couple things to keep in mind:
+
+1. Points are all-or-nothing, meaning you cannot receive partial credit if you correctly answer only some of the bullet points for a question. All must be answered correctly.
+
+2. After the homework has been graded, you may retry questions to earn full credit, but you may only retry the questions you attempted on the first round. 
+
+3. The first time you complete this assignment, it must be turned in by 9am on the due date (October 25). Late assignments will receive 50% of the points earned. For example, if you correctly answer questions totalling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points.
+
+4. You may discuss homework assignments with your classmates; however, it is important that you complete each assignment on your own and do not simply copy someone else’s code. If we believe one student has copied another’s work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points.
+
+5. Some of the homework problems can be completed using only the functions covered in lab. Some will require functions covered in the textbook. Some will require a combination of creativity and Google. Have fun!
+
+**Data:** Some of the questions in this homework assignment use the dataset referred to as `homework-world`. [Link to data goes here.] This dataset is similar to one you've seen in class and contains a new variable called `World`. So-called "first world" countries (coded 1) are those that were aligned with the United States after World War II (e.g., members of NATO) or were considered to be clearly in the U.S. sphere of influence. "Second world" countries (coded 2) are former members of the Soviet Union or countries considered to have been clearly in the Soviet Union’s sphere of influence. "Third world" countries (coded 3) include those considered by the United Nations to be among the least developed countries in the world. The remaining countries are coded 4 for this variable.
+
+
+
+# 2-point questions
+
+### Question 1
+Calculate descriptive statistics separately for these four groups in the `homework-world` dataset. 
+
+
+### Question 2
+In class, you were shown a formula for variance as a function of expected values, $\sigma^2 = E(X^2) - E(X)^2$. 
+
+  - Create a variable in **R** called X and give it the values 4, 2, 5, 3, 2, 4, 5, 1, 1, 5. 
+  
+  - Calculate the variance of this variable as if it represents an entire population.
+  
+  - Calculate the variance as if this variable is a sample. 
+  
+  - Using the formula of expected values, calculate the variance. (Treat `E` as if it means "take the mean.") 
+  
+  - Which formula, population parameter or sample statistic, does the expected value formula calculate?
+
+
+### Question 3
+Using the `homework-world` dataset, create a boxplot graph for the `Corruption` variable, with separate boxplots for the four groups defined by the new variable, World. What does this graph tell you, in broad strokes, about:
+
+  - group differences in corruption central tendency?
+  - group differences in corruption variability?
+  - the presence of outliers within each group?
+
+
+### Question 4
+Enter the following matrices into R 
+
+$$G = \left(\begin{array}
+{rrr}
+5 & 7 & 3 \\
+4 & 10 & 5\\
+-3 & 6 & 6 \\ 
+\end{array}
+\right)$$
+
+and 
+
+$$H = \left(\begin{array}
+{rrr}
+17 & 2 & 1  \\
+4 & 10 & 0 \\
+1 & -2 & 3 \\ 
+\end{array}\right)$$
+
+  - Calculate the following: 
+
+    - $G + H$
+    - $GH$
+  - Demonstrate whether $GH = HG$
+
+
+### Question 5
+
+Using matrix algebra and the matrix: 
+
+$$B = \left(\begin{array}
+{rrr}
+2 & 2 & 9 \\
+-5 & 17 & -4\\
+0 & 2 & 1 \\ 
+\end{array}
+\right)$$
+
+  - multiply all rows in B by 4
+  
+  
+
+  - multiply all columns in B by $\frac{1}{2}$
+  
+
+  - simultaneously multiple the first row by 3, the second row by $\frac{1}{3}$, and the third row by 10 while multiplying the first column by 2.
+  
+  
+
+# 5-point questions
+
+### Question 1
+Using the `homework-world` dataset, create a histogram of the life expectancy variable (`Life`) that includes the following:
+
+  - a vertical line at the mean
+  - a vertical line at the median
+  - the normal distribution density curve
+  - Is this distribution skewed? How can you tell?
+
+
+### Question 2
+Using the `homework-world` dataset, create a matrix of scatterplots for the variables `Happiness`, `Freedom`, and `Support`. The scatterplot for each pair should include the linear best fit line (a straight line). (You may need to consult the help page for a particular function.)
+
+
+  - Does a linear relationship seem to describe any of the pairwise relationships?
+
+  - Are there any countries that stand out as being unusual by their distance from the remaining countries in these plots? [Identify these countries by name and describe how they differ from the others.]
+
+
+
+### Question 3 
+
+Using the `homework-world` dataset:
+
+   - Calculate the correlation between the average perception of freedom in a country and the typical generosity of its citizens. 
+
+
+  - Create a scatterplot showing the relationship between freedom and generosity. 
+  
+
+  - Referencing the scatterplot, consider the different threats to the validity of a correlation. Are there any that you are concerned about? Are there any that you don't think are a problem?
+  
+  - If you had to guess, do you think the correlation you calculated (a) underestimates the strength of the true relationship between freedom and generosity, (b) overestimates this relationship, or (c) does a good job representing the relationship?
+
+# 10-point questions
+
+### Question 1
+Create a composite score for the non-categorical variables (`Happiness`, `GDP`, `Life`, `Support`, `Generosity`, `Freedom`, and `Corruption`) and answer some questions using that composite:
+
+  - The variables are scored in a consistent direction (higher is "better") with one exception: Corruption. Begin by reversing the direction of this variable.
+
+  - The variables are in different metrics, so transform them to Z scores.
+
+  - Calculate the mean of each country's Z-scores; in other words, for each country, take the average of these standardized variables. Note that there are missing data for some countries. Average the variables that are available for each country.
+  
+  - Create a figure (or two?) for this new variable. Is it normally distributed? Any outliers?
+  
+  - Identify the 10 countries with the highest scores and the 10 countries with the lowest scores.
+  
+  - By collapsing all of these variables into one composite score we are claiming them to be good proxies for some "thing." What might you name that thing and how would you justify it quantitatively?
+  
+### Question 2
+
+Use matrix algebra to calculate the following qualities of the `homework-world` dataset. You'll need to first create a matrix from the data frame that doesn't have the first column (`Country`) inside. 
+
+Note that if you are also answering question 1 from this section, you may have altered these variables. Be sure you're working with the original variables, as they were when you first loaded the dataset. : 
+
+  - For each country, what is is the sum of the variables `Support` and `Freedom` (for the purposes of this question, assume these are measured in the same unit)? What happens if a country is missing data for either `Support` or `Freedom`?
+  
+  
+  - For the rest of the questions in this section, use only complete cases, or rows with no missing data. You can get this by indexing with the `complete.cases` function:
+  
+```{r,eval = F}
+world = world[complete.cases(world), ]
+```
+  
+  - What is the average Happiness value for each World group?
+  
+  - Create a composite that is the average of `Support`, `Freedom`, and `Corruption`, with `Corrupution` negatively keyed. What is the average score on this composite by group?
+
+  - Calculate the variance-covariance matrix of these data. To calculate the mean of each variable, make use of the formula discussed in class (instead of using a function with the word "mean" in it): 
+
+$$\Large \bar{X} = T\mathbf{X} = 1'\mathbf{X}(1'1)^{-1} = 1'\mathbf{X}\frac{1}{n}$$
+
+  - Create a vector $\mathbf{s}$ by extracting the diagonal of your variance-covariance matrix. Use $\mathbf{s}$ to create a diagonal matrix where the values on the diagonal are all $\frac{1}{\sqrt{\mathbf{s}}}$. Pre- and post-multiply the variance-covariance matrix by this diagonal matrix. What have you created? How does this process to the formula for this thing (covered in class)?
+
+  
+# 20-point questions
+
+### Question 1
+
+We evaluate statistics on the degree that they are biased and efficient. We discussed bias in class. Now, you'll have to evaluate efficiency. While bias is a comparison of the statistic to the population parameter (e.g., how close is the expected value of the statistic to the parameter), efficiency is the comparison of two different statistics. More specifically, efficiency refers to the ratio of precision of the estimates of two different parameters at a given sample size.
+
+  - Use simulation to estimate the value of the mean and median from a known distribution 100K times at many (at least 10) different sample sizes, between $N = 5$ and $N = 400$. At each sample size, estimate the variance of the estimates of the mean and median. Use those estimates to calculate the relative efficiency of the mean compared to the median at each sample size, defined as: 
+  
+      $$Efficiency = \frac{\sigma^2_{mean}}{\sigma^2_{median}}$$
+
+  - What does an efficiency value of 1 mean? What does an efficiency value of less than one mean?
+
+  - Create a figure to visually display these results; include a description of this figure, including any key takeaway points.
+    
+
+
+ 
+
+ 
+  
+  
