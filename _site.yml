@@ -17,6 +17,8 @@ navbar:
         href: "lectures/4-describing_data.html"
       - text: "5-Matrix algebra"
         href: "lectures/5-matrix.html"
+      - text: "6-Probability"
+        href: "lectures/6-probability.html"
     - text: Labs
       menu:
       - text: "Introduction to R and RStudio"
