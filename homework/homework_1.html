@@ -406,7 +406,7 @@ $(document).ready(function () {
 
 <div id="instructions" class="section level1">
 <h1>Instructions</h1>
-<p>Please complete this assignment using the RMarkdown file provided (<a href="homework_1.Rmd">download here</a>). Once you download the RMarkdown file please (1) include your name in the preamble, (2) rename the file to include your last name (e.g., “weston_homework_1.Rmd”). When you turn in the assignment, include both the .Rmd and knitted .html files.</p>
+<p>Please complete this assignment using the RMarkdown file provided (<a href="homework_1.Rmd">download here</a>). To use this file, create a new RMarkdown (.Rmd) file, then copy and paste everything inside the linked file. Be sure to (1) include your name in the preamble, (2) save the file, including your last name (e.g., “weston_homework_1.Rmd”). When you turn in the assignment, include both the .Rmd and knitted .html files.</p>
 <p>To receive full credit on this homework assignment, you must earn <strong>30 points</strong>. You may notice that the total number of points available to earn on this assignment is 65 – this means you do not have to answer all of the questions. You may choose which questions to answer. You cannot earn more than 30 points, but it may be worth attempting many questions. Here are a couple things to keep in mind:</p>
 <ol style="list-style-type: decimal">
 <li><p>Points are all-or-nothing, meaning you cannot receive partial credit if you correctly answer only some of the bullet points for a question. All must be answered correctly.</p></li>
@@ -435,7 +435,7 @@ $(document).ready(function () {
 </div>
 <div id="question-3" class="section level3">
 <h3>Question 3</h3>
-<p>Using the <code>homework-world</code> dataset, create a boxplot graph for the Corruption variable, with separate boxplots for the four groups defined by the new variable, World. What does this graph tell you, in broad strokes, about:</p>
+<p>Using the <code>homework-world</code> dataset, create a boxplot graph for the <code>Corruption</code> variable, with separate boxplots for the four groups defined by the new variable, World. What does this graph tell you, in broad strokes, about:</p>
 <ul>
 <li>group differences in corruption central tendency?</li>
 <li>group differences in corruption variability?</li>
@@ -481,7 +481,7 @@ $(document).ready(function () {
 <ul>
 <li><p>multiply all rows in B by 4</p></li>
 <li><p>multiply all columns in B by <span class="math inline">\(\frac{1}{2}\)</span></p></li>
-<li><p>simultaneously multiple the first row by 3, the second row by , and the third row by 10 while multiplying the first column by 2.</p></li>
+<li><p>simultaneously multiple the first row by 3, the second row by <span class="math inline">\(\frac{1}{3}\)</span>, and the third row by 10 while multiplying the first column by 2.</p></li>
 </ul>
 </div>
 </div>
@@ -499,7 +499,7 @@ $(document).ready(function () {
 </div>
 <div id="question-2-1" class="section level3">
 <h3>Question 2</h3>
-<p>Using the <code>homework-world</code> dataset, create a matrix of scatterplots for the happiness, freedom, and support variables. The scatterplot for each pair should include the linear best fit line (a straight line). (You may need to consult the help page for a particular function.)</p>
+<p>Using the <code>homework-world</code> dataset, create a matrix of scatterplots for the variables <code>Happiness</code>, <code>Freedom</code>, and <code>Support</code>. The scatterplot for each pair should include the linear best fit line (a straight line). (You may need to consult the help page for a particular function.)</p>
 <ul>
 <li><p>Does a linear relationship seem to describe any of the pairwise relationships?</p></li>
 <li><p>Are there any countries that stand out as being unusual by their distance from the remaining countries in these plots? [Identify these countries by name and describe how they differ from the others.]</p></li>
@@ -520,7 +520,7 @@ $(document).ready(function () {
 <h1>10-point questions</h1>
 <div id="question-1-2" class="section level3">
 <h3>Question 1</h3>
-<p>Create a composite score for the non-categorical variables (Happiness, GDP, Life, Support, Generosity, Freedom, and Corruption) and answer some questions using that composite:</p>
+<p>Create a composite score for the non-categorical variables (<code>Happiness</code>, <code>GDP</code>, <code>Life</code>, <code>Support</code>, <code>Generosity</code>, <code>Freedom</code>, and <code>Corruption</code>) and answer some questions using that composite:</p>
 <ul>
 <li><p>The variables are scored in a consistent direction (higher is “better”) with one exception: Corruption. Begin by reversing the direction of this variable.</p></li>
 <li><p>The variables are in different metrics, so transform them to Z scores.</p></li>
@@ -532,13 +532,16 @@ $(document).ready(function () {
 </div>
 <div id="question-2-2" class="section level3">
 <h3>Question 2</h3>
-<p>Use matrix algebra to calculate the following qualities of the <code>homework-world</code> dataset. You’ll need to first create a matrix from the data frame that doesn’t have the first column (Country) inside.</p>
+<p>Use matrix algebra to calculate the following qualities of the <code>homework-world</code> dataset. You’ll need to first create a matrix from the data frame that doesn’t have the first column (<code>Country</code>) inside.</p>
 <p>Note that if you are also answering question 1 from this section, you may have altered these variables. Be sure you’re working with the original variables, as they were when you first loaded the dataset. :</p>
 <ul>
-<li><p>For each country, what is is the sum of the variables Support and Freedom (for the purposes of this question, assume these are measured in the same unit)? What happens if a country is missing data for either Support or Freedom?</p></li>
+<li><p>For each country, what is is the sum of the variables <code>Support</code> and <code>Freedom</code> (for the purposes of this question, assume these are measured in the same unit)? What happens if a country is missing data for either <code>Support</code> or <code>Freedom</code>?</p></li>
 <li><p>For the rest of the questions in this section, use only complete cases, or rows with no missing data. You can get this by indexing with the <code>complete.cases</code> function:</p></li>
+</ul>
+<pre class="r"><code>world = world[complete.cases(world), ]</code></pre>
+<ul>
 <li><p>What is the average Happiness value for each World group?</p></li>
-<li><p>Create a composite that is the average of Support, Freedom, and Corruption, with Corrupution negatively keyed. What is the average score on this composite by group?</p></li>
+<li><p>Create a composite that is the average of <code>Support</code>, <code>Freedom</code>, and <code>Corruption</code>, with <code>Corrupution</code> negatively keyed. What is the average score on this composite by group?</p></li>
 <li><p>Calculate the variance-covariance matrix of these data. To calculate the mean of each variable, make use of the formula discussed in class:</p></li>
 </ul>
 <p><span class="math display">\[\Large \bar{X} = T\mathbf{X} = 1'\mathbf{X}(1'1)^{-1} = 1'\mathbf{X}\frac{1}{n}\]</span></p>
