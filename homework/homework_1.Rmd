@@ -135,7 +135,7 @@ Using the `homework-world` dataset:
 
   - Referencing the scatterplot, consider the different threats to the validity of a correlation. Are there any that you are concerned about? Are there any that you don't think are a problem?
   
-  - If you had to guess, do you think the correlation you calculated (a) underestimate the strength of the true relationship between freedom and generosity, (b) overestimates this relationship, or (c) does a good job representing the relationship?
+  - If you had to guess, do you think the correlation you calculated (a) underestimates the strength of the true relationship between freedom and generosity, (b) overestimates this relationship, or (c) does a good job representing the relationship?
 
 # 10-point questions
 
@@ -173,7 +173,7 @@ world = world[complete.cases(world), ]
   
   - Create a composite that is the average of `Support`, `Freedom`, and `Corruption`, with `Corrupution` negatively keyed. What is the average score on this composite by group?
 
-  - Calculate the variance-covariance matrix of these data. To calculate the mean of each variable, make use of the formula discussed in class: 
+  - Calculate the variance-covariance matrix of these data. To calculate the mean of each variable, make use of the formula discussed in class (instead of using a function with the word "mean" in it): 
 
 $$\Large \bar{X} = T\mathbf{X} = 1'\mathbf{X}(1'1)^{-1} = 1'\mathbf{X}\frac{1}{n}$$
 
@@ -190,7 +190,7 @@ We evaluate statistics on the degree that they are biased and efficient. We disc
   
       $$Efficiency = \frac{\sigma^2_{mean}}{\sigma^2_{median}}$$
 
-  - What does the an efficiency value of 1 mean? What does an efficiency value of less than one mean?
+  - What does an efficiency value of 1 mean? What does an efficiency value of less than one mean?
 
   - Create a figure to visually display these results; include a description of this figure, including any key takeaway points.
     
