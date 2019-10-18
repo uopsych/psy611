@@ -2014,8 +2014,15 @@ postT</code></pre>
 <div id="minihack-1-identifying-linear-combinations" class="section level2">
 <h2>Minihack 1: Identifying linear combinations</h2>
 <ol style="list-style-type: decimal">
-<li><p>Take a look at the following code. Don’t run the matrix multiplication step yet. What does the linear combination represented below accomplish?</p></li>
-<li><p>Now run this code and check whether your intuition was correct. You should be able to check your answer by using another function that you’ve already learned.</p></li>
+<li>Take a look at the following code. Don’t run the matrix multiplication step yet. What does the linear combination represented below accomplish?</li>
+</ol>
+<pre class="r"><code>preT &lt;- matrix(rep(1), ncol = nrow(X))
+
+postT &lt;- diag(1/(nrow(X)) , nrow = ncol(X))
+
+preT %*% X %*% postT</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Now run this code and check whether your intuition was correct. You should be able to check your answer by using another function that you’ve already learned.</li>
 </ol>
 </div>
 <div id="minihack-2-creating-your-own-linear-combinations" class="section level2">

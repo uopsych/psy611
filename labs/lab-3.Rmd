@@ -580,6 +580,15 @@ You should how have a matrix with three columns, named T1 (memory score at time 
 
 1. Take a look at the following code. Don't run the matrix multiplication step yet. What does the linear combination represented below accomplish?
 
+```{r eval = FALSE}
+preT <- matrix(rep(1), ncol = nrow(X))
+
+postT <- diag(1/(nrow(X)) , nrow = ncol(X))
+
+preT %*% X %*% postT
+```
+
+
 2. Now run this code and check whether your intuition was correct. You should be able to check your answer by using another function that you've already learned.
 
 ## Minihack 2: Creating your own linear combinations
