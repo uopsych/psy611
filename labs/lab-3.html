@@ -1903,10 +1903,10 @@ B %*% A</code></pre>
 <h3>Identity Matrix in R</h3>
 <p>The simplest way to get an identity matrix in R is to use the <code>diag()</code> function.</p>
 <p>First we’ll create a matrix <code>C</code>.</p>
-<pre class="r"><code>c_mat &lt;- matrix(data = c(2, 5,
+<pre class="r"><code>C &lt;- matrix(data = c(2, 5,
                          4, 3), 
                 nrow = 2, ncol = 2, byrow = TRUE)
-c_mat</code></pre>
+C</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    2    5
 ## [2,]    4    3</code></pre>
@@ -1916,12 +1916,12 @@ c_mat</code></pre>
 # Or we could have hard coded it: 
 #id_mat &lt;- diag(x = 1, nrow = 2, ncol = 2)</code></pre>
 <p>And finally, multiply them together with <code>%*%</code></p>
-<pre class="r"><code>c_mat %*% id_mat</code></pre>
+<pre class="r"><code>C %*% id_mat</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    2    5
 ## [2,]    4    3</code></pre>
 <p>And we could test if <span class="math inline">\(CI_2 = I_2C\)</span></p>
-<pre class="r"><code>c_mat %*% id_mat == id_mat %*% c_mat</code></pre>
+<pre class="r"><code>C %*% id_mat == id_mat %*% C</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,] TRUE TRUE
 ## [2,] TRUE TRUE</code></pre>

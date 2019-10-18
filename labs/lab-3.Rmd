@@ -454,10 +454,10 @@ The simplest way to get an identity matrix in R is to use the `diag()` function.
 
 First we'll create a matrix `C`.
 ```{r identity_1}
-c_mat <- matrix(data = c(2, 5,
+C <- matrix(data = c(2, 5,
                          4, 3), 
                 nrow = 2, ncol = 2, byrow = TRUE)
-c_mat
+C
 ```
 
 And next we can get the identity matrix for `C`, or $I_2$. We want the identity matrix to have the same number of rows and columns as `C`. 
@@ -471,12 +471,12 @@ id_mat <- diag(x = 1, nrow = nrow(C), ncol = ncol(C))
 
 And finally, multiply them together with `%*%`
 ```{r}
-c_mat %*% id_mat
+C %*% id_mat
 ```
 
 And we could test if $CI_2 = I_2C$ 
 ```{r}
-c_mat %*% id_mat == id_mat %*% c_mat
+C %*% id_mat == id_mat %*% C
 ```
 
 *Note*: Multiplying by the identity matrix is a special case in which the commutative property holds true for matrix multiplication.
