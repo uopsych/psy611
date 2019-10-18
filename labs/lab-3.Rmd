@@ -509,7 +509,7 @@ X <- matrix(c(1, 2, 3,
 X
 ```
 
-First we'll create our diagonal matrix that we will pre-multiply `X` by. Our diagonal matrix that we are pre-multiplying by should have the same number of columns as there are rows in `X`. Since a diagonal matrix is symmetric, the number of rows and columns are the same. 
+First we'll create our diagonal matrix that we will pre-multiply `X` by. Our diagonal matrix that we are pre-multiplying by should have the same number of columns as there are rows in `X`. Since a diagonal matrix is square, the number of rows and columns are the same. 
 
 ```{r}
 preT <- diag(x = 2, nrow = nrow(X), ncol = nrow(X))
@@ -534,7 +534,7 @@ Let's use the same matrix `X` as our example.
 X
 ```
 
-Now we'll create our diagonal matrix that we will post-multiply `X` by. Our diagonal matrix that we are post-multiplying by should have the same number of rows as there are columns in `X`. Again, since a diagonal matrix is symmetric, the number of rows and columns are the same. 
+Now we'll create our diagonal matrix that we will post-multiply `X` by. Our diagonal matrix that we are post-multiplying by should have the same number of rows as there are columns in `X`. Again, since a diagonal matrix is square, the number of rows and columns are the same. 
 
 ```{r}
 postT <- diag(.25, nrow = ncol(X), ncol = ncol(X))

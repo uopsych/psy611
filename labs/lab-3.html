@@ -1956,7 +1956,7 @@ X</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    4    5    6</code></pre>
-<p>First we’ll create our diagonal matrix that we will pre-multiply <code>X</code> by. Our diagonal matrix that we are pre-multiplying by should have the same number of columns as there are rows in <code>X</code>. Since a diagonal matrix is symmetric, the number of rows and columns are the same.</p>
+<p>First we’ll create our diagonal matrix that we will pre-multiply <code>X</code> by. Our diagonal matrix that we are pre-multiplying by should have the same number of columns as there are rows in <code>X</code>. Since a diagonal matrix is square, the number of rows and columns are the same.</p>
 <pre class="r"><code>preT &lt;- diag(x = 2, nrow = nrow(X), ncol = nrow(X))
 
 preT</code></pre>
@@ -1977,7 +1977,7 @@ preT</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    4    5    6</code></pre>
-<p>Now we’ll create our diagonal matrix that we will post-multiply <code>X</code> by. Our diagonal matrix that we are post-multiplying by should have the same number of rows as there are columns in <code>X</code>. Again, since a diagonal matrix is symmetric, the number of rows and columns are the same.</p>
+<p>Now we’ll create our diagonal matrix that we will post-multiply <code>X</code> by. Our diagonal matrix that we are post-multiplying by should have the same number of rows as there are columns in <code>X</code>. Again, since a diagonal matrix is square, the number of rows and columns are the same.</p>
 <pre class="r"><code>postT &lt;- diag(.25, nrow = ncol(X), ncol = ncol(X))
 
 postT</code></pre>
