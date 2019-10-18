@@ -114,7 +114,7 @@ d_mat # print d_mat
 
 ## Naming rows and columns
 
-If you want the rows and columns of your data to have labels, you can specify these using the `dimnames` argument of the `matrix()` function. Commonly, you would want to name your columns (which generally correspond to variables) but not your rows (which generally correspond to observations).
+If you want the rows and columns of your matrix to have labels, you can specify these using the `dimnames` argument of the `matrix()` function. Commonly, you would want to name your columns (which generally correspond to variables) but not your rows (which generally correspond to observations).
 
 For example, let's re-create `a_mat` from above, but give our columns the names `var1`, `var2` and `var3`. 
 
@@ -140,9 +140,9 @@ The `rep()` function allows you to replicate values, which can come in handy whe
 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
 \end{bmatrix} \]
 
-This would be a pain to type out manually using the `matrix()` function. Instead, because we have repeating values in our matrix, we can use `rep()` to each of the rows in our matrix must faster. 
+This would be a pain to type out manually using the `matrix()` function. Instead, because we have repeating values in our matrix, we can use `rep()` to create each of the rows in our matrix must faster. 
 
-To use `rep()` you specify `x` = value or object you want to replicate and `times` = number of times you want to replicate it. 
+To use `rep()` you specify `x` = the value that you want to replicate and `times` = the number of times you want to replicate it. 
 
 e.g. `rep(x = 1, times = 10)` would result in `r rep(1, 10)`
 
@@ -236,7 +236,8 @@ $1_{22} \rightarrow 1_{22}$
 
 $2_{32} \rightarrow 2_{23}$
 
-Since the order of the above matrix is 3x2, what will the order of its transpose be?  
+**Question**: Since the order of the above matrix is 3x2, what will the order of its transpose be?  
+
 \[ X' = \begin{bmatrix}
 1 & 5 & 7 \\
 2 & 1 & 2
@@ -244,7 +245,7 @@ Since the order of the above matrix is 3x2, what will the order of its transpose
 
 ## Transpose in R
 
-To transpose in R, just use the function `t()`. Let's take a look at the transpose of matrix X from above.
+To transpose a matrix in R, just use the function `t()`. Let's take a look at the transpose of matrix `X` from above.
 
 ```{r transpose}
 # create the matrix
@@ -292,7 +293,7 @@ B <- matrix(data = c(2,1, 1,6), nrow = 2, ncol = 2, byrow = T)
 C <- matrix(data = c(4,1, 3,2), nrow = 2, ncol = 2, byrow = T) 
 ```
 
-See if the following statements are true...
+**Let's see if the following statements are true...**
 
 1) A + B = B + A ???
 
@@ -464,8 +465,8 @@ And next we can get the identity matrix for `C`, or $I_2$. We want the identity 
 ```{r identity_2}
 id_mat <- diag(x = 1, nrow = nrow(C), ncol = ncol(C)) 
  
-# Or we could have done: 
-#id_mat <- diag(x = 1, nrow = 2)
+# Or we could have hard coded it: 
+#id_mat <- diag(x = 1, nrow = 2, ncol = 2)
 ```
 
 And finally, multiply them together with `%*%`
@@ -508,7 +509,7 @@ X <- matrix(c(1, 2, 3,
 X
 ```
 
-First we'll create our diagonal matrix that we will pre-multiply `X` by. Because the order of `X` is `[2,3]`, our diagonal matrix that we are pre-multiplying by should have the same number of columns as there are rows in `X`. Since a diagonal matrix is symmetric, the number of rows and columns are the same. 
+First we'll create our diagonal matrix that we will pre-multiply `X` by. Our diagonal matrix that we are pre-multiplying by should have the same number of columns as there are rows in `X`. Since a diagonal matrix is symmetric, the number of rows and columns are the same. 
 
 ```{r}
 preT <- diag(x = 2, nrow = nrow(X), ncol = nrow(X))
@@ -516,7 +517,7 @@ preT <- diag(x = 2, nrow = nrow(X), ncol = nrow(X))
 preT
 ```
 
-Now let's pre-multiply by `X`. This will result in multiplying all the rows by 2.
+Now let's pre-multiply by `X`. This will result in multiplying all the **rows** in `X` by 2.
 
 ```{r}
 preT %*% X
@@ -533,7 +534,7 @@ Let's use the same matrix `X` as our example.
 X
 ```
 
-Now we'll create our diagonal matrix that we will post-multiply `X` by. Because the order of `X` is `[2,3]`, our diagonal matrix that we are post-multiplying by should have the same number of rows as there are columns in `X`. Again, since a diagonal matrix is symmetric, the number of rows and columns are the same. 
+Now we'll create our diagonal matrix that we will post-multiply `X` by. Our diagonal matrix that we are post-multiplying by should have the same number of rows as there are columns in `X`. Again, since a diagonal matrix is symmetric, the number of rows and columns are the same. 
 
 ```{r}
 postT <- diag(.25, nrow = ncol(X), ncol = ncol(X))
@@ -541,7 +542,7 @@ postT <- diag(.25, nrow = ncol(X), ncol = ncol(X))
 postT
 ```
 
-Now let's post-multiply by `X`. This will result in multiplying all the columns by 1/4.
+Now let's post-multiply by `X`. This will result in multiplying all the **columns** in `X` by 1/4.
 
 ```{r}
 X %*% postT
@@ -549,6 +550,8 @@ X %*% postT
 
 
 ## Simultaneous multiplication
+
+We can also simultaneously pre- and post-multiply a matrix. For example, the code below will simultaneously multiply all the rows by 2 and multiply all the columns by 1/4.
 
 ```{r}
 preT %*% X %*% postT
@@ -559,7 +562,9 @@ preT %*% X %*% postT
 
 The minihacks for today are based on the following example:
 
-You run an experiment to test the effectiveness of an memory-improvement intervention. As part of the study, participants take a difficult memory test at time 1, then participate in the intervention, and then retake the memory test one week later. Half the participants are assigned to a control condition, and half are assigned to the intervention. Use the following code to create a matrix representing a dataset of scores, $X_{10,3}$:
+You run an experiment to test the effectiveness of an memory-improvement intervention. As part of the study, participants take a difficult memory test at time 1, then participate in the intervention, and then retake the memory test one week later. Half the participants are assigned to a control condition, and half are assigned to the intervention. 
+
+Use the following code to create a matrix representing a dataset of scores, $X_{10,3}$:
 
 ```{r create_data}
 X = matrix(c(45, 52, 54, 52, 50, 72, 43, 56, 62, 47,
@@ -573,17 +578,9 @@ You should how have a matrix with three columns, named T1 (memory score at time 
 
 ## Minihack 1: Identifying linear combinations
 
-1. Take a look at the following code. Don't run the matrix multiplication step yet. What would this linear combination accomplish?
+1. Take a look at the following code. Don't run the matrix multiplication step yet. What does the linear combination represented below accomplish?
 
-```{r eval = FALSE}
-pre_T <- matrix(rep(1), ncol = nrow(X))
-
-postT <- diag(1/(nrow(X)) , nrow = ncol(X))
-
-preT %*% X %*% postT
-```
-
-2. Now run this code and check whether your intuition was correct. You should be able to check by using another function that you've already learned. 
+2. Now run this code and check whether your intuition was correct. You should be able to check your answer by using another function that you've already learned.
 
 ## Minihack 2: Creating your own linear combinations
 
@@ -591,48 +588,19 @@ Use matrix algebra to do the following:
 
 1. Create a new vector representing the difference between T1 and T2.
 
-```{r}
-diff = matrix(c(-1, 1, 0), ncol = 1)
-X %*% diff
-```
- 
 2. Calculate the average T1 score for the whole sample.
-
-```{r}
-diff = matrix(c(1,0,0), ncol = 1)
-group = matrix(rep(.1,10),
-               nrow = 1, byrow = T)
-group %*% X %*% diff
-```
 
 3. Calculate the average T1 score for each group.
 
-```{r}
-diff = matrix(c(1,0,0), ncol = 1)
-group = matrix(c(rep(.2,5), rep(0,10), rep(.2, 5)),
-               nrow = 2, byrow = T)
-group %*% X %*% diff
-```
-
 ## Minihack 3: Calculate the covariance matrix
 
-Calculate the covariance matrix of X. (Hint: you'll need to create a matrix to subtract from X in order to get deviation scores.) Use the `cov()` function to show that you calculated this matrix correctly.
+1. Calculate the covariance matrix of X using matrix algebra. 
+
+Hint #1: You'll need to create a matrix to subtract from X in order to get deviation scores.) 
+<br />
+Hint #2: `colMeans()` is a quick way to get the means of each column of a matrix.
 
 
-```{r}
-# get a matrix equal in dimension to X, where each value is the mean of the column
-mX = apply(X, 2, mean)
-MX = matrix(rep(mX, nrow(X)), byrow=T, ncol = length(mX))
+2. Use the `cov()` function to show that you calculated the covariance matrix correctly.
 
-
-d = X-MX
-
-SP = t(d) %*% d
-
-covX = SP*(1/(nrow(X)-1))
-covX
-cov(X) 
-
-round(covX, 2) == round(cov(X), 2)
-```
 
