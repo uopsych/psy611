@@ -25,6 +25,8 @@ navbar:
         href: "labs/lab-1.html"
       - text: "R Basics and Descriptives"
         href: "labs/lab-2.html"
+      - text: "Matrix Algebra"
+        href: "labs/lab-3.html"        
     - text: Homework
       href: homework.html
     - text: Useful Material
