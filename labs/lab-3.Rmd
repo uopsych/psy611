@@ -37,7 +37,7 @@ Today's lab will cover:
 
 __Notation and Terminology:__
 
-$a_{rc}$ refers to the entry at row $r$ and column $c$ in matrix $a$.  
+$A_{rc}$ refers to the entry at row $r$ and column $c$ in matrix $A$.  
 "Order" refers to the dimensions of a matrix: the number of rows and the number of columns $(r,c)$.
 
 1. Rectangular: $r \neq c$  
@@ -64,7 +64,7 @@ $a_{rc}$ refers to the entry at row $r$ and column $c$ in matrix $a$.
 0 & 0 & 3
 \end{bmatrix} \]
 
-5. Identity:  The diagonal matrix with 1s along the principal diagonal.  
+5. Identity:  A diagonal matrix with 1s along the principal diagonal.  
 \[ I = \begin{bmatrix}
 1 & 0 & 0 & 0 \\
 0 & 1 & 0 & 0 \\
@@ -508,7 +508,7 @@ X <- matrix(c(1, 2, 3,
 X
 ```
 
-First we'll create our diagonal matrix that we will pre-multiply `X` by. Because the order of `X` is `[2,3]`, our diagnoal matrix that we are pre-multiplying by should have the same number of columns as there are rows in `X`. Since a diagonal matrix is symmetric, the number of rows and columns are the same. 
+First we'll create our diagonal matrix that we will pre-multiply `X` by. Because the order of `X` is `[2,3]`, our diagonal matrix that we are pre-multiplying by should have the same number of columns as there are rows in `X`. Since a diagonal matrix is symmetric, the number of rows and columns are the same. 
 
 ```{r}
 preT <- diag(x = 2, nrow = nrow(X), ncol = nrow(X))
@@ -541,7 +541,7 @@ postT <- diag(.25, nrow = ncol(X), ncol = ncol(X))
 postT
 ```
 
-Now let's post-multiply by `X`. This will result in multipling all the columns by 1/4.
+Now let's post-multiply by `X`. This will result in multiplying all the columns by 1/4.
 
 ```{r}
 X %*% postT

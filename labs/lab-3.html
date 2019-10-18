@@ -1543,7 +1543,7 @@ div.tocify {
 <div id="types" class="section level1">
 <h1>Review of matrix types</h1>
 <p><strong>Notation and Terminology:</strong></p>
-<p><span class="math inline">\(a_{rc}\)</span> refers to the entry at row <span class="math inline">\(r\)</span> and column <span class="math inline">\(c\)</span> in matrix <span class="math inline">\(a\)</span>.<br />
+<p><span class="math inline">\(A_{rc}\)</span> refers to the entry at row <span class="math inline">\(r\)</span> and column <span class="math inline">\(c\)</span> in matrix <span class="math inline">\(A\)</span>.<br />
 “Order” refers to the dimensions of a matrix: the number of rows and the number of columns <span class="math inline">\((r,c)\)</span>.</p>
 <ol style="list-style-type: decimal">
 <li><p>Rectangular: <span class="math inline">\(r \neq c\)</span><br />
@@ -1566,7 +1566,7 @@ div.tocify {
 0 &amp; 4 &amp; 0 \\
 0 &amp; 0 &amp; 3
 \end{bmatrix} \]</span></p></li>
-<li><p>Identity: The diagonal matrix with 1s along the principal diagonal.<br />
+<li><p>Identity: A diagonal matrix with 1s along the principal diagonal.<br />
 <span class="math display">\[ I = \begin{bmatrix}
 1 &amp; 0 &amp; 0 &amp; 0 \\
 0 &amp; 1 &amp; 0 &amp; 0 \\
@@ -1956,7 +1956,7 @@ X</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    4    5    6</code></pre>
-<p>First we’ll create our diagonal matrix that we will pre-multiply <code>X</code> by. Because the order of <code>X</code> is <code>[2,3]</code>, our diagnoal matrix that we are pre-multiplying by should have the same number of columns as there are rows in <code>X</code>. Since a diagonal matrix is symmetric, the number of rows and columns are the same.</p>
+<p>First we’ll create our diagonal matrix that we will pre-multiply <code>X</code> by. Because the order of <code>X</code> is <code>[2,3]</code>, our diagonal matrix that we are pre-multiplying by should have the same number of columns as there are rows in <code>X</code>. Since a diagonal matrix is symmetric, the number of rows and columns are the same.</p>
 <pre class="r"><code>preT &lt;- diag(x = 2, nrow = nrow(X), ncol = nrow(X))
 
 preT</code></pre>
@@ -1985,7 +1985,7 @@ postT</code></pre>
 ## [1,] 0.25 0.00 0.00
 ## [2,] 0.00 0.25 0.00
 ## [3,] 0.00 0.00 0.25</code></pre>
-<p>Now let’s post-multiply by <code>X</code>. This will result in multipling all the columns by 1/4.</p>
+<p>Now let’s post-multiply by <code>X</code>. This will result in multiplying all the columns by 1/4.</p>
 <pre class="r"><code>X %*% postT</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,] 0.25 0.50 0.75
