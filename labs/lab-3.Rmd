@@ -18,7 +18,7 @@ options(scipen = 999)
 
 # Purpose
 
-The purpose of today's lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus during the minihacks on applying what you learned in lecture to calculate basic descriptive statistics (which we discussed in [last week's lab](https://uopsych.github.io/psy611/labs/lab-2.html){target="_blank"}) using matrix algebra. 
+The purpose of today's lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus during the minihacks on applying what you learned in lecture to create linear combinations of data, including calculating some basic descriptive statistics (which we discussed in [last week's lab](https://uopsych.github.io/psy611/labs/lab-2.html){target="_blank"}).
 
 Today's lab will cover:
 
@@ -129,6 +129,36 @@ a_mat_named
 
 Notice that the `dimnames` argument expects a list (hence the use of `list()`) of length 2 that gives the names of the rows and columns, respectively. Since we didn't want to add row names, we set the first element of the list to `NULL`.
 
+## `rep()` function
+
+The `rep()` function allows you to replicate values, which can come in handy when creating matrices. For example, let's say we wanted to create the following matrix in R:
+
+\[ M = \begin{bmatrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2\\
+3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3\\
+4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+\end{bmatrix} \]
+
+This would be a pain to type out manually using the `matrix()` function. Instead, because we have repeating values in our matrix, we can use `rep()` to each of the rows in our matrix must faster. 
+
+To use `rep()` you specify `x` = value or object you want to replicate and `times` = number of times you want to replicate it. 
+
+e.g. `rep(x = 1, times = 10)` would result in `r rep(1, 10)`
+
+Now let's use `rep()` and `matrix()` to create matrix `M` from above:
+
+```{r}
+M <- matrix(c(rep(1, 16),
+              rep(0, 8), rep(2, 8),
+              rep(3, 16),
+              rep(4, 8), rep(0,8)),
+            nrow = 4, ncol = 16, byrow = TRUE)
+
+M
+```
+
+
 *** 
 
 # Testing for equality {#equality}
@@ -230,7 +260,7 @@ X
 t(X)
 ```
 
-# Addition/Subtraction 
+# Addition/Subtraction {#add_sub}
 
 Matrices of the same order can be added and subtracted. Recall from lecture the rules about addition and subtraction:
 
@@ -419,9 +449,9 @@ Let's take an example matrix `C`:
 
 ### Identity Matrix in R
 
-The simplest way to get an identity matrix in R is to use `diag(x)` where x is the the order of the matrix (the number of rows or columns).
+The simplest way to get an identity matrix in R is to use the `diag()` function.
 
-First we'll create a matrix C.
+First we'll create a matrix `C`.
 ```{r identity_1}
 c_mat <- matrix(data = c(2, 5,
                          4, 3), 
@@ -429,13 +459,13 @@ c_mat <- matrix(data = c(2, 5,
 c_mat
 ```
 
-And next we can get the identity matrix for C, or $I_2$
+And next we can get the identity matrix for `C`, or $I_2$. We want the identity matrix to have the same number of rows and columns as `C`. 
 
 ```{r identity_2}
-id_mat <- diag(nrow(c_mat)) #nrow() gives us the number of rows in c_mat
+id_mat <- diag(x = 1, nrow = nrow(C), ncol = ncol(C)) 
  
 # Or we could have done: 
-#id_mat <- diag(2)
+#id_mat <- diag(x = 1, nrow = 2)
 ```
 
 And finally, multiply them together with `%*%`
@@ -454,22 +484,76 @@ c_mat %*% id_mat == id_mat %*% c_mat
 
 As we saw above, the identity matrix is a special case of a diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are `1`'s. But we can create diagonal matrices that contain other values as well, again using the `diag()` function.
 
-```{r}
-
-```
-
-
 ## Creating diagonal matrices
+
+To create a diagonal matrix with 4 rows containing `2`'s all along the diagonal, we would do the following:
+
+```{r}
+diag_twos <- diag(x = 2, nrow = 4)
+
+diag_twos
+```
 
 ## Pre-multiplication
 
-Pre-multiplication of a matrix X by a diagonal matrix `D` results in the **rows** of `X` being multiplied by the corresponding diagonal element in `D`.
+Pre-multiplication of a matrix `X` by a diagonal matrix `D` results in the **rows** of `X` being multiplied by the corresponding diagonal element in `D`.
+
+Let's use the following example for X:
+
+```{r}
+X <- matrix(c(1, 2, 3,
+              4, 5, 6),
+            nrow = 2, ncol = 3, byrow = TRUE)
+
+X
+```
+
+First we'll create our diagonal matrix that we will pre-multiply `X` by. Because the order of `X` is `[2,3]`, our diagnoal matrix that we are pre-multiplying by should have the same number of columns as there are rows in `X`. Since a diagonal matrix is symmetric, the number of rows and columns are the same. 
+
+```{r}
+preT <- diag(x = 2, nrow = nrow(X), ncol = nrow(X))
+
+preT
+```
+
+Now let's pre-multiply by `X`. This will result in multiplying all the rows by 2.
+
+```{r}
+preT %*% X
+```
+
 
 ## Post-multiplication
 
-Post-multiplication of a matrix X by a diagonal matrix `D` results in the **columns** of `X` being multiplied by the corresponding diagonal element in `D`.
+Post-multiplication of a matrix `X` by a diagonal matrix `D` results in the **columns** of `X` being multiplied by the corresponding diagonal element in `D`.
 
-## Simultaneous pre- and post-multiplication
+Let's use the same matrix `X` as our example. 
+
+```{r}
+X
+```
+
+Now we'll create our diagonal matrix that we will post-multiply `X` by. Because the order of `X` is `[2,3]`, our diagonal matrix that we are post-multiplying by should have the same number of rows as there are columns in `X`. Again, since a diagonal matrix is symmetric, the number of rows and columns are the same. 
+
+```{r}
+postT <- diag(.25, nrow = ncol(X), ncol = ncol(X))
+
+postT
+```
+
+Now let's post-multiply by `X`. This will result in multipling all the columns by 1/4.
+
+```{r}
+X %*% postT
+```
+
+
+## Simultaneous multiplication
+
+```{r}
+preT %*% X %*% postT
+```
+
 
 # Minihacks {#minihacks}
 
@@ -477,7 +561,7 @@ The minihacks for today are based on the following example:
 
 You run an experiment to test the effectiveness of an memory-improvement intervention. As part of the study, participants take a difficult memory test at time 1, then participate in the intervention, and then retake the memory test one week later. Half the participants are assigned to a control condition, and half are assigned to the intervention. Use the following code to create a matrix representing a dataset of scores, $X_{10,3}$:
 
-```{r create_data, eval = FALSE}
+```{r create_data}
 X = matrix(c(45, 52, 54, 52, 50, 72, 43, 56, 62, 47,
              41, 51, 57, 52, 45, 83, 55, 70, 75, 57,
              1, 1, 1, 1, 1, 2, 2, 2, 2, 2), 
@@ -487,24 +571,68 @@ X = matrix(c(45, 52, 54, 52, 50, 72, 43, 56, 62, 47,
 
 You should how have a matrix with three columns, named T1 (memory score at time 1), T2 (memory score at time 2), and G (group, 1 = control, 2 = intervention).
 
-## Minihack 1: Linear transformations
+## Minihack 1: Identifying linear combinations
 
-1. Mean 
+1. Take a look at the following code. Don't run the matrix multiplication step yet. What would this linear combination accomplish?
 
-2. Some linear combination of variables 
+```{r eval = FALSE}
+pre_T <- matrix(rep(1), ncol = nrow(X))
 
-## Minihack 2: Descriptives statistics with matrices
+postT <- diag(1/(nrow(X)) , nrow = ncol(X))
+
+preT %*% X %*% postT
+```
+
+2. Now run this code and check whether your intuition was correct. You should be able to check by using another function that you've already learned. 
+
+## Minihack 2: Creating your own linear combinations
 
 Use matrix algebra to do the following:
 
 1. Create a new vector representing the difference between T1 and T2.
 
-1. Calculate the average T1 score for the whole sample.
+```{r}
+diff = matrix(c(-1, 1, 0), ncol = 1)
+X %*% diff
+```
+ 
+2. Calculate the average T1 score for the whole sample.
 
-1. Calculate the average T1 score for each group.
+```{r}
+diff = matrix(c(1,0,0), ncol = 1)
+group = matrix(rep(.1,10),
+               nrow = 1, byrow = T)
+group %*% X %*% diff
+```
+
+3. Calculate the average T1 score for each group.
+
+```{r}
+diff = matrix(c(1,0,0), ncol = 1)
+group = matrix(c(rep(.2,5), rep(0,10), rep(.2, 5)),
+               nrow = 2, byrow = T)
+group %*% X %*% diff
+```
 
 ## Minihack 3: Calculate the covariance matrix
 
 Calculate the covariance matrix of X. (Hint: you'll need to create a matrix to subtract from X in order to get deviation scores.) Use the `cov()` function to show that you calculated this matrix correctly.
 
+
+```{r}
+# get a matrix equal in dimension to X, where each value is the mean of the column
+mX = apply(X, 2, mean)
+MX = matrix(rep(mX, nrow(X)), byrow=T, ncol = length(mX))
+
+
+d = X-MX
+
+SP = t(d) %*% d
+
+covX = SP*(1/(nrow(X)-1))
+covX
+cov(X) 
+
+round(covX, 2) == round(cov(X), 2)
+```
 

@@ -1527,7 +1527,7 @@ div.tocify {
 
 <div id="purpose" class="section level1">
 <h1>Purpose</h1>
-<p>The purpose of today’s lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus during the minihacks on applying what you learned in lecture to calculate basic descriptive statistics (which we discussed in <a href="https://uopsych.github.io/psy611/labs/lab-2.html" target="_blank">last week’s lab</a>) using matrix algebra.</p>
+<p>The purpose of today’s lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus during the minihacks on applying what you learned in lecture to create linear combinations of data, including calculating some basic descriptive statistics (which we discussed in <a href="https://uopsych.github.io/psy611/labs/lab-2.html" target="_blank">last week’s lab</a>).</p>
 <p>Today’s lab will cover:</p>
 <ol style="list-style-type: decimal">
 <li><a href="#types">Review of matrix types</a></li>
@@ -1634,6 +1634,37 @@ a_mat_named</code></pre>
 ## [1,]    1    2    3
 ## [2,]    1    2    3</code></pre>
 <p>Notice that the <code>dimnames</code> argument expects a list (hence the use of <code>list()</code>) of length 2 that gives the names of the rows and columns, respectively. Since we didn’t want to add row names, we set the first element of the list to <code>NULL</code>.</p>
+</div>
+<div id="rep-function" class="section level2">
+<h2><code>rep()</code> function</h2>
+<p>The <code>rep()</code> function allows you to replicate values, which can come in handy when creating matrices. For example, let’s say we wanted to create the following matrix in R:</p>
+<p><span class="math display">\[ M = \begin{bmatrix}
+1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 2 &amp; 2 &amp; 2 &amp; 2 &amp; 2 &amp; 2 &amp; 2 &amp; 2\\
+3 &amp; 3 &amp; 3 &amp; 3 &amp; 3 &amp; 3 &amp; 3 &amp; 3 &amp; 3 &amp; 3 &amp; 3 &amp; 3 &amp; 3 &amp; 3 &amp; 3 &amp; 3\\
+4 &amp; 4 &amp; 4 &amp; 4 &amp; 4 &amp; 4 &amp; 4 &amp; 4 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+\end{bmatrix} \]</span></p>
+<p>This would be a pain to type out manually using the <code>matrix()</code> function. Instead, because we have repeating values in our matrix, we can use <code>rep()</code> to each of the rows in our matrix must faster.</p>
+<p>To use <code>rep()</code> you specify <code>x</code> = value or object you want to replicate and <code>times</code> = number of times you want to replicate it.</p>
+<p>e.g. <code>rep(x = 1, times = 10)</code> would result in 1, 1, 1, 1, 1, 1, 1, 1, 1, 1</p>
+<p>Now let’s use <code>rep()</code> and <code>matrix()</code> to create matrix <code>M</code> from above:</p>
+<pre class="r"><code>M &lt;- matrix(c(rep(1, 16),
+              rep(0, 8), rep(2, 8),
+              rep(3, 16),
+              rep(4, 8), rep(0,8)),
+            nrow = 4, ncol = 16, byrow = TRUE)
+
+M</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]
+## [1,]    1    1    1    1    1    1    1    1    1     1     1     1     1
+## [2,]    0    0    0    0    0    0    0    0    2     2     2     2     2
+## [3,]    3    3    3    3    3    3    3    3    3     3     3     3     3
+## [4,]    4    4    4    4    4    4    4    4    0     0     0     0     0
+##      [,14] [,15] [,16]
+## [1,]     1     1     1
+## [2,]     2     2     2
+## [3,]     3     3     3
+## [4,]     0     0     0</code></pre>
 <hr />
 </div>
 </div>
@@ -1723,7 +1754,7 @@ t(X)</code></pre>
 ## [2,]    2    1    2</code></pre>
 </div>
 </div>
-<div id="additionsubtraction" class="section level1">
+<div id="add_sub" class="section level1">
 <h1>Addition/Subtraction</h1>
 <p>Matrices of the same order can be added and subtracted. Recall from lecture the rules about addition and subtraction:</p>
 <center>
@@ -1870,8 +1901,8 @@ B %*% A</code></pre>
 </ol>
 <div id="identity-matrix-in-r" class="section level3">
 <h3>Identity Matrix in R</h3>
-<p>The simplest way to get an identity matrix in R is to use <code>diag(x)</code> where x is the the order of the matrix (the number of rows or columns).</p>
-<p>First we’ll create a matrix C.</p>
+<p>The simplest way to get an identity matrix in R is to use the <code>diag()</code> function.</p>
+<p>First we’ll create a matrix <code>C</code>.</p>
 <pre class="r"><code>c_mat &lt;- matrix(data = c(2, 5,
                          4, 3), 
                 nrow = 2, ncol = 2, byrow = TRUE)
@@ -1879,11 +1910,11 @@ c_mat</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    2    5
 ## [2,]    4    3</code></pre>
-<p>And next we can get the identity matrix for C, or <span class="math inline">\(I_2\)</span></p>
-<pre class="r"><code>id_mat &lt;- diag(nrow(c_mat)) #nrow() gives us the number of rows in c_mat
+<p>And next we can get the identity matrix for <code>C</code>, or <span class="math inline">\(I_2\)</span>. We want the identity matrix to have the same number of rows and columns as <code>C</code>.</p>
+<pre class="r"><code>id_mat &lt;- diag(x = 1, nrow = nrow(C), ncol = ncol(C)) 
  
 # Or we could have done: 
-#id_mat &lt;- diag(2)</code></pre>
+#id_mat &lt;- diag(x = 1, nrow = 2)</code></pre>
 <p>And finally, multiply them together with <code>%*%</code></p>
 <pre class="r"><code>c_mat %*% id_mat</code></pre>
 <pre><code>##      [,1] [,2]
@@ -1903,17 +1934,69 @@ c_mat</code></pre>
 <p>As we saw above, the identity matrix is a special case of a diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are <code>1</code>’s. But we can create diagonal matrices that contain other values as well, again using the <code>diag()</code> function.</p>
 <div id="creating-diagonal-matrices" class="section level2">
 <h2>Creating diagonal matrices</h2>
+<p>To create a diagonal matrix with 4 rows containing <code>2</code>’s all along the diagonal, we would do the following:</p>
+<pre class="r"><code>diag_twos &lt;- diag(x = 2, nrow = 4)
+
+diag_twos</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    2    0    0    0
+## [2,]    0    2    0    0
+## [3,]    0    0    2    0
+## [4,]    0    0    0    2</code></pre>
 </div>
 <div id="pre-multiplication" class="section level2">
 <h2>Pre-multiplication</h2>
-<p>Pre-multiplication of a matrix X by a diagonal matrix <code>D</code> results in the <strong>rows</strong> of <code>X</code> being multiplied by the corresponding diagonal element in <code>D</code>.</p>
+<p>Pre-multiplication of a matrix <code>X</code> by a diagonal matrix <code>D</code> results in the <strong>rows</strong> of <code>X</code> being multiplied by the corresponding diagonal element in <code>D</code>.</p>
+<p>Let’s use the following example for X:</p>
+<pre class="r"><code>X &lt;- matrix(c(1, 2, 3,
+              4, 5, 6),
+            nrow = 2, ncol = 3, byrow = TRUE)
+
+X</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6</code></pre>
+<p>First we’ll create our diagonal matrix that we will pre-multiply <code>X</code> by. Because the order of <code>X</code> is <code>[2,3]</code>, our diagnoal matrix that we are pre-multiplying by should have the same number of columns as there are rows in <code>X</code>. Since a diagonal matrix is symmetric, the number of rows and columns are the same.</p>
+<pre class="r"><code>preT &lt;- diag(x = 2, nrow = nrow(X), ncol = nrow(X))
+
+preT</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    2    0
+## [2,]    0    2</code></pre>
+<p>Now let’s pre-multiply by <code>X</code>. This will result in multiplying all the rows by 2.</p>
+<pre class="r"><code>preT %*% X</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    2    4    6
+## [2,]    8   10   12</code></pre>
 </div>
 <div id="post-multiplication" class="section level2">
 <h2>Post-multiplication</h2>
-<p>Post-multiplication of a matrix X by a diagonal matrix <code>D</code> results in the <strong>columns</strong> of <code>X</code> being multiplied by the corresponding diagonal element in <code>D</code>.</p>
+<p>Post-multiplication of a matrix <code>X</code> by a diagonal matrix <code>D</code> results in the <strong>columns</strong> of <code>X</code> being multiplied by the corresponding diagonal element in <code>D</code>.</p>
+<p>Let’s use the same matrix <code>X</code> as our example.</p>
+<pre class="r"><code>X</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6</code></pre>
+<p>Now we’ll create our diagonal matrix that we will post-multiply <code>X</code> by. Because the order of <code>X</code> is <code>[2,3]</code>, our diagonal matrix that we are post-multiplying by should have the same number of rows as there are columns in <code>X</code>. Again, since a diagonal matrix is symmetric, the number of rows and columns are the same.</p>
+<pre class="r"><code>postT &lt;- diag(.25, nrow = ncol(X), ncol = ncol(X))
+
+postT</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,] 0.25 0.00 0.00
+## [2,] 0.00 0.25 0.00
+## [3,] 0.00 0.00 0.25</code></pre>
+<p>Now let’s post-multiply by <code>X</code>. This will result in multipling all the columns by 1/4.</p>
+<pre class="r"><code>X %*% postT</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,] 0.25 0.50 0.75
+## [2,] 1.00 1.25 1.50</code></pre>
 </div>
-<div id="simultaneous-pre--and-post-multiplication" class="section level2">
-<h2>Simultaneous pre- and post-multiplication</h2>
+<div id="simultaneous-multiplication" class="section level2">
+<h2>Simultaneous multiplication</h2>
+<pre class="r"><code>preT %*% X %*% postT</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]  0.5  1.0  1.5
+## [2,]  2.0  2.5  3.0</code></pre>
 </div>
 </div>
 <div id="minihacks" class="section level1">
@@ -1926,25 +2009,87 @@ c_mat</code></pre>
            ncol = 3, byrow = F, 
            dimnames = list(NULL, c(&quot;T1&quot;, &quot;T2&quot;, &quot;G&quot;)))</code></pre>
 <p>You should how have a matrix with three columns, named T1 (memory score at time 1), T2 (memory score at time 2), and G (group, 1 = control, 2 = intervention).</p>
-<div id="minihack-1-linear-transformations" class="section level2">
-<h2>Minihack 1: Linear transformations</h2>
+<div id="minihack-1-identifying-linear-combinations" class="section level2">
+<h2>Minihack 1: Identifying linear combinations</h2>
 <ol style="list-style-type: decimal">
-<li><p>Mean</p></li>
-<li><p>Some linear combination of variables</p></li>
+<li>Take a look at the following code. Don’t run the matrix multiplication step yet. What would this linear combination accomplish?</li>
+</ol>
+<pre class="r"><code>pre_T &lt;- matrix(rep(1), ncol = nrow(X))
+
+postT &lt;- diag(1/(nrow(X)) , nrow = ncol(X))
+
+preT %*% X %*% postT</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Now run this code and check whether your intuition was correct. You should be able to check by using another function that you’ve already learned.</li>
 </ol>
 </div>
-<div id="minihack-2-descriptives-statistics-with-matrices" class="section level2">
-<h2>Minihack 2: Descriptives statistics with matrices</h2>
+<div id="minihack-2-creating-your-own-linear-combinations" class="section level2">
+<h2>Minihack 2: Creating your own linear combinations</h2>
 <p>Use matrix algebra to do the following:</p>
 <ol style="list-style-type: decimal">
-<li><p>Create a new vector representing the difference between T1 and T2.</p></li>
-<li><p>Calculate the average T1 score for the whole sample.</p></li>
-<li><p>Calculate the average T1 score for each group.</p></li>
+<li>Create a new vector representing the difference between T1 and T2.</li>
 </ol>
+<pre class="r"><code>diff = matrix(c(-1, 1, 0), ncol = 1)
+X %*% diff</code></pre>
+<pre><code>##       [,1]
+##  [1,]   -4
+##  [2,]   -1
+##  [3,]    3
+##  [4,]    0
+##  [5,]   -5
+##  [6,]   11
+##  [7,]   12
+##  [8,]   14
+##  [9,]   13
+## [10,]   10</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Calculate the average T1 score for the whole sample.</li>
+</ol>
+<pre class="r"><code>diff = matrix(c(1,0,0), ncol = 1)
+group = matrix(rep(.1,10),
+               nrow = 1, byrow = T)
+group %*% X %*% diff</code></pre>
+<pre><code>##      [,1]
+## [1,] 53.3</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Calculate the average T1 score for each group.</li>
+</ol>
+<pre class="r"><code>diff = matrix(c(1,0,0), ncol = 1)
+group = matrix(c(rep(.2,5), rep(0,10), rep(.2, 5)),
+               nrow = 2, byrow = T)
+group %*% X %*% diff</code></pre>
+<pre><code>##      [,1]
+## [1,] 50.6
+## [2,] 56.0</code></pre>
 </div>
 <div id="minihack-3-calculate-the-covariance-matrix" class="section level2">
 <h2>Minihack 3: Calculate the covariance matrix</h2>
 <p>Calculate the covariance matrix of X. (Hint: you’ll need to create a matrix to subtract from X in order to get deviation scores.) Use the <code>cov()</code> function to show that you calculated this matrix correctly.</p>
+<pre class="r"><code># get a matrix equal in dimension to X, where each value is the mean of the column
+mX = apply(X, 2, mean)
+MX = matrix(rep(mX, nrow(X)), byrow=T, ncol = length(mX))
+
+
+d = X-MX
+
+SP = t(d) %*% d
+
+covX = SP*(1/(nrow(X)-1))
+covX</code></pre>
+<pre><code>##          T1         T2         G
+## T1 73.56667  98.355556 1.5000000
+## T2 98.35556 178.711111 5.2222222
+## G   1.50000   5.222222 0.2777778</code></pre>
+<pre class="r"><code>cov(X) </code></pre>
+<pre><code>##          T1         T2         G
+## T1 73.56667  98.355556 1.5000000
+## T2 98.35556 178.711111 5.2222222
+## G   1.50000   5.222222 0.2777778</code></pre>
+<pre class="r"><code>round(covX, 2) == round(cov(X), 2)</code></pre>
+<pre><code>##      T1   T2    G
+## T1 TRUE TRUE TRUE
+## T2 TRUE TRUE TRUE
+## G  TRUE TRUE TRUE</code></pre>
 </div>
 </div>
 
