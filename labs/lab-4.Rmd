@@ -543,13 +543,15 @@ You are welcome to work with a partner or in a small group of 2-3 people.
 
 ## Minihack 1: Binomial Distributions
 
-1. You are playing Dungeons and Dragons and, to the Dungeon Master's displeasure, you run immediately to the dragon that is meant to be encountered at the end of her carefully-crafted campaign. To defeat the dragon, you must roll `5` `20`-sided dicee, and get a `20` on each die. What is the probability of getting this result?
+You are playing Dungeons and Dragons and, to the Dungeon Master's displeasure, you run immediately to the dragon that is meant to be encountered at the end of her carefully-crafted campaign.
+
+1. To defeat the dragon, you must roll `5` `20`-sided dicee, and get a `20` on each die. What is the probability of getting this result?
 
 ```{r}
 dbinom(x = 5, size = 5, prob = 1/20)
 ```
 
-1. Knowing the probability, you refuse to roll. Your dungeon master decides to take pity on you. She tells you, if you roll greater than `2` (i.e., `3` or more) `20`s she will let you slay the dragon. What is the probability of getting more than `2` `20`s when rolling `5` `20`-sided dice?
+1. Your dungeon master decides to take pity on you. She tells you, if you roll greater than `2` (i.e., `3` or more) `20`s she will let you slay the dragon. What is the probability of getting more than `2` `20`s when rolling `5` `20`-sided dice?
 
 ```{r}
 pbinom(q = 2, size = 5, prob = 1/20, lower.tail = FALSE)
@@ -563,27 +565,40 @@ qbinom(p = .10, size = 5, prob = 1/20, lower.tail = FALSE)
 
 ## Minihack 2: Normal Distributions
 
+1. From data released from the Graduate Coffee Drinkers Association, you know coffee consumption is normally distributed among graduate students, with the average student drinking `5` cups of coffee per day and that 68% of students drink between `4` and `6` cups of coffee per day (i.e., a standard deviation is `1`). What is the probability that a randomely selected graduate student will drink `2` or less cups of coffee per day?
+
+```{r}
+pnorm(q = 2, mean = 5, sd = 1)
+```
+
+1. Plot a histogram of this distribution by randomely sampling 1000 graduate students from the sampling distribution?
+
+```{r}
+hist(rnorm(n = 1000, mean = 5, sd = 1))
+```
+
+1. Ever since finding the data from the GCDA, You have begun to worry about how much coffee you are drinking compared to the average graduate student. Calculate the probability that a graduate student would drink 10 or more cups a day.
+
+```{r}
+pnorm(q = 9, mean = 5, sd = 1, lower.tail = FALSE)
+```
+
 ## Minihack 3: Other Distributions to Extend your Knowledge
 
-1. My collaborater wants me to calculate a p-value for her, but I've sworn off null hypothesis testing. Fortunately, I was in the middle of writing this lab when I received her email. Use the `pchisq()` function to calculate the p-value for her Chi-Square test. She told me the following information about the test:
-the chi-square value (`q`) was `1.00` 
-there were `10` degrees of freedom (`df`)
+A magician accosts you in the street, and demands you think of a number between `1` and `100`. You think of `37` and the magician guesses `37`. Assuming the choice of numbers follows a uniform distribution, what is the probability that the aggressive magician guessed your number at random? Use `dunif` to prove your intuition is correct.
 
 ```{r}
-pchisq(3, 10, lower.tail = FALSE)
+dunif(x = 37, min = 0, max = 100)
 ```
 
-
-1. My collaborator just emailed me back and told me that she wasn't trying to calculate a p-value for a chi-square-test. She was trying to calculate a p-value for a t-test. I told her that I don't know any functions for t-tests, but she told me to Google it. Google (or take an educated guess) at how to calculate a p-value for my collaborator
+1. My collaborater wants me to calculate a p-value for her, but I've sworn off null hypothesis testing. Fortunately, I was in the middle of writing this lab when I received her email. Use the `pchisq()` function to calculate the probability of getting a $\chi^2$-value of greater than `3.00` with `10` degrees of freedom.
 
 ```{r}
-pt(3, 10, lower.tail = FALSE)
+pchisq(q = 3, df = 10, lower.tail = FALSE)
 ```
 
-1. My collaborator also likes to mess with me and sometimes switches around letters in my code. The following code is calculating the cumulative probability of getting a value of `5` from a uniform distribution, but I want it to get the specific probability of getting a value of `5` from a uniform distribution. 
+1. My collaborator just emailed me back and told me that she wasn't trying to calculate a p-value for a chi-square test. She was trying to calculate a p-value for a t-test. I told her that I don't know any functions for t-tests, but she told me to Google it. Calculate the probability of getting a t-value of greater than `3.00` with `10` degrees of freedom. 
 
 ```{r}
-dunif(x = 5, min = 0, max = 10)
+pt(q = 3, df = 10, lower.tail = FALSE)
 ```
-
-
