@@ -512,37 +512,25 @@ pnorm(q = -5, mean = 0, sd = 5, lower.tail = FALSE)
 
 Finally, we can use `qnorm` to get the value for a variable or less that corresponds to a particular probability. Once again, we can set the mean (`mean`) and standard deviation (`sd`) of the distribution, but we use `p` to set the probabiltiy.
 
-For example, the value or less 
-
-for probability .50
-```{r}
-ball_plot(0)
-```
+For example, to get the value or less that has a probabiltiy of `0.00135` of occuring in a distrubtion with a mean of `0` and a standard deviation of `1` is calculated using `qnorm(p = .00135, mean = 0, sd = 1)`.
 
 ```{r}
-qnorm(0.5, 0, 1)
-pnorm(0.2533471, 0, 1)
+qnorm(p = .00135, mean = 0, sd = 1)
 ```
 
-for probability .975
-```{r}
-ball_plot(qnorm(0.975, 0, 1))
-```
+As we can see, the value is just about `-3.00`. This makes sense if we consider that `99.73`% of values are between three standard deviations below and three standard deviations above the mean. Therefore, we would expect the probability of getting `-3.00` would be $\frac{1-.9973}{2} = 0.00135$.
+
+**What value or less is assocaited with a `.51` probability in a normal distribution with a mean of `500` and a sd of `10`?**
 
 ```{r}
-qnorm(0.975, 0, 1)
+qnorm(p = .51, mean = 100, sd = 10)
 ```
 
-for probability .97 upper
-```{r}
-ball_plot(qnorm(0.975, 0, 1), lower.tail = FALSE)
-```
+**What value or greater is assocaited with a `.51` probability in a normal distribution with a mean of `500` and a sd of `10`?**
 
 ```{r}
-qnorm(0.975, 0, 1, lower.tail = FALSE)
+qnorm(p = .51, mean = 100, sd = 10, lower.tail = FALSE)
 ```
-
-
 
 
 # Minihacks {#minihacks}
