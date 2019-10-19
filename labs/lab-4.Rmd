@@ -9,6 +9,10 @@ output:
 ---
 
 ```{r setup, include = FALSE}
+# set chunk options
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
 # suppress scientific notation
 options(scipen = 999)
 
@@ -22,12 +26,13 @@ library(panoply)
 
 # Purpose
 
-The purpose of today's lab is to introduce tools for sampling from and calculating statistics for different types of distributions. The content of the lab will be largely split into two sections. The first section will focus on binomial distributions. The second section will focus on normal distributions. At the end, we will briefly discuss tools for other types of distributions. As always, there are [Minihacks](#minihacks) at the end of this document to test your knowledge.
+The purpose of today's lab is to introduce tools for sampling from and calculating statistics for different types of distributions in R. The content of the lab will be split into two sections. The first section will focus on binomial distributions and the second section will focus on normal distributions. The [Minihacks](#minihacks) will test your knowledge of both types of distributions, as well as some distributions not discussed in lab but that are nonetheless important.
 
-Today's lab will cover:
+To quickly navigate to the desired section, click one of the following links:
 
 1. [Binomial Distributions](#binomial)
 1. [Normal Distributions](#normal)
+1. [Minihacks](#minihacks)
 
 ***
 
@@ -276,7 +281,7 @@ qbinom(p = .25, size = 100, prob = 1/2)
 qbinom(p = .25, size = 100, prob = 1/2, lower.tail = FALSE)
 ```
 
-# Normal Distributions
+# Normal Distributions {#normal}
 
 Recall from class that a `normal distribution` is a continuous probability distribution that is defined by a mean ($\mu$) and a standard deviation ($\sigma$). Whereas the binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when the outcome of very trial is binarry, the normal distribution describe the theoretical probability of obtaining a certain outcome on a continuous distribution that has a certain mean ($\mu$) and standard deviation ($\sigma$)
 
@@ -312,7 +317,7 @@ sim <- map_df(sample_size, function(sample_size) {
   })
 ```
 
-```{r}
+```{r, echo = FALSE}
 sim %>%
   filter(sample_size == 5) %>%
   ggplot(aes(x = sample)) +
@@ -327,7 +332,7 @@ sim %>%
 Not to worry! As illustrated in the animation below, many samples do not appear normal until large enough samples are taken.
 As shown in the animation below, when we draw observations
 
-```{r}
+```{r, echo = FALSE}
 plot3 <- ggplot(sim, aes(x = sample)) +
   geom_histogram(fill = "turquoise3", colour = "white", alpha = .7) +
   theme_bw(base_size = 16) +
@@ -532,43 +537,29 @@ qnorm(p = .51, mean = 100, sd = 10)
 qnorm(p = .51, mean = 100, sd = 10, lower.tail = FALSE)
 ```
 
-
 # Minihacks {#minihacks}
 
-You are welcome to work with a partner or in a small group of 2-3 people. If you have any questions, I would be happy to answer them!
+You are welcome to work with a partner or in a small group of 2-3 people.
 
 ## Minihack 1: Binomial Distributions
 
-1. You are playing Dungeons and Dragons and, to you Dungeon Master's displeasure, you run immediately to the dragon that is meant to be encountered at the end of the campaign. Yo must roll `2` `20`-sided die. However, in order to slay the dragon, you must roll two `20`s. What is the the probability of getting this result?
+1. You are playing Dungeons and Dragons and, to the Dungeon Master's displeasure, you run immediately to the dragon that is meant to be encountered at the end of her carefully-crafted campaign. To defeat the dragon, you must roll `5` `20`-sided dicee, and get a `20` on each die. What is the probability of getting this result?
 
 ```{r}
-dbinom(x = 2, size = 2, 1/20)
+dbinom(x = 5, size = 5, prob = 1/20)
 ```
 
-1. Your dungeon master has a change of heart and she decides to take pity on you. She says, if you roll at least `1` `20` she will let you live. What is the probability of getting rolling more than `0` `20`s when rolling `2` dice?
+1. Knowing the probability, you refuse to roll. Your dungeon master decides to take pity on you. She tells you, if you roll greater than `2` (i.e., `3` or more) `20`s she will let you slay the dragon. What is the probability of getting more than `2` `20`s when rolling `5` `20`-sided dice?
 
 ```{r}
-pbinom(q = 0, size = 2, 1/20, lower.tail = FALSE)
-
+pbinom(q = 2, size = 5, prob = 1/20, lower.tail = FALSE)
 ```
 
-
-1. Lottery
-
-Has been buying a lottery ticket for the last 52 weeks. The probabiliy that they win the lottery is 1/10000. What is the probability that they win at least one?
+1. You tell her you will only roll if the probability is greater than `.10`. She acquiesces. What is the minimum number of `20`s that is associated with a probability of `.10`?
 
 ```{r}
-dbinom(100, size = 100, prob = 1 / 1000)
-
-(1/1000)^100
-
-HTTT 
-THTT
-TTHT
-TTTH
-
+qbinom(p = .10, size = 5, prob = 1/20, lower.tail = FALSE)
 ```
-
 
 ## Minihack 2: Normal Distributions
 
