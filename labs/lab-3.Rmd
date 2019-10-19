@@ -13,15 +13,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # suppress scientific notation
 options(scipen = 999)
-
-# load libraries
-
 ```
 
 
 # Purpose
 
-The purpose of today's lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus on how you can calculate basic descriptive statistics (which we discussed in [last week's lab](https://uopsych.github.io/psy611/labs/lab-2.html){target="_blank"}) using matrix algebra. 
+The purpose of today's lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus during the minihacks on applying what you learned in lecture to create linear combinations of data, including calculating some basic descriptive statistics (which we discussed in [last week's lab](https://uopsych.github.io/psy611/labs/lab-2.html){target="_blank"}).
 
 Today's lab will cover:
 
@@ -40,7 +37,7 @@ Today's lab will cover:
 
 __Notation and Terminology:__
 
-$a_{rc}$ refers to the entry at row $r$ and column $c$ in matrix $a$.  
+$A_{rc}$ refers to the entry at row $r$ and column $c$ in matrix $A$.  
 "Order" refers to the dimensions of a matrix: the number of rows and the number of columns $(r,c)$.
 
 1. Rectangular: $r \neq c$  
@@ -50,7 +47,7 @@ $a_{rc}$ refers to the entry at row $r$ and column $c$ in matrix $a$.
 \end{bmatrix} \]
 
 2. Square:  $r = c$  
-\[ a = \begin{bmatrix}
+\[ A = \begin{bmatrix}
 2 & 9\\
 4 & 6
 \end{bmatrix} \]
@@ -67,8 +64,8 @@ $a_{rc}$ refers to the entry at row $r$ and column $c$ in matrix $a$.
 0 & 0 & 3
 \end{bmatrix} \]
 
-5. Identity:  The diagonal matrix with 1s along the principal diagonal.  
-\[ A = \begin{bmatrix}
+5. Identity:  A diagonal matrix with 1s along the principal diagonal.  
+\[ I = \begin{bmatrix}
 1 & 0 & 0 & 0 \\
 0 & 1 & 0 & 0 \\
 0 & 0 & 1 & 0 \\
@@ -85,7 +82,7 @@ $a_{rc}$ refers to the entry at row $r$ and column $c$ in matrix $a$.
 
 # How to create a matrix {#create}
 
-We create matrices in R by using the `matrix()` function. To specify a matrix using the `matrix()` function, we need to provide the `data` (i.e., the elements, or numbers in the matrix), the number of rows (`nrow`), the number of columns (`ncol`), and then tell it whether the order of elements is entered `byrow` or not. If you're entering it row-wise, you want to set `byrow = TRUE`. If you're entering it column wise, you want to set `byrow = FALSE`.
+We create matrices in R by using the `matrix()` function. To do this, we need to provide the `data` (i.e., the elements, or numbers in the matrix), the number of rows (`nrow`), the number of columns (`ncol`), and then tell it whether the order of elements is entered `byrow` or not. If you're entering it row-wise, you want to set `byrow = TRUE`. If you're entering it column-wise, you want to set `byrow = FALSE` or leave this argument blank (as `byrow = FALSE` by default).
 
 Let's practice creating a few matrices:
 
@@ -94,51 +91,103 @@ a_mat <- matrix(data = c(1, 2, 3,
                          1, 2, 3), 
                 nrow = 2, ncol = 3, byrow = TRUE) # spacing is irrelevant
                                                   # but I find it easier to read
-print(a_mat)
+a_mat # print a_mat
 
 b_mat <- matrix(data = c(1, 1, 
                          2, 2, 
                          3, 3), 
                 nrow = 3, ncol = 2, byrow = TRUE) 
-print(b_mat)
+b_mat # print b_mat
 
 c_mat <- matrix(data = c(1, 1, 
                          2, 4, 
                          3, 5), 
                 nrow = 3, ncol = 2, byrow = TRUE) 
-print(c_mat)
+c_mat # print c_mat
 
 d_mat <- matrix(data = c(1, 1,
                          2, 2, 
                          3, 3), 
                 nrow = 3, ncol = 2, byrow = TRUE) 
-print(d_mat)
+d_mat # print d_mat
 ```
+
+## Naming rows and columns
+
+If you want the rows and columns of your matrix to have labels, you can specify these using the `dimnames` argument of the `matrix()` function. Commonly, you would want to name your columns (which generally correspond to variables) but not your rows (which generally correspond to observations).
+
+For example, let's re-create `a_mat` from above, but give our columns the names `var1`, `var2` and `var3`. 
+
+```{r}
+a_mat_named <- matrix(data = c(1, 2, 3,
+                               1, 2, 3),
+                      nrow = 2, ncol = 3, byrow = TRUE,
+                      dimnames = list(NULL, c("var1", "var2", "var3")))
+
+a_mat_named
+```
+
+Notice that the `dimnames` argument expects a list (hence the use of `list()`) of length 2 that gives the names of the rows and columns, respectively. Since we didn't want to add row names, we set the first element of the list to `NULL`.
+
+## `rep()` function
+
+The `rep()` function allows you to replicate values, which can come in handy when creating matrices. For example, let's say we wanted to create the following matrix in R:
+
+\[ M = \begin{bmatrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2\\
+3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3\\
+4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+\end{bmatrix} \]
+
+This would be a pain to type out manually using the `matrix()` function. Instead, because we have repeating values in our matrix, we can use `rep()` to create each of the rows in our matrix must faster. 
+
+To use `rep()` you specify `x` = the value that you want to replicate and `times` = the number of times you want to replicate it. 
+
+e.g. `rep(x = 1, times = 10)` would result in `r rep(1, 10)`
+
+Now let's use `rep()` and `matrix()` to create matrix `M` from above:
+
+```{r}
+M <- matrix(c(rep(1, 16),
+              rep(0, 8), rep(2, 8),
+              rep(3, 16),
+              rep(4, 8), rep(0,8)),
+            nrow = 4, ncol = 16, byrow = TRUE)
+
+M
+```
+
 
 *** 
 
 # Testing for equality {#equality}
 
-Next, we'll Check if the order is the same using a combination of `dim()`, which returns the dimensions of the matrix (rows, columns) and the equality test `==`. REMEMBER: `=` is to define things (arguments in functions & objects) and `==` tests for equality. 
+## Equality of dimensions
+
+We can check whether or not the order of two matrices are the same using a combination of `dim()`, which returns the dimensions of the matrix (rows, columns) and the equality test `==`.
+
+<br />
+**NOTE**: `=` is to define things (arguments in functions & objects) and `==` tests for equality. 
 
 We get two results for each test, which correspond to (in order): 
 <br /> 
-1. same number of rows? 
+1. Do the matrices have the same number of rows? 
 <br /> 
-2. same number of columns?
+2. Do the matrices have the same number of columns?
 
-First let's check A against the others
+First let's check `A` against the others
 
 ```{r equality_2_a}
-# check a against the others
+# check A against the others
 dim(a_mat) == dim(b_mat)
 dim(a_mat) == dim(c_mat)
 dim(a_mat) == dim(d_mat)
 ```
 
-As we knew (from looking at them ourselves), a is not the same shape as b, c, and d.
+As we knew (from looking at them ourselves), `A` is not the same shape as `B`, `C`, and `D`.
 
-Next we'll check B angainst C and D:
+Next we'll check `B` against `C` and `D`:
 
 ```{r equality_2_b}
 # Check B against C and D.
@@ -146,16 +195,16 @@ dim(b_mat) == dim(c_mat)
 dim(b_mat) == dim(d_mat)
 ```
 
-Dimensions of b, c, and d match.
+## Equality of elements
 
-Q: Why didn't we test c and d?
-A:
+The dimensions of `B`, `C`, and `D` are the same, so now let's test the equality of the elements.
 
-The dimensions of B, C, and D are the same, so let's test the equality of the elements.
 ```{r equality_2_c}
 b_mat == c_mat
 b_mat == d_mat
 ```
+
+We can see that `B` and `D` are identical matrices because they have the exact same elements. This is a simple trivial example, because we could already tell they were the same just by looking at them -- however, testing the equality of matrices can be very useful when you have much larger matrices that you can't compare by eye. 
 
 # Transpose {#transpose}
 
@@ -163,7 +212,7 @@ Transposing a matrix consists of exchanging the row and column for each element 
 
 __Example:__
 
-\[ A = \begin{bmatrix}
+\[ X = \begin{bmatrix}
 1 & 2 \\
 5 & 1 \\
 7 & 2
@@ -187,48 +236,98 @@ $1_{22} \rightarrow 1_{22}$
 
 $2_{32} \rightarrow 2_{23}$
 
-Since the order of the above matrix is 3x2, what will the order of its transpose be?  
-\[ A' = \begin{bmatrix}
+**Question**: Since the order of the above matrix is 3x2, what will the order of its transpose be?  
+
+\[ X' = \begin{bmatrix}
 1 & 5 & 7 \\
 2 & 1 & 2
 \end{bmatrix} \]
 
 ## Transpose in R
 
-To transpose in R, just use the function `t()`. Let's take a look at the transpose of matrix C
+To transpose a matrix in R, just use the function `t()`. Let's take a look at the transpose of matrix `X` from above.
 
 ```{r transpose}
-print(c_mat)
-t(c_mat)
+# create the matrix
+X <- matrix(c(1, 2,
+            5, 1, 
+            7, 2), 
+            nrow = 3, ncol = 2, byrow = TRUE)
+
+# view the matrix
+X
+
+# take the transpose of the matrix
+t(X)
 ```
 
-# Addition/Subtraction 
+# Addition/Subtraction {#add_sub}
+
+Matrices of the same order can be added and subtracted. Recall from lecture the rules about addition and subtraction:
+
+<center>
+Matrix addition is **commutative**...
+</center>
+
+$$\large \mathbf{A}+\mathbf{B}=\mathbf{B}+\mathbf{A}$$
+
+<center>
+...and **associative**:
+</center>
+
+$$\large \mathbf{A} + \mathbf{B} + \mathbf{C} = (\mathbf{A} + \mathbf{B}) + \mathbf{C} = \mathbf{A} + (\mathbf{B} + \mathbf{C})$$
+<center>
+Matrix subtraction is **distributive**
+</center>
+
+$$\large \mathbf{A} – (\mathbf{B} + \mathbf{C}) = \mathbf{A} – \mathbf{B} – \mathbf{C}$$ 
+
+$$\large \mathbf{A} – (\mathbf{B} – \mathbf{C}) = \mathbf{A} – \mathbf{B} + \mathbf{C}$$
+
+Let's test out these rules using R!
 
 ```{r}
+# define some matrices to use as examples
 A <- matrix(data = c(6,1, 2,10), nrow = 2, ncol = 2, byrow = T) 
 B <- matrix(data = c(2,1, 1,6), nrow = 2, ncol = 2, byrow = T) 
 C <- matrix(data = c(4,1, 3,2), nrow = 2, ncol = 2, byrow = T) 
-
-# YOUR TURN: Do these problems
-# (1) A + B
-A + B
-# (2) Is this true: A + B = B + A
-A+B==B+A
-# (3) Is this true: (A + B) + C = A + (B + C)
-(A + B) + C == A + (B + C)
-# (4) A - B
-A-B
-# (5) Is this true: A - B = B - A
- A - B == B - A
-# (6) Is this true: (A - B) - C = A - (B - C)
- (A - B) - C == A - (B - C)
 ```
+
+**Let's see if the following statements are true...**
+
+1) A + B = B + A ???
+
+2) (A + B) + C = A + (B + C) ???
+
+3) A - B = B - A ???
+
+4) A - (B - C) = A - B - C ???
+
+5) A - (B - C) = A - B + C ???
+
+```{r echo = FALSE, eval = FALSE}
+#1) A + B = B + A ???
+A + B == B + A
+
+#2) (A + B) + C = A + (B + C) ???
+(A + B) + C == A + (B + C)
+
+#3) A - B = B - A ???
+A - B == B - A
+
+#4) A - (B - C) = A - B - C ???
+A - (B - C) == A - B - C 
+
+#5) A - (B - C) = A - B + C ???
+A - (B - C) == A - B + C
+```
+
 
 # Multiplication {#mult}
 
-Two matrices are "conformable for multiplication" if they have dimensions allowing them to be multiplied (i.e. if the inner dimensions match).
+Two matrices are "conformable for multiplication" if they have dimensions allowing them to be multiplied. Specifically, the number of columns of the first matrix must be equal to the number of rows of the second matrix.
 
-## Example 1:
+## Example 1
 \[ A=\begin{bmatrix}
 1 & 3 \\
 2 & 1 \\
@@ -258,7 +357,31 @@ B=\begin{bmatrix}
 \end{bmatrix}
 \]
 
-## Example 2:
+
+### Example 1 in R
+
+```{r multiplication}
+# Define the matrices
+A <- matrix(data = c(1, 3,
+                     2, 1,
+                     4, 6),
+            nrow = 3, ncol = 2, byrow = TRUE) 
+
+B <- matrix(data = c(1, 5, 8, 3, 
+                     4, 2, 6, 4), 
+            nrow = 2, ncol = 4, byrow = TRUE)
+```
+
+To multiply matrices in R, we have to use the special matrix multiplication operator, `%*%` 
+
+```{r}
+#multiply A by B
+A %*% B
+```
+
+**Question**: What would happen if we tried `B %*% A`?
+
+## Example 2
 \[ A=\begin{bmatrix}
 1 & 2 \\
 3 & 2 \\
@@ -274,26 +397,48 @@ B=\begin{bmatrix}
 3. is $BA$ conformable?
 4. Does $AB = BA$?  In other words, does the matrix product possess the commutative property?
 
-*Note:* the matrix product does possess the associative property: $A(BC)=(AB)C$.
+### Example 2 in R
 
-
-## Matrix multiplication in R
-
-To multiple matrices in R, we have to use the matrix multiplication operator, `%*%` (potentially helpful mneumonic: it sort of looks like an M).
-```{r multiplication}
-a_mat <- matrix(data = c(1, 2, 
-                     3, 2, 
-                     4, 1), 
+```{r}
+# Define the matrices
+A <- matrix(data = c(1, 2,
+                     3, 2,
+                     4, 1),
             nrow = 3, ncol = 2, byrow = TRUE) 
-b_mat <- matrix(data = c(2, 3, 4, 
+
+B <- matrix(data = c(2, 3, 4, 
                      1, 2, 4), 
             nrow = 2, ncol = 3, byrow = TRUE)
-a_mat %*% b_mat
-
 ```
 
-## Multiplying by the Identity Matrix
-### Example
+```{r}
+# multiply A by B
+A %*% B
+```
+
+```{r}
+# multiply B by A
+B %*% A
+```
+
+
+**Question**: What would happen if we tried `A %*% B == B %*% A`?
+
+*Note:* Matrix multiplication *does* possess the associative property: $A(BC)=(AB)C$.
+
+## Identity Matrix
+
+Again, the **identity matrix** is a diagonal matrix with 1s along the principal diagonal. For example...
+
+\[ I = \begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix} \]
+
+Let's take an example matrix `C`:
+
 \[ C=\begin{bmatrix}
 2 & 5 \\
 4 & 3
@@ -303,53 +448,125 @@ a_mat %*% b_mat
 1. If C is multiplied by its identity matrix ($I_{2}$), what will the resulting matrix be?
 2. Does $CI_{2} = I_{2}C$?
 
-*Note:* for your homework, you can't just say $CI_{2} = C$, you need to go through the steps of the multiplication to prove it.
-
 ### Identity Matrix in R
 
-The simplest way to get an identity matrix in R is to use `diag(x)` where x is the the order of the matrix (the number of rows or columns).
+The simplest way to get an identity matrix in R is to use the `diag()` function.
 
-First we'll create a matrix C.
+First we'll create a matrix `C`.
 ```{r identity_1}
-c_mat <- matrix(data = c(2, 5,
+C <- matrix(data = c(2, 5,
                          4, 3), 
                 nrow = 2, ncol = 2, byrow = TRUE)
-print(c_mat)
+C
 ```
 
-And next we can get the identity matrix for C, or $I_2$
+And next we can get the identity matrix for `C`, or $I_2$. We want the identity matrix to have the same number of rows and columns as `C`. 
+
 ```{r identity_2}
-id_mat <- diag(nrow(c_mat))
-# Equivalently, 
-#id_mat <- diag(2)
+id_mat <- diag(x = 1, nrow = nrow(C), ncol = ncol(C)) 
+ 
+# Or we could have hard coded it: 
+#id_mat <- diag(x = 1, nrow = 2, ncol = 2)
 ```
 
 And finally, multiply them together with `%*%`
 ```{r}
-c_mat %*% id_mat
+C %*% id_mat
 ```
 
 And we could test if $CI_2 = I_2C$ 
 ```{r}
-c_mat %*% id_mat == id_mat %*% c_mat
+C %*% id_mat == id_mat %*% C
 ```
+
+*Note*: Multiplying by the identity matrix is a special case in which the commutative property holds true for matrix multiplication.
 
 # Diagonal Matrices {#diag}
 
-## Creating diagnoal matrices
+As we saw above, the identity matrix is a special case of a diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are `1`'s. But we can create diagonal matrices that contain other values as well, again using the `diag()` function.
+
+## Creating diagonal matrices
+
+To create a diagonal matrix with 4 rows containing `2`'s all along the diagonal, we would do the following:
+
+```{r}
+diag_twos <- diag(x = 2, nrow = 4)
+
+diag_twos
+```
 
 ## Pre-multiplication
 
+Pre-multiplication of a matrix `X` by a diagonal matrix `D` results in the **rows** of `X` being multiplied by the corresponding diagonal element in `D`.
+
+Let's use the following example for X:
+
+```{r}
+X <- matrix(c(1, 2, 3,
+              4, 5, 6),
+            nrow = 2, ncol = 3, byrow = TRUE)
+
+X
+```
+
+First we'll create our diagonal matrix that we will pre-multiply `X` by. Our diagonal matrix that we are pre-multiplying by should have the same number of columns as there are rows in `X`. Since a diagonal matrix is square, the number of rows and columns are the same. 
+
+```{r}
+preT <- diag(x = 2, nrow = nrow(X), ncol = nrow(X))
+
+preT
+```
+
+Now let's pre-multiply by `X`. This will result in multiplying all the **rows** in `X` by 2.
+
+```{r}
+preT %*% X
+```
+
+
 ## Post-multiplication
+
+Post-multiplication of a matrix `X` by a diagonal matrix `D` results in the **columns** of `X` being multiplied by the corresponding diagonal element in `D`.
+
+Let's use the same matrix `X` as our example. 
+
+```{r}
+X
+```
+
+Now we'll create our diagonal matrix that we will post-multiply `X` by. Our diagonal matrix that we are post-multiplying by should have the same number of rows as there are columns in `X`. Again, since a diagonal matrix is square, the number of rows and columns are the same. 
+
+```{r}
+postT <- diag(.25, nrow = ncol(X), ncol = ncol(X))
+
+postT
+```
+
+Now let's post-multiply by `X`. This will result in multiplying all the **columns** in `X` by 1/4.
+
+```{r}
+X %*% postT
+```
+
+
+## Simultaneous multiplication
+
+We can also simultaneously pre- and post-multiply a matrix. For example, the code below will simultaneously multiply all the rows by 2 and multiply all the columns by 1/4.
+
+```{r}
+preT %*% X %*% postT
+```
 
 
 # Minihacks {#minihacks}
 
 The minihacks for today are based on the following example:
 
-You run an experiment to test the effectiveness of an memory-improvement intervention. As part of the study, participants take a difficult memory test at time 1, then participate in the intervention, and then retake the memory test one week later. Half the participants are assigned to a control condition, and half are assigned to the intervention. Use the following code to create a matrix representing a dataset of scores, $X_{10,3}$:
+You run an experiment to test the effectiveness of an memory-improvement intervention. As part of the study, participants take a difficult memory test at time 1, then participate in the intervention, and then retake the memory test one week later. Half the participants are assigned to a control condition, and half are assigned to the intervention. 
 
-```{r create_data, eval = FALSE}
+Use the following code to create a matrix representing a dataset of scores, $X_{10,3}$:
+
+```{r create_data}
 X = matrix(c(45, 52, 54, 52, 50, 72, 43, 56, 62, 47,
              41, 51, 57, 52, 45, 83, 55, 70, 75, 57,
              1, 1, 1, 1, 1, 2, 2, 2, 2, 2), 
@@ -359,24 +576,40 @@ X = matrix(c(45, 52, 54, 52, 50, 72, 43, 56, 62, 47,
 
 You should how have a matrix with three columns, named T1 (memory score at time 1), T2 (memory score at time 2), and G (group, 1 = control, 2 = intervention).
 
-## Minihack 1: Linear transformations
+## Minihack 1: Identifying linear combinations
 
-1. Mean 
+1. Take a look at the following code. Don't run the matrix multiplication step yet. What does the linear combination represented below accomplish?
 
-2. Some linear combination of variables 
+```{r eval = FALSE}
+preT <- matrix(rep(1), ncol = nrow(X))
 
-## Minihack 2: Descriptives statistics with matrices
+postT <- diag(1/(nrow(X)) , nrow = ncol(X))
+
+preT %*% X %*% postT
+```
+
+
+2. Now run this code and check whether your intuition was correct. You should be able to check your answer by using another function that you've already learned.
+
+## Minihack 2: Creating your own linear combinations
 
 Use matrix algebra to do the following:
 
 1. Create a new vector representing the difference between T1 and T2.
 
-1. Calculate the average T1 score for the whole sample.
+2. Calculate the average T1 score for the whole sample.
 
-1. Calculate the average T1 score for each group.
+3. Calculate the average T1 score for each group.
 
 ## Minihack 3: Calculate the covariance matrix
 
-Calculate the covariance matrix of X. (Hint: you'll need to create a matrix to subtract from X in order to get deviation scores.) Use the `cov()` function to show that you calculated this matrix correctly.
+1. Calculate the covariance matrix of X using matrix algebra. 
+
+Hint #1: You'll need to create a matrix to subtract from X in order to get deviation scores.) 
+<br />
+Hint #2: `colMeans()` is a quick way to get the means of each column of a matrix.
+
+
+2. Use the `cov()` function to show that you calculated the covariance matrix correctly.
 
 
