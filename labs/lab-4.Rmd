@@ -419,87 +419,100 @@ dnorm_plot(1)
 **What would be the height of the probability line at a value of -1 when the `mean` is `0` and the `sd` is `1`?**
 
 ```{r}
-dnorm(-2, mean = 0, sd = 1)
+dnorm(x = -2, mean = 0, sd = 1)
 ```
 
 ***
 
 ## pnorm
 
+Like `pbinom()`, `pnorm` tells you the probability of getting a certain value (or less) in a given distrubution. Once again, you can set the mean and standard deviation of the distribution using `mean` and `sd`. Instead of taking its value using `x` it takes its argument using the `q` argument. 
 
+For example, if we evaluate `pnorm(q = 0, mean = 0, sd = 1)` we would get the probability of the shaded region of the slope below.
 
-```{r}
+```{r, echo = FALSE}
 ggplot(sim, aes(x, likelihood)) +
     stat_function(fun = dnorm, 
                 xlim = c(-5,0),
                 geom = "area",
                 fill = "turquoise3") +
+  xlim(-3.5, 3.5) +
+  labs(y = "Probability") +
   geom_line(size = 1.2) +
   theme_bw()
 ```
 
+As would be expected, we have a 50% probability of getting at value in the shaded region of the plot. However, it is not intuitive to try to convert the shaded region under a curve to a probability value. An easier way to visualize it is through the use of a ball plot, where each shaded ball represents a .01% probability.
 
-```{r}
-ball_plot <- function(q, lower.tail = TRUE){
+```{r, echo = FALSE}
+ball_plot <- function(q, mean = 0, sd = 1, lower.tail = TRUE){
   if (lower.tail == TRUE) {
-  discretized <- data.frame(x = qnorm(ppoints(100), 0, 1)) %>% 
+  discretized <- data.frame(x = qnorm(ppoints(100), mean, sd)) %>% 
   mutate(include = ifelse(x <= q, "no", "yes"))
   } else {
-  discretized <- data.frame(x = qnorm(ppoints(100), 0, 1)) %>% 
+  discretized <- data.frame(x = qnorm(ppoints(100), mean, sd)) %>% 
   mutate(include = ifelse(x >= q, "no", "yes"))
   }
-
-ggplot(discretized, aes(x)) +
-  geom_dotplot(aes(fill = include), binwidth = 0.29, alpha = .7, colour = "white") +
-  geom_vline(xintercept = q, color = "firebrick", linetype = 2, size = 1.4) +
-  scale_fill_manual(
-    values = c("turquoise3", "gray40"),
-    guide = "none") +
-  theme_bw() +
-  scale_y_continuous(name = "", 
-                     breaks = NULL)
+  ggplot(discretized, aes(x)) +
+    geom_dotplot(aes(fill = include), binwidth = 0.29 * sd, alpha = .7, colour = "white") +
+    geom_vline(xintercept = q, color = "firebrick", linetype = 2, size = 1.4) +
+    scale_fill_manual(
+      values = c("turquoise3", "gray40"),
+      guide = "none") +
+    theme_bw() +
+    scale_y_continuous(name = "", 
+                       breaks = NULL)
 }
+
 ```
 
-```{r}
+If we were to count every shaded ball on the left of the vertical line below, we would see that there are `50` balls to the left of the red line. In this visualization, each ball corresponds to a `.01` probability.
+
+```{r, echo = FALSE}
 ball_plot(0)
 ```
 
-What's the probabiltiy of getting 0 or less when the mean is 0 and the sd = 1
+So, what's the probabiltiy of getting `40` or less when the mean is `50` and the standard deviation is `10`?
+
 ```{r}
-pnorm(0, mean = 0, sd = 1)
+ball_plot(q = 40, mean = 50, sd = 10)
 ```
 
-What's the probabiltiy of getting 1 or less when the mean is 0 and the sd = 1 (50 + half of 68)
+Looking at our cumulative probabiltiy plot, it looks like `16` balls are on the left of the dashed red line. We can check this with `pnorm()`.
 
 ```{r}
-ball_plot(1)
+pnorm(q = 40, mean = 50, sd = 10)
 ```
 
-```{r}
-pnorm(1, mean = 0, sd = 1)
-```
+Looks like the probability of getting a value of `40` or less when the mean is `50` and the standard deviation is `10` is slightly less than `.16`. We can also work through this conceptually. We expect that 68% of values on a normal distribution will fall between plus or minus one standard deviation. In our example, `40` is one standard deviation below the mean. As such, the probability of getting `40` or a value less than `40` would be $\frac{1 - 0.68}{2} = \frac{.32}{2} = .16$.
 
-What's the probabiltiy of getting -1 or less when the mean is 0 and the sd = 1 (100 - 68 /2 )
+**What's the probability of getting a value of `60` or less, when the mean is `30` and the standard deivation is `15?`** 
 ```{r}
-ball_plot(-1)
-```
-
-```{r}
-pnorm(-1, mean = 0, sd = 1)
-```
-
-What's the probabiltiy of getting 2 or greater when the mean is 0 and the sd = 1 
-```{r}
-ball_plot(2, lower.tail = FALSE)
+ball_plot(q = 60, mean = 30, sd = 15)
 ```
 
 ```{r}
-pnorm(2, mean = 0, sd = 1, lower.tail = FALSE)
+pnorm(q = 60, mean = 30, sd = 15)
 ```
 
+```{r}
+((1 - .9545) / 2) +  .9545
+```
+
+**What's the probabiltiy of getting a value greater than `-5` when the mean is `0` and the sd is `5`?**
+```{r}
+ball_plot(q = -5, mean = 0, sd = 5,  lower.tail = FALSE)
+```
+
+```{r}
+pnorm(q = -5, mean = 0, sd = 5, lower.tail = FALSE)
+```
 
 ## qnorm 
+
+Finally, we can use `qnorm` to get the value for a variable or less that corresponds to a particular probability. Once again, we can set the mean (`mean`) and standard deviation (`sd`) of the distribution, but we use `p` to set the probabiltiy.
+
+For example, the value or less 
 
 for probability .50
 ```{r}
