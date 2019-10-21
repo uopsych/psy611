@@ -22,7 +22,7 @@ library(ggpubr)
 * $t$, $F$, and $\chi^2$ distributions (briefly, for now)
 
 ---
-The normal distribution ("bell curve" or "Gaussian distribution") is a two-parameter distribution defined by the mean (
+The **normal distribution** ("bell curve" or "Gaussian distribution") is a two-parameter distribution defined by the mean (
 $\mu$
 ) and standard deviation (
 $\sigma$
@@ -30,6 +30,17 @@ $\sigma$
 
 $$p(X|\mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma}}exp[-\frac{(X-\mu)^2}{2\sigma^2}]$$
 $$X\sim N(\mu,\sigma)$$
+---
+
+### Expected value
+The expected value of the normal distribution is quite easy.
+
+$$E(X) = \mu$$
+
+$$Var(X) = \sigma^2$$
+
+
+
 ---
 
 .left-column[

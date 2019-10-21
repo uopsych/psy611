@@ -11,22 +11,43 @@ output:
       countIncrementalSlides: false
 ---
 
+### Student Experience Survey
+
+Available on DuckWeb until 6pm on October 25. 
+
+
+---
+
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 library(tidyverse)
 ```
 
-The binomial distribution is the theoretical probability distribution appropriate when modeling the expected outcome, X, of N trials (or event sequences) that have the following characteristics:
+The **binomial distribution** is the theoretical probability distribution appropriate when modeling the expected outcome, X, of N trials (or event sequences) that have the following characteristics:
 
-- The outcome on every trial is binary (also called a Bernoulli trial)
-- The probability of the target outcome (usually called a “success”) is the same for all N trials (“with replacement” might be necessary)
+--
+- The outcome on every trial is binary 
+
+    - also called a **Bernoulli trial**
+
+--
+
+- The probability of the target outcome (usually called a “success”) is the same for all N trials 
+
+    - “with replacement” might be necessary
+
+--
+
 - The trials are independent
+
+--
+
 - The number of trials is fixed
 
 ---
 
 
 
-If these assumptions hold then X is a binomial random variable representing the expected number of successes over N trials, with expected success on each trial of q.
+If these assumptions hold then X is a binomial random variable representing the expected number of successes over N trials, with expected success on each trial of $\theta$ .
 
 <p>&nbsp;</p>
 
@@ -62,9 +83,9 @@ $$\Large P(X|\theta,N) = \frac{N!}{X!(N-X)!}\theta^X(1-\theta)^{N-X}$$
 
 $\mathbf{P(X|\theta,N)}$ is a conditional probability: the probability of X given $\theta$ and $N$.
 
-- X is the number of successful trials over N independent trials, with the probability of success on any trial equal to q.
+- X is the number of successful trials over N independent trials, with the probability of success on any trial equal to $\theta$.
 
-- q and N are parameters of the binomial distribution.
+- $\theta$ and N are parameters of the binomial distribution.
 
 ---
 
@@ -79,18 +100,29 @@ $$A \text{ and } B = P(A \cap B) = P(A)P(B)$$
 
 Note that this form of the rule assumes *independent events*.
 
-???
+---
+For example, let's examine a sequence of 5 independent rolls of a die:
 
-### Write on board
-For example, the sequence of 5 independent rolls of a die: 
-`3 6 6 1 6`
+`3  6  6  1  6`
 
-can be represented in binomial form in the following way if rolling a 6 is a success:
-`Not6 6 6 Not6 6`
+--
+
+
+This can be represented in binomial form. First we have to choose the value that represents "success." Here, we'll use 6. 
+
+`Not6  6  6  Not6  6`
+
+--
+
 The probability of that particular sequence is then:
-*$P(Not6)P(6)P(6)P(Not6)P(6)$ or
-*$P(6)^3P(Not6)^2)$
-*$(\frac{1}{6})^3(\frac{5}{6})^2$
+
+$$P(Not6)P(6)P(6)P(Not6)P(6)$$
+
+--
+
+$$P(6)^3P(Not6)^2 = (\frac{1}{6})^3(\frac{5}{6})^2 = `r round(((1/6)^3)*((5/6)^3), 4)`$$
+
+
 
 ---
 
@@ -103,23 +135,75 @@ But a specific sequence of independent outcomes is just one way we could have X 
 
 - We need to know **how many possible ways** we could get X successes in N trials.
 
-The remaining part of the equation (the combination rule from probability theory, XCN), tells us how many different ways that can happen.
+The remaining part of the equation (the combination rule from probability theory, $_XC_N$), tells us how many different ways that can happen.
 
 $$\Large \frac{N!}{X!(N-X)!}$$
 
-???
+---
 
-$$\frac{5!}{3!(5-3)!} = \frac{5\times4\times3\times2\times1}{3\times2\times1(2\times1)}=10$$
+Returning to our dice example, how many ways are there to roll a six 3 times out of 5?
 
+--
+
+.pull-left[
+
+`6  6  6  Not6 Not6`
+
+
+
+`6  6  Not6  6 Not6`
+
+
+
+`6  6  Not6  Not6 6`
+
+`6  Not6  6  6  Not6`
+
+`6  Not6  6  Not6  6`
+]
+
+.pull-right[
+
+`6  Not6  Not6  6  6`
+
+`Not6  6  6  6  Not6`
+
+`Not6  6  6  Not6  6`
+
+`Not6  6  Not6  6  6`
+
+`Not6  Not6  6  6  6`
+]
+
+
+--
+
+$$\large \frac{5!}{3!(5-3)!} = \frac{5\times4\times3\times2\times1}{3\times2\times1(2\times1)}=10$$
+---
 Putting the pieces together:
 
-$$P(X = \text{a }6, \text{three times}|\theta_6, N= 5)= \frac{5!}{3!(5-3)!}(\frac{1}{6})^3(\frac{5}{6})^2=.032$$
+$$\large P(X = \text{a }6, \text{three times}|\theta_6, N= 5)\\
+= \frac{N!}{X!(N-X)!}\theta^X(1-\theta)^{N-X}\\=
+\frac{5!}{3!(5-3)!}(\frac{1}{6})^3(\frac{5}{6})^2\\
+= (10)(.0032) \\
+=.032$$
+
+--
+
+A note about notation:
+
+Many texts refer to the probability of success as $p$ and the probability of not success (or failure) as $q$. 
+
+In some ways, this makes the formula easier to understand:
+
+$$P(X|p, N)= \frac{N!}{X!(N-X)!}p^Xq^{(N-X)}$$
+
 ---
 
 What does the Law of Total Probability require to be true?
 
 ```{r binom-plot, echo = F}
-data.frame(num = 0:5, p = dbinom(x = 0:5, size = 5, prob = 1/6)) %>% ggplot(aes(x=num, y=p)) + geom_bar(stat="identity") + scale_x_continuous("Number of sixes (X) in five rolls (N)", breaks=c(0:5)) +scale_y_continuous("Probability")+ggtitle("Binomial Probability Distribution")
+data.frame(num = 0:5, p = dbinom(x = 0:5, size = 5, prob = 1/6), three = as.factor(c(0,0,0,1,0,0))) %>% ggplot(aes(x=num, y=p, fill = three)) + geom_bar(stat="identity") + scale_x_continuous("Number of sixes (X) in five rolls (N)", breaks=c(0:5)) +scale_y_continuous("Probability")+ guides(fill = F) + ggtitle("Binomial Probability Distribution")
 ```
 
 ```{r ref.label = 'binom-plot', eval = FALSE}
@@ -131,11 +215,13 @@ data.frame(num = 0:5, p = dbinom(x = 0:5, size = 5, prob = 1/6)) %>% ggplot(aes(
 Independent rolls!
 
 ---
+
 Every probability distribution has an **expected value**. 
 
 For the binomial distribution:
 
 $$E(X) = N\theta$$
+
 --
 Each probability distribution also has a variance. For the binomial:
 
@@ -160,11 +246,15 @@ Sensible mean = number of arms example
 
 ---
 
+.left-column[
+The mean, .835, does not exist in the sample space, and rounding up to 1 and claiming that to be the most typical outcome is not quite right either. 
+]
+
 ```{r ref.label = 'binom-plot', echo = FALSE}
 
 ```
 
-The mean, .835, does not exist in the sample space, and rounding up to 1 and claiming that to be the most typical outcome is not quite right either. 
+
 
 ---
 
@@ -172,9 +262,13 @@ The **probability mass (density) function** allows us to answer other questions 
 - mass = discrete
 - density = continuous
 
-I might want to know the value in the sample space at or below which a certain proportion of outcomes fall.  "At or below what outcome in the sample space do .75 of the outcomes fall?"  This is a *percentile or quantile* question. 
+--
 
-I might want to know the proportion of outcomes in the sample space that fall at or below a particular outcome. This is a *cumulative proportion* question.
+I might want to know the value in the sample space at or below which a certain proportion of outcomes fall.  "At or below what outcome in the sample space do .75 of the outcomes fall?"  This is a **percentile or quantile** question. 
+
+--
+
+I might want to know the proportion of outcomes in the sample space that fall at or below a particular outcome. This is a **cumulative proportion** question.
 
 ---
 At or below what outcome in the sample space do .75 of the outcomes fall?
@@ -232,7 +326,19 @@ Nearly all of the outcomes expected for guessers fall below the minimum passing 
 
 How likely is it that a guesser would score above the threshold (60%) necessary to pass the class by the most minimal standards?
 
-$$1-P(X = 23|\theta = .25, N= 40)= \\ 1-\frac{23!}{23!(40-23)!}(.25)^{23}(1-.25)^{17}$$
+$$P(24|.25, 40) + P(25|.25,40) + P(26|.25,40) + ... + P(40|.25, 40) $$
+
+--
+
+In R, we can calculate the cumulative probability (X or lower), using the `pbinom` function.
+
+```{r}
+pbinom(q = 10, size = 40, prob = .25)
+```
+
+--
+
+<!-- $$1-P(X = 23|\theta = .25, N= 40)= \\ 1-\frac{23!}{23!(40-23)!}(.25)^{23}(1-.25)^{17}$$ -->
 ```{r}
 #Note the use of the Law of Total Probability here
 
@@ -253,17 +359,27 @@ data.frame(num = 0:limit, p = pbinom(q = 0:limit, size = 40, prob = .25)) %>% gg
 Seems safe to assume that, practically speaking, all guessers will fall below the minimally passing score.
 
 ---
-##There’s always a but
+###There’s always a but
 
 But, what assumptions are we making and what consequences will they have?
 
+--
+
 * The outcome on every trial is binary (also called a Bernoulli trial)
+
+--
 
 * The probability of the target outcome (usually called a "success") is the same for all N trials ("with replacement" might be necessary)
 
+--
+
 * The trials are independent $P(A\cap B) = P(A|B)P(B)=P(A)P(B)$
 
+--
+
 * The number of trials is fixed
+
+--
 
 In probability and statistics, if the assumptions are wrong then inferences based on those assumptions could be wrong too, perhaps seriously so.
 
@@ -275,9 +391,11 @@ We might have viable alternative models:
 
 * **Geometric distribution:**  Used if we are interested in the number of trials required for one "success" to occur 
   * "how many times do I start my computer before it fails to start at all?"
+  
 
 * **Negative binomial distribution:** Used if we are interested in the number of successes in a series of repeated trials until a specified number of failures are seen 
   * "What is the probability that a baseball player will get his 2nd hit on his 4th at-bat?"
+  * "A child won't return from trick or treating until they get 5 full-size candy bars. What is the probability that they will have to visit 34 homes to get this?"
 
 ---
 
