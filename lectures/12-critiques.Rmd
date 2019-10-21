@@ -188,6 +188,20 @@ from Simmons et al: The table reports the percentage of 15,000 simulated samples
 
 ---
 
+### p-hacking
+
+**p-hacking:** collecting or selecting data or statistical analyses until non-significant results become significant. 
+
+Prior to 2011, this was common practice. In fact, it was often taught as best practices.
+
+  - "Explore your data."
+  - "Understand your data."
+  - "Test sensitivity..."
+  
+We should recognize now that this inflates Type I error. 
+
+---
+
 The publication of this, following the claim by [Ioannidis (2005)](../readings/Ioannidis_2005.pdf) that as many as half of published findings are false prompted researchers to take a second look at the "knowns" in our literatures. 
 
 If we can demonstrate these "known" effects, then we're ok. Our effects are most likely true. 
