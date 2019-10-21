@@ -529,8 +529,8 @@ d_{51} & d_{52}
 .pull-right[
 $$\mathbf{D'} = \left(\begin{array}
 {rrr}
-d_{11} & d_{12} & d_{13} & d_{14} & d_{15}   \\
-d_{21} & d_{22} & d_{23} & d_{24} & d_{25}   \\
+d_{11} & d_{21} & d_{31} & d_{41} & d_{51}   \\
+d_{12} & d_{22} & d_{32} & d_{42} & d_{52}   \\
 \end{array}\right)$$
 ]
 
@@ -555,8 +555,8 @@ d_{51} & d_{52}
 .pull-right[
 $$\mathbf{D'} = \left(\begin{array}
 {rrr}
-d_{11} & d_{12} & d_{13} & d_{14} & d_{15}   \\
-d_{21} & d_{22} & d_{23} & d_{24} & d_{25}   \\
+d_{11} & d_{21} & d_{31} & d_{41} & d_{51}   \\
+d_{12} & d_{22} & d_{32} & d_{42} & d_{52}   \\
 \end{array}\right)$$
 ]
 
@@ -862,7 +862,6 @@ First row is the mean of group 1
 
 
 ---
-
 
 ## Descriptive statistics
 
