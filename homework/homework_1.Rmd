@@ -31,11 +31,6 @@ To receive full credit on this homework assignment, you must earn **30 points**.
 ### Question 1
 Calculate descriptive statistics separately for these four groups in the `homework-world` dataset. 
 
-```{r}
-
-```
-
-My answer
 
 ### Question 2
 In class, you were shown a formula for variance as a function of expected values, $\sigma^2 = E(X^2) - E(X)^2$. 

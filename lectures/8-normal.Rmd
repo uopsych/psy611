@@ -14,7 +14,21 @@ output:
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 library(tidyverse)
 library(ggpubr)
+colors = RColorBrewer::brewer.pal(4, "Set2")
 ```
+
+![](images/twitter1.png)
+
+---
+
+![](images/twitter2.png)
+
+---
+
+![](images/twitter3.png)
+
+---
+
 
 ## Today...
 * The normal distribution
@@ -30,6 +44,13 @@ $\sigma$
 
 $$p(X|\mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma}}exp[-\frac{(X-\mu)^2}{2\sigma^2}]$$
 $$X\sim N(\mu,\sigma)$$
+???
+
+Note p not P
+
+### Also note function of Z-scores
+pull out 2, pull out 1/2
+
 ---
 
 ### Expected value
@@ -57,7 +78,8 @@ ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
   stat_function(fun = function(x) dnorm(x)) +
   scale_x_continuous("Variable X") +
   scale_y_continuous("Density")+
-  ggtitle("The normal curve")
+  ggtitle("The normal curve") +
+  theme(text = element_text(size = 20))
 ```
 
 ```{r ref.label = "normal", eval=F}
@@ -77,7 +99,8 @@ Probability **Density**
 
 .pull-right[
 ```{r echo = F}
-data.frame(num = 0:5, p = dbinom(x = 0:5, size = 5, prob = 1/6)) %>% ggplot(aes(x=num, y=p)) + geom_bar(stat="identity") + scale_x_continuous("Number of sixes (X) in five rolls (N)", breaks=c(0:5)) +scale_y_continuous("Probability")+ggtitle("Binomial Probability Distribution")
+data.frame(num = 0:5, p = dbinom(x = 0:5, size = 5, prob = 1/6)) %>% ggplot(aes(x=num, y=p)) + geom_bar(stat="identity") + scale_x_continuous("Number of sixes (X) in five rolls (N)", breaks=c(0:5)) +scale_y_continuous("Probability")+ggtitle("Binomial Probability Distribution")+
+  theme(text = element_text(size = 20))
 ```
 
 $$\small P(X|\theta,N) = \\\frac{N!}{X!(N-X)!}\theta^X(1-\theta)^{N-X}$$
@@ -114,19 +137,21 @@ ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
   stat_function(fun = function(x) dnorm(x)) + 
   stat_function(fun = function(x) dnorm(x) , 
                 xlim = c(0, 1),
-                geom = "area", fill = "red") + scale_x_continuous("Variable X") + scale_y_continuous("Density")+ggtitle("The normal curve")
+                geom = "area", fill = colors[1]) + 
+  geom_hline(aes(yintercept = 0))+
+  scale_x_continuous("Variable X") + scale_y_continuous("Density")+ggtitle("The normal curve") + theme(text = element_text(size =20))
 ```
 
 ---
 
 .left-column[
-.small[
+
 As our interval shrinks closer and closer to 0, our area (probability) shrinks as well.
 
 It can get vanishingly close to 0—essentially a point rather than an area.
 
 The probability of that "point" is 0.
-]
+
 ]
 
 ```{r, echo = F}
@@ -134,19 +159,19 @@ ggplot(data.frame(x = seq(0, 1)), aes(x)) +
   stat_function(fun = function(x) pnorm(x)-.5, color = "red") + 
   geom_hline(aes(yintercept = 0), color = "red", linetype = "dashed")+
   scale_x_continuous("Z") +
-  scale_y_continuous("Density", limits=c(0,.4)) +ggtitle("Area under the normal curve between Z and 0")
+  scale_y_continuous("Density", limits=c(0,.4)) +ggtitle("Area under the normal curve between Z and 0")+ theme(text = element_text(size = 20))
 
 ```
 
 ---
 
 .left-column[
-.small[
+
 We can keep shrinking the distance between Z and 0, never reaching 0, and still calculate an area.
 
 It will be very, very small. 
 
-]
+
 ]
 
 ```{r, echo = F}
@@ -154,7 +179,7 @@ ggplot(data.frame(x = seq(0, .001, by =.00005)), aes(x)) +
   stat_function(fun = function(x) pnorm(x)-.5, color = "red") + 
   geom_hline(aes(yintercept = 0), color = "red", linetype = "dashed")+
   scale_x_continuous("Z") +
-  scale_y_continuous("Density") +ggtitle("Area under the normal curve between Z and 0")
+  scale_y_continuous("Density") +ggtitle("Area under the normal curve\nbetween Z and 0")+ theme(text = element_text(size = 20))
 
 ```
 
@@ -191,28 +216,31 @@ All of these distributions are normal and have an equivalent area (proportion) t
 
 ```{r, echo = F, fig.width=10, fig.height = 5}
 p1 = ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
-  stat_function(fun = function(x) dnorm(x)) +
 stat_function(fun = function(x) dnorm(x) , 
                 xlim = c(-1, 1),
-                geom = "area", fill = "red") +
+                geom = "area", fill = colors[1]) +
+  stat_function(fun = function(x) dnorm(x)) +
+  geom_hline(aes(yintercept = 0)) +
   scale_x_continuous("Variable X") +
   scale_y_continuous("Density")+
   ggtitle("Area under the normal curve")
 
 p2 = ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
-  stat_function(fun = function(x) dnorm(x, sd = 1.5)) +
-stat_function(fun = function(x) dnorm(x) , 
+stat_function(fun = function(x) dnorm(x, sd = 1.5) , 
                 xlim = c(-1.5, 1.5),
-                geom = "area", fill = "red") +
+                geom = "area", fill = colors[1]) +
+  stat_function(fun = function(x) dnorm(x, sd = 1.5)) +
+  geom_hline(aes(yintercept = 0)) +
   scale_x_continuous("Variable X") +
   scale_y_continuous("Density")+
   ggtitle("Area under the normal curve")
 
 p3 = ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
-  stat_function(fun = function(x) dnorm(x, sd = .5)) +
 stat_function(fun = function(x) dnorm(x, sd = .5) , 
                 xlim = c(-.5, .5),
-                geom = "area", fill = "red") +
+                geom = "area", fill = colors[1]) +
+  stat_function(fun = function(x) dnorm(x, sd = .5)) +
+  geom_hline(aes(yintercept = 0)) +
   scale_x_continuous("Variable X") +
   scale_y_continuous("Density")+
   ggtitle("Area under the normal curve")
@@ -240,6 +268,7 @@ Variables with quite different means and standard deviations can be standardized
 I could not say, however, that I am twice as conscientious as I am extraverted.
 
 --
+
 All continuous distributions can be standardized, but if they are not normal to begin with, standardization will not make them so.  *Standardization does not alter distribution shape.*
 
 
@@ -258,7 +287,7 @@ Why?
 There is only one (1) standard normal distribution. 
   
 **How is this useful?**
-  - Given any s-score, we can calculate the probaiblity of getting a value greater than that z-score. *(Or less than that z-score.)*
+  - Given any score, we can calculate the probability of getting a value greater than that z-score. *(Or less than that z-score.)*
   
   - Given any two z-scores, we can calculate the probability of getting a value between these scores. *(Or outside those z-scores)*
   
@@ -329,6 +358,7 @@ data.frame(N = rep(c(2,5,25,100), each = reps), s = c(n2, n5, n25, n100)) %>%
 ```
 
 ---
+
 .left-column[And the range.]
 
 ```{r, echo = F, warning = F, message = F}
@@ -410,9 +440,10 @@ ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
   theme(text = element_text(size=20),legend.position = "bottom")
 ```
 
-??? 
 
-Just like with the standard normal (Z) distribution, there are 1-1 relationships between probablility and "$t$-scores".
+???
+
+Just like with the standard normal (Z) distribution, there are 1-1 relationships between probability and "$t$-scores".
 
 ---
 
@@ -448,6 +479,10 @@ $$Z = \frac{X-\bar{X}}{s}$$
 $$s^2 = \frac{\sum_{i = 1}^{N}(X_i-\bar{X})^2}{N-1}$$
 
 divide by $\sigma^2$ and multiple by (N-1) and you'll get Z's!
+
+Also point out, if sample comes from the same population, what does the equation simplify to? 1
+
+If from different populations -- not 1!
 
 
 ---
@@ -511,7 +546,16 @@ As sample size increases, $t$ and $\chi^2$ converge on the normal. $F$ converges
 $$\frac{\chi^2_{\nu_1}}{\nu_1}$$
 with the numerator depending on the normal.
 
-We assume the sample is a random selection from the population.
+---
+
+### But keep in mind
+
+These probability distributions have a key assumption:
+
+  - the sample is a random selection from the population
+    
+
+If the sample is not a random selection, the rules of probability don't apply.
 
 
 
