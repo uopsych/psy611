@@ -30,7 +30,9 @@ navbar:
       - text: "R Basics and Descriptives"
         href: "labs/lab-2.html"
       - text: "Matrix Algebra"
-        href: "labs/lab-3.html"        
+        href: "labs/lab-3.html"  
+      - text: "Probability Distributions"
+        href: "labs/lab-4.html"  
     - text: Homework
       href: homework.html
     - text: Useful Material

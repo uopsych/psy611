@@ -144,19 +144,19 @@ From the results, we can see we got `0` `heads` on the first toss of our `2` coi
 *How would we change this if we were flipping `3` coins `10` times?*
 
 ```{r}
-
+# your code here
 ```
 
 *What about rolling `5` `6`-sided dice `10` times where getting a `6` is considered a successful outcome?*
 
 ```{r}
-
+# your code here
 ```
 
 *What about pulling an `Ace` out of `1` deck of cards `100` times?*
 
 ```{r}
-
+# your code here
 ```
 
 ## dbinom
@@ -178,17 +178,17 @@ There is a `.50` probability of getting `1` `heads` when you flip `2` coins. We 
 
 *What's the probability of getting `1` head when you flip `3` coins?*
 ```{r}
-
+# your code here
 ```
 
 *What's the probability of drawing `2` `aces` out of a `1` deck of cards (with replacement)?*
 ```{r}
-
+# your code here
 ```
 
 *What's the probability of drawing `0` Aces out of a deck of cards (with replacement)?*
 ```{r}
-
+# your code here
 ```
 
 ## pbinom
@@ -211,13 +211,13 @@ The result is `.75`. Again, this makes sense if we look at the probability of ev
 *What's the probability of getting `1 or less` `heads` when flipping `10` coins?*
 
 ```{r}
-
+# your code here
 ```
 
 *What's the probability of getting `1 or less` `6`s when  rolling `1` dice?*
 
 ```{r}
-
+# your code here
 ```
 
 The function `pbinom()` can also take the argument `lower.tail` (defaults to `TRUE`). The argument `lower.tail` is what specifies what side of the probability distribution we should be testing from. In practical terms, it is what decided that we wanted `1 or less` heads rather than `greather than 1` `heads`.
@@ -231,7 +231,7 @@ pbinom(q = 1, size = 2, prob = 1/2, lower.tail = FALSE)
 *What's the probability of getting `greater than 3` `6`s when  rolling `9` dice?*
 
 ```{r}
-
+# your code here
 ```
 
 ## qbinom
@@ -248,17 +248,17 @@ Unsurprisingly, `10 or less` `heads` has a 100% chance of occurring when you fli
 
 *With `100` coin flips, what is the number of `heads` (or less) that has a `.50` probability of occurring?*
 ```{r}
-
+# your code here
 ```
 
 *With `100` coin flips, what is the number of `heads` (or less) that has a `.25` probability of occurring?*
 ```{r}
-
+# your code here
 ```
 
 *With `100` coin flips, what is the number of `heads` (or greater) that has a `.25` probability of occurring?*
 ```{r}
-
+# your code here
 ```
 
 # Normal Distributions {#normal}
@@ -333,12 +333,12 @@ animate(plot3, nframes = 180, fps = 12)
 *How would you sample `10` observations from a normal distribution with a mean of `100` and a standard deviation of `10`?*
 
 ```{r}
-
+# your code here
 ```
 
 *Are the descriptives for this sample what we would expect?*
 ```{r}
-
+# your code here
 ```
 
 ## dnorm
@@ -406,7 +406,7 @@ dnorm_plot(1)
 *What would be the height of the probability line at a value of -1 when the `mean` is `0` and the `sd` is `1`?*
 
 ```{r}
-
+# your code here
 ```
 
 ***
@@ -479,14 +479,14 @@ Looks like the probability of getting a value of `40 or less` is slightly less t
 
 We can also work through this mathematically. We expect that 68% of values on a normal distribution will fall between plus or minus one standard deviation. In our example, `40` is one standard deviation below the mean. As such, the probability of getting `40` or a value less than `40` would be $\frac{1 - 0.68}{2} = \frac{.32}{2} = .16$.
 
-*What's the probability of getting a value of `60` or less`, when the mean of the distribution is `30` and the standard deviation is `15?`*
+*What's the probability of getting a value of `60 or less`, when the mean of the distribution is `30` and the standard deviation is `15?`*
 ```{r}
-
+# your code here
 ```
 
 *What's the probability of getting a value greater than `-5` when the mean is `0` and the sd is `5`?*
 ```{r}
-
+# your code here
 ```
 
 ## qnorm 
@@ -504,13 +504,13 @@ As we can see, the value is just about `-3.00`. This makes sense if we consider 
 *What value or less is associated with a `.51` cumulative probability in a normal distribution with a mean of `100` and a standard deviation of `10`?*
 
 ```{r}
-
+# your code here
 ```
 
 *What value or greater is associated with a `.51` probability in a normal distribution with a mean of `100` and a standard deviation of `10`?*
 
 ```{r}
-
+# your code here
 ```
 
 # Minihacks {#minihacks}
@@ -524,19 +524,19 @@ You are playing Dungeons and Dragons and, to the Dungeon Master's displeasure, y
 1. To defeat the dragon, you must roll `5` `20`-sided dice, and get a `20` on each die. What is the probability of getting this result?
 
 ```{r}
-
+# your code here
 ```
 
 2. Your dungeon master decides to take pity on you. She tells you, if you roll greater than `2` (i.e., `3` or more) `20`s she will let you slay the dragon. What is the probability of getting more than `2` `20`s when rolling `5` `20`-sided dice?
 
 ```{r}
-
+# your code here
 ```
 
 3. You begin to cry. Between your sobs you tell her you will only roll if the probability is greater than `.10`. She acquiesces. What number of `6`s or greater is associated with a cumulative probability of `.10` when rolling `5` `20`-sided dice?
 
 ```{r}
-
+# your code here
 ```
 
 ## Minihack 2: Normal Distributions
@@ -546,25 +546,25 @@ From data released from the Graduate Coffee Drinkers Association (GCDA), you kno
 1. What is the probability that a randomly selected graduate student will drink `2 or less` cups of coffee per day?
 
 ```{r}
-
+# your code here
 ```
 
 2. Sample `50` graduate students from the distribution three times. Plot each of these samples as a histogram. Are the histograms identical? Why or why not?
 
 ```{r}
-
+# your code here
 ```
 
 3. Ever since finding the data from the GCDA, you have begun to worry about how much coffee you are drinking compared to the average graduate student. Calculate the probability that a graduate student would drink exactly `10` cups of coffee per day.
 
 ```{r}
-
+# your code here
 ```
 
 4. Using your large and highly-caffeinated brain, you remember that the probability of any one value in a continuous distribution is `0.00`. Calculate the probability that a graduate student would drink `10 or more` cups of coffee a day.
 
 ```{r}
-
+# your code here
 ```
 
 ## Minihack 3: Other Distributions to Extend your Knowledge
@@ -572,17 +572,17 @@ From data released from the Graduate Coffee Drinkers Association (GCDA), you kno
 1. A magician accosts you in the street, and demands you think of a number between `1` and `100`. You think of `37` and the magician guesses `37`. Assuming the choice of numbers follows a uniform distribution, what is the probability that the magician guessed your number at random? Use `dunif()` to prove your intuition is correct.
 
 ```{r}
-
+# your code here
 ```
 
 2. Shortly after your run in with the magician, an advocate of null hypothesis testing approaches you and demands that you calculate the probability of getting a $\chi^2$-value of greater than `3.00` with `10` degrees of freedom. Use `chisq()` to calculate the probability.
 
 ```{r}
-
+# your code here
 ```
 
 3. Seeing that their test statistic was non-significant, the null hypothesis tester becomes irate and demands you calculate the probability of getting `3.00 or greater` with `10` degrees of freedom from a t-distribution. Google (or use your intuition) to determine how to calculate a cumulative probability from a t-distribution.
 
 ```{r}
-
+# your code here
 ```
