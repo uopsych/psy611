@@ -1,0 +1,35 @@
+---
+title: "Lab 5: Data Wrangling"
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# suppress scientific notation
+options(scipen = 999)
+```
+
+
+# Purpose
+
+For further resources, check out:
+1. R for Data Science
+2. Useful cheat sheets here and here
+
+
+Today's lab will cover:
+
+1. [What is tidy data?](#tidy)
+1. [Manipulating observations](#obs)
+1. [Manipulating variables](#vars)
+1. [Summarizing data](#summarize)
+1. [Grouping Data](#group)
+
+
+***
