@@ -50,11 +50,11 @@ Today's lab will cover:
 
 # Manipulating variables{#vars}
 
-## Extract columns
+## Extract columns with `select()`
 
 ## Helper functions for `select()`
 
-## Make new variables
+## Make new variables with `mutate()`
 
 ***
 
