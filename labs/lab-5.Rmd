@@ -52,6 +52,8 @@ Today's lab will cover:
 
 ## Extract columns
 
+## Helper functions
+
 ## Make new variables
 
 ***
