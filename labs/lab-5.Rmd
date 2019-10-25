@@ -18,9 +18,7 @@ options(scipen = 999)
 
 # Purpose
 
-For further resources, check out:
-1. R for Data Science
-2. Useful cheat sheets here and here
+For further resources, check out [R for Data Science](https://r4ds.had.co.nz/){target="_blank"} by Hadley Wickham and [this cheatsheet on data wrangling](https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf){target="_blank"} from RStudio.
 
 
 Today's lab will cover:
