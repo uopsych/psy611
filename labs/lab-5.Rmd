@@ -25,7 +25,7 @@ For further resources, check out:
 
 Today's lab will cover:
 
-1. [What is tidy data?](#tidy)
+1. [Intro to the tidyverse](#tidy)
 1. [Manipulating observations](#obs)
 1. [Manipulating variables](#vars)
 1. [Summarizing data](#summarize)
@@ -33,3 +33,49 @@ Today's lab will cover:
 
 
 ***
+
+# Intro to the tidyverse{#tidy}
+
+## What is tidy data?
+
+***
+
+# Manipulating observations{#obs}
+
+## Extract rows
+
+## Logical operators
+
+## Arrange rows
+
+***
+
+# Manipulating variables{#vars}
+
+## Extract columns
+
+## Make new variables
+
+***
+
+# Summarizing data{#summarize}
+
+## Common summary functions
+
+*** 
+
+# Grouping data{#group}
+
+## Apply to `summarize()`
+
+## Apply to `mutate()`
+
+***
+
+# Minihacks
+
+## Minihack 1:
+
+## Minihack 2:
+
+## Minihack 3:
