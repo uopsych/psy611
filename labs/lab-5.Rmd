@@ -52,7 +52,7 @@ Today's lab will cover:
 
 ## Extract columns
 
-## Helper functions
+## Helper functions for `select()`
 
 ## Make new variables
 
