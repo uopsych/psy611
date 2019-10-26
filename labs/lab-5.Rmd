@@ -34,7 +34,34 @@ Today's lab will cover:
 
 # Intro to the tidyverse{#tidy}
 
+The tidyverse, according to its creators, is ["an opionated collection of R packages designed for data science."](https://www.tidyverse.org/){target="_blank"} It's a suite of packages designed with a consistent philosophy and aesthetic. This is nice because all of the packages are designed to work well together, providing a consistent framework to do many of the most common tasks in R including, but not limited to:
+
+* data cleaning (`tidyr`)
+* data manipulation (`dplyr`)
+* data visualization (`ggplot2`)
+* working with strings (`stringr`)
+* working with factors (`forcats`)
+
+Today we'll mostly focus on data manipulation with `dplyr`.
+
+Three qualities of the `tidyverse` are worth mentioning at the outset:
+
+1. Packages are designed to be like *grammars* for their task, so we'll be using terms like verbs to discuss the tidyverse. The idea is that you can string these grammatical elements together to form more complex statements, just like with language. 
+
+2. The first argument of (basically) every function is `data`. This is very handy, especially when it comes to piping (discussed below).
+
+3. Variable names are *usually* not quoted.
+
+## What is data wrangling?
+
+Data wrangling, broadly speaking, means getting your data into a useful form for visualizing and statistical modelling. 
+
+
+
 ## What is tidy data?
+
+
+## Today's focus: `{dplyr}`
 
 ***
 
