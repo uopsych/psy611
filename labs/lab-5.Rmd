@@ -2,6 +2,7 @@
 title: "Lab 5: Data Wrangling"
 output: 
   html_document: 
+    fig_caption: yes
     theme: cosmo
     toc: yes
     toc_depth: 3
@@ -13,10 +14,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # suppress scientific notation
 options(scipen = 999)
+
+# load libraries
+library(here)
 ```
 
 
-# Purpose
+# **Purpose**
 
 For further resources, check out [R for Data Science](https://r4ds.had.co.nz/){target="_blank"} by Hadley Wickham and [this cheatsheet on data wrangling](https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf){target="_blank"} from RStudio.
 
@@ -32,7 +36,7 @@ Today's lab will cover:
 
 ***
 
-# Intro to the tidyverse{#tidy}
+# **Intro to the tidyverse**{#tidy}
 
 The tidyverse, according to its creators, is ["an opionated collection of R packages designed for data science."](https://www.tidyverse.org/){target="_blank"} It's a suite of packages designed with a consistent philosophy and aesthetic. This is nice because all of the packages are designed to work well together, providing a consistent framework to do many of the most common tasks in R including, but not limited to:
 
@@ -54,9 +58,17 @@ Three qualities of the `tidyverse` are worth mentioning at the outset:
 
 ## What is data wrangling?
 
-Data wrangling, broadly speaking, means getting your data into a useful form for visualizing and statistical modelling. 
+Data wrangling, broadly speaking, means getting your data into a useful form for visualizing and statistical modelling. Hadley Wickham, who has developed a lot of the tidyverse, conceptualizes the main steps involved in data wrangling as follows:
 
+1. Importing your data (we covered this in [Week 1's lab](https://uopsych.github.io/psy611/labs/lab-1.html#importing_data_into_r){target="_blank"})
+2. Tidying your data (see brief overview below)
+3. Transforming your data (what we'll cover today)
 
+The figure below highlights the steps in data wrangling in relation to the broader model of a typical data science workflow:
+
+<center>
+![](`r here("labs", "resources", "lab5", "intro", "wrangle_overview.png")`)
+</center>
 
 ## What is tidy data?
 
@@ -65,7 +77,7 @@ Data wrangling, broadly speaking, means getting your data into a useful form for
 
 ***
 
-# Manipulating observations{#obs}
+# **Manipulating observations**{#obs}
 
 ## Extract rows
 
@@ -75,7 +87,7 @@ Data wrangling, broadly speaking, means getting your data into a useful form for
 
 ***
 
-# Manipulating variables{#vars}
+# **Manipulating variables**{#vars}
 
 ## Extract columns with `select()`
 
@@ -85,13 +97,13 @@ Data wrangling, broadly speaking, means getting your data into a useful form for
 
 ***
 
-# Summarizing data{#summarize}
+# **Summarizing data**{#summarize}
 
 ## Common summary functions
 
 *** 
 
-# Grouping data{#group}
+# **Grouping data**{#group}
 
 ## Apply to `summarize()`
 
@@ -99,7 +111,7 @@ Data wrangling, broadly speaking, means getting your data into a useful form for
 
 ***
 
-# Minihacks
+# **Minihacks**
 
 ## Minihack 1:
 
