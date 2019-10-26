@@ -14,15 +14,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # suppress scientific notation
 options(scipen = 999)
-
-# load libraries
-library(here)
 ```
 
 
 # **Purpose**
 
-For further resources, check out [R for Data Science](https://r4ds.had.co.nz/){target="_blank"} by Hadley Wickham and [this cheatsheet on data wrangling](https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf){target="_blank"} from RStudio.
+For further resources, check out [*R for Data Science*](https://r4ds.had.co.nz/){target="_blank"} by Hadley Wickham and [this cheatsheet on data wrangling](https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf){target="_blank"} from RStudio.
 
 
 Today's lab will cover:
@@ -67,11 +64,26 @@ Data wrangling, broadly speaking, means getting your data into a useful form for
 The figure below highlights the steps in data wrangling in relation to the broader model of a typical data science workflow:
 
 <center>
-![](`r here("labs", "resources", "lab5", "intro", "wrangle_overview.png")`)
+![](resources/lab5/intro/wrangle_overview.png)
 </center>
 
 ## What is tidy data?
 
+Data is considered "tidy" when:
+
+1. Each variable has its own column
+2. Each observation has its own row
+3. Each value has its own cell
+
+The following figure from *R for Data Science* illustrates this visually. 
+
+<center>
+![Illustration of tidy data](resources/lab5/intro/tidy_data.png)
+</center>
+
+If your data is not in tidy format already when you import it, the `tidyR` package contains functions, e.g. `gather()` and `spread()`, that allow you to "reshape" your data to get it into tidy format. 
+
+However, this term we are mostly going to work with simpler datasets that are already tidy, so we are not going to focus on these functions today. These functions will become especially useful in the future when we work with repeated measures data that has multiple observations for each subject. If you are interested in learning more about reshaping your data with `tidyR`, check out [this chapter](https://r4ds.had.co.nz/tidy-data.html#introduction-6){target="_blank"} from *R for Data Science*.
 
 ## Today's focus: `{dplyr}`
 
