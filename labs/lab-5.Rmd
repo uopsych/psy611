@@ -14,6 +14,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # suppress scientific notation
 options(scipen = 999)
+
+# load libraries
+library(tidyverse)
 ```
 
 
@@ -43,6 +46,14 @@ The tidyverse, according to its creators, is ["an opionated collection of R pack
 * working with strings (`stringr`)
 * working with factors (`forcats`)
 
+To load all the packages included in the tidyverse, use:
+
+```{r eval=FALSE}
+# if tidverse is not installed first use `install.packages("tidyverse")`
+library(tidyverse)
+```
+
+
 Today we'll mostly focus on data manipulation with `dplyr`.
 
 Three qualities of the `tidyverse` are worth mentioning at the outset:
@@ -55,7 +66,7 @@ Three qualities of the `tidyverse` are worth mentioning at the outset:
 
 ## What is data wrangling?
 
-Data wrangling, broadly speaking, means getting your data into a useful form for visualizing and statistical modelling. Hadley Wickham, who has developed a lot of the tidyverse, conceptualizes the main steps involved in data wrangling as follows:
+Data wrangling, broadly speaking, means getting your data into a useful form for visualizing and modelling it. Hadley Wickham, who has developed a lot of the tidyverse, conceptualizes the main steps involved in data wrangling as follows:
 
 1. Importing your data (we covered this in [Week 1's lab](https://uopsych.github.io/psy611/labs/lab-1.html#importing_data_into_r){target="_blank"})
 2. Tidying your data (see brief overview below)
@@ -87,11 +98,56 @@ However, this term we are mostly going to work with simpler datasets that are al
 
 ## Today's focus: `{dplyr}`
 
+Most of the functions we'll go over today come from the `{dplyr}` package. Essentially, you can think of this package as a set of "pliers" that you can use to tweak data frames, hence its name (and hex sticker).
+
+<center>
+![](resources/lab5/intro/dplyr.jpeg)
+</center>
+
+## Pipes
+
+Pipes come from the magrittr library are available when you load the tidyverse. (The pipe is technically imported with `{dplyr}`.) Pipes are a way to write strings of functions more easily, creating *pipelines*. They are extremely powerful and useful. A pipe looks like this:
+
+`%>%`
+
+You can enter a pipe with the shortcut `CTRL+Shift+M` for PC or `CMD+Shift+M` for Mac.
+
+Technically, a pipe passes an object on the left-hand side as the first argument (or `.` argument) of whatever function is on the right-hand side.
+
+* `x %>% f(y)` is the same as `f(x, y)`
+
+* `y %>% f(x, ., z)` is the same as `f(x, y, z )`
+
+For example, to calculate the mean of the `mpg` variable from the `mtcars` dataset and round our answer to 2 decimal places, we can do the following...
+
+```{r}
+mtcars$mpg %>% 
+  mean(na.rm = TRUE) %>% 
+  round(2)
+```
+
+This is the same as what we were doing before...
+
+```{r}
+round(mean(mtcars$mpg, na.rm = TRUE), 2)
+```
+
+## Example dataset
+
+Because you are already familiar with the World Happiness dataset, we will use this as a running example today. You can import the data with the following code:
+
+```{r}
+world_happiness <- rio::import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab5/data/world_happiness_2015_sim.csv")
+```
+
+
 ***
 
 # **Manipulating observations**{#obs}
 
 ## Extract rows
+
+
 
 ## Logical operators
 
