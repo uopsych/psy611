@@ -1,0 +1,77 @@
+---
+title: "Lab 4: Probability Distributions"
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+---
+
+```{r setup, include = FALSE}
+# set chunk options
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+# suppress scientific notation
+options(scipen = 999)
+```
+
+# Purpose
+
+The purpose of today's lab is to introduce tools for sampling from and calculating statistics for different types of distributions in R. The content of the lab will be split into two sections. The first section will focus on [binomial distributions](#binomial) and the second section will focus on [normal distributions](#normal). The [Minihacks](#minihacks) will test your knowledge of both types of distributions, as well as some distributions that are not discussed in the lab but are nonetheless important.
+
+To quickly navigate to the desired section, click one of the following links:
+
+1. [Binomial Distributions](#binomial)
+1. [Normal Distributions](#normal)
+1. [Minihacks](#minihacks)
+
+***
+
+# The Grammar of Graphics
+
+```{r}
+# load required packages
+library(tidyverse)
+library(rio)
+```
+
+# The Data
+
+```{r}
+data <- import(file     = "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-22/horror_movies.csv",
+               setclass = "tibble")
+
+```
+
+```{r}
+data <- data %>%
+  select(-release_date:-movie_rating,
+         -plot:-cast) %>%
+  mutate(movie_run_time = parse_number(movie_run_time),
+         budget         = parse_number(budget),
+         genres         = gsub("\\|.*$", "", genres)) %>%
+  arrange(desc(budget)) %>%
+  slice(1:100)
+
+```
+
+# Continuous by Continuous
+
+```{r}
+data %>%
+  ggplot(aes(x = budget, y = review_rating)) +
+    geom_point() + 
+    geom_smooth()
+
+cpu %>%
+  ggplot(aes(x = process, y = transistor_count)) +
+    geom_point() + 
+    geom_smooth()
+  
+    
+cpu <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-09-03/cpu.csv")
+```
+
+

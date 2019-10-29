@@ -1,0 +1,265 @@
+---
+title: "Lab 5: Data Wrangling"
+output: 
+  html_document: 
+    fig_caption: yes
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# suppress scientific notation
+options(scipen = 999)
+
+# load libraries
+library(tidyverse)
+library(janitor)
+```
+
+
+# **Purpose**
+
+For further resources, check out [*R for Data Science*](https://r4ds.had.co.nz/){target="_blank"} by Hadley Wickham and [this cheatsheet on data wrangling](https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf){target="_blank"} from RStudio.
+
+
+Today's lab will cover:
+
+1. [Intro to the tidyverse](#tidy)
+1. [Manipulating observations](#obs)
+1. [Manipulating variables](#vars)
+1. [Summarizing data](#summarize)
+1. [Grouping Data](#group)
+
+
+***
+
+# **Intro to the tidyverse**{#tidy}
+
+The tidyverse, according to its creators, is ["an opionated collection of R packages designed for data science."](https://www.tidyverse.org/){target="_blank"} It's a suite of packages designed with a consistent philosophy and aesthetic. This is nice because all of the packages are designed to work well together, providing a consistent framework to do many of the most common tasks in R including, but not limited to:
+
+* data cleaning (`tidyr`)
+* data manipulation (`dplyr`)
+* data visualization (`ggplot2`)
+* working with strings (`stringr`)
+* working with factors (`forcats`)
+
+To load all the packages included in the tidyverse, use:
+
+```{r eval=FALSE}
+# if tidverse is not installed first use `install.packages("tidyverse")`
+library(tidyverse)
+```
+
+
+Today we'll mostly focus on data manipulation with `dplyr`.
+
+Three qualities of the `tidyverse` are worth mentioning at the outset:
+
+1. Packages are designed to be like *grammars* for their task, so we'll be using terms like verbs to discuss the tidyverse. The idea is that you can string these grammatical elements together to form more complex statements, just like with language. 
+
+2. The first argument of (basically) every function is `data`. This is very handy, especially when it comes to piping (discussed below).
+
+3. Variable names are *usually* not quoted.
+
+## What is data wrangling?
+
+Data wrangling, broadly speaking, means getting your data into a useful form for visualizing and modelling it. Hadley Wickham, who has developed a lot of the tidyverse, conceptualizes the main steps involved in data wrangling as follows:
+
+1. Importing your data (we covered this in [Week 1's lab](https://uopsych.github.io/psy611/labs/lab-1.html#importing_data_into_r){target="_blank"})
+2. Tidying your data (see brief overview below)
+3. Transforming your data (what we'll cover today)
+
+The figure below highlights the steps in data wrangling in relation to the broader model of a typical data science workflow:
+
+<center>
+![](resources/lab5/intro/wrangle_overview.png)
+</center>
+
+## What is tidy data?
+
+Data is considered "tidy" when:
+
+1. Each variable has its own column
+2. Each observation has its own row
+3. Each value has its own cell
+
+The following figure from *R for Data Science* illustrates this visually. 
+
+<center>
+![Illustration of tidy data](resources/lab5/intro/tidy_data.png)
+</center>
+
+If your data is not in tidy format already when you import it, the `tidyR` package contains functions, e.g. `gather()` and `spread()`, that allow you to "reshape" your data to get it into tidy format. 
+
+However, this term we are mostly going to work with simpler datasets that are already tidy, so we are not going to focus on these functions today. These functions will become especially useful in the future when we work with repeated measures data that has multiple observations for each subject. If you are interested in learning more about reshaping your data with `tidyR`, check out [this chapter](https://r4ds.had.co.nz/tidy-data.html#introduction-6){target="_blank"} from *R for Data Science*.
+
+## Today's focus: `{dplyr}`
+
+Most of the functions we'll go over today come from the `{dplyr}` package. Essentially, you can think of this package as a set of "pliers" that you can use to tweak data frames, hence its name (and hex sticker).
+
+<center>
+![](resources/lab5/intro/dplyr.jpeg)
+</center>
+
+`{dplyr}` is a "grammar" of data manipulation. As such, its functions are *verbs*:
+
+* `mutate()` adds new variables that are functions of existing variables
+* `select()` picks variables based on their names.
+* `filter()` picks cases based on their values.
+* `summarise()` reduces multiple values down to a single summary.
+* `arrange()` changes the ordering of the rows.
+
+## Pipes
+
+Pipes come from the `{magrittr}` package are available when you load the tidyverse. (The pipe is technically imported with `{dplyr}`.) Pipes are a way to write strings of functions more easily, creating *pipelines*. They are extremely powerful and useful. A pipe looks like this:
+
+`%>%`
+
+You can enter a pipe with the shortcut `CTRL+Shift+M` for PC or `CMD+Shift+M` for Mac.
+
+Strictly speaking, a pipe passes an object on the left-hand side as the first argument (or `.` argument) of whatever function is on the right-hand side.
+
+* `x %>% f(y)` is the same as `f(x, y)`
+
+* `y %>% f(x, ., z)` is the same as `f(x, y, z )`
+
+For example, to calculate the mean of the `mpg` variable from the `mtcars` dataset and round our answer to 2 decimal places, we can do the following...
+
+```{r}
+mtcars$mpg %>% 
+  mean(na.rm = TRUE) %>% 
+  round(2)
+```
+
+This accomplishes the same thing as "nesting" functions within each other...
+
+```{r}
+round(mean(mtcars$mpg, na.rm = TRUE), 2)
+```
+
+### Why use pipes?
+
+1. Cleaner code
+    * This is nice, because it helps make your code more readable by other humans (including your future self). 
+
+2. Cleaner environment
+    * When you use pipes, you have basically no reason to save objects from intermediary steps in your data wrangling / analysis workflow, because you can just pass output from function to function without saving it.
+    * Finding objects you're looking for is easier.
+
+3. Efficiency in writing code
+    * Naming objects is hard; piping means coming up with fewer names.
+    
+4. More error-proof
+    * Because naming is hard, you might accidentally re-use a name and make an error.
+
+## Example dataset
+
+Because you are already familiar with the World Happiness dataset, we will use this as a running example today. You can import the data with the following code:
+
+```{r}
+world_happiness <- rio::import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab5/data/world_happiness_2015_sim.csv")
+```
+
+### Clean names
+
+If we look at the names of the variables in `world_happiness`, we'll notice that all of the variable names are capitalized. 
+
+```{r}
+names(world_happiness)
+```
+
+Personally, I find it annoying to have to remember to capitalize the first letter whenever I reference a variable name. The `clean_names()` from the `{janitor}` package will (by default) convert all variable names to `snake_case` (but there are several other options...see [here](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html#clean-data.frame-names-with-clean_names){target="_blank"} for more info).
+
+```{r eval=FALSE}
+install.packages("janitor") # if not already installed
+library(janitor)
+```
+
+```{r}
+# clean variable names
+world_happiness <- world_happiness %>% 
+  clean_names()
+```
+
+
+Now all of our variable names are lower case. 
+
+```{r}
+names(world_happiness)
+```
+
+***
+
+# **Manipulating observations**{#obs}
+
+## Extract rows with `filter()`
+
+![](resources/lab5/manipulate_obs/filter.png)
+
+```{r}
+world_happiness %>% 
+  filter(country == "United States")
+```
+
+## Logical operators
+
+![](resources/lab5/manipulate_obs/logical_operators.png)
+
+## Sort rows with `arrange()`
+
+![](resources/lab5/manipulate_obs/arrange.png)
+
+# What are the happiest countries?
+
+```{r}
+world_happiness %>% 
+  arrange(happiness) # sorts in ascending order by default
+
+world_happiness %>% 
+  arrange(desc(happiness)) # sort in descending order
+```
+
+***
+
+# **Manipulating variables**{#vars}
+
+## Extract columns with `select()`
+
+```{r}
+world_happiness %>% 
+  select(country)
+```
+
+
+## Helper functions for `select()`
+
+## Make new variables with `mutate()`
+
+***
+
+# **Summarizing data**{#summarize}
+
+## Common summary functions
+
+*** 
+
+# **Grouping data**{#group}
+
+## Apply to `summarize()`
+
+## Apply to `mutate()`
+
+***
+
+# **Minihacks**
+
+## Minihack 1:
+
+## Minihack 2:
+
+## Minihack 3:
