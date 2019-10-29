@@ -10,6 +10,12 @@ output:
       countIncrementalSlides: false
 ---
 
+### Happy Halloween
+
+![](images/halloween.jpeg)
+
+---
+
 ## Hypothesis
 
 What is a hypothesis?

@@ -23,6 +23,8 @@ navbar:
         href: "lectures/7-binomial.html"
       - text: "8-Normal"
         href: "lectures/8-normal.html"
+      - text: "9-Sampling"
+        href: "lectures/9-sampling.html"
     - text: Labs
       menu:
       - text: "Introduction to R and RStudio"

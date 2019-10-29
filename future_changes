@@ -46,3 +46,8 @@ lab-3.html
 * make clear -- binary/binomial doesn't mean 50%
 * any sample space can be divided into two non-elementary events
 
+1-homework.Rmd
+*rewrite correlation freedom/generosity instructions: "calculate the correlation between freedom and generosity" (take out thing about "for a country")
+*question 5.1 -- take out density distribution or give them code. (students are drawing based on mean and sd, not using empirical)
+*5.3 change validity of correlation to "statistical conclusion valdity"
+*more time for homeworks? post 2 weeks in advance, instead of 1
