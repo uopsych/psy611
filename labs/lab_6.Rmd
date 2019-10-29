@@ -39,39 +39,111 @@ library(rio)
 
 # The Data
 
-```{r}
-data <- import(file     = "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-22/horror_movies.csv",
-               setclass = "tibble")
-
+```{r data_import}
+data_horror <- import(file     = paste0("https://raw.githubusercontent.com/",
+                                        "rfordatascience/",
+                                        "tidytuesday/",
+                                        "master/",
+                                        "data/",
+                                        "2019/2019-10-22/",
+                                        "horror_movies.csv"),
+                      setclass = "tibble")
 ```
 
-```{r}
-data <- data %>%
-  select(-release_date:-movie_rating,
-         -plot:-cast) %>%
+```{r data_wrangle}
+# wrangle the data
+data_horror <- data_horror %>%
+  # remove unused columns
+  select(-genres, 
+         -movie_rating,
+         -plot:-filming_locations) %>%
+  # convert move_run_time and budget into numbers; extract year from title and
+  # create a release_year column
   mutate(movie_run_time = parse_number(movie_run_time),
          budget         = parse_number(budget),
-         genres         = gsub("\\|.*$", "", genres)) %>%
-  arrange(desc(budget)) %>%
-  slice(1:100)
+         release_date   = lubridate::as_date(release_date)) %>%
+  # drop incomplete cases (don't do this with your own data)
+  na.omit() %>%
+  # remove budget outliers ("Train to Busan (2016)" and "White God (2014)")
+  filter(title != "Train to Busan (2016)",
+         title != "White God (2014)") %>%
+  # only retain movies from the last 10 years
+  filter(release_date >= "2009-11-08") %>%
+  # retain only the 5 countries that have produced the most horror movies
+  filter(release_country %in% c("USA",       "UK", "Germany", "Philippines",
+                                "Canada", "India",  "Russia")) 
 
 ```
 
 # Continuous by Continuous
 
 ```{r}
-data %>%
-  ggplot(aes(x = budget, y = review_rating)) +
-    geom_point() + 
-    geom_smooth()
-
-cpu %>%
-  ggplot(aes(x = process, y = transistor_count)) +
-    geom_point() + 
-    geom_smooth()
-  
-    
-cpu <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-09-03/cpu.csv")
+ggplot(data = data_horror, aes(x = budget, y = review_rating)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) + 
+  scale_x_log10()
 ```
 
+```{r}
+ggplot(data = data_horror, aes(x      = movie_run_time, 
+                               y      = budget,
+                               colour = release_country)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_log10()
+```
 
+```{r}
+data_horror_sum <- data_horror %>%
+  group_by(release_country) %>%
+  summarize(review_m = mean(review_rating))
+
+
+ggplot(data_horror_sum, aes(x = release_country, 
+                            y = review_m)) +
+    geom_col()
+
+ggplot(data_horror_sum, aes(x = reorder(release_country, -review_m), 
+                            y = review_m)) +
+    geom_col()
+
+ggplot(data_horror_sum, aes(x = reorder(release_country, -review_m), 
+                            y = review_m)) +
+    geom_col(colour = "turquoise")
+
+ggplot(data_horror_sum, aes(x = reorder(release_country, -review_m), 
+                            y = review_m)) +
+    geom_col(colour = "black")
+
+ggplot(data_horror_sum, aes(x = reorder(release_country, -review_m), 
+                            y = review_m)) +
+    geom_col(fill = "turquoise3",
+             colour = "black")
+
+ggplot(data_horror_sum, aes(x = reorder(release_country, -review_m), 
+                            y = review_m)) +
+    geom_col(fill   = "turquoise3",
+             colour = "black",
+             alpha  = .60)
+
+ggplot(data_horror_sum, aes(x = reorder(release_country, review_m), 
+                            y = review_m)) +
+    geom_col(fill   = "turquoise3",
+             colour = "black",
+             alpha  = .60,
+             width  = .5 ) +
+    coord_flip()
+
+ggplot(data_horror_sum, aes(x = reorder(release_country, review_m), 
+                            y = review_m)) +
+    geom_col(fill   = "turquoise3",
+             colour = "black",
+             alpha  = .60,
+             width  = .5 ) +
+    coord_flip() +
+    theme_bw() +
+    labs(x = "Country",
+         y = "")
+
+
+```
