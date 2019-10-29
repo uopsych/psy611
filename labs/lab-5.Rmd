@@ -230,13 +230,38 @@ world_happiness %>%
 
 ## Extract columns with `select()`
 
+* Select one variable
+
 ```{r}
 world_happiness %>% 
   select(country)
 ```
 
+* Select multiple variables
+
+```{r}
+world_happiness %>% 
+  select(country, happiness, gdp)
+```
+
+* Select a sequence of variables
+
+```{r}
+world_happiness %>% 
+  select(country:support)
+```
+
+* Rearrange the order of variables
+
+```{r}
+world_happiness %>% 
+  select(country, war, everything())
+```
+
 
 ## Helper functions for `select()`
+
+
 
 ## Make new variables with `mutate()`
 
