@@ -17,6 +17,7 @@ options(scipen = 999)
 
 # load libraries
 library(tidyverse)
+library(janitor)
 ```
 
 
@@ -104,6 +105,14 @@ Most of the functions we'll go over today come from the `{dplyr}` package. Essen
 ![](resources/lab5/intro/dplyr.jpeg)
 </center>
 
+`{dplyr}` is a "grammar" of data manipulation. As such, its functions are *verbs*:
+
+* `mutate()` adds new variables that are functions of existing variables
+* `select()` picks variables based on their names.
+* `filter()` picks cases based on their values.
+* `summarise()` reduces multiple values down to a single summary.
+* `arrange()` changes the ordering of the rows.
+
 ## Pipes
 
 Pipes come from the `{magrittr}` package are available when you load the tidyverse. (The pipe is technically imported with `{dplyr}`.) Pipes are a way to write strings of functions more easily, creating *pipelines*. They are extremely powerful and useful. A pipe looks like this:
@@ -155,18 +164,49 @@ Because you are already familiar with the World Happiness dataset, we will use t
 world_happiness <- rio::import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab5/data/world_happiness_2015_sim.csv")
 ```
 
+### Clean names
+
+If we look at the names of the variables in `world_happiness`, we'll notice that all of the variable names are capitalized. 
+
+```{r}
+names(world_happiness)
+```
+
+Personally, I find it annoying to have to remember to capitalize the first letter whenever I reference a variable name. The `clean_names()` from the `{janitor}` package will (by default) convert all variable names to `snake_case` (but there are several other options...see [here](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html#clean-data.frame-names-with-clean_names){target="_blank"} for more info).
+
+```{r eval=FALSE}
+install.packages("janitor") # if not already installed
+library(janitor)
+```
+
+```{r}
+# clean variable names
+world_happiness <- world_happiness %>% 
+  clean_names()
+```
+
+
+Now all of our variable names are lower case. 
+
+```{r}
+names(world_happiness)
+```
 
 ***
 
 # **Manipulating observations**{#obs}
 
-## Extract rows
+## Extract rows with `filter()`
 
+```{r}
+world_happiness %>% 
+  filter(country == "United States")
+```
 
 
 ## Logical operators
 
-## Arrange rows
+## Sort rows with `arrange()`
 
 ***
 
