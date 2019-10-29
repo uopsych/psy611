@@ -261,7 +261,6 @@ world_happiness %>%
   select(1, 6, 8)
 ```
 
-
 * Select a range of variables
 
 ```{r}
@@ -270,10 +269,11 @@ world_happiness %>%
 ```
 
 * Rearrange the order of variables
+  + Note: `everything()` is a helper function that gives us all the remaining varaibles in the data frame (see more on helper functions below)
 
 ```{r}
 world_happiness %>% 
-  select(country, world, everything())
+  select(country, world, everything()) 
 ```
 
 * De-select variables with a minus sign (`-`)
@@ -293,6 +293,8 @@ world_happiness %>%
 
 ## Helper functions for `select()`
 
+There are some "helper" functions that you can use along with `select()` if it is easier or more efficient to use certain criteria instead of selecting your variables by name. 
+
 function | what it does
 ---------|-------------
 `starts_with()` | selects columns starting with a string
@@ -304,18 +306,12 @@ function | what it does
 `everything()` | selects all columns
 `last_col()` | selects last column; can include an offset.
 
-### A few examples
+Quick example:
 
 ```{r}
 world_happiness %>% 
-  select(starts_with("c"))
+  select(starts_with("c")) 
 ```
-
-```{r}
-world_happiness %>% 
-  select(contains("pp"))
-```
-
 
 ## Make new variables with `mutate()`
 
