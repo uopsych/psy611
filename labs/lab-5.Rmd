@@ -186,8 +186,9 @@ world_happiness <- world_happiness %>%
   clean_names()
 ```
 
-
 Now all of our variable names are lower case. 
+
+**Note**: Remember to save your new data frame to an object of the same name as your old data frame if you want to overwrite the old one. 
 
 ```{r}
 names(world_happiness)
@@ -233,18 +234,35 @@ world_happiness %>%
 * Select one variable
 
 ```{r}
+# select using variable name
 world_happiness %>% 
   select(country)
 ```
 
+```{r}
+# select using variable position
+world_happiness %>% 
+  select(1)
+```
+
+
 * Select multiple variables
 
 ```{r}
+# select using variable names
 world_happiness %>% 
-  select(country, happiness, gdp)
+  select(country, freedom, corruption)
 ```
 
-* Select a sequence of variables
+
+```{r}
+# select using variable positions
+world_happiness %>% 
+  select(1, 6, 8)
+```
+
+
+* Select a range of variables
 
 ```{r}
 world_happiness %>% 
@@ -258,9 +276,45 @@ world_happiness %>%
   select(country, world, everything())
 ```
 
+* De-select variables with a minus sign (`-`)
+
+```{r}
+world_happiness %>% 
+  select(-happiness)
+```
+
+* De-select range of variables
+
+```{r}
+world_happiness %>% 
+  select(-(gdp:world))
+```
+
 
 ## Helper functions for `select()`
 
+function | what it does
+---------|-------------
+`starts_with()` | selects columns starting with a string
+`ends_with()` | selects columns that end with a string
+`contains()` | selects columns that contain a string
+`matches()` | selects columns that match a regular expression
+`num_ranges()` | selects columns that match a numerical range
+`one_of()` | selects columns whose names match entries in a character vector
+`everything()` | selects all columns
+`last_col()` | selects last column; can include an offset.
+
+### A few examples
+
+```{r}
+world_happiness %>% 
+  select(starts_with("c"))
+```
+
+```{r}
+world_happiness %>% 
+  select(contains("pp"))
+```
 
 
 ## Make new variables with `mutate()`
