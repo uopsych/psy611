@@ -315,6 +315,31 @@ world_happiness %>%
 
 ## Make new variables with `mutate()`
 
+* Create a new variable 
+  + Note: New variables are added at the end of the data frame (scroll to the right to see it)
+
+```{r}
+world_happiness %>% 
+  mutate(corruption_std = scale(corruption)) # calculate z-score
+```
+
+* Change variable type
+
+```{r}
+class(world_happiness$world)
+
+# Note that I am re-saving the dataframe here to preserve this change
+world_happiness <- world_happiness %>% 
+  mutate(world = as.factor(world))
+```
+
+Now check the type again...
+
+```{r}
+class(world_happiness$world)
+```
+
+
 ***
 
 # **Summarizing data**{#summarize}
