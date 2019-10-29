@@ -199,21 +199,42 @@ names(world_happiness)
 
 ## Extract rows with `filter()`
 
+![](resources/lab5/manipulate_obs/filter.png)
+
 ```{r}
 world_happiness %>% 
   filter(country == "United States")
 ```
 
-
 ## Logical operators
 
+![](resources/lab5/manipulate_obs/logical_operators.png)
+
 ## Sort rows with `arrange()`
+
+![](resources/lab5/manipulate_obs/arrange.png)
+
+# What are the happiest countries?
+
+```{r}
+world_happiness %>% 
+  arrange(happiness) # sorts in ascending order by default
+
+world_happiness %>% 
+  arrange(desc(happiness)) # sort in descending order
+```
 
 ***
 
 # **Manipulating variables**{#vars}
 
 ## Extract columns with `select()`
+
+```{r}
+world_happiness %>% 
+  select(country)
+```
+
 
 ## Helper functions for `select()`
 
