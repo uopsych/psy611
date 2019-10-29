@@ -106,13 +106,13 @@ Most of the functions we'll go over today come from the `{dplyr}` package. Essen
 
 ## Pipes
 
-Pipes come from the magrittr library are available when you load the tidyverse. (The pipe is technically imported with `{dplyr}`.) Pipes are a way to write strings of functions more easily, creating *pipelines*. They are extremely powerful and useful. A pipe looks like this:
+Pipes come from the `{magrittr}` package are available when you load the tidyverse. (The pipe is technically imported with `{dplyr}`.) Pipes are a way to write strings of functions more easily, creating *pipelines*. They are extremely powerful and useful. A pipe looks like this:
 
 `%>%`
 
 You can enter a pipe with the shortcut `CTRL+Shift+M` for PC or `CMD+Shift+M` for Mac.
 
-Technically, a pipe passes an object on the left-hand side as the first argument (or `.` argument) of whatever function is on the right-hand side.
+Strictly speaking, a pipe passes an object on the left-hand side as the first argument (or `.` argument) of whatever function is on the right-hand side.
 
 * `x %>% f(y)` is the same as `f(x, y)`
 
@@ -126,11 +126,26 @@ mtcars$mpg %>%
   round(2)
 ```
 
-This is the same as what we were doing before...
+This accomplishes the same thing as "nesting" functions within each other...
 
 ```{r}
 round(mean(mtcars$mpg, na.rm = TRUE), 2)
 ```
+
+### Why use pipes?
+
+1. Cleaner code
+    * This is nice, because it helps make your code more readable by other humans (including your future self). 
+
+2. Cleaner environment
+    * When you use pipes, you have basically no reason to save objects from intermediary steps in your data wrangling / analysis workflow, because you can just pass output from function to function without saving it.
+    * Finding objects you're looking for is easier.
+
+3. Efficiency in writing code
+    * Naming objects is hard; piping means coming up with fewer names.
+    
+4. More error-proof
+    * Because naming is hard, you might accidentally re-use a name and make an error.
 
 ## Example dataset
 

@@ -1595,10 +1595,10 @@ library(tidyverse)</code></pre>
 </div>
 <div id="pipes" class="section level2">
 <h2>Pipes</h2>
-<p>Pipes come from the magrittr library are available when you load the tidyverse. (The pipe is technically imported with <code>{dplyr}</code>.) Pipes are a way to write strings of functions more easily, creating <em>pipelines</em>. They are extremely powerful and useful. A pipe looks like this:</p>
+<p>Pipes come from the <code>{magrittr}</code> package are available when you load the tidyverse. (The pipe is technically imported with <code>{dplyr}</code>.) Pipes are a way to write strings of functions more easily, creating <em>pipelines</em>. They are extremely powerful and useful. A pipe looks like this:</p>
 <p><code>%&gt;%</code></p>
 <p>You can enter a pipe with the shortcut <code>CTRL+Shift+M</code> for PC or <code>CMD+Shift+M</code> for Mac.</p>
-<p>Technically, a pipe passes an object on the left-hand side as the first argument (or <code>.</code> argument) of whatever function is on the right-hand side.</p>
+<p>Strictly speaking, a pipe passes an object on the left-hand side as the first argument (or <code>.</code> argument) of whatever function is on the right-hand side.</p>
 <ul>
 <li><p><code>x %&gt;% f(y)</code> is the same as <code>f(x, y)</code></p></li>
 <li><p><code>y %&gt;% f(x, ., z)</code> is the same as <code>f(x, y, z )</code></p></li>
@@ -1608,9 +1608,31 @@ library(tidyverse)</code></pre>
   mean(na.rm = TRUE) %&gt;% 
   round(2)</code></pre>
 <pre><code>## [1] 20.09</code></pre>
-<p>This is the same as what we were doing before…</p>
+<p>This accomplishes the same thing as “nesting” functions within each other…</p>
 <pre class="r"><code>round(mean(mtcars$mpg, na.rm = TRUE), 2)</code></pre>
 <pre><code>## [1] 20.09</code></pre>
+<div id="why-use-pipes" class="section level3">
+<h3>Why use pipes?</h3>
+<ol style="list-style-type: decimal">
+<li>Cleaner code
+<ul>
+<li>This is nice, because it helps make your code more readable by other humans (including your future self).</li>
+</ul></li>
+<li>Cleaner environment
+<ul>
+<li>When you use pipes, you have basically no reason to save objects from intermediary steps in your data wrangling / analysis workflow, because you can just pass output from function to function without saving it.</li>
+<li>Finding objects you’re looking for is easier.</li>
+</ul></li>
+<li>Efficiency in writing code
+<ul>
+<li>Naming objects is hard; piping means coming up with fewer names.</li>
+</ul></li>
+<li>More error-proof
+<ul>
+<li>Because naming is hard, you might accidentally re-use a name and make an error.</li>
+</ul></li>
+</ol>
+</div>
 </div>
 <div id="example-dataset" class="section level2">
 <h2>Example dataset</h2>
