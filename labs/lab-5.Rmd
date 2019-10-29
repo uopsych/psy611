@@ -162,7 +162,7 @@ round(mean(mtcars$mpg, na.rm = TRUE), 2)
 Because you are already familiar with the World Happiness dataset, we will use this as a running example today. You can import the data with the following code:
 
 ```{r}
-world_happiness <- rio::import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab5/data/world_happiness_2015_sim.csv")
+world_happiness <- rio::import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab5/data/world_happiness.csv")
 ```
 
 ### Clean names
@@ -214,7 +214,7 @@ world_happiness %>%
 
 ![](resources/lab5/manipulate_obs/arrange.png)
 
-# What are the happiest countries?
+* Sort countries by happiness
 
 ```{r}
 world_happiness %>% 
@@ -255,7 +255,7 @@ world_happiness %>%
 
 ```{r}
 world_happiness %>% 
-  select(country, war, everything())
+  select(country, world, everything())
 ```
 
 
