@@ -533,7 +533,7 @@ You are playing Dungeons and Dragons and, to the Dungeon Master's displeasure, y
 # your code here
 ```
 
-3. You begin to cry. Between your sobs you tell her you will only roll if the probability is greater than `.10`. She acquiesces. What number of `6`s or greater is associated with a cumulative probability of `.10` when rolling `5` `20`-sided dice?
+3. You begin to cry. Between your sobs you tell her you will only roll if the probability is greater than `.10`. She acquiesces. What number of `20`s or greater is associated with a cumulative probability of `.10` when rolling `5` `20`-sided dice?
 
 ```{r}
 # your code here
@@ -575,7 +575,7 @@ From data released from the Graduate Coffee Drinkers Association (GCDA), you kno
 # your code here
 ```
 
-2. Shortly after your run in with the magician, an advocate of null hypothesis testing approaches you and demands that you calculate the probability of getting a $\chi^2$-value of greater than `3.00` with `10` degrees of freedom. Use `chisq()` to calculate the probability.
+2. Shortly after your run in with the magician, an advocate of null hypothesis testing approaches you and demands that you calculate the probability of getting a $\chi^2$-value of greater than `3.00` with `10` degrees of freedom. Use `pchisq()` to calculate the probability.
 
 ```{r}
 # your code here
