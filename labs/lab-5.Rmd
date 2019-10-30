@@ -339,7 +339,6 @@ Now check the type again...
 class(world_happiness$world)
 ```
 
-
 ***
 
 # **Summarizing data**{#summarize}
@@ -387,11 +386,17 @@ world_happiness %>%
   group_by(world)
 ```
 
-At first glance, it doesn't appear that anything has happened. However, copy and paste this code into the console. What do you notice?
+At first glance, it doesn't appear that anything has happened. However, under the hood it has indeed grouped the data frame by the `world` variable. Copy and paste this code into the console--what do you notice?
 
 ## Apply to `summarize()`
 
-## Apply to `mutate()`
+```{r}
+world_happiness %>% 
+  group_by(world) %>% # group by the world variable
+  summarize(mean_gdp = mean(gdp, na.rm = TRUE), # mean
+            sd_gdp = sd(gdp, na.rm = TRUE), # standard deviation
+            n = n()) # number of observations
+```
 
 ***
 
