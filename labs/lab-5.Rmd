@@ -245,6 +245,22 @@ world_happiness %>%
 ![](resources/lab5/manipulate_obs/logical_operators.png)
 </center>
 
+* For example, let's select observations for the United States, Mexico and Canada.
+
+```{r}
+world_happiness %>% 
+  filter(country == "United States" | country == "Mexico" | country == "Canada")
+```
+
+* Since it is somewhat cumbersome to write `country` three times, we can use a special short-hand here with the `%in%` operator. Generally speaking, specifying `x %in% y` will select every row where `x` is one of the values in `y`.
+
+So we could have written our filter statement like this:
+
+```{r eval = FALSE}
+world_happiness %>% 
+  filter(country %in% c("United States", "Mexico", "Canada"))
+```
+
 
 ### You try
 
@@ -259,7 +275,8 @@ world_happiness %>%
 
 ```{r}
 world_happiness %>% 
-  filter(happiness > mean(happiness, na.rm= TRUE) & gdp < mean(gdp, na.rm = TRUE))
+  filter(happiness > mean(happiness, na.rm= TRUE) & 
+         gdp < mean(gdp, na.rm = TRUE))
 ```
 
 
@@ -492,13 +509,39 @@ world_happiness %>%
 
 # Minihacks
 
-## Minihack 1: 
+For the minihacks today, we will be working with the `diamonds` dataset, which is built into R. Take a peek at the dataset with the following functions:
 
-```{r}
-
+```{r, eval=FALSE}
+head(diamonds) # first few rows
+str(diamonds) # structure of the data frame
 ```
 
 
-## Minihack 2:
+## Minihack 1: Make code more legible
+
+1. Take a look at the following chunk of code. If you're like me, this will make your head hurt. See if you can understand what it is trying to do. 
+
+```{r eval = FALSE}
+arrange(select(filter(diamonds, carat > 3 & carat < 4, cut == "Premium", color == "G" |  color == "H" | color == "I" | color == "J"), carat, color, price), desc(price))
+```
+
+2. Re-write this code using pipes (` %>% `) so it is easier to read. Make sure you get the same result that you got when you ran the cluttered code. For an extra challenge, try making the filtering step more concise.
+
+```{r}
+# your code here
+```
+
+
+```{r}
+diamonds %>% 
+  filter(carat > 3 & carat < 4, 
+         cut == "Premium", 
+         color %in% c("G", "H","I", "J")) %>% 
+  select(carat, color, price) %>% 
+  arrange(desc(price))
+```
+
+
+## Minihack 2: 
 
 ## Minihack 3:
