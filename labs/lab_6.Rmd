@@ -17,42 +17,13 @@ knitr::opts_chunk$set(message = FALSE,
 options(scipen = 999)
 
 #load required packages
-library(lubridate) # for parsing dates
 library(tidyverse) # includes ggplot2
 library(here) # used to streamline the creation of this document
 library(rio) # for importing data
+library(yarrr) # import pirates data
 
-```
-
-```{r load_data}
-horror_movies <- import(file     = paste0("https://raw.githubusercontent.com/",
-                                          "rfordatascience/",
-                                          "tidytuesday/",
-                                          "master/",
-                                          "data/",
-                                          "2019/2019-10-22/",
-                                          "horror_movies.csv"),
-                        setclass = "tibble") %>%
-  # remove unused columns
-  select(-genres, 
-         -movie_rating,
-         -plot:-filming_locations) %>%
-  # convert move_run_time and budget into numbers; extract year from title and
-  # create a release_year column
-  mutate(movie_run_time = parse_number(movie_run_time),
-         budget         = parse_number(budget),
-         release_date   = dmy(release_date)) %>%
-  # drop incomplete cases (don't do this with your own data)
-  na.omit() %>%
-  # remove budget outliers ("Train to Busan (2016)" and "MSG the Warrior: Lion 
-  #Heart (2016)")
-  filter(title != "Train to Busan (2016)",
-         title != "MSG the Warrior: Lion Heart (2016)") %>%
-  # only retain movies from the last 10 years
-  filter(release_date >= "2009-11-08") %>%
-  # retain only the 5 countries that have produced the most horror movies
-  filter(release_country %in% c("USA",       "UK", "Germany", "Philippines",
-                                "Canada", "India",  "Russia")) 
+# convert pirates data to a tibble
+pirates <- as_tibble(pirates)
 ```
 
 # Purpose
@@ -67,7 +38,7 @@ To quickly navigate to the desired section, click one of the following links:
 1. [Continuous-Continous Graphs](#cont)
 1. [Minihacks](#minihacks)
 
-Today we will be using the `horror_movies` data set released as part of [TidyTuesday challenge](https://twitter.com/hashtag/tidytuesday?lang=en) on October 22nd, 2019. Every Tuesday, [Thomas Mock](https://thomasmock.netlify.com) releases a data set and challenges data scientists and data enthusiasts to create plots from the data using functions in the `tidyverse`. The plots are then posted to Twitter with the hashtag `#TidyTuesday`. Taking part in [TidyTuesday](https://twitter.com/hashtag/tidytuesday?lang=en) is a fantastic way to improve your plotting skills. 
+Today we will be using the `pirates` data set released as part of [TidyTuesday challenge](https://twitter.com/hashtag/tidytuesday?lang=en) on October 22nd, 2019. Every Tuesday, [Thomas Mock](https://thomasmock.netlify.com) releases a data set and challenges data scientists and data enthusiasts to create plots from the data using functions in the `tidyverse`. The plots are then posted to Twitter with the hashtag `#TidyTuesday`. Taking part in [TidyTuesday](https://twitter.com/hashtag/tidytuesday?lang=en) is a fantastic way to improve your plotting skills. 
 
 Below are included some resources that you may find useful going forward:
 
@@ -85,38 +56,38 @@ The `ggplot2` package is built around Leland Wilkinson's idea of the *Grammar of
 
 # Continuous by Continuous {#cont}
 
-Below is the **data set** `horror_movies`.
+Below is the **data set** `pirates`.
 
 ```{r}
 # the data set
-horror_movies
+pirates
 ```
 
 We can then pipe (`%>%`) that **data set** to `ggplot()` to create the **canvas** of our plot.
 
 ```{r, results = FALSE}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = budget, y = review_rating))
+  ggplot(aes(x = height, y = weight))
 ```
 
-The `aes()` function above tells `ggplot()` that we are providing it aesthetic information for the **canvas**. In this case, we are saying the **canvas** should have `budget` on the x-axis and `review_rating` on the y-axis. Other aesthetic mappings include `colour`, `size`, and `shape`, but we will discuss those later. Below we've printed the results of the above code. 
+The `aes()` function above tells `ggplot()` that we are providing it aesthetic information for the **canvas**. In this case, we are saying the **canvas** should have `height` on the x-axis and `weight` on the y-axis. Other aesthetic mappings include `colour`, `size`, and `shape`, but we will discuss those later. Below we've printed the results of the above code. 
 
 ```{r, echo = FALSE}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = budget, y = review_rating))
+  ggplot(aes(x = height, y = weight))
 ```
 
 As we can see, a **canvas** is not that exciting without anything on it. We can add **geometric elements** to a plot by using the functions that begin with `geom_`. Let's add some points to our plot using `geom_point`. 
 
 ```{r}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = budget, y = review_rating)) +
+  ggplot(aes(x = height, y = weight)) +
     # the geometric elements
     geom_point()
 ```
@@ -127,21 +98,21 @@ You can add multiple **geometric elements** to a single plot. Let's also add a r
 
 ```{r}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = budget, y = review_rating)) +
+    ggplot(aes(x = height, y = weight)) +
     # the geometric elements
     geom_point() +
     geom_smooth()
 ```
 
-It looks like the line is not linear. Let's change that by specifying `method = "lm` in the `geom_smooth` function. Let's also get rid of the confidence interval around the line by specifying `se = FALSE`.
+It looks like the line is not perfectly linear. Let's change that by specifying `method = "lm` in the `geom_smooth` function. Let's also get rid of the confidence interval around the line by specifying `se = FALSE`.
 
 ```{r}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = budget, y = review_rating)) +
+    ggplot(aes(x = height, y = weight)) +
     # the geometric elements
     geom_point() +
     geom_smooth(method = "lm", 
@@ -152,9 +123,9 @@ Let's also update the look of the plot. We can use `colour` (or `color`) to spec
 
 ```{r}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = budget, y = review_rating)) +
+    ggplot(aes(x = height, y = weight)) +
     # the geometric elements
     geom_point(colour = "turquoise3",
                size   = 5,
@@ -162,7 +133,7 @@ horror_movies %>%
                alpha  = .5) +
     geom_smooth(method = "lm", 
                 se     = FALSE, 
-                colour = "darkorchid", 
+                colour = "deeppink2", 
                 size   = 1.5,
                 alpha  = .7)
 ```
@@ -171,9 +142,9 @@ The **geometric elements** look much better, but I don't really like the look of
 
 ```{r}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = budget, y = review_rating)) +
+    ggplot(aes(x = height, y = weight)) +
     # the geometric elements
     geom_point(colour = "turquoise3",
                size   = 5,
@@ -181,43 +152,20 @@ horror_movies %>%
                alpha  = .5) +
     geom_smooth(method = "lm", 
                 se     = FALSE, 
-                colour = "darkorchid", 
+                colour = "deeppink2", 
                 size   = 1.5,
                 alpha  = .7) +
     # the theme
     theme_bw()
 ```
 
-You may have also noticed that our budget day looks very positively skewed. We can change the scale of the x-axis to a log scale by using the `scale_x_log10` function.
-
-```{r}
-# the data set
-horror_movies %>%
-  # the canvas
-  ggplot(aes(x = budget, y = review_rating)) +
-    # the geometric elements
-    geom_point(colour = "turquoise3",
-               size   = 5,
-               shape  = 18,
-               alpha  = .5) +
-    geom_smooth(method = "lm", 
-                se     = FALSE, 
-                colour = "darkorchid", 
-                size   = 1.5,
-                alpha  = .7) +
-    # the theme
-    theme_bw() +
-    # scale x-axis
-    scale_x_log10()
-```
-
 Finally, no plot is complete without proper labels. Fortunately, `ggplot2` has the `labs()` function built in for just this purpose. 
 
 ```{r}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = budget, y = review_rating)) +
+    ggplot(aes(x = height, y = weight)) +
     # the geometric elements
     geom_point(colour = "turquoise3",
                size   = 5,
@@ -225,13 +173,11 @@ horror_movies %>%
                alpha  = .5) +
     geom_smooth(method = "lm", 
                 se     = FALSE, 
-                colour = "darkorchid", 
+                colour = "deeppink2", 
                 size   = 1.5,
                 alpha  = .7) +
     # the theme
     theme_bw() +
-    # scale x-axis
-    scale_x_log10() +
     # add labels
     labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
          subtitle = "A ggplot plots",
@@ -240,119 +186,242 @@ horror_movies %>%
          caption  = "Created using the Horror Movie data set from TidyTuesday")
 ```
 
-# Continuous by Continuous by Categorical {#cct}
-
-Let's create a plot looking at the relationship between `release_date` and `movie_run_time`.
 
 ```{r}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = release_date, y = movie_run_time)) +
+    ggplot(aes(x = height, y = weight)) +
     # the geometric elements
-    geom_point() +
-    geom_smooth(method = "lm",
-                se     = FALSE) +
+    geom_point(colour = "turquoise3",
+               size   = 5,
+               shape  = 18,
+               alpha  = .5) +
+    geom_smooth(method = "lm", 
+                se     = FALSE, 
+                colour = "deeppink2", 
+                size   = 1.5,
+                alpha  = .7) +
     # the theme
-    theme_bw()
+    theme_bw() +
+    # add labels
+    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
+         subtitle = "A ggplot plots",
+         x        = "Budget (log)",
+         y        = "Review Rating",
+         caption  = "Created using the Horror Movie data set from TidyTuesday")
 ```
 
-We don't see a relationship here, but maybe there is if we look within country. If we put `colour = release_country` with the `aes()` function of the `geom_smooth` function, the lines will distinguish between countries using colour. 
+What if we wanted to break this down by the pirates sex? Well first, let's remove the colours for simplicites sake
 
 ```{r}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = release_date, y = movie_run_time)) +
+    ggplot(aes(x = height, y = weight)) +
     # the geometric elements
-    geom_point() +
-    geom_smooth(aes(colour = release_country),
-                method = "lm",
-                se     = FALSE) +
+    geom_point(size   = 5,
+               shape  = 18,
+               alpha  = .5) +
+    geom_smooth(method = "lm", 
+                se     = FALSE, 
+                size   = 1.5,
+                alpha  = .7) +
     # the theme
-    theme_bw()
+    theme_bw() +
+    # add labels
+    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
+         subtitle = "A ggplot plots",
+         x        = "Budget (log)",
+         y        = "Review Rating",
+         caption  = "Created using the Horror Movie data set from TidyTuesday")
 ```
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight)) +
+    # the geometric elements
+    geom_point(size   = 5,
+               shape  = 18,
+               alpha  = .5) +
+    geom_smooth(method = "lm", 
+                se     = FALSE, 
+                size   = 1.5,
+                alpha  = .7) +
+    # the theme
+    theme_bw() +
+    # add labels
+    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
+         subtitle = "A ggplot plots",
+         x        = "Budget (log)",
+         y        = "Review Rating",
+         caption  = "Created using the Horror Movie data set from TidyTuesday")
+```
+
+If we put `colour = sex` with the `aes()` function of the `geom_smooth` function, the lines will distinguish between pirates using colour. 
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight)) +
+    # the geometric elements
+    geom_point(aes(colour = sex),
+               size   = 5,
+               shape  = 18,
+               alpha  = .5) +
+    geom_smooth(method = "lm", 
+                se     = FALSE, 
+                size   = 1.5,
+                alpha  = .7) +
+    # the theme
+    theme_bw() +
+    # add labels
+    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
+         subtitle = "A ggplot plots",
+         x        = "Budget (log)",
+         y        = "Review Rating",
+         caption  = "Created using the Horror Movie data set from TidyTuesday")
+```
+
 
 The points don't seem to distinguish btween the colours. This is because the colour mapping is only mapped to geom_smooth, and not geom_point and geom_smooth. We could add `aes(colour = release_country)` to geom_smooth as well but if we add it to the step where we made the canvas, geom_point and geom_smooth will inheret. 
 
-```{r}
-# the data set
-horror_movies %>%
-  # the canvas
-  ggplot(aes(x = release_date, y = movie_run_time, colour = release_country)) +
-    # the geometric elements
-    geom_point() +
-    geom_smooth(method = "lm",
-                se     = FALSE) +
-    # the theme
-    theme_bw()
-```
-
-We can also use the `shape` aesthetic mapping, to change the shapes by country. Let's add that to geom_point(). 
+We can also use the `shape` aesthetic mapping, to change the shapes by country. Let's add that to geom_point().
 
 ```{r}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = release_date, y = movie_run_time, colour = release_country)) +
+    ggplot(aes(x = height, y = weight, colour = sex)) +
     # the geometric elements
-    geom_point(aes(shape = release_country)) +
-    geom_smooth(method = "lm",
-                se     = FALSE) +
+    geom_point(aes(shape = sex),
+               size   = 3,
+               alpha  = .5) +
+    geom_smooth(method = "lm", 
+                se     = FALSE, 
+                size   = 1.5,
+                alpha  = .7) +
     # the theme
-    theme_bw()
+    theme_bw() +
+    # add labels
+    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
+         subtitle = "A ggplot plots",
+         x        = "Budget (log)",
+         y        = "Review Rating",
+         caption  = "Created using the Horror Movie data set from TidyTuesday")
 ```
 
 Well, that looks terrible. Let's try changing the colour pallete. If we want to set our own pallette we can use scale_olour_manual`.
 
 ```{r}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = release_date, y = movie_run_time, colour = release_country)) +
+    ggplot(aes(x = height, y = weight, colour = sex)) +
     # the geometric elements
-    geom_point(aes(shape = release_country)) +
-    geom_smooth(method = "lm",
-                se     = FALSE) +
+    geom_point(aes(shape = sex),
+               size   = 3,
+               alpha  = .5) +
+    geom_smooth(method = "lm", 
+                se     = FALSE, 
+                size   = 1.5,
+                alpha  = .7) +
     # the theme
     theme_bw() +
+    # add labels
+    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
+         subtitle = "A ggplot plots",
+         x        = "Budget (log)",
+         y        = "Review Rating",
+         caption  = "Created using the Horror Movie data set from TidyTuesday") +
     # change colour pallete
-    scale_colour_manual(values = c("red", "blue", "green", "yellow", 
-                                   "purple", "pink", "black"))
+    scale_colour_manual(values = c("red", "blue", "green"))
 ```
 
 I chose terrible colours. We should use a built in palette using the scale_colour_brewer function. The brewer palettes can be found here: http://www.sthda.com/english/wiki/colors-in-r 
 
 ```{r}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = release_date, y = movie_run_time, colour = release_country)) +
+    ggplot(aes(x = height, y = weight, colour = sex)) +
     # the geometric elements
-    geom_point(aes(shape = release_country)) +
-    geom_smooth(method = "lm",
-                se     = FALSE) +
+    geom_point(aes(shape = sex),
+               size   = 3,
+               alpha  = .5) +
+    geom_smooth(method = "lm", 
+                se     = FALSE, 
+                size   = 1.5,
+                alpha  = .7) +
     # the theme
     theme_bw() +
+    # add labels
+    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
+         subtitle = "A ggplot plots",
+         x        = "Budget (log)",
+         y        = "Review Rating",
+         caption  = "Created using the Horror Movie data set from TidyTuesday") +
     # change colour pallete
-    scale_colour_brewer(palette = "Set1")
+    scale_colour_brewer(palette = "Set2")
 ```
 
 I also really don't like that. Let's pull in the big guns. Use scale_colour_viridis_d to use colpour blind safe colours
 
 ```{r}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = release_date, y = movie_run_time, colour = release_country)) +
+    ggplot(aes(x = height, y = weight, colour = sex)) +
     # the geometric elements
-    geom_point(aes(shape = release_country)) +
-    geom_smooth(method = "lm",
-                se     = FALSE) +
+    geom_point(aes(shape = sex),
+               size   = 3,
+               alpha  = .5) +
+    geom_smooth(method = "lm", 
+                se     = FALSE, 
+                size   = 1.5,
+                alpha  = .7) +
     # the theme
     theme_bw() +
+    # add labels
+    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
+         subtitle = "A ggplot plots",
+         x        = "Budget (log)",
+         y        = "Review Rating",
+         caption  = "Created using the Horror Movie data set from TidyTuesday") +
     # change colour pallete
     scale_colour_viridis_d()
+```
+
+Okay, that is definitely better, but it is still hard to distinguish between the three lines. We can use facet_wrap to plot the three plots side_by_side
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight, colour = sex)) +
+    # the geometric elements
+    geom_point(aes(shape = sex),
+               size   = 3,
+               alpha  = .5) +
+    geom_smooth(method = "lm", 
+                se     = FALSE, 
+                size   = 1.5,
+                alpha  = .7) +
+    # the theme
+    theme_bw() +
+    # add labels
+    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
+         subtitle = "A ggplot plots",
+         x        = "Budget (log)",
+         y        = "Review Rating",
+         caption  = "Created using the Horror Movie data set from TidyTuesday") +
+    # change colour pallete
+    scale_colour_viridis_d() +
+    # facet_wrap by sex
+    facet_wrap(~sex)
 ```
 
 # Categorical by Continuous
@@ -361,9 +430,9 @@ Okay, but what if we want to look at categorical plot.
 
 ```{r}
 # the data set
-horror_movies %>%
+pirates %>%
   # the canvas
-  ggplot(aes(x = release_country, y = movie_run_time)) +
+  ggplot(aes(x = sex, y = height)) +
     # the geometric elements
     geom_col()
 ```
@@ -372,111 +441,129 @@ It looks like it is adding up the run times (not taking the average run time).
 
 ```{r}
 # the data set
-horror_movies %>%
-  group_by(release_country) %>%
-  summarise(avg_budget = mean(budget)) %>%
+pirates %>%
+  group_by(sex) %>%
+  summarise(avg_height = mean(height)) %>%
   # the canvas
-  ggplot(aes(x = release_country, y = avg_budget)) +
+  ggplot(aes(x = sex, y = avg_height)) +
     # the geometric elements
     geom_col()
 ```
 
-Wrong order. Let's reorder.
+Let's reorder from shortest to tallest.
 ```{r}
 # the data set
-horror_movies %>%
-  group_by(release_country) %>%
-  summarise(avg_budget = mean(budget)) %>%
+pirates %>%
+  group_by(sex) %>%
+  summarise(avg_height = mean(height)) %>%
   # the canvas
-  ggplot(aes(x = reorder(release_country, avg_budget), y = avg_budget)) +
+  ggplot(aes(x = reorder(sex, avg_height), y = avg_height)) +
     # the geometric elements
     geom_col()
 ```
-Still, wrong order.
+
+Bah, still wrong order.
 
 ```{r}
 # the data set
-horror_movies %>%
-  group_by(release_country) %>%
-  summarise(avg_budget = mean(budget)) %>%
+pirates %>%
+  group_by(sex) %>%
+  summarise(avg_height = mean(height)) %>%
   # the canvas
-  ggplot(aes(x = reorder(release_country, -avg_budget), y = avg_budget)) +
+  ggplot(aes(x = reorder(sex, avg_height), y = avg_height)) +
     # the geometric elements
     geom_col()
 ```
 
-
-
-# Continuous by Continuous
+We can coord_flip
 
 ```{r}
-ggplot(data = horror_movies, aes(x = budget, y = review_rating)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE)
-```
-
-```{r}
-ggplot(data = data_horror, aes(x      = budget, 
-                               y      = movie_run_time,
-                               colour = release_country)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE)
-```
-
-```{r}
-data_horror_sum <- data_horror %>%
-  group_by(release_country) %>%
-  summarize(review_m = mean(review_rating))
-
-
-ggplot(data_horror_sum, aes(x = release_country, 
-                            y = review_m)) +
-    geom_col()
-
-ggplot(data_horror_sum, aes(x = reorder(release_country, -review_m), 
-                            y = review_m)) +
-    geom_col()
-
-ggplot(data_horror_sum, aes(x = reorder(release_country, -review_m), 
-                            y = review_m)) +
-    geom_col(colour = "turquoise")
-
-ggplot(data_horror_sum, aes(x = reorder(release_country, -review_m), 
-                            y = review_m)) +
-    geom_col(colour = "black")
-
-ggplot(data_horror_sum, aes(x = reorder(release_country, -review_m), 
-                            y = review_m)) +
-    geom_col(fill = "turquoise3",
-             colour = "black")
-
-ggplot(data_horror_sum, aes(x = reorder(release_country, -review_m), 
-                            y = review_m)) +
-    geom_col(fill   = "turquoise3",
-             colour = "black",
-             alpha  = .60)
-
-ggplot(data_horror_sum, aes(x = reorder(release_country, review_m), 
-                            y = review_m)) +
-    geom_col(fill   = "turquoise3",
-             colour = "black",
-             alpha  = .60,
-             width  = .5 ) +
+# the data set
+pirates %>%
+  group_by(sex) %>%
+  summarise(avg_height = mean(height)) %>%
+  # the canvas
+  ggplot(aes(x = reorder(sex, avg_height), y = avg_height)) +
+    # the geometric elements
+    geom_col() +
+    # flip the coordinates
     coord_flip()
-
-ggplot(data_horror_sum, aes(x = reorder(release_country, review_m), 
-                            y = review_m)) +
-    geom_col(fill   = "turquoise3",
-             colour = "black",
-             alpha  = .60,
-             width  = .5 ) +
-    coord_flip() +
-    theme_bw() +
-    labs(x = "Country",
-         y = "")
-
-
 ```
+
+Okay, let's make the bar a certain colour
+
+```{r}
+# the data set
+pirates %>%
+  group_by(sex) %>%
+  summarise(avg_height = mean(height)) %>%
+  # the canvas
+  ggplot(aes(x = reorder(sex, avg_height), y = avg_height)) +
+    # the geometric elements
+    geom_col(colour = "turquoise3") +
+    # flip the coordinates
+    coord_flip()
+```
+
+Oh not, what is going on here? When an object has both an outline and an inside, colour changes the colour of the outline. Here we should use the fill colour. 
+
+```{r}
+# the data set
+pirates %>%
+  group_by(sex) %>%
+  summarise(avg_height = mean(height)) %>%
+  # the canvas
+  ggplot(aes(x = reorder(sex, avg_height), y = avg_height)) +
+    # the geometric elements
+    geom_col(fill = "turquoise",
+             colour = "white") +
+    # flip the coordinates
+    coord_flip()
+```
+
+More finishing touches
+
+```{r}
+# the data set
+pirates %>%
+  group_by(sex) %>%
+  summarise(avg_height = mean(height)) %>%
+  # the canvas
+  ggplot(aes(x = reorder(sex, avg_height), y = avg_height)) +
+    # the geometric elements
+    geom_col(fill = "turquoise",
+             colour = "white",
+             alpha = .7,
+             width = .5) +
+    # flip the coordinates
+    coord_flip() +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title = "Average height of pirate by pirate sex",
+         x     = "Sex",
+         y     = "Average Height (cm)")
+```
+
+# Histograms 
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(fill = "turquoise",
+             colour = "white",
+             alpha = .7,
+             bins = 35) +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title = "Frequency Distributin of Pirate Ages",
+         x     = "Age",
+         y     = "Frequency")
+```
+
 
 # Minihacks {#minihacks}
 
