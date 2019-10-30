@@ -29,7 +29,7 @@ The purpose of today's lab is to introduce you to the `tidyverse` as an alternat
 For further resources on these topics, check out [*R for Data Science*](https://r4ds.had.co.nz/){target="_blank"} by Hadley Wickham and [this cheatsheet on data wrangling](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf){target="_blank"} from RStudio.
 
 
-Today's lab will cover:
+To quickly navigate to the desired section, click one of the following links:
 
 1. [Intro to the tidyverse](#tidy)
 1. [Manipulating observations](#obs)
