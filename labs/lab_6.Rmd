@@ -19,13 +19,20 @@ options(scipen = 999)
 
 # Purpose
 
-The purpose of today's lab is to introduce tools for sampling from and calculating statistics for different types of distributions in R. The content of the lab will be split into two sections. The first section will focus on [binomial distributions](#binomial) and the second section will focus on [normal distributions](#normal). The [Minihacks](#minihacks) will test your knowledge of both types of distributions, as well as some distributions that are not discussed in the lab but are nonetheless important.
+The purpose of today's lab is to introduce you to visualizing data. Although R has built in plotting functions, we will be using the `ggplot2` package in todays lab. It is far more powerful than the base R plotting functions and is the basis for other packages that allow you to create interactive plots, animated plots, and 3D plots. Being part of the `tidyverse`, `ggplot2` was also designed to work well with other `tidyverse` packages (e.g., `dplyr`, `tidyr`). The content of today's labs will be split into four sections. The first section, [The Grammar of Graphics](#grammar) will provide a brief overview of how `ggplot2` plots work. The second section, [Histograms](#hist), will provide an overview of how to create a histogram and customize it. The third section, [Categorical-Continuous Graphs](#cat), will guide you through the process of creating a barchart in R. Finally, in the [Continuous-Continuous Graphs](#cont) section, we will discuss how to create plots where you have have a continuous variable both axes.
 
 To quickly navigate to the desired section, click one of the following links:
 
-1. [Binomial Distributions](#binomial)
-1. [Normal Distributions](#normal)
-1. [Minihacks](#minihacks)
+1. [The Grammar of Graphics](#grammar)
+1. [Histograms](#hist)
+1. [Categorical-Continuous Graphs](#cat)
+1. [Continuous-Continous Graphs](#cont)
+
+Below are included some documents that you may find helpful for constructing graphs:
+
+* Claus O. Wilke's [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/) 
+* [The ggplot2 cheatsheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) 
+* [Colors in R](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
 
 ***
 
