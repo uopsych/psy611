@@ -157,14 +157,17 @@ round(mean(mtcars$mpg, na.rm = TRUE), 2)
 
 1. Cleaner code
     * This is nice, because it helps make your code more readable by other humans (including your future self). 
-
+    
+\n
 2. Cleaner environment
     * When you use pipes, you have basically no reason to save objects from intermediary steps in your data wrangling / analysis workflow, because you can just pass output from function to function without saving it.
     * Finding objects you're looking for is easier.
-    
+
+\n    
 3. Efficiency in writing code
     * Naming objects is hard; piping means coming up with fewer names.
-    
+
+\n
 4. More error-proof
     * Because naming is hard, you might accidentally re-use a name and make an error.
 
@@ -211,7 +214,15 @@ names(world_happiness)
 
 ## Extract rows with `filter()`
 
+* The `filter()` function is used to subset observations based on their values. The result of filtering is a data frame with the same number of columns as before but fewer rows, as illustrated below...
+
+<center>
 ![](resources/lab5/manipulate_obs/filter.png)
+</center>
+
+The first argument is `data` and subsequent arguments are logical expressions that tell you which observations to retain in the data frame. 
+
+For example, we can filter rows to retain only the observation for the United States.
 
 ```{r}
 world_happiness %>% 
@@ -220,13 +231,47 @@ world_happiness %>%
 
 ## Logical operators
 
+* The `==` we just used is an example of a comparison operator that tests for equality. The other comparison operators available are :
+
+  + `>` (greater than)
+  + `>=` (greater than or equal to)
+  + `<` (less than)
+  + `<=` (less than or equal to)
+  + `!=` (not equal to)
+
+\n
+* You can combine multiple arguments to `filter()` with Boolean operators. The figure below from [*R for Data Science*](https://r4ds.had.co.nz/transform.html#logical-operators){target="_blank"} shows the complete set of these.
+
+<center>
 ![](resources/lab5/manipulate_obs/logical_operators.png)
+</center>
+
+* Filter for observations that are greater than the mean of `happiness`
+
+```{r}
+world_happiness %>% 
+  filter(happiness > mean(happiness, na.rm= TRUE))
+```
+
+* Filter for observations that are greater than the mean of `happiness` but less than the mean of `gdp`
+
+```{r}
+world_happiness %>% 
+  filter(happiness > mean(happiness, na.rm= TRUE) & gdp < mean(gdp, na.rm = TRUE))
+```
+
 
 ## Sort rows with `arrange()`
 
-![](resources/lab5/manipulate_obs/arrange.png)
+* The `arrange()` function keeps the same number of rows but changes the *order* of the rows in your data frame, as illustrated below...
 
-* Sort countries by happiness
+<center>
+![](resources/lab5/manipulate_obs/arrange.png)
+</center>
+
+The first argument is `data` and subsequent arguments are name(s) of columns to order the rows by. If you provide more than one column name, each additional column will be used to break ties in the values of preceding columns.
+
+For example, let's re-order observations by `happiness`. Note that rows are sorted in ascending order by default.
 
 ```{r}
 world_happiness %>% 
@@ -235,6 +280,16 @@ world_happiness %>%
 world_happiness %>% 
   arrange(desc(happiness)) # sort in descending order
 ```
+
+### You try
+
+* Sort rows in descending order by `happiness` and `gdp`
+
+```{r}
+world_happiness %>% 
+  arrange(happiness, gdp)
+```
+
 
 ***
 
