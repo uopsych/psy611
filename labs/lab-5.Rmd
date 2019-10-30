@@ -246,6 +246,9 @@ world_happiness %>%
 ![](resources/lab5/manipulate_obs/logical_operators.png)
 </center>
 
+
+### You try
+
 * Filter for observations that are greater than the mean of `happiness`
 
 ```{r}
@@ -297,6 +300,14 @@ world_happiness %>%
 
 ## Extract columns with `select()`
 
+* The `select()` function subsets columns in your data frame. This is particularly useful when you have a data set with a huge number of variables and you want to narrow down to the variables that are relevant for your analysis. 
+
+<center>
+![](resources/lab5/manipulate_vars/select.png)
+</center>
+
+The first argument is `data`, followed by the names of the columns you want to subset. Note that you can use variable positions rather than their names, but this is usually not as useful. Let's go through some simple examples of common uses of `select()`...
+
 * Select one variable
 
 ```{r}
@@ -305,26 +316,12 @@ world_happiness %>%
   select(country)
 ```
 
-```{r}
-# select using variable position
-world_happiness %>% 
-  select(1)
-```
-
-
 * Select multiple variables
 
 ```{r}
 # select using variable names
 world_happiness %>% 
   select(country, freedom, corruption)
-```
-
-
-```{r}
-# select using variable positions
-world_happiness %>% 
-  select(1, 6, 8)
 ```
 
 * Select a range of variables
@@ -356,8 +353,19 @@ world_happiness %>%
   select(-(gdp:world))
 ```
 
+### You try
 
-## Helper functions for `select()`
+* Produce a data frame that has only first-world countries with greater than average levels of freedom. Arrange the rows by `freedom` in descending order, and only display the `country` and `freedom` variables (in that order). How many observations are you left with?
+
+```{r}
+world_happiness %>% 
+  filter(world == 1 & freedom > mean(freedom, na.rm = TRUE)) %>% 
+  arrange(desc(freedom)) %>% 
+  select(country, freedom)
+```
+
+
+### Helper functions for `select()`
 
 There are some "helper" functions that you can use along with `select()` if it is easier or more efficient to use certain criteria instead of selecting your variables by name. 
 
@@ -381,19 +389,34 @@ world_happiness %>%
 
 ## Make new variables with `mutate()`
 
-* Create a new variable 
-  + Note: New variables are added at the end of the data frame (scroll to the right to see it)
+* The `mutate()` function is most freqeuntly used to add columns to your data frame.
+
+<center>
+![](resources/lab5/manipulate_vars/mutate.png)
+</center>
+
+* `mutate()` requires data as its first argument, followed by a set of expressions defining new columns, separated by a comma. Let's take a couple examples...
+
+* Create new variables
+  + Note: New variables are added at the end of the data frame (scroll to the right to see them)
 
 ```{r}
 world_happiness %>% 
-  mutate(corruption_std = scale(corruption)) # calculate z-score
+  mutate(corruption_std = scale(corruption), # z-score `corruption` variable
+         life_rounded = round(life, 0)) # round `life` variable to a whole number
 ```
 
-* Change variable type
+* Change existing variables
+
+When we imported our data, the `world` variable was categorized as an `integer`.
 
 ```{r}
 class(world_happiness$world)
+```
 
+However, this variable refers to discrete categories, and we want to change it to be a `factor`. We can do this using `mutate()`.
+
+```{r}
 # Note that I am re-saving the dataframe here to preserve this change
 world_happiness <- world_happiness %>% 
   mutate(world = as.factor(world))
@@ -409,7 +432,7 @@ class(world_happiness$world)
 
 # Summarizing data{#summarize}
 
-* The next dplyr verb we’ll cover is `summarize()`, which is used to summarize across rows of a dataset. `summarize()`, like all tidyverse functions, requires data as its first argument, and then you enter your summary functions separated by commas. Summary functions take vectors as inputs and return single values as outputs:
+* The next dplyr verb we’ll cover is `summarize()`, which is used to summarize across rows of a dataset. `summarize()`, like all tidyverse functions, requires `data` as its first argument, and then you enter your summary functions separated by commas. Summary functions take vectors as inputs and return single values as outputs:
 
 <center>
 ![](resources/lab5/summarize/summary_function.png)
@@ -445,7 +468,11 @@ world_happiness %>%
 
 # Grouping data{#group}
 
-`group_by()` creates groups based on one or more variables in the data. This affects all kinds of things that you then do with the data, such as mutating and/or summarizing. It is pretty simple to use. It requires data as its first argument, and the you name the variable(s) to group by.
+* `group_by()` creates groups based on one or more variables in the data. This affects all kinds of things that you then do with the data, such as mutating and/or summarizing. It is pretty simple to use. It requires `data` as its first argument, and the you name the variable(s) to group by.
+
+<center>
+![](resources/lab5/group_by/group_by.png)
+</center>
 
 ```{r}
 world_happiness %>% 
@@ -454,7 +481,15 @@ world_happiness %>%
 
 At first glance, it doesn't appear that anything has happened. However, under the hood it has indeed grouped the data frame by the `world` variable. Copy and paste this code into the console--what do you notice?
 
-## Apply to `summarize()`
+## Apply `group_by()` to `summarize()`
+
+`group_by()` and `summarize()` can be combined to get group-level statistics. This is a great way to make tables of descriptive stats in R or to create aggregated datasets for some purposes.
+
+<center>
+![](resources/lab5/group_by/group_by_summarize.png)
+</center>
+
+To use these together, you just run `group_by()` followed by `summarize()` in a pipeline.
 
 ```{r}
 world_happiness %>% 
