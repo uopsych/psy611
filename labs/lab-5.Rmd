@@ -122,8 +122,7 @@ The following figure from *R for Data Science* illustrates this visually.
   + `arrange()` changes the ordering of the rows.
   
 
-* Note that the output of`{dplyr}` functions is always a `data.frame`, which you'll see later on can be really useful when modelling and visualizing data. 
-
+* Note that `{dplyr}` functions always take a data frame as the first argument and return a modified data frame back to you. The fact that you always get a data frame back is useful down the road when you are modelling and visualizing data. 
 
 ## Pipes{#pipes}
 
@@ -503,7 +502,12 @@ world_happiness %>%
 
 # Minihacks
 
-## Minihack 1:
+## Minihack 1: 
+
+```{r}
+
+```
+
 
 ## Minihack 2:
 
