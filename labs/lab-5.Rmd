@@ -22,7 +22,7 @@ library(janitor)
 ```
 
 
-# **Purpose**
+# Purpose
 
 The purpose of today's lab is to introduce you to the `tidyverse` as an alternative (and recommended) framework for working with data structures in R.  We will mostly focus on data wrangling (particularly data transformation), including how to filter obervations, extract specific variable, generate new variables and summarize data. 
 
@@ -39,41 +39,40 @@ Today's lab will cover:
 
 ***
 
-# **Intro to the tidyverse**{#tidy}
+# Intro to the tidyverse{#tidy}
 
-The tidyverse, according to its creators, is ["an opionated collection of R packages designed for data science."](https://www.tidyverse.org/){target="_blank"} It's a suite of packages designed with a consistent philosophy and aesthetic. This is nice because all of the packages are designed to work well together, providing a consistent framework to do many of the most common tasks in R including, but not limited to:
+* The `tidyverse`, according to its creators, is ["an opionated collection of R packages designed for data science."](https://www.tidyverse.org/){target="_blank"} It's a suite of packages designed with a consistent philosophy and aesthetic. This is nice because all of the packages are designed to work well together, providing a consistent framework to do many of the most common tasks in R, including, but not limited to...
 
-* data cleaning (`tidyr`)
-* data manipulation (`dplyr`)
-* data visualization (`ggplot2`)
-* working with strings (`stringr`)
-* working with factors (`forcats`)
+  + data manipulation (`dplyr`) **= our focus today**
+  + reshaping data (`tidyr`)
+  + data visualization (`ggplot2`)
+  + working with strings (`stringr`)
+  + working with factors (`forcats`)
 
-To load all the packages included in the tidyverse, use:
+To load all the packages included in the `tidyverse`, use:
 
 ```{r eval=FALSE}
-# if tidverse is not installed first use `install.packages("tidyverse")`
+install.packages("tidyverse") # if not already installed
 library(tidyverse)
 ```
 
+* Three qualities of the `tidyverse` are worth mentioning at the outset:
 
-Today we'll mostly focus on data manipulation with `dplyr`.
+  1. Packages are designed to be like *grammars* for their task, so we'll be using functions that are named as *verbs* to discuss the tidyverse. The idea is that you can string these grammatical elements together to form more complex statements, just like with language. 
 
-Three qualities of the `tidyverse` are worth mentioning at the outset:
+  2. The first argument of (basically) every function we'll review today is `data`. This is very handy, especially when it comes to pipinp (discussed [below](#pipes)).
 
-1. Packages are designed to be like *grammars* for their task, so we'll be using terms like verbs to discuss the tidyverse. The idea is that you can string these grammatical elements together to form more complex statements, just like with language. 
-
-2. The first argument of (basically) every function is `data`. This is very handy, especially when it comes to piping (discussed below).
-
-3. Variable names are *usually* not quoted.
+  3. Variable names are *usually* not quoted.
 
 ## What is data wrangling?
 
-Data wrangling, broadly speaking, means getting your data into a useful form for visualizing and modelling it. Hadley Wickham, who has developed a lot of the tidyverse, conceptualizes the main steps involved in data wrangling as follows:
+* Data wrangling, broadly speaking, means getting your data into a useful form for visualizing and modelling it. Hadley Wickham, who has developed a lot of the tidyverse, conceptualizes the main steps involved in data wrangling as follows:
 
-1. Importing your data (we covered this in [Week 1's lab](https://uopsych.github.io/psy611/labs/lab-1.html#importing_data_into_r){target="_blank"})
-2. Tidying your data (see brief overview below)
-3. Transforming your data (what we'll cover today)
+  1. Importing your data (we covered this in [Week 1's lab](https://uopsych.github.io/psy611/labs/lab-1.html#importing_data_into_r){target="_blank"})
+  
+  2. Tidying your data (see brief overview below)
+  
+  3. Transforming your data (what we'll cover today)
 
 The figure below highlights the steps in data wrangling in relation to the broader model of a typical data science workflow:
 
@@ -83,11 +82,13 @@ The figure below highlights the steps in data wrangling in relation to the broad
 
 ## What is tidy data?
 
-Data is considered "tidy" when:
+* Data is considered "tidy" when:
 
-1. Each variable has its own column
-2. Each observation has its own row
-3. Each value has its own cell
+  1. Each variable has its own column
+  
+  2. Each observation has its own row
+  
+  3. Each value has its own cell
 
 The following figure from *R for Data Science* illustrates this visually. 
 
@@ -95,46 +96,55 @@ The following figure from *R for Data Science* illustrates this visually.
 ![Illustration of tidy data](resources/lab5/intro/tidy_data.png)
 </center>
 
-If your data is not in tidy format already when you import it, the `tidyR` package contains functions, e.g. `gather()` and `spread()`, that allow you to "reshape" your data to get it into tidy format. 
+* If your data is not already in tidy format when you import it, you can use functions from the `{tidyR}` package, e.g. `gather()` and `spread()`, that allow you to "reshape" your data to get it into tidy format. 
 
-However, this term we are mostly going to work with simpler datasets that are already tidy, so we are not going to focus on these functions today. These functions will become especially useful in the future when we work with repeated measures data that has multiple observations for each subject. If you are interested in learning more about reshaping your data with `tidyR`, check out [this chapter](https://r4ds.had.co.nz/tidy-data.html#introduction-6){target="_blank"} from *R for Data Science*.
+* However, this term we are mostly going to work with simpler datasets that are already tidy, so we are not going to focus on these functions today. These functions will become especially useful in the future when we work with repeated measures data that has multiple observations for each subject. If you are interested in learning more about reshaping your data with `{tidyR}`, check out [this chapter](https://r4ds.had.co.nz/tidy-data.html#introduction-6){target="_blank"} from *R for Data Science*.
 
 ## Today's focus: `{dplyr}`
 
-Most of the functions we'll go over today come from the `{dplyr}` package. Essentially, you can think of this package as a set of "pliers" that you can use to tweak data frames, hence its name (and hex sticker).
+* Most of the functions we'll go over today come from the `{dplyr}` package. Essentially, you can think of this package as a set of "pliers" that you can use to tweak data frames, hence its name (and hex sticker).
 
 <center>
 ![](resources/lab5/intro/dplyr.jpeg)
 </center>
 
-`{dplyr}` is a "grammar" of data manipulation. As such, its functions are *verbs*:
 
-* `mutate()` adds new variables that are functions of existing variables
-* `select()` picks variables based on their names.
-* `filter()` picks cases based on their values.
-* `summarise()` reduces multiple values down to a single summary.
-* `arrange()` changes the ordering of the rows.
+* `{dplyr}` is a "grammar" of data manipulation. As such, its functions are *verbs*:
 
-## Pipes
+  + `mutate()` adds new variables that are functions of existing variables
+  
+  + `select()` picks variables based on their names.
+  
+  + `filter()` picks cases based on their values.
+  
+  + `summarise()` reduces multiple values down to a single summary.
+  
+  + `arrange()` changes the ordering of the rows.
+  
 
-Pipes come from the `{magrittr}` package are available when you load the tidyverse. (The pipe is technically imported with `{dplyr}`.) Pipes are a way to write strings of functions more easily, creating *pipelines*. They are extremely powerful and useful. A pipe looks like this:
+* Note that the output of`{dplyr}` functions is always a `data.frame`, which you'll see later on can be really useful when modelling and visualizing data. 
+
+
+## Pipes{#pipes}
+
+* Pipes come from the `{magrittr}` package are available when you load the tidyverse. (Technically, the pipe is imported with `{dplyr}`.) Pipes are a way to write strings of functions more easily, creating *pipelines*. They are extremely powerful and useful. A pipe looks like this:
 
 `%>%`
 
-You can enter a pipe with the shortcut `CTRL+Shift+M` for PC or `CMD+Shift+M` for Mac.
+  + You can enter a pipe with the shortcut `CTRL+Shift+M` for PC or `CMD+Shift+M` for Mac.
 
-Strictly speaking, a pipe passes an object on the left-hand side as the first argument (or `.` argument) of whatever function is on the right-hand side.
+* Strictly speaking, a pipe passes an object on the left-hand side as the first argument (or `.` argument) of whatever function is on the right-hand side.
 
-* `x %>% f(y)` is the same as `f(x, y)`
+  + `x %>% f(y)` is the same as `f(x, y)`
 
-* `y %>% f(x, ., z)` is the same as `f(x, y, z )`
+  + `y %>% f(x, ., z)` is the same as `f(x, y, z )`
 
 For example, to calculate the mean of the `mpg` variable from the `mtcars` dataset and round our answer to 2 decimal places, we can do the following...
 
 ```{r}
-mtcars$mpg %>% 
-  mean(na.rm = TRUE) %>% 
-  round(2)
+mtcars$mpg %>% # select the `mpg` variable from the `mtcars` dataset
+  mean(na.rm = TRUE) %>% # calculate the mean
+  round(2) # round to 2 decimal places
 ```
 
 This accomplishes the same thing as "nesting" functions within each other...
@@ -151,7 +161,7 @@ round(mean(mtcars$mpg, na.rm = TRUE), 2)
 2. Cleaner environment
     * When you use pipes, you have basically no reason to save objects from intermediary steps in your data wrangling / analysis workflow, because you can just pass output from function to function without saving it.
     * Finding objects you're looking for is easier.
-
+    
 3. Efficiency in writing code
     * Naming objects is hard; piping means coming up with fewer names.
     
@@ -160,7 +170,7 @@ round(mean(mtcars$mpg, na.rm = TRUE), 2)
 
 ## Example dataset
 
-Because you are already familiar with the World Happiness dataset, we will use this as a running example today. You can import the data with the following code:
+* Because you are already familiar with the World Happiness dataset, we will use this as a running example today. You can import the data with the following code:
 
 ```{r}
 world_happiness <- rio::import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab5/data/world_happiness.csv")
@@ -168,13 +178,13 @@ world_happiness <- rio::import("https://raw.githubusercontent.com/uopsych/psy611
 
 ### Clean names
 
-If we look at the names of the variables in `world_happiness`, we'll notice that all of the variable names are capitalized. 
+* If we look at the names of the variables in `world_happiness`, we'll notice that all of the variable names are capitalized. 
 
 ```{r}
 names(world_happiness)
 ```
 
-Personally, I find it annoying to have to remember to capitalize the first letter whenever I reference a variable name. The `clean_names()` from the `{janitor}` package will (by default) convert all variable names to `snake_case` (but there are several other options...see [here](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html#clean-data.frame-names-with-clean_names){target="_blank"} for more info).
+* Personally, I find it annoying to have to remember to capitalize the first letter whenever I reference a variable name. The `clean_names()` from the `{janitor}` package will (by default) convert all variable names to `snake_case` (but there are several other options...see [here](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html#clean-data.frame-names-with-clean_names){target="_blank"} for more info).
 
 ```{r eval=FALSE}
 install.packages("janitor") # if not already installed
@@ -182,22 +192,22 @@ library(janitor)
 ```
 
 ```{r}
-# clean variable names
+# clean variable names 
 world_happiness <- world_happiness %>% 
   clean_names()
 ```
 
 Now all of our variable names are lower case. 
 
-**Note**: Remember to save your new data frame to an object of the same name as your old data frame if you want to overwrite the old one. 
-
 ```{r}
 names(world_happiness)
 ```
 
+* **Note**: Remember to save your new data frame to an object of the same name as your old data frame if you want to overwrite the old one. 
+
 ***
 
-# **Manipulating observations**{#obs}
+# Manipulating observations{#obs}
 
 ## Extract rows with `filter()`
 
@@ -228,7 +238,7 @@ world_happiness %>%
 
 ***
 
-# **Manipulating variables**{#vars}
+# Manipulating variables{#vars}
 
 ## Extract columns with `select()`
 
@@ -342,7 +352,7 @@ class(world_happiness$world)
 
 ***
 
-# **Summarizing data**{#summarize}
+# Summarizing data{#summarize}
 
 * The next dplyr verb we’ll cover is `summarize()`, which is used to summarize across rows of a dataset. `summarize()`, like all tidyverse functions, requires data as its first argument, and then you enter your summary functions separated by commas. Summary functions take vectors as inputs and return single values as outputs:
 
@@ -378,7 +388,7 @@ world_happiness %>%
 
 *** 
 
-# **Grouping data**{#group}
+# Grouping data{#group}
 
 `group_by()` creates groups based on one or more variables in the data. This affects all kinds of things that you then do with the data, such as mutating and/or summarizing. It is pretty simple to use. It requires data as its first argument, and the you name the variable(s) to group by.
 
@@ -401,7 +411,7 @@ world_happiness %>%
 
 ***
 
-# **Minihacks**
+# Minihacks
 
 ## Minihack 1:
 
