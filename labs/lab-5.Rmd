@@ -283,16 +283,6 @@ world_happiness %>%
   arrange(desc(happiness)) # sort in descending order
 ```
 
-### You try
-
-* Sort rows in descending order by `happiness` and `gdp`
-
-```{r}
-world_happiness %>% 
-  arrange(happiness, gdp)
-```
-
-
 ***
 
 # Manipulating variables{#vars}
