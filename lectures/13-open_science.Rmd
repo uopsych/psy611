@@ -1,0 +1,372 @@
+---
+title: 'Open Science'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, rladies, rladies-fonts, "my-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+--- 
+
+## Open Science Movement
+
+Sometimes labelled **"the reform movement"** -- (psychological) scientists trying to address problems in the field identified as part of the replication crisis. 
+
+(Note, these are not distint periods of history, nor are either of them considered over.)
+
+Within psychology, much of the force behind this movement has been driven by social and personality psychologists. 
+
+  - **Open** because one of the primary problems of the replication crisis was the lack of transparency. Stapel, Bem, everyone did work in private; kept data secret; buried, hid, lost key aspects of research. Opaque was normal.
+  
+---
+
+### Dates
+
+2011-2012 -- Bem ESP paper, False Positive Psychology paper, Diederik Stapel fraud case, Hauser fraud case, Sanna fraud case, Smeesters fraud case. 
+  - an interesting time to start graduate school...
+
+2013 -- Center for Open Science is founded
+
+2016 -- Innagural meeting of the Society for the Improvement of Psychological Science. 100 attendees. 
+
+  - Attendees include: David Condon, Grace Binion, Rita Ludwig, and Sanjay Srivastava
+
+
+---
+
+### Goals of open science
+
+* Change incentive structure
+
+--
+
+* Improve training and research practices of the next generation (YOU)
+
+--
+
+* Empirically test the state of the field (meta-science)
+
+--
+
+* Develop new tools to enable better scientific research
+
+---
+
+class:inverse
+
+### Open science values
+
+Tal Yarkoni (July 13, 2019)
+
+![](images/yarkoni_blog_1.png)
+
+---
+
+class:inverse
+
+### Open science values
+
+Tal Yarkoni (July 13, 2019)
+
+![](images/yarkoni_blog_2.png)
+
+---
+
+"Open science" is often used to signal different things, including:
+
+* **Reproducibility** -- are other people able to obtain your same result with your same data?
+
+--
+
+* **Accessibility** -- is work publicly available?
+
+--
+
+* **Incentive alignment** -- do the policies of the field encourage good science or something else entirely?
+
+--
+
+* **Openness of opinion** -- is criticism of work distinguished from criticism of people?
+
+--
+
+* **Diversity/equity and inclusion** -- Are there barriers to being a scientist, reading science, being helped by science?
+
+--
+
+* **Metascience and informatics.** -- How are we diagnosing the field? How do we determine the quality of a study? 
+
+---
+
+### Reproducibility vs Replicability
+
+.small[Condon, Graham, & Mroczek, 2018; [psyarxiv.com/2fn5x](https://psyarxiv.com/2fn5x/)]
+
+![](images/replication.png)
+
+
+---
+
+## (New) tools
+
+This is an exciting time to be a psychological researcher, because new tools for making work reproducible, accessible, open, and inclusive are being developed every day. 
+
+It's just a lot easier to meet these standards today than it was 10 years ago.
+
+Let's discuss some new(ish) tools for ensuring your work is reproducible and robust.
+
+---
+
+### Git (not new)
+
+**Git** is a version control system. Think Microsoft Track Changes for your code. 
+
+![](images/github.png)
+* Additionally allows multiple collaborators to contribute code to the same project.
+
+---
+
+### GitHub (also not new)
+
+* GitHub is one site that facilitates the use of Git. (Others exist. But they don't have OctoCat.)
+
+* Repositories can be private or public -- allow you to share your work with others (reproducible)
+
+* GitHub also plays well with the Markdown language, which is what you're using for your homework assignments.
+
+    - You can [link GitHub repositories to R Projects](https://happygitwithr.com) for near seamless integration. 
+
+    - Pair GitHub and R to make websites!
+    
+(Interested? Have 4 hours to kill? I recommend looking through [Alison Hill's workshop on blogdown](https://arm.rbind.io/days/day1/blogdown/) and the [tutorial prepared by Dani Cosme and Sam Chavez](https://robchavez.github.io/datascience_gallery/html_only/websites.html)).
+
+---
+
+### Open Science Framework (OSF.io)
+
+* Another repository, also includes version control
+  * Reproducibility
+
+* Doesn't use code/terminal to update files
+  * Drag and drop, or linked with other repository (Dropbox, Box, Google Drive, etc)
+  
+* Also great for collaborations
+
+* Easy to navigate
+
+* Can be paired with applications you (should) already use
+
+---
+
+class: center
+
+![](images/osf.png)
+---
+### PsyArXiv
+
+.pull-left[
+![](images/psyarxiv.png)
+
+* preprint = the pre-copyedited version of your manuscript
+
+* journals have different policies regarding what you can post. It's always a good idea to [check](http://sherpa.ac.uk/romeo/index.php).
+
+
+]
+
+.pull-right[
+OSF connects to PsyArXiv, which is the primary preprint server for psychology
+
+* Make your work available to the public (equity and inclusion)
+
+* Post reports of work that can't get published (avoid the file drawer, improve everyone's work)
+]
+
+---
+
+### Preregistration
+
+OSF also allows you to preregister a project. 
+
+**[Preregistration](https://www.theguardian.com/science/blog/2013/jun/05/trust-in-science-study-pre-registration)** is creating a time-stamped, publicly availble, frozen document of your research plan prior to executing that plan. 
+
+![](images/prereg.png)
+
+---
+
+### Preregistration
+
+
+#### Goal: deter p-hacking and harking
+  * Did the researcher preregister 3 outcome variables and only report one? 
+  * Did the research *actually* believe this correlation would be significant?
+  
+--
+  
+#### Goal: distinguish data-driven choices from theory based choices
+  * Was the covariate included because of theory or based on descriptives?
+  
+--
+
+#### Goal: correctly identify confirmatory and exploratory research
+  * Exploratory research should be OK!
+  * Protection against editors and reviewers
+  
+---
+
+### Preregistration
+
+The point of preregistration is not to tie your hands -- there are often many reasons for deviating from a preregistration. 
+
+The point is to:
+
+  1. Encourage researchers to plan out analysis and choices before they see the data, and
+  
+  2. Create a verifiable record of when analytic decisions were made, whicl will
+  
+  3. Allow researchers to calibrate their confidence in results accordingly.
+  
+Preregistration also provides a check on the file-drawer problem.
+
+Enhances the reproducibility, replicability, and transparency of research.
+
+---
+
+### Registered reports
+
+**Registered reports (RR)** are a special kind of journal article
+
+```{r, echo = F, out.width='80%'}
+knitr::include_graphics("images/RR.png")
+```
+
+.small[image credit: [Doropthy Bishop](https://blog.wellcomeopenresearch.org/2018/12/04/rewarding-best-practice-with-registered-reports/)]
+
+---
+
+### Registered reports
+
+#### Goal: uncouple incentive (publication) from study result
+* New incentive is now doing a high-quality study
+
+Changes the researcher's goal; also changes the reviewer's focus
+
+- No longer evaulate whether or not result was "statistically significant" -- instead, evaluate whether this is a good test of the research question. 
+
+Many journals now allow RRs, and even RRR (registered **replication* reports)
+
+
+---
+
+**Some challenges with preregistration and registered reports:**
+
+- Difficult to do with longitudinal data
+
+- Controversy over pre-existing data (secondary data analysis)
+
+- Preregistration needs to be specific, otherwise it doesn't work
+
+
+---
+
+### R (not new)
+
+.pull-left[
+* Use of scripts -- data analysis is **reproducible**
+
+  - Don't be your own worst collaborator
+  
+* Software is open-source
+
+  - **Equity** in terms of who can use the software 
+  - **Equity** in terms of who can build the software!
+  - Newest statistical methods are available right away 
+]
+
+.pull-right[
+![](images/Rconsole.png)
+]
+    
+---
+
+### RMarkdown (Not that new)
+
+Combination of two langauges: **R** and Markdown.
+
+Markdown is a way of writing without a WYSIWYG editor -- instead, little bits of code tell the text editor how to format the document. 
+
+Increased flexibility: Markdown can be used to create
+- presentations (this one!)
+- manuscripts
+- CVs
+- books
+- websites
+
+By combining Markdown with R... 
+
+---
+
+![](images/rmarkdown.jpg)
+
+(Yes, we'll talk about this in PSY 612)
+
+---
+
+### Notes of caution
+
+Not everyone agrees that open science is the way to go.
+- Some subfields are more active than others. Some subfields are developing...
+
+- Developmental psychology: push for openness (Jenn Pfiefer and Kate Mills)
+- Neuroscience: pioneers leading the way (Elliot Berkman and Rob Chavez)
+
+UO Psychology is kinda special. (2 of 11 university psychology professor job ads containing language about open science this year)
+
+YMMV -- as a graduate student, do what you gotta do
+
+---
+
+### Metascience tools
+
+New methods of conducting science on science -- often developed to find fraud, but super useful for detecting errors
+
+* [Granularity-related inconsistency of means (GRIM)](http://www.prepubmed.org/grim_test/) test -- is the mean mathematically possible given the sample size?
+
+* [Sample Parameter Reconstruction via Iterative TEchniques (SPRITE)](https://hackernoon.com/introducing-sprite-and-the-case-of-the-carthorse-child-58683c2bfeb) -- given a set of parameters and constraints, [generate](https://steamtraen.shinyapps.io/rsprite/) lots of possible samples and examine for common sense. 
+
+* [StatCheck](http://statcheck.io/) -- upload pdfs and word documents to look for inconsistencies (e.g., statistic, df)
+
+---
+
+## Science is becoming more collaborative
+
+
+![](images/psychacc.png)
+
+---
+.pull-left[
+![](images/sips.png)
+]
+
+.pull-right[
+
+
+]
+
+Traditional status hierarchies are being upset. Many early career researchers have contributed to open science, even as graduate students. 
+
+
+---
+
+## Criticisms
+
+
+---
+
+class: inverse
+
+## Next time...
+
+Categorical data analysis
