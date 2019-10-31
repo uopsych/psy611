@@ -24,7 +24,7 @@ library(janitor)
 
 # Purpose
 
-The purpose of today's lab is to introduce you to the `tidyverse` as an alternative (and recommended) framework for working with data structures in R.  We will mostly focus on data wrangling (particularly data transformation), including how to filter obervations, extract specific variable, generate new variables and summarize data. 
+The purpose of today's lab is to introduce you to the `tidyverse` as a framework for working with data structures in R.  We will mostly focus on data wrangling (particularly data transformation), including how to filter obervations, extract specific variable, generate new variables and summarize data. 
 
 For further resources on these topics, check out [*R for Data Science*](https://r4ds.had.co.nz/){target="_blank"} by Hadley Wickham and [this cheatsheet on data wrangling](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf){target="_blank"} from RStudio.
 
@@ -489,7 +489,7 @@ At first glance, it doesn't appear that anything has happened. However, under th
 
 ## Apply `group_by()` to `summarize()`
 
-`group_by()` and `summarize()` can be combined to get group-level statistics. This is a great way to make tables of descriptive stats in R or to create aggregated datasets for some purposes.
+* `group_by()` and `summarize()` can be combined to get group-level statistics. This is a great way to make tables of descriptive stats in R or to create aggregated datasets for some purposes.
 
 <center>
 ![](resources/lab5/group_by/group_by_summarize.png)
@@ -509,20 +509,34 @@ world_happiness %>%
 
 # Minihacks
 
-For the minihacks today, we will be working with the `diamonds` dataset, which is built into R. Take a peek at the dataset with the following functions:
+For the minihacks today, we will be working with the [`diamonds`](https://ggplot2.tidyverse.org/reference/diamonds.html){target="_blank"} dataset, which is built into R. Take a peek at the dataset with the following functions:
 
 ```{r, eval=FALSE}
 head(diamonds) # first few rows
 str(diamonds) # structure of the data frame
 ```
 
+Here are what the variables refer to:
+
+variable | meaning
+---------|--------
+`price` | price in US dollars 
+`carat` | weight of the diamond
+`cut` | quality of the cut (Fair, Good, Very Good, Premium, Ideal)
+`color` | diamond colour, from D (best) to J (worst)
+`clarity` | a measurement of how clear the diamond is (I1 (worst), SI2, SI1, VS2, VS1, VVS2, VVS1, IF (best))
+`x` | length in mm 
+`y` | width in mm 
+`z` | depth in mm 
+`depth` | total depth percentage 
+`table` | width of top of diamond relative to widest point
 
 ## Minihack 1: Make code more legible
 
 1. Take a look at the following chunk of code. If you're like me, this will make your head hurt. See if you can understand what it is trying to do. 
 
 ```{r eval = FALSE}
-arrange(select(filter(diamonds, carat > 3 & carat < 4, cut == "Premium", color == "G" |  color == "H" | color == "I" | color == "J"), carat, color, price), desc(price))
+arrange(select(filter(diamonds, carat > 3 & carat < 4, cut == "Premium", color == "G" |  color == "H" | color == "I" | color == "J"), carat, color, price), color, desc(price))
 ```
 
 2. Re-write this code using pipes (` %>% `) so it is easier to read. Make sure you get the same result that you got when you ran the cluttered code. For an extra challenge, try making the filtering step more concise.
@@ -538,10 +552,97 @@ diamonds %>%
          cut == "Premium", 
          color %in% c("G", "H","I", "J")) %>% 
   select(carat, color, price) %>% 
-  arrange(desc(price))
+  arrange(color, desc(price))
 ```
 
 
-## Minihack 2: 
+## Minihack 2: Translating into `{dplyr}` verbs
 
-## Minihack 3:
+Answer the questions below using functions from `{dplyr}`. Think about the order in which you will need to do different operations.
+
+1. What is the difference in average carat size between `Fair` and `Ideal` diamonds?
+
+```{r}
+# your code here
+```
+
+
+```{r}
+diamonds %>% 
+  filter(cut %in% c("Fair", "Ideal")) %>% 
+  group_by(cut) %>% 
+  summarize(mean_carat = mean(carat, na.rm = TRUE))
+```
+
+2. Which is more expensive on average, a `Fair`, `I1` (worst cut, best clarity) diamond, or an `Ideal`,`IF`(best cut, worst clarity)?
+
+```{r}
+# your code here
+```
+
+
+```{r}
+diamonds %>% 
+  filter(cut == "Fair", 
+         clarity == "I1") %>% 
+  summarize(mean_price = mean(price, na.rm = TRUE),
+            sd_price = sd(price, na.rm = TRUE))
+  
+diamonds  %>% 
+  filter(cut == "Ideal",
+         clarity == "IF") %>% 
+  summarize(mean_price = mean(price, na.rm = TRUE),
+            sd_price = sd(price, na.rm = TRUE))
+```
+
+
+## Minihack 3: Summarizing data
+
+1. Calculate the following summary statistics for the `carat` variable for each `color` of diamond. Label your variables with the names in parentheses.
+
+  * mean (`mean`)
+  * standard deviation (`sd`)
+  * n (`n`)
+  * standard error of the mean (sem) (`sem`)
+  * 95% confidence interval (lower and upper bounds) around the mean (using a *t* distribution). (`ci_lower` and `ci_upper`)
+    + Hint: Refer to [this slide from class](https://uopsych.github.io/psy611/lectures/9-sampling.html#40){target="_blank"} for an example
+    
+  ***In your final summary output only include `color`, `mean`, `ci_lower` and `ci_upper`
+  
+```{r}
+# your code here
+```
+  
+
+```{r}
+# group by color, CI based on t distribution
+diamonds %>% 
+  group_by(color) %>% 
+  summarize(mean = mean(carat, na.rm = TRUE),
+            sd = sd(carat, na.rm = TRUE),
+            n = n(),
+            sem = sd/sqrt(n),
+            ci_lower = mean - sem * qt(p = .975, df = n-1),
+            ci_upper = mean + sem * qt(p = .975, df = n-1)) %>% 
+  select(-n, -sd, -sem)
+```
+
+2. Repeat the same process above, but this time calculate summary statistics for the `carat` variable for each combination of `color` and `cut`. 
+
+```{r}
+# your code here
+```
+
+
+```{r}
+diamonds %>% 
+  group_by(color, cut) %>% 
+  summarize(mean = mean(carat, na.rm = TRUE),
+            sd = sd(carat, na.rm = TRUE),
+            n = n(),
+            sem = sd/sqrt(n),
+            ci_lower = mean - sem * qt(p = .975, df = n-1),
+            ci_upper = mean + sem * qt(p = .975, df = n-1)) %>% 
+  select(-n, -sd, -sem)
+```
+
