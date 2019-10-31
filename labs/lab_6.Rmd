@@ -67,21 +67,14 @@ pirates
 
 We can then pipe (`%>%`) that **data set** to `ggplot()` to create the **canvas** of our plot.
 
-```{r, results = FALSE}
+```{r}
 # the data set
 pirates %>%
   # the canvas
   ggplot(aes(x = age))
 ```
 
-The `aes()` function above tells `ggplot()` that we are providing it aesthetic information for the **canvas**. In this case, we are saying the **canvas** should have `age` on the x-axis. Other aesthetic mappings include `y`, `colour`, `size`, and `shape`, but we will discuss those later. Below, we print out the plot created by the code above.
-
-```{r, echo = FALSE}
-# the data set
-pirates %>%
-  # the canvas
-  ggplot(aes(x = age))
-```
+The `aes()` function above tells `ggplot()` that we are providing it aesthetic information for the **canvas**. In this case, we are saying the **canvas** should have `age` on the x-axis. Other aesthetic mappings include `y`, `colour`, `size`, and `shape`, but we will discuss those later.
 
 As we can see, a **canvas** is not that exciting without anything on it. We can add **geometric elements** to a plot by using the functions that begin with `geom_`. Let's add a histogram by adding `geom_histogram()`. Unlike other functions in the `tidyverse`, we use the plus symbol(`+`) instead of the pipe symbol (`%>%`) to add elements to a plot. 
 
@@ -139,7 +132,7 @@ pirates %>%
     theme_bw()
 ```
 
-And, finally, no plot is complete without proper labels. Fortunately, `ggplot2` has the `labs()` function built in for just this purpose.
+No plot is complete without proper labels. Fortunately, `ggplot2` has the `labs()` function built in for just this purpose.
 
 ```{r}
 # the data set
@@ -154,11 +147,36 @@ pirates %>%
     # set theme
     theme_bw() +
     # add labels 
-    labs(title = "Frequency Distribution of Pirate Ages",
+    labs(title    = "Frequency Distribution of Pirate Ages",
          subtitle = "A ggplot plot",
          x        = "Age",
          y        = "Frequency",
          caption  = "Data from that `yarrr` package.")
+```
+
+Finally, let's see if the age distribution differs by the pirate's `sex`. To do so, we can use `facet_wrap(~sex)`.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 35) +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Frequency Distribution of Pirate Ages",
+         subtitle = "A ggplot plot",
+         x        = "Age",
+         y        = "Frequency",
+         caption  = "Data from that `yarrr` package.") +
+    # split the plot by sex
+    facet_wrap(~sex)
+    
 ```
 
 ***
