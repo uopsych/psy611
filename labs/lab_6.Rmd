@@ -54,6 +54,237 @@ Below are included some resources that you may find useful going forward:
 
 The `ggplot2` package is built around Leland Wilkinson's idea of the *Grammar of Graphics*. In its simplest form, the *Grammar of Graphics* suggests that every graph can be created from (1) a data set (e.g., `mtcars`, `world happiness`), (2) a coordinate system (e.g., a cartesian coordinate system), and (3) a set of geometric elements that represent the data (e.g., points, lines, polygons).
 
+***
+
+# Histograms {#hist}
+
+Below is the **data set** `pirates`.
+
+```{r}
+# the data set
+pirates
+```
+
+We can then pipe (`%>%`) that **data set** to `ggplot()` to create the **canvas** of our plot.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age))
+```
+
+The `aes()` function above tells `ggplot()` that we are providing it aesthetic information for the **canvas**. In this case, we are saying the **canvas** should have `age` on the x-axis. Other aesthetic mappings include `y`, `colour`, `size`, and `shape`, but we will discuss those later.
+
+As we can see, a **canvas** is not that exciting without anything on it. We can add **geometric elements** to a plot by using the functions that begin with `geom_`. Let's add a histogram by adding `geom_histogram()`. Unlike other functions in the `tidyverse`, we use the plus symbol(`+`) instead of the pipe symbol (`%>%`) to add elements to a plot. 
+
+```{r, echo = FALSE}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram()
+```
+
+Looks like a histogram, but it is a bit hard to distinguish between the different bins. We can use the `fill` and `colour` (or `color`) arguments to specify the colour of the inside and outline of **geometric elements**, respectively. We can also use `alpha` to set the opacity (i.e., the transparency) of the geometric element.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6)
+```
+
+The **geometric element** `geom_histogram()` has an additional argument `binwidth` that allows you to specify how many bings that variable should be categorized into. Let's change the `binwidth` to `35`.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 35)
+```
+
+Looks like our  data is more normal than we previously thought.
+
+We can change the theme of the **canvas** by using the suite of functions that start with `theme_`. I like `theme_bw()`, but other choices include `theme_gray()`, `theme_minimal()`, and `theme_classic()`.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 35) +
+    # set theme
+    theme_bw()
+```
+
+No plot is complete without proper labels. Fortunately, `ggplot2` has the `labs()` function built in for just this purpose.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 35) +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Frequency Distribution of Pirate Ages",
+         subtitle = "A ggplot plot",
+         x        = "Age",
+         y        = "Frequency",
+         caption  = "Data from that `yarrr` package.")
+```
+
+Finally, let's see if the age distribution differs by the pirate's `sex`. To do so, we can use `facet_wrap(~sex)`.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 35) +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Frequency Distribution of Pirate Ages",
+         subtitle = "A ggplot plot",
+         x        = "Age",
+         y        = "Frequency",
+         caption  = "Data from that `yarrr` package.") +
+    # split the plot by sex
+    facet_wrap(~sex)
+    
+```
+
+***
+
+# Categorical by Continuous {#cat}
+
+Okay, but when we are looking at our data histograms only get us so far. Usually we are interested in th relationship between at least two variables. Below we've created a canvas with `sex` on the x-axis, specified using `x = sex` inside of the `aes()` function of `ggplot()`, and `height` on the y-axis, specified using `y = height` inside of the `aes()` function of `ggplot()`.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = sex, y = height))
+```
+
+Again, our **canvas** looks like what we would expect. Let's add bars using `geom_col()`.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = sex, y = height)) +
+    # the geometric elements
+    geom_col()
+```
+
+It looks like it is added up all the heights and didn't take the average. Let's use `group_by()` and `summarize()` to calculate the means of the groups before plotting the values.
+
+```{r}
+# the data set
+pirates %>%
+  # get mean height by sex
+  group_by(sex) %>%
+  summarise(height_avg = mean(height)) %>%
+  # the canvas
+  ggplot(aes(x = sex, y = height_avg)) +
+    # the geometric elements
+    geom_col()
+```
+
+There we go! Let's rearrange the columns from shortest to tallest using `reorder(sex, height_avg)`. *Note.* If we wanted to arrange from tallest to shortest, we would use `reorder(sex, -height_avg)`.
+
+```{r}
+# the data set
+pirates %>%
+  # get mean height by sex
+  group_by(sex) %>%
+  summarise(height_avg = mean(height)) %>%
+  # the canvas
+  ggplot(aes(x = reorder(sex, height_avg), y = height_avg)) +
+    # the geometric elements
+    geom_col()
+```
+
+Now let's update the colours (using `fill` and `colour`), the opacity (using `alpha`), the width of the bars (using `width`), the theme (using `theme_bw()`), and the labels (using `lab()`).
+
+```{r}
+# the data set
+pirates %>%
+  # get mean height by sex
+  group_by(sex) %>%
+  summarise(height_avg = mean(height)) %>%
+  # the canvas
+  ggplot(aes(x = reorder(sex, height_avg), y = height_avg)) +
+    # the geometric elements
+    geom_col(fill   = "turquoise",
+             colour = "white",
+             alpha  = .7,
+             width  = .5) +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Average height of pirate by pirate sex",
+         subtitle = "A ggplot plot",
+         x        = "Sex",
+         y        = "Height (cm)",
+         caption  = "Data from that `yarrr` package.")
+```
+
+Now, let's flip our coordinates so that `x` becomes `y` and `y` becomes `x` using `coord_flip()`.
+
+```{r}
+# the data set
+pirates %>%
+  # get mean height by sex
+  group_by(sex) %>%
+  summarise(height_avg = mean(height)) %>%
+  # the canvas
+  ggplot(aes(x = reorder(sex, height_avg), y = height_avg)) +
+    # the geometric elements
+    geom_col(fill   = "turquoise",
+             colour = "white",
+             alpha  = .7,
+             width  = .5) +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Average height of pirate by pirate sex",
+         subtitle = "A ggplot plot",
+         x        = "Sex",
+         y        = "Height (cm)",
+         caption  = "Data from that `yarrr` package.") +
+    # flip coordinates
+    coord_flip()
+```
+
+***
+
 # Continuous by Continuous {#cont}
 
 Below is the **data set** `pirates`.
@@ -424,145 +655,6 @@ pirates %>%
     facet_wrap(~sex)
 ```
 
-# Categorical by Continuous
-
-Okay, but what if we want to look at categorical plot.
-
-```{r}
-# the data set
-pirates %>%
-  # the canvas
-  ggplot(aes(x = sex, y = height)) +
-    # the geometric elements
-    geom_col()
-```
-
-It looks like it is adding up the run times (not taking the average run time).
-
-```{r}
-# the data set
-pirates %>%
-  group_by(sex) %>%
-  summarise(avg_height = mean(height)) %>%
-  # the canvas
-  ggplot(aes(x = sex, y = avg_height)) +
-    # the geometric elements
-    geom_col()
-```
-
-Let's reorder from shortest to tallest.
-```{r}
-# the data set
-pirates %>%
-  group_by(sex) %>%
-  summarise(avg_height = mean(height)) %>%
-  # the canvas
-  ggplot(aes(x = reorder(sex, avg_height), y = avg_height)) +
-    # the geometric elements
-    geom_col()
-```
-
-Bah, still wrong order.
-
-```{r}
-# the data set
-pirates %>%
-  group_by(sex) %>%
-  summarise(avg_height = mean(height)) %>%
-  # the canvas
-  ggplot(aes(x = reorder(sex, avg_height), y = avg_height)) +
-    # the geometric elements
-    geom_col()
-```
-
-We can coord_flip
-
-```{r}
-# the data set
-pirates %>%
-  group_by(sex) %>%
-  summarise(avg_height = mean(height)) %>%
-  # the canvas
-  ggplot(aes(x = reorder(sex, avg_height), y = avg_height)) +
-    # the geometric elements
-    geom_col() +
-    # flip the coordinates
-    coord_flip()
-```
-
-Okay, let's make the bar a certain colour
-
-```{r}
-# the data set
-pirates %>%
-  group_by(sex) %>%
-  summarise(avg_height = mean(height)) %>%
-  # the canvas
-  ggplot(aes(x = reorder(sex, avg_height), y = avg_height)) +
-    # the geometric elements
-    geom_col(colour = "turquoise3") +
-    # flip the coordinates
-    coord_flip()
-```
-
-Oh not, what is going on here? When an object has both an outline and an inside, colour changes the colour of the outline. Here we should use the fill colour. 
-
-```{r}
-# the data set
-pirates %>%
-  group_by(sex) %>%
-  summarise(avg_height = mean(height)) %>%
-  # the canvas
-  ggplot(aes(x = reorder(sex, avg_height), y = avg_height)) +
-    # the geometric elements
-    geom_col(fill = "turquoise",
-             colour = "white") +
-    # flip the coordinates
-    coord_flip()
-```
-
-More finishing touches
-
-```{r}
-# the data set
-pirates %>%
-  group_by(sex) %>%
-  summarise(avg_height = mean(height)) %>%
-  # the canvas
-  ggplot(aes(x = reorder(sex, avg_height), y = avg_height)) +
-    # the geometric elements
-    geom_col(fill = "turquoise",
-             colour = "white",
-             alpha = .7,
-             width = .5) +
-    # flip the coordinates
-    coord_flip() +
-    # set theme
-    theme_bw() +
-    # add labels 
-    labs(title = "Average height of pirate by pirate sex",
-         x     = "Sex",
-         y     = "Average Height (cm)")
-```
-
-# Histograms 
-```{r}
-# the data set
-pirates %>%
-  # the canvas
-  ggplot(aes(x = age)) +
-    # the geometric elements
-    geom_histogram(fill = "turquoise",
-             colour = "white",
-             alpha = .7,
-             bins = 35) +
-    # set theme
-    theme_bw() +
-    # add labels 
-    labs(title = "Frequency Distributin of Pirate Ages",
-         x     = "Age",
-         y     = "Frequency")
-```
 
 
 # Minihacks {#minihacks}
