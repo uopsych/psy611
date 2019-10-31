@@ -24,7 +24,7 @@ library(janitor)
 
 # Purpose
 
-The purpose of today's lab is to introduce you to the `tidyverse` as a framework for working with data structures in R.  We will mostly focus on data wrangling (particularly data transformation), including how to filter obervations, extract specific variable, generate new variables and summarize data. 
+The purpose of today's lab is to introduce you to the `tidyverse` as a framework for working with data structures in R.  We will mostly focus on data wrangling (particularly data transformation), including how to extract specific obervations and variables, how to generate new variables and how to summarize data. 
 
 For further resources on these topics, check out [*R for Data Science*](https://r4ds.had.co.nz/){target="_blank"} by Hadley Wickham and [this cheatsheet on data wrangling](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf){target="_blank"} from RStudio.
 
@@ -52,7 +52,7 @@ To quickly navigate to the desired section, click one of the following links:
 To load all the packages included in the `tidyverse`, use:
 
 ```{r eval=FALSE}
-install.packages("tidyverse") # if not already installed
+#install.packages("tidyverse")
 library(tidyverse)
 ```
 
@@ -60,7 +60,7 @@ library(tidyverse)
 
   1. Packages are designed to be like *grammars* for their task, so we'll be using functions that are named as *verbs* to discuss the tidyverse. The idea is that you can string these grammatical elements together to form more complex statements, just like with language. 
 
-  2. The first argument of (basically) every function we'll review today is `data`. This is very handy, especially when it comes to pipinp (discussed [below](#pipes)).
+  2. The first argument of (basically) every function we'll review today is `data` (in the form of a data frame). This is very handy, especially when it comes to piping (discussed [below](#pipes)).
 
   3. Variable names are *usually* not quoted.
 
@@ -74,7 +74,7 @@ library(tidyverse)
   
   3. Transforming your data (what we'll cover today)
 
-The figure below highlights the steps in data wrangling in relation to the broader model of a typical data science workflow:
+The figure below highlights the steps in data wrangling in relation to the broader scope of a typical data science workflow:
 
 <center>
 ![](resources/lab5/intro/wrangle_overview.png)
@@ -117,7 +117,7 @@ The following figure from *R for Data Science* illustrates this visually.
   
   + `filter()` picks cases based on their values.
   
-  + `summarise()` reduces multiple values down to a single summary.
+  + `summarize()` reduces multiple values down to a single summary.
   
   + `arrange()` changes the ordering of the rows.
   
@@ -128,7 +128,11 @@ The following figure from *R for Data Science* illustrates this visually.
 
 * Pipes come from the `{magrittr}` package are available when you load the tidyverse. (Technically, the pipe is imported with `{dplyr}`.) Pipes are a way to write strings of functions more easily, creating *pipelines*. They are extremely powerful and useful. A pipe looks like this:
 
-`%>%`
+<center>
+![](resources/lab5/intro/pipe.png)
+</center>
+
+\n
 
   + You can enter a pipe with the shortcut `CTRL+Shift+M` for PC or `CMD+Shift+M` for Mac.
 
