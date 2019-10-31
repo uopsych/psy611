@@ -40,6 +40,8 @@ Resnick (2017) ["What a nerdy debate about p-values shows about science -- and h
 
 Bem (2004) ["Writing the empirical journal article."](readings/Bem_2004.pdf) -- This was assigned to me when I was a graduate student. Some of the advice is actually very good, although most of the best stuff can be found in Strunk and White. The part of this article that's really worth reading is the "Analyzing Data" and "Reporting the Findings" subsections of "Planning your article."
 
+**Szollosi et al. (2019). ["Preregistration is redundant, at best."](https://psyarxiv.com/x36pz/)** Preprint.
+
 ## On coding and data science
 
 Peters (2004) ["The Zen of Python."](https://www.python.org/dev/peps/pep-0020/) -- A list of 19 principles for writing better Python code; the principles also apply to writing better R code. 

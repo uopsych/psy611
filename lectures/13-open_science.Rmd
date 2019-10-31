@@ -370,6 +370,17 @@ Traditional status hierarchies are being upset. Many early career researchers ha
 
 ## Criticisms
 
+Certainly there are some who argue that open science methods are broadly harmful: stifle creativity, slow down research, incentivize *ad hominem* attacks and "methodological terrorists", and encourage data parasites. 
+
+It is worth admitting that, unless incentive structures don't change, there can be harm done with adoption of these methods. But part of the goal is to change the overall system.
+
+--
+
+A more legitimate criticism is that adoption of these methods can fool researchers into believing that all research using these methods is "good" and all research not using them are "bad."
+
+A timely example: ["Preregistration is redundant, at best." (Oct 31, 2019). Szollosi et al.](https://psyarxiv.com/x36pz/)
+
+
 
 ---
 
