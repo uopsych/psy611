@@ -574,7 +574,7 @@ diamonds %>%
   summarize(mean_carat = mean(carat, na.rm = TRUE))
 ```
 
-2. Which is more expensive on average, a `Fair`, `I1` (worst cut, best clarity) diamond, or an `Ideal`,`IF`(best cut, worst clarity)?
+2. Which is more expensive on average, a `Fair`, `IF` (worst cut, best clarity) diamond, or an `Ideal`,`I1`(best cut, worst clarity)?
 
 ```{r}
 # your code here
@@ -582,17 +582,23 @@ diamonds %>%
 
 
 ```{r}
+# two steps
 diamonds %>% 
   filter(cut == "Fair", 
-         clarity == "I1") %>% 
-  summarize(mean_price = mean(price, na.rm = TRUE),
-            sd_price = sd(price, na.rm = TRUE))
+         clarity == "IF") %>% 
+  summarize(mean_price = mean(price, na.rm = TRUE))
   
 diamonds  %>% 
   filter(cut == "Ideal",
-         clarity == "IF") %>% 
-  summarize(mean_price = mean(price, na.rm = TRUE),
-            sd_price = sd(price, na.rm = TRUE))
+         clarity == "I1") %>% 
+  summarize(mean_price = mean(price, na.rm = TRUE))
+
+# one step
+diamonds %>% 
+  group_by(cut, clarity) %>% 
+  summarize(mean_price = mean(price, na.rm = TRUE)) %>% 
+  filter(cut == "Fair" & clarity == "IF" |
+         cut == "Ideal" & clarity == "I1")
 ```
 
 

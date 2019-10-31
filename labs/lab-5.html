@@ -3444,27 +3444,37 @@ str(diamonds) # structure of the data frame</code></pre>
   </script>
 </div>
 <ol start="2" style="list-style-type: decimal">
-<li>Which is more expensive on average, a <code>Fair</code>, <code>I1</code> (worst cut, best clarity) diamond, or an <code>Ideal</code>,<code>IF</code>(best cut, worst clarity)?</li>
+<li>Which is more expensive on average, a <code>Fair</code>, <code>IF</code> (worst cut, best clarity) diamond, or an <code>Ideal</code>,<code>I1</code>(best cut, worst clarity)?</li>
 </ol>
 <pre class="r"><code># your code here</code></pre>
-<pre class="r"><code>diamonds %&gt;% 
+<pre class="r"><code># two steps
+diamonds %&gt;% 
   filter(cut == &quot;Fair&quot;, 
-         clarity == &quot;I1&quot;) %&gt;% 
-  summarize(mean_price = mean(price, na.rm = TRUE),
-            sd_price = sd(price, na.rm = TRUE))</code></pre>
+         clarity == &quot;IF&quot;) %&gt;% 
+  summarize(mean_price = mean(price, na.rm = TRUE))</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["mean_price"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["sd_price"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"3703.533","2":"3098.869"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[5],"max":[5]},"pages":{}}}
+{"columns":[{"label":["mean_price"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"1912.333"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[5],"max":[5]},"pages":{}}}
   </script>
 </div>
 <pre class="r"><code>diamonds  %&gt;% 
   filter(cut == &quot;Ideal&quot;,
-         clarity == &quot;IF&quot;) %&gt;% 
-  summarize(mean_price = mean(price, na.rm = TRUE),
-            sd_price = sd(price, na.rm = TRUE))</code></pre>
+         clarity == &quot;I1&quot;) %&gt;% 
+  summarize(mean_price = mean(price, na.rm = TRUE))</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["mean_price"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["sd_price"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"2272.913","2":"3320.847"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[5],"max":[5]},"pages":{}}}
+{"columns":[{"label":["mean_price"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"4335.726"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[5],"max":[5]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code># one step
+diamonds %&gt;% 
+  group_by(cut, clarity) %&gt;% 
+  summarize(mean_price = mean(price, na.rm = TRUE)) %&gt;% 
+  filter(cut == &quot;Fair&quot; &amp; clarity == &quot;IF&quot; |
+         cut == &quot;Ideal&quot; &amp; clarity == &quot;I1&quot;)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["cut"],"name":[1],"type":["ord"],"align":["right"]},{"label":["clarity"],"name":[2],"type":["ord"],"align":["right"]},{"label":["mean_price"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Fair","2":"IF","3":"1912.333"},{"1":"Ideal","2":"I1","3":"4335.726"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[5],"max":[5]},"pages":{}}}
   </script>
 </div>
 </div>
