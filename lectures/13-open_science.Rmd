@@ -314,17 +314,25 @@ By combining Markdown with R...
 
 ---
 
-### Notes of caution
+### Growing trends
 
-Not everyone agrees that open science is the way to go.
-- Some subfields are more active than others. Some subfields are developing...
+How much are these tools used by scientists right now?
+
+--
+
+Some fields and subfields are more active than others. 
+
+- Personality psychology has reputation for being an early adopter (and no wonder, with David Condon on the PsyArXiv steering committee and Sanjay Srivastava as the former president of SIPS)
+
+Some subfields are developing...
 
 - Developmental psychology: push for openness (Jenn Pfiefer and Kate Mills)
 - Neuroscience: pioneers leading the way (Elliot Berkman and Rob Chavez)
 
-UO Psychology is kinda special. (2 of 11 university psychology professor job ads containing language about open science this year)
+--
 
-YMMV -- as a graduate student, do what you gotta do
+UO Psychology is kinda special. (2 of 11 job ads containing language about open science this year)
+
 
 ---
 
