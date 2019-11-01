@@ -279,7 +279,7 @@ world_happiness %>%
 
 ```{r}
 world_happiness %>% 
-  filter(happiness > mean(happiness, na.rm= TRUE) & 
+  filter(happiness > mean(happiness, na.rm= TRUE), 
          gdp < mean(gdp, na.rm = TRUE))
 ```
 
@@ -292,7 +292,7 @@ world_happiness %>%
 ![](resources/lab5/manipulate_obs/arrange.png)
 </center>
 
-The first argument is `data` and subsequent arguments are name(s) of columns to order the rows by. If you provide more than one column name, each additional column will be used to break ties in the values of preceding columns.
+* The first argument is `data` and subsequent arguments are name(s) of columns to order the rows by. If you provide more than one column name, each additional column will be used to break ties in the values of preceding columns.
 
 For example, let's re-order observations by `happiness`. Note that rows are sorted in ascending order by default.
 
@@ -316,12 +316,12 @@ world_happiness %>%
 ![](resources/lab5/manipulate_vars/select.png)
 </center>
 
-The first argument is `data`, followed by the names of the columns you want to subset. Note that you can use variable positions rather than their names, but this is usually not as useful. Let's go through some simple examples of common uses of `select()`...
+
+* The first argument is `data`, followed by the name(s) of the column(s) you want to subset. Note that you can use variable positions rather than their names, but this is usually not as useful. Let's go through some simple examples of common uses of `select()`.
 
 * Select one variable
 
 ```{r}
-# select using variable name
 world_happiness %>% 
   select(country)
 ```
@@ -329,7 +329,6 @@ world_happiness %>%
 * Select multiple variables
 
 ```{r}
-# select using variable names
 world_happiness %>% 
   select(country, freedom, corruption)
 ```
@@ -342,7 +341,7 @@ world_happiness %>%
 ```
 
 * Rearrange the order of variables
-  + Note: `everything()` is a helper function that gives us all the remaining varaibles in the data frame (see more on helper functions below)
+  + Note: `everything()` is a helper function that gives us all the remaining varaibles in the data frame (see more on [helper functions](#helper) below)
 
 ```{r}
 world_happiness %>% 
@@ -365,7 +364,7 @@ world_happiness %>%
 
 ### You try
 
-* Produce a data frame that has only first-world countries with greater than average levels of freedom. Arrange the rows by `freedom` in descending order, and only display the `country` and `freedom` variables (in that order). How many observations are you left with?
+* Produce a data frame that has only countries coded as `1` that have greater than average levels of freedom. Arrange the rows by `freedom` scores in descending order, and only display the `country` and `freedom` variables (in that order). How many observations are you left with?
 
 ```{r}
 world_happiness %>% 
@@ -375,9 +374,9 @@ world_happiness %>%
 ```
 
 
-### Helper functions for `select()`
+### Helper functions for `select()` {#helper}
 
-There are some "helper" functions that you can use along with `select()` if it is easier or more efficient to use certain criteria instead of selecting your variables by name. 
+There are some "helper" functions that you can use along with `select()` that can sometimes be more efficient than selecting your variables explicitly by name. 
 
 function | what it does
 ---------|-------------
@@ -399,26 +398,26 @@ world_happiness %>%
 
 ## Make new variables with `mutate()`
 
-* The `mutate()` function is most freqeuntly used to add columns to your data frame.
+* The `mutate()` function is most commonly used to add new columns to your data frame that are functions of existing columns.
 
 <center>
 ![](resources/lab5/manipulate_vars/mutate.png)
 </center>
 
-* `mutate()` requires data as its first argument, followed by a set of expressions defining new columns, separated by a comma. Let's take a couple examples...
+* `mutate()` requires data as its first argument, followed by a set of expressions defining new columns. Let's take a couple examples...
 
 * Create new variables
-  + Note: New variables are added at the end of the data frame (scroll to the right to see them)
+  + **Note**: New variables are automatically added at the end of the data frame (scroll to the right to see them)
 
 ```{r}
 world_happiness %>% 
-  mutate(corruption_std = scale(corruption), # z-score `corruption` variable
-         life_rounded = round(life, 0)) # round `life` variable to a whole number
+  mutate(corruption_z = scale(corruption), # z-score `corruption` variable
+         life_int = round(life, 0)) # round `life` variable to a whole number
 ```
 
 * Change existing variables
 
-When we imported our data, the `world` variable was categorized as an `integer`.
+When we imported our data, the `world` variable was automatically categorized as an `integer`.
 
 ```{r}
 class(world_happiness$world)
@@ -442,7 +441,7 @@ class(world_happiness$world)
 
 # Summarizing data{#summarize}
 
-* The next dplyr verb we’ll cover is `summarize()`, which is used to summarize across rows of a dataset. `summarize()`, like all tidyverse functions, requires `data` as its first argument, and then you enter your summary functions separated by commas. Summary functions take vectors as inputs and return single values as outputs:
+* The next dplyr verb we’ll cover is `summarize()`, which is used to summarize across rows of a dataset. Like all tidyverse functions, `summarize()` requires `data` as its first argument, and then you enter your summary functions separated by commas. Summary functions take vectors as inputs and return single values as outputs:
 
 <center>
 ![](resources/lab5/summarize/summary_function.png)
@@ -450,13 +449,13 @@ class(world_happiness$world)
 
 
 
-* The resulting dataset will have just the variables you summarized and will lose everything else. In other words, you are going from your raw data frame to a smaller summary data frame that only contains the summary variables you specify within `summarize()`.
+* The resulting dataset will have just the summary variables you created and will lose everything else. In other words, you are going from your raw data frame to a smaller summary data frame that only contains the summary variables you specify within `summarize()`, as illustrated below...
 
 <center>
 ![](resources/lab5/summarize/summarize.png)
 </center>
 
-* Just like with `mutate()`, each expression is `new_var_name = EXPRESSION`. Let's use `summarize()` to get the mean of `gdp` across all observations in the dataset. 
+Let's use `summarize()` to get the mean of `gdp` across all observations in the dataset. 
 
 ```{r}
 world_happiness %>% 
@@ -478,7 +477,7 @@ world_happiness %>%
 
 # Grouping data{#group}
 
-* `group_by()` creates groups based on one or more variables in the data. This affects all kinds of things that you then do with the data, such as mutating and/or summarizing. It is pretty simple to use. It requires `data` as its first argument, and the you name the variable(s) to group by.
+* The `group_by()` function creates groups based on one or more variables in the data. This affects all kinds of things that you then do with the data, such as mutating and/or summarizing. `group_by()` requires `data` as its first argument, and the you name the variable(s) to group by.
 
 <center>
 ![](resources/lab5/group_by/group_by.png)
@@ -491,7 +490,7 @@ world_happiness %>%
 
 At first glance, it doesn't appear that anything has happened. However, under the hood it has indeed grouped the data frame by the `world` variable. Copy and paste this code into the console--what do you notice?
 
-## Apply `group_by()` to `summarize()`
+## Combining `group_by()` and `summarize()`
 
 * `group_by()` and `summarize()` can be combined to get group-level statistics. This is a great way to make tables of descriptive stats in R or to create aggregated datasets for some purposes.
 
@@ -499,7 +498,7 @@ At first glance, it doesn't appear that anything has happened. However, under th
 ![](resources/lab5/group_by/group_by_summarize.png)
 </center>
 
-To use these together, you just run `group_by()` followed by `summarize()` in a pipeline.
+* To use these together, you just run `group_by()` followed by `summarize()` in a pipeline.
 
 ```{r}
 world_happiness %>% 
@@ -513,7 +512,7 @@ world_happiness %>%
 
 # Minihacks
 
-For the minihacks today, we will be working with the [`diamonds`](https://ggplot2.tidyverse.org/reference/diamonds.html){target="_blank"} dataset, which is built into R. Take a peek at the dataset with the following functions:
+For the minihacks today, we will be working with the [`diamonds`](https://ggplot2.tidyverse.org/reference/diamonds.html){target="_blank"} dataset, which is built into R. This dataset contains the prices and various other attributes of about 54,000 different diamonds. Take a peek at the dataset with the following functions:
 
 ```{r, eval=FALSE}
 head(diamonds) # first few rows
@@ -537,13 +536,13 @@ variable | meaning
 
 ## Minihack 1: Make code more legible
 
-1. Take a look at the following chunk of code. If you're like me, this will make your head hurt. See if you can understand what it is trying to do. 
+1. Take a look at the following chunk of code. If you're like me, this will make your head hurt. See if you can understand what this code is trying to do. 
 
 ```{r eval = FALSE}
 arrange(select(filter(diamonds, carat > 3 & carat < 4, cut == "Premium", color == "G" |  color == "H" | color == "I" | color == "J"), carat, color, price), color, desc(price))
 ```
 
-2. Re-write this code using pipes (` %>% `) so it is easier to read. Make sure you get the same result that you got when you ran the cluttered code. For an extra challenge, try making the filtering step more concise.
+2. Re-write this code using pipes (` %>% `) so it is easier to read. Make sure you get the same result that you get when you run the above code. For an extra challenge, try making the filtering step a little more concise.
 
 ```{r}
 # your code here
@@ -578,7 +577,7 @@ diamonds %>%
   summarize(mean_carat = mean(carat, na.rm = TRUE))
 ```
 
-2. Which is more expensive on average, a `Fair`, `IF` (worst cut, best clarity) diamond, or an `Ideal`,`I1`(best cut, worst clarity)?
+2. Which is more expensive on average, a diamons that is `Fair` and `IF` (worst cut, best clarity), or a diamond that is `Ideal` and `I1`(best cut, worst clarity)?
 
 ```{r}
 # your code here
@@ -608,13 +607,13 @@ diamonds %>%
 
 ## Minihack 3: Summarizing data
 
-1. Calculate the following summary statistics for the `carat` variable for each `color` of diamond. Label your variables with the names in parentheses.
+1. Calculate the summary statistics listed below for the `carat` variable for each `color` of diamond. Give your summary variables the names indicated in parentheses.
 
   * mean (`mean`)
   * standard deviation (`sd`)
-  * n (`n`)
-  * standard error of the mean (sem) (`sem`)
-  * 95% confidence interval (lower and upper bounds) around the mean (using a *t* distribution). (`ci_lower` and `ci_upper`)
+  * number of observations (`n`)
+  * standard error of the mean (`sem`)
+  * 95% confidence interval (lower and upper bounds) around the mean (calculated using a *t* distribution). (`ci_lower` and `ci_upper`)
     + Hint: Refer to [this slide from class](https://uopsych.github.io/psy611/lectures/9-sampling.html#40){target="_blank"} for an example
     
   ***In your final summary output only include `color`, `mean`, `ci_lower` and `ci_upper`
@@ -637,7 +636,7 @@ diamonds %>%
   select(-n, -sd, -sem)
 ```
 
-2. Repeat the same process above, but this time calculate summary statistics for the `carat` variable for each combination of `color` and `cut`. 
+2. Repeat the same process above, but this time calculate summary statistics for the `carat` variable for each combination of `color` and `cut`. How many observations do you have in your summary data frame this time?
 
 ```{r}
 # your code here
