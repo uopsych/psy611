@@ -176,7 +176,7 @@ round(mean(mtcars$mpg, na.rm = TRUE), 2)
 
 ## Example dataset
 
-* Because you are already familiar with the World Happiness dataset, we will use this as a running example today. You can import the data with the following code:
+* Because you are already familiar with the World Happiness dataset, we will use this as a running example today (we'll use the same version from Homework 1). You can import the data with the following code:
 
 ```{r}
 world_happiness <- rio::import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab5/data/world_happiness.csv")
@@ -190,7 +190,7 @@ world_happiness <- rio::import("https://raw.githubusercontent.com/uopsych/psy611
 names(world_happiness)
 ```
 
-* Personally, I find it annoying to have to remember to capitalize the first letter whenever I reference a variable name. The `clean_names()` from the `{janitor}` package will (by default) convert all variable names to `snake_case` (but there are several other options...see [here](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html#clean-data.frame-names-with-clean_names){target="_blank"} for more info).
+* Personally, I find it annoying to have to remember to capitalize the first letter whenever I reference a variable name. The `clean_names()` function from the `{janitor}` package will (by default) convert all variable names to `snake_case` (but there are several other options...see [here](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html#clean-data.frame-names-with-clean_names){target="_blank"} for more info).
 
 ```{r eval=FALSE}
 install.packages("janitor") # if not already installed
@@ -198,7 +198,7 @@ library(janitor)
 ```
 
 ```{r}
-# clean variable names 
+# clean variable names and re-save the data
 world_happiness <- world_happiness %>% 
   clean_names()
 ```
@@ -223,9 +223,9 @@ names(world_happiness)
 ![](resources/lab5/manipulate_obs/filter.png)
 </center>
 
-The first argument is `data` and subsequent arguments are logical expressions that tell you which observations to retain in the data frame. 
+* The first argument is `data` and subsequent arguments are logical expressions that tell you which observations to retain in the data frame. 
 
-For example, we can filter rows to retain only the observation for the United States.
+For example, we can filter rows to retain data only for the United States.
 
 ```{r}
 world_happiness %>% 
@@ -243,7 +243,7 @@ world_happiness %>%
   + `!=` (not equal to)
 
 \n
-* You can combine multiple arguments to `filter()` with Boolean operators. The figure below from [*R for Data Science*](https://r4ds.had.co.nz/transform.html#logical-operators){target="_blank"} shows the complete set of these.
+* You can combine multiple arguments to `filter()` with Boolean operators. The figure below from [*R for Data Science*](https://r4ds.had.co.nz/transform.html#logical-operators){target="_blank"} shows the complete set of Boolean operators.
 
 <center>
 ![](resources/lab5/manipulate_obs/logical_operators.png)
