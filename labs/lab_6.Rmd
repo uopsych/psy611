@@ -453,4 +453,56 @@ pirates %>%
 
 You are welcome to work with a partner or in a small group of 2-3 people. Please feel free to ask the lab leader any questions you might have!
 
+The minihacks will all use the `movies` data set from the `yarrr` package.
+
+## Minihack 1: Histograms
+
+1. Create a histogram of international revenue (`revenue.int`). Is it normally distributed?
+
+```{r}
+movies %>%
+  ggplot(aes(x = revenue.int)) +
+    geom_histogram()
+```
+
+1. Change the number of bins to `50`.
+
+```{r}
+movies %>%
+  ggplot(aes(x = revenue.int)) +
+    geom_histogram(bins = 50)
+```
+
+
+1. Change the theme of the **canvas** to your preferred theme.
+
+```{r}
+movies %>%
+  ggplot(aes(x = revenue.int)) +
+    geom_histogram(bins = 50) +
+    theme_bw()
+```
+
+1. Change the `fill` and the `colour` of the histogram. 
+
+```{r}
+movies %>%
+  ggplot(aes(x = revenue.int)) +
+    geom_histogram(bins = 50, fill = "darkorchid4", colour = "white") +
+    theme_bw()
+```
+
+1. Add an informative title and a label for the x and the y axis.
+
+```{r}
+movies %>%
+  ggplot(aes(x = revenue.int)) +
+    geom_histogram(bins = 50, fill = "darkorchid4", colour = "white") +
+    theme_bw() +
+    labs(x = "International Revenue",
+         y = "Frequency")
+```
+
+
+
 
