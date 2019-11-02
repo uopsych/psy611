@@ -457,11 +457,11 @@ The minihacks will all use the `movies` data set from the `yarrr` package.
 
 ## Minihack 1: Histograms
 
-1. Create a histogram of international revenue (`revenue.int`). Is it normally distributed?
+1. Create a histogram of domestic and international revenue combined (`revenue.all`). Is it normally distributed?
 
 ```{r}
 movies %>%
-  ggplot(aes(x = revenue.int)) +
+  ggplot(aes(x = revenue.all)) +
     geom_histogram()
 ```
 
@@ -469,7 +469,7 @@ movies %>%
 
 ```{r}
 movies %>%
-  ggplot(aes(x = revenue.int)) +
+  ggplot(aes(x = revenue.all)) +
     geom_histogram(bins = 50)
 ```
 
@@ -478,7 +478,7 @@ movies %>%
 
 ```{r}
 movies %>%
-  ggplot(aes(x = revenue.int)) +
+  ggplot(aes(x = revenue.all)) +
     geom_histogram(bins = 50) +
     theme_bw()
 ```
@@ -487,7 +487,7 @@ movies %>%
 
 ```{r}
 movies %>%
-  ggplot(aes(x = revenue.int)) +
+  ggplot(aes(x = revenue.all)) +
     geom_histogram(bins = 50, fill = "darkorchid4", colour = "white") +
     theme_bw()
 ```
@@ -496,13 +496,60 @@ movies %>%
 
 ```{r}
 movies %>%
-  ggplot(aes(x = revenue.int)) +
+  ggplot(aes(x = revenue.all)) +
     geom_histogram(bins = 50, fill = "darkorchid4", colour = "white") +
     theme_bw() +
     labs(x = "International Revenue",
          y = "Frequency")
 ```
 
+## Minihack 2: Categorical by Continuous Plots
 
+1. Create a barplot of the all revenue by the movie genre. (*Hint.* You will want to calculate the mean revenue for each genre before your plot it.).
 
+```{r}
+movies %>%
+  group_by(genre) %>%
+  summarize(revenue_avg = mean(revenue.all)) %>%
+  ggplot(aes(x = genre, y = revenue_avg)) +
+    geom_col()
+```
 
+1. Reorder the bars from the lowest revenue to the greatest. 
+
+```{r}
+movies %>%
+  group_by(genre) %>%
+  summarize(revenue_avg = mean(revenue.all)) %>%
+  ggplot(aes(x = reorder(genre, revenue_avg), y = revenue_avg)) +
+    geom_col()
+```
+
+1. Flip the coordinates by adding the function `coord_flip()`
+
+```{r}
+movies %>%
+  group_by(genre) %>%
+  summarize(revenue_avg = mean(revenue.all)) %>%
+  ggplot(aes(x = reorder(genre, revenue_avg), y = revenue_avg)) +
+    geom_col() +
+    coord_flip()
+```
+
+1. Facet wrap the plot by movie rating. 
+
+```{r}
+movies %>%
+  group_by(genre) %>%
+  summarize(revenue_avg = mean(revenue.all)) %>%
+  ggplot(aes(x = reorder(genre, revenue_avg), y = revenue_avg)) +
+    geom_col() +
+    coord_flip()
+```
+
+## Minihack 3: Continuous by Continuous plot
+
+```{r}
+movies %>%
+  ggplot(aes(x = budget, y = revenue.all))
+```
