@@ -287,14 +287,7 @@ pirates %>%
 
 # Continuous by Continuous {#cont}
 
-Below is the **data set** `pirates`.
-
-```{r}
-# the data set
-pirates
-```
-
-We can then pipe (`%>%`) that **data set** to `ggplot()` to create the **canvas** of our plot.
+A second, and far more common, type of bivariate (two variable) plot is a scatterplot. A scatterplot has a continuous variable on the x-axis and a continuous variable on the y-axis. Let's create the **canvas** for that plot below by specifying that `height` should be on the x-axis and `weight` should by on the y-axis.
 
 ```{r, results = FALSE}
 # the data set
@@ -303,16 +296,7 @@ pirates %>%
   ggplot(aes(x = height, y = weight))
 ```
 
-The `aes()` function above tells `ggplot()` that we are providing it aesthetic information for the **canvas**. In this case, we are saying the **canvas** should have `height` on the x-axis and `weight` on the y-axis. Other aesthetic mappings include `colour`, `size`, and `shape`, but we will discuss those later. Below we've printed the results of the above code. 
-
-```{r, echo = FALSE}
-# the data set
-pirates %>%
-  # the canvas
-  ggplot(aes(x = height, y = weight))
-```
-
-As we can see, a **canvas** is not that exciting without anything on it. We can add **geometric elements** to a plot by using the functions that begin with `geom_`. Let's add some points to our plot using `geom_point`. 
+Let's add some points to our plot using `geom_point`. 
 
 ```{r}
 # the data set
@@ -320,12 +304,22 @@ pirates %>%
   # the canvas
   ggplot(aes(x = height, y = weight)) +
     # the geometric elements
-    geom_point()
+    geom_point() 
 ```
 
-*Note.* Keep in mind that when we add elements to a `ggplot` object, we must use the `+` symbol instead of the pipe symbol (`%>%`).
+I haven't mentioned this before, but you can add multiple **geometric elements** to a single plot. Let's also add a regression line using `geom_smooth()`.
 
-You can add multiple **geometric elements** to a single plot. Let's also add a regression line using `geom_smooth()`.
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight)) +
+      # the geometric elements
+      geom_point() +
+      geom_smooth()
+```
+
+It may be hard to see given how linear the data appears to be, but the line is actually slightly curved. Let's change that by specifying `method = "lm"` in the `geom_smooth` function to use linear modelling to plot the line. Let's also get rid of the confidence interval around the line by specifying `se = FALSE`.
 
 ```{r}
 # the data set
@@ -334,329 +328,129 @@ pirates %>%
     ggplot(aes(x = height, y = weight)) +
     # the geometric elements
     geom_point() +
-    geom_smooth()
+      geom_smooth(method = "lm", 
+                  se     = FALSE)
 ```
 
-It looks like the line is not perfectly linear. Let's change that by specifying `method = "lm` in the `geom_smooth` function. Let's also get rid of the confidence interval around the line by specifying `se = FALSE`.
+What if we wanted to distinguish the points by the pirates sex? As mentioned before, we can also specify an aesthetic mapping for colour (and fill). Let's map the point colours to the pirates' sexes by including `aes(colour = sex))` in the `geom_point()` function.
 
 ```{r}
 # the data set
 pirates %>%
   # the canvas
     ggplot(aes(x = height, y = weight)) +
-    # the geometric elements
-    geom_point() +
-    geom_smooth(method = "lm", 
-                se     = FALSE)
+      # the geometric elements
+      geom_point(aes(colour = sex)) +
+      geom_smooth(method = "lm", 
+                  se     = FALSE)
 ```
 
-Let's also update the look of the plot. We can use `colour` (or `color`) to specify the colour of **geometric elements**. We can also use `size` to set the `size`, `alpha` to set the opacity (i.e., how transparent it is), and `shape` to set the `shape` of a **geometric element**. 
-
-```{r}
-# the data set
-pirates %>%
-  # the canvas
-    ggplot(aes(x = height, y = weight)) +
-    # the geometric elements
-    geom_point(colour = "turquoise3",
-               size   = 5,
-               shape  = 18,
-               alpha  = .5) +
-    geom_smooth(method = "lm", 
-                se     = FALSE, 
-                colour = "deeppink2", 
-                size   = 1.5,
-                alpha  = .7)
-```
-
-The **geometric elements** look much better, but I don't really like the look of the *canvas*. We can change the theme of the **canvas** by using the suite of functions that start with `theme_`. I like `theme_bw`, but other choices include `theme_gray`, `theme_minimal`, and `theme_classic`
-
-```{r}
-# the data set
-pirates %>%
-  # the canvas
-    ggplot(aes(x = height, y = weight)) +
-    # the geometric elements
-    geom_point(colour = "turquoise3",
-               size   = 5,
-               shape  = 18,
-               alpha  = .5) +
-    geom_smooth(method = "lm", 
-                se     = FALSE, 
-                colour = "deeppink2", 
-                size   = 1.5,
-                alpha  = .7) +
-    # the theme
-    theme_bw()
-```
-
-Finally, no plot is complete without proper labels. Fortunately, `ggplot2` has the `labs()` function built in for just this purpose. 
-
-```{r}
-# the data set
-pirates %>%
-  # the canvas
-    ggplot(aes(x = height, y = weight)) +
-    # the geometric elements
-    geom_point(colour = "turquoise3",
-               size   = 5,
-               shape  = 18,
-               alpha  = .5) +
-    geom_smooth(method = "lm", 
-                se     = FALSE, 
-                colour = "deeppink2", 
-                size   = 1.5,
-                alpha  = .7) +
-    # the theme
-    theme_bw() +
-    # add labels
-    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
-         subtitle = "A ggplot plots",
-         x        = "Budget (log)",
-         y        = "Review Rating",
-         caption  = "Created using the Horror Movie data set from TidyTuesday")
-```
-
-
-```{r}
-# the data set
-pirates %>%
-  # the canvas
-    ggplot(aes(x = height, y = weight)) +
-    # the geometric elements
-    geom_point(colour = "turquoise3",
-               size   = 5,
-               shape  = 18,
-               alpha  = .5) +
-    geom_smooth(method = "lm", 
-                se     = FALSE, 
-                colour = "deeppink2", 
-                size   = 1.5,
-                alpha  = .7) +
-    # the theme
-    theme_bw() +
-    # add labels
-    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
-         subtitle = "A ggplot plots",
-         x        = "Budget (log)",
-         y        = "Review Rating",
-         caption  = "Created using the Horror Movie data set from TidyTuesday")
-```
-
-What if we wanted to break this down by the pirates sex? Well first, let's remove the colours for simplicites sake
-
-```{r}
-# the data set
-pirates %>%
-  # the canvas
-    ggplot(aes(x = height, y = weight)) +
-    # the geometric elements
-    geom_point(size   = 5,
-               shape  = 18,
-               alpha  = .5) +
-    geom_smooth(method = "lm", 
-                se     = FALSE, 
-                size   = 1.5,
-                alpha  = .7) +
-    # the theme
-    theme_bw() +
-    # add labels
-    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
-         subtitle = "A ggplot plots",
-         x        = "Budget (log)",
-         y        = "Review Rating",
-         caption  = "Created using the Horror Movie data set from TidyTuesday")
-```
-
-```{r}
-# the data set
-pirates %>%
-  # the canvas
-    ggplot(aes(x = height, y = weight)) +
-    # the geometric elements
-    geom_point(size   = 5,
-               shape  = 18,
-               alpha  = .5) +
-    geom_smooth(method = "lm", 
-                se     = FALSE, 
-                size   = 1.5,
-                alpha  = .7) +
-    # the theme
-    theme_bw() +
-    # add labels
-    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
-         subtitle = "A ggplot plots",
-         x        = "Budget (log)",
-         y        = "Review Rating",
-         caption  = "Created using the Horror Movie data set from TidyTuesday")
-```
-
-If we put `colour = sex` with the `aes()` function of the `geom_smooth` function, the lines will distinguish between pirates using colour. 
-
-```{r}
-# the data set
-pirates %>%
-  # the canvas
-    ggplot(aes(x = height, y = weight)) +
-    # the geometric elements
-    geom_point(aes(colour = sex),
-               size   = 5,
-               shape  = 18,
-               alpha  = .5) +
-    geom_smooth(method = "lm", 
-                se     = FALSE, 
-                size   = 1.5,
-                alpha  = .7) +
-    # the theme
-    theme_bw() +
-    # add labels
-    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
-         subtitle = "A ggplot plots",
-         x        = "Budget (log)",
-         y        = "Review Rating",
-         caption  = "Created using the Horror Movie data set from TidyTuesday")
-```
-
-
-The points don't seem to distinguish btween the colours. This is because the colour mapping is only mapped to geom_smooth, and not geom_point and geom_smooth. We could add `aes(colour = release_country)` to geom_smooth as well but if we add it to the step where we made the canvas, geom_point and geom_smooth will inheret. 
-
-We can also use the `shape` aesthetic mapping, to change the shapes by country. Let's add that to geom_point().
+Hmm. The points are different colours, but their isn't a separate regresion line for each sex. This is because we only specified `colour = sex` for the aesthetic mappings of geom_point. We could specify `colour = sex` in `geom_point()` and `geom_smooth()` to get different coloured points and regression lines OR we can just specify `colour = sex` inside the `ggplot()` function (where we specified what would be on the x- and y-axis) and `geom_point()` and `geom_smooth()` will inheret the aesthetic mapping. 
 
 ```{r}
 # the data set
 pirates %>%
   # the canvas
     ggplot(aes(x = height, y = weight, colour = sex)) +
-    # the geometric elements
-    geom_point(aes(shape = sex),
-               size   = 3,
-               alpha  = .5) +
-    geom_smooth(method = "lm", 
-                se     = FALSE, 
-                size   = 1.5,
-                alpha  = .7) +
-    # the theme
-    theme_bw() +
-    # add labels
-    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
-         subtitle = "A ggplot plots",
-         x        = "Budget (log)",
-         y        = "Review Rating",
-         caption  = "Created using the Horror Movie data set from TidyTuesday")
+      # the geometric elements
+      geom_point() +
+      geom_smooth(method = "lm", 
+                  se     = FALSE)
 ```
 
-Well, that looks terrible. Let's try changing the colour pallete. If we want to set our own pallette we can use scale_olour_manual`.
+Success! Sort of. I don't really like the colours. Luckily, `ggplot2` has a solution for that: scale functions. Scale functions start with `scale_` and are followed by the aesthetic mapping you wish to scale (e.g., `x`, `y`, `colour`, `fill`, `size`, `alpha`, `shape`). The final part of the function specifies how you would like to scale the axis. For example, `scale_y_log10()` scales the y-axis to be on a logarithmic scale. 
+
+Let's use `scale_colour_manual()` to manually set the colours of the plot
+
 
 ```{r}
 # the data set
 pirates %>%
   # the canvas
     ggplot(aes(x = height, y = weight, colour = sex)) +
-    # the geometric elements
-    geom_point(aes(shape = sex),
-               size   = 3,
-               alpha  = .5) +
-    geom_smooth(method = "lm", 
-                se     = FALSE, 
-                size   = 1.5,
-                alpha  = .7) +
-    # the theme
-    theme_bw() +
-    # add labels
-    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
-         subtitle = "A ggplot plots",
-         x        = "Budget (log)",
-         y        = "Review Rating",
-         caption  = "Created using the Horror Movie data set from TidyTuesday") +
-    # change colour pallete
+      # the geometric elements
+      geom_point() +
+      geom_smooth(method = "lm", 
+                  se     = FALSE) +
+    # manually set colours
     scale_colour_manual(values = c("red", "blue", "green"))
 ```
 
-I chose terrible colours. We should use a built in palette using the scale_colour_brewer function. The brewer palettes can be found here: http://www.sthda.com/english/wiki/colors-in-r 
+That's even worse. Okay, let's use a built in colour palette. To do so, we use the `scale_colour_brewer()` function and specify the colour choice after that. The available palettes can be found [here](http://www.sthda.com/english/wiki/colors-in-r).
 
 ```{r}
 # the data set
 pirates %>%
   # the canvas
     ggplot(aes(x = height, y = weight, colour = sex)) +
-    # the geometric elements
-    geom_point(aes(shape = sex),
-               size   = 3,
-               alpha  = .5) +
-    geom_smooth(method = "lm", 
-                se     = FALSE, 
-                size   = 1.5,
-                alpha  = .7) +
-    # the theme
-    theme_bw() +
-    # add labels
-    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
-         subtitle = "A ggplot plots",
-         x        = "Budget (log)",
-         y        = "Review Rating",
-         caption  = "Created using the Horror Movie data set from TidyTuesday") +
-    # change colour pallete
+      # the geometric elements
+      geom_point() +
+      geom_smooth(method = "lm", 
+                  se     = FALSE) +
+    # set colour pallete
     scale_colour_brewer(palette = "Set2")
 ```
 
-I also really don't like that. Let's pull in the big guns. Use scale_colour_viridis_d to use colpour blind safe colours
+I also really don't like that. Let's use `scale_colour_viridis_d()` to use a colour blind safe pallette.
 
 ```{r}
 # the data set
 pirates %>%
   # the canvas
     ggplot(aes(x = height, y = weight, colour = sex)) +
-    # the geometric elements
-    geom_point(aes(shape = sex),
-               size   = 3,
-               alpha  = .5) +
-    geom_smooth(method = "lm", 
-                se     = FALSE, 
-                size   = 1.5,
-                alpha  = .7) +
-    # the theme
-    theme_bw() +
-    # add labels
-    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
-         subtitle = "A ggplot plots",
-         x        = "Budget (log)",
-         y        = "Review Rating",
-         caption  = "Created using the Horror Movie data set from TidyTuesday") +
-    # change colour pallete
+      # the geometric elements
+      geom_point() +
+      geom_smooth(method = "lm", 
+                  se     = FALSE) +
+    # set colour pallete
     scale_colour_viridis_d()
 ```
 
-Okay, that is definitely better, but it is still hard to distinguish between the three lines. We can use facet_wrap to plot the three plots side_by_side
+Much better! But I still can't distinguish between the different lines. Let's  use `facet_wrap()` to produce a separate plot for each sex.
 
 ```{r}
 # the data set
 pirates %>%
   # the canvas
     ggplot(aes(x = height, y = weight, colour = sex)) +
-    # the geometric elements
-    geom_point(aes(shape = sex),
-               size   = 3,
-               alpha  = .5) +
-    geom_smooth(method = "lm", 
-                se     = FALSE, 
-                size   = 1.5,
-                alpha  = .7) +
-    # the theme
-    theme_bw() +
-    # add labels
-    labs(title    = "Scatterplot of Horror Movie Budgets and Rating",
-         subtitle = "A ggplot plots",
-         x        = "Budget (log)",
-         y        = "Review Rating",
-         caption  = "Created using the Horror Movie data set from TidyTuesday") +
-    # change colour pallete
+      # the geometric elements
+      geom_point() +
+      geom_smooth(method = "lm", 
+                  se     = FALSE) +
+    # set colour pallete
     scale_colour_viridis_d() +
-    # facet_wrap by sex
+    # facet wrap by sex
     facet_wrap(~sex)
 ```
 
+Finally, lets add proper labels (using `labs`), change the theme (using `theme_bw`), and drop the redundant legend (using `theme(legend.position = "none")`).
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight, colour = sex)) +
+      # the geometric elements
+      geom_point() +
+      geom_smooth(method = "lm", 
+                  se     = FALSE) +
+    # set colour pallete
+    scale_colour_viridis_d() +
+    # facet wrap by sex
+    facet_wrap(~sex) +
+    # add labels
+    labs(title    = "Associations between height and weight, trifurcated by gender",
+         x        = "Height (cm)",
+         y        = "Weight (kg)") +
+    # set theme
+    theme_bw() +
+    # remove legend
+    theme(legend.position = "none")
+```
 
 
 # Minihacks {#minihacks}
+
+You are welcome to work with a partner or in a small group of 2-3 people. Please feel free to ask the lab leader any questions you might have!
 
 
