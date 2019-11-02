@@ -551,5 +551,19 @@ movies %>%
 
 ```{r}
 movies %>%
-  ggplot(aes(x = budget, y = revenue.all))
+  na.omit() %>%
+  filter(rating != "Not Rated") %>%
+  ggplot(aes(x = year, 
+             y = revenue.all,
+             colour = rating)) +
+    geom_point(aes(size = budget),
+               alpha = .5,
+               shape = 18) +
+    geom_smooth(method = "lm", se = FALSE) +
+    scale_y_log10() +
+    scale_colour_viridis_d() +
+    facet_wrap(~genre) +
+    theme_minimal() +
+    labs(x = "Revenue",
+         y = "Year")
 ```
