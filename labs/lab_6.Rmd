@@ -192,7 +192,7 @@ pirates %>%
   ggplot(aes(x = sex, y = height))
 ```
 
-Again, our **canvas** looks like what we would expect. Let's add bars using `geom_col()`.
+Even without adding **geometric elements**, we can see that `sex` is on the x-axis and `height` is on the y-axis. Now, let's add bars using `geom_col()` to compare the average height for a woman, a man, and those who identify as a different sex.
 
 ```{r}
 # the data set
@@ -203,7 +203,7 @@ pirates %>%
     geom_col()
 ```
 
-It looks like it is added up all the heights and didn't take the average. Let's use `group_by()` and `summarize()` to calculate the means of the groups before plotting the values.
+Shoot! It looks like it is added up all the heights and didn't take the average. Let's use `group_by()` and `summarize()` to calculate the means of the groups before plotting the values.
 
 ```{r}
 # the data set
@@ -217,7 +217,9 @@ pirates %>%
     geom_col()
 ```
 
-There we go! Let's rearrange the columns from shortest to tallest using `reorder(sex, height_avg)`. *Note.* If we wanted to arrange from tallest to shortest, we would use `reorder(sex, -height_avg)`.
+There we go!
+
+Now let's update the colours (using `fill` and `colour`), the opacity (using `alpha`), the width of the bars (using `width`), the theme (using `theme_bw()`), and the labels (using `lab()`).
 
 ```{r}
 # the data set
@@ -226,12 +228,23 @@ pirates %>%
   group_by(sex) %>%
   summarise(height_avg = mean(height)) %>%
   # the canvas
-  ggplot(aes(x = reorder(sex, height_avg), y = height_avg)) +
+  ggplot(aes(x = sex, y = height_avg)) +
     # the geometric elements
-    geom_col()
+    geom_col(fill   = "turquoise",
+             colour = "white",
+             alpha  = .7,
+             width  = .5) +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Average height of pirate by pirate sex",
+         subtitle = "A ggplot plot",
+         x        = "Sex",
+         y        = "Height (cm)",
+         caption  = "Data from that `yarrr` package.")
 ```
 
-Now let's update the colours (using `fill` and `colour`), the opacity (using `alpha`), the width of the bars (using `width`), the theme (using `theme_bw()`), and the labels (using `lab()`).
+Now, let's rearrange the columns from shortest to tallest using `reorder(sex, height_avg)`. *Note.* If we wanted to arrange from tallest to shortest, we would use `reorder(sex, -height_avg)`.
 
 ```{r}
 # the data set
@@ -255,6 +268,8 @@ pirates %>%
          y        = "Height (cm)",
          caption  = "Data from that `yarrr` package.")
 ```
+
+
 
 Now, let's flip our coordinates so that `x` becomes `y` and `y` becomes `x` using `coord_flip()`.
 
