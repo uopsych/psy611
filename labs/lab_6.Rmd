@@ -20,7 +20,7 @@ options(scipen = 999)
 library(tidyverse) # includes ggplot2
 library(here) # used to streamline the creation of this document
 library(rio) # for importing data
-library(yarrr) # import pirates data
+library(yarrr) # import pirates and movies datasets
 
 # convert pirates data to a tibble
 pirates <- as_tibble(pirates)
@@ -28,7 +28,7 @@ pirates <- as_tibble(pirates)
 
 # Purpose
 
-The purpose of today's lab is to introduce you to visualizing data. Although R has built in plotting functions, we will be using the `ggplot2` package in todays lab. It is far more powerful than the base R plotting functions and is the basis for other packages that allow you to create interactive plots, animated plots, and 3D plots. Being part of the `tidyverse`, `ggplot2` was also designed to work well with other `tidyverse` packages (e.g., `dplyr`, `tidyr`). The content of today's labs will be split into four sections. The first section, [The Grammar of Graphics](#grammar) will provide a brief overview of how `ggplot2` plots work. The second section, [Histograms](#hist), will provide an overview of how to create a histogram and customize it. The third section, [Categorical-Continuous Graphs](#cat), will guide you through the process of creating a barchart in R. Finally, in the [Continuous-Continuous Graphs](#cont) section, we will discuss how to create plots where you have have a continuous variable both axes. As always, the lab will end with [minihacks](#minihacks) to test your knowledge.
+The purpose of today's lab is to introduce you to visualizing data. Although R has built in plotting functions, we will be using the `{ggplot2}` package in today's lab. It is far more powerful than the base R plotting functions and is the basis for other packages that allow you to create interactive plots (e.g., `{plotly}`), animated plots (e.g., `{gganimate}`), and 3D plots (e.g., `{rayshader}`). Being part of the `tidyverse`, `{ggplot2}` was also designed to work well with other `tidyverse` packages (e.g., `dplyr`, `tidyr`). The content of today's labs will be split into four sections. The first section, [The Grammar of Graphics](#grammar) will provide a brief overview of how `{ggplot2}` plots work. The second section, [Histograms](#hist), will provide an overview of how to create a histogram and customize it. The third section, [Categorical-Continuous Graphs](#cat), will guide you through the process of creating a barchart in R. Finally, in the [Continuous-Continuous Graphs](#cont) section, we will discuss how to create plots where you have have a continuous variable both axes. As always, the lab will end with [minihacks](#minihacks) to test your knowledge.
 
 To quickly navigate to the desired section, click one of the following links:
 
@@ -52,31 +52,31 @@ Below are included some resources that you may find useful going forward:
 
 ![](`r here("labs", "resources", "lab6", "grammar_of_graphics.png")`)
 
-The `ggplot2` package is built around Leland Wilkinson's idea of the *Grammar of Graphics*. In its simplest form, the *Grammar of Graphics* suggests that every graph can be created from (1) a data set (e.g., `mtcars`, `world happiness`), (2) a coordinate system (e.g., a cartesian coordinate system), and (3) a set of geometric elements that represent the data (e.g., points, lines, polygons).
+The `{ggplot2}` package is built around Leland Wilkinson's idea of the *Grammar of Graphics*. In its simplest form, the *Grammar of Graphics* suggests that every graph can be created from (1) a data set (e.g., `mtcars`, `world happiness`), (2) a coordinate system (e.g., a cartesian coordinate system), and (3) a set of geometric elements that represent the data (e.g., points, lines, polygons).
 
 ***
 
 # Histograms {#hist}
 
-Below is the **data set** `pirates`.
+Below is the **data set** `pirates` from the `{yarrr}` package. All of the plots in today's lab, excluding the Minihacks, we use the `pirates` data set.
 
 ```{r}
 # the data set
 pirates
 ```
 
-We can then pipe (`%>%`) that **data set** to `ggplot()` to create the **canvas** of our plot.
+We can pipe (`%>%`) that **data set** to the `ggplot()` function to create the **canvas** of our plot. Add `x = age` inside the `ggplot()` function.
 
 ```{r}
 # the data set
 pirates %>%
   # the canvas
-  ggplot(aes(x = age))
+  ggplot(x = age)
 ```
 
 The `aes()` function above tells `ggplot()` that we are providing it aesthetic information for the **canvas**. In this case, we are saying the **canvas** should have `age` on the x-axis. Other aesthetic mappings include `y`, `colour`, `size`, and `shape`, but we will discuss those later.
 
-As we can see, a **canvas** is not that exciting without anything on it. We can add **geometric elements** to a plot by using the functions that begin with `geom_`. Let's add a histogram by adding `geom_histogram()`. Unlike other functions in the `tidyverse`, we use the plus symbol(`+`) instead of the pipe symbol (`%>%`) to add elements to a plot. 
+As we can see, a **canvas** is not that exciting without anything on it. We can add **geometric elements** to a plot by using functions that begin with `geom_` prefix. Let's add a histogram by adding `geom_histogram()`. Unlike other functions in the `tidyverse`, we use the plus symbol(`+`) instead of the pipe symbol (`%>%`) to add elements to a plot. This makes sense if you consider that we want to *add* the function rather than *passing* information from one function to the next. 
 
 ```{r, echo = FALSE}
 # the data set
@@ -87,7 +87,7 @@ pirates %>%
     geom_histogram()
 ```
 
-Looks like a histogram, but it is a bit hard to distinguish between the different bins. We can use the `fill` and `colour` (or `color`) arguments to specify the colour of the inside and outline of **geometric elements**, respectively. We can also use `alpha` to set the opacity (i.e., the transparency) of the geometric element.
+Great - it looks like a histogram! ...but it is a bit hard to distinguish between the different bins. We can use the `fill` and `colour` (or `color`) arguments to specify the colour of the inside and outline of **geometric elements**, respectively. We can also use `alpha` to set the opacity (i.e., the transparency) of the geometric element. Let's make the inside of the bars `turquoise`, the outside of the bars `black`, and the opacity .6.
 
 ```{r}
 # the data set
@@ -100,7 +100,7 @@ pirates %>%
                    alpha  = .6)
 ```
 
-The **geometric element** `geom_histogram()` has an additional argument `binwidth` that allows you to specify how many bings that variable should be categorized into. Let's change the `binwidth` to `35`.
+Looks much better, but the data does look pretty leptokurtotic. The **geometric element** `geom_histogram()` has an additional argument `bins` that allows us to specify how many bins the variable should be categorized into. Let's change the number of `bins` to `35` and see if that gives a better impression of the distribution.
 
 ```{r}
 # the data set
@@ -114,9 +114,9 @@ pirates %>%
                    bins   = 35)
 ```
 
-Looks like our  data is more normal than we previously thought.
+Looks like our data is more normal than we previously thought.
 
-We can change the theme of the **canvas** by using the suite of functions that start with `theme_`. I like `theme_bw()`, but other choices include `theme_gray()`, `theme_minimal()`, and `theme_classic()`.
+We can change the way the **canvas** looks by using a suite of functions that start with the `theme_` prefix. I like `theme_bw()`, but other choices include `theme_gray()`, `theme_minimal()`, and `theme_classic()`.
 
 ```{r}
 # the data set
@@ -132,7 +132,7 @@ pirates %>%
     theme_bw()
 ```
 
-No plot is complete without proper labels. Fortunately, `ggplot2` has the `labs()` function built in for just this purpose.
+No plot is complete without proper labels. Fortunately, `{ggplot2}` has the `labs()` function built in for just that purpose.
 
 ```{r}
 # the data set
@@ -358,7 +358,7 @@ pirates %>%
                   se     = FALSE)
 ```
 
-Success! Sort of. I don't really like the colours. Luckily, `ggplot2` has a solution for that: scale functions. Scale functions start with `scale_` and are followed by the aesthetic mapping you wish to scale (e.g., `x`, `y`, `colour`, `fill`, `size`, `alpha`, `shape`). The final part of the function specifies how you would like to scale the axis. For example, `scale_y_log10()` scales the y-axis to be on a logarithmic scale. 
+Success! Sort of. I don't really like the colours. Luckily, `{ggplot2}` has a solution for that: scale functions. Scale functions start with `scale_` and are followed by the aesthetic mapping you wish to scale (e.g., `x`, `y`, `colour`, `fill`, `size`, `alpha`, `shape`). The final part of the function specifies how you would like to scale the axis. For example, `scale_y_log10()` scales the y-axis to be on a logarithmic scale. 
 
 Let's use `scale_colour_manual()` to manually set the colours of the plot
 
@@ -560,7 +560,7 @@ movies_filtered <- movies %>%
          rating != "Not Rated")
 ```
 
-1. Create a new `ggplot2` object with `year` mapped to the x-axis, `revenue.all` mapped to the y-axis, and `rating` mapped to colour.  
+1. Create a new `{ggplot2}` object with `year` mapped to the x-axis, `revenue.all` mapped to the y-axis, and `rating` mapped to colour.  
 
 ```{r}
 movies_filtered %>%
