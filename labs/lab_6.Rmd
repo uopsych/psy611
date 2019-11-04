@@ -473,7 +473,6 @@ movies %>%
     geom_histogram(bins = 50)
 ```
 
-
 1. Change the theme of the **canvas** to your preferred theme.
 
 ```{r}
@@ -549,21 +548,102 @@ movies %>%
 
 ## Minihack 3: Continuous by Continuous plot
 
+1. Use `filter` to remove all rows that have `NA` for release year (`year`), revenue (`revenue.all`), budget (`budget`), rating (`rating`), and genre (`genre`). Also, remove all rows that have a rating (`rating`) of `"Not Rated"`.
+
 ```{r}
-movies %>%
-  na.omit() %>%
-  filter(rating != "Not Rated") %>%
-  ggplot(aes(x = year, 
-             y = revenue.all,
+movies_filtered <- movies %>%
+  filter(!is.na(year),
+         !is.na(revenue.all),
+         !is.na(budget),
+         !is.na(rating),
+         !is.na(genre),
+         rating != "Not Rated")
+```
+
+1. Create a new `ggplot2` object with `year` mapped to the x-axis, `revenue.all` mapped to the y-axis, and `rating` mapped to colour.  
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
+             colour = rating))
+```
+
+1. Add a `geom_point()` and a `geom_smooth()` to the plot. Make sure line is linear and remove standard errors. 
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
              colour = rating)) +
-    geom_point(aes(size = budget),
-               alpha = .5,
-               shape = 18) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE)
+```
+
+1. Add an argument to `geom_point` that maps `budget` to the `size` of the points. Make the points half transparent using the `alpha` argument.
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
+             colour = rating)) +
+    geom_point(aes(size = budget), alpha = .5) +
+    geom_smooth(method = "lm", se = FALSE)
+```
+
+1. Scale the y-axis to be logarithmic. 
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
+             colour = rating)) +
+    geom_point(aes(size = budget), alpha = .5) +
+    geom_smooth(method = "lm", se = FALSE) +
+    scale_y_log10()
+```
+
+1. Scale the colours to be colour-blind friendly. 
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
+             colour = rating)) +
+    geom_point(aes(size = budget), alpha = .5) +
+    geom_smooth(method = "lm", se = FALSE) +
+    scale_y_log10() +
+    scale_colour_viridis_d()
+```
+
+1. Facet wrap by `genre`. 
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
+             colour = rating)) +
+    geom_point(aes(size = budget), alpha = .5) +
+    geom_smooth(method = "lm", se = FALSE) +
+    scale_y_log10() +
+    scale_colour_viridis_d() +
+    facet_wrap(~genre)
+```
+
+1. Use `labs()` to add labels to your plot and use one of the `theme_` functions to change the plot to your preferred theme. 
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
+             colour = rating)) +
+    geom_point(aes(size = budget), alpha = .5) +
     geom_smooth(method = "lm", se = FALSE) +
     scale_y_log10() +
     scale_colour_viridis_d() +
     facet_wrap(~genre) +
-    theme_minimal() +
     labs(x = "Revenue",
-         y = "Year")
+         y = "Year") +
+    theme_minimal()
+    
 ```
