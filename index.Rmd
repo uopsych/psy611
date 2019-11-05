@@ -12,7 +12,7 @@ output:
 
 # Announcements
 
-Please note that class on **Thursday, November 7** is cancelled!
+Please note that class on **Thursday, November 7** is canceled!
 
 # Overview
 
