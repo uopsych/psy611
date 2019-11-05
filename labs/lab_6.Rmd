@@ -184,7 +184,9 @@ pirates %>%
 
 # Categorical by Continuous {#cat}
 
-Okay, but when we are looking at our data histograms only get us so far. Usually we are interested in th relationship between at least two variables. Below we've created a canvas with `sex` on the x-axis, specified using `x = sex` inside of the `aes()` function of `ggplot()`, and `height` on the y-axis, specified using `y = height` inside of the `aes()` function of `ggplot()`.
+Okay, but when we are looking at our data histograms only get us so far. Usually we are interested in the relationship between at least two variables. 
+
+Below we've created a canvas with `sex` on the x-axis, specified using `x = sex` inside of the `aes()` function of `ggplot()`, and `height` on the y-axis, specified using `y = height` inside of the `aes()` function of `ggplot()`.
 
 ```{r}
 # the data set
@@ -193,7 +195,7 @@ pirates %>%
   ggplot(aes(x = sex, y = height))
 ```
 
-Even without adding **geometric elements**, we can see that `sex` is on the x-axis and `height` is on the y-axis. Now, let's add bars using `geom_col()` to compare the average height for a woman, a man, and those who identify as a different sex.
+Even without adding **geometric elements**, we can see that `sex` is on the x-axis and `height` is on the y-axis. Now, let's add bars using `geom_col()` to compare the average height for women, men, and those who identify as a different sex.
 
 ```{r}
 # the data set
@@ -245,7 +247,7 @@ pirates %>%
          caption  = "Data from that `yarrr` package.")
 ```
 
-Now, let's rearrange the columns from shortest to tallest using `reorder(sex, height_avg)`. *Note.* If we wanted to arrange from tallest to shortest, we would use `reorder(sex, -height_avg)`.
+Looks much better! Let's also rearrange the columns from shortest to tallest using `reorder(sex, height_avg)`. Here we are saying reorder the levels of the `sex` variable by average height (`height_avg`). *Note.* If we wanted to arrange from tallest to shortest, we would append `-` to the begining of `height_avg` (i.e., `reorder(sex, -height_avg)`).
 
 ```{r}
 # the data set
@@ -270,9 +272,7 @@ pirates %>%
          caption  = "Data from that `yarrr` package.")
 ```
 
-
-
-Now, let's flip our coordinates so that `x` becomes `y` and `y` becomes `x` using `coord_flip()`.
+Now, let's flip our coordinates so that `x` is shown on the vertical axis and `y` is shown on the horizontal axis.
 
 ```{r}
 # the data set
@@ -312,7 +312,7 @@ pirates %>%
   ggplot(aes(x = height, y = weight))
 ```
 
-Let's add some points to our plot using `geom_point`. 
+Now, let's add some points to our plot using `geom_point`. 
 
 ```{r}
 # the data set
