@@ -473,7 +473,7 @@ pirates %>%
 
 You are welcome to work with a partner or in a small group of 2-3 people. Please feel free to ask the lab leader any questions you might have!
 
-The minihacks will all use the `movies` data set from the `yarrr` package.
+The minihacks all use the `movies` data set from the `{yarrr}` package.
 
 ## Minihack 1: Histograms
 
@@ -524,12 +524,13 @@ movies %>%
 
 ## Minihack 2: Categorical by Continuous Plots
 
-1. Create a barplot of the all revenue by the movie genre. (*Hint.* You will want to calculate the mean revenue for each genre before your plot it.).
+1. Create a barplot of the all revenue (`revenue.all`) by the movie genre (`genre`). (*Hint.* You will want to calculate the mean revenue for each genre before your plot it. You will also want to filter out cases (using`filter()`) that are `NA` for the `genre` variable.
 
 ```{r}
 movies %>%
   group_by(genre) %>%
   summarize(revenue_avg = mean(revenue.all)) %>%
+  filter(!is.na(genre)) %>%
   ggplot(aes(x = genre, y = revenue_avg)) +
     geom_col()
 ```
@@ -540,6 +541,7 @@ movies %>%
 movies %>%
   group_by(genre) %>%
   summarize(revenue_avg = mean(revenue.all)) %>%
+  filter(!is.na(genre)) %>%
   ggplot(aes(x = reorder(genre, revenue_avg), y = revenue_avg)) +
     geom_col()
 ```
@@ -550,19 +552,21 @@ movies %>%
 movies %>%
   group_by(genre) %>%
   summarize(revenue_avg = mean(revenue.all)) %>%
+  filter(!is.na(genre)) %>%
   ggplot(aes(x = reorder(genre, revenue_avg), y = revenue_avg)) +
     geom_col() +
     coord_flip()
 ```
 
-1. Facet wrap the plot by movie rating. 
+1. Lastly, change the colour (using `fill`) and `width` of the bars.
 
 ```{r}
 movies %>%
   group_by(genre) %>%
   summarize(revenue_avg = mean(revenue.all)) %>%
+  filter(!is.na(genre)) %>%
   ggplot(aes(x = reorder(genre, revenue_avg), y = revenue_avg)) +
-    geom_col() +
+    geom_col(fill = "navy", width = .4) +
     coord_flip()
 ```
 
@@ -580,7 +584,7 @@ movies_filtered <- movies %>%
          rating != "Not Rated")
 ```
 
-1. Create a new `{ggplot2}` object with `year` mapped to the x-axis, `revenue.all` mapped to the y-axis, and `rating` mapped to colour.  
+1. Create a new `{ggplot2}` **canvas** with `year` mapped to the x-axis, `revenue.all` mapped to the y-axis, and `rating` mapped to colour.  
 
 ```{r}
 movies_filtered %>%
