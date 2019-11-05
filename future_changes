@@ -1,3 +1,8 @@
+general lab feedback
+* make the first minihack easy and walk them through it
+* find out what was in the bootcamp and you can skim or gloss that content
+* exercises throughout are good
+
 1-intro.html
 * Replace Leibniz picture with Helmhotlz
     * Don't bother with Locke and Leibniz
@@ -51,10 +56,10 @@ lab-3.html
 
 
 1-homework.Rmd
-*rewrite correlation freedom/generosity instructions: "calculate the correlation between freedom and generosity" (take out thing about "for a country")
-*question 5.1 -- take out density distribution or give them code. (students are drawing based on mean and sd, not using empirical)
-*5.3 change validity of correlation to "statistical conclusion valdity"
-*more time for homeworks? post 2 weeks in advance, instead of 1
+* rewrite correlation freedom/generosity instructions: "calculate the correlation between freedom and generosity" (take out thing about "for a country")
+* question 5.1 -- take out density distribution or give them code. (students are drawing based on mean and sd, not using empirical)
+* 5.3 change validity of correlation to "statistical conclusion valdity"
+* more time for homeworks? post 2 weeks in advance, instead of 1
 
 8-normal.html
 * move slides about chi sq from sampling to here
@@ -62,4 +67,8 @@ lab-3.html
 lab-4.html
 * need to explain a deck of cards
 
+10-nhst.html
+* more on pvalues
 
+lab-5.html
+* skim tidy data and helper functions, but keep in so people can see them
