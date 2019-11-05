@@ -323,7 +323,7 @@ pirates %>%
     geom_point() 
 ```
 
-I haven't mentioned this before, but you can add multiple **geometric elements** to a single plot. Let's also add a regression line using `geom_smooth()`.
+I haven't mentioned this yet, but you can add multiple **geometric elements** to a single plot. Let's also add a regression line using `geom_smooth()`.
 
 ```{r}
 # the data set
@@ -335,7 +335,7 @@ pirates %>%
       geom_smooth()
 ```
 
-It may be hard to see given how linear the data appears to be, but the line is actually slightly curved. Let's change that by specifying `method = "lm"` in the `geom_smooth` function to use linear modelling to plot the line. Let's also get rid of the confidence interval around the line by specifying `se = FALSE`.
+Although the line looks pretty straight, the line is actually slightly curved. Let's change that by specifying `method = "lm"` in the `geom_smooth` function to use linear modelling to plot the line. Let's also get rid of the confidence interval around the line by specifying `se = FALSE`.
 
 ```{r}
 # the data set
@@ -348,7 +348,7 @@ pirates %>%
                   se     = FALSE)
 ```
 
-What if we wanted to distinguish the points by the pirates sex? As mentioned before, we can also specify an aesthetic mapping for colour (and fill). Let's map the point colours to the pirates' sexes by including `aes(colour = sex))` in the `geom_point()` function.
+What if we wanted to distinguish the points by the pirates sex? As mentioned before, we can also specify an aesthetic mapping for `colour` (and `fill`). Let's map the point's colours to the pirates' sexes by including `aes(colour = sex))` in the `geom_point()` function.
 
 ```{r}
 # the data set
@@ -361,7 +361,9 @@ pirates %>%
                   se     = FALSE)
 ```
 
-Hmm. The points are different colours, but their isn't a separate regresion line for each sex. This is because we only specified `colour = sex` for the aesthetic mappings of geom_point. We could specify `colour = sex` in `geom_point()` and `geom_smooth()` to get different coloured points and regression lines OR we can just specify `colour = sex` inside the `ggplot()` function (where we specified what would be on the x- and y-axis) and `geom_point()` and `geom_smooth()` will inheret the aesthetic mapping. 
+The points are different colours, but I was also hoping to get separate regression lines for each sex. 
+
+Only the points are grouped by colour because we only specified `colour = sex` in the aesthetic mapping (`aes()`) of `geom_point()`. We could specify `colour = sex` in both `geom_point()` and `geom_smooth()` to get get different coloured points and different coloured lines for each sex *OR* we can just specify `colour = sex` inside the `aes()` argument in the `ggplot()` function and `geom_point()` and `geom_smooth()` will inherit the aesthetic mapping. 
 
 ```{r}
 # the data set
@@ -374,10 +376,10 @@ pirates %>%
                   se     = FALSE)
 ```
 
-Success! Sort of. I don't really like the colours. Luckily, `{ggplot2}` has a solution for that: scale functions. Scale functions start with `scale_` and are followed by the aesthetic mapping you wish to scale (e.g., `x`, `y`, `colour`, `fill`, `size`, `alpha`, `shape`). The final part of the function specifies how you would like to scale the axis. For example, `scale_y_log10()` scales the y-axis to be on a logarithmic scale. 
+Success! (Well, sort of). I really don't like the colours.
 
-Let's use `scale_colour_manual()` to manually set the colours of the plot
-
+Luckily, `{ggplot2}` has a solution for that: `scale_` functions. Scale functions start with `scale_` and are followed by the aesthetic mapping you wish to scale (e.g., `x`, `y`, `colour`, `fill`, `size`, `alpha`, `shape`). The final part of the function specifies how you would like to scale the axis. For example, `scale_y_log10()` scales the y-axis to be on a logarithmic scale. 
+Let's use `scale_colour_manual()` to manually set the colours of the plot.
 
 ```{r}
 # the data set
@@ -392,7 +394,9 @@ pirates %>%
     scale_colour_manual(values = c("red", "blue", "green"))
 ```
 
-That's even worse. Okay, let's use a built in colour palette. To do so, we use the `scale_colour_brewer()` function and specify the colour choice after that. The available palettes can be found [here](http://www.sthda.com/english/wiki/colors-in-r).
+*Note*. Instead of using strings (e.g., "red", "blue), we can also use the HTML hexcodes to set the colours (e.g., "#FF0000", "#000CF3"). You can also set a colour using the `rgb()` function where you set the amount of red, green, and blue (e.g., for the colour blue, you would use `rgb(0, 0, 1)`).
+
+The new colours are even worse. Okay, let's use a built in colour palette. To do so, we can use the `scale_colour_brewer()` function and specify the colour choice after that. The available palettes can be found [here](http://www.sthda.com/english/wiki/colors-in-r).
 
 ```{r}
 # the data set
@@ -407,7 +411,7 @@ pirates %>%
     scale_colour_brewer(palette = "Set2")
 ```
 
-I also really don't like that. Let's use `scale_colour_viridis_d()` to use a colour blind safe pallette.
+I also really don't like that. Let's use `scale_colour_viridis_d()` to use a colour blind safe palette.
 
 ```{r}
 # the data set
@@ -439,7 +443,7 @@ pirates %>%
     facet_wrap(~sex)
 ```
 
-Finally, lets add proper labels (using `labs`), change the theme (using `theme_bw`), and drop the redundant legend (using `theme(legend.position = "none")`).
+Finally, let's add proper labels (using `labs()`), change the theme (using `theme_bw()`), and drop the redundant legend (using `theme(legend.position = "none")`).
 
 ```{r}
 # the data set
@@ -455,7 +459,7 @@ pirates %>%
     # facet wrap by sex
     facet_wrap(~sex) +
     # add labels
-    labs(title    = "Associations between height and weight, trifurcated by gender",
+    labs(title    = "Associations between height and weight by gender",
          x        = "Height (cm)",
          y        = "Weight (kg)") +
     # set theme
