@@ -10,6 +10,10 @@ output:
     theme: cosmo
 ---
 
+# Announcements
+
+Please note that class on **Thursday, November 7** is cancelled!
+
 # Overview
 
 This course is the first in a 3-term sequence of classes designed to provide a
