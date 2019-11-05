@@ -52,7 +52,7 @@ library(pwr)
 
 If $p$ is small, the observed data are unusual *if the null hypothesis is true*.
 
-If $p$ is sufficiently small ($p < .05$), we may choose to reject the null hypothesis as a description of the data.
+If $p$ is sufficiently small ( $p < .05$ ), we may choose to reject the null hypothesis as a description of the data.
 
 ---
 
@@ -336,12 +336,40 @@ n = 40
 ```
 
 
-```{r ref.label="student null and alt", fig.height=7, fig.width=7, echo = F}
+```{r fig.height=7, fig.width=7, echo = F}
+
+mu = 100
+
+sem = s/sqrt(n)
+
+ggplot(data.frame(x = seq(70, 130)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x, m = mu, sd = sem)) +
+  
+  stat_function(fun = function(x) dnorm(x, m = mean, sd = sem),
+                geom = "area", xlim = c(cv, 130), 
+                aes(fill = "Power"), alpha = .5) +
+  stat_function(fun = function(x) dnorm(x, m = mean, sd = sem),
+                geom = "area", xlim = c(70, cv), 
+                aes(fill = "Type II Error"), alpha = .5) +
+  stat_function(fun = function(x) dnorm(x, m = mu, sd = sem),
+                geom = "area", xlim = c(cv, 130), 
+                aes(fill = "Type I Error"), alpha = .5) +
+  stat_function(fun = function(x) dnorm(x, m = mean, sd = sem)) +
+  geom_vline(aes(xintercept = mu))+
+  geom_vline(aes(xintercept = mean))+
+  geom_hline(aes(yintercept = 0))+
+  scale_x_continuous("Means", breaks = seq(70,130,10)) +
+  scale_y_continuous(NULL, breaks = NULL) + 
+  theme( text = element_text(size = 20),
+    legend.position = "bottom")
+
 
 ```
 ]
 .pull-right[
-$$Z_1 = \frac{107.4 - 110}{\frac{20}{\sqrt{40}}} = -1.52$$
+$$\text{Critical Value} = 100 + 1.645\frac{20}{\sqrt{40}} = 105.2$$
+
+$$Z_1 = \frac{105.2 - 110}{\frac{20}{\sqrt{40}}} = -1.52$$
 ```{r}
 1-pnorm(-1.52) 
 ```
@@ -618,7 +646,8 @@ data.frame(prob = seq(0,1, by = .01)) %>%
   ggplot(aes(x = prob, y = ppv)) +
   geom_line() +
   scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
-  scale_y_continuous("Positive Predictive Value")
+  scale_y_continuous("Positive Predictive Value")+
+  theme_bw(base_size = 20)
 ```
 ---
 
@@ -634,7 +663,8 @@ data.frame(prob = seq(0,1, by = .01)) %>%
   geom_line(aes(y = ppv_low, color = ".50")) +
   scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
   scale_y_continuous("Positive Predictive Value")+
-  scale_color_discrete("Power")
+  scale_color_discrete("Power")+
+  theme_bw(base_size = 20)
 ```
 
 ---
@@ -656,11 +686,12 @@ data.frame(prob = seq(0,1, by = .01)) %>%
   scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
   scale_y_continuous("Positive Predictive Value")+
   scale_color_discrete("Power")+
-  scale_linetype_discrete("Alpha")
+  scale_linetype_discrete("Alpha") +
+  theme_bw(base_size = 20)
 ```
 ---
 
-What do you mean we have inflated error rates? Why would that be?
+![](images/ioannidis.png)
 
 ---
 

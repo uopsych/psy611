@@ -56,7 +56,7 @@ class: center, middle, inverse, title-slide
 
 If `\(p\)` is small, the observed data are unusual *if the null hypothesis is true*.
 
-If `\(p\)` is sufficiently small ($p &lt; .05$), we may choose to reject the null hypothesis as a description of the data.
+If `\(p\)` is sufficiently small ( `\(p &lt; .05\)` ), we may choose to reject the null hypothesis as a description of the data.
 
 ---
 
@@ -297,7 +297,9 @@ What if instead we increase the sample size?  This will reduce variability in th
 ![](11-nhst_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
-`$$Z_1 = \frac{107.4 - 110}{\frac{20}{\sqrt{40}}} = -1.52$$`
+`$$\text{Critical Value} = 100 + 1.645\frac{20}{\sqrt{40}} = 105.2$$`
+
+`$$Z_1 = \frac{105.2 - 110}{\frac{20}{\sqrt{40}}} = -1.52$$`
 
 ```r
 1-pnorm(-1.52) 
@@ -471,7 +473,7 @@ In addition to being under-powered, there's recognition that research practices 
 ![](11-nhst_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 ---
 
-What do you mean we have inflated error rates? Why would that be?
+![](images/ioannidis.png)
 
 ---
 
