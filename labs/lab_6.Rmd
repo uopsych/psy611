@@ -30,7 +30,7 @@ pirates <- as_tibble(pirates)
 
 The purpose of today's lab is to introduce you to visualizing data. Although R has built in plotting functions, we will be using the `{ggplot2}` package in today's lab. It is far more powerful than the base R plotting functions and is the basis for other packages that allow you to create interactive plots (e.g., `{plotly}`), animated plots (e.g., `{gganimate}`), and 3D plots (e.g., `{rayshader}`). Being part of the `{tidyverse}`, `{ggplot2}` was also designed to work well with other `tidyverse` packages (e.g., `{dplyr}`, `{tidyr}`). 
 
-The content of today's labs will be split into four sections. The first section, [The Grammar of Graphics](#grammar) will provide a brief overview of how `{ggplot2}` plots work. The second section, [Histograms](#hist), will provide an overview of how to create a histogram and customize it. The third section, [Categorical-Continuous Graphs](#cat), will guide you through the process of creating a barchart in R. Finally, in the [Continuous-Continuous Graphs](#cont) section, we will discuss how to create plots where you have have a continuous variable on both axes. As always, the lab will end with a set of [minihacks](#minihacks) to test your knowledge.
+The content of today's labs will be split into four sections. The first section, [The Grammar of Graphics](#grammar) will provide a brief overview of how `{ggplot2}` plots work. The second section, [Histograms](#hist), will provide an overview of how to create a histogram and customize it. The third section, [Categorical-Continuous Graphs](#cat), will guide you through the process of creating a bar chart in R. Finally, in the [Continuous-Continuous Graphs](#cont) section, we will discuss how to create plots where you have have a continuous variable on both axes. As always, the lab will end with a set of [minihacks](#minihacks) to test your knowledge.
 
 To quickly navigate to the desired section, click one of the following links:
 
@@ -43,7 +43,7 @@ To quickly navigate to the desired section, click one of the following links:
 Below are some resources that you may find useful going forward:
 
 * Claus O. Wilke's book [The Fundamentals of Data Visualization](https://serialmentor.com/dataviz/) 
-* [The {ggplot2} cheatsheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) 
+* [The {ggplot2} cheat sheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) 
 * A list of the [Colors available in R](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
 * An interactive website for choosing colour palettes: [ColorBrewer 2.0](http://colorbrewer2.org/#type=diverging&scheme=RdGy&n=8)
 
@@ -53,7 +53,7 @@ Below are some resources that you may find useful going forward:
 
 ![](`r here("labs", "resources", "lab6", "grammar_of_graphics.png")`)
 
-The `{ggplot2}` package is built around Leland Wilkinson's idea of the *Grammar of Graphics*. The *Grammar of Graphics* proposes that every graph can be created from (1) **a data set** (e.g., `mtcars`, `world happiness`), (2) a coordinate system or **canvas** (e.g., a cartesian coordinate system), and (3) a set of **geometric elements** that represent the data (e.g., points, lines, polygons).
+The `{ggplot2}` package is built around Leland Wilkinson's idea of the *Grammar of Graphics*. The *Grammar of Graphics* proposes that every graph can be created from (1) **a data set** (e.g., `mtcars`, `world happiness`), (2) a coordinate system or **canvas** (e.g., a Cartesian coordinate system), and (3) a set of **geometric elements** that represent the data (e.g., points, lines, polygons).
 
 ***
 
@@ -247,7 +247,7 @@ pirates %>%
          caption  = "Data from that `yarrr` package.")
 ```
 
-Looks much better! Let's also rearrange the columns from shortest to tallest using `reorder(sex, height_avg)`. Here we are saying reorder the levels of the `sex` variable by average height (`height_avg`). *Note.* If we wanted to arrange from tallest to shortest, we would append `-` to the begining of `height_avg` (i.e., `reorder(sex, -height_avg)`).
+Looks much better! Let's also rearrange the columns from shortest to tallest using `reorder(sex, height_avg)`. Here we are saying reorder the levels of the `sex` variable by average height (`height_avg`). *Note.* If we wanted to arrange from tallest to shortest, we would append `-` to the beginning of `height_avg` (i.e., `reorder(sex, -height_avg)`).
 
 ```{r}
 # the data set
