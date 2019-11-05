@@ -1,5 +1,5 @@
 ---
-title: "Lab 4: Probability Distributions"
+title: "Lab 6: Data Visualization with ggplot2"
 output: 
   html_document: 
     theme: cosmo
