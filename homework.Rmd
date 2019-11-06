@@ -10,10 +10,18 @@ output:
 
 Homework assignments will appear here. You'll be able to access the assignment, as well as any data that may be used. Homework assignments will be posted **at least one week** before they are due. Submit homework assignments to the course instructor by the due date and time. Homework assignments are due prior to the start of the first lab section on the day they are listed. 
 
-### [Homework 1](homework/homework_1.html)
+### [**Homework 1**](homework/homework_1.html)
 
 **Due October 25, 9am**
 
 - [Download RMD file here.](homework/homework_1.Rmd)
 
 - [Download homework-world.csv here.](homework/homework-world.csv) 
+
+### [**Homework 2**](homework/homework_2.html)
+
+**Due November 15, 9am**
+
+- [Download RMD file here.](homework/homework_2.Rmd)
+
+- [Download homework-avengers.csv here.](homework/homework-avengers.csv) 
