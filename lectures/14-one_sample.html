@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>One-sample hypothesis tests</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# One-sample hypothesis tests
+
+---
+
+
+
+
+
+## Today...
+
+* The chi-square goodness-of-fit test
+* One-sample t-tests
+
+---
+
+### Key questions:
+
+* How do we know if category frequencies are consistent with null hypothesis expectations?
+
+* How do we handle categories with very low frequencies?
+
+* How do we compare one sample to a population mean?
+
+---
+
+One-sample tests compare your given sample with a "known" population.
+
+* Research question: does this sample come from this population?
+
+**Hypotheses**
+
+`\(H_0\)`: Yes, this sample comes from this population.
+
+`\(H_1\)`: No, this sample comes from a different population. 
+
+
+
+---
+
+The sample data were obtained from Census at School, a website developed by the American Statistical Association to help students in the 4th through 12th grades understand statistical problem-solving. 
+
+  * The site sponsors a survey that students can complete and a database that students and instructors can use to illustrate principles in quantitative methods.  
+  * The database includes students from all 50 states, from grade levels 4 through 12, both boys and girls,  who have completed the survey dating back to 2010.  
+
+---
+
+We’ll focus on this one:
+
+Which of the following superpowers would you most like to have? Select one.
+
+* Invisibility
+* Telepathy (read minds)
+* Freeze time
+* Super strength
+* Fly
+
+The responses from 247 randomly selected Oregon students were obtained from the Census at School database. 
+
+---
+
+
+```r
+school = read_csv(here("data/census_at_school.csv"))
+```
+
+```
+## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   DataYear = col_double(),
+##   ClassGrade = col_double(),
+##   Ageyears = col_double(),
+##   Score_in_memory_game = col_double(),
+##   Left_Footlength_cm = col_double(),
+##   Index_Fingerlength_mm = col_double()
+## )
+```
+
+```
+## See spec(...) for full column specifications.
+```
+
+---
+
+
+```r
+school %&gt;%
+  group_by(Superpower) %&gt;%
+  summarize(Frequency = n()) %&gt;%
+  mutate(Proportion = Frequency/sum(Frequency)) %&gt;%
+  kable(., format = "html", digits = 2)
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Superpower &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Frequency &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Proportion &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fly &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 42 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Freeze time &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Invisibility &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Super strength &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.05 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Telepathy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 57 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 47 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.19 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+Descriptively this is interesting.  But, are the responses unusual or atypical in any way?  To answer that question, we need some basis for comparison—a null hypothesis.  One option would be to ask if the Oregon preferences are different compared to students from the general population.
+
+---
+
+class: center
+
+![](14-one_sample_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+---
+
+`\(H_0\)`: Oregon student superpower preferences are similar to the preferences of typical students in the United States.
+
+`\(H_1\)`: Oregon student superpower preferences are different from the preferences of typical students in the United States. 
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Superpower &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; OR Observed Proportion &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; USA Proportion &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fly &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Freeze time &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.26 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Invisibility &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.20 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Super strength &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.02 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.08 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Telepathy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.24 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+To compare the Oregon observed frequencies to the US data, we need to calculate the frequencies that would have been expected if Oregon was just like all of the other states.
+
+The expected frequencies under this null model can be obtained by taking each preference category proportion from the US data (the null expectation) and multiplying it by the sample size for Oregon:
+
+`$$E_i = P_iN_{OR}$$`
+---
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Superpower &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Observed
+Freq &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Expected Freq &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fly &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 42 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 57.93827 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Freeze time &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 62.20741 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Invisibility &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 48.79012 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Super strength &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19.51605 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Telepathy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 57 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 58.54815 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+Now what?  We need some way to index differences between these frequencies, preferably one that translates easily into a sampling distribution so that we can sensibly determine how rare or unusual the Oregon data are compared to the US (null) distribution.
+
+---
+
+`$$\chi^2_{df = k-1} = \sum^k_{i=1}\frac{(O_i-E_i)^2}{E_i}$$`
+
+The chi-square goodness of fit (GOF) statistic compares observed and expected frequencies.  It is small when the observed frequencies closely match the expected frequencies under the null hypothesis.  The chi-square distribution can be used to determine the particular `\(\chi^2\)` value that corresponds to a rare or unusual profile of observed frequencies.
+
+---
+
+
+```r
+or_observed
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##             42             58             30             13             57
+```
+
+```r
+or_expected
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##       57.93827       62.20741       48.79012       19.51605       58.54815
+```
+
+---
+
+
+```r
+or_observed
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##             42             58             30             13             57
+```
+
+```r
+or_expected
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##       57.93827       62.20741       48.79012       19.51605       58.54815
+```
+
+
+```r
+(chi_square = sum((or_observed - or_expected)^2/or_expected))
+```
+
+```
+## [1] 14.12204
+```
+
+---
+
+
+```r
+or_observed
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##             42             58             30             13             57
+```
+
+```r
+or_expected
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##       57.93827       62.20741       48.79012       19.51605       58.54815
+```
+
+
+```r
+(chi_square = sum((or_observed - or_expected)^2/or_expected))
+```
+
+```
+## [1] 14.12204
+```
+
+```r
+(critical_val = qchisq(p = 0.95, df = length(or_expected)-1))
+```
+
+```
+## [1] 9.487729
+```
+
+---
+
+
+```r
+or_observed
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##             42             58             30             13             57
+```
+
+```r
+or_expected
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##       57.93827       62.20741       48.79012       19.51605       58.54815
+```
+
+
+```r
+(chi_square = sum((or_observed - or_expected)^2/or_expected))
+```
+
+```
+## [1] 14.12204
+```
+
+```r
+(critical_val = qchisq(p = 0.95, df = length(or_expected)-1))
+```
+
+```
+## [1] 9.487729
+```
+
+```r
+(p_val = pchisq(q = chi_square, df = length(or_expected)-1, lower.tail = F))
+```
+
+```
+## [1] 0.006915564
+```
+
+---
+
+.left-column[
+.small[
+The degrees of freedom are the number of categories (k) minus 1.  Given that the category frequencies must sum to the total sample size, k-1 category frequencies are free to vary; the last is determined.
+
+]
+]
+
+![](14-one_sample_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+---
+.left-column[
+.small[
+The degrees of freedom are the number of categories (k) minus 1.  Given that the category frequencies must sum to the total sample size, k-1 category frequencies are free to vary; the last is determined.
+
+]
+]
+
+![](14-one_sample_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+---
+
+
+```r
+p.usa
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##     0.23456790     0.25185185     0.19753086     0.07901235     0.23703704
+```
+
+```r
+chisq.test(x = or_observed, p = p.usa)
+```
+
+```
+## 
+## 	Chi-squared test for given probabilities
+## 
+## data:  or_observed
+## X-squared = 6.3957, df = 4, p-value = 0.1715
+```
+
+The Oregon student preferences are not unusual under the null hypothesis (USA preferences). 
+
+---
+
+
+```r
+c.test = chisq.test(x = or_observed, p = p.usa)
+str(c.test)
+```
+
+```
+## List of 9
+##  $ statistic: Named num 6.4
+##   ..- attr(*, "names")= chr "X-squared"
+##  $ parameter: Named num 4
+##   ..- attr(*, "names")= chr "df"
+##  $ p.value  : num 0.171
+##  $ method   : chr "Chi-squared test for given probabilities"
+##  $ data.name: chr "or_observed"
+##  $ observed : 'table' int [1:5(1d)] 42 58 30 13 57
+##   ..- attr(*, "dimnames")=List of 1
+##   .. ..$ : chr [1:5] "Fly" "Freeze time" "Invisibility" "Super strength" ...
+##  $ expected : 'table' num [1:5(1d)] 46.9 50.4 39.5 15.8 47.4
+##   ..- attr(*, "dimnames")=List of 1
+##   .. ..$ : chr [1:5] "Fly" "Freeze time" "Invisibility" "Super strength" ...
+##  $ residuals: 'table' num [1:5(1d)] -0.717 1.075 -1.512 -0.705 1.393
+##   ..- attr(*, "dimnames")=List of 1
+##   .. ..$ : chr [1:5] "Fly" "Freeze time" "Invisibility" "Super strength" ...
+##  $ stdres   : 'table' num [1:5(1d)] -0.82 1.243 -1.688 -0.735 1.595
+##   ..- attr(*, "dimnames")=List of 1
+##   .. ..$ : chr [1:5] "Fly" "Freeze time" "Invisibility" "Super strength" ...
+##  - attr(*, "class")= chr "htest"
+```
+
+```r
+c.test$residuals
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##     -0.7173792      1.0750184     -1.5124228     -0.7049825      1.3931982
+```
+
+---
+
+
+```r
+lsr::goodnessOfFitTest(x = as.factor(school$Superpower), p = p.usa)
+```
+
+```
+## Warning in lsr::goodnessOfFitTest(x = as.factor(school$Superpower), p =
+## p.usa): 47 case(s) removed due to missingness
+```
+
+```
+## 
+##      Chi-square test against specified probabilities
+## 
+## Data variable:   as.factor(school$Superpower) 
+## 
+## Hypotheses: 
+##    null:        true probabilities are as specified
+##    alternative: true probabilities differ from those specified
+## 
+## Descriptives: 
+##                observed freq. expected freq. specified prob.
+## Fly                        42       46.91358      0.23456790
+## Freeze time                58       50.37037      0.25185185
+## Invisibility               30       39.50617      0.19753086
+## Super strength             13       15.80247      0.07901235
+## Telepathy                  57       47.40741      0.23703704
+## 
+## Test results: 
+##    X-squared statistic:  6.396 
+##    degrees of freedom:  4 
+##    p-value:  0.171
+```
+
+(Note that this function takes the raw data, not the vector of counts.)
+
+---
+
+What if we had used the equal proportions null hypothesis?
+
+
+```r
+lsr::goodnessOfFitTest(x = as.factor(school$Superpower))
+```
+
+```
+## Warning in lsr::goodnessOfFitTest(x = as.factor(school$Superpower)): 47
+## case(s) removed due to missingness
+```
+
+```
+## 
+##      Chi-square test against specified probabilities
+## 
+## Data variable:   as.factor(school$Superpower) 
+## 
+## Hypotheses: 
+##    null:        true probabilities are as specified
+##    alternative: true probabilities differ from those specified
+## 
+## Descriptives: 
+##                observed freq. expected freq. specified prob.
+## Fly                        42             40             0.2
+## Freeze time                58             40             0.2
+## Invisibility               30             40             0.2
+## Super strength             13             40             0.2
+## Telepathy                  57             40             0.2
+## 
+## Test results: 
+##    X-squared statistic:  36.15 
+##    degrees of freedom:  4 
+##    p-value:  &lt;.001
+```
+
+Why might this be a sensible or useful test?
+
+---
+
+### The usefulness of `\(\chi^2\)`
+
+How often will you conducted a `\(chi^2\)` goodness of fit test on raw data?
+
+--
+
+* (Probably) never
+
+How often will come across `\(\chi^2\)` tests?
+
+--
+
+* (Probably) a lot!
+
+The goodness of fit test is used to statistically compare the fit of nested models. 
+
+---
+
+[ADD stuff about model comparison here]
+
+---
+
+### One-sample *t*-tests
+
+*t*-tests were developed by William Sealy Gosset, who was a chemist studying the grains used in making beer. (He worked for Guinness.)
+
+* Specifically, he wanted to know whether particular strains of grain made better or worse beer than the standard. 
+
+* He developed the t-test, to test small samples of beer against a population with an unknown standard deviation.
+  
+  * Probably had input from Karl Pearson and Ronald Fisher
+  
+* Published this as "Student" because Guinness wouldn't let him share company secrets. Open science for the win!
+
+---
+
+### One-sample t-tests
+
+We've already been covering one-sample t-tests, but let's formally walk through some of the steps and how this differs from a z-test.
+
+| | Z-test | t-test |
+| --|--------|--------|
+| `\(\mu\)` | known | known |
+|$\sigma$ | known |unknown |
+| sem or `\(\sigma_M\)` | `\(\frac{\sigma}{\sqrt{N}}\)` | `\(\frac{\hat{\sigma}}{\sqrt{N}}\)` |
+|Probability distribution | standard normal | t |
+| DF | none | N-1 |
+Tails | One or two | One or two |
+| Critical value ($\alpha = .05, two-tailed$ | 1.96 | Depends on DF$ |
+
+(As a reminder, `\(\hat{\sigma} = s\)` .)
+
+---
+
+### When you assume...
+
+...you can run a parametric statistical test!
+
+**Assumptions of the one-sample t-test**
+
+**Normality.** We assume the sampling distribution of the mean is normally distributed. Under what two conditions can we be assured that this is true?
+
+**Independence.** Observations in the dataset are not associated with one another. Put another way, collecting a score from Participant A doesn't tell me anything about what Participant B will say. How can we be safe in this assumption?
+
+---
+
+### A brief example
+
+Using the same Census at School data, we find that Oregon students who participated in a memory game ( `\(N = 227\)` ) completed the game in an average time of 49.1 seconds ( `\(s = 13.4\)` ). We know that the average US student completed the game in 45.04 seconds. How do our students compare?
+
+--
+
+**Hypotheses**
+
+`\(H_0: \mu = 45.05\)`
+
+`\(H_1: \mu \neq 45.05\)`
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

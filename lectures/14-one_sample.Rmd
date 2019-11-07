@@ -1,5 +1,5 @@
 ---
-title: 'Categorical data analysis'
+title: 'One-sample hypothesis tests'
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -8,8 +8,6 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-editor_options: 
-  chunk_output_type: console
 --- 
 
 ```{r, echo = F, results = 'hide', message = F, warning = F}
@@ -22,10 +20,8 @@ library(knitr)
 
 ## Today...
 
-* Overview
-* Observed versus expected outcomes
 * The chi-square goodness-of-fit test
-* The chi-square independence test
+* One-sample t-tests
 
 ---
 
@@ -33,13 +29,23 @@ library(knitr)
 
 * How do we know if category frequencies are consistent with null hypothesis expectations?
 
-* How do we know if category frequencies in a two-way table are related?
-
-* What effect size should be used for two-way tables?
-
 * How do we handle categories with very low frequencies?
 
-* What if the data lack independence?
+* How do we compare one sample to a population mean?
+
+---
+
+One-sample tests compare your given sample with a "known" population.
+
+* Research question: does this sample come from this population?
+
+**Hypotheses**
+
+$H_0$: Yes, this sample comes from this population.
+
+$H_1$: No, this sample comes from a different population. 
+
+
 
 ---
 
@@ -236,5 +242,150 @@ data.frame(x = seq(0,20)) %>%
                 label = paste("Critical Value =", round (chi_square,2))), angle = 90)+
   labs(x = "Chi-Square", y = "Density", title = "Area under the curve") +
   theme_light(base_size = 20)
+```
+
+---
+
+```{r, echo = 2:3}
+p.usa = (table(school_usa$Superpower)/sum(table(school_usa$Superpower)))
+p.usa
+chisq.test(x = or_observed, p = p.usa)
+```
+
+The Oregon student preferences are not unusual under the null hypothesis (USA preferences). 
+
+---
+
+```{r}
+c.test = chisq.test(x = or_observed, p = p.usa)
+str(c.test)
+c.test$residuals
+```
+
+---
+
+```{r, echo = 2}
+p.usa = as.data.frame(p.usa)[,"Freq"]
+lsr::goodnessOfFitTest(x = as.factor(school$Superpower), p = p.usa)
+```
+
+(Note that this function takes the raw data, not the vector of counts.)
+
+---
+
+What if we had used the equal proportions null hypothesis?
+
+```{r}
+lsr::goodnessOfFitTest(x = as.factor(school$Superpower))
+```
+
+Why might this be a sensible or useful test?
+
+---
+
+### The usefulness of $\chi^2$
+
+How often will you conducted a $chi^2$ goodness of fit test on raw data?
+
+--
+
+* (Probably) never
+
+How often will come across $\chi^2$ tests?
+
+--
+
+* (Probably) a lot!
+
+The goodness of fit test is used to statistically compare the fit of nested models. 
+
+---
+
+[ADD stuff about model comparison here]
+
+---
+
+### One-sample *t*-tests
+
+*t*-tests were developed by William Sealy Gosset, who was a chemist studying the grains used in making beer. (He worked for Guinness.)
+
+* Specifically, he wanted to know whether particular strains of grain made better or worse beer than the standard. 
+
+* He developed the t-test, to test small samples of beer against a population with an unknown standard deviation.
+  
+  * Probably had input from Karl Pearson and Ronald Fisher
+  
+* Published this as "Student" because Guinness wouldn't let him share company secrets. Open science for the win!
+
+---
+
+### One-sample t-tests
+
+We've already been covering one-sample t-tests, but let's formally walk through some of the steps and how this differs from a z-test.
+
+| | Z-test | t-test |
+| --|--------|--------|
+| $\mu$ | known | known |
+|$\sigma$ | known |unknown |
+| sem or $\sigma_M$ | $\frac{\sigma}{\sqrt{N}}$ | $\frac{\hat{\sigma}}{\sqrt{N}}$ |
+|Probability distribution | standard normal | t |
+| DF | none | N-1 |
+Tails | One or two | One or two |
+| Critical value ($\alpha = .05, two-tailed$ | 1.96 | Depends on DF$ |
+
+(As a reminder, $\hat{\sigma} = s$ .)
+
+---
+
+### When you assume...
+
+...you can run a parametric statistical test!
+
+**Assumptions of the one-sample t-test**
+
+**Normality.** We assume the sampling distribution of the mean is normally distributed. Under what two conditions can we be assured that this is true?
+
+**Independence.** Observations in the dataset are not associated with one another. Put another way, collecting a score from Participant A doesn't tell me anything about what Participant B will say. How can we be safe in this assumption?
+
+---
+
+### A brief example
+
+Using the same Census at School data, we find that Oregon students who participated in a memory game ( $N = 227$ ) completed the game in an average time of 49.1 seconds ( $s = 13.4$ ). We know that the average US student completed the game in 45.04 seconds. How do our students compare?
+
+--
+
+**Hypotheses**
+
+$H_0: \mu = 45.05$
+
+$H_1: \mu \neq 45.05$
+
+---
+
+.pull-left[
+$$\mu = 45.05$$
+
+$$N = 227$$
+
+$$ \bar{X} = 49.1 $$
+
+$$ s = 13.4 $$
+
+]
+
+--
+
+.pull.right[
+```{r}
+t.test(x = school$Score_in_memory_game, mu = 45.05, alternative = "two.sided")
+```
+
+]
+
+---
+
+```{r}
+lsr::oneSampleTTest(x = school$Score_in_memory_game, mu = 45.05, one.sided = FALSE)
 ```
 
