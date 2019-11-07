@@ -117,6 +117,41 @@ pirates %>%
 
 Looks like our data is more normal than we previously thought.
 
+Currently the plot is showing us the frequency of cases on the y-axis. Let's change that to the proportion of cases on the y-axis by including the argument `aes(y = ..density..)` in `geom_histogram()`.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(aes(y  = ..density..), 
+                   fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 35)
+```
+
+As you can see, the y-axis shows the proportion of cases that fall into each age bin. 
+
+I haven't mentioned this yet, but you can add multiple **geometric elements** to a single plot. Let's also add a purple density curve over the histogram using `geom_density(colour = "darkorchid")`. I also included the argument `lwd = 1.20` to make the width of the line slightly bigger.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(aes(y  = ..density..), 
+                   fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 35) +
+    geom_density(colour = "darkorchid",
+                 lwd    = 1.20)
+```
+
+
 We can also change the way the **canvas** looks by using a suite of functions that start with the `theme_` prefix. I like `theme_bw()`, but other choices include `theme_gray()`, `theme_minimal()`, and `theme_classic()`.
 
 ```{r}
@@ -125,10 +160,13 @@ pirates %>%
   # the canvas
   ggplot(aes(x = age)) +
     # the geometric elements
-    geom_histogram(fill   = "turquoise",
+    geom_histogram(aes(y  = ..density..), 
+                   fill   = "turquoise",
                    colour = "black",
                    alpha  = .6,
                    bins   = 35) +
+    geom_density(colour = "darkorchid",
+                 lwd    = 1.20) +
     # set theme
     theme_bw()
 ```
@@ -141,10 +179,13 @@ pirates %>%
   # the canvas
   ggplot(aes(x = age)) +
     # the geometric elements
-    geom_histogram(fill   = "turquoise",
+    geom_histogram(aes(y  = ..density..), 
+                   fill   = "turquoise",
                    colour = "black",
                    alpha  = .6,
                    bins   = 35) +
+    geom_density(colour = "darkorchid",
+                 lwd    = 1.20) +
     # set theme
     theme_bw() +
     # add labels 
@@ -163,10 +204,13 @@ pirates %>%
   # the canvas
   ggplot(aes(x = age)) +
     # the geometric elements
-    geom_histogram(fill   = "turquoise",
+    geom_histogram(aes(y  = ..density..), 
+                   fill   = "turquoise",
                    colour = "black",
                    alpha  = .6,
                    bins   = 35) +
+    geom_density(colour = "darkorchid",
+                 lwd    = 1.20) +
     # set theme
     theme_bw() +
     # add labels 
@@ -177,14 +221,13 @@ pirates %>%
          caption  = "Data from that `yarrr` package.") +
     # split the plot by sex
     facet_wrap(~sex)
-    
 ```
 
 ***
 
 # Categorical by Continuous {#cat}
 
-Okay, but when we are looking at our data histograms only get us so far. Usually we are interested in the relationship between at least two variables. 
+Cool. But when we are looking at our data, histograms only get us so far. Usually we are interested in the relationship between at least two variables. 
 
 Below we've created a canvas with `sex` on the x-axis, specified using `x = sex` inside of the `aes()` function of `ggplot()`, and `height` on the y-axis, specified using `y = height` inside of the `aes()` function of `ggplot()`.
 
@@ -323,7 +366,7 @@ pirates %>%
     geom_point() 
 ```
 
-I haven't mentioned this yet, but you can add multiple **geometric elements** to a single plot. Let's also add a regression line using `geom_smooth()`.
+Let's also add a regression line using `geom_smooth()`.
 
 ```{r}
 # the data set
@@ -626,7 +669,7 @@ movies_filtered %>%
     geom_smooth(method = "lm", se = FALSE) +
     scale_y_log10()
 ```
-
+.
 1. Scale the colours to be colour-blind friendly. 
 
 ```{r}
