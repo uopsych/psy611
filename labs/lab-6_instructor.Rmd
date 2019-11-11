@@ -1,0 +1,715 @@
+---
+title: "Lab 6: Data Visualization with ggplot2"
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+---
+
+```{r setup, include = FALSE}
+# set chunk options
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+# suppress scientific notation
+options(scipen = 999)
+
+#load required packages
+library(tidyverse) # includes ggplot2
+library(here) # used to streamline the creation of this document
+library(rio) # for importing data
+library(yarrr) # import pirates and movies datasets
+
+# convert pirates data to a tibble
+pirates <- as_tibble(pirates)
+```
+
+# Purpose
+
+The purpose of today's lab is to introduce you to visualizing data. Although R has built in plotting functions, we will be using the `{ggplot2}` package in today's lab. It is far more powerful than the base R plotting functions and is the basis for other packages that allow you to create interactive plots (e.g., `{plotly}`), animated plots (e.g., `{gganimate}`), and 3D plots (e.g., `{rayshader}`). Being part of the `{tidyverse}`, `{ggplot2}` was also designed to play nice with other `tidyverse` packages (e.g., `{dplyr}`, `{tidyr}`). 
+
+The content of today's labs will be split into four sections. The first section, [The Grammar of Graphics](#grammar) will provide a brief overview of the logic behind how `{ggplot2}` works. The second section, [Histograms](#hist), will provide an overview of how to create a histogram and customize it. The third section, [Categorical by Continuous Plots](#cat), will guide you through the process of creating a bar chart in R. Finally, in the [Continuous by Continuous Plots](#cont) section, we will discuss how to create plots where you have have a continuous variable on both axes. As always, the lab will end with a set of [minihacks](#minihacks) to test your knowledge.
+
+To quickly navigate to the desired section, click one of the following links:
+
+1. [The Grammar of Graphics](#grammar)
+1. [Histograms](#hist)
+1. [Categorical by Continuous Plots](#cat)
+1. [Continuous by Continous Plots](#cont)
+1. [Minihacks](#minihacks)
+
+Below are some resources that you may find useful going forward:
+
+* Claus O. Wilke's book [The Fundamentals of Data Visualization](https://serialmentor.com/dataviz/) 
+* [The {ggplot2} cheat sheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) 
+* A list of the [Colors available in R](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
+* An interactive website for choosing colour palettes: [ColorBrewer 2.0](http://colorbrewer2.org/#type=diverging&scheme=RdGy&n=8)
+
+***
+
+# The Grammar of Graphics {#grammar}
+
+![](`r here("labs", "resources", "lab6", "grammar_of_graphics.png")`)
+
+The `{ggplot2}` package is built around Leland Wilkinson's idea of the *Grammar of Graphics*. The *Grammar of Graphics* proposes that every graph can be created from (1) **a data set** (e.g., `mtcars`, `world happiness`), (2) a coordinate system or **canvas** (e.g., a Cartesian coordinate system), and (3) a set of **geometric elements** that represent the data (e.g., points, lines, polygons).
+
+***
+
+# Histograms {#hist}
+
+Below is the **data set** `pirates` from the `{yarrr}` package. All of the plots in today's lab, excluding those created in the Minihacks, will be using the `pirates` data set.
+
+```{r}
+# the data set
+pirates
+```
+
+We can pipe (`%>%`) the `pirates` **data set** to the `ggplot()` function to create the **canvas** of our plot. In  this case, we will add `aes(x = age)` inside the `ggplot()` function.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age))
+```
+
+The `aes()` function above tells `ggplot()` that we are providing it aesthetic information for the **canvas**. In this case, we are saying the **canvas** should have `age` on the x-axis. We can also map variables to `y`, `colour`, `size`, `shape`, `alpha`, and `group`, among others. We will return to some of these later.
+
+As should be readily apparent from looking at our plot, a **canvas** is not that exciting without anything on it. We can add **geometric elements** to the plot by using `{ggplot2}` functions that begin with the `geom_` prefix. Let's add a histogram to the plot by adding `geom_histogram()` to the code. Unlike other functions in the `tidyverse`, we use the plus symbol(`+`) instead of the pipe symbol (`%>%`) to add elements to a plot. This makes sense if you consider that we want to *add* the function to the plot rather than simply wanting to *pass* information from one function to the next. 
+
+```{r, echo = FALSE}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram()
+```
+
+Great - it looks like a histogram! ...but it is a bit hard to distinguish between the different bins. We can use the `fill` and `colour` (`color`) arguments inside the `geom_histogram()` function to specify the colour of the inside and outline of the **geometric element**, respectively. We can also include the `alpha` argument to set the opacity (i.e., the lack of transparency) of the **geometric element**. Let's make the inside of the bars `turquoise`, the outline of the bars `black`, and the opacity of the bars `.6` (i.e., 40% transparent).
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6)
+```
+
+Looks much better, but the data look pretty leptokurtotic. The **geometric element** `geom_histogram()` has an additional argument `bins` that allows us to specify how many bins the variable should be categorized into. Let's change the number of `bins` to `35` and see if that gives a better impression of the distribution.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 35)
+```
+
+Looks like our data is more normal than we previously thought.
+
+Currently the plot is showing us the frequency of cases on the y-axis. Let's get the probability distribution instead by including the argument `aes(y = ..density..)` in the `geom_histogram()` function.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(aes(y  = ..density..), 
+                   fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 35)
+```
+
+As you can see, the y-axis shows the proportion of cases that fall into each age bin. 
+
+I haven't mentioned this yet, but you can add multiple **geometric elements** to a single plot. Let's also add a purple density curve over the histogram using `geom_density(colour = "darkorchid", lwd = 1.20)`. I also included the argument `lwd = 1.20` to make the width of the line slightly bigger.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(aes(y  = ..density..), 
+                   fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 35) +
+    geom_density(colour = "darkorchid",
+                 lwd    = 1.20)
+```
+
+We can also change the way the **canvas** looks by using the suite of functions that start with the `theme_` prefix. I like `theme_bw()`, but other choices include `theme_gray()`, `theme_minimal()`, and `theme_classic()`.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(aes(y  = ..density..), 
+                   fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 35) +
+    geom_density(colour = "darkorchid",
+                 lwd    = 1.20) +
+    # set theme
+    theme_bw()
+```
+
+No plot is complete without proper labels. Fortunately, `{ggplot2}` includes the `labs()` function for that exact purpose.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(aes(y  = ..density..), 
+                   fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 35) +
+    geom_density(colour = "darkorchid",
+                 lwd    = 1.20) +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Probability Distribution of Pirate Ages",
+         subtitle = "A ggplot plot",
+         x        = "Age",
+         y        = "Frequency",
+         caption  = "Data from that `yarrr` package.")
+```
+
+Finally, let's see if the age distribution differs by the pirate's `sex`. To do so, we can add `facet_wrap(~sex)`. In short, the plot will be split into different plots based on the groups of the variable included after the tilde (`~`).
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = age)) +
+    # the geometric elements
+    geom_histogram(aes(y  = ..density..), 
+                   fill   = "turquoise",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 35) +
+    geom_density(colour = "darkorchid",
+                 lwd    = 1.20) +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Probability Distribution of Pirate Ages",
+         subtitle = "A ggplot plot",
+         x        = "Age",
+         y        = "Frequency",
+         caption  = "Data from that `yarrr` package.") +
+    # split the plot by sex
+    facet_grid(~sex)
+```
+
+***
+
+# Categorical by Continuous {#cat}
+
+Cool. But when we are looking at our data, histograms only get us so far. Usually we are interested in the relationship between two or more variables.
+
+Below we've created a canvas with `sex` on the x-axis and `height` on the y-axis.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = sex, y = height))
+```
+
+Even without adding **geometric elements**, we can see that `sex` is on the x-axis and `height` is on the y-axis. Now, let's add bars using `geom_col()` to compare the average height for women, men, and those who identify as some other sex.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = sex, y = height)) +
+    # the geometric elements
+    geom_col()
+```
+
+Shoot! It looks like it added up all the heights. We wanted the average. Let's use `group_by()` and `summarize()` to calculate the means of the groups before plotting the values.
+
+```{r}
+# the data set
+pirates %>%
+  # get mean height by sex
+  group_by(sex) %>%
+  summarise(height_avg = mean(height)) %>%
+  # the canvas
+  ggplot(aes(x = sex, y = height_avg)) +
+    # the geometric elements
+    geom_col()
+```
+
+There we go!
+
+Now let's update the colours (using `fill` and `colour`), the opacity (using `alpha`), the width of the bars (using `width`), the theme (using `theme_bw()`), and the labels (using `lab()`).
+
+```{r}
+# the data set
+pirates %>%
+  # get mean height by sex
+  group_by(sex) %>%
+  summarise(height_avg = mean(height)) %>%
+  # the canvas
+  ggplot(aes(x = sex, y = height_avg)) +
+    # the geometric elements
+    geom_col(fill   = "turquoise",
+             colour = "white",
+             alpha  = .7,
+             width  = .5) +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Average height of pirate by pirate sex",
+         subtitle = "A ggplot plot",
+         x        = "Sex",
+         y        = "Height (cm)",
+         caption  = "Data from that `yarrr` package.")
+```
+
+Looks much better! Let's also rearrange the columns from shortest to tallest using `reorder(sex, height_avg)`. Here we are saying reorder the levels of the `sex` variable by average height (`height_avg`). *Note.* If we wanted to arrange from tallest to shortest, we would append `-` to the beginning of `height_avg` (i.e., `reorder(sex, -height_avg)`).
+
+```{r}
+# the data set
+pirates %>%
+  # get mean height by sex
+  group_by(sex) %>%
+  summarise(height_avg = mean(height)) %>%
+  # the canvas
+  ggplot(aes(x = reorder(sex, height_avg), y = height_avg)) +
+    # the geometric elements
+    geom_col(fill   = "turquoise",
+             colour = "white",
+             alpha  = .7,
+             width  = .5) +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Average height of pirate by pirate sex",
+         subtitle = "A ggplot plot",
+         x        = "Sex",
+         y        = "Height (cm)",
+         caption  = "Data from that `yarrr` package.")
+```
+
+Now, let's flip our coordinates so that `x` is shown on the vertical axis and `y` is shown on the horizontal axis.
+
+```{r}
+# the data set
+pirates %>%
+  # get mean height by sex
+  group_by(sex) %>%
+  summarise(height_avg = mean(height)) %>%
+  # the canvas
+  ggplot(aes(x = reorder(sex, height_avg), y = height_avg)) +
+    # the geometric elements
+    geom_col(fill   = "turquoise",
+             colour = "white",
+             alpha  = .7,
+             width  = .5) +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Average height of pirate by pirate sex",
+         subtitle = "A ggplot plot",
+         x        = "Sex",
+         y        = "Height (cm)",
+         caption  = "Data from that `yarrr` package.") +
+    # flip coordinates
+    coord_flip()
+```
+
+***
+
+# Continuous by Continuous {#cont}
+
+A second (and far more common) type of bivariate (two variable) plot is a scatterplot. A scatterplot has a continuous variable on the x-axis and a continuous variable on the y-axis. Let's create the **canvas** for that plot below by specifying that `height` should be on the x-axis and `weight` should by on the y-axis.
+
+```{r, results = FALSE}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = height, y = weight))
+```
+
+Now, let's add some points to our plot using `geom_point`. 
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+  ggplot(aes(x = height, y = weight)) +
+    # the geometric elements
+    geom_point() 
+```
+
+Let's also add a regression line using `geom_smooth()`.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight)) +
+      # the geometric elements
+      geom_point() +
+      geom_smooth()
+```
+
+Although the line looks pretty straight, the line is actually slightly curved. Let's change that by specifying `method = "lm"` in`geom_smooth()`; `method = lm` tells `geom_smooth()` that we want the line to be perfectly linear. Let's also get rid of the confidence interval around the line by specifying `se = FALSE`.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight)) +
+    # the geometric elements
+    geom_point() +
+      geom_smooth(method = "lm", 
+                  se     = FALSE)
+```
+
+What if we wanted to distinguish the points by the pirates sex? As mentioned before, we can also specify an aesthetic mapping for `colour` (and `fill`). Let's map the point's colours to the pirates' sexes by including `aes(colour = sex))` in the `geom_point()` function.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight)) +
+      # the geometric elements
+      geom_point(aes(colour = sex)) +
+      geom_smooth(method = "lm", 
+                  se     = FALSE)
+```
+
+The points are different colours, but I was also hoping to get separate lines for each sex. 
+
+Only the points are grouped by colour because we only specified `colour = sex` in the aesthetic mapping (`aes()`) of `geom_point()`. We could specify `colour = sex` in both `geom_point()` and `geom_smooth()` to get different coloured points and different coloured lines for each sex *OR* we can specify `colour = sex` inside the `aes()` argument in the `ggplot()` function and `geom_point()` and `geom_smooth()` will inherit the aesthetic mapping. 
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight, colour = sex)) +
+      # the geometric elements
+      geom_point() +
+      geom_smooth(method = "lm", 
+                  se     = FALSE)
+```
+
+Success! (Well, sort of). I really don't like the colours.
+
+Luckily, `{ggplot2}` has a solution for that: the `scale_` functions. Scale functions start with `scale_` and are followed by the aesthetic mapping you wish to scale (e.g., `x`, `y`, `colour`, `fill`, `size`, `alpha`, `shape`). The final part of the function specifies how you would like to scale the axis. For example, `scale_y_log10()` scales the y-axis to be on a logarithmic scale. 
+
+Let's use `scale_colour_manual()` to manually set the colours of the plot.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight, colour = sex)) +
+      # the geometric elements
+      geom_point() +
+      geom_smooth(method = "lm", 
+                  se     = FALSE) +
+    # manually set colours
+    scale_colour_manual(values = c("red", "blue", "green"))
+```
+
+*Note*. Instead of using strings (e.g., "red", "blue"), we can also use the HTML hex codes to set the colours (e.g., "#FF0000", "#000CF3"). You can also set a colour using the `rgb()` function. The `rgb` function takes three primary arguments (i.e., red, green, blue) that allow you to set the amount of red, green, and blue in your desired colour (e.g., for the colour blue, you would use `rgb(0, 0, 1)`).
+
+The new colours are even worse. Okay, let's use a built in colour palette. To do so, we can use the `scale_colour_brewer()` function and specify the palette choice after that. The available palettes can be found [here](http://www.sthda.com/english/wiki/colors-in-r) or by using the [interactive website](http://colorbrewer2.org/#type=diverging&scheme=RdGy&n=8) mentioned at the outset of this lab. 
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight, colour = sex)) +
+      # the geometric elements
+      geom_point() +
+      geom_smooth(method = "lm", 
+                  se     = FALSE) +
+    # set colour pallete
+    scale_colour_brewer(palette = "RdYlBu")
+```
+
+I also really don't like that. Let's use `scale_colour_viridis_d()` to use a colour-blind safe colour palette.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight, colour = sex)) +
+      # the geometric elements
+      geom_point() +
+      geom_smooth(method = "lm", 
+                  se     = FALSE) +
+    # set colour pallete
+    scale_colour_viridis_d()
+```
+
+Much better! But I still can't distinguish between the different lines. Let's  use `facet_wrap()` to produce a separate plot for each sex.
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight, colour = sex)) +
+      # the geometric elements
+      geom_point() +
+      geom_smooth(method = "lm", 
+                  se     = FALSE) +
+    # set colour pallete
+    scale_colour_viridis_d() +
+    # facet wrap by sex
+    facet_wrap(~sex)
+```
+
+Finally, let's add proper labels (using `labs()`), change the theme (using `theme_bw()`), and drop the redundant legend (using `theme(legend.position = "none")`).
+
+```{r}
+# the data set
+pirates %>%
+  # the canvas
+    ggplot(aes(x = height, y = weight, colour = sex)) +
+      # the geometric elements
+      geom_point() +
+      geom_smooth(method = "lm", 
+                  se     = FALSE) +
+    # set colour pallete
+    scale_colour_viridis_d() +
+    # facet wrap by sex
+    facet_wrap(~sex) +
+    # add labels
+    labs(title    = "Associations between height and weight by gender",
+         x        = "Height (cm)",
+         y        = "Weight (kg)") +
+    # set theme
+    theme_bw() +
+    # remove legend
+    theme(legend.position = "none")
+```
+
+# Minihacks {#minihacks}
+
+You are welcome to work with a partner or in a small group of 2-3 people. Please feel free to ask the lab leader any questions you might have!
+
+The minihacks all use the `movies` data set from the `{yarrr}` package.
+
+## Minihack 1: Histograms
+
+1. Create a histogram of domestic and international revenue combined (`revenue.all`). Is it normally distributed?
+
+```{r}
+movies %>%
+  ggplot(aes(x = revenue.all)) +
+    geom_histogram()
+```
+
+2. Change the number of bins to `50`.
+
+```{r}
+movies %>%
+  ggplot(aes(x = revenue.all)) +
+    geom_histogram(bins = 50)
+```
+
+3. Change the theme of the **canvas** to your preferred theme.
+
+```{r}
+movies %>%
+  ggplot(aes(x = revenue.all)) +
+    geom_histogram(bins = 50) +
+    theme_bw()
+```
+
+4. Change the `fill` and the `colour` of the histogram. 
+
+```{r}
+movies %>%
+  ggplot(aes(x = revenue.all)) +
+    geom_histogram(bins = 50, fill = "darkorchid4", colour = "white") +
+    theme_bw()
+```
+
+5. Add an informative title and a label for the x and the y axis.
+
+```{r}
+movies %>%
+  ggplot(aes(x = revenue.all)) +
+    geom_histogram(bins = 50, fill = "darkorchid4", colour = "white") +
+    theme_bw() +
+    labs(x = "International Revenue",
+         y = "Frequency")
+```
+
+## Minihack 2: Categorical by Continuous Plots
+
+1. Create a barplot with total revenue (`revenue.all`) on the y-axis and movie genre (`genre`) on the x-axis. (*Hint.* You will want to calculate the mean revenue for each genre before your plot it. You will also want to filter out cases (using`filter()`) that are `NA` for the `genre` variable.
+
+```{r}
+movies %>%
+  group_by(genre) %>%
+  summarize(revenue_avg = mean(revenue.all)) %>%
+  filter(!is.na(genre)) %>%
+  ggplot(aes(x = genre, y = revenue_avg)) +
+    geom_col()
+```
+
+2. Reorder the bars from the lowest total revenue to the greatest total revenue.
+
+```{r}
+movies %>%
+  group_by(genre) %>%
+  summarize(revenue_avg = mean(revenue.all)) %>%
+  filter(!is.na(genre)) %>%
+  ggplot(aes(x = reorder(genre, revenue_avg), y = revenue_avg)) +
+    geom_col()
+```
+
+3. Flip the coordinates by adding the function `coord_flip()`
+
+```{r}
+movies %>%
+  group_by(genre) %>%
+  summarize(revenue_avg = mean(revenue.all)) %>%
+  filter(!is.na(genre)) %>%
+  ggplot(aes(x = reorder(genre, revenue_avg), y = revenue_avg)) +
+    geom_col() +
+    coord_flip()
+```
+
+4. Lastly, change the colour of the bars (*Hint.* You will want to use `fill`, not `colour`) and the `width` of the bars.
+
+```{r}
+movies %>%
+  group_by(genre) %>%
+  summarize(revenue_avg = mean(revenue.all)) %>%
+  filter(!is.na(genre)) %>%
+  ggplot(aes(x = reorder(genre, revenue_avg), y = revenue_avg)) +
+    geom_col(fill = "navy", width = .4) +
+    coord_flip()
+```
+
+## Minihack 3: Continuous by Continuous plot
+
+1. Use `filter` to remove all rows that have `NA` for release year (`year`), total revenue (`revenue.all`), budget (`budget`), rating (`rating`), and genre (`genre`). Also, remove all rows that have a rating (`rating`) of `"Not Rated"`.
+
+```{r}
+movies_filtered <- movies %>%
+  filter(!is.na(year),
+         !is.na(revenue.all),
+         !is.na(budget),
+         !is.na(rating),
+         !is.na(genre),
+         rating != "Not Rated")
+```
+
+2. Using the new data, create a `{ggplot2}` **canvas** with `year` mapped to the x-axis, `revenue.all` mapped to the y-axis, and `rating` mapped to colour.  
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
+             colour = rating))
+```
+
+3. Add `geom_point()` and `geom_smooth()` to the plot. Make sure the `geom_smooth()` line is linear and remove standard errors. 
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
+             colour = rating)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE)
+```
+
+4. Add an argument to `geom_point` that maps `budget` to the `size` of the points. Make the points half transparent using the `alpha` argument.
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
+             colour = rating)) +
+    geom_point(aes(size = budget), alpha = .5) +
+    geom_smooth(method = "lm", se = FALSE)
+```
+
+5. Scale the y-axis to be logarithmic. 
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
+             colour = rating)) +
+    geom_point(aes(size = budget), alpha = .5) +
+    geom_smooth(method = "lm", se = FALSE) +
+    scale_y_log10()
+```
+
+6. Scale the colours to be colour-blind friendly. 
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
+             colour = rating)) +
+    geom_point(aes(size = budget), alpha = .5) +
+    geom_smooth(method = "lm", se = FALSE) +
+    scale_y_log10() +
+    scale_colour_viridis_d()
+```
+
+7. Facet wrap by `genre`. 
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
+             colour = rating)) +
+    geom_point(aes(size = budget), alpha = .5) +
+    geom_smooth(method = "lm", se = FALSE) +
+    scale_y_log10() +
+    scale_colour_viridis_d() +
+    facet_wrap(~genre)
+```
+
+8. Use `labs()` to add labels to your plot and use one of the `theme_` functions to change the plot's theme to your preferred theme. 
+
+```{r}
+movies_filtered %>%
+  ggplot(aes(x      = year, 
+             y      = revenue.all,
+             colour = rating)) +
+    geom_point(aes(size = budget), alpha = .5) +
+    geom_smooth(method = "lm", se = FALSE) +
+    scale_y_log10() +
+    scale_colour_viridis_d() +
+    facet_wrap(~genre) +
+    labs(x = "Revenue",
+         y = "Year") +
+    theme_minimal()
+    
+```

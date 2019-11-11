@@ -43,6 +43,8 @@ navbar:
         href: "labs/lab-4.html"  
       - text: "Data Wrangling"
         href: "labs/lab-5.html"  
+      - text: "Data Visualization"
+        href: "labs/lab-6.html"  
     - text: Homework
       href: homework.html
     - text: Useful Material

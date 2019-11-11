@@ -1,0 +1,50 @@
+---
+title: "Lab 7: Preregistration"
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+---
+
+# Purpose
+
+The purpose of today's lab is to walk through how to create a pre-registration on the [Open Science Framework](https://osf.io){target="_blank"}. Rather than serve as a step-by-step tutorial, this page will mostly contain links to other resources on pre-registration and open science along with a few questions/prompts to guide our discussion. 
+
+*Note:* A lot of the material in this document has been copied (or adapted) from pregistration workshops by Moin Syed (https://osf.io/pm8bh/) and Cassie Brandes (https://osf.io/pm8bh/). 
+
+***
+
+# Components of a pregistration {.tabset .tabset-fade .tabset-pills}
+
+
+
+## Background
+
+![](resources/lab7/prereg1.png)
+
+## Method
+![](resources/lab7/prereg2.png)
+
+## Analysis Plan
+![](resources/lab7/prereg3.png)
+
+## Exploratory Analysis
+![](resources/lab7/prereg4.png)
+
+***
+
+# Discussion questions
+
+***
+
+# Resources
+
+* [Video tutorial](https://www.youtube.com/watch?v=EnKkGO3OM9c&feature=emb_title){target="_blank"} on pre-registration from the Center for Open Science
+
+* [OSF preregistration templates](https://osf.io/zab38/){target="_blank"}
+
+* [Pregistration workshop](https://osf.io/fkt8e/){target="_blank"} (2017) from the Society for Improving Psychological Science (SIPS). Slides [here](https://docs.google.com/presentation/d/1MJ-kqfSzd34iO9dW5saRLHW1xq3n2Tgm_18K4uTvdfY/edit#slide=id.p){target="_blank"}
+
+* [A whole bunch of resources](https://mfr.osf.io/render?url=https://osf.io/v6mxc/?action=download%26mode=render){target="_blank"} prepared by M. Brent Donnellan and Moin Syed
