@@ -12,11 +12,13 @@ output:
 
 The purpose of today's lab is to walk through how to create a pre-registration on the [Open Science Framework](https://osf.io){target="_blank"}. Rather than serve as a step-by-step tutorial, this page will mostly contain links to other resources on pre-registration and open science along with a few questions/prompts to guide our discussion. 
 
+*Note:* A lot of the material in this document has been copied (or adapted) from pregistration workshops by Moin Syed (https://osf.io/pm8bh/) and Cassie Brandes (https://osf.io/pm8bh/). 
+
 ***
 
 # Components of a pregistration {.tabset .tabset-fade .tabset-pills}
 
-*Slides are from pregistration workshop by Moin Syed: https://osf.io/pm8bh/
+
 
 ## Background
 
