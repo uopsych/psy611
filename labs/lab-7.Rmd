@@ -1,0 +1,15 @@
+---
+title: "Lab 7: Preregistration"
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+---
+
+# Purpose
+
+# Discussion questions
+
+
