@@ -314,7 +314,13 @@ A failure to replicate should be viewed as particularly interesting.
 
 > [Science] needs a better word for "error" . . . Or maybe "error" will do after all, when you remember that it came from an old root meaning to wander about, looking for something. -Lewis Thomas
 
+---
 
+class: inverse
+
+## Next time...
+
+Open Science (and methods for improving your inference)
 
 
 
