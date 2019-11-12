@@ -475,6 +475,9 @@ str(c.test)
 ##  - attr(*, "class")= chr "htest"
 ```
 
+---
+
+
 ```r
 c.test$residuals
 ```
@@ -573,7 +576,7 @@ How often will you conducted a `\(chi^2\)` goodness of fit test on raw data?
 
 * (Probably) never
 
-How often will come across `\(\chi^2\)` tests?
+How often will you come across `\(\chi^2\)` tests?
 
 --
 
@@ -583,7 +586,20 @@ The goodness of fit test is used to statistically compare the fit of nested mode
 
 ---
 
-[ADD stuff about model comparison here]
+To calculate Goodness of Fit of a model to data, you build a statistical model of the process as you believe it is in the world. 
+
+  - example: literacy ~ age + parental involvement
+  
+Then you estimate each subject's predicted value based on your model. 
+
+You compare each subject's predicted value to their actual value -- the difference is called the **residual** ( `\(\varepsilon\)` ).
+
+If your model is a good fit, then
+
+`$$\Sigma_1^N\varepsilon^2 = \chi^2$$` 
+which we compare to the distribution of `\(\chi^2_{N-p}\)` .
+
+If we have nested models, we can calculate the difference in the two `\(\chi^2\)` values and compare this to a new `\(\chi^2\)` distribution with `\(p1-p2\)` degrees of freedom.
 
 ---
 
@@ -608,14 +624,12 @@ We've already been covering one-sample t-tests, but let's formally walk through 
 | | Z-test | t-test |
 | --|--------|--------|
 | `\(\mu\)` | known | known |
-|$\sigma$ | known |unknown |
+| `\(\sigma\)` | known |unknown |
 | sem or `\(\sigma_M\)` | `\(\frac{\sigma}{\sqrt{N}}\)` | `\(\frac{\hat{\sigma}}{\sqrt{N}}\)` |
 |Probability distribution | standard normal | t |
 | DF | none | N-1 |
-Tails | One or two | One or two |
-| Critical value ($\alpha = .05, two-tailed$ | 1.96 | Depends on DF$ |
-
-(As a reminder, `\(\hat{\sigma} = s\)` .)
+| Tails | One or two | One or two |
+| Critical value ( `\(\alpha = .05, two-tailed\)` | 1.96 | Depends on DF |
 
 ---
 
@@ -642,6 +656,169 @@ Using the same Census at School data, we find that Oregon students who participa
 `\(H_0: \mu = 45.05\)`
 
 `\(H_1: \mu \neq 45.05\)`
+
+---
+
+`$$\mu = 45.05$$`
+
+`$$N = 227$$`
+
+$$ \bar{X} = 49.1 $$
+
+$$ s = 13.4 $$
+
+
+
+
+
+
+```r
+t.test(x = school$Score_in_memory_game, mu = 45.05, 
+       alternative = "two.sided")
+```
+
+```
+## 
+## 	One Sample t-test
+## 
+## data:  school$Score_in_memory_game
+## t = 4.5746, df = 226, p-value = 7.865e-06
+## alternative hypothesis: true mean is not equal to 45.05
+## 95 percent confidence interval:
+##  47.37204 50.88620
+## sample estimates:
+## mean of x 
+##  49.12912
+```
+
+
+---
+
+
+```r
+lsr::oneSampleTTest(x = school$Score_in_memory_game, 
+                    mu = 45.05, one.sided = FALSE)
+```
+
+```
+## Warning in lsr::oneSampleTTest(x = school$Score_in_memory_game, mu =
+## 45.05, : 20 case(s) removed due to missingness
+```
+
+```
+## 
+##    One sample t-test 
+## 
+## Data variable:   school$Score_in_memory_game 
+## 
+## Descriptive statistics: 
+##             Score_in_memory_game
+##    mean                   49.129
+##    std dev.               13.435
+## 
+## Hypotheses: 
+##    null:        population mean equals 45.05 
+##    alternative: population mean not equal to 45.05 
+## 
+## Test results: 
+##    t-statistic:  4.575 
+##    degrees of freedom:  226 
+##    p-value:  &lt;.001 
+## 
+## Other information: 
+##    two-sided 95% confidence interval:  [47.372, 50.886] 
+##    estimated effect size (Cohen's d):  0.304
+```
+
+---
+
+# Cohen's D
+
+Cohen suggested one of the most common effect size estimates—the standardized mean difference—useful when comparing a group mean to a population mean or two group means to each other. 
+
+`$$\delta = \frac{\mu_1 - \mu_0}{\sigma} \approx d = \frac{\bar{X}-\mu}{\hat{\sigma}}$$`
+
+--
+
+Cohen’s d is in the standard deviation (Z) metric.
+
+
+---
+
+Cohens’s d for these data is .30.  In other words, the sample mean differs from the population mean by .30 standard deviation units. 
+
+Cohen (1988) suggests the following guidelines for interpreting the size of d:
+
+.large[
+
+- 	.2 = Small
+
+- 	.5 = Medium
+
+- 	.8 = Large	
+
+]
+.small[Cohen, J. (1988), Statistical power analysis for the behavioral sciences (2nd Ed.). Hillsdale: Lawrence Erlbaum.]
+---
+
+Another useful metric is the overlap between the two distributions -- the smaller the overlap, the farther apart the distributions
+
+![](14-one_sample_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+
+
+---
+
+### The usefulness of the one-sample *t*-test
+
+How often will you conducted a one-sample *t*-test on raw data?
+
+--
+
+* (Probably) never
+
+How often will you come across one-sample *t*-tests?
+
+--
+
+* (Probably) a lot!
+
+The one-sample *t*-test is used to test coefficients in a model. 
+
+---
+
+
+```r
+model = lm(health ~ education, data = spi)
+summary(model)
+```
+
+```
+## 
+## Call:
+## lm(formula = health ~ education, data = spi)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.6683 -0.5896  0.3317  0.5284  1.6071 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 3.353512   0.036015  93.116  &lt; 2e-16 ***
+## education   0.039348   0.007732   5.089  3.8e-07 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9733 on 3251 degrees of freedom
+##   (747 observations deleted due to missingness)
+## Multiple R-squared:  0.007903,	Adjusted R-squared:  0.007598 
+## F-statistic:  25.9 on 1 and 3251 DF,  p-value: 3.803e-07
+```
+
+---
+
+# Next time...
+
+Comparing two means
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

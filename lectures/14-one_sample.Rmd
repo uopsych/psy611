@@ -259,6 +259,11 @@ The Oregon student preferences are not unusual under the null hypothesis (USA pr
 ```{r}
 c.test = chisq.test(x = or_observed, p = p.usa)
 str(c.test)
+```
+
+---
+
+```{r}
 c.test$residuals
 ```
 
@@ -291,7 +296,7 @@ How often will you conducted a $chi^2$ goodness of fit test on raw data?
 
 * (Probably) never
 
-How often will come across $\chi^2$ tests?
+How often will you come across $\chi^2$ tests?
 
 --
 
@@ -301,7 +306,20 @@ The goodness of fit test is used to statistically compare the fit of nested mode
 
 ---
 
-[ADD stuff about model comparison here]
+To calculate Goodness of Fit of a model to data, you build a statistical model of the process as you believe it is in the world. 
+
+  - example: literacy ~ age + parental involvement
+  
+Then you estimate each subject's predicted value based on your model. 
+
+You compare each subject's predicted value to their actual value -- the difference is called the **residual** ( $\varepsilon$ ).
+
+If your model is a good fit, then
+
+$$\Sigma_1^N\varepsilon^2 = \chi^2$$ 
+which we compare to the distribution of $\chi^2_{N-p}$ .
+
+If we have nested models, we can calculate the difference in the two $\chi^2$ values and compare this to a new $\chi^2$ distribution with $p1-p2$ degrees of freedom.
 
 ---
 
@@ -326,14 +344,12 @@ We've already been covering one-sample t-tests, but let's formally walk through 
 | | Z-test | t-test |
 | --|--------|--------|
 | $\mu$ | known | known |
-|$\sigma$ | known |unknown |
+| $\sigma$ | known |unknown |
 | sem or $\sigma_M$ | $\frac{\sigma}{\sqrt{N}}$ | $\frac{\hat{\sigma}}{\sqrt{N}}$ |
 |Probability distribution | standard normal | t |
 | DF | none | N-1 |
-Tails | One or two | One or two |
-| Critical value ($\alpha = .05, two-tailed$ | 1.96 | Depends on DF$ |
-
-(As a reminder, $\hat{\sigma} = s$ .)
+| Tails | One or two | One or two |
+| Critical value ( $\alpha = .05, two-tailed$ | 1.96 | Depends on DF |
 
 ---
 
@@ -363,7 +379,6 @@ $H_1: \mu \neq 45.05$
 
 ---
 
-.pull-left[
 $$\mu = 45.05$$
 
 $$N = 227$$
@@ -372,20 +387,110 @@ $$ \bar{X} = 49.1 $$
 
 $$ s = 13.4 $$
 
-]
 
---
 
-.pull.right[
+
+
 ```{r}
-t.test(x = school$Score_in_memory_game, mu = 45.05, alternative = "two.sided")
+t.test(x = school$Score_in_memory_game, mu = 45.05, 
+       alternative = "two.sided")
 ```
 
-]
 
 ---
 
 ```{r}
-lsr::oneSampleTTest(x = school$Score_in_memory_game, mu = 45.05, one.sided = FALSE)
+lsr::oneSampleTTest(x = school$Score_in_memory_game, 
+                    mu = 45.05, one.sided = FALSE)
 ```
 
+---
+
+# Cohen's D
+
+Cohen suggested one of the most common effect size estimates—the standardized mean difference—useful when comparing a group mean to a population mean or two group means to each other. 
+
+$$\delta = \frac{\mu_1 - \mu_0}{\sigma} \approx d = \frac{\bar{X}-\mu}{\hat{\sigma}}$$
+
+--
+
+Cohen’s d is in the standard deviation (Z) metric.
+
+
+---
+
+Cohens’s d for these data is .30.  In other words, the sample mean differs from the population mean by .30 standard deviation units. 
+
+Cohen (1988) suggests the following guidelines for interpreting the size of d:
+
+.large[
+
+- 	.2 = Small
+
+- 	.5 = Medium
+
+- 	.8 = Large	
+
+]
+.small[Cohen, J. (1988), Statistical power analysis for the behavioral sciences (2nd Ed.). Hillsdale: Lawrence Erlbaum.]
+---
+
+Another useful metric is the overlap between the two distributions -- the smaller the overlap, the farther apart the distributions
+
+```{r, echo = F}
+alt = mean(school$Score_in_memory_game, na.rm=T)
+null = 45.05
+se = sd(school$Score_in_memory_game, na.rm=T)/sqrt(length(which(!is.na(school$Score_in_memory_game))))
+
+x = seq(from = 40, to = 55, by = .01)
+d.alt = dnorm(x, mean = alt, sd = se)
+d.nul = dnorm(x, mean = null, sd = se)
+
+loc = min(which(d.alt-d.nul > 0))
+loc = (x[loc] + x[loc-1])/2
+
+area = pnorm(loc, mean = null, sd = se, lower.tail = F) + pnorm(loc, mean = alt, sd = se, lower.tail = T)
+
+ggplot(data.frame(x=x), aes(x)) +
+  stat_function(fun = function(x) dnorm(x, mean = null, sd = se), 
+                geom = "area", xlim = c(loc,55), fill = "black") + 
+  stat_function(fun = function(x) dnorm(x, mean = alt, sd = se), 
+                geom = "area", xlim =c(45, loc), fill = "black") + 
+  stat_function(fun = function(x) dnorm(x, mean = null, sd = se), geom = "line", aes(color = "null")) + 
+  stat_function(fun = function(x) dnorm(x, mean = alt, sd = se), geom = "line", aes(color = "alternative")) + 
+  scale_color_discrete("Model") +
+  ggtitle(paste0("Overlap = ", round(area,3))) + 
+  theme_bw(base_size = 20)
+```
+
+
+---
+
+### The usefulness of the one-sample *t*-test
+
+How often will you conducted a one-sample *t*-test on raw data?
+
+--
+
+* (Probably) never
+
+How often will you come across one-sample *t*-tests?
+
+--
+
+* (Probably) a lot!
+
+The one-sample *t*-test is used to test coefficients in a model. 
+
+---
+
+```{r}
+model = lm(health ~ education, data = spi)
+summary(model)
+```
+
+---
+
+# Next time...
+
+Comparing two means
