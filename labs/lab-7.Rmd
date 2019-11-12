@@ -70,6 +70,8 @@ Source: https://osf.io/t4p9g/
 ***
 # Example preregistration
 
+[Click here.](https://osf.io/4qut8){target="_blank"}
+
 ***
 
 # Walk through OSF
