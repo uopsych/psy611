@@ -35,6 +35,16 @@ The purpose of today's lab is to walk through how to create a pre-registration o
 ![](resources/lab7/how_prereg.png)
 
 ***
+# Types of preregistration
+
+* Preregistration ("unreviewed preregistration")
+* Registered Reports ("reviewed preregistration")
+* Registered Replication Reports 
+
+![](resources/lab7/prereg_variants.png)
+Source: https://osf.io/t4p9g/
+
+***
 
 # Group exercise: "Find the flexibility"
 
@@ -64,25 +74,44 @@ The purpose of today's lab is to walk through how to create a pre-registration o
 
 # Walk through OSF
 
-[Link to OSF.](https://osf.io){target="_blank"}
+[Link to OSF](https://osf.io){target="_blank"}
 
-[How to create a pre-registration on OSF.](https://help.osf.io/hc/en-us/articles/360019738834-Create-a-Preregistration){target="_blank"}
+[How to create a pre-registration on OSF](https://help.osf.io/hc/en-us/articles/360019738834-Create-a-Preregistration){target="_blank"}
 
 ***
 
 # FAQ
+Source: [OSF Slide Decks](https://osf.io/t4p9g/){target="_blank"}
 
-1. What do I need to do when writing up my article? [24:19]
+## 1. What do I need to do when writing up my preregistered study?
+
+* Include a link to your preregistration
+* Report results of *all* pre-registered analyses
+* Any unregistered analyses must be transparent 
+
+See [here](https://mfr.osf.io/render?url=https://osf.io/zwkqj/?action=download%26mode=render){target="_blank"} for a checklist of what to include when reporting the results of preregistered research.
 
 See [here](https://mfr.osf.io/render?url=https://osf.io/3k7hf/?action=download%26mode=render){target="_blank"} for more info.
 
-2. What if I need to change my research plan? [26:45]
+## 2. What if I need to change my research plan? [26:45]
 
-3. Can't someone "scoop" my ideas? [36:25]
+## 3. Can't someone "scoop" my ideas?
 
-4. Isn't it easy to cheat?
+* Date-stamped preregistrations make your claim verifable
+* By the time you’ve preregistered, you are ahead of any possible scooper.
+* Embargo your preregistration
 
-5. Isn't pre-registration a ton of extra work?
+## 4. Isn't it easy to cheat?
+
+e.g. Making a “preregistration” after conducting the study; Making multiple preregistrations and only citing the one that “worked.”
+
+* While fairly easy to do, this makes fraud more intentional. Preregistration helps keep you honest to *yourself*
+
+## 5. Isn't pre-registration a ton of extra work?
+
+* Preregistration certainly involves an investment of time "up front", but it can save you time later on when writing your manuscript.
+* Basically, once you have written a pre-registration, you will have written most of the methods section. 
+* Sharing your preregistration and study materials openly will make it easier for others (or yourself) to reproduce your work later on. 
 
 ***
 
