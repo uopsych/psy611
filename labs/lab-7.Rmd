@@ -10,15 +10,39 @@ output:
 
 # Purpose
 
-The purpose of today's lab is to walk through how to create a pre-registration on the [Open Science Framework](https://osf.io){target="_blank"}. Rather than serve as a step-by-step tutorial, this page will mostly contain links to other resources on pre-registration and open science along with a few questions/prompts to guide our discussion. 
+The purpose of today's lab is to walk through how to create a pre-registration on the [Open Science Framework](https://osf.io){target="_blank"}. Rather than serve as a step-by-step tutorial, this page will mostly contain links to other resources on pre-registration and open science that you can use when drafting your own preregistrations, along with a few questions/prompts to guide our discussion. 
 
 *Note:* A lot of the material in this document has been copied (or adapted) from pregistration workshops by Moin Syed (https://osf.io/pm8bh/) and Cassie Brandes (https://osf.io/pm8bh/). 
 
 ***
 
+# Overview of preregistration {.tabset .tabset-fade .tabset-pills}
+
+## What? 
+
+![](resources/lab7/what_prereg.png)
+
+## Why?
+
+![](resources/lab7/why_prereg.png)
+
+## When? 
+
+![](resources/lab7/when_prereg.png)
+
+## How?
+
+![](resources/lab7/how_prereg.png)
+
+***
+
+# Group exercise: "Find the flexibility"
+
+[Click here.](https://mfr.osf.io/render?url=https://osf.io/y8f4c/?action=download%26mode=render){target="blank"}
+
+***
+
 # Components of a pregistration {.tabset .tabset-fade .tabset-pills}
-
-
 
 ## Background
 
@@ -34,6 +58,31 @@ The purpose of today's lab is to walk through how to create a pre-registration o
 ![](resources/lab7/prereg4.png)
 
 ***
+# Example preregistration
+
+***
+
+# Walk through OSF
+
+[Link to OSF.](https://osf.io){target="_blank"}
+
+[How to create a pre-registration on OSF.](https://help.osf.io/hc/en-us/articles/360019738834-Create-a-Preregistration){target="_blank"}
+
+***
+
+# FAQ
+
+1. What do I need to do when writing up my article? [24:19]
+
+2. What if I need to change my research plan? [26:45]
+
+3. Can't someone "scoop" my ideas? [36:25]
+
+4. Isn't it easy to cheat?
+
+5. Isn't pre-registration a ton of extra work?
+
+***
 
 # Discussion questions
 
@@ -45,6 +94,10 @@ The purpose of today's lab is to walk through how to create a pre-registration o
 
 * [OSF preregistration templates](https://osf.io/zab38/){target="_blank"}
 
+* [Pregistration Challenge](https://cos.io/our-services/prereg-more-information/){target="_blank"}
+
+* [Preregistration: A Plan, Not a Prison](https://cos.io/blog/preregistration-plan-not-prison/){target="_blank"}
+
 * [Pregistration workshop](https://osf.io/fkt8e/){target="_blank"} (2017) from the Society for Improving Psychological Science (SIPS). Slides [here](https://docs.google.com/presentation/d/1MJ-kqfSzd34iO9dW5saRLHW1xq3n2Tgm_18K4uTvdfY/edit#slide=id.p){target="_blank"}
 
-* [A whole bunch of resources](https://mfr.osf.io/render?url=https://osf.io/v6mxc/?action=download%26mode=render){target="_blank"} prepared by M. Brent Donnellan and Moin Syed
+* [A whole bunch of resources](https://mfr.osf.io/render?url=https://osf.io/v6mxc/?action=download%26mode=render){target="_blank"} curated by M. Brent Donnellan and Moin Syed
