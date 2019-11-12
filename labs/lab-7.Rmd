@@ -74,6 +74,8 @@ The purpose of today's lab is to walk through how to create a pre-registration o
 
 1. What do I need to do when writing up my article? [24:19]
 
+See [here](https://mfr.osf.io/render?url=https://osf.io/3k7hf/?action=download%26mode=render){target="_blank"} for more info.
+
 2. What if I need to change my research plan? [26:45]
 
 3. Can't someone "scoop" my ideas? [36:25]
