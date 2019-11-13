@@ -83,9 +83,7 @@ Source: https://osf.io/t4p9g/
 ***
 
 # FAQ
-Sources: 
--[OSF Slide Decks](https://osf.io/t4p9g/){target="_blank"}
--[APS](https://www.psychologicalscience.org/observer/research-preregistration-101#.WD_Dz5K5Ll5){target="_blank"}
+Sources: [OSF Slide Decks](https://osf.io/t4p9g/){target="_blank"}; [Association for Psychological Science](https://www.psychologicalscience.org/observer/research-preregistration-101#.WD_Dz5K5Ll5){target="_blank"}
 
 ## 1. What do I need to do when writing up my preregistered study?
 
@@ -93,15 +91,19 @@ Sources:
 * Report results of *all* pre-registered analyses
 * Any unregistered analyses must be transparent 
 
-See [here](https://mfr.osf.io/render?url=https://osf.io/zwkqj/?action=download%26mode=render){target="_blank"} for a checklist of what to include when reporting the results of preregistered research.
+See [here](https://mfr.osf.io/render?url=https://osf.io/zwkqj/?action=download%26mode=render){target="_blank"} and [here](https://mfr.osf.io/render?url=https://osf.io/3k7hf/?action=download%26mode=render){target="_blank"} for more resources from the Center for Open Science on what to include when reporting the results of preregistered research.
 
-See [here](https://mfr.osf.io/render?url=https://osf.io/3k7hf/?action=download%26mode=render){target="_blank"} for more info.
 
-## 2. What if I need to change my research plan? [26:45]
+
+## 2. What if I need to change my research plan? 
+
+* If you decide to make changes to your analysis plan *after* looking at your data/results, be sure to still report what you said what you were originally going to do, and you can still report your unplanned analyses, but you must indicate that these were unplanned. 
+
+* If you decide to make changes *before* seeing your data, you can withdraw your original preregistration and create a new plan.
 
 ## 3. Can't someone "scoop" my ideas?
 
-* Date-stamped preregistrations make your claim verifable
+* Date-stamped preregistrations make your claim verifiable
 * By the time you’ve preregistered, you are ahead of any possible scooper.
 * Embargo your preregistration
 
@@ -113,15 +115,15 @@ e.g. Making a “preregistration” after conducting the study; Making multiple 
 
 * Preregistration does not assume dishonesty. HARKing and similar practices that preregistration cures typically are unintentional rather than deliberate. Preregistration helps us remember (and show others) what we actually planned.
 
-## 5. Isn't pre-registration a ton of extra work?
+## 5. Isn't preregistration a ton of extra work?
 
 * Preregistration certainly involves an investment of time "up front", but it can save you time later on when writing your manuscript.
-* Basically, once you have written a pre-registration, you will have written most of the methods section. 
+* Basically, once you have written a preregistration, you will have written most of the methods section. 
 * Sharing your preregistration and study materials openly will make it easier for others (or yourself) to reproduce your work later on. 
 
 ***
 
-# Discussion questions
+# Any questions/concerns?
 
 ***
 
