@@ -83,7 +83,9 @@ Source: https://osf.io/t4p9g/
 ***
 
 # FAQ
-Source: [OSF Slide Decks](https://osf.io/t4p9g/){target="_blank"}
+Sources: 
+-[OSF Slide Decks](https://osf.io/t4p9g/){target="_blank"}
+-[APS](https://www.psychologicalscience.org/observer/research-preregistration-101#.WD_Dz5K5Ll5){target="_blank"}
 
 ## 1. What do I need to do when writing up my preregistered study?
 
@@ -108,6 +110,8 @@ See [here](https://mfr.osf.io/render?url=https://osf.io/3k7hf/?action=download%2
 e.g. Making a “preregistration” after conducting the study; Making multiple preregistrations and only citing the one that “worked.”
 
 * While fairly easy to do, this makes fraud more intentional. Preregistration helps keep you honest to *yourself*
+
+* Preregistration does not assume dishonesty. HARKing and similar practices that preregistration cures typically are unintentional rather than deliberate. Preregistration helps us remember (and show others) what we actually planned.
 
 ## 5. Isn't pre-registration a ton of extra work?
 
