@@ -3,6 +3,13 @@ general lab feedback
 * find out what was in the bootcamp and you can skim or gloss that content
 * exercises throughout are good
 
+TA expectations
+* prep labs (minor tweaks), attend lecture, take quizzes and homework assignments (to give feedback on difficulty and time)
+
+homework general
+* B's get degrees 
+* don't say "it's in your best interest to attempt all of them"
+
 1-intro.html
 * Replace Leibniz picture with Helmhotlz
     * Don't bother with Locke and Leibniz
@@ -69,6 +76,14 @@ lab-4.html
 
 10-nhst.html
 * more on pvalues
+* include figure with p-values bunching up at .05
 
 lab-5.html
 * skim tidy data and helper functions, but keep in so people can see them
+
+12-critiques.html
+* fewer quotes at the beginning (be prepared to run out of time)
+
+2-homework.html
+* MIDDLE 50% 
+* clarifiy confidence interval 1-[alpha]

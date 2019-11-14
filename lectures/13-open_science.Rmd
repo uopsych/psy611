@@ -14,7 +14,7 @@ output:
 
 Sometimes labelled **"the reform movement"** -- (psychological) scientists trying to address problems in the field identified as part of the replication crisis. 
 
-(Note, these are not distint periods of history, nor are either of them considered over.)
+(Note, these are not distinct periods of history, nor are either of them considered over.)
 
 Within psychology, much of the force behind this movement has been driven by social and personality psychologists. 
 
@@ -96,7 +96,7 @@ Tal Yarkoni (July 13, 2019)
 
 --
 
-* **Metascience and informatics.** -- How are we diagnosing the field? How do we determine the quality of a study? 
+* **Meta-science and informatics.** -- How are we diagnosing the field? How do we determine the quality of a study? 
 
 ---
 
@@ -116,6 +116,49 @@ This is an exciting time to be a psychological researcher, because new tools for
 It's just a lot easier to meet these standards today than it was 10 years ago.
 
 Let's discuss some new(ish) tools for ensuring your work is reproducible and robust.
+
+---
+
+### R (not new)
+
+.pull-left[
+* Use of scripts -- data analysis is **reproducible**
+
+  - Don't be your own worst collaborator
+  
+* Software is open-source
+
+  - **Equity** in terms of who can use the software 
+  - **Equity** in terms of who can build the software!
+  - Newest statistical methods are available right away 
+]
+
+.pull-right[
+![](images/Rconsole.png)
+]
+    
+---
+
+### RMarkdown (Not that new)
+
+Combination of two languages: **R** and Markdown.
+
+Markdown is a way of writing without a WYSIWYG editor -- instead, little bits of code tell the text editor how to format the document. 
+
+Increased flexibility: Markdown can be used to create
+- presentations (this one!)
+- manuscripts
+- CVs
+- books
+- websites
+
+By combining Markdown with R... 
+
+---
+
+![](images/rmarkdown.jpg)
+
+(Yes, we'll talk about this in PSY 612)
 
 ---
 
@@ -224,7 +267,7 @@ The point is to:
 
   1. Encourage researchers to plan out analysis and choices before they see the data, and
   
-  2. Create a verifiable record of when analytic decisions were made, whicl will
+  2. Create a verifiable record of when analytic decisions were made, which will
   
   3. Allow researchers to calibrate their confidence in results accordingly.
   
@@ -253,9 +296,9 @@ knitr::include_graphics("images/RR.png")
 
 Changes the researcher's goal; also changes the reviewer's focus
 
-- No longer evaulate whether or not result was "statistically significant" -- instead, evaluate whether this is a good test of the research question. 
+- No longer evaluate whether or not result was "statistically significant" -- instead, evaluate whether this is a good test of the research question. 
 
-Many journals now allow RRs, and even RRR (registered **replication* reports)
+Many journals now allow RRs, and even RRR (registered **replication** reports)
 
 
 ---
@@ -268,49 +311,6 @@ Many journals now allow RRs, and even RRR (registered **replication* reports)
 
 - Preregistration needs to be specific, otherwise it doesn't work
 
-
----
-
-### R (not new)
-
-.pull-left[
-* Use of scripts -- data analysis is **reproducible**
-
-  - Don't be your own worst collaborator
-  
-* Software is open-source
-
-  - **Equity** in terms of who can use the software 
-  - **Equity** in terms of who can build the software!
-  - Newest statistical methods are available right away 
-]
-
-.pull-right[
-![](images/Rconsole.png)
-]
-    
----
-
-### RMarkdown (Not that new)
-
-Combination of two langauges: **R** and Markdown.
-
-Markdown is a way of writing without a WYSIWYG editor -- instead, little bits of code tell the text editor how to format the document. 
-
-Increased flexibility: Markdown can be used to create
-- presentations (this one!)
-- manuscripts
-- CVs
-- books
-- websites
-
-By combining Markdown with R... 
-
----
-
-![](images/rmarkdown.jpg)
-
-(Yes, we'll talk about this in PSY 612)
 
 ---
 
@@ -336,7 +336,7 @@ UO Psychology is kinda special. (2 of 11 job ads containing language about open 
 
 ---
 
-### Metascience tools
+### Meta-science tools
 
 New methods of conducting science on science -- often developed to find fraud, but super useful for detecting errors
 
@@ -388,4 +388,4 @@ class: inverse
 
 ## Next time...
 
-Categorical data analysis
+One-sample tests
