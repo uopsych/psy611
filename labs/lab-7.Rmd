@@ -129,8 +129,6 @@ e.g. Making a “preregistration” after conducting the study; Making multiple 
 
 * [OSF preregistration templates](https://osf.io/zab38/){target="_blank"}
 
-* [Pregistration Challenge](https://cos.io/our-services/prereg-more-information/){target="_blank"}
-
 * [Preregistration: A Plan, Not a Prison](https://cos.io/blog/preregistration-plan-not-prison/){target="_blank"}
 
 * [Pregistration workshop](https://osf.io/fkt8e/){target="_blank"} (2017) from the Society for Improving Psychological Science (SIPS). Slides [here](https://docs.google.com/presentation/d/1MJ-kqfSzd34iO9dW5saRLHW1xq3n2Tgm_18K4uTvdfY/edit#slide=id.p){target="_blank"}
