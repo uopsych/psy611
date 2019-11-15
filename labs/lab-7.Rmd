@@ -37,10 +37,6 @@ The purpose of today's lab is to walk through how to create a pre-registration o
 ***
 # Types of preregistration
 
-* Preregistration ("unreviewed preregistration")
-* Registered Reports ("reviewed preregistration")
-* Registered Replication Reports 
-
 ![](resources/lab7/prereg_variants.png)
 Source: https://osf.io/t4p9g/
 
