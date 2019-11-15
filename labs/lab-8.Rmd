@@ -20,7 +20,7 @@ options(scipen = 999)
 library(tidyverse) # includes dplyr and ggplot2 functions
 library(gganimate) # allows the creation of gifs from ggplot2
 library(lsr) # includes t-test functions
-library(psych) # includes more t-test functions
+library(psych) # includes the Garcia data and the t2d function
 
 # load data
 data <- Garcia 
@@ -36,15 +36,42 @@ To quickly navigate to the desired section, click one of the following links:
 1. [Independent Samples t-test](#independent)
 1. [Minihacks](#minihacks)
 
+***
+
 # The Data
 
 Today we will be using data from Garcia, Schmitt, Branscombe, and Ellemers (2010) sexism study provided through the `{psych}` package. For see information about the dataset you can use `?Garcia`. In short, the `Garcia` data set measures an individuals reaction has a sample of `129` participants on `6` varaibles.
 
+***
+
+# One-Sample t-test {#one}
+
+```{r}
+data_control <- data %>%
+  filter(prot2 == 0)
+
+anger_mean <- mean(data_control$anger)
+anger_sd   <- sd(data_control$anger)
+anger_n    <- length(data_control$anger)
+anger_df   <- anger_n - 1
+anger_t    <- anger_mean / (anger_sd / sqrt(anger_n))
+anger_p    <- pt(q = anger_t, df = anger_df, lower.tail = FALSE) * 2
+anger_d    <- anger_mean / anger_sd
+anger_low  <- anger_mean + ((anger_sd / sqrt(anger_n)) * qt(.025, df = anger_df))
+anger_up   <- anger_mean + ((anger_sd / sqrt(anger_n)) * qt(.975, df = anger_df))
+```
+
+
+```{r}
+t.test(x = data_control$anger, mu = 0)
+oneSampleTTest(x = data_control$anger, mu = 0)
+```
 
 ***
 
-# The Grammar of Graphics {#grammar}
+# Independent Sample's t-test {#independent}
 
+***
 
 # Minihacks {#minihacks}
 
