@@ -71,6 +71,41 @@ oneSampleTTest(x = data_control$anger, mu = 0)
 
 # Independent Sample's t-test {#independent}
 
+```{r}
+data_protest <- data %>%
+  filter(prot2 == 1)
+
+anger_mean_g1 <- mean(data_control$anger)
+anger_mean_g2 <- mean(data_protest$anger)
+anger_sd      <- sd(data$anger)
+anger_sd_g1   <- sd(data_control$anger)
+anger_sd_g2   <- sd(data_protest$anger)
+anger_n_g1    <- length(data_control$anger)
+anger_n_g2    <- length(data_protest$anger)
+# this is wrong
+anger_se      <- sqrt((((anger_sd^2)/127) / anger_n_g1) + (((anger_sd^2)/127) / anger_n_g2))
+
+anger_t <- (anger_mean_g1 - anger_mean_g2) / anger_se
+
+```
+
+
+
+```{r}
+data_protest <- data %>%
+  filter(prot2 == 1)
+
+t <- t.test(data_control$anger, data_protest$anger, var.equal = TRUE)
+t.test(data_control$anger, data_protest$anger, var.equal = FALSE)
+
+independentSamplesTTest(formula = anger ~ prot2, data = data, var.equal = TRUE)
+independentSamplesTTest(formula = anger ~ prot2, data = data, var.equal = FALSE)
+
+
+```
+
+
+
 ***
 
 # Minihacks {#minihacks}
