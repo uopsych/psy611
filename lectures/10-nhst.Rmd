@@ -432,11 +432,11 @@ We have a normal distribution for which we know the mean (M), the standard devia
 We can use this information to calculate a Z-score; in the context of comparing one mean to a sampling distribution of means, we call this a **Z-statistic**. 
 ]
 
-$$Z = \frac{\bar{X}- M}{SD} = \frac{2.9-5.3}{1.03} = `r round(z, 2)`$$
+$$Z = \frac{\bar{X}- M}{SEM} = \frac{2.9-5.3}{1.03} = `r round(z, 2)`$$
 
 ---
 
-$$Z = \frac{\bar{X}- M}{SD} = \frac{2.9-5.3}{1.03} = `r round(z, 2)`$$
+$$Z = \frac{\bar{X}- M}{SEM} = \frac{2.9-5.3}{1.03} = `r round(z, 2)`$$
 
 
 And here's where we use the properties of the Standard Normal Distribution to calculate probabilities, specifically the probability of getting a score this far away from $\mu$ or more extreme:
