@@ -75,17 +75,51 @@ oneSampleTTest(x = data_control$anger, mu = 0)
 data_protest <- data %>%
   filter(prot2 == 1)
 
-anger_mean_g1 <- mean(data_control$anger)
-anger_mean_g2 <- mean(data_protest$anger)
-anger_sd      <- sd(data$anger)
-anger_sd_g1   <- sd(data_control$anger)
-anger_sd_g2   <- sd(data_protest$anger)
-anger_n_g1    <- length(data_control$anger)
-anger_n_g2    <- length(data_protest$anger)
-# this is wrong
-anger_se      <- sqrt((((anger_sd^2)/127) / anger_n_g1) + (((anger_sd^2)/127) / anger_n_g2))
+```
 
-anger_t <- (anger_mean_g1 - anger_mean_g2) / anger_se
+```{r}
+# calculate overall values
+overall_mean <- mean(data$anger)
+overall_sd   <- sd(data$anger)
+overall_n    <- length(data$anger)
+    
+# calculate group1 values
+group1_mean  <- mean(data_control$anger)
+group1_sd    <- sd(data_control$anger)
+group1_n     <- length(data_control$anger)
+
+# calculate group2 values
+group2_mean  <- mean(data_protest$anger)
+group2_sd    <- sd(data_protest$anger)
+group2_n     <- length(data_protest$anger)
+
+# calculate t-statistic
+mean_diff    <- group1_mean - group2_mean
+se           <- sqrt(((group1_sd^2) / group1_n) + ((group2_sd^2) / group2_n))
+t_val        <- mean_diff / se
+
+# calculate degrees of freedom
+df_num   <- ((group1_sd^2 / group1_n) + (group2_sd^2 / group2_n))^2
+df_den_1 <- ((group1_sd^2) / group1_n)^2 / (group1_n - 1) 
+df_den_2 <- ((group2_sd^2) / group2_n)^2 / (group2_n - 1) 
+df <- df_num / (group_1_temp + group_2_temp)
+
+# calculate p value
+p_val <- pt(q = abs(t_val), df = df, lower.tail = FALSE) * 2
+
+# calculate Cohen's d
+d_val <- (t_val * sqrt((1 / group1_n) + (1 / group2_n)))
+
+# calculate confidence intervals
+ci_low  <- mean_diff + (se * qt(.025, df = df))
+ci_up   <- mean_diff + (se * qt(.975, df = df))
+
+t2d(t_val, n1 = group1_n, n2 =  group2_n)
+
+t.test(data_control$anger, data_protest$anger, var.equal = FALSE)
+d.robust(data, group = "prot2")
+
+independentSamplesTTest(formula = anger ~ prot2, data = data, var.equal = FALSE)
 
 ```
 
