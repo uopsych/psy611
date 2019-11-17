@@ -20,15 +20,16 @@ options(scipen = 999)
 library(tidyverse) # includes dplyr and ggplot2 functions
 library(gganimate) # allows the creation of gifs from ggplot2
 library(lsr) # includes t-test functions
-library(psych) # includes the Garcia data and the t2d function
+library(carData) # includes the Guyer data set
+library(psych) # includes the t2d function
 
 # load data
-data <- Garcia 
+data <- WeightLoss
 ```
 
 # Purpose
 
-Today's lab will guide you through the process of conducting a [One-Sample t-test](#one) and an [Independent Samples t-test](#independent). For each test, we will first go through the process of conducting the tests using the arithmetic and probability distributions in R. Then we will compare and contrast the functions in the `{psych}` and `{lsr}` packages. 
+Today's lab will guide you through the process of conducting a [One-Sample t-test](#one) and an [Independent Samples t-test](#independent). For each test, we will first go through the process of conducting the tests using the arithmetic and probability distributions in R. Then we will compare and contrast the functions in the `{stats}` and `{lsr}` packages. We will also discuss some functions in the `{psych}` package.  
 
 To quickly navigate to the desired section, click one of the following links:
 
@@ -40,32 +41,101 @@ To quickly navigate to the desired section, click one of the following links:
 
 # The Data
 
-Today we will be using data from Garcia, Schmitt, Branscombe, and Ellemers (2010) sexism study provided through the `{psych}` package. For see information about the dataset you can use `?Garcia`. In short, the `Garcia` data set measures an individuals reaction has a sample of `129` participants on `6` varaibles.
+Today we will be using data from Fox and Guyer's (1978) anonymity and cooperation study provided through the `{carData}` package. For see information about the dataset you can use `?Guyer`. In short, groups of four participants (Groups = 20; $N_{TOTAL}$ = 80) played 30 trials of the the prisoner's dillema game. The number of cooperative choices (`cooperation`) were counted out of 120 (i.e., 4 participants over 30 trials). The groups either made decisions publically or privately (`condition`). Groups were either comprised of all women or all men (`sex`).
+
+Run the following code to load the data into your global environment.
+
+```{r}
+# load data 
+data <- Guyer
+```
 
 ***
 
 # One-Sample t-test {#one}
 
-```{r}
-data_control <- data %>%
-  filter(prot2 == 0)
+Let's first imagine that we believed that people would cooperate more than 50% of the time, regardless of condition or the sex of the groups. In other words, the alternative hypothesis ($H_{1}$) is that the population mean of cooperation is not equal to `60` ($\mu ??60$). The null hypothesis ($H_{0}$) is that the population mean of cooperation is equal to 60. To test such a hypothesis, we would use a One-Sample t-test. Essentially, the one-Sample t-test is used to examine whether the mean of some group is different from some other  number.
 
-anger_mean <- mean(data_control$anger)
-anger_sd   <- sd(data_control$anger)
-anger_n    <- length(data_control$anger)
-anger_df   <- anger_n - 1
-anger_t    <- anger_mean / (anger_sd / sqrt(anger_n))
-anger_p    <- pt(q = anger_t, df = anger_df, lower.tail = FALSE) * 2
-anger_d    <- anger_mean / anger_sd
-anger_low  <- anger_mean + ((anger_sd / sqrt(anger_n)) * qt(.025, df = anger_df))
-anger_up   <- anger_mean + ((anger_sd / sqrt(anger_n)) * qt(.975, df = anger_df))
-```
+## Using Arithmetic
 
+The equation for t in a One-Sample t-test is:
+
+$\frac{\bar x - \mu}{\hat \sigma / \sqrt{N}}$
+
+Basically, we are looking at a ratio of signal ($\bar x - \mu$) to noise ($\hat \sigma / \sqrt{N}$) in our data.
+
+To make our lives easier, we will first calculate some descriptive statistics: the mean of `cooperation` in our sample (`coop_mean`), the standard deviation of `cooperation` in our sample (`coop_sd`), and the number of unique values in `cooperation` (`coop_n`). We should also calculate the degrees of freedom for our data. In a One-Sample t-test, the degrees of freedom is equal to $N - 1$.
 
 ```{r}
-t.test(x = data_control$anger, mu = 0)
-oneSampleTTest(x = data_control$anger, mu = 0)
+# calculate descriptives
+coop_mean <- mean(data$coop)
+coop_sd   <- sd(data$coop)
+coop_n    <- length(data$coop)
+
+# calculate degrees of freedoom
+coop_df   <- coop_n - 1
 ```
+
+From here, calculating the t-value is as easy as inserting our acquired values into the equation above: 
+
+$\frac{48.3 - 60}{14.29 / \sqrt{20}} = 15.12$
+
+Of course, we can also calculate this in R using the following code.
+
+```{r}
+coop_t <- (coop_mean - 60) / (coop_sd / sqrt(coop_n))
+```
+
+To get the p-value, we can use the `pt()` function. The `pt()` function takes three arguments: (1) `q` or our derived t-value, (2) `df` or the degrees of freedom of our test, and `lower.tail` or whether we want to find the cumulative probability for the upper or lower part of the distribution. To calculate a two-tailed significance test using our t-value, we would run the following code:
+
+```{r}
+coop_p <- pt(q = coop_t, df = coop_df, lower.tail = TRUE) * 2
+```
+
+We get a p-value of `0.001655805`. In other words, there is a ???. The result is multipled by `2` above because we want to be able to claim significance irrespective of whether the t-value is above or below the 50% value of `60`. As mentioned by Dr. Weston, two-tailed are, by far, the most common type of significance test. With the present data, we would not have been able to claim a significant result because the effect was in the opposite of our hypothesized direction.
+
+Let's also calculate an effect size for our statistic. Cohen's D is a very popular measure of effect size for the t-test and it tells you the size of your effect (the difference between your mean and the null hypothesis mean) in standardized units. to calculate, we just divide the difference by the standard deviation.
+
+```{r}
+coop_d <- (coop_mean - 60) / coop_sd
+```
+
+The thresholds for a small, medium, and large effect size are shown below.
+
+COHEN TABLE HERE.
+
+Finally, we can also che 95% confidence interval for our sample mean by running the following code:
+
+```{r}
+coop_low  <- coop_mean + ((coop_sd / sqrt(coop_n)) * qt(.025, df = coop_df))
+coop_up   <- coop_mean + ((coop_sd / sqrt(coop_n)) * qt(.975, df = coop_df))
+```
+
+The equations may seem like a mess, but we are essentially taking our mean and adding the sampling error of the mean multiplied by a value to give us its value at `.025`. We do the same thing at its value of `.975`.
+
+## The Functions
+
+There are two useful functions for conducting a One-Sample t-test in R. The first, is called `t.test()` and it is automatically loaded as part of the `{stats}` package when your open R. To run the t-test, you provide the function the column of the data you are interested in (e.g., `x = data$cooperation`) and the null hypothesized mu you want to compare the data against (e.g., `mu = 60`). 
+
+```{r}
+t.test(x = data$cooperation, mu = 60)
+```
+
+As we can see, you are provided the mean x, the t-value, the degrees of freedom, the p-value, and the 95% confidence interval. Unfortunately, we did not get a measure of the effect size.
+
+The second useful function for calculate One-Sample t-tests is the aptly named `oneSampleTTest` in the `{lsr}` package
+
+```{r}
+oneSampleTTest(x = data$cooperation, mu = 60)
+```
+
+It provides you all of the information that `t.test()` did, but it also includes Cohen's d. 
+
+## Interpretation and Write-Up
+
+A proper write-up for our One-Sample t-test would be something along the lines of:
+
+"Mean cooperation (*M* = 48.30, *SD* = 14.29) was substantially less than 60, *t*(19) = 3.66, *p* = .002, 95% CI [41.61, 54.97]."
 
 ***
 
@@ -117,7 +187,6 @@ ci_up   <- mean_diff + (se * qt(.975, df = df))
 t2d(t_val, n1 = group1_n, n2 =  group2_n)
 
 t.test(data_control$anger, data_protest$anger, var.equal = FALSE)
-d.robust(data, group = "prot2")
 
 independentSamplesTTest(formula = anger ~ prot2, data = data, var.equal = FALSE)
 
