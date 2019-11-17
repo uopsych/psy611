@@ -22,6 +22,7 @@ library(gganimate) # allows the creation of gifs from ggplot2
 library(lsr) # includes t-test functions
 library(carData) # includes the Guyer data set
 library(psych) # includes the t2d function
+library(here) # for finding image paths
 ```
 
 # Purpose
@@ -51,7 +52,9 @@ data <- Guyer
 
 # One-Sample t-test {#one}
 
-Let's first imagine that we believed that people would cooperate more than 50% of the time, regardless of condition or the sex of the groups. In other words, the alternative hypothesis ($H_{1}$) is that the population mean of cooperation is not equal to `60` ($\mu \neq 60$). The null hypothesis ($H_{0}$) is that the population mean of cooperation is equal to 60. To test such a hypothesis, we would use a One-Sample t-test. Essentially, the one-Sample t-test is used to examine whether the mean of some group is different from some other  number.
+![](`r here("labs", "resources", "lab8", "lab8_1.png")`)
+
+Let's first imagine that we believed that groups would cooperate more than 50% of the time, regardless of condition or the sex of the groups. In other words, the alternative hypothesis ($H_{1}$) is that the population mean of cooperation is not equal to `60` ($\mu \neq 60$). The null hypothesis ($H_{0}$) is that the population mean of cooperation is equal to 60. To test such a hypothesis, we would use a One-Sample t-test. Essentially, the one-Sample t-test is used to examine whether the mean of some group is different from some other  number.
 
 ## Using Arithmetic
 
@@ -60,6 +63,8 @@ The equation for t in a One-Sample t-test is:
 $\frac{\bar X - \mu}{\hat \sigma / \sqrt{N}}$
 
 Basically, we are looking at a ratio of signal ($\bar x - \mu$) to noise ($\hat \sigma / \sqrt{N}$) in our data.
+
+![](`r here("labs", "resources", "lab8", "lab8_2.png")`)
 
 To make our lives easier, we will first calculate some descriptive statistics: the mean of `cooperation` in our sample (`coop_mean`), the standard deviation of `cooperation` in our sample (`coop_sd`), and the number of unique values in `cooperation` (`coop_n`). We should also calculate the degrees of freedom for our data. In a One-Sample t-test, the degrees of freedom is equal to $N - 1$.
 
@@ -89,7 +94,11 @@ To get the p-value, we can use the `pt()` function. The `pt()` function takes th
 coop_p <- pt(q = abs(coop_t), df = coop_df, lower.tail = FALSE) * 2
 ```
 
-We get a p-value of `0.001655805`. In other words, there is a ???. The result is multipled by `2` above because we want to be able to claim significance irrespective of whether the t-value is above or below the 50% value of `60`. As mentioned by Dr. Weston, two-tailed are, by far, the most common type of significance test. With the present data, we would not have been able to claim a significant result because the effect was in the opposite of our hypothesized direction. We specify `lower.tail = FALSE` here because we used the absolute value of the t-value. If you use a negative number, you will have to change `lower.tail = FALSE` to `lower.tail = TRUE`.
+We get a p-value of `0.001655805`. In other words, there is a ???. 
+
+![](`r here("labs", "resources", "lab8", "lab8_4.png")`)
+
+The result is multipled by `2` above because we want to be able to claim significance irrespective of whether the t-value is above or below the 50% value of `60`. As mentioned by Dr. Weston, two-tailed are, by far, the most common type of significance test. With the present data, we would not have been able to claim a significant result because the effect was in the opposite of our hypothesized direction. We specify `lower.tail = FALSE` here because we used the absolute value of the t-value. If you use a negative number, you will have to change `lower.tail = FALSE` to `lower.tail = TRUE`.
 
 Let's also calculate an effect size for our statistic. Cohen's D is a very popular measure of effect size for the t-test and it tells you the size of your effect (the difference between your mean and the null hypothesis mean) in standardized units. to calculate, we just divide the difference by the standard deviation.
 
@@ -109,6 +118,8 @@ coop_up   <- coop_mean + ((coop_sd / sqrt(coop_n)) * qt(.975, df = coop_df))
 ```
 
 The equations may seem like a mess, but we are essentially taking our mean and adding the sampling error of the mean multiplied by a value to give us its value at `.025`. We do the same thing at its value of `.975`.
+
+![](`r here("labs", "resources", "lab8", "lab8_5.png")`)
 
 ## Using Functions
 
@@ -138,6 +149,8 @@ A proper write-up for our One-Sample t-test would be something along the lines o
 
 # Independent Sample's t-test {#independent}
 
+![](`r here("labs", "resources", "lab8", "lab8_6.png")`)
+
 Okay, but what if we wanted to compare the cooperation when decisions of whether to cooperate were made anonymously versus the cooperation when decisions of whether to cooperate or not were made publically. I suspect, that mean cooperation will be greater when decisions about cooperation are made publically. The alternative hypothesis ($H_{1}$) would be that the mean cooperation in the public group is not equal to the mean cooperation in the anonymous group.. The null hypothesis ($H_{0}$) is that the mean of the two are equal. Here we will want to use an independent-samples t-test because we have, well, independent sample means.
 
 ## Using Arithmetic
@@ -151,6 +164,8 @@ data_public <- data %>%
 data_anonymous <- data %>%
   filter(condition == "anonymous")
 ```
+
+![](`r here("labs", "resources", "lab8", "lab8_7.png")`)
 
 Again, let's start by calculating descriptive statistics for both groups
 
@@ -171,6 +186,8 @@ Now let's calculate the t-statistic. We are using a similar equation as before, 
 $\frac{\bar X_1 - \bar X_2}{\sqrt{\frac{\hat \sigma_1^2 }{N_1}+\frac{\hat \sigma_2^2 }{N_2}}}$
 
 I describe how to calculate the standard error using Welch's t-test method here instead of the germinal Student's t-test method. Welch's t-test is robust against unequal variances and sample sizes in each group; Student's t-test is not. When the variances and/or sample sizes are equal, Welch's t-test will be very close to Student's t-test, so there is really no need to ever use Student's t-test (other than cases with very small sample sizes). The function for independent sample's t-test in `{stats}` and in `{lsr}` both use a Welch's t-test as default. 
+
+![](`r here("labs", "resources", "lab8", "lab8_8.png")`)
 
 ```{r}
 # calculate
@@ -250,9 +267,64 @@ The `formula` argument for `independentSamplesTTest` may look unfamiliar. The ar
 
 You are welcome to work with a partner or in a small group of 2-3 people. Please feel free to ask the lab leader any questions you might have!
 
-The minihacks all use the `movies` data set from the `{yarrr}` package.
+## Minihack 1: Trouble Shooting
 
-## Minihack 1: Histograms
+My advisor told me that I had multiple errors in my code. She told me the line numbers where the errors and what the correct values should be, but she thought it would be a good learning experience for me to try to solve them myself. I need your help. Fix the errors in the following code.
 
-1. Create a histogram of domestic and international revenue combined (`revenue.all`). Is it normally distributed?
+Error 1:
+```{r}
+ci_lower <- my_mean + ((my_sd / sqrt(my_n)) * qnorm(.025, 19, -.5))
+ci_upper <- my_mean + ((my_sd / sqrt(my_n)) * qnorm(.975, 19, -.5))
+```
+
+Error 2:
+```{r}
+p_val <- pt(q = 3.10, df = 19, lower.tail = TRUE) * 2
+```
+
+
+
+## Minihack 3: Independant Sample's t-test
+
+The researchers claim that the difference is significant at *p* = .043 using a two-tailed test, but you don't think it is. They were unwilling to share the data with you, but the following values were in the manuscript.
+
+$\hat{\mu}_{Group 1}$ = 16.56
+
+$\hat{\mu}_{Group 2}$ = 20.01
+
+$\hat{\sigma}_{Group 1}$ = 5.44
+
+$\hat{\sigma}_{Group 2}$ = 3.12
+
+$n_{Group 1}$ = 10
+
+$n_{Group 2}$ = 21
+
+1. Calculate the t-value for the difference between the two means.
+
+```{r}
+mean_diff <- 16.56 - 20.01
+se        <- sqrt(((5.44^2) / 10) + ((3.12^2) / 21))
+t_val     <- mean_diff / se
+```
+
+1. Is the difference between the two means significant? *Note.* You will have to calculate the degrees of freedom
+
+```{r}
+# calculate degrees of freedom
+df_num   <- ((5.44^2 / 10) + (3.12^2 / 21))^2
+df_den_1 <- ((5.44^2) / 10)^2 / (10 - 1) 
+df_den_2 <- ((3.12^2) / 21)^2 / (21 - 1)
+df <- df_num / (df_den_1 + df_den_2)
+
+# calculate p-value
+pt(q = abs(t_val), df = df, lower.tail = FALSE) * 2
+```
+
+1. Why do you think the researchers got the p-value they did?
+
+```{r}
+pt(q = abs(t_val), df = df, lower.tail = FALSE)
+```
+
 
