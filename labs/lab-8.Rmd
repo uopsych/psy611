@@ -27,7 +27,7 @@ library(here) # for finding image paths
 
 # Purpose
 
-Today's lab will guide you through the process of conducting a [One-Sample t-test](#one) and an [Independent Samples t-test](#independent). For each test, we will first go through the process of conducting the tests using the arithmetic and probability distributions in R. Then we will compare and contrast the functions in the `{stats}` and `{lsr}` packages. We will also discuss some functions in the `{psych}` package.  
+Today's lab will guide you through the process of conducting a [One-Sample t-test](#one) and an [Independent Samples t-test](#independent). For each test, we will first go through the process of conducting the tests using the arithmetic and probability distributions in R. Then we will compare and contrast the functions in the `{stats}` and `{lsr}` packages.
 
 To quickly navigate to the desired section, click one of the following links:
 
@@ -261,6 +261,12 @@ independentSamplesTTest(formula = cooperation ~ condition, data = data, var.equa
 
 The `formula` argument for `independentSamplesTTest` may look unfamiliar. The argument is using `formula` syntax, which you will be use a lot when you start conducting multiple regression models. Briefly, whatever comes on the left of the tilde (`~`) is the dependent variable (in this case `cooperation`) and whatever comes on the right of the tilde is the independent variable (in this case `condition`).
 
+## Interpretation and Write-Up
+
+A proper write-up for our Independent Sample t-test would be:
+
+"Cooperation in the public condition (*M* = 55.70, *SD* = 14.84) was much greater than cooperation in the anonymous condition (*M* = 40.90, *SD* = 9.42), *t*(15.24) = 2.66, *p* = .018, 95% CI [-2.96, 26.64].
+
 ***
 
 # Minihacks {#minihacks}
@@ -272,7 +278,7 @@ You are welcome to work with a partner or in a small group of 2-3 people. Please
 My advisor told me that I had multiple errors in my code. She told me the line numbers where the errors and what the correct values should be, but she thought it would be a good learning experience for me to try to solve them myself. I need your help. Fix the errors in the following code.
 
 Error 1:
-```{r}
+```{r, eval=FALSE}
 ci_lower <- my_mean + ((my_sd / sqrt(my_n)) * qnorm(.025, 19, -.5))
 ci_upper <- my_mean + ((my_sd / sqrt(my_n)) * qnorm(.975, 19, -.5))
 ```
