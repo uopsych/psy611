@@ -526,8 +526,15 @@ ggerrorplot(school_new, x = "Gender", y = "friends",
             desc_stat = "mean_ci", color = "Gender", 
             ylab = "Hours spent with friends (per week)")
 ```
+---
 
 
+```{r message = F, warning = F}
+ggerrorplot(school_new, x = "Gender", y = "friends", 
+            desc_stat = "mean_ci", color = "Gender", 
+            ylim=range(school_new$friends, na.rm=T),
+            ylab = "Hours spent with friends (per week)")
+```
 ---
 
 class: inverse

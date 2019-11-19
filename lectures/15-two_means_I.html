@@ -662,8 +662,18 @@ ggerrorplot(school_new, x = "Gender", y = "friends",
 ```
 
 ![](15-two_means_I_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+---
 
 
+
+```r
+ggerrorplot(school_new, x = "Gender", y = "friends", 
+            desc_stat = "mean_ci", color = "Gender", 
+            ylim=range(school_new$friends, na.rm=T),
+            ylab = "Hours spent with friends (per week)")
+```
+
+![](15-two_means_I_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
 ---
 
 class: inverse
