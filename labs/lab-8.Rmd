@@ -21,7 +21,6 @@ library(tidyverse) # includes dplyr and ggplot2 functions
 library(gganimate) # allows the creation of gifs from ggplot2
 library(lsr) # includes t-test functions
 library(carData) # includes the Guyer data set
-library(psych) # includes the t2d function
 library(here) # for finding image paths
 ```
 
@@ -39,7 +38,9 @@ To quickly navigate to the desired section, click one of the following links:
 
 # The Data
 
-Today we will be using data from Fox and Guyer's (1978) anonymity and cooperation study provided through the `{carData}` package. For see information about the dataset you can use `?Guyer`. In short, groups of four participants (Groups = 20; $N_{TOTAL}$ = 80) played 30 trials of the the prisoner's dillema game. The number of cooperative choices (`cooperation`) were counted out of 120 (i.e., 4 participants over 30 trials). The groups either made decisions publically or privately (`condition`). Groups were either comprised of all women or all men (`sex`).
+![](`r here("labs", "resources", "lab8", "lab8_9.png")`)
+
+Today we will be analyzing data from Fox and Guyer's (1978) anonymity and cooperation study. The data is included in the `{carData}` package and you can see information about the dataset using `?Guyer`. Groups of four participants (Groups = 20; $N_{TOTAL}$ = 80) each played 30 trials of the the prisoner's dillema game. The number of cooperative choices (`cooperation`) were counted out of 120 (i.e., cooperative choices made by 4 participants over 30 trials). The groups either made decisions publically or privately (`condition`) and groups were either comprised of all women or all men (`sex`).
 
 Run the following code to load the data into your global environment.
 
@@ -54,19 +55,21 @@ data <- Guyer
 
 ![](`r here("labs", "resources", "lab8", "lab8_1.png")`)
 
-Let's first imagine that we believed that groups would cooperate more than 50% of the time, regardless of condition or the sex of the groups. In other words, the alternative hypothesis ($H_{1}$) is that the population mean of cooperation is not equal to `60` ($\mu \neq 60$). The null hypothesis ($H_{0}$) is that the population mean of cooperation is equal to 60. To test such a hypothesis, we would use a One-Sample t-test. Essentially, the one-Sample t-test is used to examine whether the mean of some group is different from some other  number.
+A One-Sample t-test tests whether some obtained sample mean is significantly different from a value specified by a researcher. Looking at the `Guyer` data, we might hypothesize that groups would cooperate more than 50% of the time (i.e., groups would cooperate on more than 60 trials). As such, the alternative hypothesis ($H_{1}$) would be that the population mean of cooperation is not equal to `60` ($\mu \neq 60$), whereas the null hypothesis ($H_{0}$) would be that the population mean of cooperation is equal to `60` ($\mu = 60$).
+
+You might have noticed that our null hypothesis was that the mean cooperation was not equal to `60` ($\mu \neq 60$), rather than mean cooperation being greater than `60` ($\mu > 60$). This is because we plan to run a two-sided t-test. This means that we will be able to declare significance if the mean cooperation is sufficiently greater than `60` and if the mean cooperation is sufficiently less than `60`. Two-sided t-tests are far more common than one-sided t-tests. 
 
 ## Using Arithmetic
 
-The equation for t in a One-Sample t-test is:
+All statistical tests are essentially looking at a ratio of signal to noise. The One-sample t-test is no different. 
 
-$\frac{\bar X - \mu}{\hat \sigma / \sqrt{N}}$
+Let's look at the equation:
 
-Basically, we are looking at a ratio of signal ($\bar x - \mu$) to noise ($\hat \sigma / \sqrt{N}$) in our data.
+$$\frac{\bar X - \mu}{\hat \sigma / \sqrt{N}}$$
 
-![](`r here("labs", "resources", "lab8", "lab8_2.png")`)
+The numerator ($\bar x - \mu$) is the "signal", or the difference between our sample mean and the value we are comparing it against, and the denominator ($\hat \sigma / \sqrt{N}$) is the "noise", the inaccuracy (standard error) of our acquired mean.
 
-To make our lives easier, we will first calculate some descriptive statistics: the mean of `cooperation` in our sample (`coop_mean`), the standard deviation of `cooperation` in our sample (`coop_sd`), and the number of unique values in `cooperation` (`coop_n`). We should also calculate the degrees of freedom for our data. In a One-Sample t-test, the degrees of freedom is equal to $N - 1$.
+To make our lives easier, we will first calculate some descriptive statistics: (1) the mean of `cooperation` in our sample (`coop_mean`), (2) the standard deviation of `cooperation` in our sample (`coop_sd`), and (3) the number of unique values in `cooperation` (`coop_n`). We should also calculate the degrees of freedom for our data (`coop_df`). In a One-Sample t-test, the degrees of freedom is equal to $N - 1$.
 
 ```{r}
 # calculate descriptives
@@ -76,86 +79,129 @@ coop_n    <- length(data$coop)
 
 # calculate degrees of freedoom
 coop_df   <- coop_n - 1
+
+# look at the values
+c("mean" = coop_mean,
+  "sd"   = coop_sd,
+  "n"    = coop_n,
+  "df"   = coop_df)
 ```
 
-From here, calculating the t-value is as easy as inserting our acquired values into the equation above: 
+As we can now see, the mean value of `cooperation` is `48.30`.
 
-$\frac{48.3 - 60}{14.29 / \sqrt{20}} = 15.12$
+![](`r here("labs", "resources", "lab8", "lab8_2.png")`)
 
-Of course, we can also calculate this in R using the following code.
+It looks like the average cooperation was actually *less* than 60. But this could simply be due to chance. Let's calculate how probable obtaining a result at least as extreme as we did here is when the null hypothesis is, in fact, correct.
+
+To do so, we will first calculate the t-statistic, which is as easy as inserting our acquired descriptive statistics into the equation above. 
+
+$$\frac{48.3 - 60}{14.29 / \sqrt{20}} = 15.12$$
+
+Of course, we can also calculate this in R using the following code:
 
 ```{r}
+# calculate the t-statistic
 coop_t <- (coop_mean - 60) / (coop_sd / sqrt(coop_n))
+
+# print the t-statistic
+c("t_stat" = coop_t)
 ```
 
-To get the p-value, we can use the `pt()` function. The `pt()` function takes three arguments: (1) `q` or our derived t-value, (2) `df` or the degrees of freedom of our test, and `lower.tail` or whether we want to find the cumulative probability for the upper or lower part of the distribution. To calculate a two-tailed significance test using our t-value, we would run the following code:
+The t-statistic (`-3.662473`) is negative because our acquired mean was less than the mean is was tested against. If the acquired mean was greater than value it was tested against, it would be positive. It is completely fine to have a negative t-statistic and you treat it exactly the same as a positive t-statistic.
+
+Next, we can use the `pt()` function to calculate the probability of getting a t-statistic of `-3.662473` or lesser from a t-distribution with `9` degrees of freedom when the null hypothesis is true. The `pt()` function takes three arguments: (1) `q` (the t-statistic), (2) `df` (the degrees of freedom), and (3) `lower.tail` (i.e., whether we want to find the cumulative probability for the upper or lower part of the distribution). To calculate a two-tailed significance test using our t-statistic, we would run the following code:
 
 ```{r}
 coop_p <- pt(q = abs(coop_t), df = coop_df, lower.tail = FALSE) * 2
 ```
 
-We get a p-value of `0.001655805`. In other words, there is a ???. 
+We get a p-value of `.001655805`. In other words, there was an approximately `.17`% chance of getting a t-value equal to our lesser than the t-value we got when the null hypothesis is true.  
+
+The result is multipled by `2` above because we running a two-sided t-test and wanted to be able to claim significance irrespective of whether the t-statistic was above or below the 50% value of `60`. 
 
 ![](`r here("labs", "resources", "lab8", "lab8_4.png")`)
 
-The result is multipled by `2` above because we want to be able to claim significance irrespective of whether the t-value is above or below the 50% value of `60`. As mentioned by Dr. Weston, two-tailed are, by far, the most common type of significance test. With the present data, we would not have been able to claim a significant result because the effect was in the opposite of our hypothesized direction. We specify `lower.tail = FALSE` here because we used the absolute value of the t-value. If you use a negative number, you will have to change `lower.tail = FALSE` to `lower.tail = TRUE`.
+We could have run a one-sided t-test, but, as shown in the image below, we would not have been able to conclude whether our result was significant or not.
 
-Let's also calculate an effect size for our statistic. Cohen's D is a very popular measure of effect size for the t-test and it tells you the size of your effect (the difference between your mean and the null hypothesis mean) in standardized units. to calculate, we just divide the difference by the standard deviation.
+![](`r here("labs", "resources", "lab8", "lab8_3.png")`)
+
+I would also note that we took the absolute value (`abs()`) of the t-statistic so that we could use `lower.tail = FALSE`. If we had  provided a negative t-statistic, we would have had to use `lower.tail = TRUE`. 
+
+Let's also calculate an effect size for our statistic. Cohen's D is a very popular measure of effect size for the t-test and it tells you the size of your effect (the difference between the acquired mean and the value specified) in standardized units. To calculate, we just divide the difference by the standard deviation.
 
 ```{r}
+# calculate Cohen's D
 coop_d <- (coop_mean - 60) / coop_sd
+
+# print Cohen's D
+coop_d
 ```
+
+Typically, we present a Cohen's D value as a positive number. Cohen's D being positive or negative simply reflects whether the acquired mean was greater than the specified mean or lesser than the specified mean. 
 
 The thresholds for a small, medium, and large effect size are shown below.
 
-COHEN TABLE HERE.
+```{r, echo = FALSE}
+knitr::kable(data.frame("d-value" = c(.2, .5, .8),
+                        "interpretation" = c("small", "medium", "large")))
+```
+
+Interpreting our Cohen's D value using the threshold from the table, we might say that there was a large difference (`-0.82`) between our acquired mean (`48.30`) and the mean we were comparing it against (`60.00`). 
 
 Finally, we can also che 95% confidence interval for our sample mean by running the following code:
 
 ```{r}
+# calculate 95% confidence interval
 coop_low  <- coop_mean + ((coop_sd / sqrt(coop_n)) * qt(.025, df = coop_df))
 coop_up   <- coop_mean + ((coop_sd / sqrt(coop_n)) * qt(.975, df = coop_df))
+
+# print 95% confidence interval
+c("95% CI Lower" = coop_low,
+  "95% CI Upper" = coop_up)
 ```
 
-The equations may seem like a mess, but we are essentially taking our mean and adding the sampling error of the mean multiplied by a value to give us its value at `.025`. We do the same thing at its value of `.975`.
+The code may seem like a bit of a mess, but we are just taking our acquired mean (`coop_mean`) and adding to it the standard error of the mean (`(coop_sd / sqrt(coop_n)`) timesed by the t-statistic or lesser that corresponds to a probability of `.025` and `.975` (`qt(.025, df = coop_df)` and `qt(.975, df = coop_df)`)
 
 ![](`r here("labs", "resources", "lab8", "lab8_5.png")`)
 
+The image above showed our acquired mean with a 95% confidence interval.
+
+
 ## Using Functions
 
-There are two useful functions for conducting a One-Sample t-test in R. The first, is called `t.test()` and it is automatically loaded as part of the `{stats}` package when your open R. To run the t-test, you provide the function the column of the data you are interested in (e.g., `x = data$cooperation`) and the null hypothesized mu you want to compare the data against (e.g., `mu = 60`). 
+There are two useful functions for conducting a One-Sample t-test in R. The first, is called `t.test()` and it is automatically loaded as part of the `{stats}` package when you first open R. To run a One-Sample t-test using `t.test()`, you provide the function the column of the data you are interested in (e.g., `x = data$cooperation`) and the mean value you want to compare the data against (e.g., `mu = 60`). 
 
 ```{r}
 t.test(x = data$cooperation, mu = 60)
 ```
 
-As we can see, you are provided the mean x, the t-value, the degrees of freedom, the p-value, and the 95% confidence interval. Unfortunately, we did not get a measure of the effect size.
+As part of the output, you are provided the mean of cooperation, the t-statistic, the degrees of freedom, the p-value, and the 95% confidence interval. Unfortunately, we did not get a measure of the effect size.
 
-The second useful function for calculate One-Sample t-tests is the aptly named `oneSampleTTest` in the `{lsr}` package
+The `oneSampleTTest()` function from the the `{lsr}` package includes Cohen's d automatically, but you have to load the package separately.
 
 ```{r}
 oneSampleTTest(x = data$cooperation, mu = 60)
 ```
 
-It provides you all of the information that `t.test()` did, but it also includes Cohen's d. 
+As you can see from the output, it provides you all of the information that `t.test()` did, but it also includes Cohen's d. 
 
 ## Interpretation and Write-Up
 
-A proper write-up for our One-Sample t-test would be something along the lines of:
+An example of how to write-up a one-sample t-test is included below.
 
 "The mean cooperation score of 48.30 (95% CI [41.61, 54.97]) was substantially less than 60, *t*(19) = 3.66, *p* = .002."
 
 ***
 
-# Independent Sample's t-test {#independent}
+# Independent Samples t-test {#independent}
 
 ![](`r here("labs", "resources", "lab8", "lab8_6.png")`)
 
-Okay, but what if we wanted to compare the cooperation when decisions of whether to cooperate were made anonymously versus the cooperation when decisions of whether to cooperate or not were made publically. I suspect, that mean cooperation will be greater when decisions about cooperation are made publically. The alternative hypothesis ($H_{1}$) would be that the mean cooperation in the public group is not equal to the mean cooperation in the anonymous group.. The null hypothesis ($H_{0}$) is that the mean of the two are equal. Here we will want to use an independent-samples t-test because we have, well, independent sample means.
+Okay. But what if we wanted to compare the mean level of cooperation when decisions about cooperation were made publically versus the mean level of cooperation when decisions about cooperation were made anonymousely. In that case, we would use an independant samples t-test, which compares the means of well, two independent samples. For instance, I might suspect that the mean cooperation will be greater when decisions about cooperation are made publically rather than anonymously. The alternative hypotehsis ($H_{1}$) would be that the mean cooperation in the public group is not equal to the mean cooperation in the anonymous group. The null hypothesis ($H_{0}$) would be that the means of the two groups are equal.
 
 ## Using Arithmetic
 
-Let's start by splitting our data frame into two data frames according to whether the groups made decisions anonymously or publically. 
+To calculate an independent samples t-test by hand, we will want to start by splitting our data frame into two data frames according to whether the groups made decisions anonymously or publically. 
 
 ```{r}
 data_public <- data %>%
@@ -165,9 +211,7 @@ data_anonymous <- data %>%
   filter(condition == "anonymous")
 ```
 
-![](`r here("labs", "resources", "lab8", "lab8_7.png")`)
-
-Again, let's start by calculating descriptive statistics for both groups
+Then, as we did for the One Sample t-test, we want to calculate descriptive statistics for both of the conditions.
 
 ```{r}
 # calculate group1 values
@@ -179,13 +223,25 @@ group1_n     <- length(data_public$cooperation)
 group2_mean  <- mean(data_anonymous$cooperation)
 group2_sd    <- sd(data_anonymous$cooperation)
 group2_n     <- length(data_anonymous$cooperation)
+
+# print descriptive statistics
+list("public"    = c("mean" = group1_mean,
+                     "sd"   = group1_sd,
+                     "n"    = group1_n),
+     "anonymous" = c("mean" = group2_mean,
+                     "sd"   = group2_sd,
+                     "n"    = group2_n))
 ```
 
-Now let's calculate the t-statistic. We are using a similar equation as before, but for the numerator we will be calculating the difference between the groups and for the denominatory we will be calculating a standard error of the difference between the means.
+As we can see from the statistics, the number of groups in each condition was equal. The mean (`55.70`) and standard deviation (`14.85`) of cooperation in the public condition were both larger than the mean (`40.90`) and standard deviation (`9.42`) of cooperation in the anonymous group. 
 
-$\frac{\bar X_1 - \bar X_2}{\sqrt{\frac{\hat \sigma_1^2 }{N_1}+\frac{\hat \sigma_2^2 }{N_2}}}$
+![](`r here("labs", "resources", "lab8", "lab8_7.png")`)
 
-I describe how to calculate the standard error using Welch's t-test method here instead of the germinal Student's t-test method. Welch's t-test is robust against unequal variances and sample sizes in each group; Student's t-test is not. When the variances and/or sample sizes are equal, Welch's t-test will be very close to Student's t-test, so there is really no need to ever use Student's t-test (other than cases with very small sample sizes). The function for independent sample's t-test in `{stats}` and in `{lsr}` both use a Welch's t-test as default. 
+To calculate the t-statistic, we will use a similar equation to that used for the one-sample t-test, but the numerator will be the difference between the condition means and for the denominator will be the standard error of the difference between the means.
+
+$$\frac{\bar X_1 - \bar X_2}{\sqrt{\frac{\hat \sigma_1^2 }{N_1}+\frac{\hat \sigma_2^2 }{N_2}}}$$
+
+This equation is actually the equation for conducting a Welch's t-test. Unlike the original Student's t-test, the Welch's t-test does not assume equal variance or sample sizes. However, when the variances and sample sizes are equal, Welch's t-test will produce t-statistic that are nearly indistinguishable from the t-statistic produced by the Student's t-test. There is really no need to ever use Student's t-test (other than cases with very small sample sizes). The functions for the independent samples t-test in `{stats}` and in `{lsr}` both use a Welch's t-test by default. 
 
 ![](`r here("labs", "resources", "lab8", "lab8_8.png")`)
 
@@ -193,12 +249,14 @@ I describe how to calculate the standard error using Welch's t-test method here 
 # calculate
 mean_diff <- group1_mean - group2_mean
 se        <- sqrt(((group1_sd^2) / group1_n) + ((group2_sd^2) / group2_n))
-t_val     <- mean_diff / se
+t_stat     <- mean_diff / se
 ```
 
-Next, we should calculate a p-value for this t-value. However, to do so we need to calculate the degrees of freedom, which for a Welch's t-test is quite the task. The equation for the degrees of freedom is:
+Next, we will calculate a p-value for the t-statistic. The code for calculating the p-value is exactly the same as above, but the code for calculating the degrees of freedom of the t-test is a bit more involved.
 
-$\mbox{df} = \frac{ ({\hat{\sigma}_1}^2 / N_1 + {\hat{\sigma}_2}^2 / N_2)^2 }{  ({\hat{\sigma}_1}^2 / N_1)^2 / (N_1 -1 )  + ({\hat{\sigma}_2}^2 / N_2)^2 / (N_2 -1 ) }$
+The equation for the degrees of freedom is:
+
+$$\mbox{df} = \frac{ ({\hat{\sigma}_1}^2 / N_1 + {\hat{\sigma}_2}^2 / N_2)^2 }{  ({\hat{\sigma}_1}^2 / N_1)^2 / (N_1 -1 )  + ({\hat{\sigma}_2}^2 / N_2)^2 / (N_2 -1 ) }$$
 
 First, we can calculate the numerator.
 
@@ -206,7 +264,7 @@ First, we can calculate the numerator.
 df_num   <- ((group1_sd^2 / group1_n) + (group2_sd^2 / group2_n))^2
 ```
 
-Then, we can calculate both sides of the denominatory.
+Then, we can calculate both sides of the denominator.
 ```{r}
 df_den_1 <- ((group1_sd^2) / group1_n)^2 / (group1_n - 1) 
 df_den_2 <- ((group2_sd^2) / group2_n)^2 / (group2_n - 1)
@@ -215,30 +273,36 @@ df_den_2 <- ((group2_sd^2) / group2_n)^2 / (group2_n - 1)
 And, finally, we can calculate our degrees of freedom
 
 ```{r}
+# calculate degrees of freedom
 df <- df_num / (df_den_1 + df_den_2)
+
+# print out the degrees of freedom
+df
 ```
 
-You might notice that our degrees of freedom is not a whole number, and that is because it is an estimate using both of our groups. It is not unheard of for people to use the unadultered number for calculation and then round the df to a whole number when reporting the results. 
-
-In any case, now that we have our t-value and degrees of freedom, we can calculate a p-value. The code is identical to that which we used before.
+You might notice that our degrees of freedom is not a whole number, and that is because it is an estimate using both of our conditions. In any case, now that we have our t-statistic and degrees of freedom, we can calculate a p-value using the same code as before
 
 ```{r}
-p_val <- pt(q = abs(t_val), df = df, lower.tail = FALSE) * 2
+# calculate p-value
+p_val <- pt(q = abs(t_stat), df = df, lower.tail = FALSE) * 2
+
+# print p-value
+p_val
 ```
 
-Let's also calculate a Cohen's d. 
+Looks like the probability of obtaining a difference in means of this size, when the null hypothesis is true, is 1.76%.
+
+The code for calculating Cohen's d is a bit more complex than what we used above, but, again, we are simply deriving the difference in means in standardized units.
 
 ```{r}
-d_val <- (t_val * sqrt((1 / group1_n) + (1 / group2_n)))
+# calculate cohen's d
+d_val <- mean_diff / sqrt((group1_sd^2 + group2_sd^2) / 2)
+
+# print cohen's d
+d_val
 ```
 
-This code is just a shortcut for calculating Cohen's d. You can also use the difference in means and the standard deviations as before to calculate Cohen's d. 
-
-```{r}
-mean_diff / sqrt((group1_sd^2 + group2_sd^2) / 2)
-```
-
-Finally, let's calculate the confidence intervals.
+Looks like the cooperation was decisions were made publically was far higher than the cooperation when decisions were made anonymously.
 
 ```{r}
 ci_low <- mean_diff + (se * qt(.025, df = df))
@@ -247,19 +311,19 @@ ci_up  <- mean_diff + (se * qt(.975, df = df))
 
 ## Using Functions
 
-As with the one-sample t-test, we use the `t.test()` function to conduct an independent sample t-test using the built-in `{stats}` package:
+As with the one-sample t-test, we can use the `t.test()` function from the the built-in `{stats}` package to conduct an independent samples t-test. 
 
 ```{r}
-t.test(data_public$cooperation, data_anonymous$cooperation, var.equal = FALSE)
+t.test(data_public$cooperation, data_anonymous$cooperation)
 ```
 
 We can also use the `independentSamplesTTest` function in the `{lsr}` package to get the output with Cohen's d included. 
 
 ```{r}
-independentSamplesTTest(formula = cooperation ~ condition, data = data, var.equal = FALSE)
+independentSamplesTTest(formula = cooperation ~ condition, data = data)
 ```
 
-The `formula` argument for `independentSamplesTTest` may look unfamiliar. The argument is using `formula` syntax, which you will be use a lot when you start conducting multiple regression models. Briefly, whatever comes on the left of the tilde (`~`) is the dependent variable (in this case `cooperation`) and whatever comes on the right of the tilde is the independent variable (in this case `condition`).
+The `formula` argument for `independentSamplesTTest` may look unfamiliar to some of you. The `formula` argument is using `formula` syntax, which you will use a lot when you start analyzing data using multiple regression models. In brief, whatever comes on the left of the tilde (`~`) is the dependent variable (in this case, `cooperation`) and whatever comes on the right of the tilde is the independent variable (in this case, `condition`).
 
 ## Interpretation and Write-Up
 
@@ -275,62 +339,115 @@ You are welcome to work with a partner or in a small group of 2-3 people. Please
 
 ## Minihack 1: Trouble Shooting
 
-My advisor told me that I had multiple errors in my code. She told me the line numbers where the errors and what the correct values should be, but she thought it would be a good learning experience for me to try to solve them myself. I need your help. Fix the errors in the following code.
+My advisor told me that I had multiple errors in my code. She told me the line numbers where the errors are, but she thought it would be a good learning experience for me to try to solve them myself. I need your help. Fix the errors in the following chunks of code.
 
 Error 1:
+
+I am trying to calculate the 95% confidence interval for my mean. I keep getting an error that says `qnorm()` is not working.
+
 ```{r, eval=FALSE}
-ci_lower <- my_mean + ((my_sd / sqrt(my_n)) * qnorm(.025, 19, -.5))
-ci_upper <- my_mean + ((my_sd / sqrt(my_n)) * qnorm(.975, 19, -.5))
+ci_lower <- 20 + ((5 / sqrt(120)) * qnorm(.025, 19, -.5))
+ci_upper <- 20 + ((5 / sqrt(120)) * qnorm(.975, 19, -.5))
 ```
 
 Error 2:
-```{r}
+
+I am trying to calculate the p-value for a t-value of 3.10, but I keep getting p-value that is greater than 1 (which I think is highly unlikely).
+
+```{r, eval = FALSE}
 p_val <- pt(q = 3.10, df = 19, lower.tail = TRUE) * 2
 ```
 
+Error 3:
 
+I prefer `t.test()` over `independentSamplesTTest()` because I'm an R purist, but I wanted to calculate a Cohen's d value using the `t2d()` function in the `{psych}` package. I don't think it is working properly. I have a t-statistic of `5.12`and the sample size for my two groups is `15` and `22`.
 
-## Minihack 3: Independant Sample's t-test
+```{r, eval = FALSE}
+# load psych
+library(psych)
 
-The researchers claim that the difference is significant at *p* = .043 using a two-tailed test, but you don't think it is. They were unwilling to share the data with you, but the following values were in the manuscript.
-
-$\hat{\mu}_{Group 1}$ = 16.56
-
-$\hat{\mu}_{Group 2}$ = 20.01
-
-$\hat{\sigma}_{Group 1}$ = 5.44
-
-$\hat{\sigma}_{Group 2}$ = 3.12
-
-$n_{Group 1}$ = 10
-
-$n_{Group 2}$ = 21
-
-1. Calculate the t-value for the difference between the two means.
-
-```{r}
-mean_diff <- 16.56 - 20.01
-se        <- sqrt(((5.44^2) / 10) + ((3.12^2) / 21))
-t_val     <- mean_diff / se
+# calculate cohen's d
+t2d(t = 5.12, n = 15, n1 = 22)
 ```
 
-1. Is the difference between the two means significant? *Note.* You will have to calculate the degrees of freedom
+## Minihack 2: Using Arithmetic
+
+You are reviewing a manuscript that claims people who were assigned to use a light editor theme in R Studio wrote better code than people who were assigned to use a dark editor theme in R Studio. Better code was operationalized as performance on a coding test (scored out of 25). The researchers state that the difference is significant at *p* = .043 (two-tailed), but you have your doubts. The researchers are unwilling to share the data with you, but the following values were in the manuscript.
+
+$\hat{\mu}_{DarkTheme}$ = 16.56
+
+$\hat{\mu}_{LightTheme}$ = 20.01
+
+$\hat{\sigma}_{DarkTheme}$ = 5.44
+
+$\hat{\sigma}_{LightTheme}$ = 3.12
+
+$n_{DarkTheme}$ = 10
+
+$n_{LightTheme}$ = 21
+
+1. Calculate the t-statistic for the difference between the two means.
+
+```{r}
+mean_diff <- 20.01 - 16.56
+se        <- sqrt(((3.12^2) / 21) + ((5.44^2) / 10))
+t_stat    <- mean_diff / se
+```
+
+2. Is the difference between the two means significant? *Note.* You will have to calculate the degrees of freedom
 
 ```{r}
 # calculate degrees of freedom
-df_num   <- ((5.44^2 / 10) + (3.12^2 / 21))^2
-df_den_1 <- ((5.44^2) / 10)^2 / (10 - 1) 
-df_den_2 <- ((3.12^2) / 21)^2 / (21 - 1)
+df_num   <- ((3.12^2 / 21) + (5.44^2 / 10))^2
+df_den_1 <- ((3.12^2) / 21)^2 / (21 - 1)
+df_den_2 <- ((5.44^2) / 10)^2 / (10 - 1) 
 df <- df_num / (df_den_1 + df_den_2)
 
 # calculate p-value
-pt(q = abs(t_val), df = df, lower.tail = FALSE) * 2
+pt(q = abs(t_stat), df = df, lower.tail = FALSE) * 2
 ```
 
-1. Why do you think the researchers got the p-value they did?
+3. Why do you think the researchers got the p-value they did?
 
 ```{r}
-pt(q = abs(t_val), df = df, lower.tail = FALSE)
+# calculate one-taled t-tst
+pt(q = abs(t_stat), df = df, lower.tail = FALSE)
 ```
+
+## Minihack 3: Using Functions
+
+The same researchers of the editor theme manuscript submit another paper on the difference in coding abilities between Mac and PC users. Again, coding ability was operationalized as performance on a coding test scored out of 25.  This time, however, they were willing to share there data with you.
+
+```{r}
+# set seed for reproducability
+set.seed(42)
+
+# load data
+data_os <- data.frame("id"      = 1:1e5,
+                      "os"      = c(rep("pc", 5e4), 
+                                    rep("mac", 5e4)),
+                      "ability" = c(rnorm(5e4, 15, 3),
+                                    rnorm(5e4, 14.97, 3)))
+```
+
+1. Perform an Independent Samples t-test on the data (preferably using a built in function).
+
+```{r}
+independentSamplesTTest(ability ~ os, data = data_os)
+```
+
+2. After running the code, you realize you could run a Student's t-test instead of a Welch's t-test because both groups have the same sample sizes and the same standard deviations. Investigate your chosen function to figure out how to perform a student's t-test on the data. Do you find a different result?
+
+```{r}
+independentSamplesTTest(ability ~ os, data = data_os, var.equal = TRUE)
+```
+
+3. The result is significant in both cases, but is it meaningful? Use a statistic to provide support for your answer.
+
+```{r}
+# The Cohen's d is .04. It is a very small effect.
+```
+
+
 
 
