@@ -22,6 +22,7 @@ library(gganimate) # allows the creation of gifs from ggplot2
 library(lsr) # includes t-test functions
 library(carData) # includes the Guyer data set
 library(here) # for finding image paths
+library(ggpubr) # for making an error line plot
 ```
 
 # Purpose
@@ -148,7 +149,7 @@ knitr::kable(data.frame("d-value" = c(.2, .5, .8),
 
 Interpreting our Cohen's D value using the threshold from the table, we might say that there was a large difference (`-0.82`) between our acquired mean (`48.30`) and the mean we were comparing it against (`60.00`). 
 
-Finally, we can also che 95% confidence interval for our sample mean by running the following code:
+Finally, we can also check the 95% confidence interval for our sample mean by running the following code:
 
 ```{r}
 # calculate 95% confidence interval
@@ -191,6 +192,17 @@ An example of how to write-up a one-sample t-test is included below.
 
 "The mean cooperation score of 48.30 (95% CI [41.61, 54.97]) was substantially less than 60, *t*(19) = 3.66, *p* = .002."
 
+## Plotting a One-Sample t-test
+
+```{r}
+ggerrorplot(data, 
+            x         = "condition", 
+            y         = "cooperation", 
+            desc_stat = "mean_ci", 
+            color     = "condition", 
+            ylab      = "Cooperation")
+```
+
 ***
 
 # Independent Samples t-test {#independent}
@@ -217,70 +229,62 @@ Then, as we did for the One Sample t-test, we want to calculate descriptive stat
 # calculate group1 values
 group1_mean  <- mean(data_public$cooperation)
 group1_sd    <- sd(data_public$cooperation)
+group1_var   <- group1_sd^2
 group1_n     <- length(data_public$cooperation)
 
 # calculate group2 values
 group2_mean  <- mean(data_anonymous$cooperation)
 group2_sd    <- sd(data_anonymous$cooperation)
+group2_var   <- group2_sd^2
 group2_n     <- length(data_anonymous$cooperation)
 
 # print descriptive statistics
 list("public"    = c("mean" = group1_mean,
                      "sd"   = group1_sd,
+                     "var"  = group1_var,
                      "n"    = group1_n),
      "anonymous" = c("mean" = group2_mean,
                      "sd"   = group2_sd,
+                     "var"  = group2_var,
                      "n"    = group2_n))
 ```
 
-As we can see from the statistics, the number of groups in each condition was equal. The mean (`55.70`) and standard deviation (`14.85`) of cooperation in the public condition were both larger than the mean (`40.90`) and standard deviation (`9.42`) of cooperation in the anonymous group. 
+As we can see from the statistics, the number of participants in each condition was equal. The mean (`55.70`) and standard deviation (`14.85`) of cooperation in the public condition were both larger than the mean (`40.90`) and standard deviation (`9.42`) of cooperation in the anonymous group. 
 
 ![](`r here("labs", "resources", "lab8", "lab8_7.png")`)
 
-To calculate the t-statistic, we will use a similar equation to that used for the one-sample t-test, but the numerator will be the difference between the condition means and for the denominator will be the standard error of the difference between the means.
+To calculate the t-statistic, we will use a similar equation to that used for the one-sample t-test, but the numerator will be the difference between the condition means for the denominator will be the standard error of the difference between the means.
 
-$$\frac{\bar X_1 - \bar X_2}{\sqrt{\frac{\hat \sigma_1^2 }{N_1}+\frac{\hat \sigma_2^2 }{N_2}}}$$
+$$\frac{\bar X_1 - \bar X_2}{\hat \sigma_p \sqrt{\frac{1}{N_2} + \frac{1}{N_2}}}$$
 
-This equation is actually the equation for conducting a Welch's t-test. Unlike the original Student's t-test, the Welch's t-test does not assume equal variance or sample sizes. However, when the variances and sample sizes are equal, Welch's t-test will produce t-statistic that are nearly indistinguishable from the t-statistic produced by the Student's t-test. There is really no need to ever use Student's t-test (other than cases with very small sample sizes). The functions for the independent samples t-test in `{stats}` and in `{lsr}` both use a Welch's t-test by default. 
+The standard error of the difference between the means is the pooled standard deviation ($\hat \sigma_p$) decreased by the sample size ($\sqrt{\frac{1}{N_2} + \frac{1}{N_2}}$). The pooled standard deviation is calculated using the following formula:
+
+$$\hat \sigma_p = \frac{((N_1 - 1) \times \hat \sigma_1^2) + ((N_2 - 1) \times \hat \sigma_2^2)}{(N_1 - 1) + (N_2 - 1)}$$
 
 ![](`r here("labs", "resources", "lab8", "lab8_8.png")`)
 
 ```{r}
-# calculate
-mean_diff <- group1_mean - group2_mean
-se        <- sqrt(((group1_sd^2) / group1_n) + ((group2_sd^2) / group2_n))
-t_stat     <- mean_diff / se
+# calculate the t-statistic
+mean_diff    <- group1_mean - group2_mean
+group1_w     <- group1_n - 1
+group2_w     <- group2_n - 1
+sd_pooled    <- sqrt(((group1_w * group1_var) + (group2_w * group2_var)) / (group1_w + group2_w))
+n_correction <- sqrt((1 / group1_n) + (1 / group2_n))
+se           <- sd_pooled * n_correction
+t_stat       <- mean_diff / se
 ```
 
-Next, we will calculate a p-value for the t-statistic. The code for calculating the p-value is exactly the same as above, but the code for calculating the degrees of freedom of the t-test is a bit more involved.
-
-The equation for the degrees of freedom is:
-
-$$\mbox{df} = \frac{ ({\hat{\sigma}_1}^2 / N_1 + {\hat{\sigma}_2}^2 / N_2)^2 }{  ({\hat{\sigma}_1}^2 / N_1)^2 / (N_1 -1 )  + ({\hat{\sigma}_2}^2 / N_2)^2 / (N_2 -1 ) }$$
-
-First, we can calculate the numerator.
-
-```{r}
-df_num   <- ((group1_sd^2 / group1_n) + (group2_sd^2 / group2_n))^2
-```
-
-Then, we can calculate both sides of the denominator.
-```{r}
-df_den_1 <- ((group1_sd^2) / group1_n)^2 / (group1_n - 1) 
-df_den_2 <- ((group2_sd^2) / group2_n)^2 / (group2_n - 1)
-```
-
-And, finally, we can calculate our degrees of freedom
+Next, we will calculate a p-value for the t-statistic. The code for calculating the p-value is exactly the same as above, but, whereas for a one samples t-test the equation for degrees of freedom was $\mbox{df} = N-1$, the equation for degrees of freedom in an Independent Sample's t-test is $\mbox{df} = N-2$. 
 
 ```{r}
 # calculate degrees of freedom
-df <- df_num / (df_den_1 + df_den_2)
+df <- group1_n + group2_n - 2
 
 # print out the degrees of freedom
 df
 ```
 
-You might notice that our degrees of freedom is not a whole number, and that is because it is an estimate using both of our conditions. In any case, now that we have our t-statistic and degrees of freedom, we can calculate a p-value using the same code as before
+Now that we have our t-statistic and degrees of freedom, we can calculate the p-value.
 
 ```{r}
 # calculate p-value
@@ -290,7 +294,7 @@ p_val <- pt(q = abs(t_stat), df = df, lower.tail = FALSE) * 2
 p_val
 ```
 
-Looks like the probability of obtaining a difference in means of this size, when the null hypothesis is true, is 1.76%.
+Looks like the probability of obtaining a difference in means of this size, when the null hypothesis is true, is 1.59%.
 
 The code for calculating Cohen's d is a bit more complex than what we used above, but, again, we are simply deriving the difference in means in standardized units.
 
@@ -314,13 +318,17 @@ ci_up  <- mean_diff + (se * qt(.975, df = df))
 As with the one-sample t-test, we can use the `t.test()` function from the the built-in `{stats}` package to conduct an independent samples t-test. 
 
 ```{r}
-t.test(data_public$cooperation, data_anonymous$cooperation)
+t.test(data_public$cooperation, data_anonymous$cooperation, var.equal = TRUE)
 ```
+
+This equation is actually the equation for conducting a Welch's t-test. Unlike the original Student's t-test, the Welch's t-test does not assume equal variance or sample sizes. However, when the variances and sample sizes are equal, Welch's t-test will produce t-statistic that are nearly indistinguishable from the t-statistic produced by the Student's t-test. There is really no need to ever use Student's t-test (other than cases with very small sample sizes). The functions for the independent samples t-test in `{stats}` and in `{lsr}` both use a Welch's t-test by default. 
 
 We can also use the `independentSamplesTTest` function in the `{lsr}` package to get the output with Cohen's d included. 
 
 ```{r}
-independentSamplesTTest(formula = cooperation ~ condition, data = data)
+independentSamplesTTest(formula   = cooperation ~ condition, 
+                        data      = data, 
+                        var.equal = TRUE)
 ```
 
 The `formula` argument for `independentSamplesTTest` may look unfamiliar to some of you. The `formula` argument is using `formula` syntax, which you will use a lot when you start analyzing data using multiple regression models. In brief, whatever comes on the left of the tilde (`~`) is the dependent variable (in this case, `cooperation`) and whatever comes on the right of the tilde is the independent variable (in this case, `condition`).
@@ -330,6 +338,17 @@ The `formula` argument for `independentSamplesTTest` may look unfamiliar to some
 A proper write-up for our Independent Sample t-test would be:
 
 "Cooperation in the public condition (*M* = 55.70, *SD* = 14.84) was much greater than cooperation in the anonymous condition (*M* = 40.90, *SD* = 9.42), *t*(15.24) = 2.66, *p* = .018, 95% CI [-2.96, 26.64].
+
+## Plotting an Independent Samples t-test
+
+```{r}
+ggerrorplot(data, 
+            x         = "condition", 
+            y         = "cooperation", 
+            desc_stat = "mean_ci", 
+            color     = "condition", 
+            ylab      = "Cooperation")
+```
 
 ***
 
