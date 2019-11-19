@@ -37,6 +37,36 @@ class: center, middle, inverse, title-slide
 
 ---
 
+# What are the steps of NHST?
+
+--
+
+1. Define null and alternative hypothesis.
+
+--
+
+2. Set and justify alpha level.
+
+--
+
+3. Determine which sampling distribution ( `\(z\)`, `\(t\)`, or `\(\chi^2\)` for now)
+
+--
+
+4. Calculate parameters of your sampling distribution under the null.
+  * If `\(z\)`, calculate `\(\mu\)` and `\(\sigma_M\)`
+
+--
+
+5. Calculate test statistic under the null.
+  * If `\(z\)`, `\(\frac{\bar{X} - \mu}{\sigma_M}\)`
+  
+--
+
+6. Calculate probability of that test statistic or more extreme under the null, and compare to alpha.
+
+---
+
 One-sample tests compare your given sample with a "known" population.
 
 * Research question: does this sample come from this population?
@@ -51,7 +81,7 @@ One-sample tests compare your given sample with a "known" population.
 
 ---
 
-The sample data were obtained from Census at School, a website developed by the American Statistical Association to help students in the 4th through 12th grades understand statistical problem-solving. 
+The [sample data](../data/census_at_school.csv) were obtained from Census at School, a website developed by the American Statistical Association to help students in the 4th through 12th grades understand statistical problem-solving. 
 
   * The site sponsors a survey that students can complete and a database that students and instructors can use to illustrate principles in quantitative methods.  
   * The database includes students from all 50 states, from grade levels 4 through 12, both boys and girls,  who have completed the survey dating back to 2010.  
@@ -68,31 +98,9 @@ Which of the following superpowers would you most like to have? Select one.
 * Super strength
 * Fly
 
-The responses from 247 randomly selected Oregon students were obtained from the Census at School database. 
-
----
+The responses from 200 randomly selected Oregon students were obtained from the Census at School database. 
 
 
-```r
-school = read_csv(here("data/census_at_school.csv"))
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character(),
-##   DataYear = col_double(),
-##   ClassGrade = col_double(),
-##   Ageyears = col_double(),
-##   Score_in_memory_game = col_double(),
-##   Left_Footlength_cm = col_double(),
-##   Index_Fingerlength_mm = col_double()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
 
 ---
 
@@ -117,32 +125,27 @@ school %&gt;%
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Fly &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 42 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.21 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Freeze time &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 58 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.29 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Invisibility &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Super strength &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.05 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.06 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Telepathy &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 57 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 47 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.28 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -172,33 +175,74 @@ class: center
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Fly &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.21 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Freeze time &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.19 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.25 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Invisibility &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.20 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Super strength &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.02 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.06 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.08 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Telepathy &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.28 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.24 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 
 ---
+
+We can set our alpha ( `\(\alpha\)` ) level anywhere we like. Let's stick with .05 for convention's sake.
+
+Now we identify our sampling distribution. We'll use the **chi-square** ( `\(\chi^2\)` ) **distribution** because we're dealing with
+* one-sample, and 
+* a categorical outcome. 
+
+This can be a point of confusion: the way you measure the variable determines whether it is categorical or continuous. We can create summary statistics from categorical variables by counting or calculating proprotions -- but that makes the summary statistics continuous, *not the outcome variable itself*.
+
+---
+
+## Degrees of freedom
+
+The `\(\chi^2\)` distribution is a single-parameter distribution defined by it's degrees of freedom.
+
+In the case of a **goodness-of-fit test** (like this one), the degrees of freedom are `\(\textbf{k-1}\)`, where k is the number of groups.
+
+--
+
+The **Degrees of freedom** are the number of genuinely independent things in a calculation. It's specifically calculated as the number of quantities in a calculation minus the number of constraints. 
+
+What it means in principle is that given a set number of categories (k) and a constraint (the proportions have to add up to 1), I can freely choose numbers for k-1 categories. But for the kth category, there's only one number that will work. 
+
+---
+.left-column[
+.small[
+The degrees of freedom are the number of categories (k) minus 1.  Given that the category frequencies must sum to the total sample size, k-1 category frequencies are free to vary; the last is determined.
+
+]
+]
+
+
+```
+## [1] 9.487729
+```
+
+![](14-one_sample_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+---
+
+## Calculating the `\(\chi^2\)` test statistic
 
 To compare the Oregon observed frequencies to the US data, we need to calculate the frequencies that would have been expected if Oregon was just like all of the other states.
 
@@ -219,27 +263,27 @@ Freq &lt;/th&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Fly &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 42 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 57.93827 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 46.91358 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Freeze time &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 58 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 62.20741 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 50.37037 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Invisibility &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.79012 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39.50617 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Super strength &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 19.51605 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.80247 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Telepathy &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 57 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 58.54815 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 47.40741 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -272,7 +316,7 @@ or_expected
 ```
 ## 
 ##            Fly    Freeze time   Invisibility Super strength      Telepathy 
-##       57.93827       62.20741       48.79012       19.51605       58.54815
+##       46.91358       50.37037       39.50617       15.80247       47.40741
 ```
 
 ---
@@ -295,7 +339,7 @@ or_expected
 ```
 ## 
 ##            Fly    Freeze time   Invisibility Super strength      Telepathy 
-##       57.93827       62.20741       48.79012       19.51605       58.54815
+##       46.91358       50.37037       39.50617       15.80247       47.40741
 ```
 
 
@@ -304,7 +348,7 @@ or_expected
 ```
 
 ```
-## [1] 14.12204
+## [1] 6.395722
 ```
 
 ---
@@ -327,7 +371,7 @@ or_expected
 ```
 ## 
 ##            Fly    Freeze time   Invisibility Super strength      Telepathy 
-##       57.93827       62.20741       48.79012       19.51605       58.54815
+##       46.91358       50.37037       39.50617       15.80247       47.40741
 ```
 
 
@@ -336,7 +380,7 @@ or_expected
 ```
 
 ```
-## [1] 14.12204
+## [1] 6.395722
 ```
 
 ```r
@@ -367,7 +411,7 @@ or_expected
 ```
 ## 
 ##            Fly    Freeze time   Invisibility Super strength      Telepathy 
-##       57.93827       62.20741       48.79012       19.51605       58.54815
+##       46.91358       50.37037       39.50617       15.80247       47.40741
 ```
 
 
@@ -376,7 +420,7 @@ or_expected
 ```
 
 ```
-## [1] 14.12204
+## [1] 6.395722
 ```
 
 ```r
@@ -392,7 +436,7 @@ or_expected
 ```
 
 ```
-## [1] 0.006915564
+## [1] 0.1714805
 ```
 
 ---
@@ -404,7 +448,7 @@ The degrees of freedom are the number of categories (k) minus 1.  Given that the
 ]
 ]
 
-![](14-one_sample_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](14-one_sample_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
 ---
 .left-column[
@@ -414,7 +458,7 @@ The degrees of freedom are the number of categories (k) minus 1.  Given that the
 ]
 ]
 
-![](14-one_sample_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+![](14-one_sample_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -442,6 +486,8 @@ chisq.test(x = or_observed, p = p.usa)
 ```
 
 The Oregon student preferences are not unusual under the null hypothesis (USA preferences). 
+
+Note that the `chisq.test` function takes for x a vector of the counts. In other words, to use this function, you need to calculate the summary statisttic of counts and feed that into the function.
 
 ---
 
@@ -496,11 +542,6 @@ lsr::goodnessOfFitTest(x = as.factor(school$Superpower), p = p.usa)
 ```
 
 ```
-## Warning in lsr::goodnessOfFitTest(x = as.factor(school$Superpower), p =
-## p.usa): 47 case(s) removed due to missingness
-```
-
-```
 ## 
 ##      Chi-square test against specified probabilities
 ## 
@@ -524,7 +565,7 @@ lsr::goodnessOfFitTest(x = as.factor(school$Superpower), p = p.usa)
 ##    p-value:  0.171
 ```
 
-(Note that this function takes the raw data, not the vector of counts.)
+(Note that this function, `goodnessOfFitTest`, takes the raw data, not the vector of counts.)
 
 ---
 
@@ -533,11 +574,6 @@ What if we had used the equal proportions null hypothesis?
 
 ```r
 lsr::goodnessOfFitTest(x = as.factor(school$Superpower))
-```
-
-```
-## Warning in lsr::goodnessOfFitTest(x = as.factor(school$Superpower)): 47
-## case(s) removed due to missingness
 ```
 
 ```
@@ -582,7 +618,7 @@ How often will you come across `\(\chi^2\)` tests?
 
 * (Probably) a lot!
 
-The goodness of fit test is used to statistically compare the fit of nested models. 
+The goodness of fit test is used to statistically test the how well a model fits data.
 
 ---
 
@@ -599,7 +635,16 @@ If your model is a good fit, then
 `$$\Sigma_1^N\varepsilon^2 = \chi^2$$` 
 which we compare to the distribution of `\(\chi^2_{N-p}\)` .
 
-If we have nested models, we can calculate the difference in the two `\(\chi^2\)` values and compare this to a new `\(\chi^2\)` distribution with `\(p1-p2\)` degrees of freedom.
+Significant chi-square tests suggest the model does not fit -- the data have values that are far away from "expected."
+
+---
+
+When we move from categorical outcomes to variables measured on an interval or ratio scale, we become interested in means rather than frequencies.  Comparing means is usually done with the t-test, of which there are several forms.
+
+The one-sample t-test is appropriate when a single sample mean is compared to a population mean but the population standard deviation is unknown.  A sample estimate of the population standard deviation is used instead.  The appropriate sampling distribution is the t-distribution, with N-1 degrees of freedom.
+
+`$$t_{df=N-1} = \frac{\bar{X}-\mu}{\frac{\hat{\sigma}}{\sqrt{N}}}$$`
+The heavier tails of the t-distribution, especially for small N, are the penalty we pay for having to estimate the population standard deviation from the sample.
 
 ---
 
@@ -613,7 +658,7 @@ If we have nested models, we can calculate the difference in the two `\(\chi^2\)
   
   * Probably had input from Karl Pearson and Ronald Fisher
   
-* Published this as "Student" because Guinness wouldn't let him share company secrets. Open science for the win!
+* Published this as "Student" because Guinness wouldn't let him share company secrets. 
 
 ---
 
@@ -623,7 +668,7 @@ We've already been covering one-sample t-tests, but let's formally walk through 
 
 | | Z-test | t-test |
 | --|--------|--------|
-| `\(\mu\)` | known | known |
+| `\(\large{\mu}\)` | known | known |
 | `\(\sigma\)` | known |unknown |
 | sem or `\(\sigma_M\)` | `\(\frac{\sigma}{\sqrt{N}}\)` | `\(\frac{\hat{\sigma}}{\sqrt{N}}\)` |
 |Probability distribution | standard normal | t |
@@ -682,13 +727,13 @@ t.test(x = school$Score_in_memory_game, mu = 45.05,
 ## 	One Sample t-test
 ## 
 ## data:  school$Score_in_memory_game
-## t = 4.5746, df = 226, p-value = 7.865e-06
+## t = 4.2652, df = 196, p-value = 3.104e-05
 ## alternative hypothesis: true mean is not equal to 45.05
 ## 95 percent confidence interval:
-##  47.37204 50.88620
+##  47.24269 51.01427
 ## sample estimates:
 ## mean of x 
-##  49.12912
+##  49.12848
 ```
 
 
@@ -702,7 +747,7 @@ lsr::oneSampleTTest(x = school$Score_in_memory_game,
 
 ```
 ## Warning in lsr::oneSampleTTest(x = school$Score_in_memory_game, mu =
-## 45.05, : 20 case(s) removed due to missingness
+## 45.05, : 3 case(s) removed due to missingness
 ```
 
 ```
@@ -713,20 +758,20 @@ lsr::oneSampleTTest(x = school$Score_in_memory_game,
 ## 
 ## Descriptive statistics: 
 ##             Score_in_memory_game
-##    mean                   49.129
-##    std dev.               13.435
+##    mean                   49.128
+##    std dev.               13.421
 ## 
 ## Hypotheses: 
 ##    null:        population mean equals 45.05 
 ##    alternative: population mean not equal to 45.05 
 ## 
 ## Test results: 
-##    t-statistic:  4.575 
-##    degrees of freedom:  226 
+##    t-statistic:  4.265 
+##    degrees of freedom:  196 
 ##    p-value:  &lt;.001 
 ## 
 ## Other information: 
-##    two-sided 95% confidence interval:  [47.372, 50.886] 
+##    two-sided 95% confidence interval:  [47.243, 51.014] 
 ##    estimated effect size (Cohen's d):  0.304
 ```
 
@@ -763,7 +808,7 @@ Cohen (1988) suggests the following guidelines for interpreting the size of d:
 
 Another useful metric is the overlap between the two distributions -- the smaller the overlap, the farther apart the distributions
 
-![](14-one_sample_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](14-one_sample_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 
 
 ---

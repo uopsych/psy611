@@ -1,0 +1,50 @@
+---
+title: 'Comparing two means II'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, rladies, rladies-fonts, "my-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(knitr)
+library(kableExtra)
+library(ggpubr)
+```
+
+## Last time
+
+* Introduction to independent samples t-tests
+
+  * Standard error of the **difference of means**
+  
+  * Pooled variance, $\hat{\sigma}_P$
+  
+  * Confidence intervals around the difference in means
+  
+  * Confidence intervals around different means
+
+---
+
+```{r}
+school = read_csv(here("data/census_at_school.csv"))
+```
+
+A difference in significance is not a significant difference
+
+effect size
+
+matrix algebra
+
+assumptions - shapiro-wilk test, levine test
+
+welch's test
+
+

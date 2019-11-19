@@ -80,13 +80,28 @@ school = read_csv(here("data/census_at_school.csv"))
 ```
 ## Parsed with column specification:
 ## cols(
-##   .default = col_character(),
-##   DataYear = col_double(),
-##   ClassGrade = col_double(),
-##   Ageyears = col_double(),
-##   Score_in_memory_game = col_double(),
-##   Left_Footlength_cm = col_double(),
-##   Index_Fingerlength_mm = col_double()
+##   .default = col_double(),
+##   Country = col_character(),
+##   Region = col_character(),
+##   Gender = col_character(),
+##   Handed = col_character(),
+##   Travel_to_School = col_character(),
+##   Favourite_physical_activity = col_character(),
+##   Longer_foot = col_character(),
+##   Longer_Finger_Lefthand = col_character(),
+##   Birth_month = col_character(),
+##   Favorite_Season = col_character(),
+##   Allergies = col_character(),
+##   Vegetarian = col_character(),
+##   Favorite_Food = col_character(),
+##   Beverage = col_character(),
+##   Favorite_School_Subject = col_character(),
+##   Home_Internet_Access = col_character(),
+##   Communication_With_Friends = col_character(),
+##   Schoolwork_Pressure = col_character(),
+##   Planned_Education_Level = col_character(),
+##   Favorite_Music = col_character()
+##   # ... with 4 more columns
 ## )
 ```
 
@@ -648,24 +663,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
+})();</script>
 
 <script>
 (function() {

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Comparing two means I</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Comparing two means I
+
+---
+
+
+
+
+
+# Today
+
+* One mean versus the population (review)
+
+* Two independent means
+
+---
+
+# One-sample *t*-test
+
+The one-sample t-test is appropriate when a single sample mean is compared to a population mean but the population standard deviation is unknown.  
+
+A sample estimate of the population standard deviation is used instead.  
+
+The appropriate sampling distribution is the t-distribution, with N-1 degrees of freedom.
+
+`$$t_{df=N-1} = \frac{\bar{X}-\mu}{\frac{\hat{\sigma}}{\sqrt{N}}}$$`
+---
+
+## A new example
+
+We can again use the Census at School database, which includes six questions asking students to rate the following issues on a scale from 0 (not important) to 1000 (very important):
+
+* Reducing pollution
+* Recycling
+* Conserving water
+* Conserving energy (electricity, gas, oil for heating, lighting, car travel)
+* Owning a computer
+* Access to the internet
+
+A random sample of 247 Oregon high schoolers can be compared to the means from high schoolers from all 50 states.
+
+
+---
+
+
+```r
+school = read_csv(here("data/census_at_school.csv"))
+school = school %&gt;% filter(ClassGrade &gt;= 9)
+
+usa = read_csv(here("data/census_at_school_usa.csv"))
+usa = usa %&gt;% filter(ClassGrade &gt;= 9 &amp; Region != "OR")
+```
+
+---
+
+The null and alternative hypotheses:
+
+`$$H_0: \bar{X}_{OR} = \mu_{USA}$$`
+
+`$$H_1: \bar{X}_{OR} \neq \mu_{USA}$$`
+
+
+```r
+t.test(school$Importance_reducing_pollution, 
+       mu = mean(usa$Importance_reducing_pollution, na.rm=T),
+       alternative = "two.sided", conf.level = .95)
+```
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Issue &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; OR Mean &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; USA mean &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t value &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; p value &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; reducing_pollution &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 778.27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 787.04 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.90 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; recycling_rubbish &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 794.71 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 714.85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.70 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.09 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; conserving_water &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 645.47 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 628.03 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.37 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.71 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; saving_energy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 776.94 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 652.66 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.64 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.01 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; owning_computer &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 648.93 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 458.85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -3.27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Internet_access &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 856.06 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 670.62 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -3.03 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+.small[The lsr package has t-test functions that provide more detailed output.]
+
+
+```r
+lsr::oneSampleTTest(x = school$Importance_reducing_pollution, 
+       mu = mean(usa$Importance_reducing_pollution, na.rm=T))
+```
+
+```
+## Warning in lsr::oneSampleTTest(x = school$Importance_reducing_pollution, :
+## 33 case(s) removed due to missingness
+```
+
+```
+## 
+##    One sample t-test 
+## 
+## Data variable:   school$Importance_reducing_pollution 
+## 
+## Descriptive statistics: 
+##             Importance_reducing_pollution
+##    mean                           787.036
+##    std dev.                       932.148
+## 
+## Hypotheses: 
+##    null:        population mean equals 778.2687 
+##    alternative: population mean not equal to 778.2687 
+## 
+## Test results: 
+##    t-statistic:  0.132 
+##    degrees of freedom:  196 
+##    p-value:  0.895 
+## 
+## Other information: 
+##    two-sided 95% confidence interval:  [656.06, 918.011] 
+##    estimated effect size (Cohen's d):  0.009
+```
+
+---
+
+### Assumptions
+
+* Normality
+* Independence
+
+If the data are normally distributed, the sampling distribution of the mean will also be normally distributed.
+
+If the data are independent, then the *t* distribution chosen by `\(df = N-1\)` will provide an accurate approximation of the sampling distribution of the mean for purposes of making inferences.
+
+---
+
+## Independent samples *t*-test
+
+The independent samples *t*-test is appropriate when the means from two independent samples are compared.
+
+`$$H_0: \mu_1 = \mu_2$$`
+`$$H_1: \mu_1 \neq \mu_2$$`
+
+Test statistic is (roughly) defined by
+
+`$$t = \frac{\bar{X}_1 - \bar{X}_2}{SE}$$`
+
+The standard error of the mean difference can be estimated in two different ways.  If the variances for the two groups are the same, then pooling them provides the most powerful solution, known as Student’s t-test.  Otherwise, a separate-variances estimate is used, resulting in Welch’s t-test.
+
+---
+
+More formally, the numerator of the t-statistic is the following:
+
+`$$t = \frac{(\bar{X}_1 - \bar{X}_2)-(\mu_1 - \mu_2)}{SE}$$`
+In other words, is the difference between the sample means different from the hypothesized difference in the population means?
+
+* `\(\bar{X}_1 - \bar{X}_2\)` = our observed difference in (independent) means
+* `\(\mu_1 - \mu_2\)` = the (null) hypothesized difference in (independent) means
+
+In this sense, the independent samples t-test is similar to a one-sample test of differences.
+
+.pull-left[
+`$$H_0: \mu_1 - \mu_2 = 0$$`
+]
+
+.pull-right[
+`$$H_1: \mu_1 - \mu_2 \neq 0$$`
+]
+
+---
+
+Calculating the demoninator of this test is not straightfoward. If we think of our test as a one-sample test of our difference score, then we need our standard error to be that of difference in means, not means themselves.
+
+`\(\text{SE (difference in means)} = \sigma_D\)`
+
+To take our standard error of the mean calculation and adjust it to reflect a difference in means, we make a small adjustment:
+
+`$$\sigma_D = \hat{\sigma}_p\sqrt{\frac{1}{N_1} + \frac{1}{N_2}}$$`
+
+---
+
+A key assumption of the independent samples t-test is **homogeneity of variance,** meaning that even if these samples come from different populations, those populations differ only in terms of their mean, not in terms of their variance. 
+
+The benefit of making this assumption is that we can calculate a single estimate of variance and simply adjust the units (as in the previous slide). 
+
+If the variance in both samples is exactly the same, then we can plug `\(\hat{\sigma}\)` in for `\(\sigma_p\)` and be done.
+
+---
+
+### Pooled variance
+
+Rarely do we find that the variance estimates are *exactly* the same, in which case, we need to combine the two estimates to get a single variance number. This is called the **pooled variance**.
+
+`$$\large{\hat{\sigma}^2_p = \frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}}$$`
+--
+
+The bottom part, `\(N_1+N_2-2\)` is the degrees of freedom for an independent sample *t*-test. The total number of quantities ( `\(N_1+N_2\)` total scores) minus the number of constraints (2 means).
+
+Each variance is weighted based on its sample's contribution to degrees of freedom. 
+
+---
+
+So our final calculation for the standard error of the difference of independent means is
+
+`$$\large{\hat{\sigma}_D = \sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}$$`
+**Recap**
+
+The first part of this equation pools the two variance estimates by weighting each one based on sample size. 
+
+The second part changes the units from scores to differences in means. 
+  * Recall that in hypothesis testing, we're not interested in the likelihood of scores, but the likelihood of statistics. 
+  
+---
+
+At this point, the procedure of hypothesis testing goes back to normal.
+
+We have our sampling distribution under the null hypothesis, which is a *t* distribution defined by
+
+$$
+`\begin{aligned}
+ \mu &amp;= 0 \\
+ \sigma_D &amp;= \sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}} \\
+ df &amp;= N_1 + N_2 - 2
+\end{aligned}`
+$$
+In this case, we're using `\(\sigma_D\)` the same way we use `\(\sigma_M\)`, we just change the notation to reflect our interest in a difference in means, rather than the mean itself.
+
+---
+
+We calculate our test statistic
+
+$$ t = \frac{\bar{X}_1-\bar{X}_2}{\sigma_D}$$
+and then find the probability of this test statistic or more extreme under the null. 
+
+---
+
+## Example
+
+We turn again to the Census at School data. One question that students were asked was to report how many hours per week they spent time with friends. We might be interested to know whether adolescent girls spend more time with friends than adolescent boys. 
+
+
+```
+## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   Country = col_character(),
+##   Region = col_character(),
+##   Gender = col_character(),
+##   Handed = col_character(),
+##   Travel_to_School = col_character(),
+##   Favourite_physical_activity = col_character(),
+##   Longer_foot = col_character(),
+##   Longer_Finger_Lefthand = col_character(),
+##   Birth_month = col_character(),
+##   Favorite_Season = col_character(),
+##   Allergies = col_character(),
+##   Vegetarian = col_character(),
+##   Favorite_Food = col_character(),
+##   Beverage = col_character(),
+##   Favorite_School_Subject = col_character(),
+##   Home_Internet_Access = col_character(),
+##   Communication_With_Friends = col_character(),
+##   Schoolwork_Pressure = col_character(),
+##   Planned_Education_Level = col_character(),
+##   Favorite_Music = col_character()
+##   # ... with 4 more columns
+## )
+```
+
+```
+## See spec(...) for full column specifications.
+```
+
+```r
+table(school$Gender)
+```
+
+```
+## 
+## Female   Male 
+##    144    101
+```
+
+```r
+psych:: describe(school$Hanging_Out_With_Friends_Hours)
+```
+
+```
+##    vars   n  mean    sd median trimmed mad min  max range  skew kurtosis
+## X1    1 208 23.59 78.41      9   12.49 8.9   0 1000  1000 10.28   118.18
+##      se
+## X1 5.44
+```
+
+---
+.pull-left[
+
+```r
+school %&gt;%
+  ggplot(aes(x = friends)) + 
+   geom_density(color = "red", size = 2, fill = "red", alpha = .3) + 
+  geom_histogram(aes(y = ..density..), bins = 50) + 
+ labs(x = "Hours per week", title = "Full sample") + theme_minimal(base_size = 20)
+```
+
+![](15-two_means_I_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+```r
+school %&gt;%
+  filter(friends &lt; 168) %&gt;%
+  ggplot(aes(x = friends)) + 
+  geom_density(color = "red", size = 2, fill = "red", alpha = .3) + 
+  geom_histogram(aes(y = ..density..), bins = 50) + 
+  labs(x = "Hours per week", title = "Mathematically possible") + theme_minimal(base_size = 20)
+```
+
+![](15-two_means_I_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+---
+
+Maybe I'll exclude participants who report impossible numbers.
+
+
+```r
+school_new = filter(school, friends &lt; 168)
+psych::describeBy(school_new$friends, group = school_new$Gender)
+```
+
+```
+## 
+##  Descriptive statistics by group 
+## group: Female
+##    vars   n  mean    sd median trimmed   mad min max range skew kurtosis
+## X1    1 122 18.31 21.44     10   14.19 10.38 0.3 124 123.7 2.14     5.45
+##      se
+## X1 1.94
+## -------------------------------------------------------- 
+## group: Male
+##    vars  n  mean    sd median trimmed  mad min max range skew kurtosis
+## X1    1 83 12.34 15.91      7    8.87 7.41   0  80    80 2.46     6.32
+##      se
+## X1 1.75
+```
+
+--
+
+
+.pull-left[
+$$
+`\begin{aligned}
+ \bar{X}_1 &amp;= 18.31 \\
+ \hat{\sigma}_1 &amp;= 21.44 \\
+ N_1 &amp;= 122 \\
+\end{aligned}`
+$$
+]
+
+.pull-right[
+$$
+`\begin{aligned}
+ \bar{X}_2 &amp;= 12.34 \\
+ \hat{\sigma}_2 &amp;= 15.91 \\
+ N_2 &amp;= 83 \\
+\end{aligned}`
+$$
+]
+
+---
+
+
+
+
+Next we build the sampling distribution under the null hypotheses.
+
+$$
+`\begin{aligned}
+ \mu &amp;= 0 \\
+ \\
+ \sigma_D &amp;= \sqrt{\frac{(122-1){21.44}^2 + (83-1){15.91}^2}{122+83-2}} \sqrt{\frac{1}{122} + \frac{1}{83}}\\
+ &amp;= 19.39\sqrt{\frac{1}{122} + \frac{1}{83}} = 2.76\\
+ \\
+ df &amp;= 203
+\end{aligned}`
+$$ 
+---
+
+
+```r
+(cv = qt(p = .975, df = 203))
+```
+
+```
+## [1] 1.971719
+```
+
+![](15-two_means_I_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+
+---
+
+.left-column[We calculate our test statistic and compare that to our critical value.]
+
+
+```r
+(t = (x1-x2)/s_d)
+```
+
+```
+## [1] 2.165904
+```
+
+![](15-two_means_I_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+---
+
+.left-column[
+We can also calculate the probability of this test statistic or more extreme under the null.
+
+
+```r
+pt(t, 
+   df = df, 
+   lower.tail = 
+     F)*2
+```
+
+```
+## [1] 0.03148413
+```
+
+]
+
+![](15-two_means_I_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+---
+
+Alternatively, we can not do any of that, and use an R function.
+
+
+```r
+t.test(friends~Gender, data = school_new, var.equal = T)
+```
+
+```
+## 
+## 	Two Sample t-test
+## 
+## data:  friends by Gender
+## t = 2.1659, df = 203, p-value = 0.03148
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##   0.5358328 11.4173373
+## sample estimates:
+## mean in group Female   mean in group Male 
+##             18.31393             12.33735
+```
+
+
+---
+
+### What is a test statistic?
+
+.pull-left[
+
+`$$Z = \frac{\bar{X}-\mu}{\sigma_M}$$`
+
+`$$t = \frac{\bar{X}-\mu}{\frac{s}{\sqrt{N}}}$$`
+]
+
+.pull-right[
+
+`$$t = \frac{(\bar{X}_1 - \bar{X}_2)-(\mu_1 - \mu_2)}{\sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}$$`
+
+]
+
+All test statistics measure 
+
+`$$\frac{\text{Signal}}{\text{Noise}}$$`
+
+---
+
+class: center
+
+![](images/signal.png)
+---
+
+## Confidence intervals
+
+**Confidence intervals** are used to communicate the precision in our how well our statistic estimates the parameter. As a reminder, they are grounded in frequenst probability: if we repeated our experiment many times, we would expect that 95% of the time, our 95% confidence interval would capture the true population parameter.
+
+In an independent sample's t-test, you have calculated three different statistics, and so you can construct three different confidence intervals.
+
+---
+
+### Confidence interval around the difference in means
+
+The most interpretable statistic is the difference in means -- this is the statistic you are testing using NHST. 
+
+`$$CI_{\text{Difference}} = (\bar{X}_1 - \bar{X}_2) \pm \sigma_D(CV)$$`
+
+.pull-left[
+Your critical value (CV) is determined by your degrees of freedom and alpha. 
+
+In our example, we used `\(\alpha = .05\)` and our df = `\(122+83-2 = 203\)`.
+
+
+```r
+qt(p = .975, df = 203)
+```
+
+```
+## [1] 1.971719
+```
+]
+--
+
+.pull-right[
+
+`$$CI_{\text{Difference}} = \\(18.31 -12.34) \pm 2.76(1.97)$$`
+`$$[0.53, 11.41]$$`
+
+]
+
+---
+
+### Confidence intervals around estimates of the mean
+
+In addition to calculating precision of the estimate in difference in means, you may also want to calculate the precision of the mean estimates themselves. 
+
+In this case, you should use the standard deviation of the group sample as your estimate of population sd, instead of merging them. 
+
+$$
+`\begin{aligned}
+CI_{\text{Mean}} &amp;= {X} \pm \sigma_M(CV) \\
+ &amp;= {X} \pm \frac{\hat{\sigma}}{\sqrt{N}}(CV)
+\end{aligned}`
+$$
+---
+
+$$
+`\begin{aligned}
+ &amp;= {X} \pm \frac{\hat{\sigma}}{\sqrt{N}}(CV)
+\end{aligned}`
+$$
+.pull-left[
+**Females**
+
+
+```r
+sd(school_new$friends[school_new$Gender == "Female"], na.rm=T)
+```
+
+```
+## [1] 21.43591
+```
+
+```r
+qt(.975, df = 122-1)
+```
+
+```
+## [1] 1.979764
+```
+
+
+`$$18.31 \pm \frac{21.44}{\sqrt{122}}(1.98)$$`
+`$$[14.47, 22.15]$$`
+]
+
+.pull-right[
+**Males**
+
+
+```r
+qt(.975, df = 83-1)
+```
+
+```
+## [1] 1.989319
+```
+
+```r
+sd(school_new$friends[school_new$Gender == "Male"], na.rm=T)
+```
+
+```
+## [1] 15.90772
+```
+
+
+`$$12.34 \pm \frac{15.91}{\sqrt{83}}(1.99)$$`
+`$$[8.87, 15.81]$$`
+]
+
+---
+
+
+```r
+library(ggpubr)
+ggerrorplot(school_new, x = "Gender", y = "friends", 
+            desc_stat = "mean_ci", color = "Gender", 
+            ylab = "Hours spent with friends (per week)")
+```
+
+![](15-two_means_I_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+
+
+---
+
+class: inverse
+
+## Next time
+
+More independent samples t-tests
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
