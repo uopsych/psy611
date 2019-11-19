@@ -416,8 +416,9 @@ pt(q = abs(t_stat), df = df, lower.tail = FALSE)
 
 ## Minihack 3: Using Functions
 
-The same researchers of the editor theme manuscript submit another paper on the difference in coding abilities between Mac and PC users. Again, coding ability was operationalized as performance on a coding test scored out of 25.  This time, however, they were willing to share there data with you.
+The same researchers of the editor theme manuscript submit another paper on the difference in coding abilities between Mac and PC users. Again, coding ability was operationalized as performance on a coding test scored out of 25. Despite the fear that you are becoming Reviewer Two, you acquire there data through GitHub to check their analyses. 
 
+Run the following lines of code to load the data:
 ```{r}
 # set seed for reproducability
 set.seed(42)
@@ -436,13 +437,13 @@ data_os <- data.frame("id"      = 1:1e5,
 independentSamplesTTest(ability ~ os, data = data_os)
 ```
 
-2. After running the code, you realize you could run a Student's t-test instead of a Welch's t-test because both groups have the same sample sizes and the same standard deviations. Investigate your chosen function to figure out how to perform a student's t-test on the data. Do you find a different result?
+2. After running the code, you realize you could run a Student's t-test instead of a Welch's t-test because both groups have the same sample sizes and the same standard deviations. Investigate your chosen function to figure out how to perform a student's t-test on the data. Do you find a different result? Why or why not?
 
 ```{r}
 independentSamplesTTest(ability ~ os, data = data_os, var.equal = TRUE)
 ```
 
-3. The result is significant in both cases, but is it meaningful? Use a statistic to provide support for your answer.
+3. The result is significant in both cases, but is it a meaningful difference? Use a statistic from the output to provide support for your answer.
 
 ```{r}
 # The Cohen's d is .04. It is a very small effect.
