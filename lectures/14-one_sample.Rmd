@@ -21,7 +21,7 @@ library(knitr)
 ## Today...
 
 * The chi-square goodness-of-fit test
-* One-sample t-tests
+* One-sample *t*-tests
 
 ---
 
@@ -403,9 +403,9 @@ Significant chi-square tests suggest the model does not fit -- the data have val
 
 ---
 
-When we move from categorical outcomes to variables measured on an interval or ratio scale, we become interested in means rather than frequencies.  Comparing means is usually done with the t-test, of which there are several forms.
+When we move from categorical outcomes to variables measured on an interval or ratio scale, we become interested in means rather than frequencies.  Comparing means is usually done with the *t*-test, of which there are several forms.
 
-The one-sample t-test is appropriate when a single sample mean is compared to a population mean but the population standard deviation is unknown.  A sample estimate of the population standard deviation is used instead.  The appropriate sampling distribution is the t-distribution, with N-1 degrees of freedom.
+The one-sample *t*-test is appropriate when a single sample mean is compared to a population mean but the population standard deviation is unknown.  A sample estimate of the population standard deviation is used instead.  The appropriate sampling distribution is the t-distribution, with N-1 degrees of freedom.
 
 $$t_{df=N-1} = \frac{\bar{X}-\mu}{\frac{\hat{\sigma}}{\sqrt{N}}}$$
 The heavier tails of the t-distribution, especially for small N, are the penalty we pay for having to estimate the population standard deviation from the sample.
@@ -418,7 +418,7 @@ The heavier tails of the t-distribution, especially for small N, are the penalty
 
 * Specifically, he wanted to know whether particular strains of grain made better or worse beer than the standard. 
 
-* He developed the t-test, to test small samples of beer against a population with an unknown standard deviation.
+* He developed the *t*-test, to test small samples of beer against a population with an unknown standard deviation.
   
   * Probably had input from Karl Pearson and Ronald Fisher
   
@@ -426,11 +426,11 @@ The heavier tails of the t-distribution, especially for small N, are the penalty
 
 ---
 
-### One-sample t-tests
+### One-sample *t*-tests
 
-We've already been covering one-sample t-tests, but let's formally walk through some of the steps and how this differs from a z-test.
+We've already been covering one-sample *t*-tests, but let's formally walk through some of the steps and how this differs from a z-test.
 
-| | Z-test | t-test |
+| | Z-test | *t*-test |
 | --|--------|--------|
 | $\large{\mu}$ | known | known |
 | $\sigma$ | known |unknown |
@@ -446,7 +446,7 @@ We've already been covering one-sample t-tests, but let's formally walk through 
 
 ...you can run a parametric statistical test!
 
-**Assumptions of the one-sample t-test**
+**Assumptions of the one-sample *t*-test**
 
 **Normality.** We assume the sampling distribution of the mean is normally distributed. Under what two conditions can we be assured that this is true?
 

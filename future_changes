@@ -89,3 +89,19 @@ lab-5.html
 * clarifiy confidence interval 1-[alpha]
 * summed SQUARED z-scores
 * 20 pt question -- clarify that they should use norm, not t
+
+lab-7.html
+* is this worth having?
+* next time, chi-square
+  * doing the test
+  * frequency tables
+  * output tables to word document
+  * extracting information
+* or more on data wrangling
+  * move summarize here
+  * more about first one
+    * tidy data
+* pros: first year sem already covers some of this?
+
+
+  

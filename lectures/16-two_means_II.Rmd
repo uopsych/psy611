@@ -40,6 +40,8 @@ school = read_csv(here("data/census_at_school.csv"))
 A difference in significance is not a significant difference
 
 effect size
+- cohen's d
+- overlap (draw from one-sample)
 
 matrix algebra
 

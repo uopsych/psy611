@@ -118,7 +118,7 @@ lsr::oneSampleTTest(x = school$Importance_reducing_pollution,
 * Normality
 * Independence
 
-If the data are normally distributed, the sampling distribution of the mean will also be normally distributed.
+If population scores are normally distributed, the sampling distribution of the mean will also be normally distributed.
 
 If the data are independent, then the *t* distribution chosen by $df = N-1$ will provide an accurate approximation of the sampling distribution of the mean for purposes of making inferences.
 
@@ -228,7 +228,7 @@ and then find the probability of this test statistic or more extreme under the n
 
 We turn again to the Census at School data. One question that students were asked was to report how many hours per week they spent time with friends. We might be interested to know whether adolescent girls spend more time with friends than adolescent boys. 
 
-```{r, echo = 4:5}
+```{r, echo = 4:5, message = F, warning = F}
 school = read_csv(here("data/census_at_school.csv"))
 school$friends = school$Hanging_Out_With_Friends_Hours
 school = filter(school, !is.na(Gender))
@@ -413,32 +413,6 @@ t.test(friends~Gender, data = school_new, var.equal = T)
 
 ---
 
-### What is a test statistic?
-
-.pull-left[
-
-$$Z = \frac{\bar{X}-\mu}{\sigma_M}$$
-
-$$t = \frac{\bar{X}-\mu}{\frac{s}{\sqrt{N}}}$$
-]
-
-.pull-right[
-
-$$t = \frac{(\bar{X}_1 - \bar{X}_2)-(\mu_1 - \mu_2)}{\sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}$$
-
-]
-
-All test statistics measure 
-
-$$\frac{\text{Signal}}{\text{Noise}}$$
-
----
-
-class: center
-
-![](images/signal.png)
----
-
 ## Confidence intervals
 
 **Confidence intervals** are used to communicate the precision in our how well our statistic estimates the parameter. As a reminder, they are grounded in frequenst probability: if we repeated our experiment many times, we would expect that 95% of the time, our 95% confidence interval would capture the true population parameter.
@@ -509,8 +483,8 @@ $$[14.47, 22.15]$$
 **Males**
 
 ```{r}
-qt(.975, df = 83-1)
 sd(school_new$friends[school_new$Gender == "Male"], na.rm=T)
+qt(.975, df = 83-1)
 ```
 
 
@@ -526,15 +500,50 @@ ggerrorplot(school_new, x = "Gender", y = "friends",
             desc_stat = "mean_ci", color = "Gender", 
             ylab = "Hours spent with friends (per week)")
 ```
+---
 
 
+```{r message = F, warning = F}
+ggerrorplot(school_new, x = "Gender", y = "friends", 
+            desc_stat = "mean_ci", color = "Gender", 
+            ylim=range(school_new$friends, na.rm=T),
+            ylab = "Hours spent with friends (per week)")
+```
+---
+
+### What is a test statistic?
+
+.pull-left[
+
+$$Z = \frac{\bar{X}-\mu}{\sigma_M}$$
+
+$$t = \frac{\bar{X}-\mu}{\frac{s}{\sqrt{N}}}$$
+]
+
+.pull-right[
+
+$$t = \frac{(\bar{X}_1 - \bar{X}_2)-(\mu_1 - \mu_2)}{\sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}$$
+
+]
+
+All test statistics measure 
+
+$$\frac{\text{Signal}}{\text{Noise}}$$
+
+---
+
+class: center
+
+![](images/signal.png)
 ---
 
 class: inverse
 
 ## Next time
 
-More independent samples t-tests
+* Assumptions
+* Cohen's D 
+* Matrix algebra
 
 
 
