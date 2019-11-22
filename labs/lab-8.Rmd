@@ -392,7 +392,7 @@ p_val <- pt(q = 3.10, df = 19, lower.tail = TRUE) * 2
 p_val
 ```
 
-Error 3:
+**Error 3:**
 
 I prefer `t.test()` over `independentSamplesTTest()` because I'm an R purist, and I wanted to calculate a Cohen's *d* value using the `t2d()` function in the `{psych}` package. I don't think it is working properly. I have a *t*-statistic of `5.12`and the sample sizes for my two groups are `15` and `22`.
 
@@ -423,30 +423,19 @@ $n_{LightTheme}$ = 19
 1. Calculate the *t*-statistic for the difference between the two means. Assume the variances of the two groups are equal.
 
 ```{r}
-mean_diff    <- 20.01 - 16.56
-group1_w     <- 8 - 1
-group2_w     <- 10 - 1
-sd_pooled    <- sqrt(((group1_w * 5.44^2) + (group2_w * 3.12^2)) / (group1_w + group2_w))
-n_correction <- sqrt((1 / 8) + (1 / 19))
-se           <- sd_pooled * n_correction
-t_stat       <- mean_diff / se
+# your code here
 ```
 
 2. Is the difference between the two means significant? *Note.* You will have to calculate the degrees of freedom.
 
 ```{r}
-# calculate degrees of freedom
-df <- 27 - 2
-
-# calculate p-value
-pt(q = abs(t_stat), df = df, lower.tail = FALSE) * 2
+# your code here
 ```
 
 3. Why do you think the researchers got the *p*-value they did?
 
 ```{r}
-# calculate one-taled t-tst
-pt(q = abs(t_stat), df = df, lower.tail = FALSE)
+# your code here
 ```
 
 ## Minihack 3: Using Functions
@@ -469,33 +458,25 @@ data_os <- data.frame("id"      = 1:1e5,
 1. Perform an Independent Samples *t*-test on the data (preferably using a built in function).
 
 ```{r}
-independentSamplesTTest(ability ~ os, data = data_os, var.equal = TRUE)
+# your code here
 ```
 
 2. After running the code, you think that maybe you should have run a Welch's *t*-test instead of a Student's *t*-test. Investigate your chosen function to figure out how to perform a Welch's *t*-test on the data. Do you find a different result? Why or why not?
 
 ```{r}
-independentSamplesTTest(ability ~ os, data = data_os, var.equal = FALSE)
+# your code here
 ```
 
 3. Let's give the researchers the benefit of the doubt and assume the variances of both groups are equal. Is there a **meaningful** difference between Mac and PC users? Use a statistic to provide support for your answer.
 
 ```{r}
-# The Cohen's d is .04. It is a very small effect.
+# your code here
 ```
 
 4. Plot the data using `ggerrorplot()`. Does this support your answer to question 3?
 
 ```{r}
-# create plot
-ggerrorplot(data_os, 
-            x         = "os", 
-            y         = "ability", 
-            desc_stat = "mean_ci", 
-            color     = "os", 
-            ylab      = "Cooperation") +
-  # add result sof t.test
-  stat_compare_means(method = "t.test")
+# your code here
 ```
 
 
