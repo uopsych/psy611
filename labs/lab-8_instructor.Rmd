@@ -343,7 +343,7 @@ The `formula` argument for `independentSamplesTTest` may look unfamiliar to some
 
 A proper write-up for our Independent Sample *t*-test would be:
 
-"Cooperation in the public condition (*M* = 55.70, *SD* = 14.84) was much greater than cooperation in the anonymous condition (*M* = 40.90, *SD* = 9.42), *t*(18) = 2.66, *p* = .018, 95% CI [-2.96, 26.64], *d* = 1.19.
+"Cooperation in the public condition (*M* = 55.70, *SD* = 14.84) was much greater than cooperation in the anonymous condition (*M* = 40.90, *SD* = 9.42), *t*(18) = 2.66, *p* = .018, 95% CI [3.12, 26.64], *d* = 1.19.
 
 ## Plotting an Independent Samples *t*-test
 
