@@ -98,7 +98,7 @@ It looks like the average cooperation was actually *less* than 60. But this coul
 
 To do so, we will first calculate the *t*-statistic, which is as easy as inserting our acquired descriptive statistics into the equation above. 
 
-$$\frac{48.3 - 60}{14.29 / \sqrt{20}} = 15.12$$
+$$\frac{48.3 - 60}{14.29 / \sqrt{20}} = -3.66$$
 
 Of course, we can also calculate this in R using the following code:
 
@@ -247,11 +247,11 @@ As we can see from the statistics, the number of participants in each condition 
 
 ![](`r here("labs", "resources", "lab8", "lab8_8.png")`)
 
-To calculate the *t*-statistic, we will use a similar equation to that used for the one-sample *t*-test, but the numerator will be the difference between the condition means ($\bar X_1 - \bar X_2$) and the denominator will be the standard error of the difference between the means ($\hat \sigma_p \sqrt{\frac{1}{N_2} + \frac{1}{N_2}}$).
+To calculate the *t*-statistic, we will use a similar equation to that used for the one-sample *t*-test, but the numerator will be the difference between the condition means ($\bar X_1 - \bar X_2$) and the denominator will be the standard error of the difference between the means ($\hat \sigma_p \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}$).
 
-$$\frac{\bar X_1 - \bar X_2}{\hat \sigma_p \sqrt{\frac{1}{N_2} + \frac{1}{N_2}}}$$
+$$\frac{\bar X_1 - \bar X_2}{\hat \sigma_p \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}$$
 
-The standard error of the difference between the means is the pooled standard deviation ($\hat \sigma_p$) decreased by the sample size ($\sqrt{\frac{1}{N_2} + \frac{1}{N_2}}$). The pooled standard deviation is calculated using the following equation:
+The standard error of the difference between the means is the pooled standard deviation ($\hat \sigma_p$) decreased by the sample size ($\sqrt{\frac{1}{N_1} + \frac{1}{N_2}}$). The pooled standard deviation is calculated using the following equation:
 
 $$\hat \sigma_p = \frac{((N_1 - 1) \times \hat \sigma_1^2) + ((N_2 - 1) \times \hat \sigma_2^2)}{(N_1 - 1) + (N_2 - 1)}$$
 
@@ -343,7 +343,7 @@ The `formula` argument for `independentSamplesTTest` may look unfamiliar to some
 
 A proper write-up for our Independent Sample *t*-test would be:
 
-"Cooperation in the public condition (*M* = 55.70, *SD* = 14.84) was much greater than cooperation in the anonymous condition (*M* = 40.90, *SD* = 9.42), *t*(15.24) = 2.66, *p* = .018, 95% CI [-2.96, 26.64], *d* = 1.19.
+"Cooperation in the public condition (*M* = 55.70, *SD* = 14.84) was much greater than cooperation in the anonymous condition (*M* = 40.90, *SD* = 9.42), *t*(18) = 2.66, *p* = .018, 95% CI [-2.96, 26.64], *d* = 1.19.
 
 ## Plotting an Independent Samples *t*-test
 
