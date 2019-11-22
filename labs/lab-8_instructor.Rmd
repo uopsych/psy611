@@ -406,7 +406,7 @@ t2d(t = 5.12, n = 15, n1 = 22)
 
 ## Minihack 2: Using Arithmetic
 
-You are reviewing a manuscript that claims people who were assigned to use a light editor theme in R Studio wrote better code than people who were assigned to use a dark editor theme in R Studio. Better code was operationalized as performance on a coding test (scored out of 25). The researchers state that the difference is significant at *p* = .034 (two-tailed), but you have your doubts. The researchers are not willing to share their data with you, but you glean the following information from the manuscript.
+You are reviewing a manuscript that claims people who were assigned to use a light editor theme in R Studio wrote better code than people who were assigned to use a dark editor theme in R Studio. Better code was operationalized as performance on a coding test (scored out of 25). The researchers state that the difference is significant at *p* = .023 (two-tailed), but you have your doubts. The researchers are not willing to share their data with you, but you glean the following information from the manuscript.
 
 $\hat{\mu}_{DarkTheme}$ = 16.56
 
@@ -423,9 +423,9 @@ $n_{LightTheme}$ = 19
 1. Calculate the *t*-statistic for the difference between the two means. Assume the variances of the two groups are equal.
 
 ```{r}
-mean_diff    <- 20.01 - 16.56
+mean_diff    <- 16.56 - 20.01
 group1_w     <- 8 - 1
-group2_w     <- 10 - 1
+group2_w     <- 19 - 1
 sd_pooled    <- sqrt(((group1_w * 5.44^2) + (group2_w * 3.12^2)) / (group1_w + group2_w))
 n_correction <- sqrt((1 / 8) + (1 / 19))
 se           <- sd_pooled * n_correction
@@ -481,7 +481,7 @@ independentSamplesTTest(ability ~ os, data = data_os, var.equal = FALSE)
 3. Let's give the researchers the benefit of the doubt and assume the variances of both groups are equal. Is there a **meaningful** difference between Mac and PC users? Use a statistic to provide support for your answer.
 
 ```{r}
-# The Cohen's d is .04. It is a very small effect.
+# The Cohen's d is .01. It is a very small effect.
 ```
 
 4. Plot the data using `ggerrorplot()`. Does this support your answer to question 3?
