@@ -18,7 +18,6 @@ options(scipen = 999)
 
 #load required packages
 library(tidyverse) # includes dplyr and ggplot2 functions
-library(gganimate) # allows the creation of gifs from ggplot2
 library(lsr) # includes t-test functions
 library(carData) # includes the Guyer data set
 library(here) # for finding image paths
@@ -112,7 +111,7 @@ c("t_stat" = coop_t)
 
 The *t*-statistic (`-3.662473`) is negative because our acquired mean was less than the mean is was tested against. If the acquired mean was greater than the value it was tested against, it would be positive. It is completely fine to have a negative *t*-statistic and you can treat it exactly the same as a positive *t*-statistic (in fact, some researchers will drop the negative sign when reporting the results of a negative *t*-test). 
 
-Next, we can use the `pt()` function to calculate the probability of getting a *t*-statistic of `-3.662473` or less from a t-distribution with `9` degrees of freedom when the null hypothesis is true. The `pt()` function takes three arguments: (1) `q` (the *t*-statistic), (2) `df` (the degrees of freedom), and (3) `lower.tail` (whether we want to find the cumulative probability for the upper or lower part of the distribution). Below I've taken the absolute value of our *t*-statistic (using `abs()`) so that we can use `lower.tail = FALSE` regardless of whether our *t*-statistic is positive or negative.
+Next, we can use the `pt()` function to calculate the probability of getting a *t*-statistic of `-3.662473` or less from a t-distribution with `19` degrees of freedom when the null hypothesis is true. The `pt()` function takes three arguments: (1) `q` (the *t*-statistic), (2) `df` (the degrees of freedom), and (3) `lower.tail` (whether we want to find the cumulative probability for the upper or lower part of the distribution). Below I've taken the absolute value of our *t*-statistic (using `abs()`) so that we can use `lower.tail = FALSE` regardless of whether our *t*-statistic is positive or negative.
 
 To calculate a two-tailed *p*-value using our *t*-statistic, we would run the following code:
 
@@ -343,7 +342,7 @@ The `formula` argument for `independentSamplesTTest` may look unfamiliar to some
 
 A proper write-up for our Independent Sample *t*-test would be:
 
-"Cooperation in the public condition (*M* = 55.70, *SD* = 14.84) was much greater than cooperation in the anonymous condition (*M* = 40.90, *SD* = 9.42), *t*(18) = 2.66, *p* = .018, 95% CI [-2.96, 26.64], *d* = 1.19.
+"Cooperation in the public condition (*M* = 55.70, *SD* = 14.84) was much greater than cooperation in the anonymous condition (*M* = 40.90, *SD* = 9.42), *t*(18) = 2.66, *p* = .018, 95% CI [3.12, 26.64], *d* = 1.19.
 
 ## Plotting an Independent Samples *t*-test
 
