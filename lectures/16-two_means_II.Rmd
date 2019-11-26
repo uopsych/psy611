@@ -437,6 +437,10 @@ $$t = \frac{\bar{X}_1-\bar{X_2}}{\sqrt{\frac{\hat{\sigma}^2_1}{N_1}+\frac{\hat{\
 
 So that's a bit different -- the main difference here is the way that we weight sample variances. It's true that larger samples still get more weight, but not as much as in Student's version. Also, we divide variances here by N instead of N-1, making our standard error larger. 
 
+???
+
+### Don't go into the weighting of variances thing -- too confusing
+
 ---
 
 ### Welch's *t*-test
