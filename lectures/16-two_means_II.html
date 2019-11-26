@@ -19,9 +19,17 @@ class: center, middle, inverse, title-slide
 
 
 
+## Reminders
+
+Quiz 9 is on Thursday next week
+
+Sign up for your oral exam time slot ASAP!
+
+---
+
 ## Last time
 
-* Introduction to independent samples t-tests
+* Introduction to independent samples *t*-tests
 
   * Standard error of the **difference of means**
   
@@ -30,6 +38,604 @@ class: center, middle, inverse, title-slide
   * Confidence intervals around the difference in means
   
   * Confidence intervals around different means
+
+---
+
+## Review of independent samples *t*-tests
+
+It's generally argued that Republicans have an age problem -- but are they substantially older than Democrats? 
+
+In 2014 (midterm election before the most recent presidential election), [*Five Thirty Eight* did an analysis](https://fivethirtyeight.com/features/both-republicans-and-democrats-have-an-age-problem/) of the ages of elected members of Congress. They've provided their data, so we can run analyses on our own.
+
+
+```r
+library(fivethirtyeight)
+```
+---
+
+
+```r
+congress = congress_age %&gt;%
+  filter(congress == 113) %&gt;% # just the most recent
+  filter(party %in% c("R", "D")) # remove independents
+```
+
+
+```r
+psych::describe(congress$age)
+```
+
+```
+##    vars   n  mean    sd median trimmed   mad  min max range  skew kurtosis
+## X1    1 542 57.58 10.92  57.95   57.66 10.82 29.8  93  63.2 -0.02    -0.13
+##      se
+## X1 0.47
+```
+---
+
+
+```r
+congress %&gt;% ggplot(aes(x = age)) + geom_histogram(bins = 50, color = "white") + labs(x = "Age in years", y = "Frequency", title = "Age Distribution of Congressional \nMembers in 113th Congress", caption = "This is pretty normal.") + theme_bw(base_size = 20)
+```
+
+![](16-two_means_II_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+---
+
+
+```r
+congress %&gt;% ggplot(aes(x = age, fill = party)) + geom_histogram(bins = 50, color = "white", position = "dodge") + labs(x = "Age in years", y = "Frequency", title = "Age Distribution of Congressional \nMembers in 113th Congress", caption = "This is pretty normal.") + scale_fill_manual(values = c("blue", "red")) + theme_bw(base_size = 20)
+```
+
+![](16-two_means_II_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+---
+
+
+```r
+psych::describeBy(congress$age, group = congress$party)
+```
+
+```
+## 
+##  Descriptive statistics by group 
+## group: D
+##    vars   n  mean    sd median trimmed   mad  min max range  skew kurtosis
+## X1    1 259 59.55 10.85   60.4   59.85 10.53 29.8  93  63.2 -0.19     0.02
+##      se
+## X1 0.67
+## -------------------------------------------------------- 
+## group: R
+##    vars   n  mean    sd median trimmed  mad  min  max range skew kurtosis
+## X1    1 283 55.78 10.68   56.1   55.67 9.79 31.6 89.7  58.1 0.13    -0.11
+##      se
+## X1 0.64
+```
+
+
+
+
+.pull-left[
+$$
+`\begin{aligned}
+ \bar{X}_1 &amp;= 59.55 \\
+ \hat{\sigma}_1 &amp;= 10.85 \\
+ N_1 &amp;= 259 \\
+\end{aligned}`
+$$
+]
+
+.pull-right[
+$$
+`\begin{aligned}
+ \bar{X}_2 &amp;= 55.78 \\
+ \hat{\sigma}_2 &amp;= 10.68 \\
+ N_2 &amp;= 283 \\
+\end{aligned}`
+$$
+]
+
+---
+
+
+
+
+Next we build the sampling distribution under the null hypotheses.
+
+$$
+`\begin{aligned}
+ \mu &amp;= 0 \\
+ \\
+ \sigma_D &amp;= \sqrt{\frac{(259-1){10.85}^2 + (283-1){10.68}^2}{259+283-2}} \sqrt{\frac{1}{259} + \frac{1}{283}}\\
+ &amp;= 10.76\sqrt{\frac{1}{259} + \frac{1}{283}} = 0.93\\
+ \\
+ df &amp;= 540
+\end{aligned}`
+$$ 
+---
+
+
+```
+## [1] 1.964367
+```
+
+```r
+(t = (x1-x2)/s_d)
+```
+
+```
+## [1] 4.071568
+```
+
+![](16-two_means_II_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+---
+
+
+```r
+library(ggpubr)
+test = list(c("R", "D"))
+ggerrorplot(congress, x = "party", y = "age", desc_stat = "mean_ci", xlab = "Party", ylab = "Average Age", 
+            color = "party", palette = c("red", "blue"))
+```
+
+![](16-two_means_II_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+---
+
+
+```r
+test = list(c("R", "D"))
+ggerrorplot(congress, x = "party", y = "age", desc_stat = "mean_ci", xlab = "Party", ylab = "Average Age", 
+            color = "party", palette = c("red", "blue"), add = "violin") +
+  stat_compare_means(comparisons = test)
+```
+
+![](16-two_means_II_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+---
+
+### A difference in significance is not a significant difference
+
+Researchers commonly examine effects within separate groups. This can be an appropriate strategy, especially if there is reason to think that the mechanisms linking X to Y differ by groups. 
+
+For example, traditional benchmarks might suggest that the average young adult reports a stress-level of 3.4 out of 5. But these benchmarks are estimated from a population of white young adults; you conduct a study looking at young Hispanic adults and young African American adults. 
+
+
+
+
+.pull-left[
+`$$\bar{X}_H: 3.55$$`
+`$$s_H: 0.739$$`
+`$$N_H: 36$$`
+]
+
+.pull-left[
+`$$\bar{X}_B: 3.7$$`
+`$$s_B: 0.788$$`
+`$$N_B: 62$$`
+]
+
+---
+
+We can plot these effects against our population mean:
+
+![](16-two_means_II_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+???
+
+These groups are not significantly different from each other. Just because one group is sig and the other is not, doesn't mean they are different.
+
+This expands beyond one-sample t-tests. For example, if there is a sig. correlation in one group but not another, or a sig ANOVA, or a sig whatever; you have to formally test to say two groups are different.
+
+---
+
+## Effect sizes
+
+Cohen suggested one of the most common effect size estimates—the standardized mean difference—useful when comparing a group mean to a population mean or two group means to each other. This is referred to as **Cohen's d**. 
+
+`$$\delta = \frac{\mu_1 - \mu_0}{\sigma} \approx d = \frac{\bar{X}_1-\bar{X}_1}{\hat{\sigma}_p}$$`
+
+--
+
+Cohen’s d is in the standard deviation (Z) metric.
+
+
+What happens to Cohen's d as sample size gets larger?
+
+
+
+---
+
+Let's go back to our politics example:
+
+.pull-left[
+**Democrats**
+$$
+`\begin{aligned}
+ \bar{X}_1 &amp;= 59.55 \\
+ \hat{\sigma}_1 &amp;= 10.85 \\
+ N_1 &amp;= 259 \\
+\end{aligned}`
+$$
+]
+
+.pull-right[
+**Republicans**
+$$
+`\begin{aligned}
+ \bar{X}_2 &amp;= 55.78 \\
+ \hat{\sigma}_2 &amp;= 10.68 \\
+ N_2 &amp;= 283 \\
+\end{aligned}`
+$$
+]
+
+`$$\hat{\sigma}_p = \sqrt{\frac{(259-1){10.85}^2 + (283-1){10.68}^2}{259+283-2}} 
+ = 10.76$$`
+ 
+
+ 
+ 
+`$$d = \frac{59.55-55.78}{10.76} = 0.35$$`
+
+How do we interpret this? Is this a large effect?
+
+---
+
+Cohen (1988) suggests the following guidelines for interpreting the size of d:
+
+.large[
+
+- 	.2 = Small
+
+- 	.5 = Medium
+
+- 	.8 = Large	
+
+]
+
+An aside, to calculate Cohen's D for a one-sample *t*-test: 
+`$$d = \frac{\bar{X}-\mu}{\hat{\sigma}}$$`
+
+
+.small[Cohen, J. (1988), Statistical power analysis for the behavioral sciences (2nd Ed.). Hillsdale: Lawrence Erlbaum.]
+
+---
+
+Another useful metric is the overlap between the two population distributions -- the smaller the overlap, the farther apart the distributions. As a reminder, our data constitutes only samples representing the larger populations, so we use our statistics to build estimated population distributions.
+
+---
+
+![](16-two_means_II_files/figure-html/overlap_plot-1.png)&lt;!-- --&gt;
+
+
+---
+
+![](16-two_means_II_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+
+These distributions have 86.1 % overlap.
+
+---
+### Calculation of distribution overlap
+
+There is a straightforward relationship between Cohen's d and distribution overlap:
+
+`$$\text{Overlap} = P(X \leq -\frac{|d|}{2})*2$$`
+
+
+```r
+2 * pnorm(-abs(0.35)/2)
+```
+
+```
+## [1] 0.8610796
+```
+
+---
+
+## When should you not use Student's *t*-test?
+
+Recall the three assumptions of Student's *t*-test:
+
+* Independence
+* Normality
+* Homogeneity of variance
+
+There are no good statistical tests to determine whether you've violated the first -- it depends on how you sampled your population. 
+
+--
+
+* Draw phone numbers at random from a phone book?
+* Recruit random sets of fraternal twins?
+* Randomly select houses in a city and interview the person who answers the door?
+
+---
+
+### Homogeneity of variance
+
+Homogeneity of variance can be checked with Levene’s procedure.  It tests the null hypothesis that the variances for two or more groups are equal (or within sampling variability of each other): 
+
+`$$H_0: \sigma^2_1 = \sigma^2_2$$`
+`$$H_0: \sigma^2_1 \neq \sigma^2_2$$`
+Levene's test can be expanded to more than two variances; in this case, the alternative hypothesis is that at least one variance is different from at least one other variance. 
+
+Levene's produces a statistic, *W*, that is *F* distributed with degrees of freedom of `\(k-1\)` and `\(N-k\)`.
+
+---
+
+
+```r
+library(car)
+leveneTest(age~party, data = congress, center = "mean")
+```
+
+```
+## Levene's Test for Homogeneity of Variance (center = "mean")
+##        Df F value Pr(&gt;F)
+## group   1  0.0663  0.797
+##       540
+```
+
+
+Like other tests of significance, Levene’s test gets more powerful as sample size increases. So unless your two variances are *exactly* equal to each other (and if they are, you don't need to do a test), your test will be "significant" with a large enough sample. Part of the analysis has to be an eyeball test -- is this "significant" because they are truly different, or because I have many subjects. 
+
+---
+### Homogeneity of variance
+
+The homogeneity assumption is often the hardest to justify, empirically or conceptually.
+
+If we suspect the means for the two groups could be different (H1), that might extend to their variances as well.
+
+Treatments that alter the means for the groups could also alter the variances for the groups.
+
+Welch’s *t*-test removes the homogeneity requirement, but uses a different calculation for the standard error of the mean difference and the degrees of freedom.  One way to think about the Welch test is that it is a penalized *t*-test, with the penalty imposed on the degrees of freedom in relation to violation of variance homogeneity (and differences in sample size).
+
+---
+
+### Welch's *t*-test
+
+`$$t = \frac{\bar{X}_1-\bar{X_2}}{\sqrt{\frac{\hat{\sigma}^2_1}{N_1}+\frac{\hat{\sigma}^2_2}{N_2}}}$$`
+
+So that's a bit different -- the main difference here is the way that we weight sample variances. It's true that larger samples still get more weight, but not as much as in Student's version. Also, we divide variances here by N instead of N-1, making our standard error larger. 
+
+---
+
+### Welch's *t*-test
+
+The degrees of freedom are different: 
+
+`$$df = \frac{[\frac{\hat{\sigma}^2_1}{N_1}+\frac{\hat{\sigma}^2_2}{N_2}]^2}{\frac{[\frac{\hat{\sigma}^2_1}{N1}]^2}{N_1-1}+\frac{[\frac{\hat{\sigma}^2_2}{N2}]^2}{N_2-1}}$$`
+
+These degrees of freedom can be fractional.  As the sample variances converge to equality, these df approach those for Student’s *t*, for equal N.  
+
+---
+
+
+```r
+t.test(age~party, data = congress, var.equal = F)
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  age by party
+## t = 4.0688, df = 534.2, p-value = 5.439e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  1.949133 5.588133
+## sample estimates:
+## mean in group D mean in group R 
+##        59.55097        55.78233
+```
+
+
+---
+
+### Normality
+
+Finally, there's the assumption of normality. Specifically, this is the assumption that the population is normal -- if the population is normal, then our sampling distribution is **definitely** normal and we can use a *t*-distribution.
+
+But even if the population is not normal, the CLT lets us assume our sampling distribution is normal because as N approaches infinity, the sampling distributions approaches normality. So we can be **pretty sure** the sampling distribution is normal. 
+
+One thing we can check -- the only distribution we actually have access to -- is the sample distribution. If this is normal, then we can again be pretty sure that our population distribution is normal, and thus our sampling distribution is normal too. 
+
+---
+
+Normality can be checked with a formal test: the Shapiro-Wilk test.  The test statistic, W, has an expected value of 1 under the null hypothesis. Departures from normality reduce the size of W.  A statistically significant W is a signal that the sample distribution departs significantly from normal.
+
+But...
+* With large samples, even trivial departures will be statistically significant.
+* With large samples, the sampling distribution of the mean(s) will approach normality, unless the data are very non-normally distributed.
+* Visual inspection of the data can confirm if the latter is a problem.
+* Visual inspection can also identify outliers that might influence the data.
+
+---
+
+
+```r
+shapiro.test(x = congress$age)
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  congress$age
+## W = 0.99663, p-value = 0.3168
+```
+
+.pull-left[
+
+```r
+hist(congress$age, col = "purple", border = "white")
+```
+
+![](16-two_means_II_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+]
+
+---
+
+A common non-parametric test that can be used in place of the independent samples *t*-test is the **Wilcoxon sum rank test**.  Here's the calculation:
+
+* Order all the data points by their outcome. 
+* For one of the groups, add up all the ranks. That's your test statistic, *W*.
+* To build the sampling distribution, randomly shuffle the group labels and add up the ranks for your group of interest again. Repeat this process until you've calculated the rank sum for every possible group assignment. 
+
+
+```r
+wilcox.test(age~party, data = congress)
+```
+
+```
+## 
+## 	Wilcoxon rank sum test with continuity correction
+## 
+## data:  age by party
+## W = 44488, p-value = 1.674e-05
+## alternative hypothesis: true location shift is not equal to 0
+```
+
+
+---
+
+## Matrix algebra
+
+For now, we're going to focus on how we can use matrix algebra to represent the underlying models of these tests, but we're going to ignore the probability/significance part. 
+
+At it's heart, the independent samples *t*-test proposes a model in which our best guess of a person's score is the mean of their group. 
+
+We can use **linear combinations** of both rows and columns to generate these "best guess" scores. 
+
+---
+Assume your data take the following form:
+
+.pull-left[
+
+`$$\large \mathbf{X} = \left(\begin{array}
+{rr}
+\text{Party} &amp; \text{Age} \\
+D &amp; 85.9  \\
+R &amp; 78.8  \\
+\vdots &amp; \vdots  \\
+D &amp; 83.2 
+\end{array}\right)$$`
+]
+
+.pull-right[
+What are your linear combinations of columns?
+
+
+What are your linear combinations of rows?
+]
+
+--
+
+**Linear combinations of columns:** 
+
+`$$\large \mathbf{T_C} = \left(\begin{array}
+{rr}
+0, 1
+\end{array}\right)$$`
+
+---
+Assume your data take the following form:
+
+.pull-left[
+
+`$$\large \mathbf{X} = \left(\begin{array}
+{rr}
+\text{Party} &amp; \text{Age} \\
+D &amp; 85.9  \\
+R &amp; 78.8  \\
+\vdots &amp; \vdots  \\
+D &amp; 83.2 
+\end{array}\right)$$`
+]
+
+.pull-right[
+What are your linear combinations of columns?
+
+
+What are your linear combinations of rows?
+]
+
+
+
+**Linear combinations of rows:** 
+
+`$$\mathbf{T_R} = \left(\begin{array}
+{rr}
+\frac{1}{N_D} &amp; 0 \\
+0 &amp; \frac{1}{N_R} \\
+\vdots &amp; \vdots  \\
+\frac{1}{N_D} &amp; 0 \\
+\end{array}\right)$$`
+
+---
+
+`$$(T_R)X(T_C) = M$$`
+
+This set of linear combinations calculates the different means of our two groups. That's great! 
+
+
+But there's another way. We can create a single transformation matrix, T, that's very simple:
+
+`$$\mathbf{T} = \left(\begin{array}
+{rr}
+1 &amp; 0 \\
+1 &amp; 1 \\
+\vdots &amp; \vdots  \\
+1 &amp; 0 \\
+\end{array}\right)$$`
+
+Using this matrix, we can solve a different equation:
+
+`$$(T'T)^{-1}T'X = (b)$$`
+In this case, *b* will be a vector with 2 scalars.
+
+---
+
+
+```r
+X = congress$age
+T_mat = matrix(1, ncol = 2, nrow = length(X))
+T_mat[congress$party == "D", 2] = 0
+```
+
+```
+##      [,1] [,2]
+## [1,]    1    1
+## [2,]    1    0
+## [3,]    1    0
+## [4,]    1    0
+## [5,]    1    0
+## [6,]    1    1
+```
+
+`$$(T'T)^{-1}T'X = (b)$$`
+
+
+```r
+solve(t(T_mat) %*% T_mat) %*% t(T_mat) %*% X
+```
+
+```
+##           [,1]
+## [1,] 59.550965
+## [2,] -3.768633
+```
+
+What do these numbers represent?
+
+---
+
+class: inverse
+
+## Next time...
+
+paired-samples *t*-tests
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

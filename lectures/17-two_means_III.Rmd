@@ -1,0 +1,16 @@
+---
+title: 'Comparing two dependent means I'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, rladies, rladies-fonts, "my-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Use these data: https://royalsocietypublishing.org/doi/10.1098/rsbl.2019.0405

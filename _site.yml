@@ -37,6 +37,8 @@ navbar:
         href: "lectures/14-one_sample.html"
       - text: "15-Comparing two means I"
         href: "lectures/15-two_means_I.html"
+      - text: "16-Comparing two means II"
+        href: "lectures/16-two_means_II.html"
     - text: Labs
       menu:
       - text: "Introduction to R and RStudio"
