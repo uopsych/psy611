@@ -28,9 +28,10 @@ Today's lab will guide you through the process of conducting a paired samples *t
 To quickly navigate to the desired section, click one of the following links:
 
 1. [The Data](#data)
+2. [Data exploration](#explore)
 
 
-You will need several packages to be loaded in order to follow along -- go ahead and load them now by runninng the following code (and install any packages that you don't already have installed).
+* You will need several packages to be loaded in order to follow along. Go ahead and load them now by running the following code (and be sure to install any packages that you don't already have installed):
 
 ```{r}
 #load required packages
@@ -39,6 +40,7 @@ library(lsr) # includes t-test functions
 library(stats) # includes different t-test functions
 library(ggpubr) # for plotting
 library(rio) # for importing data
+library(psych) # for descriptives
 ```
 
 ***
@@ -59,7 +61,7 @@ chico_long <- import("https://raw.githubusercontent.com/uopsych/psy611/master/la
 
 **Note:** You should now have 2 versions of the same data set now loaded into your global environment. The only difference in these versions of the data is their "shape" -- one is "wide" and the other is "long". In the wide form, every row corresponds to a unique *person*; in the long form, every row corresponds to a unique *measurement*.
 
-To get a sense of the differences between these two versions of the data, see below:
+* To get a sense of the differences between these two versions of the data, see below:
 
 ```{r}
 head(chico_wide)
@@ -67,9 +69,72 @@ head(chico_wide)
 head(chico_long)
 ```
 
-For now, we are going to work with `chico_wide`. Later on we will discuss more about how to deal with wide vs. long format. 
+* For now, we are going to work with `chico_wide`. Later on we will discuss more about how to deal with wide vs. long format. 
 
 ***
+
+# Data exploration {#explore}
+
+Let's take a closer look at the data before we actually run a *t*-test to see what might be going on...
+
+```{r}
+describe(chico_wide)
+```
+
+**Question:** What do you notice about the means and standard deviations on the two groups? Can we conclude anything?
+
+* What if we look at the data graphically? 
+
+<center>
+![](resources/lab9/lsr_figs/line.png)
+</center>
+
+
+* Based on the descriptive statistics and the plot above with widely overlapping confidence intervals, it might seem intuitive to think that the improvement in test scores from Test 1 to Test 2 is due entirely to chance. However, if we look at the data in a different way, we will see why this impression is not correct...
+
+<center>
+![](resources/lab9/lsr_figs/scatter.png)
+</center>
+
+**Question**: What do you notice about the pattern this plot shows?
+
+* Let's create a new variable to represent the *improvement* for each student from Test 1 to Test 2.
+
+```{r}
+chico_wide <- chico_wide %>% 
+  mutate(diff = grade_test2 - grade_test1)
+
+head(chico_wide)
+```
+
+* Now let's look at a histogram of these improvement scores:
+
+<center>
+![](resources/lab9/lsr_figs/hist.png)
+</center>
+
+
+* Notice that the vast majority of students have an improvement score above 0; in other words, virtually all students improved their score to some extent from Test 1 to Test 2. 
+
+
+***
+
+# 
+
+
+
+
+
+
+
+
+
+```{r}
+# ggpaired(chico_long, x = "time", y = "grade",
+#          color = "time", line.color = "gray", line.size = 0.4,
+#          palette = "jco")
+```
+
 
 # Minihacks {#minihacks}
 
