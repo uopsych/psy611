@@ -141,17 +141,31 @@ $$ H_1: \mu_\Delta \neq 0 $$
 
 $$t = \frac{\bar \Delta}{SE(\bar \Delta)}$$
 which is the same as
-$$t = \frac{\Delta}{\hat \sigma_\Delta / \sqrt{N}}$$
+$$t = \frac{\bar \Delta}{\hat \sigma_\Delta / \sqrt{N}}$$
 
+## One-sample *t*-test of difference scores
 
+## `lsr::pairedSamplesTTest()`
 
+## Long vs. wide format
+
+## `stats::t.test()`
+
+***
+
+# Effect size
+
+***
+
+# Plotting paired-samples data
 
 ```{r}
-# ggpaired(chico_long, x = "time", y = "grade",
-#          color = "time", line.color = "gray", line.size = 0.4,
-#          palette = "jco")
+ggpaired(chico_long, x = "time", y = "grade",
+         color = "time", line.color = "gray", line.size = 0.4,
+         palette = "jco")
 ```
 
+***
 
 # Minihacks {#minihacks}
 
