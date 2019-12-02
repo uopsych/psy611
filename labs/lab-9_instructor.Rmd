@@ -16,28 +16,58 @@ knitr::opts_chunk$set(message = FALSE,
 # suppress scientific notation
 options(scipen = 999)
 
-#load required packages
-library(tidyverse) # includes dplyr and ggplot2 functions
-library(lsr) # includes t-test functions
+#load required packages for .Rmd set-up
 library(here) # for finding paths
-library(ggpubr) # for making an error line plot
-library(rio) # for importing data
 ```
 
 # Purpose
 
-Today's lab will guide you through the process of conducting a paired samples *t*-test. As we did with one-sample and independent samples *t*-tests [last week](https://uopsych.github.io/psy611/labs/lab-8.html#purpose){target="_blank"}, we will compare functions from the `{stats}` and `{lsr}` packages, and we will go over how to plot paired-samples data using `{ggpubr}`.
+Today's lab will guide you through the process of conducting a paired samples *t*-test. As we did with one-sample and independent samples *t*-tests [last week](https://uopsych.github.io/psy611/labs/lab-8.html){target="_blank"}, we will compare functions from the `{stats}` and `{lsr}` packages, and we will go over how to plot paired-samples data using `{ggpubr}`. At the end of today's lab, you will apply what you learned to a new data set in the [minihacks](#minihacks).
 
 
 To quickly navigate to the desired section, click one of the following links:
 
+1. [The Data](#data)
 
-At the end of today's lab, you will apply what you learned to a new data set in the [minihacks](#minihacks).
+
+You will need several packages to be loaded in order to follow along -- go ahead and load them now by runninng the following code (and install any packages that you don't already have installed).
+
+```{r}
+#load required packages
+library(tidyverse) # includes dplyr and ggplot2 functions
+library(lsr) # includes t-test functions
+library(stats) # includes different t-test functions
+library(ggpubr) # for plotting
+library(rio) # for importing data
+```
 
 ***
 
-# The Data
+# The Data {#data}
 
+To illustrate how paired-samples *t*-tests work, we are going to walk through [an example from your textbook](https://learningstatisticswithr-bookdown.netlify.com/ttest.html#pairedsamplesttest){target="_blank"}. In this example, the data comes from Dr. Chico's introductory statistics class, in which students take two tests over the course of the semester. Dr. Chico gives notoriously difficult exams with the intention of motivating her students to work hard in the class and thus learn as much as possible. Dr. Chico's theory is that the first test will serve as a "wake up call" for her students, such that when they realize how difficult the class actually is they will be motivated to study harder and earn a higher grade on the second test than they got on the first test.
+
+You can load in the data from this example by running the following code:
+
+```{r}
+# wide format
+chico_wide <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/chico_wide.csv")
+
+# long format
+chico_long <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/chico_long.csv")
+```
+
+**Note:** You should now have 2 versions of the same data set now loaded into your global environment. The only difference in these versions of the data is their "shape" -- one is "wide" and the other is "long". In the wide form, every row corresponds to a unique *person*; in the long form, every row corresponds to a unique *measurement*.
+
+To get a sense of the differences between these two versions of the data, see below:
+
+```{r}
+head(chico_wide)
+
+head(chico_long)
+```
+
+For now, we are going to work with `chico_wide`. Later on we will discuss more about how to deal with wide vs. long format. 
 
 ***
 
