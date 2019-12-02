@@ -41,6 +41,7 @@ library(stats) # includes different t-test functions
 library(ggpubr) # for plotting
 library(rio) # for importing data
 library(psych) # for descriptives
+library(pwr) # for calculating the power for a t-test
 ```
 
 ***
@@ -305,7 +306,7 @@ You are welcome to work with a partner or in a small group of 2-3 people. Please
 
 ## Minihack 1
 
-A clinical psychologist wants to know whether a new cognitive-behavioral therapy program helps alleviate anxiety.  He enrolls 12 individuals diagnosed with an anxiety disorder in a 6-week CBT program. Participants are given an Anxiety Scale before they begin and after they complete treatment.  
+A clinical psychologist wants to know whether a new cognitive-behavioral therapy program helps alleviate anxiety. He enrolls 12 individuals diagnosed with an anxiety disorder in a 6-week CBT program. Participants are given an Anxiety Scale before they begin and after they complete treatment.  
 
 Import the data by running the the following code:
 
@@ -317,11 +318,53 @@ cbt_data <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs
 
 2. Run a paired-samples *t*-test
 
-3. Calcualate an effect size
+3. Calculate an effect size
 
 ***
 
 ## Minihack 2
+
+1. Adapt the following code to calculate the achieved power for the paired samples *t*-test in minihack 1.
+
+```{r, eval = FALSE}
+pwr.t.test(n           = ???,
+           d           = ???,
+           sig.level   = .05, 
+           power       = NULL,
+           type        = "paired",
+           alternative = "two.sided")
+```
+
+```{r}
+pwr.t.test(n           = 12,
+           d           = 1.689,
+           sig.level   = .05, 
+           power       = NULL,
+           type        = "paired",
+           alternative = "two.sided")
+```
+
+2. Now imagine you believed that all observations were independent. Change the code above to calculate the power for an independent samples *t*-test. Is the power smaller or larger? Why or why not?
+
+```{r}
+pwr.t.test(n           = 12,
+           d           = 1.689,
+           sig.level   = .05, 
+           power       = NULL,
+           type        = "two.sample",
+           alternative = "two.sided")
+```
+
+3. Let's say you're planning to replicate the study from minihack 1. Further the change the code above to estimate the minimum number of participants required to detect an effect of the same size with 80% power. *Note.* You will want to change the `type` argument back to paired.
+
+```{r minihack2_answer}
+pwr.t.test(n           = NULL,
+           d           = 1.689,
+           sig.level   = .05, 
+           power       = .80,
+           type        = "paired",
+           alternative = "two.sided")
+```
 
 ***
 
