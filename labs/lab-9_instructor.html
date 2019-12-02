@@ -1650,7 +1650,7 @@ head(chico_wide)</code></pre>
 <ul>
 <li>Note that so far this looks really similar to a one-sample <em>t</em>-test; in this case, we are testing whether the mean of some set of difference scores is different from 0. As such, our <em>t</em> statistics for a paired samples <em>t</em>-test looks similar to what we have already learned for a one-sample <em>t</em>-test:</li>
 </ul>
-<p><span class="math display">\[t = \frac{\Delta}{SE(\Delta)}\]</span> which is the same as <span class="math display">\[t = \frac{\Delta}{\hat \sigma_\Delta / \sqrt{N}}\]</span></p>
+<p><span class="math display">\[t = \frac{\bar \Delta}{SE(\bar \Delta)}\]</span> which is the same as <span class="math display">\[t = \frac{\Delta}{\hat \sigma_\Delta / \sqrt{N}}\]</span></p>
 <pre class="r"><code># ggpaired(chico_long, x = &quot;time&quot;, y = &quot;grade&quot;,
 #          color = &quot;time&quot;, line.color = &quot;gray&quot;, line.size = 0.4,
 #          palette = &quot;jco&quot;)</code></pre>
