@@ -1630,11 +1630,31 @@ head(chico_wide)</code></pre>
 </ul>
 <hr />
 </div>
-<div id="section" class="section level1">
-<h1></h1>
+<div id="paired-samples-t-test-in-r" class="section level1">
+<h1>Paired samples <em>t</em>-test in R</h1>
+<div id="what-is-a-paired-samples-t-test" class="section level2">
+<h2>What is a paired samples <em>t</em>-test?</h2>
+<ul>
+<li><p>In our example above, we created a new variable, <code>chico_wide$improvement</code>, that represents the <em>difference</em> between each student’s score on Test 1 and Test 2.</p></li>
+<li><p>More generally, if <span class="math inline">\(X_{i1}\)</span> is the score that the <span class="math inline">\(i\)</span>-th participant obtained on the first variable, and <span class="math inline">\(X_{i2}\)</span> is the score that the same person obtained on the second one, then the difference score is:</p></li>
+</ul>
+<p><span class="math display">\[ \Delta_i = X_{i1} - X_{i2}\]</span></p>
+<ul>
+<li>The population mean of difference scores could be represented as:</li>
+</ul>
+<p><span class="math display">\[ \mu_\Delta = \mu_1  - \mu_2\]</span></p>
+<ul>
+<li>Fundamentally, paired samples <em>t</em>-tests operate at the level of difference scores. Accordingly, we can state the null and alternative hypotheses for a paired-samples <em>t</em>-test as follows:</li>
+</ul>
+<p><span class="math display">\[ H_0: \mu_\Delta = 0 \]</span> <span class="math display">\[ H_1: \mu_\Delta \neq 0 \]</span></p>
+<ul>
+<li>Note that so far this looks really similar to a one-sample <em>t</em>-test; in this case, we are testing whether the mean of some set of difference scores is different from 0. As such, our <em>t</em> statistics for a paired samples <em>t</em>-test looks similar to what we have already learned for a one-sample <em>t</em>-test:</li>
+</ul>
+<p><span class="math display">\[t = \frac{\Delta}{SE(\Delta)}\]</span> which is the same as <span class="math display">\[t = \frac{\Delta}{\hat \sigma_\Delta / \sqrt{N}}\]</span></p>
 <pre class="r"><code># ggpaired(chico_long, x = &quot;time&quot;, y = &quot;grade&quot;,
 #          color = &quot;time&quot;, line.color = &quot;gray&quot;, line.size = 0.4,
 #          palette = &quot;jco&quot;)</code></pre>
+</div>
 </div>
 <div id="minihacks" class="section level1">
 <h1>Minihacks</h1>

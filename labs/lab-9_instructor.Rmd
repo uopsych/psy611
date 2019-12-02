@@ -116,15 +116,32 @@ head(chico_wide)
 
 * Notice that the vast majority of students have an improvement score above 0; in other words, virtually all students improved their score to some extent from Test 1 to Test 2. 
 
-
 ***
 
-# 
+# Paired samples *t*-test in R
 
+## What is a paired samples *t*-test?
 
+* In our example above, we created a new variable, `chico_wide$improvement`, that represents the *difference* between each student's score on Test 1 and Test 2. 
 
+* More generally, if $X_{i1}$ is the score that the $i$-th participant obtained on the first variable, and $X_{i2}$ is the score that the same person obtained on the second one, then the difference score is:
 
+$$ \Delta_i = X_{i1} - X_{i2}$$
 
+* The population mean of difference scores could be represented as:
+
+$$ \mu_\Delta = \mu_1  - \mu_2$$ 
+
+* Fundamentally, paired samples *t*-tests operate at the level of difference scores. Accordingly, we can state the null and alternative hypotheses for a paired-samples *t*-test as follows:
+
+$$ H_0: \mu_\Delta = 0 $$ 
+$$ H_1: \mu_\Delta \neq 0 $$ 
+
+* Note that so far this looks really similar to a one-sample *t*-test; in this case, we are testing whether the mean of some set of difference scores is different from 0. As such, our *t* statistics for a paired samples *t*-test looks similar to what we have already learned for a one-sample *t*-test:
+
+$$t = \frac{\Delta}{SE(\Delta)}$$
+which is the same as
+$$t = \frac{\Delta}{\hat \sigma_\Delta / \sqrt{N}}$$
 
 
 
