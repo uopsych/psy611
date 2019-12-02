@@ -22,7 +22,7 @@ library(here) # for finding paths
 
 # Purpose
 
-Today's lab will guide you through the process of conducting a paired samples *t*-test. As we did with one-sample and independent samples *t*-tests [last week](https://uopsych.github.io/psy611/labs/lab-8.html){target="_blank"}, we will compare functions from the `{stats}` and `{lsr}` packages, and we will go over how to plot paired-samples data using `{ggpubr}`. At the end of today's lab, you will apply what you learned to a new data set in the [minihacks](#minihacks).
+Today's lab will guide you through the process of conducting a paired samples *t*-test. As we did with [one-sample and independent samples *t*-tests](https://uopsych.github.io/psy611/labs/lab-8.html){target="_blank"}, we will compare functions from the `{stats}` and `{lsr}` packages, and we will go over how to plot paired-samples data using `{ggpubr}`. At the end of today's lab, you will apply what you learned to a new data set in the [minihacks](#minihacks).
 
 
 To quickly navigate to the desired section, click one of the following links:
