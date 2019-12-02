@@ -145,15 +145,60 @@ $$t = \frac{\bar \Delta}{\hat \sigma_\Delta / \sqrt{N}}$$
 
 ## One-sample *t*-test of difference scores
 
+```{r}
+t.test(x = chico_wide$diff, mu = 0)
+```
+
+
+```{r}
+oneSampleTTest(x = chico_wide$diff, mu = 0)
+```
+
+
 ## `lsr::pairedSamplesTTest()`
 
-## Long vs. wide format
+```{r}
+pairedSamplesTTest(formula = ~ grade_test2 + grade_test1, # one-sided formula
+                   data = chico_wide # wide format
+                  )
+```
+
+
+### Long vs. wide format
+
+```{r}
+# grouping variable (time) must be a factor
+chico_long <- chico_long %>% 
+  mutate(time = as.factor(time))
+
+pairedSamplesTTest(formula = grade ~ time, # two-sided formula
+                   data = chico_long, # long format
+                   id = "id" # name of the id variable
+                   )
+```
 
 ## `stats::t.test()`
+
+```{r}
+t.test(x = chico_wide$grade_test1,
+       y = chico_wide$grade_test2,
+       paired = TRUE)
+```
+
 
 ***
 
 # Effect size
+
+$$ d = \frac{\bar \Delta}{\hat \sigma_\Delta} $$
+
+where $\hat \sigma_\Delta$ is the standard deviation of the difference scores
+
+```{r}
+cohensD(x = chico_wide$grade_test1,
+        y = chico_wide$grade_test2, 
+        method = "paired")
+```
 
 ***
 

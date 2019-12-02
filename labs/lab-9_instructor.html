@@ -1654,20 +1654,132 @@ head(chico_wide)</code></pre>
 </div>
 <div id="one-sample-t-test-of-difference-scores" class="section level2">
 <h2>One-sample <em>t</em>-test of difference scores</h2>
+<pre class="r"><code>t.test(x = chico_wide$diff, mu = 0)</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  chico_wide$diff
+## t = 6.4754, df = 19, p-value = 0.000003321
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  0.9508686 1.8591314
+## sample estimates:
+## mean of x 
+##     1.405</code></pre>
+<pre class="r"><code>oneSampleTTest(x = chico_wide$diff, mu = 0)</code></pre>
+<pre><code>## 
+##    One sample t-test 
+## 
+## Data variable:   chico_wide$diff 
+## 
+## Descriptive statistics: 
+##              diff
+##    mean     1.405
+##    std dev. 0.970
+## 
+## Hypotheses: 
+##    null:        population mean equals 0 
+##    alternative: population mean not equal to 0 
+## 
+## Test results: 
+##    t-statistic:  6.475 
+##    degrees of freedom:  19 
+##    p-value:  &lt;.001 
+## 
+## Other information: 
+##    two-sided 95% confidence interval:  [0.951, 1.859] 
+##    estimated effect size (Cohen's d):  1.448</code></pre>
 </div>
 <div id="lsrpairedsamplesttest" class="section level2">
 <h2><code>lsr::pairedSamplesTTest()</code></h2>
+<pre class="r"><code>pairedSamplesTTest(formula = ~ grade_test2 + grade_test1, # one-sided formula
+                   data = chico_wide # wide format
+                  )</code></pre>
+<pre><code>## 
+##    Paired samples t-test 
+## 
+## Variables:  grade_test2 , grade_test1 
+## 
+## Descriptive statistics: 
+##             grade_test2 grade_test1 difference
+##    mean          58.385      56.980      1.405
+##    std dev.       6.406       6.616      0.970
+## 
+## Hypotheses: 
+##    null:        population means equal for both measurements
+##    alternative: different population means for each measurement
+## 
+## Test results: 
+##    t-statistic:  6.475 
+##    degrees of freedom:  19 
+##    p-value:  &lt;.001 
+## 
+## Other information: 
+##    two-sided 95% confidence interval:  [0.951, 1.859] 
+##    estimated effect size (Cohen's d):  1.448</code></pre>
+<div id="long-vs.wide-format" class="section level3">
+<h3>Long vs. wide format</h3>
+<pre class="r"><code># grouping variable (time) must be a factor
+chico_long &lt;- chico_long %&gt;% 
+  mutate(time = as.factor(time))
+
+pairedSamplesTTest(formula = grade ~ time, # two-sided formula
+                   data = chico_long, # long format
+                   id = &quot;id&quot; # name of the id variable
+                   )</code></pre>
+<pre><code>## 
+##    Paired samples t-test 
+## 
+## Outcome variable:   grade 
+## Grouping variable:  time 
+## ID variable:        id 
+## 
+## Descriptive statistics: 
+##              test1  test2 difference
+##    mean     56.980 58.385     -1.405
+##    std dev.  6.616  6.406      0.970
+## 
+## Hypotheses: 
+##    null:        population means equal for both measurements
+##    alternative: different population means for each measurement
+## 
+## Test results: 
+##    t-statistic:  -6.475 
+##    degrees of freedom:  19 
+##    p-value:  &lt;.001 
+## 
+## Other information: 
+##    two-sided 95% confidence interval:  [-1.859, -0.951] 
+##    estimated effect size (Cohen's d):  1.448</code></pre>
 </div>
-<div id="long-vs.wide-format" class="section level2">
-<h2>Long vs. wide format</h2>
 </div>
 <div id="statst.test" class="section level2">
 <h2><code>stats::t.test()</code></h2>
+<pre class="r"><code>t.test(x = chico_wide$grade_test1,
+       y = chico_wide$grade_test2,
+       paired = TRUE)</code></pre>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  chico_wide$grade_test1 and chico_wide$grade_test2
+## t = -6.4754, df = 19, p-value = 0.000003321
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.8591314 -0.9508686
+## sample estimates:
+## mean of the differences 
+##                  -1.405</code></pre>
 <hr />
 </div>
 </div>
 <div id="effect-size" class="section level1">
 <h1>Effect size</h1>
+<p><span class="math display">\[ d = \frac{\bar \Delta}{\hat \sigma_\Delta} \]</span></p>
+<p>where <span class="math inline">\(\hat \sigma_\Delta\)</span> is the standard deviation of the difference scores</p>
+<pre class="r"><code>cohensD(x = chico_wide$grade_test1,
+        y = chico_wide$grade_test2, 
+        method = &quot;paired&quot;)</code></pre>
+<pre><code>## [1] 1.447952</code></pre>
 <hr />
 </div>
 <div id="plotting-paired-samples-data" class="section level1">
