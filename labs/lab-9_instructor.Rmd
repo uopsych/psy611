@@ -143,29 +143,87 @@ $$t = \frac{\bar \Delta}{SE(\bar \Delta)}$$
 which is the same as
 $$t = \frac{\bar \Delta}{\hat \sigma_\Delta / \sqrt{N}}$$
 
-## Arithmetic
-```{r}
-chico_mean   <- mean(chico_wide$diff)
-  
-chico_sd     <- sd(chico_wide$diff)
-  
-chico_n      <- length(chico_wide$diff)
+## Using Arithmetic
 
+For running a paired *t*-test by hand, we essentially run a one-sample *t*-test. The main difference is that our mean and standard deviation are the mean and standard deviation of the difference scores.  
+
+```{r}
+# calculate mean and sd
+chico_mean   <- mean(chico_wide$diff)
+chico_sd     <- sd(chico_wide$diff)
+
+# print the mean and sd
+c("mean" = chico_mean,
+  "sd"   = chico_sd)
+```
+
+Next we can calculate the sample size and the degrees of freedom for our test. Keep in mind that our sample size is not the total number of observations (`40`). Instead, it is the total number of participants (`20`).
+
+```{r}
+# calculate sample size and degrees of freedom
+chico_n      <- length(chico_wide$diff)
 chico_df     <- chico_n - 1
 
-chico_se     <- chico_sd / sqrt(chico_n)
-  
-chico_t      <- chico_mean / chico_se
-  
-chico_p      <- pt(q = abs(chico_t), df = chico_n - 1, lower.tail = FALSE) * 2
+# print the sample size and the degrees of freedom
+c("n" = chico_n,
+  "df"= chico_df)
+```
 
+For the degrees of freedom we only subtract one because, as with a one-sample t-test we are only dealing with one mean (i.e., the mean of the difference scores).
+
+Finally, before we calculate our *t*-statistic, we have to calculate the standard error. 
+
+```{r}
+# calculate the standard error
+chico_se <- chico_sd / sqrt(chico_n)
+
+# print the sample size and the degrees of freedom
+c("se" = chico_se)
+```
+
+Now all we have to do to calculate our *t*-statistic is divide the mean difference scores by the standard error of the mean difference scores.
+
+```{r}
+# calculate the t-statistic
+chico_t <- chico_mean / chico_se
+
+# print the t-statistic
+c("t" = chico_t)
+```
+
+As always, we can calculate a *p*-value for our *t*-statistic using the `pt()` function. 
+
+```{r}
+# calculate the t-statistic
+chico_p <- pt(q = abs(chico_t), df = chico_n - 1, lower.tail = FALSE) * 2
+
+# print the t-statistic
+c("p" = chico_p)
+```
+  
+We can also used the same code we used for our one-sample *t*-test and our independent samples *t*-test to calculate the confidence interval around the mean of the difference scores. 
+
+```{r}
+# calculate the confidence interval
 chico_ci_low <- chico_mean + chico_se * qt(p = .025, df = chico_df, lower.tail = TRUE)
-
 chico_ci_up  <- chico_mean + chico_se * qt(p = .975, df = chico_df, lower.tail = TRUE)
 
-chico_d      <- chico_mean / chico_sd
-
+# print the t-statistic
+c("95% CI Lower" = chico_ci_low,
+  "95% CI Upper" =  chico_ci_up)
 ```
+
+And we can also calculate a Cohen's d in exactly the same way as the one-sample and independent samples *t*-test. If we divide the mean of the difference scores by the standard deviation of the differences scores we get the Cohen's d (i.e., the standardized difference scores). 
+
+```{r}
+# calculate cohen's d
+chico_d <- chico_mean / chico_sd
+
+# print cohen's d
+c("d" = chico_d)
+```
+
+Looks like there was a large effect! On average, students showed a large improvement on the second test. 
 
 ## One-sample *t*-test of difference scores
 
@@ -208,6 +266,12 @@ t.test(x = chico_wide$grade_test1,
        y = chico_wide$grade_test2,
        paired = TRUE)
 ```
+
+## Interpretation and Write-Up
+
+A proper write-up for our Independent Sample *t*-test would be:
+
+"Cooperation in the public condition (*M* = 55.70, *SD* = 14.84) was much greater than cooperation in the anonymous condition (*M* = 40.90, *SD* = 9.42), *t*(18) = 2.66, *p* = .018, 95% CI [3.12, 26.64], *d* = 1.19.
 
 
 ***
