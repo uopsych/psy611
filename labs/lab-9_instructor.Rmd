@@ -1,0 +1,52 @@
+---
+title: "Lab 9: Paired samples *t*-tests"
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+---
+
+```{r setup, include = FALSE}
+# set chunk options
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+# suppress scientific notation
+options(scipen = 999)
+
+#load required packages
+library(tidyverse) # includes dplyr and ggplot2 functions
+library(lsr) # includes t-test functions
+library(here) # for finding paths
+library(ggpubr) # for making an error line plot
+library(rio) # for importing data
+```
+
+# Purpose
+
+Today's lab will guide you through the process of conducting a paired samples *t*-test. As we did with one-sample and independent samples *t*-tests [last week](https://uopsych.github.io/psy611/labs/lab-8.html#purpose){target="_blank"}, we will compare functions from the `{stats}` and `{lsr}` packages, and we will go over how to plot paired-samples data using `{ggpubr}`.
+
+
+To quickly navigate to the desired section, click one of the following links:
+
+
+At the end of today's lab, you will apply what you learned to a new data set in the [minihacks](#minihacks).
+
+***
+
+# The Data
+
+
+***
+
+# Minihacks {#minihacks}
+
+You are welcome to work with a partner or in a small group of 2-3 people. Please feel free to ask the lab leader any questions you might have!
+
+## Minihack 1
+
+## Minihack 2
+
+## Minihack 3
