@@ -219,7 +219,7 @@ $$ d = \frac{\bar \Delta}{\hat \sigma_\Delta} $$
 where $\hat \sigma_\Delta$ is the standard deviation of the difference scores
 
 ```{r}
-cohensD(x = chico_wide$grade_test1,
+lsr::cohensD(x = chico_wide$grade_test1,
         y = chico_wide$grade_test2, 
         method = "paired")
 ```
@@ -242,6 +242,24 @@ You are welcome to work with a partner or in a small group of 2-3 people. Please
 
 ## Minihack 1
 
+A clinical psychologist wants to know whether a new cognitive-behavioral therapy program helps alleviate anxiety.  He enrolls 12 individuals diagnosed with an anxiety disorder in a 6-week CBT program. Participants are given an Anxiety Scale before they begin and after they complete treatment.  
+
+Import the data by running the the following code:
+
+```{r}
+cbt_data <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/cbt_data.csv")
+```
+
+1. What's the research question?
+
+2. Run a paired-samples *t*-test
+
+3. Calcualate an effect size
+
+***
+
 ## Minihack 2
+
+***
 
 ## Minihack 3

@@ -1652,6 +1652,28 @@ head(chico_wide)</code></pre>
 </ul>
 <p><span class="math display">\[t = \frac{\bar \Delta}{SE(\bar \Delta)}\]</span> which is the same as <span class="math display">\[t = \frac{\bar \Delta}{\hat \sigma_\Delta / \sqrt{N}}\]</span></p>
 </div>
+<div id="arithmetic" class="section level2">
+<h2>Arithmetic</h2>
+<pre class="r"><code>chico_mean   &lt;- mean(chico_wide$diff)
+  
+chico_sd     &lt;- sd(chico_wide$diff)
+  
+chico_n      &lt;- length(chico_wide$diff)
+
+chico_df     &lt;- chico_n - 1
+
+chico_se     &lt;- chico_sd / sqrt(chico_n)
+  
+chico_t      &lt;- chico_mean / chico_se
+  
+chico_p      &lt;- pt(q = abs(chico_t), df = chico_n - 1, lower.tail = FALSE) * 2
+
+chico_ci_low &lt;- chico_mean + chico_se * qt(p = .025, df = chico_df, lower.tail = TRUE)
+
+chico_ci_up  &lt;- chico_mean + chico_se * qt(p = .975, df = chico_df, lower.tail = TRUE)
+
+chico_d      &lt;- chico_mean / chico_sd</code></pre>
+</div>
 <div id="one-sample-t-test-of-difference-scores" class="section level2">
 <h2>One-sample <em>t</em>-test of difference scores</h2>
 <pre class="r"><code>t.test(x = chico_wide$diff, mu = 0)</code></pre>
@@ -1776,7 +1798,7 @@ pairedSamplesTTest(formula = grade ~ time, # two-sided formula
 <h1>Effect size</h1>
 <p><span class="math display">\[ d = \frac{\bar \Delta}{\hat \sigma_\Delta} \]</span></p>
 <p>where <span class="math inline">\(\hat \sigma_\Delta\)</span> is the standard deviation of the difference scores</p>
-<pre class="r"><code>cohensD(x = chico_wide$grade_test1,
+<pre class="r"><code>lsr::cohensD(x = chico_wide$grade_test1,
         y = chico_wide$grade_test2, 
         method = &quot;paired&quot;)</code></pre>
 <pre><code>## [1] 1.447952</code></pre>
@@ -1795,9 +1817,19 @@ pairedSamplesTTest(formula = grade ~ time, # two-sided formula
 <p>You are welcome to work with a partner or in a small group of 2-3 people. Please feel free to ask the lab leader any questions you might have!</p>
 <div id="minihack-1" class="section level2">
 <h2>Minihack 1</h2>
+<p>A clinical psychologist wants to know whether a new cognitive-behavioral therapy program helps alleviate anxiety. He enrolls 12 individuals diagnosed with an anxiety disorder in a 6-week CBT program. Participants are given an Anxiety Scale before they begin and after they complete treatment.</p>
+<p>Import the data by running the the following code:</p>
+<pre class="r"><code>cbt_data &lt;- import(&quot;https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/cbt_data.csv&quot;)</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>What’s the research question?</p></li>
+<li><p>Run a paired-samples <em>t</em>-test</p></li>
+<li><p>Calcualate an effect size</p></li>
+</ol>
+<hr />
 </div>
 <div id="minihack-2" class="section level2">
 <h2>Minihack 2</h2>
+<hr />
 </div>
 <div id="minihack-3" class="section level2">
 <h2>Minihack 3</h2>
