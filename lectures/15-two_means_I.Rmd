@@ -98,7 +98,7 @@ school %>%
   select(variable, OR, usa, t.value, p.value) %>%
   unnest() %>%
   mutate(variable = gsub("Importance_", "", variable)) %>%
-  kable(., digits = 2, col.names = c("Issue", "OR Mean", "USA mean", "t value", "p value")) %>%
+  kable(., digits = 2, col.names = c("Issue", "USA Mean", "OR mean", "t value", "p value")) %>%
   kable_styling()
 ```
 

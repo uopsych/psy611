@@ -2,6 +2,7 @@ general lab feedback
 * make the first minihack easy and walk them through it
 * find out what was in the bootcamp and you can skim or gloss that content
 * exercises throughout are good
+* try to budget at least 20 minutes for mini-hacks
 
 TA expectations
 * prep labs (minor tweaks), attend lecture, take quizzes and homework assignments (to give feedback on difficulty and time)
@@ -14,7 +15,12 @@ homework general
 * Replace Leibniz picture with Helmhotlz
     * Don't bother with Locke and Leibniz
     * The cleaner story is to talk about Descartes (statue story) then to Helmholtz (measuring reaction times) then more complex data.
-    *Hold back non-psych students to meet each other and form study groups
+* Hold back non-psych students to meet each other and form study groups
+* Goals of this class:
+  1. learn stats and R
+  2. challenge you -- this class is designed to push you to your personal limit and then just beyond. if you feel like you're sailing through this class come talk to me
+  3. develop practical skills that will help throughout your career -- learning things on your own, asking for help, saying no, even teaching
+* road map: summarizing data --> probability --> sampling --> making inferences about the unknown --> making a decision --> evaluating that decision
     
 2-measurement.html
 * Replace "units" with something else
@@ -77,6 +83,7 @@ lab-4.html
 10-nhst.html
 * more on pvalues
 * include figure with p-values bunching up at .05
+* move ratio of signal to noise here
 
 lab-5.html
 * skim tidy data and helper functions, but keep in so people can see them
@@ -103,5 +110,14 @@ lab-7.html
     * tidy data
 * pros: first year sem already covers some of this?
 
+14-one-sample.html
+* reiterate signal/noise
 
+15-two-means_I.html
+* reiterate signal/noise
+
+lab-8.html
+* include welch's t-test
+* good to have them walk through the steps
+* had time to go through the mini-hacks
   

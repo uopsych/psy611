@@ -1,24 +1,24 @@
----
-title: 'Comparing two dependent means'
-output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    css: [default, rladies, rladies-fonts, "my-theme.css"]
-    nature:
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Comparing two dependent means</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Comparing two dependent means
+
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(here)
-library(tidyverse)
-library(ggpubr)
-library(fivethirtyeight)
-library(knitr)
-library(kableExtra)
-```
+
+
 
 ## Previously...
 
@@ -75,18 +75,18 @@ Each of these repeated measures problems can be viewed as a transformation of th
 
 ---
 
-If the repeated measures are $X_1$ and $X_2$, then their difference is $D = X_1 – X_2$.  This new measure has a mean and standard deviation, like any other single measure, making it appropriate for a one-sample *t*-test.
+If the repeated measures are `\(X_1\)` and `\(X_2\)`, then their difference is `\(D = X_1 – X_2\)`.  This new measure has a mean and standard deviation, like any other single measure, making it appropriate for a one-sample *t*-test.
 
-$$t_{df = N-1} = \frac{\bar{\Delta}-\mu}{\frac{\hat{\sigma}_\Delta}{\sqrt{N}}}$$
+`$$t_{df = N-1} = \frac{\bar{\Delta}-\mu}{\frac{\hat{\sigma}_\Delta}{\sqrt{N}}}$$`
 
 .pull-left[
-$$H_0: \bar{\Delta} = \mu$$
-$$H_1: \bar{\Delta} \neq \mu$$
+`$$H_0: \bar{\Delta} = \mu$$`
+`$$H_1: \bar{\Delta} \neq \mu$$`
 ]
 
 .pull-right[
-$$H_0: \bar{\Delta} = 0$$
-$$H_1: \bar{\Delta} \neq 0$$
+`$$H_0: \bar{\Delta} = 0$$`
+`$$H_1: \bar{\Delta} \neq 0$$`
 ]
 
 ???
@@ -124,9 +124,33 @@ In the **Looking Away** treatment, the experimenter turned her head and eyes app
 
 ---
 
-```{r}
+
+```r
 gulls = read.delim(here("data/gulls/pairs.txt"))
 gulls
+```
+
+```
+##    GullID  At Away
+## 1   FAL01 210   35
+## 2   FAL03 300   80
+## 3   FAL04   6    3
+## 4   PEN03  18   21
+## 5   W120M  47   13
+## 6    W019  25    4
+## 7   PNZ01   4   13
+## 8   PNZ02   9    8
+## 9   STI01 300   18
+## 10  STI02 300    6
+## 11   W186  11    8
+## 12  STI03   4    3
+## 13  STI04   4    6
+## 14  HEL02  12   19
+## 15  NEW01 300    6
+## 16  NEW02  63   16
+## 17  NEW03 300  166
+## 18  PER01  24   66
+## 19  TRU01 300  167
 ```
 
 ???
@@ -142,9 +166,9 @@ Use a paired-samples *t*-test because we have the same gulls in both conditions.
 
 --
 
-$\large H_0$: There is no difference in how long it takes gulls to approach food between conditions.
+`\(\large H_0\)`: There is no difference in how long it takes gulls to approach food between conditions.
 
-$\large H_1$: Gulls take longer to approach food in one of the conditions.
+`\(\large H_1\)`: Gulls take longer to approach food in one of the conditions.
 
 ---
 
@@ -154,7 +178,7 @@ $\large H_1$: Gulls take longer to approach food in one of the conditions.
 
 The mean of our sampling distribution comes from our null hypothesis, so 
 
-$$\large \mu = 0$$
+`$$\large \mu = 0$$`
 
 Our standard deviation of our sampling distribution is the **standard error of difference scores**. This can be found by
   1. calculating difference scores
@@ -163,9 +187,13 @@ Our standard deviation of our sampling distribution is the **standard error of d
   
 ---
 
-```{r, echo = 1}
+
+```r
 difference = gulls$At - gulls$Away
-head(difference)
+```
+
+```
+## [1] 175 220   3  -3  34  21
 ```
 
 --
@@ -173,8 +201,13 @@ head(difference)
 .pull-left[
 We can take the mean of this new variable:
 
-```{r}
+
+```r
 (m_delta = mean(difference))
+```
+
+```
+## [1] 83.10526
 ```
 
 ]
@@ -184,8 +217,13 @@ We can take the mean of this new variable:
 
 And we can calculate the standard deviation
 
-```{r, echo = 1}
+
+```r
 (s_delta = sd(difference))
+```
+
+```
+## [1] 115.8485
 ```
 
 ]
@@ -194,142 +232,136 @@ And we can calculate the standard deviation
 
 To calculate the standard error of our difference scores, we simply divide the standard deviation by the square root of the number of *pairs* or, in the case of repeated measures, the number of *subjects*.
 
-```{r}
+
+```r
 (se_delta = s_delta/sqrt(nrow(gulls)))
 ```
 
-$$\frac{\hat{\sigma}_\Delta}{\sqrt{N}} = `r round(se_delta, 2)`$$
+```
+## [1] 26.57747
+```
+
+`$$\frac{\hat{\sigma}_\Delta}{\sqrt{N}} = 26.58$$`
 ---
 
-```{r, echo = F}
-df = nrow(gulls)-1
-cv_t = qt(df = df, p = .975)
-t_x = seq(-3.76, 3.76)
-plot_t = data.frame(t_x) %>%
-  ggplot(aes(x=t_x)) +
-  stat_function(fun = function(x) dt(x, df), geom = "line") +
-  stat_function(fun = function(x) dt(x, df), geom = "area", 
-                xlim = c(cv_t, 3.76), fill = "purple") +
-  stat_function(fun = function(x) dt(x, df), geom = "area", 
-                xlim = c(-3.76, -1*cv_t), fill = "purple") +
-  labs(title = "Sampling distribution \n(in t)", y = "density", x = "t")+
-  theme_bw(base_size = 20)
-
-cv_x = cv_t*se_delta 
-x = t_x*se_delta
-plot_x = data.frame(x) %>%
-  ggplot(aes(x=x)) +
-  stat_function(fun = function(x) dt(x = x/se_delta, df = df), geom = "line") +
-  stat_function(fun = function(x) dt(x/se_delta, df = df), geom = "area", 
-                xlim = c(cv_x, max(x)), fill = "purple") +
-  stat_function(fun = function(x) dt(x/se_delta, df = df), geom = "area", 
-                xlim = c(min(x), -1*cv_x), fill = "purple") +
-  labs(title = "Sampling distribution \n(in difference in seconds)", y = "density", x = "difference seconds")+
-  theme_bw(base_size = 20)
-
-ggarrange(plot_t, plot_x, ncol = 1)
-```
+![](17-two_means_III_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 
 ---
 
 ### Test statistic
 
-$$t_{df = N-1} = \frac{\bar{\Delta}-\mu}{\frac{\hat{\sigma}_\Delta}{\sqrt{N}}}$$
+`$$t_{df = N-1} = \frac{\bar{\Delta}-\mu}{\frac{\hat{\sigma}_\Delta}{\sqrt{N}}}$$`
 
 In this case, N refers to the number of pairs, not the total sample size. 
 
 
-$$t_{df = N-1} = \frac{`r round(m_delta,2)`-0}{`r round(se_delta,2)`} = `r round(m_delta/se_delta,2)`$$
+`$$t_{df = N-1} = \frac{83.11-0}{26.58} = 3.13$$`
 
 **Note:** A paired-samples *t*-test is *exactly* the same as a one-sample *t*-test on the difference scores. 
 
 ---
 
-```{r, echo = F}
-df = nrow(gulls)-1
-cv_t = qt(df = df, p = .975)
-t_x = seq(-3.76, 3.76)
-statistic_t = m_delta/se_delta
-plot_t = data.frame(t_x) %>%
-  ggplot(aes(x=t_x)) +
-  stat_function(fun = function(x) dt(x, df), geom = "line") +
-  stat_function(fun = function(x) dt(x, df), geom = "area", 
-                xlim = c(cv_t, 3.76), fill = "purple") +
-  stat_function(fun = function(x) dt(x, df), geom = "area", 
-                xlim = c(-3.76, -1*cv_t), fill = "purple") +
-  geom_vline(aes(xintercept = statistic_t), linetype = 2, color = "red")+
-  labs(title = "Sampling distribution \n(in t)", y = "density", x = "t")+
-  scale_x_continuous(limits = c(-3.8, 3.8))+
-  theme_bw(base_size = 20)
-
-cv_x = cv_t*se_delta 
-x = t_x*se_delta
-statistic_x = statistic_t*se_delta
-plot_x = data.frame(x) %>%
-  ggplot(aes(x=x)) +
-  stat_function(fun = function(x) dt(x = x/se_delta, df = df), geom = "line") +
-  stat_function(fun = function(x) dt(x/se_delta, df = df), geom = "area", 
-                xlim = c(cv_x, max(x)), fill = "purple") +
-  stat_function(fun = function(x) dt(x/se_delta, df = df), geom = "area", 
-                xlim = c(min(x), -1*cv_x), fill = "purple") +
-  geom_vline(aes(xintercept = statistic_x), linetype = 2, color = "red")+
-  labs(title = "Sampling distribution \n(in difference in seconds)", y = "density", x = "difference seconds")+
-  scale_x_continuous(limits = c(-3.8*se_delta, 3.8*se_delta))+
-  theme_bw(base_size = 20)
-
-ggarrange(plot_t, plot_x, ncol = 1)
-```
+![](17-two_means_III_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 
 
 ---
 
 Another option is to calculate the area above the absolute value of the test statistic and multiply that by two -- this estimates the probability of finding this test statistic or more extreme.
 
-```{r}
+
+```r
 (t_statistic = m_delta/se_delta)
+```
+
+```
+## [1] 3.126906
+```
+
+```r
 pt(t_statistic, df = 19-1, lower.tail = F)
+```
+
+```
+## [1] 0.002912942
+```
+
+```r
 pt(t_statistic, df = 19-1, lower.tail = F)*2
+```
+
+```
+## [1] 0.005825884
 ```
 
 ---
 ## t-test functions
 
-```{r, highlight=2}
+
+```r
 t.test(x = gulls$At, y = gulls$Away, 
        paired = TRUE)
 ```
 
+```
+## 
+## 	Paired t-test
+## 
+## data:  gulls$At and gulls$Away
+## t = 3.1269, df = 18, p-value = 0.005826
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##   27.26807 138.94246
+## sample estimates:
+## mean of the differences 
+##                83.10526
+```
+
 ---
 
-```{r}
+
+```r
 ggpubr::ggpaired(data = gulls, cond1 = "At", cond2 = "Away", line.color = "grey",
                  ylab = "Time to approach (seconds)", 
                  title = "Some gulls approach food more quickly when \npeople look away from them")
 ```
 
+![](17-two_means_III_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
 ---
 
 ## The variance of difference scores
 
-With the raw data, the calculation of the variance of the standard deviation scores $\large (\hat{\sigma}_\Delta)$ is intuitive. Sometimes you will not have access to the raw data, but will want to conduct the test. 
+With the raw data, the calculation of the variance of the standard deviation scores `\(\large (\hat{\sigma}_\Delta)\)` is intuitive. Sometimes you will not have access to the raw data, but will want to conduct the test. 
 
-```{r, echo = F, warning = F, message = F}
-school = read_csv(here("data/census_at_school.csv"))
-school = school %>% filter(ClassGrade >= 9) %>%
-  filter(!is.na(Importance_reducing_pollution)) %>%
-  filter(!is.na(Importance_recycling_rubbish)) 
-```
+
 
 For example, you read a study that compares a sample of Oregon students to known US benchmarks on several variables using multiple one-sample *t*-tests; you want to know whether OR students respond more to one variable than the other.
 
-```{r, results = 'asis', echo = F}
-psych::describe(school[,c("Importance_reducing_pollution", "Importance_recycling_rubbish")], fast = T) %>%
-  select(n, mean, sd) %>%
-  kable(., col.names = c("N", "Mean", "SD"),
-        digits = 2) %>%
-  kable_styling()
-```
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; N &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Mean &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; SD &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Importance_reducing_pollution &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 194 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 792.15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 937.03 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Importance_recycling_rubbish &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 194 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 714.85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 652.65 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 ---
 
@@ -337,17 +369,28 @@ It turns out that the mean difference score is the same as the difference in mea
 
 But the calculation of the standard deviation becomes a little more complicated:
 
-$$\large \hat{\sigma}_\Delta = \sqrt{\hat{\sigma}^2_{M_1} + \hat{\sigma}^2_{M_2} - 2r(\hat{\sigma}_{M_1}\hat{\sigma}_{M_2})}$$
+`$$\large \hat{\sigma}_\Delta = \sqrt{\hat{\sigma}^2_{M_1} + \hat{\sigma}^2_{M_2} - 2r(\hat{\sigma}_{M_1}\hat{\sigma}_{M_2})}$$`
 
-```{r}
+
+```r
 sd_1 = sd(school$Importance_reducing_pollution, na.rm=T)
 sd_2 = sd(school$Importance_recycling_rubbish, na.rm=T)
 cor_12 = cor(school$Importance_reducing_pollution, school$Importance_recycling_rubbish, use = "pairwise")
 
 var_d = sd_1^2 + sd_2^2 -2*cor_12*sd_1*sd_2
 sqrt(var_d)
+```
 
+```
+## [1] 746.1475
+```
+
+```r
 sd(school$Importance_reducing_pollution-school$Importance_recycling_rubbish, na.rm=T)
+```
+
+```
+## [1] 746.1475
 ```
 
 ???
@@ -361,17 +404,17 @@ What else can this equation tell us?
 
 ---
 
-$$\large \hat{\sigma}_\Delta = \sqrt{\hat{\sigma}^2_{M_1} + \hat{\sigma}^2_{M_2} - 2r(\hat{\sigma}_{M_1}\hat{\sigma}_{M_2})}$$
+`$$\large \hat{\sigma}_\Delta = \sqrt{\hat{\sigma}^2_{M_1} + \hat{\sigma}^2_{M_2} - 2r(\hat{\sigma}_{M_1}\hat{\sigma}_{M_2})}$$`
 
-What happens if $\large r$ is large and positive?
-
---
-
-What happens if $\large r$ is small and positive?
+What happens if `\(\large r\)` is large and positive?
 
 --
 
-What happens if $\large r$ is negative?
+What happens if `\(\large r\)` is small and positive?
+
+--
+
+What happens if `\(\large r\)` is negative?
 
 ---
 
@@ -381,7 +424,7 @@ Calculating a standardized effect size for a paired samples t-test (and research
 
 The first level is the **within-subject** (or within-pair, or within-gull) level, and this communicates effect size in the unit of differences (of units).
 
-$$d = \frac{\bar{\Delta}}{\hat{\sigma_\Delta}} = \frac{`r round(m_delta,2)`}{`r round(s_delta,2)`} = `r round(m_delta/s_delta,2)`$$
+`$$d = \frac{\bar{\Delta}}{\hat{\sigma_\Delta}} = \frac{83.11}{115.85} = 0.72$$`
 
 
 The intrepretation is that, on average, variability within a single gull is about .72 standard deviations of differences.
@@ -390,8 +433,13 @@ The intrepretation is that, on average, variability within a single gull is abou
 
 ### Cohen's D
 
-```{r} 
+
+```r
 lsr::cohensD(x = gulls$At, y = gulls$Away, method = "paired")
+```
+
+```
+## [1] 0.7173615
 ```
 
 
@@ -399,15 +447,20 @@ The second level is the **between-conditions** variance, which is in the units o
 
 For that, you can use the Cohen's d calculated for independent samples *t*-tests.
 
-```{r}
+
+```r
 lsr::cohensD(x = gulls$At, y = gulls$Away, method = "pooled")
+```
+
+```
+## [1] 0.8137369
 ```
 
 ---
 
 **Which one should you use?**
 
-The first thing to recognize is that, unlike hypothesis testing, there are no standards for effect sizes. When Cohen developed his formula in 1988, he never bothered to precisely define $\large \sigma$. Interpretations have varied, but no single method for within-subjects designs has been identified. 
+The first thing to recognize is that, unlike hypothesis testing, there are no standards for effect sizes. When Cohen developed his formula in 1988, he never bothered to precisely define `\(\large \sigma\)`. Interpretations have varied, but no single method for within-subjects designs has been identified. 
 
 Most often, textbooks will argue for the within-pairs version, becasuse this mirrors the hypothesis test. 
 
@@ -424,11 +477,11 @@ This can be calculating from *t*-statistics, allowing you to calculate standardi
 .pull-left[
 **One sample or within-subjects for paired**
 
-$$\large d = \frac{t}{\sqrt{N-1}}$$
+`$$\large d = \frac{t}{\sqrt{N-1}}$$`
 ]
 .pull-right[**Indepdendent sample**
 
-$$\large d = \frac{2t}{\sqrt{N_1+N_2-1}}$$
+`$$\large d = \frac{2t}{\sqrt{N_1+N_2-1}}$$`
 ]
 
 
@@ -448,8 +501,18 @@ $$\large d = \frac{2t}{\sqrt{N_1+N_2-1}}$$
 
 For two independent samples, we can use the Wilcoxon Sum Rank test if we have severe violations of normality. There is a paired-samples version as well.
 
-```{r, warning = F}
+
+```r
 wilcox.test(gulls$At, gulls$Away, paired = T)
+```
+
+```
+## 
+## 	Wilcoxon signed rank test with continuity correction
+## 
+## data:  gulls$At and gulls$Away
+## V = 156, p-value = 0.01485
+## alternative hypothesis: true location shift is not equal to 0
 ```
 
 ---
@@ -459,3 +522,94 @@ class: inverse
 ### Next time...
 
 Wrapping up *t*-tests and the big picture
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
