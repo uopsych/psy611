@@ -159,7 +159,23 @@ chico_sd     <- sd(chico_wide$diff)
 # print the mean and sd
 c("mean" = chico_mean,
   "sd"   = chico_sd)
+
 ```
+
+You can also calculate the standard deviation of the difference of the means from the standard deviation of each group using the equation discussed in class:
+
+```{r}
+# calculate standard deviation of both groups
+g1_sd <- sd(chico_wide$grade_test1)
+g2_sd <- sd(chico_wide$grade_test2)
+
+# calculate the correlation of both groups
+g_cor <- cor(chico_wide$grade_test1, chico_wide$grade_test2)
+
+# calculate the standard deviation
+sqrt(g1_sd^2 + g2_sd^2 - (2 * g_cor * (g1_sd * g2_sd)))
+```
+
 
 Next we can calculate the sample size and the degrees of freedom for our test. Keep in mind that our sample size is not the total number of observations (`40`). Instead, it is the total number of participants (`20`).
 
