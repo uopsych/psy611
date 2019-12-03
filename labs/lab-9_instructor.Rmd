@@ -143,8 +143,6 @@ $$ H_1: \mu_\Delta \neq 0 $$
 
 * Note that so far this looks really similar to a one-sample *t*-test; in this case, we are testing whether the mean of some set of difference scores is different from 0. As such, our *t* statistics for a paired samples *t*-test looks similar to what we have already learned for a one-sample *t*-test:
 
-$$t = \frac{\bar \Delta}{SE(\bar \Delta)}$$
-which is the same as
 $$t = \frac{\bar \Delta}{\hat \sigma_\Delta / \sqrt{N}}$$
 
 ## Using Arithmetic
@@ -162,7 +160,9 @@ c("mean" = chico_mean,
 
 ```
 
-You can also calculate the standard deviation of the difference of the means from the standard deviation of each group using the equation discussed in class:
+As discussed in class, we can also calculate the standard deviation of the difference scores with the standard deviations of both groups by using the following equation:
+
+$$\sqrt{\hat\sigma_{M1}^2 + \hat\sigma_{M2}^2 - 2r(\hat\sigma_{M1}\hat\sigma_{M2})}$$
 
 ```{r}
 # calculate standard deviation of both groups
@@ -173,9 +173,13 @@ g2_sd <- sd(chico_wide$grade_test2)
 g_cor <- cor(chico_wide$grade_test1, chico_wide$grade_test2)
 
 # calculate the standard deviation
-sqrt(g1_sd^2 + g2_sd^2 - (2 * g_cor * (g1_sd * g2_sd)))
+chico_sd_alt <- sqrt(g1_sd^2 + g2_sd^2 - (2 * g_cor * (g1_sd * g2_sd)))
+
+# print the sd calculated using the alternative method
+c("sd" = chico_sd_alt)
 ```
 
+As you can see, both methods produce the same value for the standard deviation of the difference scores. 
 
 Next we can calculate the sample size and the degrees of freedom for our test. Keep in mind that our sample size is not the total number of observations (`40`). Instead, it is the total number of participants (`20`).
 
@@ -442,3 +446,35 @@ pwr.t.test(n           = NULL,
 ***
 
 ## Minihack 3
+
+You are reviewing a manuscript that claims people who were assigned to use a light editor theme in R Studio wrote better code than people who were assigned to use a dark editor theme in R Studio. Better code was operationalized as performance on a coding test (scored out of 25). The researchers state that the difference is significant at *p* = .023 (two-tailed), but you have your doubts. The researchers are not willing to share their data with you, but you glean the following information from the manuscript.
+
+$\hat{\mu}_{DarkTheme}$ = 16.56
+
+$\hat{\mu}_{LightTheme}$ = 20.01
+
+$\hat{\sigma}_{DarkTheme}$ = 5.44
+
+$\hat{\sigma}_{LightTheme}$ = 3.12
+
+$n_{DarkTheme}$ = 8
+
+$n_{LightTheme}$ = 19
+
+1. Calculate the *t*-statistic for the difference between the two means. Assume the variances of the two groups are equal.
+
+```{r}
+# your code here
+```
+
+2. Is the difference between the two means significant? *Note.* You will have to calculate the degrees of freedom.
+
+```{r}
+# your code here
+```
+
+3. Why do you think the researchers got the *p*-value they did?
+
+```{r}
+# your code here
+```
