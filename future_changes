@@ -1,3 +1,6 @@
+schedule
+* order should be one-sample t-test, paired sample t-tests, independent-samples t, effect sizes (cohen's d and overlap), assumptions and non-parametric tests
+
 general lab feedback
 * make the first minihack easy and walk them through it
 * find out what was in the bootcamp and you can skim or gloss that content
@@ -120,4 +123,9 @@ lab-8.html
 * include welch's t-test
 * good to have them walk through the steps
 * had time to go through the mini-hacks
+
+17-dependent means.html
+* the cohen's d discussion is awkward but healthy. keep it in
+* pay attention to notation for standard deviation and standard error
+
   

@@ -30,7 +30,7 @@ library(kableExtra)
 
 * assumptions and dealing with violations
   * normality -- Wilcoxon Rank Sum
-  * homoegeneity of variance -- Welch's *t*-test
+  * homogeneity of variance -- Welch's *t*-test
   * independence -- ??
   
 ---
@@ -96,7 +96,7 @@ Note here the signal to noise ratios
 
 ## Example
 
-Human-wildlife conflict in urban areas endangers wildlife species. One species under threat is the *Larus argentatus* or herring gull, which is considered a nusiance owing to food-snatching and other behaviors. A [recent study](https://royalsocietypublishing.org/doi/10.1098/rsbl.2019.0405) examined whether herring gull behavior is influenced by human behavior cues and whether this could be used to reduce human-gull conflict. 
+Human-wildlife conflict in urban areas endangers wildlife species. One species under threat is the *Larus argentatus* or herring gull, which is considered a nuisance owing to food-snatching and other behaviors. A [recent study](https://royalsocietypublishing.org/doi/10.1098/rsbl.2019.0405) examined whether herring gull behavior is influenced by human behavior cues and whether this could be used to reduce human-gull conflict. 
 
 .pull-left[
 ![](images/gulls.jpg)]
@@ -384,7 +384,7 @@ The first level is the **within-subject** (or within-pair, or within-gull) level
 $$d = \frac{\bar{\Delta}}{\hat{\sigma_\Delta}} = \frac{`r round(m_delta,2)`}{`r round(s_delta,2)`} = `r round(m_delta/s_delta,2)`$$
 
 
-The intrepretation is that, on average, variability within a single gull is about .72 standard deviations of differences.
+The interpretation is that, on average, variability within a single gull is about .72 standard deviations of differences.
 
 ---
 
@@ -409,7 +409,7 @@ lsr::cohensD(x = gulls$At, y = gulls$Away, method = "pooled")
 
 The first thing to recognize is that, unlike hypothesis testing, there are no standards for effect sizes. When Cohen developed his formula in 1988, he never bothered to precisely define $\large \sigma$. Interpretations have varied, but no single method for within-subjects designs has been identified. 
 
-Most often, textbooks will argue for the within-pairs version, becasuse this mirrors the hypothesis test. 
+Most often, textbooks will argue for the within-pairs version, because this mirrors the hypothesis test. 
 
 Some (see below) argue the between-conditions version is actually better because the paired-design is used to reduce noise by adjusting our calculation of the standard error. But that shouldn't make our effect bigger, just easier to detect. The other argument is that using the same formula (the between-conditions version) allows us to compare effect sizes across many different designs, which are all trying to capture the same effect.
 
@@ -426,7 +426,7 @@ This can be calculating from *t*-statistics, allowing you to calculate standardi
 
 $$\large d = \frac{t}{\sqrt{N-1}}$$
 ]
-.pull-right[**Indepdendent sample**
+.pull-right[**Independent sample**
 
 $$\large d = \frac{2t}{\sqrt{N_1+N_2-1}}$$
 ]
