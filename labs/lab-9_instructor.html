@@ -1906,11 +1906,17 @@ ggpaired(chico_long, x = &quot;time&quot;, y = &quot;grade&quot;,
 <ol start="2" style="list-style-type: decimal">
 <li>Calculate an effect size.</li>
 </ol>
-<pre class="r"><code># lsf function
+<pre class="r"><code># lsr function
+# paired
 lsr::cohensD(x = cbt_data$before,
         y = cbt_data$after, 
         method = &quot;paired&quot;)</code></pre>
 <pre><code>## [1] 1.688604</code></pre>
+<pre class="r"><code># pooled
+lsr::cohensD(x = cbt_data$before,
+        y = cbt_data$after, 
+        method = &quot;pooled&quot;)</code></pre>
+<pre><code>## [1] 1.130084</code></pre>
 <pre class="r"><code># calculate it manually
 cbt_data &lt;- cbt_data %&gt;% 
   mutate(diff = after - before)

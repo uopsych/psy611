@@ -350,10 +350,16 @@ t.test(cbt_data$after, cbt_data$before, paired = TRUE)
 2. Calculate an effect size.
 
 ```{r}
-# lsf function
+# lsr function
+# paired
 lsr::cohensD(x = cbt_data$before,
         y = cbt_data$after, 
         method = "paired")
+
+# pooled
+lsr::cohensD(x = cbt_data$before,
+        y = cbt_data$after, 
+        method = "pooled")
 
 # calculate it manually
 cbt_data <- cbt_data %>% 
