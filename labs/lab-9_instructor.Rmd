@@ -293,6 +293,17 @@ lsr::cohensD(x = chico_wide$grade_test1,
 # Plotting paired-samples data
 
 ```{r}
+# wide format
+ggpaired(chico_wide, cond1 = "grade_test1", cond2 = "grade_test2",
+         color = "condition", line.color = "gray", line.size = 0.4,
+         palette = "jco")
+```
+
+
+* If you want to make the plot with the long format of the data, you can do the following:
+
+```{r eval=FALSE}
+# long format
 ggpaired(chico_long, x = "time", y = "grade",
          color = "time", line.color = "gray", line.size = 0.4,
          palette = "jco")
@@ -306,7 +317,7 @@ You are welcome to work with a partner or in a small group of 2-3 people. Please
 
 ## Minihack 1
 
-A clinical psychologist wants to know whether a new cognitive-behavioral therapy program helps alleviate anxiety. He enrolls 12 individuals diagnosed with an anxiety disorder in a 6-week CBT program. Participants are given an Anxiety Scale before they begin and after they complete treatment.  
+A clinical psychologist wants to know whether a new cognitive-behavioral therapy (CBT) program helps alleviate anxiety. He enrolls 12 individuals diagnosed with an anxiety disorder in a 6-week CBT program. Participants are given an Anxiety Scale before they begin and after they complete treatment.  
 
 Import the data by running the the following code:
 
@@ -314,11 +325,36 @@ Import the data by running the the following code:
 cbt_data <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/cbt_data.csv")
 ```
 
-1. What's the research question?
+1. Run a paired-samples *t*-test to determine whether participants' anxiety scores changed from before to after the CBT treatment.
 
-2. Run a paired-samples *t*-test
+```{r}
+t.test(cbt_data$after, cbt_data$before, paired = TRUE)
+```
 
-3. Calculate an effect size
+
+2. Calculate an effect size.
+
+```{r}
+# lsf function
+lsr::cohensD(x = cbt_data$before,
+        y = cbt_data$after, 
+        method = "paired")
+
+# calculate it manually
+cbt_data <- cbt_data %>% 
+  mutate(diff = after - before)
+
+mean(cbt_data$diff) / sd(cbt_data$diff)
+```
+
+
+3. Plot
+
+```{r}
+ggpaired(cbt_data, cond1 = "before", cond2 = "after",
+         color = "condition", line.color = "gray", line.size = 0.4,
+         palette = "jco")
+```
 
 ***
 
