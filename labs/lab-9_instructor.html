@@ -1790,6 +1790,8 @@ c(&quot;d&quot; = chico_d)</code></pre>
 ##    estimated effect size (Cohen's d):  1.448</code></pre>
 <div id="long-vs.wide-format" class="section level3">
 <h3>Long vs. wide format</h3>
+<p>Note that in the example above using the <code>pairedSamplesTTest()</code> function, we used the wide format of the data. When using wide data, you enter a one-sided formula that contains your two repeated measures conditions (e.g. <code>~ grade_test2 + gradte_test1</code>).</p>
+<p>The <code>pairedSamplesTTest()</code> function can also be used with long data. In this case, you must use a two-sided formula of the form <code>outcome ~ group</code> and specify the name of the ID variable. Note that the group variable must be a factor.</p>
 <pre class="r"><code># grouping variable (time) must be a factor
 chico_long &lt;- chico_long %&gt;% 
   mutate(time = as.factor(time))
@@ -1826,6 +1828,7 @@ pairedSamplesTTest(formula = grade ~ time, # two-sided formula
 </div>
 <div id="statst.test" class="section level2">
 <h2><code>stats::t.test()</code></h2>
+<p>Instead of using the <code>{lsr}</code> functions, we can also use the more standard <code>t.test()</code> function from the <code>{stats}</code> package to run a paired samples <em>t</em>test.</p>
 <pre class="r"><code>t.test(x = chico_wide$grade_test1,
        y = chico_wide$grade_test2,
        paired = TRUE)</code></pre>
@@ -1850,8 +1853,10 @@ pairedSamplesTTest(formula = grade ~ time, # two-sided formula
 </div>
 <div id="effsize" class="section level1">
 <h1>Effect size</h1>
+<p>Cohen’s D for a paired samples <em>t</em>-test is calculated as follows:</p>
 <p><span class="math display">\[ d = \frac{\bar \Delta}{\hat \sigma_\Delta} \]</span></p>
 <p>where <span class="math inline">\(\hat \sigma_\Delta\)</span> is the standard deviation of the difference scores</p>
+<p>Paired samples Cohen’s D can be calcuated in R with the <code>cohensD</code> function from <code>{lsr}</code>.</p>
 <pre class="r"><code>lsr::cohensD(x = chico_wide$grade_test1,
         y = chico_wide$grade_test2, 
         method = &quot;paired&quot;)</code></pre>
@@ -1860,6 +1865,7 @@ pairedSamplesTTest(formula = grade ~ time, # two-sided formula
 </div>
 <div id="plot" class="section level1">
 <h1>Plotting paired-samples data</h1>
+<p>When plotting paired samples data, we want some way to clearly represent the repeated measures structure of the data. One way to do this is to draw a line between each pair of data points. This can be done with the <code>ggpaired()</code> function from <code>{ggpubr}</code>.</p>
 <pre class="r"><code># wide format
 ggpaired(chico_wide, cond1 = &quot;grade_test1&quot;, cond2 = &quot;grade_test2&quot;,
          color = &quot;condition&quot;, line.color = &quot;gray&quot;, line.size = 0.4,

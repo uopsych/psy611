@@ -252,6 +252,10 @@ pairedSamplesTTest(formula = ~ grade_test2 + grade_test1, # one-sided formula
 
 ### Long vs. wide format
 
+Note that in the example above using the `pairedSamplesTTest()` function, we used the wide format of the data. When using wide data, you enter a one-sided formula that contains your two repeated measures conditions (e.g. `~ grade_test2 + gradte_test1`).
+
+The `pairedSamplesTTest()` function can also be used with long data. In this case, you must use a two-sided formula of the form `outcome ~ group` and specify the name of the ID variable. Note that the group variable must be a factor. 
+
 ```{r}
 # grouping variable (time) must be a factor
 chico_long <- chico_long %>% 
@@ -264,6 +268,8 @@ pairedSamplesTTest(formula = grade ~ time, # two-sided formula
 ```
 
 ## `stats::t.test()`
+
+Instead of using the `{lsr}` functions, we can also use the more standard `t.test()` function from the `{stats}` package to run a paired samples *t*test. 
 
 ```{r}
 t.test(x = chico_wide$grade_test1,
@@ -281,9 +287,13 @@ A proper write-up for our Independent Sample *t*-test would be:
 
 # Effect size {#effsize}
 
+Cohen's D for a paired samples *t*-test is calculated as follows:
+
 $$ d = \frac{\bar \Delta}{\hat \sigma_\Delta} $$
 
 where $\hat \sigma_\Delta$ is the standard deviation of the difference scores
+
+Paired samples Cohen's D can be calcuated in R with the `cohensD` function from `{lsr}`. 
 
 ```{r}
 lsr::cohensD(x = chico_wide$grade_test1,
@@ -294,6 +304,8 @@ lsr::cohensD(x = chico_wide$grade_test1,
 ***
 
 # Plotting paired-samples data {#plot}
+
+When plotting paired samples data, we want some way to clearly represent the repeated measures structure of the data. One way to do this is to draw a line between each pair of data points. This can be done with the `ggpaired()` function from `{ggpubr}`.
 
 ```{r}
 # wide format
