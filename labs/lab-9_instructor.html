@@ -1532,6 +1532,9 @@ div.tocify {
 <ol style="list-style-type: decimal">
 <li><a href="#data">The Data</a></li>
 <li><a href="#explore">Data exploration</a></li>
+<li><a href="#paired">Paired samples <em>t</em>-test in R</a></li>
+<li><a href="#effsize">Effect size</a></li>
+<li><a href="#plot">Plotting paired samples data</a></li>
 </ol>
 <ul>
 <li>You will need several packages to be loaded in order to follow along. Go ahead and load them now by running the following code (and be sure to install any packages that you don’t already have installed):</li>
@@ -1631,7 +1634,7 @@ head(chico_wide)</code></pre>
 </ul>
 <hr />
 </div>
-<div id="paired-samples-t-test-in-r" class="section level1">
+<div id="paired" class="section level1">
 <h1>Paired samples <em>t</em>-test in R</h1>
 <div id="what-is-a-paired-samples-t-test" class="section level2">
 <h2>What is a paired samples <em>t</em>-test?</h2>
@@ -1845,7 +1848,7 @@ pairedSamplesTTest(formula = grade ~ time, # two-sided formula
 <hr />
 </div>
 </div>
-<div id="effect-size" class="section level1">
+<div id="effsize" class="section level1">
 <h1>Effect size</h1>
 <p><span class="math display">\[ d = \frac{\bar \Delta}{\hat \sigma_\Delta} \]</span></p>
 <p>where <span class="math inline">\(\hat \sigma_\Delta\)</span> is the standard deviation of the difference scores</p>
@@ -1855,7 +1858,7 @@ pairedSamplesTTest(formula = grade ~ time, # two-sided formula
 <pre><code>## [1] 1.447952</code></pre>
 <hr />
 </div>
-<div id="plotting-paired-samples-data" class="section level1">
+<div id="plot" class="section level1">
 <h1>Plotting paired-samples data</h1>
 <pre class="r"><code># wide format
 ggpaired(chico_wide, cond1 = &quot;grade_test1&quot;, cond2 = &quot;grade_test2&quot;,

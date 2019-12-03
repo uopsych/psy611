@@ -28,7 +28,10 @@ Today's lab will guide you through the process of conducting a paired samples *t
 To quickly navigate to the desired section, click one of the following links:
 
 1. [The Data](#data)
-2. [Data exploration](#explore)
+1. [Data exploration](#explore)
+1. [Paired samples *t*-test in R](#paired)
+1. [Effect size](#effsize)
+1. [Plotting paired samples data](#plot)
 
 
 * You will need several packages to be loaded in order to follow along. Go ahead and load them now by running the following code (and be sure to install any packages that you don't already have installed):
@@ -119,7 +122,7 @@ head(chico_wide)
 
 ***
 
-# Paired samples *t*-test in R
+# Paired samples *t*-test in R {#paired}
 
 ## What is a paired samples *t*-test?
 
@@ -276,7 +279,7 @@ A proper write-up for our Independent Sample *t*-test would be:
 
 ***
 
-# Effect size
+# Effect size {#effsize}
 
 $$ d = \frac{\bar \Delta}{\hat \sigma_\Delta} $$
 
@@ -290,7 +293,7 @@ lsr::cohensD(x = chico_wide$grade_test1,
 
 ***
 
-# Plotting paired-samples data
+# Plotting paired-samples data {#plot}
 
 ```{r}
 # wide format
