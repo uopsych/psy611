@@ -6,6 +6,7 @@ general lab feedback
 * find out what was in the bootcamp and you can skim or gloss that content
 * exercises throughout are good
 * try to budget at least 20 minutes for mini-hacks
+* is it possbile to use the learnr package and have students download shiny apps to run on their computer?
 
 TA expectations
 * prep labs (minor tweaks), attend lecture, take quizzes and homework assignments (to give feedback on difficulty and time)
@@ -127,5 +128,6 @@ lab-8.html
 17-dependent means.html
 * the cohen's d discussion is awkward but healthy. keep it in
 * pay attention to notation for standard deviation and standard error
+* no matter which d you use, say which one or indicate how you calculated
 
   

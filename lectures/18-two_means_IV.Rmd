@@ -20,13 +20,17 @@ library(knitr)
 library(kableExtra)
 ```
 
-## Office hours during finals week
+### Office hours during finals week
 
 Cam: Monday, 12pm-2pm
 
 Brenden: Available by appointment Tuesday
 
 Sara: Available by appointment Mon-Thurs
+
+### Advice
+
+Your textbook is a good resource.
 
 ---
 
