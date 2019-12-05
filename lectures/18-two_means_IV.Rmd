@@ -211,6 +211,10 @@ solve(t(T_mat) %*% T_mat) %*% t(T_mat) %*% X
 
 What do these numbers represent?
 
+???
+
+$$\Large \bar{X} = T\mathbf{X} = 1'\mathbf{X}(1'1)^{-1}$$
+
 ---
 
 ### Standard errors
