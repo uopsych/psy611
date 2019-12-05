@@ -22,16 +22,18 @@ library(here) # for finding paths
 
 # Purpose
 
-Today's lab will guide you through the process of conducting a paired samples *t*-test. As we did with [one-sample and independent samples *t*-tests](https://uopsych.github.io/psy611/labs/lab-8.html){target="_blank"}, we will compare functions from the `{stats}` and `{lsr}` packages, and we will go over how to plot paired-samples data using `{ggpubr}`. At the end of today's lab, you will apply what you learned to a new data set in the [minihacks](#minihacks).
-
+Today's lab will guide you through the process of conducting a paired samples *t*-test. As we did with [one-sample and independent samples *t*-tests](https://uopsych.github.io/psy611/labs/lab-8.html){target="_blank"}, we will cover how to a conduct a paired samples *t*-test by hand and also by using functions from the `{stats}` and `{lsr}` packages. We will also go over how to interpret the results and plot the data using `{ggpubr}`. At the end of today's lab, you will be asked to apply what you learned to a new data set in the [minihacks](#minihacks).
 
 To quickly navigate to the desired section, click one of the following links:
 
 1. [The Data](#data)
 1. [Data exploration](#explore)
-1. [Paired samples *t*-test in R](#paired)
-1. [Effect size](#effsize)
+1. [What is a paired samples *t*-test?](#paired)
+1. [Paired samples *t*-test using arithmetic](#arith)
+1. [Paired samples *t*-test using functions](#func)
+1. [Interpreting paired samples *t*-tests](#interp)
 1. [Plotting paired samples data](#plot)
+1. [Minihacks](#minihacks)
 
 
 * You will need several packages to be loaded in order to follow along. Go ahead and load them now by running the following code (and be sure to install any packages that you don't already have installed):
@@ -44,14 +46,14 @@ library(stats) # includes different t-test functions
 library(ggpubr) # for plotting
 library(rio) # for importing data
 library(psych) # for descriptives
-library(pwr) # for calculating the power for a t-test
+library(pwr) # for conducting a power analysis
 ```
 
 ***
 
 # The Data {#data}
 
-To illustrate how paired-samples *t*-tests work, we are going to walk through [an example from your textbook](https://learningstatisticswithr-bookdown.netlify.com/ttest.html#pairedsamplesttest){target="_blank"}. In this example, the data comes from Dr. Chico's introductory statistics class, in which students take two tests over the course of the semester. Dr. Chico gives notoriously difficult exams with the intention of motivating her students to work hard in the class and thus learn as much as possible. Dr. Chico's theory is that the first test will serve as a "wake up call" for her students, such that when they realize how difficult the class actually is they will be motivated to study harder and earn a higher grade on the second test than they got on the first test.
+To illustrate how paired-samples *t*-tests work, we are going to walk through [an example from your textbook](https://learningstatisticswithr-bookdown.netlify.com/ttest.html#pairedsamplesttest){target="_blank"}. In this example, the data comes from Dr. Chico's introductory statistics class. Students in the class take two tests over the course of the semester. Dr. Chico gives notoriously difficult exams with the intention of motivating her students to work hard in the class and thus learn as much as possible. Dr. Chico's theory is that the first test will serve as a "wake up call" for her students, such that when they realize how difficult the class actually is they will be motivated to study harder and earn a higher grade on the second test than they got on the first test.
 
 You can load in the data from this example by running the following code:
 
@@ -63,7 +65,7 @@ chico_wide <- import("https://raw.githubusercontent.com/uopsych/psy611/master/la
 chico_long <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/chico_long.csv")
 ```
 
-**Note:** You should now have 2 versions of the same data set now loaded into your global environment. The only difference in these versions of the data is their "shape" -- one is "wide" and the other is "long". In the wide form, every row corresponds to a unique *person*; in the long form, every row corresponds to a unique *measurement*.
+**Note:** You should now have 2 versions of the same data set loaded into your global environment. The only difference in these versions of the data is their "shape" -- one is "wide" and the other is "long". In the wide form, every row corresponds to a unique *person*; in the long form, every row corresponds to a unique *observation* or *measurement*.
 
 * To get a sense of the differences between these two versions of the data, see below:
 
@@ -73,7 +75,7 @@ head(chico_wide)
 head(chico_long)
 ```
 
-* For now, we are going to work with `chico_wide`. Later on we will discuss more about how to deal with wide vs. long format. 
+* For now, we are going to work with `chico_wide`. Later on in the lab we will discuss more about how to deal with data that is in wide or long format.
 
 ***
 
@@ -85,7 +87,7 @@ Let's take a closer look at the data before we actually run a *t*-test to see wh
 describe(chico_wide)
 ```
 
-**Question:** What do you notice about the means and standard deviations on the two groups? Can we conclude anything?
+**Question:** What do you notice about the means of the two groups? Can we conclude anything?
 
 * What if we look at the data graphically? 
 
@@ -93,14 +95,13 @@ describe(chico_wide)
 ![](resources/lab9/lsr_figs/line.png)
 </center>
 
-
-* Based on the descriptive statistics and the plot above with widely overlapping confidence intervals, it might seem intuitive to think that the improvement in test scores from Test 1 to Test 2 is due entirely to chance. However, if we look at the data in a different way, we will see why this impression is not correct...
+* Based on the descriptive statistics and the plot above with widely overlapping confidence intervals, it might seem intuitive to think that the improvement in test scores from Test 1 to Test 2 is due entirely to chance. However, if we look at the data in a different way, we will see why this impression may not be correct...
 
 <center>
 ![](resources/lab9/lsr_figs/scatter.png)
 </center>
 
-**Question**: What do you notice about the pattern this plot shows?
+**Question**: What do you notice about the pattern of points in this plot?
 
 * Let's create a new variable to represent the *improvement* for each student from Test 1 to Test 2.
 
@@ -117,16 +118,13 @@ head(chico_wide)
 ![](resources/lab9/lsr_figs/hist.png)
 </center>
 
-
 * Notice that the vast majority of students have an improvement score above 0; in other words, virtually all students improved their score to some extent from Test 1 to Test 2. 
 
 ***
 
-# Paired samples *t*-test in R {#paired}
+# What is a paired samples *t*-test? {#paired}
 
-## What is a paired samples *t*-test?
-
-* In our example above, we created a new variable, `chico_wide$improvement`, that represents the *difference* between each student's score on Test 1 and Test 2. 
+* In our example above, we created a new variable, `chico_wide$diff`, that represents the *difference* between each student's score on Test 1 and Test 2. 
 
 * More generally, if $X_{i1}$ is the score that the $i$-th participant obtained on the first variable, and $X_{i2}$ is the score that the same person obtained on the second one, then the difference score is:
 
@@ -141,11 +139,11 @@ $$ \mu_\Delta = \mu_1  - \mu_2$$
 $$ H_0: \mu_\Delta = 0 $$ 
 $$ H_1: \mu_\Delta \neq 0 $$ 
 
-* Note that so far this looks really similar to a one-sample *t*-test; in this case, we are testing whether the mean of some set of difference scores is different from 0. As such, our *t* statistics for a paired samples *t*-test looks similar to what we have already learned for a one-sample *t*-test:
+* So far this looks really similar to a one-sample *t*-test; in this case, we are testing whether the mean of some set of difference scores is different from 0. As such, our *t*-statistics for a paired samples *t*-test looks similar to what we have already learned for a one-sample *t*-test:
 
 $$t = \frac{\bar \Delta}{\hat \sigma_\Delta / \sqrt{N}}$$
 
-## Using Arithmetic
+# Using arithmetic {#arith}
 
 For running a paired *t*-test by hand, we essentially run a one-sample *t*-test. The main difference is that our mean and standard deviation are the mean and standard deviation of the difference scores.  
 
@@ -179,7 +177,7 @@ chico_sd_alt <- sqrt(g1_sd^2 + g2_sd^2 - (2 * g_cor * (g1_sd * g2_sd)))
 c("sd" = chico_sd_alt)
 ```
 
-As you can see, both methods produce the same value for the standard deviation of the difference scores. 
+Both methods should produce the same value for the standard deviation of the difference scores. 
 
 Next we can calculate the sample size and the degrees of freedom for our test. Keep in mind that our sample size is not the total number of observations (`40`). Instead, it is the total number of participants (`20`).
 
@@ -195,7 +193,7 @@ c("n"  = chico_n,
 
 For the degrees of freedom we only subtract one because, as with a one-sample t-test we are only dealing with one mean (i.e., the mean of the difference scores).
 
-Finally, before we calculate our *t*-statistic, we have to calculate the standard error. 
+The final step before we calculate our *t*-statistic is to calculate the standard error. 
 
 ```{r}
 # calculate the standard error
@@ -215,7 +213,7 @@ chico_t <- chico_mean / chico_se
 c("t" = chico_t)
 ```
 
-As always, we can calculate a *p*-value for our *t*-statistic using the `pt()` function. 
+And, as always, we can calculate a *p*-value for our *t*-statistic using the `pt()` function. 
 
 ```{r}
 # calculate the t-statistic
@@ -237,7 +235,11 @@ c("95% CI Lower" = chico_ci_low,
   "95% CI Upper" =  chico_ci_up)
 ```
 
-And we can also calculate a Cohen's d in exactly the same way as the one-sample and independent samples *t*-test. If we divide the mean of the difference scores by the standard deviation of the differences scores we get the Cohen's d (i.e., the standardized difference scores). 
+And we can also calculate a Cohen's d in exactly the same way as the one-sample and independent samples *t*-test:
+
+$$ d = \frac{\bar \Delta}{\hat \sigma_\Delta} $$
+
+If we divide the mean of the difference scores by the standard deviation of the differences scores we get the Cohen's d (i.e., the standardized mean of the difference scores) at the within-subjects level.  
 
 ```{r}
 # calculate cohen's d
@@ -247,21 +249,35 @@ chico_d <- chico_mean / chico_sd
 c("d" = chico_d)
 ```
 
-Looks like there was a large effect! On average, students showed a large improvement on the second test. 
+Looks like there was a large effect! On average, students showed a large improvement on the second test.
+
+# Using functions {#func}
 
 ## One-sample *t*-test of difference scores
+
+We can conduct our *t*-test using one-sample *t*-test functions. The example immediately below uses the `t.test()` function in the `{stats}` package to conduct the one-sample *t*-test of the difference scores.
 
 ```{r}
 t.test(x = chico_wide$diff, mu = 0)
 ```
 
+This next bit of code uses the `oneSampleTTest()` function from the `{lsr}` package to conduct the one-sample *t*-test of the difference scores.
 
 ```{r}
 oneSampleTTest(x = chico_wide$diff, mu = 0)
 ```
 
+## Paired samples *t*-test
 
-## `lsr::pairedSamplesTTest()`
+The `t.test()` function from the `{stats}` package also allows you to input raw scores (i.e., not the difference scores) and run a paired samples *t*-test using the `paired = TRUE` argument. The results will be exactly the same as running the one sample *t*-test on the difference scores. 
+
+```{r}
+t.test(x = chico_wide$grade_test1,
+       y = chico_wide$grade_test2,
+       paired = TRUE)
+```
+
+We can also use the `pairedSamplesTTest()` function from the `{lsr}` package.
 
 ```{r}
 pairedSamplesTTest(formula = ~ grade_test2 + grade_test1, # one-sided formula
@@ -269,12 +285,11 @@ pairedSamplesTTest(formula = ~ grade_test2 + grade_test1, # one-sided formula
                   )
 ```
 
-
 ### Long vs. wide format
 
-Note that in the example above using the `pairedSamplesTTest()` function, we used the wide format of the data. When using wide data, you enter a one-sided formula that contains your two repeated measures conditions (e.g. `~ grade_test2 + gradte_test1`).
+Note that in the example above, using the `pairedSamplesTTest()` function, we used the wide format data. When using wide data with `pairedSamplesTTest()`, you enter a one-sided formula that contains your two repeated measures conditions (e.g. `~ grade_test2 + gradte_test1`).
 
-The `pairedSamplesTTest()` function can also be used with long data. In this case, you must use a two-sided formula of the form `outcome ~ group` and specify the name of the ID variable. Note that the group variable must be a factor. 
+The `pairedSamplesTTest()` function can also be used with long data. In this case, you must use a two-sided formula: `outcome ~ group`. You also need to specify the name of the ID variable. Note that the grouping variable must also be a factor. 
 
 ```{r}
 # grouping variable (time) must be a factor
@@ -287,41 +302,29 @@ pairedSamplesTTest(formula = grade ~ time, # two-sided formula
                    )
 ```
 
-## `stats::t.test()`
+### Calculating Cohen's D using functions
 
-Instead of using the `{lsr}` functions, we can also use the more standard `t.test()` function from the `{stats}` package to run a paired samples *t*test. 
+The within-subjects Cohen's D can be calcuated in R by using the `cohensD` function from `{lsr}` with the argument `method = "paired"`. 
 
 ```{r}
-t.test(x = chico_wide$grade_test1,
-       y = chico_wide$grade_test2,
-       paired = TRUE)
+lsr::cohensD(x      = chico_wide$grade_test1,
+             y      = chico_wide$grade_test2, 
+             method = "paired")
 ```
 
-## Interpretation and Write-Up
+We can also calculate the Cohen's D for the between-conditions variance using the `method = "pooled"` argument. 
+
+```{r}
+lsr::cohensD(x      = chico_wide$grade_test1,
+             y      = chico_wide$grade_test2, 
+             method = "pooled")
+```
+
+# Interpretation and Write-Up {#interp}
 
 A proper write-up for our Independent Sample *t*-test would be:
 
 "A paired samples *t*-test was used to compare scores on Dr. Chico's first and second exam. The students scored substantially higher on the second test (*M* = 58.39, *SD* = 6.41) than on the first test (*M* = 56.98, *SD* = 6.62), *t*(19) = 6.48, *p* < .001, 95% CI [0.95, 1.86], *d* = 1.45."
-
-***
-
-# Effect size {#effsize}
-
-Cohen's D for a paired samples *t*-test is calculated as follows:
-
-$$ d = \frac{\bar \Delta}{\hat \sigma_\Delta} $$
-
-where $\hat \sigma_\Delta$ is the standard deviation of the difference scores
-
-Paired samples Cohen's D can be calcuated in R with the `cohensD` function from `{lsr}`. 
-
-```{r}
-lsr::cohensD(x = chico_wide$grade_test1,
-        y = chico_wide$grade_test2, 
-        method = "paired")
-```
-
-***
 
 # Plotting paired-samples data {#plot}
 
@@ -329,9 +332,13 @@ When plotting paired samples data, we want some way to clearly represent the rep
 
 ```{r}
 # wide format
-ggpaired(chico_wide, cond1 = "grade_test1", cond2 = "grade_test2",
-         color = "condition", line.color = "gray", line.size = 0.4,
-         palette = "jco")
+ggpaired(chico_wide, 
+         cond1      = "grade_test1", 
+         cond2      = "grade_test2",
+         color      = "condition", 
+         line.color = "gray", 
+         line.size  = 0.4,
+         palette  = "jco")
 ```
 
 
@@ -339,9 +346,13 @@ ggpaired(chico_wide, cond1 = "grade_test1", cond2 = "grade_test2",
 
 ```{r eval=FALSE}
 # long format
-ggpaired(chico_long, x = "time", y = "grade",
-         color = "time", line.color = "gray", line.size = 0.4,
-         palette = "jco")
+ggpaired(chico_long, 
+         x          = "time", 
+         y          = "grade",
+         color      = "time", 
+         line.color = "gray", 
+         line.size  = 0.4,
+         palette    = "jco")
 ```
 
 ***
@@ -367,7 +378,7 @@ t.test(cbt_data$after, cbt_data$before, paired = TRUE)
 ```
 
 
-2. Calculate an effect size.
+2. Calculate an effect size (either at the within-subjects level or at the between-conditions level).
 
 ```{r}
 # lsr function
@@ -388,8 +399,7 @@ cbt_data <- cbt_data %>%
 mean(cbt_data$diff) / sd(cbt_data$diff)
 ```
 
-
-3. Plot
+3. Plot the data using `ggpaired()`.
 
 ```{r}
 ggpaired(cbt_data, cond1 = "before", cond2 = "after",
@@ -432,7 +442,16 @@ pwr.t.test(n           = 12,
            alternative = "two.sided")
 ```
 
-3. Let's say you're planning to replicate the study from minihack 1. Further the change the code above to estimate the minimum number of participants required to detect an effect of the same size with 80% power. *Note.* You will want to change the `type` argument back to paired.
+3. Let's say you're planning to replicate the study from minihack 1. Change the following code to estimate the minimum number of participants required to detect an effect of the same size with 80% power. 
+
+```{r, eval = FALSE}
+pwr.t.test(n           = NULL,
+           d           = ???,
+           sig.level   = .05, 
+           power       = ???,
+           type        = "paired",
+           alternative = "two.sided")
+```
 
 ```{r minihack2_answer}
 pwr.t.test(n           = NULL,
@@ -447,17 +466,17 @@ pwr.t.test(n           = NULL,
 
 ## Minihack 3
 
-You are reviewing a paper that argues people are more cynical after reading the Watchmen graphic novel than before reading the novel. Participant cynicism was operationalized as a participant's score on the *Views* subscale of the Mach-IV (scored out of 5). Being a good reviewer, you decide to rerun the author's analyses. Use the values before to conduct a paired-samples *t*-test.
+You are reviewing a paper that argues people are more cynical after reading the Watchmen graphic novel than before reading the novel. Participant cynicism was operationalized as a participant's score on the *Views* subscale of the Mach-IV (scored out of 5). You decide to rerun the authors' analyses. Use the values below to conduct a paired-samples *t*-test.
 
 $\hat{\mu}_{Time1}$ = 1.24
 
 $\hat{\mu}_{Time2}$ = 4.87
 
-$\hat{\sigma}_{T1}$ = 1.22
+$\hat{\sigma}_{Time1}$ = 1.22
 
-$\hat{\sigma}_{T2}$ = 1.30
+$\hat{\sigma}_{Time2}$ = 1.30
 
-$r_{T1T2}$ = .30
+$r_{Time1Time2}$ = .30
 
 $N_{TOTAL}$ = 20
 
@@ -465,10 +484,13 @@ $N_{TOTAL}$ = 20
 
 ```{r}
 cyn_sd <- sqrt(1.22^2 + 1.30^2 - (2 * .30 * (1.22 * 1.30)))
+cyn_sd
 cyn_m  <- 4.87 - 1.24
+cyn_m
 cyn_se <- cyn_sd / sqrt(20)
-
+cyn_se
 cyn_t <- cyn_m / cyn_se
+cyn_t
 ```
 
 2. Is the difference between the two means significant? *Note.* You will have to calculate the degrees of freedom.
@@ -482,4 +504,6 @@ pt(q = abs(cyn_t), df = 19, lower.tail = FALSE) * 2
 ```{r}
 cyn_ci_low <- cyn_m + cyn_se * qt(p = .025, df = 19, lower.tail = TRUE)
 cyn_ci_up  <- cyn_m + cyn_se * qt(p = .975, df = 19, lower.tail = TRUE)
+cyn_ci_low
+cyn_ci_up
 ```
