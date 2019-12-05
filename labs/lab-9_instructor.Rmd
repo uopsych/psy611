@@ -189,8 +189,8 @@ chico_n      <- length(chico_wide$diff)
 chico_df     <- chico_n - 1
 
 # print the sample size and the degrees of freedom
-c("n" = chico_n,
-  "df"= chico_df)
+c("n"  = chico_n,
+  "df" = chico_df)
 ```
 
 For the degrees of freedom we only subtract one because, as with a one-sample t-test we are only dealing with one mean (i.e., the mean of the difference scores).
@@ -447,34 +447,39 @@ pwr.t.test(n           = NULL,
 
 ## Minihack 3
 
-You are reviewing a manuscript that claims people who were assigned to use a light editor theme in R Studio wrote better code than people who were assigned to use a dark editor theme in R Studio. Better code was operationalized as performance on a coding test (scored out of 25). The researchers state that the difference is significant at *p* = .023 (two-tailed), but you have your doubts. The researchers are not willing to share their data with you, but you glean the following information from the manuscript.
+You are reviewing a paper that argues people are more cynical after reading the Watchmen graphic novel than before reading the novel. Participant cynicism was operationalized as a participant's score on the *Views* subscale of the Mach-IV (scored out of 5). Being a good reviewer, you decide to rerun the author's analyses. Use the values before to conduct a paired-samples *t*-test.
 
-$\hat{\mu}_{DarkTheme}$ = 16.56
+$\hat{\mu}_{Time1}$ = 1.24
 
-$\hat{\mu}_{LightTheme}$ = 20.01
+$\hat{\mu}_{Time2}$ = 4.87
 
-$\hat{\sigma}_{DarkTheme}$ = 5.44
+$\hat{\sigma}_{T1}$ = 1.22
 
-$\hat{\sigma}_{LightTheme}$ = 3.12
+$\hat{\sigma}_{T2}$ = 1.30
 
-$n_{DarkTheme}$ = 8
+$r_{T1T2}$ = .30
 
-$n_{LightTheme}$ = 19
+$N_{TOTAL}$ = 20
 
-1. Calculate the *t*-statistic for the difference between the two means. Assume the variances of the two groups are equal.
+1. Calculate the *t*-statistic.
 
 ```{r}
-# your code here
+cyn_sd <- sqrt(1.22^2 + 1.30^2 - (2 * .30 * (1.22 * 1.30)))
+cyn_m  <- 4.87 - 1.24
+cyn_se <- cyn_sd / sqrt(20)
+
+cyn_t <- cyn_m / cyn_se
 ```
 
 2. Is the difference between the two means significant? *Note.* You will have to calculate the degrees of freedom.
 
 ```{r}
-# your code here
+pt(q = abs(cyn_t), df = 19, lower.tail = FALSE) * 2
 ```
 
-3. Why do you think the researchers got the *p*-value they did?
+3. Calculate the confidence interval. What does it mean?
 
 ```{r}
-# your code here
+cyn_ci_low <- cyn_m + cyn_se * qt(p = .025, df = 19, lower.tail = TRUE)
+cyn_ci_up  <- cyn_m + cyn_se * qt(p = .975, df = 19, lower.tail = TRUE)
 ```
