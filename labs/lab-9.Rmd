@@ -232,7 +232,7 @@ chico_ci_up  <- chico_mean + chico_se * qt(p = .975, df = chico_df, lower.tail =
 
 # print the t-statistic
 c("95% CI Lower" = chico_ci_low,
-  "95% CI Upper" =  chico_ci_up)
+  "95% CI Upper" = chico_ci_up)
 ```
 
 And we calculate a Cohen's d in exactly the same way as the one-sample and independent samples *t*-test:
@@ -281,8 +281,7 @@ We can also use the `pairedSamplesTTest()` function from the `{lsr}` package.
 
 ```{r}
 pairedSamplesTTest(formula = ~ grade_test2 + grade_test1, # one-sided formula
-                   data = chico_wide # wide format
-                  )
+                   data = chico_wide) # wide format
 ```
 
 ### Long vs. wide format
@@ -298,8 +297,7 @@ chico_long <- chico_long %>%
 
 pairedSamplesTTest(formula = grade ~ time, # two-sided formula
                    data = chico_long, # long format
-                   id = "id" # name of the id variable
-                   )
+                   id = "id") # name of the id variable
 ```
 
 ### Calculating Cohen's D using functions
@@ -338,7 +336,7 @@ ggpaired(chico_wide,
          color      = "condition", 
          line.color = "gray", 
          line.size  = 0.4,
-         palette  = "jco")
+         palette    = "jco")
 ```
 
 
@@ -374,37 +372,20 @@ cbt_data <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs
 1. Run a paired-samples *t*-test to determine whether participants' anxiety scores changed from before to after the CBT treatment.
 
 ```{r}
-t.test(cbt_data$after, cbt_data$before, paired = TRUE)
+# your code here
 ```
 
 
 2. Calculate an effect size (either at the within-subjects level or at the between-conditions level).
 
 ```{r}
-# lsr function
-# paired
-lsr::cohensD(x = cbt_data$before,
-        y = cbt_data$after, 
-        method = "paired")
-
-# pooled
-lsr::cohensD(x = cbt_data$before,
-        y = cbt_data$after, 
-        method = "pooled")
-
-# calculate it manually
-cbt_data <- cbt_data %>% 
-  mutate(diff = after - before)
-
-mean(cbt_data$diff) / sd(cbt_data$diff)
+# your code here
 ```
 
 3. Plot the data using `ggpaired()`.
 
 ```{r}
-ggpaired(cbt_data, cond1 = "before", cond2 = "after",
-         color = "condition", line.color = "gray", line.size = 0.4,
-         palette = "jco")
+# your code here
 ```
 
 ***
@@ -423,23 +404,13 @@ pwr.t.test(n           = ???,
 ```
 
 ```{r}
-pwr.t.test(n           = 12,
-           d           = 1.689,
-           sig.level   = .05, 
-           power       = NULL,
-           type        = "paired",
-           alternative = "two.sided")
+# your code here
 ```
 
 2. Now imagine you believed that all observations were independent. Change the code above to calculate the power for an independent samples *t*-test. Is the power smaller or larger? Why or why not?
 
 ```{r}
-pwr.t.test(n           = 12,
-           d           = 1.689,
-           sig.level   = .05, 
-           power       = NULL,
-           type        = "two.sample",
-           alternative = "two.sided")
+# your code here
 ```
 
 3. Let's say you're planning to replicate the study from minihack 1. Change the following code to estimate the minimum number of participants required to detect an effect of the same size with 80% power. 
@@ -453,13 +424,8 @@ pwr.t.test(n           = NULL,
            alternative = "two.sided")
 ```
 
-```{r minihack2_answer}
-pwr.t.test(n           = NULL,
-           d           = 1.689,
-           sig.level   = .05, 
-           power       = .80,
-           type        = "paired",
-           alternative = "two.sided")
+```{r}
+# your code here
 ```
 
 ***
@@ -483,27 +449,17 @@ $N_{TOTAL}$ = 20
 1. Calculate the *t*-statistic.
 
 ```{r}
-cyn_sd <- sqrt(1.22^2 + 1.30^2 - (2 * .30 * (1.22 * 1.30)))
-cyn_sd
-cyn_m  <- 4.87 - 1.24
-cyn_m
-cyn_se <- cyn_sd / sqrt(20)
-cyn_se
-cyn_t <- cyn_m / cyn_se
-cyn_t
+# your code here
 ```
 
 2. Is the difference between the two means significant? *Note.* You will have to calculate the degrees of freedom.
 
 ```{r}
-pt(q = abs(cyn_t), df = 19, lower.tail = FALSE) * 2
+# your code here
 ```
 
 3. Calculate the 95% confidence interval. What does it mean?
 
 ```{r}
-cyn_ci_low <- cyn_m + cyn_se * qt(p = .025, df = 19, lower.tail = TRUE)
-cyn_ci_up  <- cyn_m + cyn_se * qt(p = .975, df = 19, lower.tail = TRUE)
-cyn_ci_low
-cyn_ci_up
+# your code here
 ```
