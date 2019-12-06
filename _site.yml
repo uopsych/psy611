@@ -61,6 +61,8 @@ navbar:
         href: "labs/lab-7.html"  
       - text: "One-Sample and Independent Samples t-tests"
         href: "labs/lab-8.html"  
+      - text: "Paired Sample t-tests"
+        href: "labs/lab-9.html"  
     - text: Homework
       href: homework.html
     - text: Useful Material
