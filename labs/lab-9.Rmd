@@ -199,7 +199,7 @@ The final step before we calculate our *t*-statistic is to calculate the standar
 # calculate the standard error
 chico_se <- chico_sd / sqrt(chico_n)
 
-# print the sample size and the degrees of freedom
+# print the standard error
 c("se" = chico_se)
 ```
 
@@ -217,7 +217,7 @@ And, as always, we can calculate a *p*-value for our *t*-statistic using the `pt
 
 ```{r}
 # calculate the t-statistic
-chico_p <- pt(q = abs(chico_t), df = chico_n - 1, lower.tail = FALSE) * 2
+chico_p <- pt(q = abs(chico_t), df = chico_df, lower.tail = FALSE) * 2
 
 # print the t-statistic
 c("p" = chico_p)

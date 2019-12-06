@@ -1707,7 +1707,7 @@ c(&quot;n&quot;  = chico_n,
 <pre class="r"><code># calculate the standard error
 chico_se &lt;- chico_sd / sqrt(chico_n)
 
-# print the sample size and the degrees of freedom
+# print the standard error
 c(&quot;se&quot; = chico_se)</code></pre>
 <pre><code>##        se 
 ## 0.2169738</code></pre>
@@ -1721,7 +1721,7 @@ c(&quot;t&quot; = chico_t)</code></pre>
 ## 6.475436</code></pre>
 <p>And, as always, we can calculate a <em>p</em>-value for our <em>t</em>-statistic using the <code>pt()</code> function.</p>
 <pre class="r"><code># calculate the t-statistic
-chico_p &lt;- pt(q = abs(chico_t), df = chico_n - 1, lower.tail = FALSE) * 2
+chico_p &lt;- pt(q = abs(chico_t), df = chico_df, lower.tail = FALSE) * 2
 
 # print the t-statistic
 c(&quot;p&quot; = chico_p)</code></pre>
