@@ -1,0 +1,18 @@
+﻿number,question,group
+1,Why do we study statistics?,1
+2,What is construct validity and how can we establish it?,1
+3,How is internal validity different from external validity?,1
+4,What is the replication (reproducibility/credibility) crisis?,1
+5,What are (some of) the goals of the open science movement? How can we try to meet those goals?,1
+1,What is a p-value and how is it used in research?,2
+2,What does statistically significant mean?,2
+3,How is probability used in frequentist statistics?,2
+4,What is the difference between frequentist and Bayesian probability philosophies?,2
+5,How do you interpret the confidence interval around a statistic?,2
+1,Describe the process of conducting a null hypothesis significance test.,3
+2,What are null and alternative hypotheses?,3
+3,What kind of errors can you make under NHST and what do they mean? Which is worse?,3
+4,What is statistical power? How can we increase it?,3
+1,How does increasing sample size affect power?,4
+2,How does increasing sample size affect Type I error?,4
+3,How does increasing sample size affect Type II error?,4
