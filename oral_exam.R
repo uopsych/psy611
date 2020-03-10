@@ -1,7 +1,7 @@
 library(tidyverse)
 oral = read.csv("oral.csv")
 
-set.seed()
+set.seed(5)
 
 oral %>%
   group_by(group) %>%

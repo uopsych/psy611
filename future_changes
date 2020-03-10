@@ -7,6 +7,8 @@ general lab feedback
 * exercises throughout are good
 * try to budget at least 20 minutes for mini-hacks
 * is it possbile to use the learnr package and have students download shiny apps to run on their computer?
+* idea for the future: use learnr package to create labs, bundle these inside a package
+* add in-text R code (reporting sample sizes, means, proper formatting, etc)
 
 TA expectations
 * prep labs (minor tweaks), attend lecture, take quizzes and homework assignments (to give feedback on difficulty and time)
@@ -46,6 +48,7 @@ lab-1.html
 lab-2.html
 * more interactive throughout
 * ask more questions (sometimes on html doc, or not)
+* in-text R code summarizing sample size and means
 
 5-matrix.html
 * For XT and TX, give example in slides
@@ -108,6 +111,7 @@ lab-7.html
   * frequency tables
   * output tables to word document
   * extracting information
+  * in-line R code to summarize results
 * or more on data wrangling
   * move summarize here
   * more about first one
