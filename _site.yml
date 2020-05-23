@@ -68,8 +68,12 @@ navbar:
     - text: Useful Material
       href: bonus.html
   right:
+    - text: Previous Years
+      menu:
+      - text: 2019
+        href: "https://uopsych.github.io/psy611_2019/"
     - icon: fa-github
-      href: https://github.com/uopsych/psy611
+      href: https://github.com/uopsych/psy611    
 output:
   html_document:
     lib_dir: site_libs
