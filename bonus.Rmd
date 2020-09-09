@@ -50,5 +50,8 @@ Hill (2019) ["Meet xaringan."](https://arm.rbind.io/slides/xaringan.html#1) -- T
 
 Bryan (2019?) ["Happy Git with R."](https://happygitwithr.com) -- Interested in using GitHub for version control? Jenny Bryan will guide you through the process and metaphorically hand you a tissue when you're screaming with frustration. 
 
+## On being a grad student, being a scientist, balancing life and work
+
+[Growing up in Science](https://www.cns.nyu.edu/events/growingupinscience/) -- a set of online, global, free events about mentorship, being a student, challenges, successes, failures, and more.
 
 

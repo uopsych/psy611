@@ -1,5 +1,6 @@
-schedule
-* order should be one-sample t-test, paired sample t-tests, independent-samples t, effect sizes (cohen's d and overlap), assumptions and non-parametric tests
+
+Resources
+* https://www.cns.nyu.edu/events/growingupinscience/
 
 general lab feedback
 * make the first minihack easy and walk them through it
@@ -74,13 +75,6 @@ lab-3.html
 * any sample space can be divided into two non-elementary events
 * explain a deck of cards (what?!)
 
-
-1-homework.Rmd
-* rewrite correlation freedom/generosity instructions: "calculate the correlation between freedom and generosity" (take out thing about "for a country")
-* question 5.1 -- take out density distribution or give them code. (students are drawing based on mean and sd, not using empirical)
-* 5.3 change validity of correlation to "statistical conclusion valdity"
-* more time for homeworks? post 2 weeks in advance, instead of 1
-
 8-normal.html
 * move slides about chi sq from sampling to here
 
@@ -95,8 +89,6 @@ lab-4.html
 lab-5.html
 * skim tidy data and helper functions, but keep in so people can see them
 
-12-critiques.html
-* fewer quotes at the beginning (be prepared to run out of time)
 
 2-homework.html
 * MIDDLE 50% 
@@ -121,7 +113,7 @@ lab-7.html
 14-one-sample.html
 * reiterate signal/noise
 
-15-two-means_I.html
+15-two-means_I.html (now 16)
 * reiterate signal/noise
 
 lab-8.html
@@ -129,9 +121,23 @@ lab-8.html
 * good to have them walk through the steps
 * had time to go through the mini-hacks
 
-17-dependent means.html
+17-dependent means.html (now 15)
 * the cohen's d discussion is awkward but healthy. keep it in
 * pay attention to notation for standard deviation and standard error
 * no matter which d you use, say which one or indicate how you calculated
 
   
+CHANGES ALREADY ADDRESSED
+
+schedule
+* order should be one-sample t-test, paired sample t-tests, independent-samples t, effect sizes (cohen's d and overlap), assumptions and non-parametric tests
+
+
+1-homework.Rmd
+* rewrite correlation freedom/generosity instructions: "calculate the correlation between freedom and generosity" (take out thing about "for a country")
+* 5.3 change validity of correlation to "statistical conclusion valdity"
+* more time for homeworks? post 2 weeks in advance, instead of 1
+
+
+12-critiques.html
+* fewer quotes at the beginning (be prepared to run out of time) -- have extra day so leaving this in for now?

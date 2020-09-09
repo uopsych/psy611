@@ -129,13 +129,13 @@ Using the `homework-world` dataset, create a matrix of scatterplots for the vari
 
 Using the `homework-world` dataset:
 
-   - Calculate the correlation between the average perception of freedom in a country and the typical generosity of its citizens. 
+   - Calculate the correlation between freedom and generosity. 
 
 
   - Create a scatterplot showing the relationship between freedom and generosity. 
   
 
-  - Referencing the scatterplot, consider the different threats to the validity of a correlation. Are there any that you are concerned about? Are there any that you don't think are a problem?
+  - Referencing the scatterplot, consider the different threats to statistical conclusion validity. Are there any that you are concerned about? Are there any that you don't think are a problem?
   
   - If you had to guess, do you think the correlation you calculated (a) underestimates the strength of the true relationship between freedom and generosity, (b) overestimates this relationship, or (c) does a good job representing the relationship?
 
