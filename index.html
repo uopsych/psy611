@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
@@ -238,6 +237,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -266,6 +266,12 @@ $(document).ready(function () {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -414,8 +420,8 @@ div.tocify {
 <p>This course is the first in a 3-term sequence of classes designed to provide a thorough grounding in statistical concepts, methods, and applications of relevance to psychological science and related sciences. The aim of the course is to help students develop skills in the analysis and interpretation of real psychological data. Our focus will be both conceputual and mathematical – that is, understanding the underlying mathematical principals of statistics enhances ones’ ability to interpret and think critically about the use of statistics. Students will also learn the basics of the R language and use this program to wrangle, visualize, summarize, and test hypotheses with data.</p>
 <div id="meeting-times-and-locations" class="section level2">
 <h2>Meeting times and locations</h2>
-<p><strong>Lecture:</strong> Tuesdays and Thursdays, 10:15 - 11:45am, Zoom (link in Canvas)</p>
-<p><strong>Lab:</strong> Friday, 10:15-11:45am, Zoom (link in Canvas)</p>
+<p><strong>Lecture:</strong> Tuesdays and Thursdays, 10:15 - 11:45am, <a href="https://uoregon.zoom.us/j/99978411347?pwd=c0dXbnd1YmZMU1ZsamRTT0Urd2wxdz09">Zoom</a></p>
+<p><strong>Lab:</strong> Friday, 10:15-11:45am, <a href="https://uoregon.zoom.us/j/97415753884?pwd=SkFKYXBSR0tURUl6Rk5sZUd4YU9Vdz09">Zoom</a></p>
 <p>All labs and lectures will be recorded, and these recordings will be made available to current students through Canvas. Attendance is not required.</p>
 </div>
 <div id="instructors" class="section level2">
@@ -522,7 +528,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0

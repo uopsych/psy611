@@ -34,7 +34,7 @@ LSR readings can be found in the free, online textbook, [_Learning Statistics wi
 | -    | 11/06 | _Lab: Graphing with ggplot2_           |                    |                      |            |             |
 | 7    | 11/10 | Critiques of hypothesis testing        | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf) [Cumming (2014)](readings/Cumming_2014.pdf)   | Quiz  6         |             |
 | -    | 11/12 | Open Science                           | [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/)          |            |             |
-| -    | 11/13 | _Lab: Preregistration_                |                    |            |  HW 2 Due           |
+| -    | 11/13 | _Lab: TBA_                |                    |            |  HW 2 Due           |
 | 8    | 11/17 | One-sample tests                      | LSR Ch 13.1-13.2   | Quiz 7    |             |
 | -    | 11/19 | Comparing two means (paired)                 | LSR Ch 13.3-13.11  |            |             |
 | -    | 11/20 | _Lab: One- and paired-samples t-tests_  |                    |            |           |
