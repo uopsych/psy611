@@ -23,6 +23,8 @@ thorough grounding in statistical concepts, methods, and applications of relevan
 
 All labs and lectures will be recorded, and these recordings will be made available to current students through Canvas. Attendance is not required. 
 
+For Zoom best practices and tips, see this [cheat sheet](readings/PSY 611 Zoom Cheat Sheet.pdf).
+
 ## Instructors
 
 **Sara Weston** -- [sweston2@uoregon.edu](mailto:sweston2@uoregon.edu)
