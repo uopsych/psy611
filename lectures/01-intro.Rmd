@@ -12,8 +12,6 @@ output:
 ---
 
 ## You are a scientist
-
- - Roots in philosophy and theology
  
 .pull-left[
 ```{r, echo = F, out.width='100%'}
@@ -23,7 +21,7 @@ knitr::include_graphics("images/descartes.jpg")
  
  .pull-right[
 ```{r, echo = F, out.width='200%'}
-knitr::include_graphics("images/leibniz.jpeg")
+knitr::include_graphics("images/Helmholtz_1848.jpg")
 ```
  ]
  
@@ -36,16 +34,10 @@ contemporary of galileo.
 
 - Tried to hide the date of his birth so that he didn't become an object of speculation by astrologers, but an indiscreet added the date Mar 31 1596 to a portrait and that's how we know.
 
-**Locke** -- Disagreed with Descartes. the mind is passive, sensing and perceiving, denied the reality of innate ideas
-
-**Leibniz (mid 1700s) ** -- the mind is not a neutral blank slate, but a veined block of marble whose interal lines cleavage predispose it to be sculpted more easily into some shapes than others (*New Essays on Human Understanding*, published in 1800 by written in early 1700s)
-
-- Discovered binary arithmetic --how computers represent everything today
-
-- developed infinitesmal calculus (a few years after Newton, but he didn't know that because Newton didn't tell anyone) and his notation system is more flexible and easier to use. we use it today
-
-**Helmholz ()** -- developed tools to examine the structure of the eye -- lead to discoveries on perception, and also a tool to measure reaction time to fractions of seconds (galanometer, "stopwatch")
-- personally replicated experimetns of other scientists to ensure accuracy
+**Helmholz (1849)** -- developed tool to measure reaction time to fractions of seconds (galanometer, "stopwatch")
+- also invented ophthalmoscope, which examines the inside of the human eye
+- _also_ created the Helmholtz resonator, which identifies the various fequencies of complex sounds containing multiple tones
+- personally replicated experiments of other scientists to ensure accuracy
 
 ---
 
@@ -73,8 +65,7 @@ contemporary of galileo.
   - Execute and understand of the use and limitations of null hypothesis significance testing
   
   - (in labs) Wrangle, summarize, test, and display data using R
-  
-  - *Ideally* everyone will learn at least one thing they can use in their research this term.
+
 
 ---
 
@@ -89,12 +80,38 @@ Many basic statistical tests were developed a century ago.
 This class has variance.
 
 ???
+
 We continue to build off of these tests today. For example, MLM is built off basics of regression and correlation. We need to understand these methods to move forward. 
 
 But the world is changing rapidly. Heuristics don't apply, there are better ways to do things, and we've messed up these statistics a lot. We'll discuss what's often left out of most statistics courses. 
 
 Goal: don't just do the test, understand what the test does, why you might want to use it, and how you can avoid abusing it
 
+---
+
+## Road map
+
+| Week(s) | Topics |
+|:-------:||:------|
+| 1-2 |Summarizing data |
+| 3-4 |Probability |
+| 5   |Sampling and making inferences about the unknown|
+| 6-9| Making a decision|
+|10| Evaluating that decision|
+
+---
+
+## My goals (practical)
+
+  - Teach you the basics of statistics and R.
+  
+  - Challenge you -- this class is designed to push you to your personal limit and then just beyond. 
+      - If you feel like you're sailing through this class, come talk to me.
+      - If you feel like you're drowning, come talk to me.
+  
+  - Create sitautions in which you can practice skills that will help throughout your career.
+      - learning things on your own, asking for help, saying no, teaching others...
+  
 
 ---
 ## Format
@@ -252,6 +269,23 @@ Four scales
 - 0 indicates an _absence_ of something
 - example: how many times have you eaten watermelon in the last 6 months?
 
+---
+
+## Scales of measurement
+
+.pull-left[
+- Nominal
+
+- Ordinal
+
+- Interval 
+
+- Ratio]
+
+.pull-right[
+**Why does this matter?**
+
+  ]
 
 ---
 
@@ -265,18 +299,37 @@ Four scales
 - Interval 
 
 - Ratio]
-.pull-right[
-**Why does this matter?**]
 
---
 .pull-right[
-- Different amounts of information]
---
-.pull-right[
-- Different mathematical properties
+**Why does this matter?**
 
-     - Example: Bobby scores 6 and Megan scores 3. If the scale is interval, can we say Bobby scored twice as high as Megan?
-]
+  - Different amounts of information
+
+  ]
+
+---
+
+## Scales of measurement
+
+.pull-left[
+- Nominal
+
+- Ordinal
+
+- Interval 
+
+- Ratio]
+
+.pull-right[
+**Why does this matter?**
+
+  - Different amounts of information
+
+  - Different mathematical properties
+  
+    - Example: If Bobby scores 3 and Megan scores 6, can we say Megan scored twice as high as Bobby?
+  ]
+
 
 ---
 
