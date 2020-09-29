@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
 <meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
@@ -237,7 +238,6 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
-  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -266,12 +266,6 @@ $(document).ready(function () {
 }
 }
 
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
 
 .toc-content {
   padding-left: 30px;
@@ -431,7 +425,7 @@ div.tocify {
 <h2>Instructors</h2>
 <p><strong>Sara Weston</strong> – <a href="mailto:sweston2@uoregon.edu">sweston2@uoregon.edu</a> Office Hours: <a href="https://calendly.com/sara-weston/weston-office-hours">By appointment</a></p>
 <p><strong>Sarah Dimakis</strong> – <a href="mailto:sdimakis@uoregon.edu">sdimakis@uoregon.edu</a> Office Hours: <a href="https://calendly.com/sarahdimakis/office-hours">By appointment</a></p>
-<p><strong>Max Drascher</strong> – <a href="mailto:mdrasche@uoregon.edu">mdrasche@uoregon.edu</a> Office Hours: TBD</p>
+<p><strong>Max Drascher</strong> – <a href="mailto:mdrasche@uoregon.edu">mdrasche@uoregon.edu</a> Office Hours: <a href="https://calendly.com/md_officehrs/30min">By appointment</a></p>
 </div>
 </div>
 <div id="materials" class="section level1">
@@ -531,7 +525,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
