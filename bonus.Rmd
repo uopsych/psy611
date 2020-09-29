@@ -14,6 +14,8 @@ This page contains links to journal articles, blog posts, webpages, etc., that w
 
 Lord (1953) ["On the statistical treatment of football numbers."](readings/Lord_1953.pdf) -- This one is worth reading several times, ideally with a friend. Don't worry, it's quite short. A small note: "Tchebycheff" is sometimes written as "Chebyshev" and in either case is pronounced Cheb-ee-sheve. 
 
+Cox (1980) ["The optimal number of response alternatives for a scale: A revew"](https://www.jstor.org/stable/pdf/3150495.pdf?casa_token=pnuy8XQLHTIAAAAA:QOUc17Ic0cquCBXuqyRvfCSBUiXkFwDoVjuOxHB8qjJHtyJXGSlam7Zxcd2RIABVOXMy-YARHJ6dHhuGc_ABJaTBk8Lf8FLF9EKX9wlrn99yB5CWPgg) -- For those developing new measures, it's worth spending some time reading about psychometrics. As with everything, there's no one-size-fits-all answer to how many response options, whether to include a midpoint, and how to label your scales. But you should understand the implications of these choices before you write your own items.
+
 Malone & Goldstone (2019) ["Episode 936: The Modal American."](https://www.npr.org/2019/08/28/755191639/episode-936-the-modal-american) -- This episode of NPR's podcast, _Planet Money_, is a great discussion of what we mean when we say "average," why the mean can be a bad measure of central tendency, and how complicated calculating simple statistics are. They don't use the words "artifact" or "collinearity", but they discuss both and how they can lead to bad answers.
 
 Rohrer (2019) ["Indirect Effect *Ex Machina*."](http://www.the100.ci/2019/10/03/indirect-effect-ex-machina) -- come for the ice cream and sauerkraut, stay for the creeping dread that many mediation studies are probably wrong. 
