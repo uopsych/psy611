@@ -9,6 +9,8 @@ navbar:
       menu:
       - text: "1 - Introduction"
         href: "lectures/01-intro.html"
+      - text: "2 - Validity"
+        href: "lectures/02-measurement.html"
     - text: Labs
       menu:
       - text: "Coming soon!"
