@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE)
 options(scipen = 999)
 ```
 
-You can download the lab [here](labs/lab-1.pdf).
+You can download the lab [here](lab-1.pdf).
 
 
 # Purpose
