@@ -13,8 +13,3 @@ RnwWeave: Sweave
 LaTeX: pdfLaTeX
 
 BuildType: Website
-
-MarkdownReferences: Document
-MarkdownCanonical: Yes
-
-ZoteroLibraries: "My Library"
