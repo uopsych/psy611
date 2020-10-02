@@ -6,6 +6,9 @@ output:
     toc: yes
     toc_depth: 3
     toc_float: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
   word_document:
     toc: yes
     toc_depth: '3'
@@ -20,7 +23,8 @@ knitr::opts_chunk$set(echo = TRUE)
 options(scipen = 999)
 ```
 
-You can download the lab [here](labs/downloaded_labs/lab-1.docx). 
+You can download the lab [here](labs/lab-1.pdf).
+
 
 # Purpose
 
