@@ -18,21 +18,7 @@ homework general
 * B's get degrees 
 * don't say "it's in your best interest to attempt all of them"
 
-1-intro.html
 
-* road map: summarizing data --> probability --> sampling --> making inferences about the unknown --> making a decision --> evaluating that decision
-    
-2-measurement.html
-* Replace "units" with something else
-* Remove humor nomological net -- better to use the student generated example
-
-lab-1.html
-* make it shorter -- didn't get to mini-hacks (aim for 20 min for mini-hacks each week)
-  * importing data can be delayed until lab 2 (maybe?)
-  * idea: keep all material in document, but skim sections (e.g., types of variables)
-* next set of RAs add questions throughout (parts where students have to complete code or write answers)
-  * students look at prepared markdown, but TAs live-code (print html so you know where you are)
-  
 3-describing_data_1.html
 * too long! 
 * did we use world happiness? take out description of variables
@@ -137,3 +123,6 @@ schedule
 
 1-intro.html
 * turn off notifications!
+
+2-measurement.html
+* Take out C&M? Replace with something else? Remove entirely? It's very dense, and maybe just too much. 
