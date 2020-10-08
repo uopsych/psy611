@@ -13,17 +13,23 @@ general lab feedback
 
 TA expectations
 * prep labs (minor tweaks), attend lecture, take quizzes and homework assignments (to give feedback on difficulty and time)
+* less on statistical conclusion validity
 
 homework general
 * B's get degrees 
 * don't say "it's in your best interest to attempt all of them"
 
+2-validity.html
+* more time with humor example/discussing article (requires curring some lecture material)
 
 3-describing_data_1.html
-* too long! 
-* did we use world happiness? take out description of variables
-* leptokurtic - leaping up, platykurtic -- plate, mesokurtic -- middle
-* is there a more efficient way to make the point about statistical tests of normality being tied to sample size?
+* use rio to load in data, and explain ../ in file path
+* add formula for standard deviation to in addition to R code for standard deviation
+
+lab-1.html
+* not enough time
+* students using chat -- overwhelming, distracting
+* cut out arithmatic stuff (not needed)
 
 lab-2.html
 * more interactive throughout
