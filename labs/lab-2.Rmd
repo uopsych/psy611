@@ -32,6 +32,7 @@ Today's lab will cover:
 2. [Basic Descriptives](#basic)
 3. [Summarizing a dataset](#summarize)
 4. [Bivariate Descriptives](#bivar)
+4. [In-Line R Code](#inline)
 
 ***
 
@@ -282,6 +283,7 @@ For example, in our `world_happiness` dataset, we might want to know the strengt
 
 ```{r}
 cor(world_happiness$Happiness, world_happiness$Support, use = "pairwise.complete.obs")
+
 ```
 
 Not surprisingly, we see that there is a strong positive association between happiness and social support.
@@ -301,7 +303,7 @@ plot(world_happiness$Support, world_happiness$Happiness, xlab = "Social Support"
 If we have a dataset with a reasonably small number of variables, we can use `pairs.panels()` (also from the `{psych}` package) to generate a matrix that contains scatterplots between all of the variables below the diagonal and Pearson correlations between all of the variables above the diagonal. 
 
 ```{r}
-pairs.panels(world_happiness)
+pairs.panels(world_happiness, lm=T, ellipses = F)
 ```
 
 Again, note that we can't interpret the results for `Country` because it is a non-numeric character variable.
@@ -312,15 +314,66 @@ Lastly, if we want to find the covariance between two variables, we use the `cov
 
 ```{r}
 cov(world_happiness$Happiness, world_happiness$Support, use = "pairwise.complete.obs")
+
 ```
 
 NOTE: You can also generate a covariance matrix for a whole dataframe by passing a dataframe to `cov()` instead of only two specific variables. The same goes for generating a correlation matrix using `cor()`.
 
 ***
 
+# In-Line R code {#inline}
+
+We've seen how RMarkdown is a powerful way to create documents that combine code, output, and explanations/comments. 
+
+**I might use a code chunk to make some calculations:**
+
+```{r}
+my_vector <- c(5,6,14,11,2,1,3,2,8)
+
+my_mean <- mean(my_vector)
+my_mean
+my_sd <- sd(my_vector)
+my_sd
+```
+
+**And then discuss it:**
+
+The mean of my vector is 5.78 with a standard deviation of 4.47. 
+
+
+That's nice and all, but copying numbers over can be error prone AND if one thing changes about your analysis, then you need to complete change what you wrote up. Let's say you accidentally excluded one of your datapoints, you can add it back in and repeat the same code from before:
+
+```{r}
+my_new_vector <- c(my_vector, 5)
+
+my_mean <- mean(my_new_vector)
+my_mean
+my_sd <- sd(my_new_vector)
+my_sd
+```
+
+Actually, the mean of my vector is 5.7 with a standard deviation of 4.22.
+
+
+
+**Alternatively you can embed your r code within your text:**
+
+``` {eval=F}
+Write whatever you want, then `r #insert code here` then write some more.
+
+```
+
+No matter, what you change about my_new_vector, the means is `r my_mean` and the standard deviation is `r my_sd`.
+
+
+This will help make your code simpler, more reusable and less error-prone.
+
+
+
+***
+
 # Minihacks {#minihacks}
 
-Feel free to work in groups of 2-3, and ask for help when you get stuck!
 
 ## Minihack 1: Find the mode {#minihack1}
 
@@ -335,6 +388,8 @@ simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 ```
 
 4. Use the function `maxFreq()` to find the frequency of the modal value (i.e. how many time it occurs). Save your result to an object called `modal_freq`.
+
+5. Report the mode and frequency of the mode using r code embedded within your text.
 
 ***
 
@@ -391,3 +446,6 @@ For this minihack, we're going to use the `cor()` function from `{psych}` to cre
 4. Now generate another correlation matrix, but this time use pairwise deletion by specifying `use = "pairwise.complete.obs"`.
 
 5. Compare your two correlation matrices. Whey do they have different numbers? What is the difference between pairwise and listwise (aka "casewise") deletion? Hint: look at the help documentation for `cor()`.
+
+6. Use bracket notation to extract the relationship between GDP and happiness using each of these methods. Report the results from the 2 methods (rounded to 2 decimal places) using in-line r code.
+
