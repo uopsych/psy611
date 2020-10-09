@@ -9,9 +9,16 @@ navbar:
       menu:
       - text: "1 - Introduction"
         href: "lectures/01-intro.html"
+      - text: "2 - Validity"
+        href: "lectures/02-measurement.html"
+      - text: "3 - Describing data (univariate)"
+        href: "lectures/03-describing-data.html"
+      - text: "4 - Describing data (bivariate)"
+        href: "lectures/04-describing_data.html"
     - text: Labs
       menu:
-      - text: "Coming soon!"
+      - text:  "1 - Introduction to R"
+        href: "labs/lab-1.html"
     - text: Homework
       href: homework.html
     - text: Useful Material

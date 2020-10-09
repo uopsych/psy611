@@ -16,6 +16,18 @@ library(tidyverse) # for graphing
 library(ggExtra) # for marginal distributions
 library(psych) # for dataset showing content overlap
 ```
+class: inverse
+
+### Annoucements
+
+- That quiz, huh?
+
+- Strategic breakout groups in lab
+
+- Homework 1 due in two weeks 
+
+---
+
 ### Last time
 
 .pull-left[### Population Variability
@@ -212,36 +224,78 @@ Correlation = `r round(cor(data$x, data$y),2)`
 
 --
 
-- $r^2$: Proportion of variance "explained"
-    - as [Ozer & Funder (2019)](https://uopsych.github.io/psy611/readings/Ozer_Funder_2019.pdf) discuss, we're not really explaining anything and the change in scale can mess up our interpretations if we're not careful.
-
---
-
 - [Rosenthal & Rubin (1982)](https://psycnet.apa.org/fulltext/1982-22591-001.pdf): life and death (the Binomial Effect Size Display)
   - treatment success rate $= .50 + .5(r)$ and the control success rate $= .50 - .5(r)$.
 
+--
+
+- $r^2$: Proportion of variance "explained"
+    - [Ozer & Funder (2019)](https://uopsych.github.io/psy611/readings/Ozer_Funder_2019.pdf) claim this is misleading and nonsensical
+    - Fisher (2019) suggests this particular argument is non-scientific (follow up [here](https://twitter.com/aaronjfisher/status/1168252269797629952) and then [here](https://www.psychologytoday.com/us/blog/personal-and-precise/201909/can-we-get-it-right-without-needing-be-right))
 ---
 
-## Ozer & Funder (2019)
+### In breakout groups
+
+Order the following effect sizes from smallest to largest:
+
+- people attribute failures to bad luck 
+- High elevations have lower annual temps
+- Ibuprofen and pain relief
+- scarcity increases the perceived value of a commodity 
+- people in a bad mood are more aggressive 
+- communicators perceived as more credible are more persuasive
+- Men weigh more than women
+- SES and IQ predicting mortality 
+- Antihistomine and symptom relief
+- Height and weight among adults
+
+What would you guess each effect size is?
+
+
 
 ???
 **What are good benchmarks?**
-- Classic social psych studies: $r$ between .35 and .45
-- scarcity increases the perceived value of a commodity ($r = .12$), 
+
 - people attribute failures to bad luck ($r = .10$), 
 - communicators perceived as more credible are more persuasive ($r = .10$)
-- people in a bad mood are more aggressive ($r = .41$)
-- SES and IQ predicting mortality $r = 25$
-
 - Antihistomine and symptom relief: $r = .11$
+- scarcity increases the perceived value of a commodity ($r = .12$), 
 - Ibuprofen and pain relief: $r = .14$
+- SES and IQ predicting mortality $r = 25$
 - Men weigh more than women: $r = .26$
 - High elevations have lower annual temps: $r = .34$
-- Height and weight $r = .44$
+- Classic social psych studies: $r$ between .35 and .45
+- people in a bad mood are more aggressive ($r = .41$)
+- Height and weight among $r = .44$
 
 **Implications**
 - Don't dismiss small effects
 - Be skeptical of large effects
+
+---
+
+# Funder & Ozer (2019)
+
+- Effect sizes are often mis-interpreted. How?
+
+- What can fix this?
+
+- Pitfalls of small effects and large effects
+
+- Recommendations?
+
+???
+
+"benchmarks" lack context and are arbitrary
+$r^2$ is stupid and worded in a way that makes it sound more causal than it is
+
+fix:
+- better benchmarks 
+  - compare with classic studies or other literature or all literature
+  - compare with non-psychological phenomenon
+- explain in terms of consequences
+  - BESD
+  - long-run consequences
 
 **Recommendations**
 - Report effect sizes 
@@ -250,7 +304,6 @@ Correlation = `r round(cor(data$x, data$y),2)`
 - Stop using empty terminology
 - Revise guildelines
 ---
-
 ## What affects correlations?
 
 It's not enough to calculate a correlation between two variables. You should always look at a figure of the data to make sure the number accurately describes the relationship. Correlations can be easily fooled by qualities of your data, like:

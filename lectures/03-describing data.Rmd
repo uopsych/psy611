@@ -9,6 +9,62 @@ output:
       highlightLines: true
       countIncrementalSlides: false
 ---
+## Last time...
+
+Research design and validity
+
+- Statistical conclusion
+- Internal
+- Construct
+- External
+
+**Statistics in the news:** An [article](https://fivethirtyeight.com/features/how-the-two-party-system-obscures-the-complexity-of-black-americans-politics/) published this morning in _FiveThirtyEight_ on measuring political preferences of Black Americans.
+
+.small[Jefferson, H. & Yan, A. (2020). How the two-party system obscures the complexity of Black Americans' politics. _FiveThirtyEight.com_]
+---
+
+## Measurement and statistics
+
+The characteristics of measures (like reliability) are defined quantitatively.
+
+
+.pull-left[
+$$r_{KK} = \frac{K\bar{r_{ij}}}{1 + (K-1)\bar{r_{ij}}}$$
+
+Formula for coefficient 
+$\alpha$
+where 
+$K$ 
+is the number of items and 
+$\bar{r_{ij}}$
+is the average correlation between any two items on the test.
+
+*By the way, 
+$\alpha$
+is a poor measure of reliability.
+]
+
+
+.pull-right[
+$$r_{xy} = \rho_{xy}\sqrt{r_{xx}r_{yy}}$$
+
+Formula for the sample correlation between constructs 
+$X$ 
+and 
+$Y$
+given internal consistencies
+$r_{xx}$ 
+and 
+$r_{yy}$.
+]
+
+---
+
+## Today...
+
+Describing data!
+
+---
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(tidyverse) # for pipes and plots
@@ -54,7 +110,7 @@ names(world)
 
 **GDP**: Log gross domestic product per capita
 
-**Support**: “If you were in trouble, do you have relatives or friends you can count on to help you whenever you need them, or not?”    
+**Support**: “If you were in trouble, do you have relatives or friends you can count on to help you whenever you need them, or not?”
 
 **Life**: Healthy life expectancy at birth
 
@@ -545,3 +601,5 @@ class: inverse
 ## Next time...
 
 describing relationships
+
+## Please take Quiz 1 now on [Canvas](https://canvas.uoregon.edu/courses/165689).
