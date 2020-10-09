@@ -19,6 +19,8 @@ navbar:
       menu:
       - text:  "1 - Introduction to R"
         href: "labs/lab-1.html"
+      - text:  "2 - R Basics and Descriptives"
+        href: "labs/lab-2.html"
     - text: Homework
       href: homework.html
     - text: Useful Material
@@ -29,7 +31,7 @@ navbar:
       - text: 2019
         href: "https://uopsych.github.io/psy611_2019/"
     - icon: fa-github
-      href: https://github.com/uopsych/psy611    
+      href: https://github.com/uopsych/psy611
 output:
   html_document:
     lib_dir: site_libs
