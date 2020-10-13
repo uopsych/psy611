@@ -32,7 +32,7 @@ Correlations, covariances
 
 ## Matrix
 
-A *matrix* is a rectangular array of numbers with n rows and m columns. It is symbolized with a bold, upper case letter, and subscripted to indicate its order.
+A *matrix* is a rectangular array of numbers with n rows and m columns. It is symbolized with a bold, upper case letter, and subscripted to indicate its *order.*
 
 
  
@@ -60,8 +60,8 @@ g_{31} & g_{32}
 
 
 
-The columns in a matrix are called *vectors*, and are symbolized with lower case, bold letters. This matrix has two vectors (
-$\large \mathbf{g}_1$, $\large \mathbf{g}_2$), each containing three scalars.
+The columns in a matrix are called *vectors*, and are symbolized with lower case, bold letters. This matrix has two vectors 
+$(\large \mathbf{g}_1$, $\large \mathbf{g}_2)$, each containing three scalars.
 
 ---
 
@@ -159,6 +159,15 @@ $$\Large \mathbf{F_{3,3}} = \left(\begin{array}
 
 
 $\mathbf{F}$ is a symmetric, diagonal matrix. 
+
+---
+## Matrix algebra
+
+Matrix algebra shares some of the same properties as linear algebra...
+
+... but not all of them.
+
+Let's cover the rules of matrix algebra. 
 
 ---
 ##Matrix Addition and Subtraction:
@@ -597,7 +606,7 @@ Post-multiplication of a matrix X by a diagonal matrix $\mathbf{D}$ results in t
 .pull-left[
 $$\Large \mathbf{X} = \left(\begin{array}
 {rr}
-4 & 7 \\
+4 & 5 \\
 7 & 6
 \end{array}\right)$$
 ]
@@ -613,7 +622,7 @@ $$\Large \mathbf{D} = \left(\begin{array}
 
 $$\Large \mathbf{XD} = \mathbf{Y} = \left(\begin{array}
 {rr}
-12 & 28 \\
+12 & 20 \\
 21 & 24
 \end{array}\right)$$
 
@@ -631,13 +640,13 @@ Pre-multiplication of a matrix X by a diagonal matrix $\mathbf{D}$ results in th
 $$\Large \mathbf{D} = \left(\begin{array}
 {rr}
 3 & 0 \\
-0 & 2
+0 & 4
 \end{array}\right)$$
 ]
 .pull-right[
 $$\Large \mathbf{X} = \left(\begin{array}
 {rr}
-4 & 7 \\
+4 & 5 \\
 7 & 6
 \end{array}\right)$$
 ]
@@ -646,13 +655,13 @@ $$\Large \mathbf{X} = \left(\begin{array}
 
 $$\Large \mathbf{DX} = \mathbf{Y} = \left(\begin{array}
 {rr}
-12 & 21 \\
-14 & 12
+12 & 15 \\
+28 & 24
 \end{array}\right)$$
 
 
 
-The first row of X is multiplied by 3; the second row is multiplied by 2.
+The first row of X is multiplied by 3; the second row is multiplied by 4.
 
 ---
 
@@ -849,11 +858,16 @@ $$\Large \mathbf{TX} = Y$$
 
 What do the new variables represent? 
 
+--
+
+Post-multiplication can be used to create composites or indices. 
+Pre-multiplication creates groups! (treatment vs control, young vs old...)
+
 ???
 
 $\mathbf{Y}$ is a $2 x 3$ matrix. 
 
-Pre-multiplcation = affecting the rows
+Pre-multiplication = affecting the rows
 
 
 Each column of Y corresponds to one variable
@@ -941,12 +955,12 @@ $$\small
 
 .pull-right[
 $$\small \mathbf{X} = \left(\begin{array}
-{rrr}
-1 & 5 & 45 \\
-1 & 3 & 34 \\
-1 & 5 & 27 \\
-2 & 8 & 32 \\
-2 & 5 & 71 \\
+{lrr}
+\text{Treatment} & 5 & 45 \\
+\text{Treatment} & 3 & 34 \\
+\text{Treatment} & 5 & 27 \\
+\text{Control} & 8 & 32 \\
+\text{Control} & 5 & 71 \\
 \end{array}\right)$$
 ]
 
@@ -955,8 +969,8 @@ We can pre-multiply X by T:
   
 ```{r, echo = F}
   X = matrix(
-    c(1,1,1,2,2,5,3,5,8,5,45,34,27,32,71),
-    byrow = F, ncol = 3
+    c(5,3,5,8,5,45,34,27,32,71),
+    byrow = F, ncol = 2
   )
   
   T = matrix(
@@ -1002,3 +1016,9 @@ class: inverse
   
 probability!
     
+&nbsp;
+&nbsp;
+&nbsp;
+
+
+### [Click here to take Quiz #2 on Canvas now!](https://canvas.uoregon.edu/courses/165689) 
