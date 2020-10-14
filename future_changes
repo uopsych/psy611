@@ -22,25 +22,27 @@ homework general
 2-validity.html
 * more time with humor example/discussing article (requires curring some lecture material)
 
-3-describing_data_1.html
-* use rio to load in data, and explain ../ in file path
-* add formula for standard deviation to in addition to R code for standard deviation
-
 lab-1.html
 * not enough time
 * students using chat -- overwhelming, distracting
 * cut out arithmatic stuff (not needed)
 
+
+3-describing_data_1.html
+* use rio to load in data, and explain ../ in file path
+* add formula for standard deviation to in addition to R code for standard deviation
+
+4-describing_data_2.html
+* clarify "people attribute failures to back luck"
+* examples from article -- maybe new examples or don't assign article?
+
 lab-2.html
-* more interactive throughout
-* ask more questions (sometimes on html doc, or not)
-* in-text R code summarizing sample size and means
+
 
 5-matrix.html
-* For XT and TX, give example in slides
-* post-multiply -- affecting columns, doing this to every single row
-* pre-multiply -- affecting row, doing this to every single column
-* add orders to all matrix notations
+* Explain the underlining element thing in matrix addition
+* "Different from algebra" not "different from linear algebra"
+* 1 = 1's not identity
 
 quiz-2.docx
 * replace word "masquerade"
