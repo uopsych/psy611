@@ -18,7 +18,7 @@ options(scipen = 999)
 
 # Purpose
 
-The purpose of today's lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus during the minihacks on applying what you learned in lecture to create linear combinations of data, including calculating some basic descriptive statistics (which we discussed in [last week's lab](https://uopsych.github.io/psy611/labs/lab-2.html){target="_blank"}).
+The purpose of today's lab is to learn how to enter matrices and perform operations on matrices in R, and to use R to expand your theoretical understanding of matrices. For the minihacks, you will be applying what you learned in lecture about using data matrices to calculate means and covariance matrices.
 
 Today's lab will cover:
 
@@ -37,24 +37,24 @@ Today's lab will cover:
 
 __Notation and Terminology:__
 
-$A_{rc}$ refers to the entry at row $r$ and column $c$ in matrix $A$.  
+$a_{rc}$ refers to the entry at row $r$ and column $c$ in matrix $A$.  
 "Order" refers to the dimensions of a matrix: the number of rows and the number of columns $(r,c)$.
 
-1. Rectangular: $r \neq c$  
+1. Rectangular: A matrix where the number of rows does not equal the number of columns.
 \[ A = \begin{bmatrix}
-1 & 5 & 7 \\
-2 & 1 & 2
+1 & 2 & 3 \\
+3 & 2 & 1
 \end{bmatrix} \]
 
-2. Square:  $r = c$  
+2. Square:  A matrix where the number of rows equals the number of columns. 
 \[ A = \begin{bmatrix}
-2 & 9\\
-4 & 6
+1 & 2\\
+3 & 4
 \end{bmatrix} \]
 
 3. Vector:  A matrix where the row or column (not both) is 1.  
 \[ A = \begin{bmatrix}
-5 & 6 & 9
+3 & 1 & 2
 \end{bmatrix} \]
 
 4. Diagonal:  A square matrix where all of the elements equal zero except for those making up the principal diagonal.  
@@ -149,11 +149,14 @@ e.g. `rep(x = 1, times = 10)` would result in `r rep(1, 10)`
 Now let's use `rep()` and `matrix()` to create matrix `M` from above:
 
 ```{r}
-M <- matrix(c(rep(1, 16),
-              rep(0, 8), rep(2, 8),
-              rep(3, 16),
-              rep(4, 8), rep(0,8)),
-            nrow = 4, ncol = 16, byrow = TRUE)
+M <- matrix(c(rep(1, times = 16),
+              rep(0, times = 8), 
+              rep(2, times = 8),
+              rep(3, times = 16),
+              rep(4, times = 8), 
+              rep(0,times = 8)),
+            nrow = 4, 
+            byrow = TRUE)
 
 M
 ```
@@ -168,7 +171,7 @@ M
 We can check whether or not the order of two matrices are the same using a combination of `dim()`, which returns the dimensions of the matrix (rows, columns) and the equality test `==`.
 
 <br />
-**NOTE**: `=` is to define things (arguments in functions & objects) and `==` tests for equality. 
+**NOTE**: `=` defines something (arguments in functions & objects) and `==` tests for equality. 
 
 We get two results for each test, which correspond to (in order): 
 <br /> 
@@ -185,7 +188,34 @@ dim(a_mat) == dim(c_mat)
 dim(a_mat) == dim(d_mat)
 ```
 
-As we knew (from looking at them ourselves), `A` is not the same shape as `B`, `C`, and `D`.
+Recall,
+
+ 
+
+\[A = \begin{bmatrix}
+1 & 2 & 3 \\
+1 & 2 & 3
+\end{bmatrix} \]
+
+\[B = \begin{bmatrix}
+1 & 1 \\
+2 & 2 \\
+3 & 3
+\end{bmatrix} \]
+
+\[C = \begin{bmatrix}
+1 & 1 \\
+2 & 4 \\
+3 & 5
+\end{bmatrix} \]
+
+\[D = \begin{bmatrix}
+1 & 1 \\
+2 & 2 \\
+3 & 3
+\end{bmatrix} \]
+
+As we knew (from looking at them ourselves), `A` (2 x 3) does not have the same order as `B`, `C`, and `D` (3 x 2).
 
 Next we'll check `B` against `C` and `D`:
 
@@ -216,25 +246,12 @@ __Example:__
 1 & 2 \\
 5 & 1 \\
 7 & 2
-\end{bmatrix} = \begin{bmatrix}
-1_{11} & 2_{12} \\
-5_{21} & 1_{22} \\
-7_{31} & 2_{32}
 \end{bmatrix} \]
 
-To create the transpose, the following happens:
+To create the transpose, $X'$ the following happens:
 
-$1_{11} \rightarrow 1_{11}$
-
-$5_{21} \rightarrow 5_{12}$
-
-$7_{31} \rightarrow 7_{13}$
-
-$2_{12} \rightarrow 2_{21}$
-
-$1_{22} \rightarrow 1_{22}$
-
-$2_{32} \rightarrow 2_{23}$
+1. The first column becomes the first row.
+2. The second column becomes the second row.
 
 **Question**: Since the order of the above matrix is 3x2, what will the order of its transpose be?  
 
