@@ -37,12 +37,16 @@ lab-1.html
 * examples from article -- maybe new examples or don't assign article?
 
 lab-2.html
-
+* 
 
 5-matrix.html
 * Explain the underlining element thing in matrix addition
 * "Different from algebra" not "different from linear algebra"
 * 1 = 1's not identity
+* "Subtraction is not distributive is nonsensical"
+* more about relation to statistics
+* intimidating?
+
 
 quiz-2.docx
 * replace word "masquerade"
@@ -53,8 +57,6 @@ lab-3.html
 * give mean example
 
 6-probability.html
-* define random
-* add animations!
 * bag of candy -- replacement vs not
 
 7-binomial.html

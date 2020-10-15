@@ -1,14 +1,21 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probability and Probability Distributions</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Probability and Probability Distributions
+
 ---
-title: 'Probability and Probability Distributions'
-output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    css: [default, rladies, rladies-fonts]
-    nature:
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
----
+
 
 ## Annoucements
 
@@ -96,7 +103,7 @@ The display of the elementary events and their probabilities is called a **proba
 ???
 Write on board:
 
-$$P(A)$$ 
+`$$P(A)$$` 
 
 and describe
 
@@ -104,39 +111,19 @@ and describe
 
 class: center
 
-```{r, echo = F, warning = F, message = F, results = 'hide'}
-library(tidyverse)
-```
-```{r, echo = F}
-data.frame(die.toss = c(1:6), prob = rep(1/6, 6)) %>%
-  ggplot(aes(x = die.toss, y = prob)) +
-  geom_bar(stat = "identity") +
-  scale_x_continuous("Die Toss Result", breaks=c(1:6)) +
-  scale_y_continuous("Probability")
-```
+
+![](06-probability_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
 
 ???
 
 Probability can be determined as:
 
-$$\LARGE p(A) = \frac{n(A)}{N}$$
+`$$\LARGE p(A) = \frac{n(A)}{N}$$`
 but only if the events are equally probable
 ---
 
 class: center
-```{r, echo = F}
-#frequencies copied from scrabble.hasbro.com
-letters = c("A-9", "B-2", "C-2", "D-4", "E-12", "F-2", "G-3", "H-2", "I-9", "J-1", "K-1", "L-4", "M-2", "N-6", "O-8", "P-2", "Q-1", "R-6", "S-4", "T-6", "U-4", "V-2", "W-2", "X-1", "Y-2", "Z-1", "Blanks-2")
-data.frame(letters) %>%
-  separate(letters, into = c("letters", "freq")) %>%
-  mutate(freq = as.numeric(freq),
-         prob = freq/sum(freq)) %>%
-  ggplot(aes(x = letters, y = prob)) +
-  geom_bar(stat = "identity") +
-  scale_x_discrete("Tile Draw Result") +
-  scale_y_continuous("Probability") +
-  theme(axis.text.x = element_text(angle = 45))
-```
+![](06-probability_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -152,25 +139,25 @@ Once we know the parameters, we know everything we need to construct the sample 
 
 ## Rules of probabilities
 
-$$\Large \text{not A} = P(\neg A) = 1-P(A)$$
+`$$\Large \text{not A} = P(\neg A) = 1-P(A)$$`
 
 
-$$\Large \text{A or B} = P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+`$$\Large \text{A or B} = P(A \cup B) = P(A) + P(B) - P(A \cap B)$$`
 
-$$\Large \text{A and B }= P (A \cap B) = P(A|B)P(B)$$
+`$$\Large \text{A and B }= P (A \cap B) = P(A|B)P(B)$$`
 
 --
 
 If the outcomes are independent (a common assumption), then:
 
 
-$$\Large \text{A or B} = P(A \cup B) = P(A) + P(B)$$
+`$$\Large \text{A or B} = P(A \cup B) = P(A) + P(B)$$`
 
-$$\Large \text{A and B }= P (A \cap B) = P(A)P(B)$$
+`$$\Large \text{A and B }= P (A \cap B) = P(A)P(B)$$`
 
 ???
 
-$\Large \neg$ is the complement of A
+`\(\Large \neg\)` is the complement of A
 
 Independent means the the information that one event has occured does not affect the probability of the other event. 
 
@@ -208,15 +195,15 @@ There are two fundamental ways to think about probability: the frequentist view 
 
 --
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 The more common **frequentist** view is sometimes called the "in the long run" view.  It defines probability as what is expected to happen in the long run, if the event in question (e.g., tossing a coin, rolling a die) is repeated over and over.
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-We know that a fair coin will come up heads 50% of the time: $P(H) = .5$.  
+We know that a fair coin will come up heads 50% of the time: `\(P(H) = .5\)`.  
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 - A coin flipped a couple of times might come up heads both times, but a head flipped 1000 times would not likely come up heads 1000 times. *In the long run, the proportion of heads will converge on the expected probability.*
 
@@ -228,7 +215,7 @@ We know that a fair coin will come up heads 50% of the time: $P(H) = .5$.
 
 This "long run" view of probability means that in "short run" the outcomes will not behave as expected—the outcomes will show variability around the expected probability outcome.  We can simulate what happens for a probability model in the short run. In many cases this behavior can be known mathematically.
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 The utility here is that we know what the truth is and can see how closely we approximate it in the long run, but also see what happens in realistic short run circumstances:
 
@@ -242,7 +229,8 @@ The utility here is that we know what the truth is and can see how closely we ap
 
 Simulation here will confirm what we know must be true given the defined model, but will also give a sense of how far off the mark short-run results can be.  This is valuable because we never have an infinite series of events; rarely do we have very long ones.  We live in a short-run world and need to know how that affects inferences that we want to make.
 
-```{r}
+
+```r
 set.seed(101719)
 nsim = 2000
 X = matrix(NA, ncol = 4, nrow = nsim)
@@ -259,9 +247,12 @@ X = as.data.frame(X); names(X) = c("num", "coin", "die", "scrabble")
 
 class: center
 
-```{r}
-X %>% ggplot(aes(x = num, y = coin)) + geom_line() + geom_hline(aes(yintercept = .5), color = "red", linetype = 2) + scale_x_continuous("Number of tosses") + scale_y_continuous("Proportion of heads", breaks = seq(0, 1, .1), limits = c(0,1)) + ggtitle("Proportion of heads as a\nfunction of number of tosses")+ theme_gray(base_size = 20) 
+
+```r
+X %&gt;% ggplot(aes(x = num, y = coin)) + geom_line() + geom_hline(aes(yintercept = .5), color = "red", linetype = 2) + scale_x_continuous("Number of tosses") + scale_y_continuous("Proportion of heads", breaks = seq(0, 1, .1), limits = c(0,1)) + ggtitle("Proportion of heads as a\nfunction of number of tosses")+ theme_gray(base_size = 20) 
 ```
+
+![](06-probability_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 
 ???
 
@@ -272,9 +263,12 @@ Knowing this is important when we flip the process around and ask, "how reasonab
 ---
 class: center
 
-```{r}
-X %>% ggplot(aes(x = num, y = die)) + geom_line() + geom_hline(aes(yintercept = 1/6), color = "red", linetype = 2) + scale_x_continuous("Number of rolls") + scale_y_continuous("Proportion of sixes", breaks = seq(0, 1, .1), limits = c(0,1)) + ggtitle("Proportion of sixes as a\nfunction of number of rolls")+ theme_gray(base_size = 20) 
+
+```r
+X %&gt;% ggplot(aes(x = num, y = die)) + geom_line() + geom_hline(aes(yintercept = 1/6), color = "red", linetype = 2) + scale_x_continuous("Number of rolls") + scale_y_continuous("Proportion of sixes", breaks = seq(0, 1, .1), limits = c(0,1)) + ggtitle("Proportion of sixes as a\nfunction of number of rolls")+ theme_gray(base_size = 20) 
 ```
+
+![](06-probability_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 ???
 
@@ -287,9 +281,12 @@ It converges on the expected value faster.
 
 class: center
 
-```{r}
-X %>% ggplot(aes(x = num, y = scrabble)) + geom_line() + geom_hline(aes(yintercept = .01), color = "red", linetype = 2) + scale_x_continuous("Number of draws") + scale_y_continuous("Proportion of Z tiles", breaks = seq(0, 1, .1), limits = c(0,1)) + ggtitle("Proportion of Z tiles as a\nfunction of number of draws")  + theme_gray(base_size = 20) 
+
+```r
+X %&gt;% ggplot(aes(x = num, y = scrabble)) + geom_line() + geom_hline(aes(yintercept = .01), color = "red", linetype = 2) + scale_x_continuous("Number of draws") + scale_y_continuous("Proportion of Z tiles", breaks = seq(0, 1, .1), limits = c(0,1)) + ggtitle("Proportion of Z tiles as a\nfunction of number of draws")  + theme_gray(base_size = 20) 
 ```
+
+![](06-probability_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 
 ???
 
@@ -301,15 +298,15 @@ The binomial distribution will formally define this behavior.
 
 The frequentist view is popular because it is objective.  The events in question are observable and the definition of probability (proportion of an event in the long run) is calculated in the same way by everyone.
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 On the other hand, in real life, "the long run" may not have a simple or realistic meaning: 
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 "The probability that Sara's dog is on the bed behind her is .8, or 80%."
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 At one level, we all have an intuitive feel for what this means and understand it to tell us the dog is likely in view.
 
@@ -317,15 +314,15 @@ At one level, we all have an intuitive feel for what this means and understand i
 
 But, in the strict sense, that statement doesn’t have a sensible meaning in the language of a frequentist view.
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 The dog either is or is not on the bed (there are only two outcomes in the sample space); it makes no sense to say that the dog is on the bed 80% right now and the event is not repeatable (the dog on the bed right now) in the strict sense, so the “long run” doesn’t seem to apply.
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 Instead, we have to say something like, on days like today (which can be repeated), the probability that the dog is on the bed is .8.  
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 Probability and statistics involve many such convenient fictions.  What are the implications?
 
@@ -338,15 +335,15 @@ They allow us to get on with the job of forecasting from models to data or makin
 
 The link between probability and statistics is clear when we make the move to inference—the major task in science.
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 In probability, the model (the probability distribution, the generating function) is known and informs us what will be true about the data.  
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 In statistical inference, the model is not known and we let the data inform us about the plausibility of different models that might be true.  
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 We have to make assumptions about those models in order to sensibly answer the inference question.
 
@@ -354,15 +351,15 @@ We have to make assumptions about those models in order to sensibly answer the i
 
 If this coin is fair (proposed model), I expect the proportion of heads to be .5 in the long run.
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 After a long run (data collection), I find the proportion of heads to be .75.  I reject the "fair coin model."  I could be wrong but will try to limit the mistakes.  
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 This is statistical inference.  It relies upon assuming some generating process for the events (a model), typically defined by a theoretical probability distribution (here the binomial).  That framework allows us know the likelihood that we are wrong in our inference, especially in the short run.
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 Probability and probability distributions provide a frame of reference for making inferences.
 
@@ -372,9 +369,9 @@ Probability and probability distributions provide a frame of reference for makin
 
 Three competing models are available to explain the occurrence of a target event.
 
-- Model A: $p(E) = .70$
-- Model B: $p(E) = .75$
-- Model C: $p(E) = .45$
+- Model A: `\(p(E) = .70\)`
+- Model B: `\(p(E) = .75\)`
+- Model C: `\(p(E) = .45\)`
 
 I assume that this target event follows a binomial probability distribution. If that model is correct, at what point can I distinguish the models and declare a winner?
 
@@ -383,37 +380,10 @@ I assume that this target event follows a binomial probability distribution. If 
 class: center
 
 
-```{r, echo = F}
-set.seed(101719)
-num_data = 10
-```
 
 
-```{r test_models, warning = FALSE, message = FALSE, echo = FALSE, fig.height=6}
-TO = matrix(NA, ncol = 3, nrow = num_data)
 
-for(S in 1:num_data){
-  TO[S,1] = S
-  TO[S,2] = rbinom(n = 1, size = 1, prob = .7)
-  TO[S,3] = sum(TO[1:S,2])/S
-}
-TO = as.data.frame(TO); names(TO) = c("num", "draw", "prop")
-label = data.frame(x = rep(num_data*.9,3), y = c(.8, .65, .45), 
-                label = paste("Model", c("A", "B", "C")))
-
-TO %>%
-  ggplot(aes(x = num, y = prop)) + 
-  geom_line(size = 1.5) + 
-  geom_hline(aes(yintercept = .7), color = "red", linetype = 2, size = 2) + 
-  geom_hline(aes(yintercept = .75), color = "red", linetype = 2, size = 2) + 
-  geom_hline(aes(yintercept = .4), color = "red", linetype = 2, size = 2) + 
-  geom_text(aes(x=x, y=y, label=label), data = label, color = "blue", size = 8) +
-  scale_x_continuous("Number of events", breaks = seq(1, num_data, length.out = 10)) + 
-  scale_y_continuous("Proportion of target outcomes", 
-                     breaks = seq(0, 1, .1), limits = c(0,1)) + 
-  ggtitle("Proportion of target outcomes as a \nfunction of number of events") +
-  theme_gray(base_size = 20)
-```
+![](06-probability_files/figure-html/test_models-1.png)&lt;!-- --&gt;
 
 Three competing models are available to explain the occurrence of a target event.  
 
@@ -424,14 +394,9 @@ I assume that this target event follows a binomial probability distribution. If 
 class: center
 
 
-```{r, warning = FALSE, message = FALSE, echo = FALSE, fig.height=6}
-set.seed(101719)
-num_data = 100
-```
 
-```{r ref.label = "test_models", warning = FALSE, message = FALSE, echo = FALSE, fig.height=6}
 
-```
+![](06-probability_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 
 
 Three competing models are available to explain the occurrence of a target event.  
@@ -442,14 +407,9 @@ I assume that this target event follows a binomial probability distribution. If 
 class: center
 
 
-```{r, warning = FALSE, message = FALSE, echo = FALSE, fig.height=6}
-set.seed(101719)
-num_data = 10000
-```
 
-```{r ref.label = "test_models", warning = FALSE, message = FALSE, echo = FALSE, fig.height=6}
 
-```
+![](06-probability_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 
 
 Three competing models are available to explain the occurrence of a target event.  
@@ -470,57 +430,10 @@ My theory claims that the same underlying process (an assumption, here the binom
 class: center
 
 
-```{r, echo = F}
-set.seed(101719)
-num_data = 10
-```
 
 
-```{r which_samp, warning = FALSE, message = FALSE, echo = FALSE, fig.height=6}
 
-TO = matrix(NA, ncol = 7, nrow = num_data)
-for(S in 1:num_data){
-  TO[S,1] = S
-  TO[S,2] = rbinom(n = 1, size = 1, prob = .5)
-  TO[S,3] = rbinom(n = 1, size = 1, prob = .42)
-  TO[S,4] = rbinom(n = 1, size = 1, prob = .39)
-  TO[S,5] = sum(TO[1:S,2])/S
-  TO[S,6] = sum(TO[1:S,3])/S
-  TO[S,7] = sum(TO[1:S,4])/S
-}
-TO = as.data.frame(TO); names(TO) = c("num", paste0("draw",1:3), paste0("prop",1:3))
-
-TO %>%
-  ggplot(aes(x = num)) + 
-  geom_line(aes(y=prop1), color = RColorBrewer::brewer.pal(3, "Set2")[1], size = 2) + 
-  geom_line(aes(y=prop2), color = RColorBrewer::brewer.pal(3, "Set2")[2], size = 2) + 
-  geom_line(aes(y=prop3), color = RColorBrewer::brewer.pal(3, "Set2")[3], size = 2) + 
-  scale_x_continuous("Number of events") + 
-  scale_y_continuous("Proportion of target outcomes", 
-                     breaks = seq(0, 1, .1), limits = c(0,1)) + 
-  ggtitle("Proportion of target outcomes as a \nfunction of number of events") +
-  theme_bw(base_size = 20)
-```
-
-My theory claims that the same underlying process (an assumption, here the binomial) governs the outcomes in three populations.  At what point can I make a confident claim about that assertion?
-
-???
-
-Are the data in these populations generated by the same underlying process (model)?
-
----
-
-class: center
-
-```{r, echo = F}
-set.seed(101719)
-num_data = 100
-```
-
-
-```{r ref.label = "which_samp", warning = FALSE, message = FALSE, echo = FALSE, fig.height=6}
-
-```
+![](06-probability_files/figure-html/which_samp-1.png)&lt;!-- --&gt;
 
 My theory claims that the same underlying process (an assumption, here the binomial) governs the outcomes in three populations.  At what point can I make a confident claim about that assertion?
 
@@ -533,15 +446,25 @@ Are the data in these populations generated by the same underlying process (mode
 class: center
 
 
-```{r, echo = F}
-set.seed(101719)
-num_data = 10000
-```
 
 
-```{r ref.label = "which_samp", warning = FALSE, message = FALSE, echo = FALSE, fig.height=6}
+![](06-probability_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 
-```
+My theory claims that the same underlying process (an assumption, here the binomial) governs the outcomes in three populations.  At what point can I make a confident claim about that assertion?
+
+???
+
+Are the data in these populations generated by the same underlying process (model)?
+
+---
+
+class: center
+
+
+
+
+
+![](06-probability_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 My theory claims that the same underlying process (an assumption, here the binomial) governs the outcomes in three populations.  At what point can I make a confident claim about that assertion?
 
@@ -555,20 +478,20 @@ Are the data in these populations generated by the same underlying process (mode
 
 **Population distribution:** the usually hypothetical set of all possible measurements.  
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 - In the frequentist view this would be an infinitely long series of events.  
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 - In practice, we have to settle for “really long.”
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 **Sample distribution:** the set of measurements in hand, assumed to be a random sample from the population. 
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 - I will use statistics about the sample to infer what is true about population parameters.
 
@@ -578,11 +501,11 @@ Are the data in these populations generated by the same underlying process (mode
 
 **Sampling distribution:** Any sample will be off the mark in the value of a statistic relative to the population.  These statistic values will have a distribution across different random samples of the same size from the same population.  The variability in that distribution will tell us about the precision of the sample as a population estimate and the confidence we can have in claims we make about parameters.
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 - Long run version (repeated sampling interpretation)
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 - Theoretical version
 
@@ -600,7 +523,7 @@ In contrast to the frequentist view, the Bayesian view takes prior beliefs into 
 
 The key contribution can be summarized in Bayes’ Theorem:
 
-$$\Large \text{A given B} = P(A|B) = \frac{P(B|A)P(A)}{P(B|A)P(A) + P(B|\neg A)P(\neg A)}$$
+`$$\Large \text{A given B} = P(A|B) = \frac{P(B|A)P(A)}{P(B|A)P(A) + P(B|\neg A)P(\neg A)}$$`
 
 ---
 
@@ -608,43 +531,43 @@ $$\Large \text{A given B} = P(A|B) = \frac{P(B|A)P(A)}{P(B|A)P(A) + P(B|\neg A)P
 
 I have the personal theory that, generally speaking, Bayesians are smug.  I meet a smug person. What is the probability that I have met a Bayesian?
 
-$$\large \text{Bayesian | Smug} = P(B|S) = \frac{P(S|B)P(B)}{P(S|B)P(B) + P(S|\neg B)P(\neg B)}$$
-$P(B) = .1 \text{(Bayesian are not common, overall)}$
+`$$\large \text{Bayesian | Smug} = P(B|S) = \frac{P(S|B)P(B)}{P(S|B)P(B) + P(S|\neg B)P(\neg B)}$$`
+`\(P(B) = .1 \text{(Bayesian are not common, overall)}\)`
 
-$P(S|B) = .8$
+`\(P(S|B) = .8\)`
 
-$P(S|\neg B) = .3$
+`\(P(S|\neg B) = .3\)`
 
-$$\large \text{Bayesian | Smug} = P(B|S) = \frac{(.8)(.1)}{(.8)(.1) + (.3)(.9)} = `r round((.8*.1)/(.8*.1 + .3*.9),3)`$$
+`$$\large \text{Bayesian | Smug} = P(B|S) = \frac{(.8)(.1)}{(.8)(.1) + (.3)(.9)} = 0.229$$`
 ---
 
-$P(B) = .1$
+`\(P(B) = .1\)`
 
-$P(S|B) = .8$
+`\(P(S|B) = .8\)`
 
-$P(S|\neg B) = .3$
+`\(P(S|\neg B) = .3\)`
 
-$P(B|S) = `r round((.8*.1)/(.8*.1 + .3*.9),3)`$
+`\(P(B|S) = 0.229\)`
 
 From a pure baserate standpoint I should assume the probability is .1 that this person is a Bayesian.  Bayesian reasoning tells me to take my prior beliefs into account given what I believe to be true about the relation of smugness to Bayesian status.
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 --
 But, it also tells me not to be too enthusiastic about this Bayesian attribution.  I should not just flip around my conditional probability of "smugness given Bayesian" and claim the probability is .8 that I’ve just encountered a Bayesian. 
 
 --
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 In the language of Bayes Theory, P(B) is called the **prior probability**, P(B|S) is the **posterior probability**, which is an adjustment of P(B) in the face of additional information (smugness).
 
 ---
 
 The liberal sprinkling of the term, belief, in all this is what garners the label, subjectivist.
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 There is no need for P(B) or P(S|B) to be point estimates.  We can express uncertainty about these beliefs by making them *probability distributions*. The result is a posterior probability distribution.  I can use actual data to help me decide which of several different models about Bayesian-smugness beliefs is the better account.
 
-<p>&nbsp;</p>
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 There is no controversy when the prior information is based on solid scientific evidence.
 
@@ -668,18 +591,18 @@ What is the probability that I will get this disease given that I have a positiv
 
 Before transitioning, need to know probability of rare disease.
 
-$$\frac{(.99)(.0001)}{(.99)(.0001)+(.01)(.9999)}$$
+`$$\frac{(.99)(.0001)}{(.99)(.0001)+(.01)(.9999)}$$`
 
 ---
-## $p$-values
+## `\(p\)`-values
 
-Soon enough, we'll get to how $p$-values are derived from data. But it's worth bringing them up now, because they are statments about probability. 
+Soon enough, we'll get to how `\(p\)`-values are derived from data. But it's worth bringing them up now, because they are statments about probability. 
 
-What are $p$-values representing the probability of?
+What are `\(p\)`-values representing the probability of?
 
 --
 
-Which view of probability, frequentist or Bayesian, are $p$-values associated with?
+Which view of probability, frequentist or Bayesian, are `\(p\)`-values associated with?
 
 ---
 
@@ -688,36 +611,34 @@ Which view of probability, frequentist or Bayesian, are $p$-values associated wi
 .pull-left[
 ### Frequentist
 
-$$p = P(\text{Data}|H_0)$$
+`$$p = P(\text{Data}|H_0)$$`
 ]
 
 .pull-right[
 ### Bayesian
-$$\text{Bayes Factor} = \frac{P(\text{Data}|H_A)}{P(\text{Data}|H_0)}$$
+`$$\text{Bayes Factor} = \frac{P(\text{Data}|H_A)}{P(\text{Data}|H_0)}$$`
 ]
 
 Which is right?
 
-* $p$-values and Bayes Factor are highly correlated ([Wetzels et al., 2011](../readings/Wetzels_etal_2011.pdf)).
+* `\(p\)`-values and Bayes Factor are highly correlated ([Wetzels et al., 2011](../readings/Wetzels_etal_2011.pdf)).
 
 
 
 ???
 
-Note that $H_A$ can be a range of possible parameters, in which case, you get the weighted probability across many, or the integral if a continuous range. 
+Note that `\(H_A\)` can be a range of possible parameters, in which case, you get the weighted probability across many, or the integral if a continuous range. 
 
 ---
 
-```{r, echo = F, out.width='75%'}
-knitr::include_graphics("images/BF_pvalue.png")
-```
+&lt;img src="images/BF_pvalue.png" width="75%" /&gt;
 
 .small[([Wetzels et al., 2011](../readings/Wetzels_etal_2011.pdf))]
 
 ???
 But major disagreement in conclusion.
 
-- When $p$-value falls between .01 and .05, there is a 70% chance that Bayes Factor suggests only anecdotal evidence in favor of alternative. 
+- When `\(p\)`-value falls between .01 and .05, there is a 70% chance that Bayes Factor suggests only anecdotal evidence in favor of alternative. 
 
 Take-away -- Bayes Factor is more conservative when it comes to finding evidence against the null hypothesis. Is that better, or worse?
 
@@ -731,3 +652,126 @@ binomial distribution
 
 
 **Remember to complete Journal 3 on Canvas.**
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
