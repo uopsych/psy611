@@ -1540,9 +1540,10 @@ div.tocify {
 </div>
 
 
+<p>You can download the lab <a href="lab-3.pdf">here</a>.</p>
 <div id="purpose" class="section level1">
 <h1>Purpose</h1>
-<p>The purpose of today’s lab is to learn how to enter matrices and perform operations on matrices in R, and to use R to expand your theoretical understanding of matrices. For the minihacks, you will be applying what you learned in lecture about using data matrices to calculate means and covariance matrices.</p>
+<p>The purpose of today’s lab is to learn how to enter matrices and perform operations on matrices in R, and to use R to expand your theoretical understanding of matrices and how they underlie statistical calculations. For the minihacks, you will be applying what you learned in lecture about using data matrices to calculate means and covariance matrices.</p>
 <p>Today’s lab will cover:</p>
 <ol style="list-style-type: decimal">
 <li><a href="#types">Review of matrix types</a></li>
@@ -1558,8 +1559,7 @@ div.tocify {
 <div id="types" class="section level1">
 <h1>Review of matrix types</h1>
 <p><strong>Notation and Terminology:</strong></p>
-<p><span class="math inline">\(a_{rc}\)</span> refers to the entry at row <span class="math inline">\(r\)</span> and column <span class="math inline">\(c\)</span> in matrix <span class="math inline">\(A\)</span>.<br />
-“Order” refers to the dimensions of a matrix: the number of rows and the number of columns <span class="math inline">\((r,c)\)</span>.</p>
+<p>A matrix is an object that stores information in rows and columns. For a given matrix <span class="math inline">\(A\)</span>, we use <span class="math inline">\(a_{rc}\)</span> to refer to the entry at row <span class="math inline">\(r\)</span> and column <span class="math inline">\(c\)</span>. “Order” refers to the dimensions of a matrix: the number of rows and the number of columns. Here are six types of matrices:</p>
 <ol style="list-style-type: decimal">
 <li><p>Rectangular: A matrix where the number of rows does not equal the number of columns. <span class="math display">\[ A = \begin{bmatrix}
 1 &amp; 2 &amp; 3 \\
@@ -1745,26 +1745,26 @@ dim(b_mat) == dim(c_mat)</code></pre>
 </div>
 <div id="transpose" class="section level1">
 <h1>Transpose</h1>
-<p>Transposing a matrix consists of exchanging the row and column for each element in the matrix.</p>
+<p>The transpose of a matrix is a matrix that is flipped over its principal diagonal.</p>
 <p><strong>Example:</strong></p>
 <p><span class="math display">\[ X = \begin{bmatrix}
 1 &amp; 2 \\
 5 &amp; 1 \\
 7 &amp; 2
 \end{bmatrix} \]</span></p>
-<p>To create the transpose, <span class="math inline">\(B&#39;\)</span> the following happens:</p>
+<p>To create the transpose of <span class="math inline">\(X\)</span>, denoted <span class="math inline">\(X&#39;\)</span>, the following happens:</p>
 <ol style="list-style-type: decimal">
 <li>The first column becomes the first row.</li>
 <li>The second column becomes the second row.</li>
 </ol>
-<p><strong>Question</strong>: Since the order of the above matrix is 3x2, what will the order of its transpose be?</p>
+<p><strong>Question</strong>: Since the order of the above matrix, <span class="math inline">\(B\)</span>, is 3x2, what will the order of its transpose be?</p>
 <p><span class="math display">\[ X&#39; = \begin{bmatrix}
 1 &amp; 5 &amp; 7 \\
 2 &amp; 1 &amp; 2
 \end{bmatrix} \]</span></p>
 <div id="transpose-in-r" class="section level2">
 <h2>Transpose in R</h2>
-<p>To transpose a matrix in R, just use the function <code>t()</code>. Let’s take a look at the transpose of matrix <code>X</code> from above.</p>
+<p>To transpose a matrix in R, you can use the function <code>t()</code>. Let’s take a look at the transpose of matrix <code>X</code> from above.</p>
 <pre class="r"><code># create the matrix
 X &lt;- matrix(c(1, 2,
             5, 1, 
@@ -1799,7 +1799,7 @@ Matrix addition is <strong>commutative</strong>…
 Matrix subtraction is <strong>distributive</strong>
 </center>
 <p><span class="math display">\[\large \mathbf{A} – (\mathbf{B} + \mathbf{C}) = \mathbf{A} – \mathbf{B} – \mathbf{C}\]</span></p>
-<p><span class="math display">\[\large \mathbf{A} – (\mathbf{B} – \mathbf{C}) = \mathbf{A} – \mathbf{B} + \mathbf{C}\]</span></p>
+<p><span class="math display">\[\large \mathbf{A} – (\mathbf{B} – \mathbf{C}) = \mathbf{A} – \mathbf{B} + \mathbf{C}\]</span> Note: matrix subtraction is “distributive” because <span class="math inline">\((B + C)\)</span> is being multiplied by the scalar -1. So, <span class="math inline">\(-(B+C)\)</span> becomes <span class="math inline">\((-B-C)\)</span>, and since addition is associative, <span class="math inline">\(A +( -B-C) = A - B-C\)</span>.</p>
 <p>Let’s test out these rules using R!</p>
 <pre class="r"><code># define some matrices to use as examples
 A &lt;- matrix(data = c(6,1, 2,10), nrow = 2, ncol = 2, byrow = T) 
@@ -1912,12 +1912,10 @@ B %*% A</code></pre>
 </div>
 <div id="identity-matrix" class="section level2">
 <h2>Identity Matrix</h2>
-<p>Again, the <strong>identity matrix</strong> is a diagonal matrix with 1s along the principal diagonal. For example…</p>
-<p><span class="math display">\[ I = \begin{bmatrix}
-1 &amp; 0 &amp; 0 &amp; 0 \\
-0 &amp; 1 &amp; 0 &amp; 0 \\
-0 &amp; 0 &amp; 1 &amp; 0 \\
-0 &amp; 0 &amp; 0 &amp; 1
+<p>The <strong>identity matrix</strong> is a diagonal matrix with 1s along the principal diagonal. For example…</p>
+<p><span class="math display">\[ I_2 = \begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; 1
 \end{bmatrix} \]</span></p>
 <p>Let’s take an example matrix <code>C</code>:</p>
 <p><span class="math display">\[ C=\begin{bmatrix}
@@ -1944,7 +1942,9 @@ C</code></pre>
 <pre class="r"><code>id_mat &lt;- diag(x = 1, nrow = nrow(C), ncol = ncol(C)) 
  
 # Or we could have hard coded it: 
-#id_mat &lt;- diag(x = 1, nrow = 2, ncol = 2)</code></pre>
+#id_mat &lt;- diag(x = 1, nrow = 2, ncol = 2)
+
+#diag() will default to a square matrix if you only define nrow or ncol but not both </code></pre>
 <p>And finally, multiply them together with <code>%*%</code></p>
 <pre class="r"><code>C %*% id_mat</code></pre>
 <pre><code>##      [,1] [,2]
@@ -1961,7 +1961,7 @@ C</code></pre>
 </div>
 <div id="diag" class="section level1">
 <h1>Diagonal Matrices</h1>
-<p>As we saw above, the identity matrix is a special case of a diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are <code>1</code>’s. But we can create diagonal matrices that contain other values as well, again using the <code>diag()</code> function.</p>
+<p>The identity matrix is a special case of a diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are <code>1</code>’s. But we can create diagonal matrices that contain other values as well, again using the <code>diag()</code> function.</p>
 <div id="creating-diagonal-matrices" class="section level2">
 <h2>Creating diagonal matrices</h2>
 <p>To create a diagonal matrix with 4 rows containing <code>2</code>’s all along the diagonal, we would do the following:</p>
@@ -1973,6 +1973,14 @@ diag_twos</code></pre>
 ## [2,]    0    2    0    0
 ## [3,]    0    0    2    0
 ## [4,]    0    0    0    2</code></pre>
+<p>To create a diagonal matrix with different values along the diagonal, you can assign a vector to the <code>x</code> argument in <code>diag</code>. Notice that I no longer needed to specify the number of rows because <code>diag</code> defaults to a square matrix.</p>
+<pre class="r"><code>diag_vary &lt;- diag(x = c(5,6,1))
+
+diag_vary</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    5    0    0
+## [2,]    0    6    0
+## [3,]    0    0    1</code></pre>
 </div>
 <div id="pre-multiplication" class="section level2">
 <h2>Pre-multiplication</h2>
@@ -1986,18 +1994,19 @@ X</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    4    5    6</code></pre>
-<p>First we’ll create our diagonal matrix that we will pre-multiply <code>X</code> by. Our diagonal matrix that we are pre-multiplying by should have the same number of columns as there are rows in <code>X</code>. Since a diagonal matrix is square, the number of rows and columns are the same.</p>
-<pre class="r"><code>preT &lt;- diag(x = 2, nrow = nrow(X), ncol = nrow(X))
+<p>First we’ll create our diagonal matrix that we will pre-multiply <code>X</code> by.</p>
+<pre class="r"><code>A &lt;- diag(x = c(2, 3))
 
-preT</code></pre>
+A</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    2    0
-## [2,]    0    2</code></pre>
-<p>Now let’s pre-multiply by <code>X</code>. This will result in multiplying all the <strong>rows</strong> in <code>X</code> by 2.</p>
-<pre class="r"><code>preT %*% X</code></pre>
+## [2,]    0    3</code></pre>
+<p>Now let’s pre-multiply. This will result in multiplying all elements in the first row by <code>2</code> and all elements in the second row by <code>3</code>.</p>
+<pre class="r"><code>A %*% X</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    2    4    6
-## [2,]    8   10   12</code></pre>
+## [2,]   12   15   18</code></pre>
+<p>When working with data, pre-multiplication of a data matrix <code>X</code> by another matrix results in a linear combination of your rows in <code>X</code>. When your rows are your participants, pre-multiplication would result in a linear combination of your participants. This may be useful, for example, if you want to calculate grand means or groups means for a particular variable.</p>
 </div>
 <div id="post-multiplication" class="section level2">
 <h2>Post-multiplication</h2>
@@ -2007,28 +2016,120 @@ preT</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    4    5    6</code></pre>
-<p>Now we’ll create our diagonal matrix that we will post-multiply <code>X</code> by. Our diagonal matrix that we are post-multiplying by should have the same number of rows as there are columns in <code>X</code>. Again, since a diagonal matrix is square, the number of rows and columns are the same.</p>
-<pre class="r"><code>postT &lt;- diag(.25, nrow = ncol(X), ncol = ncol(X))
+<p>Now we’ll create our diagonal matrix that we will post-multiply <code>X</code> by.</p>
+<pre class="r"><code>B &lt;- diag(x = c(2,3,4))
 
-postT</code></pre>
+B</code></pre>
 <pre><code>##      [,1] [,2] [,3]
-## [1,] 0.25 0.00 0.00
-## [2,] 0.00 0.25 0.00
-## [3,] 0.00 0.00 0.25</code></pre>
-<p>Now let’s post-multiply by <code>X</code>. This will result in multiplying all the <strong>columns</strong> in <code>X</code> by 1/4.</p>
-<pre class="r"><code>X %*% postT</code></pre>
+## [1,]    2    0    0
+## [2,]    0    3    0
+## [3,]    0    0    4</code></pre>
+<p>Now let’s post-multiply by <code>X</code>. This will result in multiplying the first column in <code>X</code> by 2, the second column in <code>X</code> by 3, and the third column in <code>X</code> by 4.</p>
+<pre class="r"><code>X %*% B</code></pre>
 <pre><code>##      [,1] [,2] [,3]
-## [1,] 0.25 0.50 0.75
-## [2,] 1.00 1.25 1.50</code></pre>
+## [1,]    2    6   12
+## [2,]    8   15   24</code></pre>
+<p>When working with data, post-multiplication of a data matrix <code>X</code> by another matrix results in a linear combination of your columns in <code>X</code>. When your columns are your variables, post-multiplication would result in a linear combination of your variables. This may be useful, for example, if you want to create a composite score for a scale.</p>
 </div>
 <div id="simultaneous-multiplication" class="section level2">
 <h2>Simultaneous multiplication</h2>
-<p>We can also simultaneously pre- and post-multiply a matrix. For example, the code below will simultaneously multiply all the rows by 2 and multiply all the columns by 1/4.</p>
-<pre class="r"><code>preT %*% X %*% postT</code></pre>
+<p>We can also simultaneously pre- and post-multiply a matrix. For example, the code below will simultaneously multiply the first row by 2, the second row by 3, the first column by 2, the second column by 3, and the third column by 4.</p>
+<pre class="r"><code>X</code></pre>
 <pre><code>##      [,1] [,2] [,3]
-## [1,]  0.5  1.0  1.5
-## [2,]  2.0  2.5  3.0</code></pre>
+## [1,]    1    2    3
+## [2,]    4    5    6</code></pre>
+<pre class="r"><code>A %*% X %*% B</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    4   12   24
+## [2,]   24   45   72</code></pre>
 </div>
+</div>
+<div id="premult_data" class="section level1">
+<h1>Calculating means with pre-multiplication</h1>
+<p>For this example, we will be working with a dataset from lecture. In the dataset, there are five participants and three variables. Note that for the group code, <code>0</code> is the treatment group and <code>1</code> is the control group. First, we will input the dataset into R as a matrix.</p>
+<pre class="r"><code>X = matrix(c(rep(0, times = 3,),
+             rep(1, times = 2),
+             5, 3, 5, 8, 5,
+             45, 34, 27, 32, 71),
+           byrow = FALSE,
+           nrow = 5,
+           dimnames = list(NULL, c(&quot;group&quot;, &quot;var1&quot;, &quot;var2&quot;)))
+X</code></pre>
+<pre><code>##      group var1 var2
+## [1,]     0    5   45
+## [2,]     0    3   34
+## [3,]     0    5   27
+## [4,]     1    8   32
+## [5,]     1    5   71</code></pre>
+<p>Next, using the transformation matrix <code>T</code>, we will calculate the grand means for each variable, the group means for each group for each variable, and the difference between groups for each variable.</p>
+<p><span class="math display">\[ T=\begin{bmatrix}
+\frac{1}{n} &amp; \frac{1}{n} &amp; \frac{1}{n} &amp; \frac{1}{n} &amp; \frac{1}{n} \\
+  \frac{1}{n_{G1}} &amp; \frac{1}{n_{G1}} &amp; \frac{1}{n_{G1}} &amp; 0 &amp; 0 \\
+  0 &amp; 0 &amp;  0 &amp; \frac{1}{n_{G2}} &amp; \frac{1}{n_{G2}}  \\
+  \frac{1}{n_{G1}} &amp; \frac{1}{n_{G1}} &amp; \frac{1}{n_{G1}} &amp;-\frac{1}{n_{G2}} &amp; -\frac{1}{n_{G2}}
+\end{bmatrix}
+\]</span></p>
+<p>Recall, pre-multiplication creates linear combinations of the participants. So, in order to calculate a mean for <code>var1</code>, we want to add all of the observations together and divide by n. That is why each entry of the first row of the transformation matrix is <span class="math inline">\(1/n\)</span>. The second row will calculate the means of the variables for the treatment group only. The <code>0</code>’s in the second row ensure that the control group will not be counted in calculating the treatment group mean. The third row will calculate the means of the variables for the control group only. The final row will calculate the difference in means between the treatment and control group on each variable.</p>
+<p>In order to create the transformation matrix, <code>T</code>, we need to know the total n and the n of each group.</p>
+<pre class="r"><code>n_total &lt;- nrow(X)
+n_total</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>n_treat &lt;- sum(X[,&quot;group&quot;]==0)
+n_treat</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>n_control = sum(X[,&quot;group&quot;]==1)
+n_control</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="r"><code>T &lt;- matrix(c(rep(1/n_total, times = n_total),
+              rep(1/n_treat, times = n_treat),
+              rep(0, times = n_control),
+              rep(0, times = n_treat),
+              rep(1/n_control, times = n_control),
+              rep(1/n_treat, times = n_treat),
+              rep(-1/n_control, times = n_control)),
+            nrow = 4,
+            byrow = TRUE)
+T</code></pre>
+<pre><code>##           [,1]      [,2]      [,3] [,4] [,5]
+## [1,] 0.2000000 0.2000000 0.2000000  0.2  0.2
+## [2,] 0.3333333 0.3333333 0.3333333  0.0  0.0
+## [3,] 0.0000000 0.0000000 0.0000000  0.5  0.5
+## [4,] 0.3333333 0.3333333 0.3333333 -0.5 -0.5</code></pre>
+<p>Now, I will calculate the means by multiplying the transformation matrix and the data matrix. Note: I am excluding the first column because it is the group code (treatment group or control group).</p>
+<pre class="r"><code>means &lt;- T %*% X[,2:3]
+
+dimnames(means) &lt;- list(c(&quot;grand means&quot;,&quot;treatment means&quot;, &quot;control group means&quot;, &quot;difference in means&quot;), c(&quot;var1&quot;, &quot;var2&quot;))
+
+means</code></pre>
+<pre><code>##                          var1      var2
+## grand means          5.200000  41.80000
+## treatment means      4.333333  35.33333
+## control group means  6.500000  51.50000
+## difference in means -2.166667 -16.16667</code></pre>
+<p>We can double check the grand means and the group means using the psych package that you used in lab last week.</p>
+<pre class="r"><code>library(psych)
+
+#double check grand means
+describe(X)</code></pre>
+<pre><code>##       vars n mean    sd median trimmed   mad min max range skew kurtosis   se
+## group    1 5  0.4  0.55      0     0.4  0.00   0   1     1 0.29    -2.25 0.24
+## var1     2 5  5.2  1.79      5     5.2  0.00   3   8     5 0.39    -1.34 0.80
+## var2     3 5 41.8 17.60     34    41.8 10.38  27  71    44 0.74    -1.36 7.87</code></pre>
+<pre class="r"><code>#double check group means
+describeBy(X, group = &quot;group&quot;)</code></pre>
+<pre><code>## 
+##  Descriptive statistics by group 
+## INDICES: 0
+##       vars n  mean   sd median trimmed   mad min max range  skew kurtosis   se
+## group    1 3  0.00 0.00      0    0.00  0.00   0   0     0   NaN      NaN 0.00
+## var1     2 3  4.33 1.15      5    4.33  0.00   3   5     2 -0.38    -2.33 0.67
+## var2     3 3 35.33 9.07     34   35.33 10.38  27  45    18  0.14    -2.33 5.24
+## ------------------------------------------------------------ 
+## INDICES: 1
+##       vars n mean    sd median trimmed   mad min max range skew kurtosis   se
+## group    1 2  1.0  0.00    1.0     1.0  0.00   1   1     0  NaN      NaN  0.0
+## var1     2 2  6.5  2.12    6.5     6.5  2.22   5   8     3    0    -2.75  1.5
+## var2     3 2 51.5 27.58   51.5    51.5 28.91  32  71    39    0    -2.75 19.5</code></pre>
 </div>
 <div id="minihacks" class="section level1">
 <h1>Minihacks</h1>
@@ -2037,20 +2138,32 @@ postT</code></pre>
 <p>Use the following code to create a matrix representing a dataset of scores, <span class="math inline">\(X_{10,3}\)</span>:</p>
 <pre class="r"><code>X = matrix(c(45, 52, 54, 52, 50, 72, 43, 56, 62, 47,
              41, 51, 57, 52, 45, 83, 55, 70, 75, 57,
-             1, 1, 1, 1, 1, 2, 2, 2, 2, 2), 
+             0, 0, 0, 0, 0, 1, 1, 1, 1, 1), 
            ncol = 3, byrow = F, 
-           dimnames = list(NULL, c(&quot;T1&quot;, &quot;T2&quot;, &quot;G&quot;)))</code></pre>
-<p>You should how have a matrix with three columns, named T1 (memory score at time 1), T2 (memory score at time 2), and G (group, 1 = control, 2 = intervention).</p>
+           dimnames = list(NULL, c(&quot;time_1&quot;, &quot;time_2&quot;, &quot;group&quot;)))
+X</code></pre>
+<pre><code>##       time_1 time_2 group
+##  [1,]     45     41     0
+##  [2,]     52     51     0
+##  [3,]     54     57     0
+##  [4,]     52     52     0
+##  [5,]     50     45     0
+##  [6,]     72     83     1
+##  [7,]     43     55     1
+##  [8,]     56     70     1
+##  [9,]     62     75     1
+## [10,]     47     57     1</code></pre>
+<p>You should now have a matrix with three columns, named <code>time_1</code> (memory score at time 1), <code>time_2</code> (memory score at time 2), and <code>group</code> (group, 0 = control, 1 = intervention).</p>
 <div id="minihack-1-identifying-linear-combinations" class="section level2">
 <h2>Minihack 1: Identifying linear combinations</h2>
 <ol style="list-style-type: decimal">
-<li>Take a look at the following code. Don’t run the matrix multiplication step yet. What does the linear combination represented below accomplish?</li>
+<li>Take a look at the following code. Don’t run the matrix multiplication step yet. What do you think the linear combination represented below will accomplish?</li>
 </ol>
-<pre class="r"><code>preT &lt;- matrix(rep(1), ncol = nrow(X))
+<pre class="r"><code>A &lt;- matrix(rep(1), ncol = nrow(X))
 
-postT &lt;- diag(1/(nrow(X)) , nrow = ncol(X))
+B &lt;- diag(1/(nrow(X)) , nrow = ncol(X))
 
-preT %*% X %*% postT</code></pre>
+A %*% X %*% B</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Now run this code and check whether your intuition was correct. You should be able to check your answer by using another function that you’ve already learned.</li>
 </ol>
@@ -2059,19 +2172,21 @@ preT %*% X %*% postT</code></pre>
 <h2>Minihack 2: Creating your own linear combinations</h2>
 <p>Use matrix algebra to do the following:</p>
 <ol style="list-style-type: decimal">
-<li><p>Create a new vector representing the difference between T1 and T2.</p></li>
-<li><p>Calculate the average T1 score for the whole sample.</p></li>
-<li><p>Calculate the average T1 score for each group.</p></li>
+<li><p>Using post-multiplication, create a new vector representing the difference between <code>time_1</code> and <code>time2</code>.</p></li>
+<li><p>Using pre-multiplication, calculate the average <code>time_1</code> score for the whole sample.</p></li>
+<li><p>Using pre-multiplication, calculate the average <code>time_1</code> score for each group.</p></li>
 </ol>
 </div>
-<div id="minihack-3-calculate-the-covariance-matrix" class="section level2">
-<h2>Minihack 3: Calculate the covariance matrix</h2>
+<div id="minihack-3-calculate-a-covariance-matrix" class="section level2">
+<h2>Minihack 3: Calculate a covariance matrix</h2>
+<p>Recall from lecture that a covariance matrix is a square, symmetric matrix that contains variances on the principal diagonal, and covariances off the principle diagonal. Recall that, for a sample, the formula for variance is <span class="math inline">\(s^2 = \frac{\sum(X_i - \bar{X})^2}{N-1}\)</span> and the formula for covariance is <span class="math inline">\(s_{XY} = \frac{\sum(X_i - \bar{X})(Y_i-\bar{Y})}{N-1}\)</span>.</p>
 <ol style="list-style-type: decimal">
-<li>Calculate the covariance matrix of X using matrix algebra.</li>
-</ol>
-<p>Hint #1: You’ll need to create a matrix to subtract from X in order to get deviation scores.) <br /> Hint #2: <code>colMeans()</code> is a quick way to get the means of each column of a matrix.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Use the <code>cov()</code> function to show that you calculated the covariance matrix correctly.</li>
+<li><p>Create a 10x3 matrix <code>C</code> where each entry in each column is the respective column mean of the data matrix <code>X</code>. Hint: <code>colMeans()</code> is a quick way to get the means of each column of a matrix.</p></li>
+<li><p>Create the matrix of deviation scores <code>D</code> by subtracting <code>C</code> from <code>X</code>.</p></li>
+<li><p>Calculate <code>D&#39;D</code> (the transpose of <code>D</code> times <code>D</code>.) Store this calculation in a temporary matrix.</p></li>
+<li><p>What you have now is a matrix of numerators from your variance and covariance formulas (the sum of squares on the principle diagonal and the sum of cross products off the principle diagonal). What do you need to multiple each entry in your matrix by in order to do get a covariance matrix? Hint: the answer is in the formulas.</p></li>
+<li><p>Complete calculating the covariance matrix by multiplying the temporary matrix you calculated in part 3 and the scalar that you identified in part 4.</p></li>
+<li><p>Use the <code>cov()</code> function to show that you calculated the covariance matrix correctly.</p></li>
 </ol>
 </div>
 </div>
