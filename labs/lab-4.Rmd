@@ -21,6 +21,7 @@ library(tidyverse)
 library(magrittr)
 library(psych)
 library(gganimate)
+# devtools::install_github("camkay/panoply")
 library(panoply)
 ```
 

@@ -18,11 +18,27 @@ class: center, middle, inverse, title-slide
 ---
 
 
-### Student Experience Survey
+### Annoucements
 
-Available on DuckWeb until 6pm on October 25. 
+- Sharing feedback with Sanjay
 
+- Homework #1 due Friday at 9 am
+    - attach both .RMD and .html files to submission on Canvas
 
+---
+
+## Last week...
+
+- Introduction to probability
+
+- Jargon (elementary events, sample space, conditional, independence)
+
+- Frequentist
+  - probability == long run rate
+- Bayesian
+  - start with prior belief, incorporate data
+  
+- Back to frequentist
 ---
 
 
@@ -77,7 +93,7 @@ All theoretical distributions have a mass function (if discrete) or a density fu
 
 ???
 
-A common way to write the binomial mass function is to think of `\(\theta\)` as the probability of success ($p$) and `\(1-\theta\)` as the probability of failure ($q$). It becomes easier to write the function:
+A common way to write the binomial mass function is to think of `\(\theta\)` as the probability of success `\((p)\)` and `\(1-\theta\)` as the probability of failure `\((q)\)`. It becomes easier to write the function:
 
 $$ P(X|\theta,N) = \frac{N!}{X!(N-X)!}p^X(q)^{N-X}$$
 ---
@@ -125,7 +141,7 @@ The probability of that particular sequence is then:
 
 --
 
-`$$P(6)^3P(Not6)^2 = (\frac{1}{6})^3(\frac{5}{6})^2 = 0.0027$$`
+`$$P(6)^3P(Not6)^2 = (\frac{1}{6})^3(\frac{5}{6})^2 = 0.0032$$`
 
 
 
@@ -193,7 +209,7 @@ Putting the pieces together:
 = (10)(.0032) \\
 =.032$$`
 
---
+---
 
 A note about notation:
 
@@ -220,7 +236,7 @@ Independent rolls!
 
 ---
 
-Every probability distribution has an **expected value**. 
+Every probability distribution has an **expected value** distribution. 
 
 For the binomial distribution:
 
@@ -266,11 +282,13 @@ The **probability mass (density) function** allows us to answer other questions 
 
 --
 
-I might want to know the value in the sample space at or below which a certain proportion of outcomes fall.  "At or below what outcome in the sample space do .75 of the outcomes fall?"  This is a **percentile or quantile** question. 
+I might want to know the value in the sample space at or below which a certain proportion of outcomes fall. This is a **percentile or quantile** question. 
+  -  "At or below what outcome in the sample space do 75% of the outcomes fall?"
 
 --
 
 I might want to know the proportion of outcomes in the sample space that fall at or below a particular outcome. This is a **cumulative proportion** question.
+  - "What percentage of the time will my outcome be less than 3?"
 
 ---
 At or below what outcome in the sample space do .75 of the outcomes fall?
@@ -287,6 +305,21 @@ What proportion of outcomes in the sample space that fall at or below a given ou
 .pull-right[
 ![](07-binomial_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 ]
+
+---
+
+In R, we can calculate the cumulative probability (X or lower), using the `pbinom` function.
+
+
+```r
+# what is probability of rolling 2 or fewer 6's out of 5?
+pbinom(q = 2, size = 5, prob = 1/6)
+```
+
+```
+## [1] 0.9645062
+```
+
 
 ---
 
@@ -320,20 +353,6 @@ Nearly all of the outcomes expected for guessers fall below the minimum passing 
 How likely is it that a guesser would score above the threshold (60%) necessary to pass the class by the most minimal standards?
 
 $$P(24|.25, 40) + P(25|.25,40) + P(26|.25,40) + ... + P(40|.25, 40) $$
-
---
-
-In R, we can calculate the cumulative probability (X or lower), using the `pbinom` function.
-
-
-```r
-pbinom(q = 10, size = 40, prob = .25)
-```
-
-```
-## [1] 0.5839041
-```
-
 --
 
 &lt;!-- `$$1-P(X = 23|\theta = .25, N= 40)= \\ 1-\frac{23!}{23!(40-23)!}(.25)^{23}(1-.25)^{17}$$` --&gt;
@@ -392,10 +411,24 @@ We might have viable alternative models:
 * **Geometric distribution:**  Used if we are interested in the number of trials required for one "success" to occur 
   * "how many times do I start my computer before it fails to start at all?"
   
+---
+
+&gt; All models are wrong, but some models are useful.  (G.E.P. Box)
+
+We might have viable alternative models:
 
 * **Negative binomial distribution:** Used if we are interested in the number of successes in a series of repeated trials until a specified number of failures are seen 
   * "What is the probability that a baseball player will get his 2nd hit on his 4th at-bat?"
   * "A child won't return from trick or treating until they get 5 full-size candy bars. What is the probability that they will have to visit 34 homes to get this?"
+  
+---
+
+&gt; All models are wrong, but some models are useful.  (G.E.P. Box)
+
+We might have viable alternative models:
+* **Poisson distribution:** Used when there's not a fixed number of trials but rather a fixed interval of time. 
+  * "What is the expected number of times a solider will be kicked in the head by a horse and die during this one year campaign?"
+  * "
 
 ---
 
@@ -408,7 +441,10 @@ Because of the difficulties in calculating large factorials, there is a large-sa
 ]
 
 
-![](07-binomial_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+
+![](07-binomial_files/figure-html/unnamed-chunk-11-1.gif)&lt;!-- --&gt;
+
 
 ---
 
