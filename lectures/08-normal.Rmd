@@ -17,15 +17,24 @@ library(ggpubr)
 colors = RColorBrewer::brewer.pal(4, "Set2")
 ```
 
-![](images/twitter1.png)
+## Annoucements
+
+Use your @uoregon email to sign into lab tomorrow.
 
 ---
 
-![](images/twitter2.png)
+## Last time...
 
----
+* the binomial distribution
 
-![](images/twitter3.png)
+* Four assumptions?
+  * Two elementary events per trial
+  * The probability for success is the same on each trial
+  * Trials are independent of one another
+  * The number of trials is known and fixed
+  
+* Probability mass function
+  * Tells us how likely each possible outcome is
 
 ---
 
@@ -451,8 +460,6 @@ Sometimes our interest will be in variability rather than means.  When we want t
 
 $$\text{If } Z \sim N(0,1), \\\text{then }Z^2 \sim \chi^2_1 \\\text{ and } \sum_{i=1}^{N}Z^2 \sim \chi^2_N$$
 
---
-
 In other words, the sum of squared standard normal variables will have a $\chi^2$ distribution.  This is the key to understanding the sampling behavior of the sample variance...
 
 ---
@@ -484,6 +491,37 @@ Also point out, if sample comes from the same population, what does the equation
 
 If from different populations -- not 1!
 
+---
+
+The sample variance is defined as:
+
+$$s^2 = \frac{\sum_{i = 1}^{N}(X_i-\bar{X})^2}{N-1}$$
+
+We want to find a probability distribution that we can use to estimate likelihoods of given sample variances, given a known population variance. 
+
+--
+
+Luckily, we note that the formula for $s^2$ can be rearranged:
+
+$$(N-1)s^2 = \sum_{i = 1}^{N}(X_i-\bar{X})^2$$
+---
+
+$$(N-1)s^2 = \sum_{i = 1}^{N}(X_i-\bar{X})^2$$
+
+--
+
+Even better, we can multiply both sides by a constant, $\frac{1}{\sigma^2}$:
+$$\frac{(N-1)s^2}{\sigma^2} = \sum_{i = 1}^{N}\frac{(X_i-\bar{X})^2}{\sigma^2}$$
+--
+
+And now another simplication arises:
+$$\frac{(N-1)s^2}{\sigma^2} = \sum_{i = 1}^{N}(\frac{(X_i-\bar{X})}{\sigma})^2 = \sum_{i = 1}^{N}Z^2$$
+
+--
+
+What fortune! At turns out, 
+
+$$\sum_{i = 1}^{N}Z^2 = \chi^2_N$$
 
 ---
 
@@ -557,11 +595,13 @@ These probability distributions have a key assumption:
 
 If the sample is not a random selection, the rules of probability don't apply.
 
-
+Hmmm, it may make some sense to talk about methods of random sampling and how the concept of samples informs the theory behind inferential statistics...
 
 ---
 class: inverse
 
 ## Next time...
 
-sampling
+sampling!
+
+Don't forget to complete Journal 4 and submit your homework.

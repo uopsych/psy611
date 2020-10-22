@@ -374,7 +374,7 @@ Three competing models are available to explain the occurrence of a target event
 
 - Model A: $p(E) = .70$
 - Model B: $p(E) = .75$
-- Model C: $p(E) = .45$
+- Model C: $p(E) = .40$
 
 I assume that this target event follows a binomial probability distribution. If that model is correct, at what point can I distinguish the models and declare a winner?
 

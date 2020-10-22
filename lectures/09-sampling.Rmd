@@ -10,52 +10,6 @@ output:
       countIncrementalSlides: false
 ---
 
-### $\chi^2$ redo
-
-The sample variance is defined as:
-
-$$s^2 = \frac{\sum_{i = 1}^{N}(X_i-\bar{X})^2}{N-1}$$
-
-We want to find a probability distribution that we can use to estimate likelihoods of given sample variances, given a known population variance. 
-
---
-
-Luckily, we note that the formula for $s^2$ can be rearranged:
-
-$$(N-1)s^2 = \sum_{i = 1}^{N}(X_i-\bar{X})^2$$
----
-
-$$(N-1)s^2 = \sum_{i = 1}^{N}(X_i-\bar{X})^2$$
-
---
-
-Even better, we can multiply both sides by a constant, $\frac{1}{\sigma^2}$:
-$$\frac{(N-1)s^2}{\sigma^2} = \sum_{i = 1}^{N}\frac{(X_i-\bar{X})^2}{\sigma^2}$$
---
-
-And now another simplication arises:
-$$\frac{(N-1)s^2}{\sigma^2} = \sum_{i = 1}^{N}(\frac{(X_i-\bar{X})}{\sigma})^2 = \sum_{i = 1}^{N}Z^2$$
-
---
-
-What fortune! At turns out, 
-
-$$\sum_{i = 1}^{N}Z^2 = \chi^2_N$$
-
----
-
-### Why does adding N $\chi^2$ distributions create a normal?
-
-Because we assume the $\chi^2$ distributions are independent of one another.
-
-- Meaning, whatever value is drawn from the first $\chi^2$ distribution has no effect on what is drawn from the others. 
-
-This is different from the procedure where we square Z values to get $\chi^2$
-
-- In this case, each original $Z$ value is exactly linked to a specific $Z^2$ value
-
----
-
 To this point, we have assumed that features of the population -- the parameters -- are known.  That is rarely the case.
 
 The major goal that we have in statistical inference is to make confident claims about the population based on a small representation of it, the sample.
