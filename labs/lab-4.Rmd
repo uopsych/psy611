@@ -18,10 +18,10 @@ options(scipen = 999)
 
 # load packages
 library(tidyverse)
-library(magrittr)
 library(psych)
-library(gganimate)
-library(panoply)
+
+
+
 ```
 
 # Purpose
@@ -40,50 +40,9 @@ To quickly navigate to the desired section, click one of the following links:
 
 Imagine you are flipping a coin. If it is a fair coin, you would expect a 50% chance of the coin landing on heads and a 50% chance of the coin landing on heads. However, as shown in the animation below, every heads is not always paired with a tails. Sometimes there is a run of heads and sometimes there is a run of tails. Still, we would probably expect that, overall, there would be the same number of heads as tails. In other words, we would expect that if we flipped a single coin 100 times, the most likely outcome would be 50 heads and 50 tails.
 
-```{r, echo = FALSE}
-# set seed
-set.seed(2)
-
-# flip first coin
-data_binom <- data.frame(event  = 1,
-                         flip   = 1, 
-                         result = rbinom(1, 1, 1/2))
-
-
-# flip 99 other coins and repeat the data frame each time
-for (i in 2:100) {
-  data_binom <- rbind(data_binom,
-                        data.frame(event  = rep(i, i),
-                                   flip   = 1:i, 
-                                   result = c(subset(data_binom, 
-                                                     event == i - 1)$result,
-                                              rbinom(1, 1, 1/2))))
-}
-
-# plot and animate the results of the flips 
-data_binom %>%
-  mutate(result = if_else(result == 1, "Heads", "Tails")) %>%
-  ggplot(aes(x = result, fill = result)) +
-    geom_bar(width = .5, alpha = .8) +
-    scale_fill_manual(values = c("turquoise3",
-                                 "darkorchid4")) +
-    scale_y_continuous(breaks = seq(0, 50, 10)) + 
-    transition_reveal(event) +
-    theme_bw(base_size = 16) +
-    theme(legend.position = "none") +
-    labs(title   = "Outcome of 100 coin flips",
-         y       = "Count",
-         x       = "",
-         caption = "Number of coin flips: {frame_along}")
-
-```
-
 As you might recall from class, our intuition about the outcome of the 100 coin flips can be described in terms of a binomial distribution. Essentially, the binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when (1) the outcome on every trial is binary (e.g., a coin landed on a `heads` or a `tails`; a dice was either a `6` or `not a 6`) and the probability of the outcome on every trial is the same (e.g., the probability of getting a `heads` on flip `1` is the same as the probability of getting a `heads` on flip `100`).
 
 ```{r, echo = FALSE}
-# set seed
-set.seed(2)
-
 # create probability curve
 data_binom <- data.frame(flip = seq(1, 100, 1),
                          prob = dbinom(seq(1, 100, 1), 100, 1/2))
@@ -99,10 +58,10 @@ ggplot(data_binom, aes(x = flip, y = prob)) +
   theme_bw(base_size = 15) 
 ```
 
-If we plot the probability distribution of the example above, two things are apparent: (1) the most probable outcome of flipping `100` coins is `50` `heads` and (2) there are additional outcomes that are, although less probable, also possible. For instance, one could even expect to get `0` `heads` `r spround(dbinom(0, 100, 1/2) * 100, 29)`% of the time.
+If we plot the probability distribution of the example above, two things are apparent: (1) the most probable outcome of flipping `100` coins is `50` `heads` and (2) there are additional outcomes that are, although less probable, also possible (e.g. 0 heads)
 
 ```{r, include = FALSE}
-# set seed
+#set seed
 set.seed(2)
 
 # create data
@@ -139,7 +98,6 @@ set.seed(3)
 rbinom(n = 10, size = 2, prob = 1/2)
 ```
 
-From the results, we can see we got `0` `heads` on the first toss of our `2` coins, `2` `heads` on the second toss our `2` coins, and `1` `head` on the third through sixth tosses of our `2` coins.
 
 *How would we change this if we were flipping `3` coins `10` times?*
 
@@ -280,55 +238,15 @@ x <- rnorm(n = 5, mean = 0, sd = 1)
 x
 ```
 
-The five values were `-0.8969145`, `0.1848492`, `1.5878453`, `-1.13037567` and `-0.08025176`. Calculating the `mean()` and `sd()` of our `5` numbers can serve as a bit of a sanity check. 
+Calculating the `mean()` and `sd()` of our `5` numbers can serve as a bit of a sanity check. 
 
 ```{r}
 mean(x)
 sd(x)
+
 ```
 
-If we plot a histogram of the data, it doesn't look normally distributed. 
-
-```{r, include = FALSE}
-# create simulated data
-set.seed(2)
-sample_size <- c(1, 5, 10, 15, 25, 50, 100, 250, 500, 750, 1000, 5000, 10000)
-
-sim <- map_df(sample_size, function(sample_size) {
-  set.seed(2)
-  data_frame(sample_size = rep(sample_size, sample_size), 
-             sample      = rnorm(sample_size, mean = 0, sd = 1))
-  })
-```
-
-```{r, echo = FALSE}
-sim %>%
-  filter(sample_size == 5) %>%
-  ggplot(aes(x = sample)) +
-    geom_histogram(fill = "turquoise3", colour = "white", alpha = .7) +
-    theme_bw(base_size = 16) +
-    labs(x        = "x",
-         y        = "Frequency",
-         title    = "Sample Histogram") + 
-    scale_x_continuous(limits = c(-4, 4)) 
-```
-
-Not to worry! As illustrated in the animation below, many samples do not appear normal until samples of sufficient size are taken from the population.
-
-```{r, echo = FALSE}
-plot3 <- ggplot(sim, aes(x = sample)) +
-  geom_histogram(fill = "turquoise3", colour = "white", alpha = .7) +
-  theme_bw(base_size = 16) +
-  labs(x        = "x",
-       y        = "Frequency",
-       title    = "Sample Histogram",
-       subtitle = "Sample Size: {closest_state}") + 
-  scale_x_continuous(limits = c(-4, 4))  + 
-  transition_states(sample_size, state_length = 2, wrap = FALSE) +
-  view_follow(fixed_x = TRUE)
-
-animate(plot3, nframes = 180, fps = 12)
-```
+With only 5 samples drawn, the distribution may not look normal, but with a sufficiently large sample size, it will start to resemble the true distribution.
 
 *How would you sample `10` observations from a normal distribution with a mean of `100` and a standard deviation of `10`?*
 
@@ -345,39 +263,6 @@ animate(plot3, nframes = 180, fps = 12)
 
 The normal distribution counterpart of `dbinom()` is `dnorm()`. Similar to `rnorm()`, it takes a mean (`mean`) and a standard deviation (`sd`), but instead of an argument for the number of observations you want to sample (`n`) you provide it a value (`x`). As mentioned in class, the probability of any one value in a normal distribution is `0.00` because the total probability of the distribution is `1.00` and there are infinite values in any continuous distribution. The reason `dnorm()` exists is mostly mathematical, but we can use it to calculate the height of the probability curve for any one value.
 
-```{r, include = FALSE}
-# create data
-x          <- seq(-4, 4, 0.001)
-likelihood <- dnorm(x, 0, 1)
-sim        <- data.frame(x, likelihood)
-```
-
-```{r, include = FALSE}
-# create dnorm plotting function
-dnorm_plot <- function(value) {
-  ggplot(sim, aes(x, likelihood)) +
-  geom_line(size = 1.2) +
-  geom_segment(x = -4, 
-               xend = value, 
-               y = dnorm(value, mean = 0, sd = 1),
-               yend = dnorm(value, mean = 0, sd = 1), 
-               color = "turquoise3", 
-               linetype = 2, 
-               size = 1.4) +
-  geom_segment(x = value, 
-               xend = value, 
-               y = 0,
-               yend = dnorm(value, mean = 0, sd = 1), 
-               color = "turquoise3", 
-               linetype = 2, 
-               size = 1.4) +
-  annotate(geom = "label", x = value + .8, y = dnorm(value, mean = 0, sd = 1), label = round(dnorm(value, mean = 0, sd = 1), 3), colour = "turquoise3", size = 5) +
-  geom_point(aes(x = value, y = dnorm(value, mean = 0, sd = 1)), size = 5, colour = "turquoise3") +
-  scale_x_continuous(limits = c(-4, 4)) +
-  theme_bw(base_size = 15) + 
-  labs(y = "Probability")
-}
-```
 
 ```{r}
 dnorm(x = 0, mean = 0, sd = 1)
@@ -385,11 +270,6 @@ dnorm(x = 0, mean = 0, sd = 1)
 
 For example, if we enter the value `0` with a mean of `0` and a standard deviation `1`, we get `0.3989423`
 
-```{r, echo = FALSE}
-dnorm_plot(0)
-```
-
-As shown in the plot above, the height of the probability curve at a value of `0` is `.399`. 
 
 Likewise, if we calculate the height of the probability plot at an `x` value of `1`, we see the result `0.2419707.`
 
@@ -397,11 +277,7 @@ Likewise, if we calculate the height of the probability plot at an `x` value of 
 dnorm(1, mean = 0, sd = 1)
 ```
 
-Looking at the plotted normal distribution, this is also expected.
 
-```{r, echo = FALSE}
-dnorm_plot(1)
-```
 
 *What would be the height of the probability line at a value of -1 when the `mean` is `0` and the `sd` is `1`?*
 
@@ -415,61 +291,15 @@ dnorm_plot(1)
 
 Like `pbinom()`, `pnorm()` tells you the probability of getting a certain value (or less) in a given normal distribution. Once again, you can set the mean and standard deviation of the distribution using `mean` and `sd`. Instead of taking its value using the `x` argument, it takes its argument using the `q` argument. 
 
-```{r, echo = FALSE}
-ggplot(sim, aes(x, likelihood)) +
-    stat_function(fun = dnorm, 
-                xlim = c(-5,0),
-                geom = "area",
-                fill = "turquoise3") +
-  xlim(-3.5, 3.5) +
-  labs(y = "Probability") +
-  geom_line(size = 1.2) +
-  theme_bw()
-```
-
-If we wanted to calculate the probability of getting a value in the shaded region above, we would use `pnorm(q = 0, mean = 0, sd = 1)`.
+If we wanted to calculate the probability of getting a value below 0 from a normal distribution with a mean of 0 and sd of 1, we would use: 
 
 ```{r}
 pnorm(q = 0, mean = 0, sd = 1)
 ```
 
-As would be expected, we have a 50% probability of getting a value in the shaded region of the plot. However, for most  of us, it is not easy to try to convert the shaded region under a curve to a probability value. An easier way to visualize it is through the use of a cumulative probability plot, where each shaded ball represents a .01 (1.00%) probability.
-
-```{r, include = FALSE}
-ball_plot <- function(q, mean = 0, sd = 1, lower.tail = TRUE){
-  if (lower.tail == TRUE) {
-  discretized <- data.frame(x = qnorm(ppoints(100), mean, sd)) %>% 
-  mutate(include = ifelse(x <= q, "no", "yes"))
-  } else {
-  discretized <- data.frame(x = qnorm(ppoints(100), mean, sd)) %>% 
-  mutate(include = ifelse(x >= q, "no", "yes"))
-  }
-  ggplot(discretized, aes(x)) +
-    geom_dotplot(aes(fill = include), binwidth = 0.29 * sd, alpha = .7, colour = "white") +
-    geom_vline(xintercept = q, color = "firebrick", linetype = 2, size = 1.4) +
-    scale_fill_manual(
-      values = c("turquoise3", "gray40"),
-      guide = "none") +
-    theme_bw() +
-    scale_y_continuous(name = "", 
-                       breaks = NULL)
-}
-
-```
-
-```{r, echo = FALSE}
-ball_plot(0)
-```
-
-If we were to count every shaded ball on the left of the vertical line below, we would see that there are `50` balls to the left of the red line. In other words, there is a 50% probability of getting a `0 or less` in our distribution.
 
 So, what's the probability of getting `40 or less` when the mean is `50` and the standard deviation is `10`?
 
-```{r, echo = FALSE}
-ball_plot(q = 40, mean = 50, sd = 10)
-```
-
-Looking at our cumulative probability plot, it looks like `16` balls are on the left of the dashed red line. We can check this with `pnorm()`.
 
 ```{r}
 pnorm(q = 40, mean = 50, sd = 10)
