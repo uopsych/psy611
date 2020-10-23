@@ -32,16 +32,16 @@ Correlations, covariances
 
 ## Matrix
 
-A *matrix* is a rectangular array of numbers with n rows and m columns. It is symbolized with a bold, upper case letter, and subscripted to indicate its order.
+A *matrix* is a rectangular array of numbers with n rows and m columns. It is symbolized with a bold, upper case letter, and subscripted to indicate its *order.*
 
 
  
-$$\LARGE \mathbf{G_{3,2}} = \left(\begin{array}
+$$\LARGE \mathbf{G_{3,2}} = \left[\begin{array}
 {rrr}
 g_{11} & g_{12}  \\
 g_{21} & g_{22} \\
 g_{31} & g_{32} 
-\end{array}\right)$$
+\end{array}\right]$$
 
 
 
@@ -51,17 +51,17 @@ The individual elements in a matrix are called *scalars*, subscripted to indicat
 
 ### Vectors
 
-$$\LARGE \mathbf{G_{3,2}} = \left(\begin{array}
+$$\LARGE \mathbf{G_{3,2}} = \left[\begin{array}
 {rrr}
 g_{11} & g_{12}  \\
 g_{21} & g_{22} \\
 g_{31} & g_{32} 
-\end{array}\right)$$
+\end{array}\right]$$
 
 
 
-The columns in a matrix are called *vectors*, and are symbolized with lower case, bold letters. This matrix has two vectors (
-$\large \mathbf{g}_1$, $\large \mathbf{g}_2$), each containing three scalars.
+The columns in a matrix are called *vectors*, and are symbolized with lower case, bold letters. This matrix has two vectors 
+$(\large \mathbf{g}_1$, $\large \mathbf{g}_2)$, each containing three scalars.
 
 ---
 
@@ -70,12 +70,12 @@ $\large \mathbf{g}_1$, $\large \mathbf{g}_2$), each containing three scalars.
 
 
 
-$$\Large \mathbf{g_{3,1}} = \left(\begin{array}
+$$\Large \mathbf{g_{3,1}} = \left[\begin{array}
 {rrr}
 g_{11}\\
 g_{21}\\
 g_{31} 
-\end{array}\right)$$
+\end{array}\right]$$
 
 
 
@@ -84,10 +84,10 @@ This vector is also a 3 x 1 matrix. When it is displayed as a row, it is symboli
 
 
 
-$$\Large \mathbf{g'_{1,3}} = \left(\begin{array}
+$$\Large \mathbf{g'_{1,3}} = \left[\begin{array}
 {rrr}
 g_{11} & g_{12} & g_{13} \\
-\end{array}\right)$$
+\end{array}\right]$$
 
 
 
@@ -100,21 +100,21 @@ This is called the *transpose* of the vector.
 
 This matrix is *rectangular*. 
 
-$$\large \mathbf{G_{3,2}} = \left(\begin{array}
+$$\large \mathbf{G_{3,2}} = \left[\begin{array}
 {rrr}
 g_{11} & g_{12}  \\
 g_{21} & g_{22} \\
 g_{31} & g_{32} 
-\end{array}\right)$$
+\end{array}\right]$$
 
 When the number of rows and columns are equal, the matrix is *square*:
 
-$$\large \mathbf{F_{3,3}} = \left(\begin{array}
+$$\large \mathbf{F_{3,3}} = \left[\begin{array}
 {rrr}
 f_{11} & f_{12} & f_{13}  \\
 f_{21} & f_{22} & f_{23} \\
 f_{31} & f_{32} & f_{33} 
-\end{array}\right)$$
+\end{array}\right]$$
 
 
 Data matrices are typically rectangular; correlation matrices and covariance matrices are always square.
@@ -130,12 +130,12 @@ If $f_{i,j} = f_{j,i}$ for all i and j, the matrix is *symmetric.*
 
 
 
-$$\Large \mathbf{F_{3,3}} = \left(\begin{array}
+$$\Large \mathbf{F_{3,3}} = \left[\begin{array}
 {rrr}
 1 & 3 & -4  \\
 3 & 11 & 7 \\
 -4 & 7 & 2  
-\end{array}\right)$$
+\end{array}\right]$$
 
 Correlation matrices and covariance matrices are symmetric.
 
@@ -149,16 +149,25 @@ If all elements of a symmetric matrix except the main diagonal are zero, the mat
 
 
 
-$$\Large \mathbf{F_{3,3}} = \left(\begin{array}
+$$\Large \mathbf{F_{3,3}} = \left[\begin{array}
 {rrr}
 1 & 0 & 0  \\
 0 & 11 & 0 \\
 0 & 0 & 2  
-\end{array}\right)$$
+\end{array}\right]$$
 
 
 
 $\mathbf{F}$ is a symmetric, diagonal matrix. 
+
+---
+## Matrix algebra
+
+Matrix algebra shares some of the same properties as linear algebra...
+
+... but not all of them.
+
+Let's cover the rules of matrix algebra. 
 
 ---
 ##Matrix Addition and Subtraction:
@@ -168,72 +177,72 @@ $\mathbf{F}$ is a symmetric, diagonal matrix.
 - These operations take place element by element.
 
 .pull-left[
-$$\large \mathbf{F_{3,2}} = \left(\begin{array}
+$$\large \mathbf{F_{3,2}} = \left[\begin{array}
 {rrr}
 1 & \underline{3}  \\
 3 & 11  \\
 -4 & 7   
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 .pull-right[
-$$\large \mathbf{H_{3,2}} = \left(\begin{array}
+$$\large \mathbf{H_{3,2}} = \left[\begin{array}
 {rrr}
 4 & \underline{-1}  \\
 6 & 2  \\
 12 & 8   
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 
 
 
-$$\mathbf{F_{3,2}} + \mathbf{H_{3,2}} = \mathbf{K_{3,2}} = \left(\begin{array}
+$$\mathbf{F_{3,2}} + \mathbf{H_{3,2}} = \mathbf{K_{3,2}} = \left[\begin{array}
 {rrr}
 1+4 & \underline{3+-1}  \\
 3+6 & 11+2  \\
 -4+12 & 7+8   
-\end{array}\right) = 
-\left(\begin{array}
+\end{array}\right] = 
+\left[\begin{array}
 {rrr}
 5 & \underline{2}  \\
 9 & 13  \\
 8 & 15   
-\end{array}\right)$$
+\end{array}\right]$$
 
 ---
 
 .pull-left[
-$$\large \mathbf{F_{3,2}} = \left(\begin{array}
+$$\large \mathbf{F_{3,2}} = \left[\begin{array}
 {rrr}
 1 & \underline{3}  \\
 3 & 11  \\
 -4 & 7   
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 .pull-right[
-$$\large \mathbf{H_{3,2}} = \left(\begin{array}
+$$\large \mathbf{H_{3,2}} = \left[\begin{array}
 {rrr}
 4 & \underline{-1}  \\
 6 & 2  \\
 12 & 8   
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 
 
 
-$$\mathbf{F_{3,2}} - \mathbf{H_{3,2}} = \mathbf{K_{3,2}} = \left(\begin{array}
+$$\mathbf{F_{3,2}} - \mathbf{H_{3,2}} = \mathbf{K_{3,2}} = \left[\begin{array}
 {rrr}
 1-4 & \underline{3--1}  \\
 3-6 & 11-2  \\
 -4-12 & 7-8   
-\end{array}\right) = 
-\left(\begin{array}
+\end{array}\right] = 
+\left[\begin{array}
 {rrr}
 -3 & \underline{4}  \\
 -3 & 9  \\
 -16 & -1   
-\end{array}\right)$$
+\end{array}\right]$$
 
 ???
 
@@ -265,84 +274,84 @@ A matrix of zeros is called a *zero matrix* or a *null matrix*. It is used in so
 
 
 
-$$\small \left(\begin{array}
+$$\small \left[\begin{array}
 {rrr}
 5 & 7  \\
 4 & 2  \\
 6 & 1   
-\end{array}\right)
+\end{array}\right]
 +
-\left(\begin{array}
+\left[\begin{array}
 {rrr}
 y_{11} & y_{12} \\
 y_{21} & y_{22} \\
 y_{31} & y_{32}
-\end{array}\right) 
+\end{array}\right] 
 = 
-\left(\begin{array}
+\left[\begin{array}
 {rrr}
 7 & -1 \\
 7 & 4 \\
 8 & 3
-\end{array}\right)$$
+\end{array}\right]$$
 
 
 
-$$\small \left(\begin{array}
+$$\small \left[\begin{array}
                 {rrr}
                 -5 & -7  \\
                 -4 & -2  \\
                 -6 & -1   
-                \end{array}\right)
+                \end{array}\right]
 +
-  \left(\begin{array}
+  \left[\begin{array}
          {rrr}
          5 & 7  \\
          4 & 2  \\
          6 & 1   
-         \end{array}\right)
+         \end{array}\right]
 +
-  \left(\begin{array}
+  \left[\begin{array}
          {rrr}
          y_{11} & y_{12} \\
          y_{21} & y_{22} \\
          y_{31} & y_{32}
-         \end{array}\right) 
+         \end{array}\right] 
 = 
-    \left(\begin{array}
+    \left[\begin{array}
            {rrr}
            -5 & -7  \\
            -4 & -2  \\
            -6 & -1   
-           \end{array}\right)
+           \end{array}\right]
   +
-    \left(\begin{array}
+    \left[\begin{array}
            {rrr}
            7 & -1 \\
            7 & 4 \\
            8 & 3
-           \end{array}\right)$$
+           \end{array}\right]$$
     
-$$\small \left(\begin{array}
+$$\small \left[\begin{array}
 {rrr}
 0 & 0  \\
 0 & 0  \\
 0 & 0   
-\end{array}\right)
+\end{array}\right]
 +
-\left(\begin{array}
+\left[\begin{array}
 {rrr}
 y_{11} & y_{12} \\
 y_{21} & y_{22} \\
 y_{31} & y_{32}
-\end{array}\right) 
+\end{array}\right] 
 = 
-\left(\begin{array}
+\left[\begin{array}
 {rrr}
 2 & -8 \\
 3 & 2 \\
 2 & 2
-\end{array}\right)$$
+\end{array}\right]$$
 
 ---
 
@@ -351,12 +360,12 @@ y_{31} & y_{32}
 Scalar multiplication is accomplished by multiplying every element of a matrix by a constant scalar:
 
 .pull-left[
-$$\large \mathbf{F_{3,3}} = \left(\begin{array}
+$$\large \mathbf{F_{3,3}} = \left[\begin{array}
 {rrr}
 1 & 3 & -4  \\
 3 & 11 & 7 \\
 -4 & 7 & 2  
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 .pull-right[
@@ -364,12 +373,12 @@ $$\large k = 5$$
 ]
 
 
-$$\large k\mathbf{F} = \left(\begin{array}
+$$\large k\mathbf{F} = \left[\begin{array}
 {rrr}
 1\times5 & 3\times5 & -4\times5  \\
 3\times5 & 11\times5 & 7\times5 \\
 -4\times5 & 7\times5 & 2\times5  
-\end{array}\right)$$
+\end{array}\right]$$
 
 ---
 
@@ -398,21 +407,21 @@ $$\LARGE \displaystyle\sum_{n=1}^{i}{a_{j,n}\times b_{n,k}}$$
 
 
 .pull-left[
-$$\large \mathbf{A_{3,2}} = \left(\begin{array}
+$$\large \mathbf{A_{3,2}} = \left[\begin{array}
 {rrr}
 4 & -1\\
 7 & 0 \\
 6 & 2  
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 .pull-right[
 
-$$\large \mathbf{B_{2,3}} = \left(\begin{array}
+$$\large \mathbf{B_{2,3}} = \left[\begin{array}
 {rrr}
 1 & 7 & 0 \\
 4 & 2 & 6 
-\end{array}\right)$$
+\end{array}\right]$$
 
 ]
 
@@ -423,12 +432,12 @@ $$\large \mathbf{A}_{3,2}\times\mathbf{B}_{2,3} = \mathbf{C}_{3,3}$$
 --
 
 .pull-right[
-$$\large \mathbf{C}_{3,3} = \left(\begin{array}
+$$\large \mathbf{C}_{3,3} = \left[\begin{array}
 {rrr}
 0 & 26 & -6   \\
 7 & 49 & 0 \\
 14 & 46 & 12
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 
@@ -471,20 +480,20 @@ $$\Large \mathbf{XA} + \mathbf{BX} \neq \mathbf{X(A + B)}$$
 
 Every matrix has a *transpose* that is obtained by exchanging the rows and columns:
 
-$$\large \mathbf{X} = \left(\begin{array}
+$$\large \mathbf{X} = \left[\begin{array}
 {rrr}
 4 & -1    \\
 7 & 0  \\
 6 & 2 
-\end{array}\right)$$
+\end{array}\right]$$
 
 
 
-$$\large \mathbf{X'} = \left(\begin{array}
+$$\large \mathbf{X'} = \left[\begin{array}
 {rrr}
 4 & 7 & 6    \\
 -1 & 0 & 2  \\
-\end{array}\right)$$
+\end{array}\right]$$
 
 
 
@@ -516,22 +525,22 @@ But, $\large \mathbf{X'_{vn}X_{nv}}$ can be carried out.
 $\mathbf{D}$ is a matrix of deviation scores for 5 individuals on 2 variables.
 
 .pull-left[
-$$\mathbf{D} = \left(\begin{array}
+$$\mathbf{D} = \left[\begin{array}
 {rrr}
 d_{11} & d_{12}    \\
 d_{21} & d_{22}    \\
 d_{31} & d_{32}    \\
 d_{41} & d_{42}    \\
 d_{51} & d_{52}    
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 .pull-right[
-$$\mathbf{D'} = \left(\begin{array}
+$$\mathbf{D'} = \left[\begin{array}
 {rrr}
 d_{11} & d_{21} & d_{31} & d_{41} & d_{51}   \\
 d_{12} & d_{22} & d_{32} & d_{42} & d_{52}   \\
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 $$\Large
@@ -542,30 +551,30 @@ $$\Large
 $\mathbf{D}$ is a matrix of deviation scores for 5 individuals on 2 variables.
 
 .pull-left[
-$$\mathbf{D} = \left(\begin{array}
+$$\mathbf{D} = \left[\begin{array}
 {rrr}
 d_{11} & d_{12}    \\
 d_{21} & d_{22}    \\
 d_{31} & d_{32}    \\
 d_{41} & d_{42}    \\
 d_{51} & d_{52}    
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 .pull-right[
-$$\mathbf{D'} = \left(\begin{array}
+$$\mathbf{D'} = \left[\begin{array}
 {rrr}
 d_{11} & d_{21} & d_{31} & d_{41} & d_{51}   \\
 d_{12} & d_{22} & d_{32} & d_{42} & d_{52}   \\
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 $$\Large
-\mathbf{D'D} = \left(\begin{array}
+\mathbf{D'D} = \left[\begin{array}
 {rr}
 x_{11} & x_{12} \\
 x_{21} & x_{22}
-\end{array}\right)$$
+\end{array}\right]$$
 
 --
 
@@ -595,27 +604,27 @@ Post-multiplication of a matrix X by a diagonal matrix $\mathbf{D}$ results in t
 
 
 .pull-left[
-$$\Large \mathbf{X} = \left(\begin{array}
+$$\Large \mathbf{X} = \left[\begin{array}
 {rr}
-4 & 7 \\
+4 & 5 \\
 7 & 6
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 .pull-right[
-$$\Large \mathbf{D} = \left(\begin{array}
+$$\Large \mathbf{D} = \left[\begin{array}
 {rr}
 3 & 0 \\
 0 & 4
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 
 
-$$\Large \mathbf{XD} = \mathbf{Y} = \left(\begin{array}
+$$\Large \mathbf{XD} = \mathbf{Y} = \left[\begin{array}
 {rr}
-12 & 28 \\
+12 & 20 \\
 21 & 24
-\end{array}\right)$$
+\end{array}\right]$$
 
 
 
@@ -628,31 +637,31 @@ Pre-multiplication of a matrix X by a diagonal matrix $\mathbf{D}$ results in th
 
 
 .pull-left[
-$$\Large \mathbf{D} = \left(\begin{array}
+$$\Large \mathbf{D} = \left[\begin{array}
 {rr}
 3 & 0 \\
-0 & 2
-\end{array}\right)$$
+0 & 4
+\end{array}\right]$$
 ]
 .pull-right[
-$$\Large \mathbf{X} = \left(\begin{array}
+$$\Large \mathbf{X} = \left[\begin{array}
 {rr}
-4 & 7 \\
+4 & 5 \\
 7 & 6
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 
 
-$$\Large \mathbf{DX} = \mathbf{Y} = \left(\begin{array}
+$$\Large \mathbf{DX} = \mathbf{Y} = \left[\begin{array}
 {rr}
-12 & 21 \\
-14 & 12
-\end{array}\right)$$
+12 & 15 \\
+28 & 24
+\end{array}\right]$$
 
 
 
-The first row of X is multiplied by 3; the second row is multiplied by 2.
+The first row of X is multiplied by 3; the second row is multiplied by 4.
 
 ---
 
@@ -664,41 +673,41 @@ Scalar multiplication is just multiplication by a diagonal matrix with a constan
 
 
 
-$$\Large \left(\begin{array}
+$$\Large \left[\begin{array}
 {rr}
 3 & 0 \\
 0 & 3
-\end{array}\right)
-\left(\begin{array}
+\end{array}\right]
+\left[\begin{array}
 {rr}
 4 & 7 \\
 7 & 6
-\end{array}\right)
+\end{array}\right]
 = 
-\left(\begin{array}
+\left[\begin{array}
 {rr}
 12 & 21 \\
 21 & 18
-\end{array}\right)$$
+\end{array}\right]$$
 
 
 
-$$\Large \left(\begin{array}
+$$\Large \left[\begin{array}
 {rr}
 4 & 7 \\
 7 & 6
-\end{array}\right)
-\left(\begin{array}
+\end{array}\right]
+\left[\begin{array}
 {rr}
 3 & 0 \\
 0 & 3
-\end{array}\right)
+\end{array}\right]
 =
-\left(\begin{array}
+\left[\begin{array}
 {rr}
 12 & 21 \\
 21 & 18
-\end{array}\right)$$
+\end{array}\right]$$
 
 
 
@@ -710,14 +719,14 @@ The *identity matrix* is a diagonal matrix with ones on the main diagonal:
 
 
 
-$$\Large \mathbf{I} = \left(\begin{array}
+$$\Large \mathbf{I} = \left[\begin{array}
 {rrrr}
 1 & 0 & 0 & 0 & 0 \\ 
 0 & 1 & 0 & 0 & 0 \\
 0 & 0 & 1 & 0 & 0 \\
 0 & 0 & 0 & 1 & 0 \\
 0 & 0 & 0 & 0 & 1
-\end{array}\right)$$
+\end{array}\right]$$
 
 
 
@@ -783,24 +792,24 @@ By applying pre- and post-multiplication to a dataframe of raw scores you can pe
 If I create the following linear combinations of the original variables:
 
 .pull-left[
-$$\large \mathbf{X} = \left(\begin{array}
+$$\large \mathbf{X} = \left[\begin{array}
 {rrr}
 X_{11} & X_{12} & X_{13} \\
 X_{21} & X_{22} & X_{23} \\
 X_{31} & X_{32} & X_{33} \\
 \vdots & \vdots & \vdots \\
 X_{n1} & X_{n2} & X_{n3} 
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 
 .pull-right[
-$$\large \mathbf{T} = \left(\begin{array}
+$$\large \mathbf{T} = \left[\begin{array}
 {rrr}
 1 & -1 & 1 \\
 1 & 0 & -2 \\
 1 & 1 & 1
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 $$\Large \mathbf{XT} = Y$$
@@ -826,34 +835,39 @@ Third column = (1st+3rd)-2*2nd
 If I add a linear combinations as pre-multiplication:
 
 .pull-left[
-$$\mathbf{T} = \left(\begin{array}
+$$\mathbf{T} = \left[\begin{array}
 {rr}
 1 & 1 & 1 & \dots & 0 & 0 \\
 1 & 1 & 1 & \dots & -1 & -1 \\
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 
 .pull-right[
-$$\mathbf{X} = \left(\begin{array}
+$$\mathbf{X} = \left[\begin{array}
 {rrr}
 X_{11} & X_{12} & X_{13} \\
 X_{21} & X_{22} & X_{23} \\
 X_{31} & X_{32} & X_{33} \\
 \vdots & \vdots & \vdots \\
 X_{n1} & X_{n2} & X_{n3} 
-\end{array}\right)$$
+\end{array}\right]$$
 ]
 
 $$\Large \mathbf{TX} = Y$$
 
 What do the new variables represent? 
 
+--
+
+Post-multiplication can be used to create composites or indices. 
+Pre-multiplication creates groups! (treatment vs control, young vs old...)
+
 ???
 
 $\mathbf{Y}$ is a $2 x 3$ matrix. 
 
-Pre-multiplcation = affecting the rows
+Pre-multiplication = affecting the rows
 
 
 Each column of Y corresponds to one variable
@@ -867,23 +881,25 @@ First row is the mean of group 1
 
 We can calculate the mean of a vector $\mathbf{x}$ with length $n$ using linear combinations.
 
-$$\mathbf{T} = \left(\begin{array} 
+$$\mathbf{T} = \left[\begin{array} 
 & \frac{1}{n}  & \frac{1}{n}  & \dots & \frac{1}{n}  & \frac{1}{n} \\
-\end{array}\right)$$
+\end{array}\right]$$
 
 This happens to be equivalent to the following formula:
 
 $$\Large \bar{X} = T\mathbf{X} = 1'\mathbf{X}(1'1)^{-1} = 1'\mathbf{X}\frac{1}{n}$$
+
+(1 refers to a square matrix of 1's)
 ---
   
 In other words, the mean (of a variable) is a linear combination of rows/observations/people. 
 
 $$\bar{x} = \frac{1}{n}x_1 + \frac{1}{n}x_2 + \frac{1}{n}x_3 + ... +\frac{1}{n}x_n $$
   
-$$ \mathbf{T} = \left(\begin{array}
+$$ \mathbf{T} = \left[\begin{array}
                          {rrr}
                          \frac{1}{n}  & \frac{1}{n} & \frac{1}{n}  & \dots & \frac{1}{n}  & \frac{1}{n} \\
-                         \end{array}\right) $$
+                         \end{array}\right] $$
     
 Our transformation matrices are simply the weights we use when adding values together. 
 
@@ -901,10 +917,10 @@ Participants are given a weight equal to 1 over the sample size of the group if 
 
 If they are not part of the group, they are given the weight 0. 
 
-$$\mathbf{T} = \left(\begin{array}
+$$\mathbf{T} = \left[\begin{array}
                           {rrr}
                           \frac{1}{n_G}  & \frac{1}{n_G}  & \frac{1}{n_G}  & \dots & 0  & 0 \\
-                          \end{array}\right)$$
+                          \end{array}\right]$$
     
     
 
@@ -914,13 +930,13 @@ With matrices, we can perform multiple calculations all at once.
 
 With one matrix, we can find the average of all scores, the average of scores in group 1, the average of scores in group 2 and the difference in average scores between the two groups:
     
-$$\mathbf{T} = \left(\begin{array}
+$$\mathbf{T} = \left[\begin{array}
                           {rrrrrr}
                           \frac{1}{n} & \frac{1}{n} & \frac{1}{n} &\dots & \frac{1}{n} & \frac{1}{n} \\
                           \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \dots & 0 & 0 \\
                           0 & 0 & 0 & \dots & \frac{1}{n_{G2}} & \frac{1}{n_{G2}} \\
                           \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \dots & -\frac{1}{n_{G2}} & -\frac{1}{n_{G2}} \\
-                          \end{array}\right)$$
+                          \end{array}\right]$$
     
     
 If we pre-multiply this to a matrix X of scores, it will perform these four calculations for all variables (columns) in X. 
@@ -929,25 +945,25 @@ If we pre-multiply this to a matrix X of scores, it will perform these four calc
     
 
 $$\small 
-      \mathbf{T} = \left(\begin{array}
+      \mathbf{T} = \left[\begin{array}
                           {rrrr}
                           \frac{1}{n} & \frac{1}{n} & \frac{1}{n} &\dots & \frac{1}{n} & \frac{1}{n} \\
                           \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \dots & 0 & 0 \\
                           0 & 0 & 0 & \dots & \frac{1}{n_{G2}} & \frac{1}{n_{G2}} \\
                           \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \dots & -\frac{1}{n_{G2}} & -\frac{1}{n_{G2}} \\
-                          \end{array}\right)$$
+                          \end{array}\right]$$
                           
 
 
 .pull-right[
-$$\small \mathbf{X} = \left(\begin{array}
-{rrr}
-1 & 5 & 45 \\
-1 & 3 & 34 \\
-1 & 5 & 27 \\
-2 & 8 & 32 \\
-2 & 5 & 71 \\
-\end{array}\right)$$
+$$\small \mathbf{X} = \left[\begin{array}
+{lrr}
+\text{Treatment} & 5 & 45 \\
+\text{Treatment} & 3 & 34 \\
+\text{Treatment} & 5 & 27 \\
+\text{Control} & 8 & 32 \\
+\text{Control} & 5 & 71 \\
+\end{array}\right]$$
 ]
 
 We can pre-multiply X by T:
@@ -955,8 +971,8 @@ We can pre-multiply X by T:
   
 ```{r, echo = F}
   X = matrix(
-    c(1,1,1,2,2,5,3,5,8,5,45,34,27,32,71),
-    byrow = F, ncol = 3
+    c(5,3,5,8,5,45,34,27,32,71),
+    byrow = F, ncol = 2
   )
   
   T = matrix(
@@ -1002,3 +1018,9 @@ class: inverse
   
 probability!
     
+&nbsp;
+&nbsp;
+&nbsp;
+
+
+### [Click here to take Quiz #2 on Canvas now!](https://canvas.uoregon.edu/courses/165689) 

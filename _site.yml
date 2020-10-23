@@ -15,12 +15,22 @@ navbar:
         href: "lectures/03-describing-data.html"
       - text: "4 - Describing data (bivariate)"
         href: "lectures/04-describing_data.html"
+      - text: "5 - Matrix algebra"
+        href: "lectures/05-matrix.html"
+      - text: "6 - Probability"
+        href: "lectures/06-probability.html"
+      - text: "7 - Binomial distributions"
+        href: "lectures/07-binomial.html"        
+      - text: "8 - Normal distributions"
+        href: "lectures/08-normal.html"        
     - text: Labs
       menu:
       - text:  "1 - Introduction to R"
         href: "labs/lab-1.html"
       - text:  "2 - R Basics and Descriptives"
         href: "labs/lab-2.html"
+      - text:  "3 - Matrix Algebra"
+        href: "labs/lab-3.html"
     - text: Homework
       href: homework.html
     - text: Useful Material

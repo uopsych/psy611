@@ -10,8 +10,10 @@ output:
       countIncrementalSlides: false
 ---
 
-Homework 1
+## Annoucements
 
+- Can I share your feedback with Sanjay?
+- Lab breakout groups
 ---
 
 In research, we wish to make inferences about the **unknown** state of the world based on **known** data we have in hand.
@@ -49,17 +51,14 @@ Define exhaustive
 
 ---
 
-Absent additional information, we assume that what happens from outcome to outcome, as we observe events in the sample space, is random.  
+*Absent additional information*, we assume that what happens from outcome to outcome, as we observe events in the sample space, is *random*.  
 
 
 For that reason, the variable we define to represent the outcome of events in a sample space is called a **random variable**. 
 
-- The term, **stochastic variable**, is also used and means the same thing.
-
-
 ???
 
-Random = outcome is determined by chance alone
+Random = we do not have enough information to know what will happen
 ---
 
 ### More terminology
@@ -223,6 +222,10 @@ We know that a fair coin will come up heads 50% of the time: $P(H) = .5$.
 
 ---
 
+## Sara's bag 'o treats
+
+---
+
 This "long run" view of probability means that in "short run" the outcomes will not behave as expected—the outcomes will show variability around the expected probability outcome.  We can simulate what happens for a probability model in the short run. In many cases this behavior can be known mathematically.
 
 <p>&nbsp;</p>
@@ -241,8 +244,9 @@ Simulation here will confirm what we know must be true given the defined model, 
 
 ```{r}
 set.seed(101719)
-X = matrix(NA, ncol = 4, nrow = 10000)
-for(S in 1:10000){
+nsim = 2000
+X = matrix(NA, ncol = 4, nrow = nsim)
+for(S in 1:nsim){
   X[S,1] = S
   X[S,2] = rbinom(n = 1, size = S, prob = .5)/S
   X[S,3] = rbinom(n = 1, size = S, prob = 1/6)/S
@@ -303,11 +307,11 @@ On the other hand, in real life, "the long run" may not have a simple or realist
 
 <p>&nbsp;</p>
 
-"The probability that Sara has her phone with her today is .8, or 80%."
+"The probability that Sara's dog is on the bed behind her is .8, or 80%."
 
 <p>&nbsp;</p>
 
-At one level, we all have an intuitive feel for what this means and understand it to tell us that Sara likely does not have her phone.
+At one level, we all have an intuitive feel for what this means and understand it to tell us the dog is likely in view.
 
 ---
 
@@ -315,11 +319,11 @@ But, in the strict sense, that statement doesn’t have a sensible meaning in th
 
 <p>&nbsp;</p>
 
-I either do or I do not have my phone with me today (there are only two outcomes in the sample space); it makes no sense to say that I have 80% of my phone with me today and the event is not repeatable (having my phone today) in the strict sense, so the “long run” doesn’t seem to apply.
+The dog either is or is not on the bed (there are only two outcomes in the sample space); it makes no sense to say that the dog is on the bed 80% right now and the event is not repeatable (the dog on the bed right now) in the strict sense, so the “long run” doesn’t seem to apply.
 
 <p>&nbsp;</p>
 
-Instead, we have to say something like, on days like today (which can be repeated), the probability that Sara has her phone with her is .8.  
+Instead, we have to say something like, on days like today (which can be repeated), the probability that the dog is on the bed is .8.  
 
 <p>&nbsp;</p>
 
@@ -370,7 +374,7 @@ Three competing models are available to explain the occurrence of a target event
 
 - Model A: $p(E) = .70$
 - Model B: $p(E) = .75$
-- Model C: $p(E) = .45$
+- Model C: $p(E) = .40$
 
 I assume that this target event follows a binomial probability distribution. If that model is correct, at what point can I distinguish the models and declare a winner?
 
@@ -648,7 +652,7 @@ There is no controversy when the prior information is based on solid scientific 
 
 ## Another Bayesian example
 
-My doctor calls me with the results of a diagnostic test for a very rare but always fatal medical condition.  I ask about the nature of the test and he tells me it has a sensitivity of .99 and specificity of .99, based on a large number of clinical studies.  How worried should I be? What is the probability that I will actually get this disease?
+My doctor calls me with the results of a diagnostic test for a very rare but always fatal medical condition (not COVID).  I ask about the nature of the test and he tells me it has a sensitivity of .99 and specificity of .99, based on a large number of clinical studies.  How worried should I be? What is the probability that I will actually get this disease?
 
 --
 
@@ -724,3 +728,6 @@ class: inverse
 ## Next time...
 
 binomial distribution
+
+
+**Remember to complete Journal 3 on Canvas.**

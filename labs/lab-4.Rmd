@@ -19,9 +19,15 @@ options(scipen = 999)
 # load packages
 library(tidyverse)
 library(psych)
+<<<<<<< HEAD
 
 
 
+=======
+library(gganimate)
+# devtools::install_github("camkay/panoply")
+library(panoply)
+>>>>>>> 8d9f60ce2ea623b432ce8d5423fe15e5907540bd
 ```
 
 # Purpose

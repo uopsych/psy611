@@ -1,6 +1,10 @@
 
-Resources
-* https://www.cns.nyu.edu/events/growingupinscience/
+GENERAL IDEA:
+* move matrix algrebra to after t-tests
+* make it two days
+  * day 1: addition, subtraction, multiplication, etc
+  * day 2: using matrix algebra to calculate means, group means, variance/covariance, t-tests (independent and paired)
+  * more hands on in lecture
 
 general lab feedback
 * make the first minihack easy and walk them through it
@@ -10,6 +14,7 @@ general lab feedback
 * is it possbile to use the learnr package and have students download shiny apps to run on their computer?
 * idea for the future: use learnr package to create labs, bundle these inside a package
 * add in-text R code (reporting sample sizes, means, proper formatting, etc)
+* add recaps at the beginning of lectures
 
 TA expectations
 * prep labs (minor tweaks), attend lecture, take quizzes and homework assignments (to give feedback on difficulty and time)
@@ -22,43 +27,46 @@ homework general
 2-validity.html
 * more time with humor example/discussing article (requires curring some lecture material)
 
-3-describing_data_1.html
-* use rio to load in data, and explain ../ in file path
-* add formula for standard deviation to in addition to R code for standard deviation
-
 lab-1.html
 * not enough time
 * students using chat -- overwhelming, distracting
 * cut out arithmatic stuff (not needed)
 
+
+3-describing_data_1.html
+* use rio to load in data, and explain ../ in file path
+* add formula for standard deviation to in addition to R code for standard deviation
+
+4-describing_data_2.html
+* clarify "people attribute failures to back luck"
+* examples from article -- maybe new examples or don't assign article?
+
 lab-2.html
-* more interactive throughout
-* ask more questions (sometimes on html doc, or not)
-* in-text R code summarizing sample size and means
+* 
 
 5-matrix.html
-* For XT and TX, give example in slides
-* post-multiply -- affecting columns, doing this to every single row
-* pre-multiply -- affecting row, doing this to every single column
-* add orders to all matrix notations
+* Explain the underlining element thing in matrix addition
+* "Different from algebra" not "different from linear algebra"
+* 1 = 1's not identity
+* "Subtraction is not distributive is nonsensical"
+* more about relation to statistics
+* intimidating?
+* pre and post multiplication
+
 
 quiz-2.docx
 * replace word "masquerade"
 
 lab-3.html
-* notes: covered a lot of material, went slowly and left time for first mini-hack (walk through first together), linear combinations were difficult
-* more relevant or straight-forward examples for diagonal matrices and pre- and post-multiplication
-* give mean example
+* more practice with transformation matrices
+  * build up from simple to complex
+  * if we move matrix algebra to the end of the term and spread content out across two lectures, should be easier to focus on R code
 
 6-probability.html
-* define random
-* add animations!
-* bag of candy -- replacement vs not
+* 
 
 7-binomial.html
-* make clear -- binary/binomial doesn't mean 50%
-* any sample space can be divided into two non-elementary events
-* explain a deck of cards (what?!)
+* fix slide 17 (confusing wording)
 
 8-normal.html
 * move slides about chi sq from sampling to here
@@ -73,7 +81,6 @@ lab-4.html
 
 lab-5.html
 * skim tidy data and helper functions, but keep in so people can see them
-
 
 2-homework.html
 * MIDDLE 50% 

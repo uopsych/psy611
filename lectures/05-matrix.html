@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Matrix Algebra</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Matrix Algebra
+
+---
+
+
+## Last time
+
+Correlations, covariances
+
+---
+
+## Matrix algebra
+
+- Underlying mathematics of statistics includes a lot of algebra and calculus
+  - Many textbooks and academic methods papers will use matrix algebra to explain statistical concepts
+
+- Goal of this class: understand **why** 
+   - Understand how statistics are related to each other, what factors can change your results, what's going on under the hood
+
+--
+
+- Another goal: find the framework for statistics that makes sense to you
+  
+---
+
+## Matrix
+
+A *matrix* is a rectangular array of numbers with n rows and m columns. It is symbolized with a bold, upper case letter, and subscripted to indicate its *order.*
+
+
+ 
+`$$\LARGE \mathbf{G_{3,2}} = \left[\begin{array}
+{rrr}
+g_{11} &amp; g_{12}  \\
+g_{21} &amp; g_{22} \\
+g_{31} &amp; g_{32} 
+\end{array}\right]$$`
+
+
+
+The individual elements in a matrix are called *scalars*, subscripted to indicated their position in the matrix.
+
+---
+
+### Vectors
+
+`$$\LARGE \mathbf{G_{3,2}} = \left[\begin{array}
+{rrr}
+g_{11} &amp; g_{12}  \\
+g_{21} &amp; g_{22} \\
+g_{31} &amp; g_{32} 
+\end{array}\right]$$`
+
+
+
+The columns in a matrix are called *vectors*, and are symbolized with lower case, bold letters. This matrix has two vectors 
+`\((\large \mathbf{g}_1\)`, `\(\large \mathbf{g}_2)\)`, each containing three scalars.
+
+---
+
+### Transpose
+
+
+
+
+`$$\Large \mathbf{g_{3,1}} = \left[\begin{array}
+{rrr}
+g_{11}\\
+g_{21}\\
+g_{31} 
+\end{array}\right]$$`
+
+
+
+This vector is also a 3 x 1 matrix. When it is displayed as a row, it is symbolized differently:
+
+
+
+
+`$$\Large \mathbf{g'_{1,3}} = \left[\begin{array}
+{rrr}
+g_{11} &amp; g_{12} &amp; g_{13} \\
+\end{array}\right]$$`
+
+
+
+This is called the *transpose* of the vector.
+
+
+---
+
+### Square vs rectangular
+
+This matrix is *rectangular*. 
+
+`$$\large \mathbf{G_{3,2}} = \left[\begin{array}
+{rrr}
+g_{11} &amp; g_{12}  \\
+g_{21} &amp; g_{22} \\
+g_{31} &amp; g_{32} 
+\end{array}\right]$$`
+
+When the number of rows and columns are equal, the matrix is *square*:
+
+`$$\large \mathbf{F_{3,3}} = \left[\begin{array}
+{rrr}
+f_{11} &amp; f_{12} &amp; f_{13}  \\
+f_{21} &amp; f_{22} &amp; f_{23} \\
+f_{31} &amp; f_{32} &amp; f_{33} 
+\end{array}\right]$$`
+
+
+Data matrices are typically rectangular; correlation matrices and covariance matrices are always square.
+
+
+---
+
+### Symmetric
+
+
+
+If `\(f_{i,j} = f_{j,i}\)` for all i and j, the matrix is *symmetric.*
+
+
+
+`$$\Large \mathbf{F_{3,3}} = \left[\begin{array}
+{rrr}
+1 &amp; 3 &amp; -4  \\
+3 &amp; 11 &amp; 7 \\
+-4 &amp; 7 &amp; 2  
+\end{array}\right]$$`
+
+Correlation matrices and covariance matrices are symmetric.
+
+---
+
+### Diagonal
+
+
+
+If all elements of a symmetric matrix except the main diagonal are zero, the matrix is a *diagonal* matrix:
+
+
+
+`$$\Large \mathbf{F_{3,3}} = \left[\begin{array}
+{rrr}
+1 &amp; 0 &amp; 0  \\
+0 &amp; 11 &amp; 0 \\
+0 &amp; 0 &amp; 2  
+\end{array}\right]$$`
+
+
+
+`\(\mathbf{F}\)` is a symmetric, diagonal matrix. 
+
+---
+## Matrix algebra
+
+Matrix algebra shares some of the same properties as linear algebra...
+
+... but not all of them.
+
+Let's cover the rules of matrix algebra. 
+
+---
+##Matrix Addition and Subtraction:
+
+- Matrices of the same order can be added and subtracted.
+
+- These operations take place element by element.
+
+.pull-left[
+`$$\large \mathbf{F_{3,2}} = \left[\begin{array}
+{rrr}
+1 &amp; \underline{3}  \\
+3 &amp; 11  \\
+-4 &amp; 7   
+\end{array}\right]$$`
+]
+.pull-right[
+`$$\large \mathbf{H_{3,2}} = \left[\begin{array}
+{rrr}
+4 &amp; \underline{-1}  \\
+6 &amp; 2  \\
+12 &amp; 8   
+\end{array}\right]$$`
+]
+
+
+
+
+`$$\mathbf{F_{3,2}} + \mathbf{H_{3,2}} = \mathbf{K_{3,2}} = \left[\begin{array}
+{rrr}
+1+4 &amp; \underline{3+-1}  \\
+3+6 &amp; 11+2  \\
+-4+12 &amp; 7+8   
+\end{array}\right] = 
+\left[\begin{array}
+{rrr}
+5 &amp; \underline{2}  \\
+9 &amp; 13  \\
+8 &amp; 15   
+\end{array}\right]$$`
+
+---
+
+.pull-left[
+`$$\large \mathbf{F_{3,2}} = \left[\begin{array}
+{rrr}
+1 &amp; \underline{3}  \\
+3 &amp; 11  \\
+-4 &amp; 7   
+\end{array}\right]$$`
+]
+.pull-right[
+`$$\large \mathbf{H_{3,2}} = \left[\begin{array}
+{rrr}
+4 &amp; \underline{-1}  \\
+6 &amp; 2  \\
+12 &amp; 8   
+\end{array}\right]$$`
+]
+
+
+
+
+`$$\mathbf{F_{3,2}} - \mathbf{H_{3,2}} = \mathbf{K_{3,2}} = \left[\begin{array}
+{rrr}
+1-4 &amp; \underline{3--1}  \\
+3-6 &amp; 11-2  \\
+-4-12 &amp; 7-8   
+\end{array}\right] = 
+\left[\begin{array}
+{rrr}
+-3 &amp; \underline{4}  \\
+-3 &amp; 9  \\
+-16 &amp; -1   
+\end{array}\right]$$`
+
+???
+
+Matrices must have the same dimensions to be added/subtracted
+---
+
+### Properties of addition and subtraction
+
+
+**Matrix addition is commutative:**
+
+`$$\large \mathbf{A}+\mathbf{B}=\mathbf{B}+\mathbf{A}$$`
+
+**and associative:**
+
+`$$\large \mathbf{A} + \mathbf{B} + \mathbf{C} = (\mathbf{A} + \mathbf{B}) + \mathbf{C} = \mathbf{A} + (\mathbf{B} + \mathbf{C})$$`
+
+**Matrix subtraction is distributive:**
+
+`$$\large \mathbf{A} – (\mathbf{B} + \mathbf{C}) = \mathbf{A} – \mathbf{B} – \mathbf{C}$$` 
+
+`$$\large \mathbf{A} – (\mathbf{B} – \mathbf{C}) = \mathbf{A} – \mathbf{B} + \mathbf{C}$$`
+---
+
+### Null matrix
+
+
+A matrix of zeros is called a *zero matrix* or a *null matrix*. It is used in solving equations:
+
+
+
+`$$\small \left[\begin{array}
+{rrr}
+5 &amp; 7  \\
+4 &amp; 2  \\
+6 &amp; 1   
+\end{array}\right]
++
+\left[\begin{array}
+{rrr}
+y_{11} &amp; y_{12} \\
+y_{21} &amp; y_{22} \\
+y_{31} &amp; y_{32}
+\end{array}\right] 
+= 
+\left[\begin{array}
+{rrr}
+7 &amp; -1 \\
+7 &amp; 4 \\
+8 &amp; 3
+\end{array}\right]$$`
+
+
+
+`$$\small \left[\begin{array}
+                {rrr}
+                -5 &amp; -7  \\
+                -4 &amp; -2  \\
+                -6 &amp; -1   
+                \end{array}\right]
++
+  \left[\begin{array}
+         {rrr}
+         5 &amp; 7  \\
+         4 &amp; 2  \\
+         6 &amp; 1   
+         \end{array}\right]
++
+  \left[\begin{array}
+         {rrr}
+         y_{11} &amp; y_{12} \\
+         y_{21} &amp; y_{22} \\
+         y_{31} &amp; y_{32}
+         \end{array}\right] 
+= 
+    \left[\begin{array}
+           {rrr}
+           -5 &amp; -7  \\
+           -4 &amp; -2  \\
+           -6 &amp; -1   
+           \end{array}\right]
+  +
+    \left[\begin{array}
+           {rrr}
+           7 &amp; -1 \\
+           7 &amp; 4 \\
+           8 &amp; 3
+           \end{array}\right]$$`
+    
+`$$\small \left[\begin{array}
+{rrr}
+0 &amp; 0  \\
+0 &amp; 0  \\
+0 &amp; 0   
+\end{array}\right]
++
+\left[\begin{array}
+{rrr}
+y_{11} &amp; y_{12} \\
+y_{21} &amp; y_{22} \\
+y_{31} &amp; y_{32}
+\end{array}\right] 
+= 
+\left[\begin{array}
+{rrr}
+2 &amp; -8 \\
+3 &amp; 2 \\
+2 &amp; 2
+\end{array}\right]$$`
+
+---
+
+### Scalar multiplication
+
+Scalar multiplication is accomplished by multiplying every element of a matrix by a constant scalar:
+
+.pull-left[
+`$$\large \mathbf{F_{3,3}} = \left[\begin{array}
+{rrr}
+1 &amp; 3 &amp; -4  \\
+3 &amp; 11 &amp; 7 \\
+-4 &amp; 7 &amp; 2  
+\end{array}\right]$$`
+]
+
+.pull-right[
+`$$\large k = 5$$`
+]
+
+
+`$$\large k\mathbf{F} = \left[\begin{array}
+{rrr}
+1\times5 &amp; 3\times5 &amp; -4\times5  \\
+3\times5 &amp; 11\times5 &amp; 7\times5 \\
+-4\times5 &amp; 7\times5 &amp; 2\times5  
+\end{array}\right]$$`
+
+---
+
+### Properties of multiplication
+
+Matrix multiplication requires attending to a few important rules:
+
+- The order of multiplication is important.
+
+- Matrices can only be multiplied if the number of columns of the first matrix is equal to the number of rows of the second matrix.
+
+- The resulting matrix has an order equal to the number of rows of the first matrix and the number of columns of the second matrix.
+
+---
+
+`$$\LARGE \mathbf{A}_{j,i} \times \mathbf{B}_{i,k} = \mathbf{C}_{j,k}$$`
+--
+The elements of C are defined as:
+
+- the scalar in the *j*th row and *k*th column of `\(\mathbf{C}\)` is the sum of the scalar products of the *j*th row of `\(\mathbf{A}\)`  and the *k*th column of `\(\mathbf{B}\)`.
+
+Or
+
+`$$\LARGE \displaystyle\sum_{n=1}^{i}{a_{j,n}\times b_{n,k}}$$`
+---
+
+
+.pull-left[
+`$$\large \mathbf{A_{3,2}} = \left[\begin{array}
+{rrr}
+4 &amp; -1\\
+7 &amp; 0 \\
+6 &amp; 2  
+\end{array}\right]$$`
+]
+
+.pull-right[
+
+`$$\large \mathbf{B_{2,3}} = \left[\begin{array}
+{rrr}
+1 &amp; 7 &amp; 0 \\
+4 &amp; 2 &amp; 6 
+\end{array}\right]$$`
+
+]
+
+
+
+`$$\large \mathbf{A}_{3,2}\times\mathbf{B}_{2,3} = \mathbf{C}_{3,3}$$`
+
+--
+
+.pull-right[
+`$$\large \mathbf{C}_{3,3} = \left[\begin{array}
+{rrr}
+0 &amp; 26 &amp; -6   \\
+7 &amp; 49 &amp; 0 \\
+14 &amp; 46 &amp; 12
+\end{array}\right]$$`
+]
+
+
+.pull-left[
+`$$\large (4 \times 1) + (-1 \times 4) = 0$$`
+`$$\large (7 \times 7) + (0 \times 2) = 49$$`
+]
+
+---
+
+### Matrix multiplication is not commutative
+
+- It may not always be possible
+
+  - `\(\Large \mathbf{A}_{2,3}\mathbf{B}_{3,5} = \mathbf{C}_{2,5}\)` but `\(\Large \mathbf{B}_{3,5}\mathbf{A}_{2,3}\)` is impossible.
+  
+- When possible, the results may not be equal:
+  - `\(\Large \mathbf{A}_{1,3}\mathbf{B}_{3,1} = \mathbf{C}_{1,1}\)` but `\(\Large \mathbf{B}_{3,1}\mathbf{A}_{1,3} = \mathbf{C}_{3,3}\)`
+  
+---
+
+### Properties of multiplication
+
+**Matrix multiplication is associative:**
+
+`$$\Large \mathbf{ABC} = \mathbf{(AB)C} = \mathbf{A(BC)}$$`
+
+**Matrix multiplication is distributive:** 
+
+`$$\Large \mathbf{A(B+C)} = \mathbf{AB} + \mathbf{AC}$$`
+
+**But order is important:**
+
+`$$\Large \mathbf{XA} + \mathbf{BX} \neq \mathbf{X(A + B)}$$`
+  
+  
+---
+### Transpose
+
+
+Every matrix has a *transpose* that is obtained by exchanging the rows and columns:
+
+`$$\large \mathbf{X} = \left[\begin{array}
+{rrr}
+4 &amp; -1    \\
+7 &amp; 0  \\
+6 &amp; 2 
+\end{array}\right]$$`
+
+
+
+`$$\large \mathbf{X'} = \left[\begin{array}
+{rrr}
+4 &amp; 7 &amp; 6    \\
+-1 &amp; 0 &amp; 2  \\
+\end{array}\right]$$`
+
+
+
+---
+
+###Transpose multiplication
+
+
+
+Transposes are useful for arranging a matrix so that matrix multiplication is possible.
+
+
+Example: A common statistical requirement is to generate the sums of squares and cross- products for a data matrix. If `\(\large \mathbf{X_{n,v}}\)` is a matrix of scores, then `\(\large \mathbf{X_{nv}X_{nv}}\)` is not possible. 
+
+
+
+But, `\(\large \mathbf{X'_{vn}X_{nv}}\)` can be carried out.
+
+ - Also useful: the transpose of a product of matrices is equal to the product of the transposed matrices in reverse order
+ 
+ `$$\large (\mathbf{XY})' = \mathbf{Y'X'}$$`
+
+???
+
+**Do students recognize what this matrix multiplication is trying to do?**
+
+---
+
+`\(\mathbf{D}\)` is a matrix of deviation scores for 5 individuals on 2 variables.
+
+.pull-left[
+`$$\mathbf{D} = \left[\begin{array}
+{rrr}
+d_{11} &amp; d_{12}    \\
+d_{21} &amp; d_{22}    \\
+d_{31} &amp; d_{32}    \\
+d_{41} &amp; d_{42}    \\
+d_{51} &amp; d_{52}    
+\end{array}\right]$$`
+]
+
+.pull-right[
+`$$\mathbf{D'} = \left[\begin{array}
+{rrr}
+d_{11} &amp; d_{21} &amp; d_{31} &amp; d_{41} &amp; d_{51}   \\
+d_{12} &amp; d_{22} &amp; d_{32} &amp; d_{42} &amp; d_{52}   \\
+\end{array}\right]$$`
+]
+
+`$$\Large
+\mathbf{D'D} = ??$$`
+
+---
+
+`\(\mathbf{D}\)` is a matrix of deviation scores for 5 individuals on 2 variables.
+
+.pull-left[
+`$$\mathbf{D} = \left[\begin{array}
+{rrr}
+d_{11} &amp; d_{12}    \\
+d_{21} &amp; d_{22}    \\
+d_{31} &amp; d_{32}    \\
+d_{41} &amp; d_{42}    \\
+d_{51} &amp; d_{52}    
+\end{array}\right]$$`
+]
+
+.pull-right[
+`$$\mathbf{D'} = \left[\begin{array}
+{rrr}
+d_{11} &amp; d_{21} &amp; d_{31} &amp; d_{41} &amp; d_{51}   \\
+d_{12} &amp; d_{22} &amp; d_{32} &amp; d_{42} &amp; d_{52}   \\
+\end{array}\right]$$`
+]
+
+`$$\Large
+\mathbf{D'D} = \left[\begin{array}
+{rr}
+x_{11} &amp; x_{12} \\
+x_{21} &amp; x_{22}
+\end{array}\right]$$`
+
+--
+
+`\(\large x_{11}\)` and `\(\large x_{22}\)` are sums of squared deviations.
+
+--
+
+`\(\large x_{12}\)` and `\(\large x_{21}\)` are sums of cross products of deviations.
+
+--
+
+What matrix is `\(\mathbf{D'D}\)` one step away from?
+
+???
+Answer: variance/covariance matrix!
+
+**How do we get there?**
+
+Divide by `\(N-1\)`!
+
+---
+
+Multiplication by diagonal matrices is especially important in statistics and is used to accomplish rescaling (expanding, shrinking, standardizing).
+
+
+Post-multiplication of a matrix X by a diagonal matrix `\(\mathbf{D}\)` results in the *columns* of `\(\mathbf{X}\)` being multiplied by the corresponding diagonal element in `\(\mathbf{D}\)`.
+
+
+.pull-left[
+`$$\Large \mathbf{X} = \left[\begin{array}
+{rr}
+4 &amp; 5 \\
+7 &amp; 6
+\end{array}\right]$$`
+]
+.pull-right[
+`$$\Large \mathbf{D} = \left[\begin{array}
+{rr}
+3 &amp; 0 \\
+0 &amp; 4
+\end{array}\right]$$`
+]
+
+
+
+`$$\Large \mathbf{XD} = \mathbf{Y} = \left[\begin{array}
+{rr}
+12 &amp; 20 \\
+21 &amp; 24
+\end{array}\right]$$`
+
+
+
+The first column of X is multiplied by 3; the second column is multiplied by 4.
+
+---
+
+Pre-multiplication of a matrix X by a diagonal matrix `\(\mathbf{D}\)` results in the *rows* of `\(\mathbf{X}\)` being multiplied by the corresponding diagonal element in `\(\mathbf{D}\)`.
+
+
+
+.pull-left[
+`$$\Large \mathbf{D} = \left[\begin{array}
+{rr}
+3 &amp; 0 \\
+0 &amp; 4
+\end{array}\right]$$`
+]
+.pull-right[
+`$$\Large \mathbf{X} = \left[\begin{array}
+{rr}
+4 &amp; 5 \\
+7 &amp; 6
+\end{array}\right]$$`
+]
+
+
+
+`$$\Large \mathbf{DX} = \mathbf{Y} = \left[\begin{array}
+{rr}
+12 &amp; 15 \\
+28 &amp; 24
+\end{array}\right]$$`
+
+
+
+The first row of X is multiplied by 3; the second row is multiplied by 4.
+
+---
+
+### Scalar multiplication (again)
+
+
+
+Scalar multiplication is just multiplication by a diagonal matrix with a constant in the diagonal.
+
+
+
+`$$\Large \left[\begin{array}
+{rr}
+3 &amp; 0 \\
+0 &amp; 3
+\end{array}\right]
+\left[\begin{array}
+{rr}
+4 &amp; 7 \\
+7 &amp; 6
+\end{array}\right]
+= 
+\left[\begin{array}
+{rr}
+12 &amp; 21 \\
+21 &amp; 18
+\end{array}\right]$$`
+
+
+
+`$$\Large \left[\begin{array}
+{rr}
+4 &amp; 7 \\
+7 &amp; 6
+\end{array}\right]
+\left[\begin{array}
+{rr}
+3 &amp; 0 \\
+0 &amp; 3
+\end{array}\right]
+=
+\left[\begin{array}
+{rr}
+12 &amp; 21 \\
+21 &amp; 18
+\end{array}\right]$$`
+
+
+
+---
+### Identity matrix
+
+
+The *identity matrix* is a diagonal matrix with ones on the main diagonal:
+
+
+
+`$$\Large \mathbf{I} = \left[\begin{array}
+{rrrr}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
+\end{array}\right]$$`
+
+
+
+The identity matrix is often a useful target matrix in statistics.
+
+---
+
+### Inverse matrix
+
+Some square matrices have an *inverse* such that `\(\large \mathbf{AA^{-1}} = I\)`. The inverse is useful in solving matrix equations:
+
+`$$\Large \mathbf{Y} = \mathbf{BR}$$`
+
+Solving for B:
+
+`$$\Large \mathbf{YR^{-1}} = \mathbf{BRR^{-1}}$$`
+`$$\Large \mathbf{YR^{-1}} = \mathbf{B}$$`
+
+
+---
+
+class: inverse
+
+## Statistics through matrix algebra
+
+
+---
+
+## Linear combinations
+
+When we create a **linear combination**, we simply mean we're weighting values and then adding them together. 
+
+For example:
+
+`$$y = 5x_1 + \frac{1}{7}x_2 - 12x_3$$`
+
+- What are the weights?
+
+--
+
+Matrix algebra is simply representing one or more linear combinations by sorting the weights inside a matrix.
+
+--
+
+Linear combinations can be done to rows or to columns. 
+
+---
+
+## Linear combinations
+
+Perhaps **the most important rules of matrix algebra** to remember are that :
+
+- post-multiplication creates linear combinations of columns, and 
+- pre-multiplication creates linear combinations of rows.
+
+By applying pre- and post-multiplication to a dataframe of raw scores you can perform transformations to your raw data -- including calculating sum or weighted scores -- and aggregate your data into whatever groups or configurations are necessary.
+
+
+---
+
+##Linear combinations
+
+If I create the following linear combinations of the original variables:
+
+.pull-left[
+`$$\large \mathbf{X} = \left[\begin{array}
+{rrr}
+X_{11} &amp; X_{12} &amp; X_{13} \\
+X_{21} &amp; X_{22} &amp; X_{23} \\
+X_{31} &amp; X_{32} &amp; X_{33} \\
+\vdots &amp; \vdots &amp; \vdots \\
+X_{n1} &amp; X_{n2} &amp; X_{n3} 
+\end{array}\right]$$`
+]
+
+
+.pull-right[
+`$$\large \mathbf{T} = \left[\begin{array}
+{rrr}
+1 &amp; -1 &amp; 1 \\
+1 &amp; 0 &amp; -2 \\
+1 &amp; 1 &amp; 1
+\end{array}\right]$$`
+]
+
+`$$\Large \mathbf{XT} = Y$$`
+
+What do the new variables represent? 
+
+???
+
+`\(\mathbf{Y}\)` is a `\(n x 3\)` matrix. 
+
+Post-multiplcation = affecting the columns.
+
+
+Each row of Y corresponds to one person.
+First column is the sum of the person's values (e.g., sum all values in a scale)
+Second column = 3rd-1st
+Third column = (1st+3rd)-2*2nd
+
+---
+
+##Linear combinations
+
+If I add a linear combinations as pre-multiplication:
+
+.pull-left[
+`$$\mathbf{T} = \left[\begin{array}
+{rr}
+1 &amp; 1 &amp; 1 &amp; \dots &amp; 0 &amp; 0 \\
+1 &amp; 1 &amp; 1 &amp; \dots &amp; -1 &amp; -1 \\
+\end{array}\right]$$`
+]
+
+
+.pull-right[
+`$$\mathbf{X} = \left[\begin{array}
+{rrr}
+X_{11} &amp; X_{12} &amp; X_{13} \\
+X_{21} &amp; X_{22} &amp; X_{23} \\
+X_{31} &amp; X_{32} &amp; X_{33} \\
+\vdots &amp; \vdots &amp; \vdots \\
+X_{n1} &amp; X_{n2} &amp; X_{n3} 
+\end{array}\right]$$`
+]
+
+`$$\Large \mathbf{TX} = Y$$`
+
+What do the new variables represent? 
+
+--
+
+Post-multiplication can be used to create composites or indices. 
+Pre-multiplication creates groups! (treatment vs control, young vs old...)
+
+???
+
+`\(\mathbf{Y}\)` is a `\(2 x 3\)` matrix. 
+
+Pre-multiplication = affecting the rows
+
+
+Each column of Y corresponds to one variable
+First row is the mean of group 1
+2nd row is difference in means of group 1 and group 2
+
+
+---
+
+## Descriptive statistics
+
+We can calculate the mean of a vector `\(\mathbf{x}\)` with length `\(n\)` using linear combinations.
+
+`$$\mathbf{T} = \left[\begin{array} 
+&amp; \frac{1}{n}  &amp; \frac{1}{n}  &amp; \dots &amp; \frac{1}{n}  &amp; \frac{1}{n} \\
+\end{array}\right]$$`
+
+This happens to be equivalent to the following formula:
+
+`$$\Large \bar{X} = T\mathbf{X} = 1'\mathbf{X}(1'1)^{-1} = 1'\mathbf{X}\frac{1}{n}$$`
+
+(1 refers to a square matrix of 1's)
+---
+  
+In other words, the mean (of a variable) is a linear combination of rows/observations/people. 
+
+$$\bar{x} = \frac{1}{n}x_1 + \frac{1}{n}x_2 + \frac{1}{n}x_3 + ... +\frac{1}{n}x_n $$
+  
+$$ \mathbf{T} = \left[\begin{array}
+                         {rrr}
+                         \frac{1}{n}  &amp; \frac{1}{n} &amp; \frac{1}{n}  &amp; \dots &amp; \frac{1}{n}  &amp; \frac{1}{n} \\
+                         \end{array}\right] $$
+    
+Our transformation matrices are simply the weights we use when adding values together. 
+
+(Note: when we subtract a value, we assign it the weight of -1.)
+
+---
+    
+Imagine we only wanted to know the mean of a subset of participants, perhaps the participants in some group, G.
+  
+  
+Our linear transformation of all the scores would look like:
+    
+`$$\bar{x_G} = \frac{1}{n_G}x_1 + \frac{1}{n_G}x_2 + \frac{1}{n_G}x_3 + \dots +0x_{n-1}+0x_n$$`
+Participants are given a weight equal to 1 over the sample size of the group if they are a member of that group. 
+
+If they are not part of the group, they are given the weight 0. 
+
+`$$\mathbf{T} = \left[\begin{array}
+                          {rrr}
+                          \frac{1}{n_G}  &amp; \frac{1}{n_G}  &amp; \frac{1}{n_G}  &amp; \dots &amp; 0  &amp; 0 \\
+                          \end{array}\right]$$`
+    
+    
+
+---
+    
+With matrices, we can perform multiple calculations all at once. 
+
+With one matrix, we can find the average of all scores, the average of scores in group 1, the average of scores in group 2 and the difference in average scores between the two groups:
+    
+`$$\mathbf{T} = \left[\begin{array}
+                          {rrrrrr}
+                          \frac{1}{n} &amp; \frac{1}{n} &amp; \frac{1}{n} &amp;\dots &amp; \frac{1}{n} &amp; \frac{1}{n} \\
+                          \frac{1}{n_{G1}} &amp; \frac{1}{n_{G1}} &amp; \frac{1}{n_{G1}} &amp; \dots &amp; 0 &amp; 0 \\
+                          0 &amp; 0 &amp; 0 &amp; \dots &amp; \frac{1}{n_{G2}} &amp; \frac{1}{n_{G2}} \\
+                          \frac{1}{n_{G1}} &amp; \frac{1}{n_{G1}} &amp; \frac{1}{n_{G1}} &amp; \dots &amp; -\frac{1}{n_{G2}} &amp; -\frac{1}{n_{G2}} \\
+                          \end{array}\right]$$`
+    
+    
+If we pre-multiply this to a matrix X of scores, it will perform these four calculations for all variables (columns) in X. 
+
+---
+    
+
+`$$\small 
+      \mathbf{T} = \left[\begin{array}
+                          {rrrr}
+                          \frac{1}{n} &amp; \frac{1}{n} &amp; \frac{1}{n} &amp;\dots &amp; \frac{1}{n} &amp; \frac{1}{n} \\
+                          \frac{1}{n_{G1}} &amp; \frac{1}{n_{G1}} &amp; \frac{1}{n_{G1}} &amp; \dots &amp; 0 &amp; 0 \\
+                          0 &amp; 0 &amp; 0 &amp; \dots &amp; \frac{1}{n_{G2}} &amp; \frac{1}{n_{G2}} \\
+                          \frac{1}{n_{G1}} &amp; \frac{1}{n_{G1}} &amp; \frac{1}{n_{G1}} &amp; \dots &amp; -\frac{1}{n_{G2}} &amp; -\frac{1}{n_{G2}} \\
+                          \end{array}\right]$$`
+                          
+
+
+.pull-right[
+`$$\small \mathbf{X} = \left[\begin{array}
+{lrr}
+\text{Treatment} &amp; 5 &amp; 45 \\
+\text{Treatment} &amp; 3 &amp; 34 \\
+\text{Treatment} &amp; 5 &amp; 27 \\
+\text{Control} &amp; 8 &amp; 32 \\
+\text{Control} &amp; 5 &amp; 71 \\
+\end{array}\right]$$`
+]
+
+We can pre-multiply X by T:
+  
+  
+
+
+```r
+  T %*% X
+```
+
+```
+##           [,1]      [,2]
+## [1,]  5.200000  41.80000
+## [2,]  4.333333  35.33333
+## [3,]  6.500000  51.50000
+## [4,] -2.166667 -16.16667
+```
+---
+&lt;!-- ### Correlation matrix, `\(\large \mathbf{R}\)` --&gt;
+
+&lt;!-- A correlation is simply the covariance divided by the standard deviations of the two variables, so we can create a new formula to calculate that. --&gt;
+
+&lt;!-- Let `\(\mathbf{D_{xx}}\)` be a diagonal matrix with the diagonal value being `\(1/s_i\)` or the inverse of the standard deviation of that variable. Then we can calculate `\(\mathbf{R}\)` as --&gt;
+
+&lt;!-- `$$\large \mathbf{R} = \mathbf{D_{xx}S_{XY}D_{xx}}$$` --&gt;
+
+&lt;!-- --- --&gt;
+    
+## Matrix Algebra in statistics
+    
+
+For the next two (3?) terms, we'll use matrix algebra as one of the ways to represent the statistics we're calculating. 
+
+--
+
+Your statistical tool kit now includes
+  - validity (pre-data collection)
+  - descriptive statistics (information about your sample, estimates of the population)
+  - matrix algebra (ways to combine raw data into statistics or indices)
+  
+At this point, we'll switch gears and talk about the branch of mathematics that drives statistical inference...
+
+---
+
+class: inverse
+  
+## Next time...
+  
+probability!
+    
+&amp;nbsp;
+&amp;nbsp;
+&amp;nbsp;
+
+
+### [Click here to take Quiz #2 on Canvas now!](https://canvas.uoregon.edu/courses/165689) 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

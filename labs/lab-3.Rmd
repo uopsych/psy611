@@ -1,12 +1,13 @@
 ---
-title: "Lab 3: Matrix Algebra"
-output: 
-  html_document: 
+title: 'Lab 3: Matrix Algebra'
+output:
+  html_document:
     theme: cosmo
     toc: yes
     toc_depth: 3
-    toc_float: TRUE
+    toc_float: yes
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -16,9 +17,11 @@ options(scipen = 999)
 ```
 
 
+You can download the lab [here](lab-3.pdf).
+
 # Purpose
 
-The purpose of today's lab is to learn how to create matrices in R and how to perform basic mathematical functions on matrices using R functions. We will also focus during the minihacks on applying what you learned in lecture to create linear combinations of data, including calculating some basic descriptive statistics (which we discussed in [last week's lab](https://uopsych.github.io/psy611/labs/lab-2.html){target="_blank"}).
+The purpose of today's lab is to learn how to enter matrices and perform operations on matrices in R, and to use R to expand your theoretical understanding of matrices and how they underlie statistical calculations. For the minihacks, you will be applying what you learned in lecture about using data matrices to calculate means and covariance matrices.
 
 Today's lab will cover:
 
@@ -37,24 +40,23 @@ Today's lab will cover:
 
 __Notation and Terminology:__
 
-$A_{rc}$ refers to the entry at row $r$ and column $c$ in matrix $A$.  
-"Order" refers to the dimensions of a matrix: the number of rows and the number of columns $(r,c)$.
+A matrix is an object that stores information in rows and columns. For a given matrix $A$, we use $a_{rc}$ to refer to the entry at row $r$ and column $c$. "Order" refers to the dimensions of a matrix: the number of rows and the number of columns. Here are six types of matrices:
 
-1. Rectangular: $r \neq c$  
+1. Rectangular: A matrix where the number of rows does not equal the number of columns.
 \[ A = \begin{bmatrix}
-1 & 5 & 7 \\
-2 & 1 & 2
+1 & 2 & 3 \\
+3 & 2 & 1
 \end{bmatrix} \]
 
-2. Square:  $r = c$  
+2. Square:  A matrix where the number of rows equals the number of columns. 
 \[ A = \begin{bmatrix}
-2 & 9\\
-4 & 6
+1 & 2\\
+3 & 4
 \end{bmatrix} \]
 
 3. Vector:  A matrix where the row or column (not both) is 1.  
 \[ A = \begin{bmatrix}
-5 & 6 & 9
+3 & 1 & 2
 \end{bmatrix} \]
 
 4. Diagonal:  A square matrix where all of the elements equal zero except for those making up the principal diagonal.  
@@ -149,11 +151,14 @@ e.g. `rep(x = 1, times = 10)` would result in `r rep(1, 10)`
 Now let's use `rep()` and `matrix()` to create matrix `M` from above:
 
 ```{r}
-M <- matrix(c(rep(1, 16),
-              rep(0, 8), rep(2, 8),
-              rep(3, 16),
-              rep(4, 8), rep(0,8)),
-            nrow = 4, ncol = 16, byrow = TRUE)
+M <- matrix(c(rep(1, times = 16),
+              rep(0, times = 8), 
+              rep(2, times = 8),
+              rep(3, times = 16),
+              rep(4, times = 8), 
+              rep(0,times = 8)),
+            nrow = 4, 
+            byrow = TRUE)
 
 M
 ```
@@ -168,7 +173,7 @@ M
 We can check whether or not the order of two matrices are the same using a combination of `dim()`, which returns the dimensions of the matrix (rows, columns) and the equality test `==`.
 
 <br />
-**NOTE**: `=` is to define things (arguments in functions & objects) and `==` tests for equality. 
+**NOTE**: `=` defines something (arguments in functions & objects) and `==` tests for equality. 
 
 We get two results for each test, which correspond to (in order): 
 <br /> 
@@ -185,7 +190,34 @@ dim(a_mat) == dim(c_mat)
 dim(a_mat) == dim(d_mat)
 ```
 
-As we knew (from looking at them ourselves), `A` is not the same shape as `B`, `C`, and `D`.
+Recall,
+
+ 
+
+\[A = \begin{bmatrix}
+1 & 2 & 3 \\
+1 & 2 & 3
+\end{bmatrix} \]
+
+\[B = \begin{bmatrix}
+1 & 1 \\
+2 & 2 \\
+3 & 3
+\end{bmatrix} \]
+
+\[C = \begin{bmatrix}
+1 & 1 \\
+2 & 4 \\
+3 & 5
+\end{bmatrix} \]
+
+\[D = \begin{bmatrix}
+1 & 1 \\
+2 & 2 \\
+3 & 3
+\end{bmatrix} \]
+
+As we knew (from looking at them ourselves), `A` (2 x 3) does not have the same order as `B`, `C`, and `D` (3 x 2).
 
 Next we'll check `B` against `C` and `D`:
 
@@ -208,7 +240,7 @@ We can see that `B` and `D` are identical matrices because they have the exact s
 
 # Transpose {#transpose}
 
-Transposing a matrix consists of exchanging the row and column for each element in the matrix.
+The transpose of a matrix is a matrix that is flipped over its principal diagonal.
 
 __Example:__
 
@@ -216,27 +248,14 @@ __Example:__
 1 & 2 \\
 5 & 1 \\
 7 & 2
-\end{bmatrix} = \begin{bmatrix}
-1_{11} & 2_{12} \\
-5_{21} & 1_{22} \\
-7_{31} & 2_{32}
 \end{bmatrix} \]
 
-To create the transpose, the following happens:
+To create the transpose of $X$, denoted $X'$, the following happens:
 
-$1_{11} \rightarrow 1_{11}$
+1. The first column becomes the first row.
+2. The second column becomes the second row.
 
-$5_{21} \rightarrow 5_{12}$
-
-$7_{31} \rightarrow 7_{13}$
-
-$2_{12} \rightarrow 2_{21}$
-
-$1_{22} \rightarrow 1_{22}$
-
-$2_{32} \rightarrow 2_{23}$
-
-**Question**: Since the order of the above matrix is 3x2, what will the order of its transpose be?  
+**Question**: Since the order of the above matrix, $B$, is 3x2, what will the order of its transpose be?  
 
 \[ X' = \begin{bmatrix}
 1 & 5 & 7 \\
@@ -245,7 +264,7 @@ $2_{32} \rightarrow 2_{23}$
 
 ## Transpose in R
 
-To transpose a matrix in R, just use the function `t()`. Let's take a look at the transpose of matrix `X` from above.
+To transpose a matrix in R, you can use the function `t()`. Let's take a look at the transpose of matrix `X` from above.
 
 ```{r transpose}
 # create the matrix
@@ -283,6 +302,8 @@ Matrix subtraction is **distributive**
 $$\large \mathbf{A} – (\mathbf{B} + \mathbf{C}) = \mathbf{A} – \mathbf{B} – \mathbf{C}$$ 
 
 $$\large \mathbf{A} – (\mathbf{B} – \mathbf{C}) = \mathbf{A} – \mathbf{B} + \mathbf{C}$$
+Note: matrix subtraction is "distributive" because $(B + C)$ is being multiplied by the scalar -1. So, $-(B+C)$ becomes $(-B-C)$, and since addition is associative, $A +( -B-C) = A - B-C$.
+
 
 Let's test out these rules using R!
 
@@ -428,13 +449,11 @@ B %*% A
 
 ## Identity Matrix
 
-Again, the **identity matrix** is a diagonal matrix with 1s along the principal diagonal. For example...
+The **identity matrix** is a diagonal matrix with 1s along the principal diagonal. For example...
 
-\[ I = \begin{bmatrix}
-1 & 0 & 0 & 0 \\
-0 & 1 & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
+\[ I_2 = \begin{bmatrix}
+1 & 0 \\
+0 & 1
 \end{bmatrix} \]
 
 Let's take an example matrix `C`:
@@ -467,6 +486,8 @@ id_mat <- diag(x = 1, nrow = nrow(C), ncol = ncol(C))
  
 # Or we could have hard coded it: 
 #id_mat <- diag(x = 1, nrow = 2, ncol = 2)
+
+#diag() will default to a square matrix if you only define nrow or ncol but not both 
 ```
 
 And finally, multiply them together with `%*%`
@@ -483,7 +504,7 @@ C %*% id_mat == id_mat %*% C
 
 # Diagonal Matrices {#diag}
 
-As we saw above, the identity matrix is a special case of a diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are `1`'s. But we can create diagonal matrices that contain other values as well, again using the `diag()` function.
+The identity matrix is a special case of a diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are `1`'s. But we can create diagonal matrices that contain other values as well, again using the `diag()` function.
 
 ## Creating diagonal matrices
 
@@ -494,10 +515,20 @@ diag_twos <- diag(x = 2, nrow = 4)
 
 diag_twos
 ```
+To create a diagonal matrix with different values along the diagonal, you can assign a vector to the `x` argument in `diag`. Notice that I no longer needed to specify the number of rows because `diag` defaults to a square matrix.
+
+```{r}
+
+diag_vary <- diag(x = c(5,6,1))
+
+diag_vary
+
+```
+
 
 ## Pre-multiplication
 
-Pre-multiplication of a matrix `X` by a diagonal matrix `D` results in the **rows** of `X` being multiplied by the corresponding diagonal element in `D`.
+Pre-multiplication of a matrix `X` by a diagonal matrix `D` results in the **rows** of `X` being multiplied by the corresponding diagonal element in `D`. 
 
 Let's use the following example for X:
 
@@ -509,20 +540,21 @@ X <- matrix(c(1, 2, 3,
 X
 ```
 
-First we'll create our diagonal matrix that we will pre-multiply `X` by. Our diagonal matrix that we are pre-multiplying by should have the same number of columns as there are rows in `X`. Since a diagonal matrix is square, the number of rows and columns are the same. 
+First we'll create our diagonal matrix that we will pre-multiply `X` by.
 
 ```{r}
-preT <- diag(x = 2, nrow = nrow(X), ncol = nrow(X))
+A <- diag(x = c(2, 3))
 
-preT
+A
 ```
 
-Now let's pre-multiply by `X`. This will result in multiplying all the **rows** in `X` by 2.
+Now let's pre-multiply. This will result in multiplying all elements in the first row by `2` and all elements in the second row by `3`.
 
 ```{r}
-preT %*% X
+A %*% X
 ```
 
+When working with data, pre-multiplication of a data matrix `X` by another matrix results in a linear combination of your rows in `X`. When your rows are your participants, pre-multiplication would result in a linear combination of your participants. This may be useful, for example, if you want to calculate grand means or groups means for a particular variable.
 
 ## Post-multiplication
 
@@ -534,27 +566,106 @@ Let's use the same matrix `X` as our example.
 X
 ```
 
-Now we'll create our diagonal matrix that we will post-multiply `X` by. Our diagonal matrix that we are post-multiplying by should have the same number of rows as there are columns in `X`. Again, since a diagonal matrix is square, the number of rows and columns are the same. 
+Now we'll create our diagonal matrix that we will post-multiply `X` by.  
 
 ```{r}
-postT <- diag(.25, nrow = ncol(X), ncol = ncol(X))
+B <- diag(x = c(2,3,4))
 
-postT
+B
 ```
 
-Now let's post-multiply by `X`. This will result in multiplying all the **columns** in `X` by 1/4.
+Now let's post-multiply by `X`. This will result in multiplying the first column in `X` by 2, the second column in `X` by 3, and the third column in `X` by 4.
 
 ```{r}
-X %*% postT
+X %*% B
 ```
+
+When working with data, post-multiplication of a data matrix `X` by another matrix results in a linear combination of your columns in `X`. When your columns are your variables, post-multiplication would result in a linear combination of your variables. This may be useful, for example, if you want to create a composite score for a scale.
 
 
 ## Simultaneous multiplication
 
-We can also simultaneously pre- and post-multiply a matrix. For example, the code below will simultaneously multiply all the rows by 2 and multiply all the columns by 1/4.
+We can also simultaneously pre- and post-multiply a matrix. For example, the code below will simultaneously multiply the first row by 2, the second row by 3, the first column by 2, the second column by 3, and the third column by 4.
 
 ```{r}
-preT %*% X %*% postT
+X
+A %*% X %*% B
+```
+
+# Calculating means with pre-multiplication {#premult_data}
+
+For this example, we will be working with a dataset from lecture. In the dataset, there are five participants and three variables. Note that for the group code, `0` is the treatment group and `1` is the control group. First, we will input the dataset into R as a matrix. 
+
+```{r}
+X = matrix(c(rep(0, times = 3,),
+             rep(1, times = 2),
+             5, 3, 5, 8, 5,
+             45, 34, 27, 32, 71),
+           byrow = FALSE,
+           nrow = 5,
+           dimnames = list(NULL, c("group", "var1", "var2")))
+X
+```
+Next, using the transformation matrix `T`, we will calculate the grand means for each variable, the group means for each group for each variable, and the difference between groups for each variable. 
+
+
+\[ T=\begin{bmatrix}
+\frac{1}{n} & \frac{1}{n} & \frac{1}{n} & \frac{1}{n} & \frac{1}{n} \\
+  \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & 0 & 0 \\
+  0 & 0 &  0 & \frac{1}{n_{G2}} & \frac{1}{n_{G2}}  \\
+  \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \frac{1}{n_{G1}} &-\frac{1}{n_{G2}} & -\frac{1}{n_{G2}}
+\end{bmatrix}
+\]
+
+Recall, pre-multiplication creates linear combinations of the  participants. So, in order to calculate a mean for `var1`, we want to add all of the observations together and divide by n. That is why each entry of the first row of the transformation matrix is $1/n$. The second row will calculate the means of the variables for the treatment group only. The `0`'s in the second row ensure that the control group will not be counted in calculating the treatment group mean. The third row will calculate the means of the variables for the control group only. The final row will calculate the difference in means between the treatment and control group on each variable.
+
+In order to create the transformation matrix, `T`, we need to know the total n and the n of each group.
+
+```{r}
+n_total <- nrow(X)
+n_total
+
+n_treat <- sum(X[,"group"]==0)
+n_treat
+
+n_control = sum(X[,"group"]==1)
+n_control
+```
+
+
+```{r}
+T <- matrix(c(rep(1/n_total, times = n_total),
+              rep(1/n_treat, times = n_treat),
+              rep(0, times = n_control),
+              rep(0, times = n_treat),
+              rep(1/n_control, times = n_control),
+              rep(1/n_treat, times = n_treat),
+              rep(-1/n_control, times = n_control)),
+            nrow = 4,
+            byrow = TRUE)
+T
+```
+Now, I will calculate the means by multiplying the transformation matrix and the data matrix. Note: I am excluding the first column because it is the group code (treatment group or control group).
+
+```{r}
+means <- T %*% X[,2:3]
+
+dimnames(means) <- list(c("grand means","treatment means", "control group means", "difference in means"), c("var1", "var2"))
+
+means
+```
+
+We can double check the grand means and the group means using the psych package that you used in lab last week.
+
+```{r, message = FALSE}
+library(psych)
+
+#double check grand means
+describe(X)
+
+#double check group means
+describeBy(X, group = "group")
+
 ```
 
 
@@ -569,23 +680,24 @@ Use the following code to create a matrix representing a dataset of scores, $X_{
 ```{r create_data}
 X = matrix(c(45, 52, 54, 52, 50, 72, 43, 56, 62, 47,
              41, 51, 57, 52, 45, 83, 55, 70, 75, 57,
-             1, 1, 1, 1, 1, 2, 2, 2, 2, 2), 
+             0, 0, 0, 0, 0, 1, 1, 1, 1, 1), 
            ncol = 3, byrow = F, 
-           dimnames = list(NULL, c("T1", "T2", "G")))
+           dimnames = list(NULL, c("time_1", "time_2", "group")))
+X
 ```
 
-You should how have a matrix with three columns, named T1 (memory score at time 1), T2 (memory score at time 2), and G (group, 1 = control, 2 = intervention).
+You should now have a matrix with three columns, named `time_1` (memory score at time 1), `time_2` (memory score at time 2), and `group` (group, 0 = control, 1 = intervention).
 
 ## Minihack 1: Identifying linear combinations
 
-1. Take a look at the following code. Don't run the matrix multiplication step yet. What does the linear combination represented below accomplish?
+1. Take a look at the following code. Don't run the matrix multiplication step yet. What do you think the linear combination represented below will accomplish?
 
 ```{r eval = FALSE}
-preT <- matrix(rep(1), ncol = nrow(X))
+A <- matrix(rep(1), ncol = nrow(X))
 
-postT <- diag(1/(nrow(X)) , nrow = ncol(X))
+B <- diag(1/(nrow(X)) , nrow = ncol(X))
 
-preT %*% X %*% postT
+A %*% X %*% B
 ```
 
 
@@ -595,21 +707,26 @@ preT %*% X %*% postT
 
 Use matrix algebra to do the following:
 
-1. Create a new vector representing the difference between T1 and T2.
+1. Using post-multiplication, create a new vector representing the difference between `time_1` and `time2`.
 
-2. Calculate the average T1 score for the whole sample.
+2. Using pre-multiplication, calculate the average `time_1` score for the whole sample.
 
-3. Calculate the average T1 score for each group.
+3. Using pre-multiplication, calculate the average `time_1` score for each group.
 
-## Minihack 3: Calculate the covariance matrix
+## Minihack 3: Calculate a covariance matrix
 
-1. Calculate the covariance matrix of X using matrix algebra. 
+Recall from lecture that a covariance matrix is a square, symmetric matrix that contains variances on the principal diagonal, and covariances off the principle diagonal. Recall that, for a sample, the formula for variance is $s^2 = \frac{\sum(X_i - \bar{X})^2}{N-1}$ and the formula for covariance is $s_{XY} = \frac{\sum(X_i - \bar{X})(Y_i-\bar{Y})}{N-1}$. 
 
-Hint #1: You'll need to create a matrix to subtract from X in order to get deviation scores.) 
-<br />
-Hint #2: `colMeans()` is a quick way to get the means of each column of a matrix.
+1. Create a 10x3 matrix `C` where each entry in each column is the respective column mean of the data matrix `X`. Hint: `colMeans()` is a quick way to get the means of each column of a matrix.
 
+2. Create the matrix of deviation scores `D` by subtracting `C` from `X`.
 
-2. Use the `cov()` function to show that you calculated the covariance matrix correctly.
+3. Calculate `D'D` (the transpose of `D` times `D`.) Store this calculation in a temporary matrix.
+
+4. What you have now is a matrix of numerators from your variance and covariance formulas (the sum of squares on the principle diagonal and the sum of cross products off the principle diagonal). What do you need to multiple each entry in your matrix by in order to do get a covariance matrix? Hint: the answer is in the formulas.
+
+5. Complete calculating the covariance matrix by multiplying the temporary matrix you calculated in part 3 and the scalar that you identified in part 4.
+
+6. Use the `cov()` function to show that you calculated the covariance matrix correctly.
 
 
