@@ -31,8 +31,8 @@ navbar:
         href: "labs/lab-2.html"
       - text:  "3 - Matrix Algebra"
         href: "labs/lab-3.html"
-      - text:  "4 - Probability Distributions (.Rmd)"
-        href: "labs/lab-4.Rmd"
+      - text:  "4 - Probability Distributions"
+        href: "labs/lab-4_instructor.html"
     - text: Homework
       href: homework.html
     - text: Useful Material

@@ -560,11 +560,35 @@ dbinom(x = 5, size = 5, prob = 1/20)
 pbinom(q = 2, size = 5, prob = 1/20, lower.tail = FALSE)
 ```
 
-3. You begin to cry. Between your sobs you tell her you will only roll if the probability is greater than `.10`. She acquiesces. What number of `6`s or greater is associated with a cumulative probability of `.10` when rolling `5` `20`-sided dice?
+Note that with the default setting of lower.tail=TRUE, you include the specified q value and below. When you set lower.tail=FALSE, you are including only q values above what you specified. So this line of code give you the cumulative probability of of all outputs above (and not including) 2 20's.
+
+3. You begin to cry. Between your sobs you tell her you will only roll if the probability is greater than `.10`. She acquiesces. What number of `20`s or greater is associated with a cumulative probability of `.10` when rolling `5` `20`-sided dice?
+
 
 ```{r}
-qbinom(p = .10, size = 5, prob = 1/20, lower.tail = FALSE) + 1
+qbinom(p = .10, size = 5, prob = 1/20, lower.tail = FALSE) 
 ```
+
+We are drawing from the same distribution, so size and prob should stay the same. In this case we want to find the output (number of times out of 5 you rolled a 20) where the cumulative probability of that output and all outputs above that (because it's ok to go above the minimum needed) is at least .1. As noted above, using lower.tail=FALSE can be kinda tricky because it performs its calculations for above and not including the output value. 
+
+This isn't a concern in this case though because qbinom() essentially "rounds up" (note that since we have lower.tail=FALSE, that by "rounding up" I mean summing up the probability from right to left). In the case of a continuous distribution, there is a continuous change in cumulative probability, but because the binomial distribution is discrete, with each change in outcome, the cumulative probability jumps up. Therefore the output of qbinom() gives you the outcome needed to get at least the specified probability.
+
+To check my work, I added up each of the discrete probabilities using dbinom():
+
+```{r}
+dbinom(5, size = 5, prob = 1/20) + dbinom(4, size = 5, prob = 1/20) + dbinom(3, size = 5, prob = 1/20) + dbinom(2, size = 5, prob = 1/20) 
+#OR
+pbinom(1, size = 5, prob = 1/20, lower.tail = FALSE)
+#The probabilities of 2 and above is .023--insufficient to reach the .1 threshold I set.
+
+dbinom(5, size = 5, prob = 1/20) + dbinom(4, size = 5, prob = 1/20) + dbinom(3, size = 5, prob = 1/20) + dbinom(2, size = 5, prob = 1/20) + dbinom(1, size = 5, prob = 1/20)
+#OR
+pbinom(0, size = 5, prob = 1/20, lower.tail = FALSE)
+#The probabilities of 1 and above is .226, therefore this is the minimum I need.
+```
+
+
+
 
 ## Minihack 2: Normal Distributions
 
@@ -588,6 +612,13 @@ hist(rnorm(n = 50, mean = 5, sd = 1))
 
 ```{r}
 dnorm(x = 10, mean = 5, sd = 1)
+#this is the probability density
+
+#One thing I can do to get a estimate of probability is to consider values between 9.5 and 10.5 to be 10 cups of coffee. I can then calculate the area under the curve for that range through subtraction:
+dnorm(x = 10.5, mean = 5, sd = 1) - dnorm(x = 9.5, mean = 5, sd = 1)
+
+#Still quit small, because we're in the range of outliers, but I think a more meaningful value.
+
 ```
 
 4. Using your large and highly-caffeinated brain, you remember that the probability of any one value in a continuous distribution is `0.00`. Calculate the probability that a graduate student would drink `10 or more` cups of coffee a day.
@@ -601,7 +632,7 @@ pnorm(q = 9, mean = 5, sd = 1, lower.tail = FALSE)
 1. A magician accosts you in the street, and demands you think of a number between `1` and `100`. You think of `37` and the magician guesses `37`. Assuming the choice of numbers follows a uniform distribution, what is the probability that the magician guessed your number at random? Use `dunif()` to prove your intuition is correct.
 
 ```{r}
-dunif(x = 37, min = 0, max = 100)
+dunif(x = 1, min = 0, max = 100)
 ```
 
 2. Shortly after your run in with the magician, an advocate of null hypothesis testing approaches you and demands that you calculate the probability of getting a $\chi^2$-value of greater than `3.00` with `10` degrees of freedom. Use `chisq()` to calculate the probability.
