@@ -24,6 +24,14 @@ homework general
 * B's get degrees 
 * don't say "it's in your best interest to attempt all of them"
 
+homework-1.rmd
+* include description of homework
+* fix "link to data here"
+* 10.1 -- clarify that you make the composite by following the steps in order
+* 10.1 -- after "justify quantitatively" add, "You may suggest additional data collection as part of the jusitification process."
+* 10.2 -- Write "using matrix algebra" at each step?
+* 10.2 -- for Variance/Cov, what do you mean by "these data" (specify variables)
+
 2-validity.html
 * more time with humor example/discussing article (requires curring some lecture material)
 
@@ -61,6 +69,7 @@ lab-3.html
 * more practice with transformation matrices
   * build up from simple to complex
   * if we move matrix algebra to the end of the term and spread content out across two lectures, should be easier to focus on R code
+  * don't name T matrix object "T" but call it "T_mat" or something
 
 6-probability.html
 * 
@@ -69,10 +78,10 @@ lab-3.html
 * fix slide 17 (confusing wording)
 
 8-normal.html
-* move slides about chi sq from sampling to here
+* 
 
 lab-4.html
-* need to explain a deck of cards
+* 
 
 10-nhst.html
 * more on pvalues
@@ -83,10 +92,7 @@ lab-5.html
 * skim tidy data and helper functions, but keep in so people can see them
 
 2-homework.html
-* MIDDLE 50% 
-* clarifiy confidence interval 1-[alpha]
-* summed SQUARED z-scores
-* 20 pt question -- clarify that they should use norm, not t
+
 
 lab-7.html
 * is this worth having?

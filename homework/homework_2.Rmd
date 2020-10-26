@@ -16,7 +16,7 @@ To receive full credit on this homework assignment, you must earn **30 points**.
 
 2. After the homework has been graded, you may retry questions to earn full credit, but you may only retry the questions you attempted on the first round. 
 
-3. The first time you complete this assignment, it must be turned in by 9am on the due date (October 25). Late assignments will receive 50% of the points earned. For example, if you correctly answer questions totaling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points.
+3. The first time you complete this assignment, it must be turned in by 9am on the due date (November 13). Late assignments will receive 50% of the points earned. For example, if you correctly answer questions totaling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points.
 
 4. You may discuss homework assignments with your classmates; however, it is important that you complete each assignment on your own and do not simply copy someone else’s code. If we believe one student has copied another’s work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points.
 
@@ -43,7 +43,7 @@ You draw a sample of 43 cases and calculate the mean to be 102. Determine how pr
 
 ### Question 2
 
-A colleague designs a classroom test, administers it year after year to a very large number of students, claims the distribution is normal, and tells you that 50% of the scores fall between 45 and 67. 
+A colleague designs a classroom test, administers it year after year to a very large number of students, claims the distribution is normal, and tells you that the middle 50% of the scores fall between 45 and 67. 
 
 * What is the mean and standard deviation of this test?
 
@@ -73,25 +73,24 @@ Use the `homework-avengers` to answer the following questions (Note: you may cho
 
 ### Question 1
 
-The probability distribution functions beginning with r (e.g., `rbinom`, `rnorm`, `rchisq`, etc) can be used to simulate drawing from a known distribution many times, if you set the `n` parameter to a large integer, like 10000. Using this method of simulation, demonstrate each of the following:
 
-* The distribution of squared Z-scores is equal to $\chi^2_1$.
+Robert Downey Jr. has been on tour recently bragging that his presence alone brought millions of dollars to Marvel. (Not really, just for the sake of the homework example.) Use the `homework-avengers` dataset to answer the following questions.
 
-* The distribution of summed Z-scores is equal to $\chi^2_N$. (Do this for N = 2, 5, and 10).
+* Do the movies featuring Iron Man (the character played by RDJ) make more money on average than movies that do not feature Iron Man?
 
-For each demonstration, do the following:
-1. Plot a histogram of your simulated data and a density distribution based on a theoretical probability distribution on the same plot.
-2. Show that the mean of your simulated data are approximately equal to the mean of your theoretical probability distribution. 
+* Maybe this is an artifact, driven by the fact that later Marvel movies made more money than earlier ones. If Iron Man appears in more movies per year over time, this would suggest there's a third variable (time) that accounts for this relationship. Create a figure that answers the question: does Iron Man appear in more movies over time? Interpret this figure: Could this explain why RDJ's movies made more?
+
+* RDJ charges a lot of money for his acting services. Maybe we're less interested in the gross and more interested in the profit. Do the movies with Iron Man profit more than movies that don't? Create a figure to represent this, including the mean and 95% confidence intervals around the outcome(s). (Note that budget is reported in millions of dollars and gross is reported in dollars.) Interpret this graph: do movies with Iron Man have greater profit?
 
 ### Question 2
 
-Which avengers character do you believe brings in the most money? Using the `homework-avengers` dataset, create a figure that demonstrates the relationship between budget and worldwide gross earnings. Color the geoms differently if the movie includes the your predicted character. Be sure your graph includes a title and appropriate labels. 
+Which avengers character do you believe brings in the most money? Using the `homework-avengers` dataset, create a figure that demonstrates the relationship between budget and worldwide gross earnings. Use the color aesthetic to indicate whether a movie does or does not contain your character. Be sure your graph includes a title and appropriate labels. 
 
 * Based on this graph, what do you conclude regarding whether movies including this character make more than projected? 
 
 ### Question 3 
 
-Recall from [lab 4](https://uopsych.github.io/psy611/labs/lab-4.html#minihacks) the data released by the Graduate Coffee Drinkers Association (GCDA) that the average graduate student drinks 5 cups of coffee a day and the distribution in the population is 1. You suspect that graduate students at the University of Oregon is unusual, in part because of the number of independent coffee roasters in the state and in part because they have to complete such arduous statistics assignments. You poll 10 of your fellow graduate students and find the average number of cups of coffee consumed is 5.7. 
+Data released by the Graduate Coffee Drinkers Association (GCDA) indicate that the average graduate student drinks 5 cups of coffee a day and the standard deviation of coffee consumption in the population is 1. You suspect that graduate students at the University of Oregon are unusual, in part because of the number of independent coffee roasters in the state and in part because they have to complete such arduous statistics assignments. You poll 10 of your fellow graduate students and find the average number of cups of coffee consumed is 5.7. 
 
 * What must be true of the way you conducted your poll in order for you to use NHST?
 
@@ -105,7 +104,7 @@ Recall from [lab 4](https://uopsych.github.io/psy611/labs/lab-4.html#minihacks) 
 
 * Conduct your statistical test (use a two-tailed test). What is the p-value? What do you conclude?
 
-* Calculate a confidence interval around the population mean. The width of this confidence interval should be 1-[your alpha level]. Does it include your sample mean?
+* Calculate a confidence interval around the population mean. The width of this confidence interval should be correspond to your chosen alpha level (e.g., if you chose an alpha of .01, your confidence interval should be .99).  Does it include your sample mean?
 
 * Calculate a confidence interval around your sample mean. Does it include the population mean?
 
@@ -113,13 +112,15 @@ Recall from [lab 4](https://uopsych.github.io/psy611/labs/lab-4.html#minihacks) 
 
 ### Question 1
 
-Robert Downey Jr. has been on tour recently bragging that his presence alone brought millions of dollars to Marvel. (Not really, just for the sake of the homework example.) Use the `homework-avengers` dataset to answer the following questions.
+The probability distribution functions beginning with r (e.g., `rbinom`, `rnorm`, `rchisq`, etc) can be used to simulate drawing from a known distribution many times, if you set the `n` parameter to a large integer, like 10000. Using this method of simulation, demonstrate each of the following:
 
-* Do the movies featuring Iron Man (the character played by RDJ) make more money on average than movies that do not feature Iron Man?
+* The distribution of squared Z-scores is equal to $\chi^2_1$.
 
-* Maybe this is an artifact, driven by the fact that later Marvel movies made more money than earlier ones. If Iron Man appears in more movies per year over time, this would suggest there's a third variable (time) that accounts for this relationship. Create a figure that answers the question: does Iron Man appear in more movies over time? Interpret this figure: Could this explain why RDJ's movies made more?
+* The distribution of summed squared Z-scores is equal to $\chi^2_N$. (Do this for N = 2, 5, and 10).
 
-* RDJ charges a lot of money for his acting services. Maybe we're less interested in the gross and more interested in the profit. Do the movies with Iron Man profit more than movies that don't? Create a figure to represent this, including the mean and 95% confidence intervals around the outcome(s). (Note that budget is reported in millions of dollars and gross is reported in dollars.) Interpret this graph: do movies with Iron Man have greater profit?
+For each demonstration, do the following:
+1. Plot a histogram of your simulated data and a density distribution based on a theoretical probability distribution on the same plot.
+2. Show that the mean of your simulated data are approximately equal to the mean of your theoretical probability distribution. 
 
 ### Question 2
 
@@ -143,7 +144,7 @@ Use the distribution functions for the Poisson (`dpois`, `ppois`, `qpois` and `r
 
 ### Question 1
 
-You would like to be 99% confident that the mean from a sample falls within K standard deviations of a population mean.
+You would like to be 99% confident that the mean from a sample falls within K standard deviations of a population mean. (Assume you know both the population mean and standard deviation.)
 
 * Construct a graph showing how the magnitude of K changes with sample sizes ranging between 1 and 100.
 

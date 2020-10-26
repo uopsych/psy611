@@ -10,6 +10,11 @@ output:
       countIncrementalSlides: false
 ---
 
+```{r, include = F}
+library(tidyverse)
+```
+
+
 ## Previously
 
 - Null hypothesis significance testing
@@ -39,40 +44,10 @@ Many will describe the current "replication crisis" or "reproducibility crisis" 
 
 But the reality is that NHST has always had its critics. And it's not for lack of eloquence that they have been ignored...
 
----
 
-class:center
-
->"The textbooks are wrong. The teaching is wrong. The seminar you just attended is wrong. The most prestigious journal in your scientific field is wrong." – Ziliak and McCloskey (2008)
-
----
-
-class:center
-
->"... surely the most bone-headedly misguided procedure ever institutionalized in the rote training of science students" – Rozeboom (1997)
-
----
-
-class:center
-
-> "Statistical significance testing retards the growth of scientific knowledge; it never makes a positive contribution" – Schmidt and Hunter (1997)
-
----
-
-class:center
 
 > "What's wrong with [NHST]? Well, among many other things, it does not tell us what we want to know, and we so much want to know what we want to know that, out of desperation, we nevertheless believe that it does!" – Cohen (1994)
 
----
-
-class:center
-> “… an instance of a kind of essential mindlessness in the conduct of research" – Bakan (1966)
-
----
-
-class:center
-
->"… despite the awesome pre-eminence this method has attained in our journals and textbooks of applied statistics, it is based upon a fundamental misunderstanding of the nature of rational inference, and is seldom if ever appropriate to the aims of scientific research" – Rozeboom (1960)
 
 ---
 
@@ -202,7 +177,275 @@ We should recognize now that this inflates Type I error.
 
 ---
 
-The publication of this, following the claim by [Ioannidis (2005)](../readings/Ioannidis_2005.pdf) that as many as half of published findings are false prompted researchers to take a second look at the "knowns" in our literatures. 
+## _p_-curve (2013)
+
+One of the most useful discoveries of the early reform movement was the expected behavior of p-values under different conditions. We refer broadly to these analyses as the _p_-curve, because they describe the distribution of expected _p_-values in different scenarios. 
+
+.small[click [here](http://p-curve.com/) for lots of extra information!]
+
+Let's start with the main two:
+
+1. The null hypothesis is true.
+2. The null hypothesis is false. 
+
+Let's simulate what would happen if we repeated an experiment 10,000 times in a world in which the null hypothesis was true...
+---
+### $H_O$ true $(N = 30, \mu = 0, \sigma = 1)$
+
+```{r simulate h0 true, echo = F, cache = TRUE}
+set.seed(201112)
+# number of simulations
+sims = 10000
+# sample size
+N = 30
+# create empty vector for storing p-values
+p_values = numeric(sims) 
+# loop
+for(i in 1:sims){
+  # draw sample
+  sample = rnorm(n = N, 
+                 mean = 0, 
+                 sd = 1) 
+  sample_mean = mean(sample) 
+  sample_sd = sd(sample)
+  se_mean = sample_sd/sqrt(N)
+  z_stat = (sample_mean-0)/se_mean
+  sample_p = pnorm(q = abs(z_stat), 
+                   lower.tail = F)
+  p_values[i] = sample_p
+}
+```
+
+```{r, echo = F}
+data.frame(sim = 1:sims, p=p_values) %>%
+  ggplot(aes(x = p)) +
+    geom_density(alpha = .4, fill = "grey")+
+    theme_bw(base_size = 16) +
+  labs(x = "p-value", y = "frequency")
+```
+
+---
+### $H_O$ false $(N = 30, \mu = 0.25, \sigma = 1)$
+
+
+```{r , echo = F, cache = TRUE}
+set.seed(201112)
+# create empty vector for storing p-values
+p_values = numeric(sims) 
+# loop
+for(i in 1:sims){
+  # draw sample
+  sample = rnorm(n = N, 
+                 mean = .25, 
+                 sd = 1) 
+  sample_mean = mean(sample) 
+  sample_sd = sd(sample)
+  se_mean = sample_sd/sqrt(N)
+  z_stat = (sample_mean-0)/se_mean
+  sample_p = pnorm(q = abs(z_stat), 
+                   lower.tail = F)
+  p_values[i] = sample_p
+}
+```
+
+```{r, echo = F}
+data.frame(sim = 1:sims, p=p_values) %>%
+  ggplot(aes(x = p)) +
+    geom_density(alpha = .4, fill = "grey")+
+    theme_bw(base_size = 16) +
+  labs(x = "p-value", y = "frequency")
+```
+
+---
+### $H_O$ false $(N = 30, \mu = 0.50, \sigma = 1)$
+
+
+```{r, echo = F, cache = TRUE}
+set.seed(201112)
+# create empty vector for storing p-values
+p_values = numeric(sims) 
+# loop
+for(i in 1:sims){
+  # draw sample
+  sample = rnorm(n = N, 
+                 mean = .50, 
+                 sd = 1) 
+  sample_mean = mean(sample) 
+  sample_sd = sd(sample)
+  se_mean = sample_sd/sqrt(N)
+  z_stat = (sample_mean-0)/se_mean
+  sample_p = pnorm(q = abs(z_stat), 
+                   lower.tail = F)
+  p_values[i] = sample_p
+}
+```
+
+```{r, echo = F}
+data.frame(sim = 1:sims, p=p_values) %>%
+  ggplot(aes(x = p)) +
+    geom_density(alpha = .4, fill = "grey")+
+    theme_bw(base_size = 16) +
+  labs(x = "p-value", y = "frequency")
+```
+
+
+```{r, echo = F, message=F, warning = F}
+data.frame(sim = 1:sims, p=p_values) %>%
+  ggplot(aes(x = p)) +
+    geom_density(alpha = .4, fill = "grey")+
+  scale_x_continuous(limits = c(0, .05)) +
+    theme_bw(base_size = 16) +
+  labs(x = "p-value", y = "frequency")
+```
+
+---
+
+These distributions describe what we expect p-values to look like in the long run when a given hypothesis is true or false. 
+
+But note: what's an important assumption in these simulations?
+
+--
+
+What if experimental studies were **not** independent of one another?
+
+Imagine a research has a good idea. They run an experiment. One of two things happen:
+
+1. They get a significant result. 
+2. They do not get a significant result.
+
+Do they repeat the study? Say the motivated researcher tries again, only if they don't find a significant result, but doesn't try again if the results come out the way they expect. What happens?
+
+---
+### $H_O$ true $(N = 30, \mu = 0, \sigma = 1)$ and non-independence
+
+
+```{r, echo = F, cache = TRUE}
+set.seed(201112)
+# create empty vector for storing p-values
+p_values = numeric(sims) 
+# loop
+for(i in 1:sims){
+  try = 1
+  sample_p = 1
+  # while these statements are true, 
+  # keep going
+  while(sample_p >= .05 & try <= 2){
+    sample = rnorm(n = N, 
+                 mean = 0, 
+                 sd = 1) 
+  sample_mean = mean(sample) 
+  sample_sd = sd(sample)
+  se_mean = sample_sd/sqrt(N)
+  z_stat = (sample_mean-0)/se_mean
+  sample_p = pnorm(q = abs(z_stat), 
+                   lower.tail = F)
+  try = try+1
+  }
+  p_values[i] = sample_p
+}
+```
+
+```{r, echo = F, message=F, warning = F}
+data.frame(sim = 1:sims, p=p_values) %>%
+  ggplot(aes(x = p)) +
+    geom_density(alpha = .4, fill = "grey")+
+  scale_x_continuous(limits = c(0, .1)) +
+    theme_bw(base_size = 16) +
+  labs(x = "p-value", y = "frequency", 
+       title = "One extra try")
+```
+
+
+
+---
+### $H_O$ true $(N = 30, \mu = 0, \sigma = 1)$ and non-independence
+
+
+```{r, echo = F, cache = TRUE}
+set.seed(201112)
+# create empty vector for storing p-values
+p_values = numeric(sims) 
+# loop
+for(i in 1:sims){
+  try = 1
+  sample_p = 1
+  # while these statements are true, 
+  # keep going
+  while(sample_p >= .05 & try <= 3){
+    try = try+1
+    sample = rnorm(n = N, 
+                 mean = 0, 
+                 sd = 1) 
+  sample_mean = mean(sample) 
+  sample_sd = sd(sample)
+  se_mean = sample_sd/sqrt(N)
+  z_stat = (sample_mean-0)/se_mean
+  sample_p = pnorm(q = abs(z_stat), 
+                   lower.tail = F)
+  }
+  p_values[i] = sample_p
+}
+```
+
+```{r, echo = F, message=F, warning = F}
+data.frame(sim = 1:sims, p=p_values) %>%
+  ggplot(aes(x = p)) +
+  geom_density(alpha = .4, fill = "grey")+
+  #scale_x_continuous(limits = c(0, .1)) +
+    theme_bw(base_size = 16) +
+  labs(x = "p-value", y = "frequency", 
+       title = "Two extra tries")
+```
+
+
+---
+
+
+```{r, echo = F, message=F, warning = F, cache = TRUE}
+phack_data = data.frame(sim = 1:sims, p=p_values,
+                        type = "p-hack") 
+
+set.seed(201112)
+# create empty vector for storing p-values
+p_values = numeric(sims) 
+# loop
+for(i in 1:sims){
+  # draw sample
+  sample = rnorm(n = N, 
+                 mean = .25, 
+                 sd = 1) 
+  sample_mean = mean(sample) 
+  sample_sd = sd(sample)
+  se_mean = sample_sd/sqrt(N)
+  z_stat = (sample_mean-0)/se_mean
+  sample_p = pnorm(q = abs(z_stat), 
+                   lower.tail = F)
+  p_values[i] = sample_p
+}
+
+nonp_data = data.frame(sim = 1:sims, p=p_values,
+                       type = "true H1") 
+
+
+full_join(phack_data, nonp_data) %>%
+  ggplot(aes(x = p, fill = type)) +
+    geom_density(alpha = .4) +
+  scale_x_continuous(limits = c(0, .1)) +
+    theme_bw(base_size = 16) +
+  labs(x = "p-value", y = "frequency", 
+       title = "Two extra tries")
+```
+
+---
+
+# _p_-curve
+
+_p_-curve made it clear that if our null hypotheses were indeed false, we would most often see very small _p_-values.
+
+Importantly, this also signalled that literatures (or papers) that contained lots of p-values between .01 and .05 were relatively unlikely, unless there were some fishing expeditions going on. 
+
+---
+The publication of "False Positive Psychology" and the p-curve paper, following the claim by [Ioannidis (2005)](../readings/Ioannidis_2005.pdf) that as many as half of published findings are false prompted researchers to take a second look at the "knowns" in our literatures. 
 
 If we can demonstrate these "known" effects, then we're ok. Our effects are most likely true. 
 

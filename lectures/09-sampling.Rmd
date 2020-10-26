@@ -10,6 +10,20 @@ output:
       countIncrementalSlides: false
 ---
 
+## Lessons from HW1
+
+* Getting data into R is surprisingly hard
+* The console doesn't come with you
+* knit early and often
+
+* # for commenting code, type outside your chunks for responses
+
+* Homework is for learning, not for testing
+
+* Work together
+
+---
+
 To this point, we have assumed that features of the population -- the parameters -- are known.  That is rarely the case.
 
 The major goal that we have in statistical inference is to make confident claims about the population based on a small representation of it, the sample.

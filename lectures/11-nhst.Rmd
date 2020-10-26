@@ -13,6 +13,7 @@ output:
 ```{r, echo = F, results = 'hide', message = F, warning = F}
 library(tidyverse)
 library(pwr)
+library(ggpubr)
 ```
 
 
@@ -647,7 +648,7 @@ data.frame(prob = seq(0,1, by = .01)) %>%
   geom_line() +
   scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
   scale_y_continuous("Positive Predictive Value")+
-  theme_bw(base_size = 20)
+  theme_pubr(base_size = 20)
 ```
 ---
 
@@ -664,7 +665,7 @@ data.frame(prob = seq(0,1, by = .01)) %>%
   scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
   scale_y_continuous("Positive Predictive Value")+
   scale_color_discrete("Power")+
-  theme_bw(base_size = 20)
+  theme_pubr(base_size = 20)
 ```
 
 ---
@@ -687,7 +688,7 @@ data.frame(prob = seq(0,1, by = .01)) %>%
   scale_y_continuous("Positive Predictive Value")+
   scale_color_discrete("Power")+
   scale_linetype_discrete("Alpha") +
-  theme_bw(base_size = 20)
+  theme_pubr(base_size = 20)
 ```
 ---
 
