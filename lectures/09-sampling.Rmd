@@ -16,11 +16,31 @@ output:
 * The console doesn't come with you
 * knit early and often
 
-* # for commenting code, type outside your chunks for responses
+* `#` for commenting code, type outside your chunks for responses
 
 * Homework is for learning, not for testing
 
 * Work together
+
+---
+
+## Last time...
+
+Normal distributions!
+* Follows a specific shape
+* Defined by 2 parameters
+
+Why is the normal distribution useful?
+--
+
+* Area under the curve = 1
+* Law of Total Probability
+* How likely is any range of values?
+
+--
+
+Cool, but can we assume our statistics follow a normal distribution?
+Today... sampling!
 
 ---
 
@@ -37,6 +57,7 @@ Our confidence in the sample as a representation of the population relies on sam
 **Sample**: The particular units from a population on which measures are collected (the data).
 
 **Population**: The complete set of units (e.g., people, countries, etc.) from which a sample is selected.  
+
 **Sampling method**: The procedure used to create a sample.
 
 ---
@@ -580,7 +601,7 @@ data.frame(n = sizes, p = prop, ps = prop_sig) %>%
   geom_hline(aes(yintercept = .95), color = "black") +
   scale_color_discrete("How do you calculate SEM?") +
   labs(x = "Sample size", y = "Proportion of CIs that contain the population mean") +
-  theme(text = element_text(size = 20), legend.position = "bottom")
+  theme(text = element_text(size = 18), legend.position = "bottom")
 
 ```
 
@@ -639,3 +660,5 @@ class:inverse
 ## Next time...
 
 Null Hypothesis Significance Testing
+
+### Please take Quiz 4 on Canvas now!
