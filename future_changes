@@ -7,6 +7,7 @@ GENERAL IDEA:
   * more hands on in lecture
 
 general lab feedback
+* restructure first 3 labs to be "incomplete markdown format"***
 * make the first minihack easy and walk them through it
 * find out what was in the bootcamp and you can skim or gloss that content
 * exercises throughout are good
@@ -78,7 +79,10 @@ lab-3.html
 * fix slide 17 (confusing wording)
 
 8-normal.html
-* 
+* take out t, chi-sq, and F? -- maybe go over quickly? 
+
+9-sampling.html
+* add non-normal distribution example to excel spreadsheet
 
 lab-4.html
 * 

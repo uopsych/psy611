@@ -18,7 +18,9 @@ class: center, middle, inverse, title-slide
 ---
 
 
+Representative sampling is important! Check out [this episode of the FiveThrityEight Politics Podcast](https://fivethirtyeight.com/features/politics-podcast-how-the-media-projects-the-winner-of-an-election/).
 
+---
 
 ## Last time...
 
@@ -168,6 +170,41 @@ print(c(ci_lb_z, ci_ub_z))
 ```
 ---
 
+## Why do we divide by `\(\sqrt{N}\)`
+
+`$$\sigma^2_M = E(\bar{x}^2)-(E(x))^2$$`
+`$$\bar{x}^2 = (\frac{\sum{x}}{N})^2$$`
+
+`$$\bar{x}^2 = \frac{1}{N^2}(x^2_1+x^2_2+\dots+x^2_N+2\sum{x_ix_j})$$`
+`$$E(\bar{x}^2) = \frac{1}{N^2}(E(x^2_1)+E(x^2_2)+\dots+E(x^2_N)+2\sum{E(x_ix_j)})$$`
+`$$\sigma^2_X = E(X^2)-(E(X))^2$$`
+`$$\sigma^2_X = E(X^2)-\mu^2$$`
+`$$\sigma^2_X+\mu^2 = E(X^2)$$`
+---
+
+`$$E(\bar{x}^2) = \frac{1}{N^2}((\sigma^2_X+\mu^2)+(\sigma^2_X+\mu^2)+\dots+(\sigma^2_X+\mu^2)+2\sum{E(x_ix_j)})$$`
+
+
+`$$E(\bar{x}^2) = \frac{1}{N^2}(N(\sigma^2_X+\mu^2)+2\sum{E(x_ix_j)})$$`
+
+`$$E(x_ix_j) = E(x_i)E(x_j) = \mu\mu=\mu^2$$`
+
+`$$E(\bar{x}^2) = \frac{1}{N^2}(N(\sigma^2_X+\mu^2)+2\sum{(\mu^2)})$$`
+`$$E(\bar{x}^2) = \frac{1}{N^2}(N(\sigma^2_X+\mu^2)+2\frac{N(N-1)}{2}\mu^2)$$`
+---
+
+`$$E(\bar{x}^2) = \frac{1}{N^2}(N(\sigma^2_X+\mu^2)+N(N-1)\mu^2)$$`
+`$$E(\bar{x}^2) = \frac{1}{N}(\sigma^2_X+\mu^2+(N-1)\mu^2)$$`
+`$$E(\bar{x}^2) = \frac{1}{N}(\sigma^2_X+N\mu^2)$$`
+`$$E(\bar{x}^2) = \frac{\sigma^2_X}{N}+\mu^2$$`
+---
+`$$\sigma^2_M = E(\bar{x}^2)-(E(x))^2$$`
+`$$E(\bar{x}^2) = \frac{\sigma^2_X}{N}+\mu^2$$`
+
+`$$\sigma^2_M = \frac{\sigma^2_X}{N} + \mu^2-\mu^2$$`
+`$$\sigma^2_M = \frac{\sigma^2_X}{N}$$`
+`$$\sqrt{\sigma^2_M} = \sqrt{\frac{\sigma^2_X}{N}} = \frac{\sigma_X}{\sqrt{N}}$$`
+---
 class: inverse
 
 ## Hypothesis
@@ -529,6 +566,10 @@ The probability that the average female applicant's score would be at least 2.4 
 The probability that the average female applicant's score would be at least 2.4 units away from the average male score is 0.02.
 
 0.02 is our p-value. 
+
+What does this mean?
+
+--
 
 ### A p-value DOES NOT:
 
