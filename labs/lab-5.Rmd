@@ -494,7 +494,7 @@ Answer the questions below using functions from `{dplyr}`.
 ```
 
 
-2. Which is more expensive on average: a diamond that is the worst color and best clarity, or a diamond that is the best color and worst clarity? 
+2. Which is more expensive on average: a diamond that is the worst color but best clarity, or a diamond that is the best color but worst clarity? Note: The best clarity is coded as `IF` and worst clarity is coded as `I1`. The best color is coded as `D` and the worst color is coded as `J`.
 
 ```{r}
 # your code here
