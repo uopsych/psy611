@@ -23,7 +23,7 @@ library(janitor)
 ```
 
 
-You can download an rmarkdown file of today's lab [here](lab-3.Rmd) and a PDF of today's lab [here](lab-5.pdf).
+You can download an rmarkdown file of today's lab [here](lab-5.Rmd) and a PDF of today's lab [here](lab-5.pdf).
 
 # Purpose
 
