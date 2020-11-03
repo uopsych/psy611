@@ -33,6 +33,49 @@ class: center, middle, inverse, title-slide
 
 ---
 
+### Review example
+
+Healthy adults send an average of 32 text messages a day `\((\sigma = 7.3)\)`. I recruit a sample of 16 adults with diagnoses of Generalized Anxiety Disorder. In my sample, the average number of texts sent per day is 33.2. _Does my sample of adults with GAD come from the same population as healthy adults?_
+
+--
+
+**Define hypotheses**
+
+- `\(H_0: \mu_{GAD} = \mu_{healthy}\)` OR `\(H_0: \mu_{GAD} = 32\)`
+- `\(H_1: \mu_{GAD} \neq \mu_{healthy}\)` OR `\(H_0: \mu_{GAD} \neq 32\)`
+
+--
+
+**Choose alpha**
+
+- `\(\alpha = .05\)`
+
+---
+
+### Review example
+
+**Collect data.**
+
+**Define your sampling distribution using your null hypothesis**
+
+- `\(\mu_0 = 32\)`
+- `\(\sigma_M = \frac{\sigma}{\sqrt{N}} = \frac{7.3}{\sqrt{16}} = 1.825\)`
+
+**Calculate the probability of your data or more extreme under the null.**
+
+- `\(Z_{statistic} = \frac{\bar{X} - \mu_0}{\sigma_M} = \frac{33.2 - 32}{1.825} = 0.658\)`
+- `\(p(Z &gt;= 0.658) = 0.255\)`
+- `\(p = 0.511\)`
+
+---
+
+**Compare your probability (p-value) to your `\(\alpha\)` level and decide whether your data are "statistically significant" (reject the null) or not (retain the null).**
+
+--
+
+Our _p_-value is larger than our `\(\alpha\)` level, so we retain the null. 
+---
+
 ### Review
 
 - If we do not reject `\(H_0\)`, that does not mean that we accept it.  We have simply failed to reject it. It lives to fight another day.
@@ -71,9 +114,20 @@ Another common misunderstanding is that `\(1-\alpha\)` is the probability that r
 
 ---
 
-- In most research, the probability that the null hypothesis is true is very small.  If the null hypothesis is false, then the only mistake to be made is a failure to detect a real effect -- a Type II error.
+- In most research, the probability that the null hypothesis is true is very small.  
 
-If-  the null hypothesis is false, then the significance test is akin to a test of whether the sample size was large enough.
+- If the null hypothesis is false, then the only mistake to be made is a failure to detect a real effect.
+
+---
+
+We collect a sample and compare this to a null hypothesis: `\(H_0: \mu_0 = 100\)`. Holding our sample mean `\((\bar{X} = 105)\)` constant, how does our _p_-value change as our sample size gets larger?
+
+![](11-nhst_files/figure-html/unnamed-chunk-2-1.gif)&lt;!-- --&gt;
+
+
+---
+
+- If the null hypothesis is false, then the significance test is akin to a test of whether the sample size was large enough.
 
 - Because Null Hypothesis Significance Testing (NHST) is beginning to seem like a bit of a sham, some have suggested we start calling it Statistical Hypothesis Inference Testing.
 
@@ -216,7 +270,7 @@ What if the null hypothesis is false?  How likely are we to correctly reject the
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
-![](11-nhst_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -241,7 +295,7 @@ null with probability of .28 ( `\(\beta\)` ).
 
 
 .pull-left[
-![](11-nhst_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 Once the critical value and alternative value is established, we can determine the location of the critical value in the alternative distribution.
 ]
@@ -272,7 +326,7 @@ The choice of 110 as the mean of `\(H_1\)` is completely arbirtary. What if we b
 
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
 `$$Z_1 = \frac{107.4 - 115}{\frac{20}{\sqrt{20}}} = -1.71$$`
@@ -295,12 +349,13 @@ What if instead we increase the sample size?  This will reduce variability in th
 
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
-`$$\text{Critical Value} = 100 + 1.645\frac{20}{\sqrt{40}} = 105.2$$`
+`\(\text{CV} = 100 + 1.645\frac{20}{\sqrt{40}} = 105.2\)`
 
-`$$Z_1 = \frac{105.2 - 110}{\frac{20}{\sqrt{40}}} = -1.52$$`
+`\(Z_1 = \frac{105.2 - 110}{\frac{20}{\sqrt{40}}} = -1.52\)`
+
 
 ```r
 1-pnorm(-1.52) 
@@ -322,7 +377,7 @@ What if we decrease the significance level to .025?
 
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
@@ -346,43 +401,43 @@ I strongly recommend playing around with different configurations of `\(N\)`, `\
 
 More generally we can determine the relationship between effect size and power for a constant `\(\alpha\)` (.05) and sample size ( `\(N = 20\)` ).
 
-![](11-nhst_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 ---
 
 Likewise, we can display the relationship between sample size and power for a constant `\(\alpha\)` and effect size.
 
-![](11-nhst_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 ---
 
 Power changes as a function of significance level for a constant effect size and sample size.
 
-![](11-nhst_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
 
 ---
 
 For a two-tailed test, we divide the rejection area equally in the two tails. If `\(\alpha = .05\)`, then each tail contains .025 and critical values will be 1.96 standard errors away from the null mean.
 
-![](11-nhst_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 
 ---
 
 The relationship of power to effect size is more complicated because deviations above and below the null mean are relevant.
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
 
 ---
 
 A two-tailed test is less powerful (more conservative) than a one-tailed test for the same sample size.
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 
 ---
 
-![](11-nhst_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -390,7 +445,7 @@ A two-tailed test is less powerful (more conservative) than a one-tailed test fo
 
 
 .pull-left[
-![](11-nhst_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 
 ]
 .pull-right[
@@ -460,18 +515,18 @@ Note that given publication bias, or the tendancy to only publish significant re
 
 Let's make some assumptions. If psychology studies use `\(\alpha = .05\)` and are good at achieving adequate power ( `\(1-\beta = .80\)` ), how does the choice of hypothesis affect PPV?
 
-![](11-nhst_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 ---
 
 However, there are many reasons to think that psychology studies are underpowered. Typical power may be closer to .5 or even worse. 
 
-![](11-nhst_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 ---
 
 In addition to being under-powered, there's recognition that research practices have inflated family-wise error, making `\(\alpha\)` much bigger than it should be. 
 
-![](11-nhst_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 ---
 
 ![](images/ioannidis.png)
