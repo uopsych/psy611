@@ -18,26 +18,170 @@ class: center, middle, inverse, title-slide
 ---
 
 
+## Annoucements
 
-
-
-## Previously
-
-- Null hypothesis significance testing
-
-- Type I and Type II errors
-
-- Power
+- New breakout groups in lab
+- How's lab going?
+- Catching up on corrections
+- Homework #2 due Next Friday (9am)
 
 ---
 
-### Today...
 
-- What kind of science has NHST produced?
+## Recap
 
-- The replication crisis
+Does switching environments improve memory? On a standard memory task, participants remember 17.7 words (out of 30) `\((\sigma = 3.2)\)` after studying word lists for 9 minutes. You recruit a sample of 8 participants and make them study word lists in the student center. Every 3 minutes, they are required to stand up and move to a different room in the student center. After studying, participants are tested. On average, they remember 19.1 words. 
 
-- What the future holds
+
+
+
+---
+
+.pull-left[
+
+![](12-critiques_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+![](12-critiques_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+]
+
+The probability of getting this sample mean in this sampling distribution is:
+
+
+```r
+pnorm(q = 19.1, mean = 17.7, sd = 1.067, lower.tail = F)*2
+```
+
+```
+## [1] 0.1894898
+```
+
+```r
+pnorm(q = 1.3125, lower.tail = F)*2
+```
+
+```
+## [1] 0.1893515
+```
+
+---
+
+## Recap: Errors
+
+What kind of error could we have just made?
+
+--
+
+How do I assess the probability of errors?
+
+--
+
+Type I error (false positive) is equal to `\(\alpha\)`. You, the researcher, choose the Type I error rate you are comfortable with. 
+
+Type II error (false negative) depends on making a guess about the effect size. This determines the mean of an alternative distribution
+
+---
+
+![](12-critiques_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+---
+
+![](12-critiques_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+---
+
+### How can power be increased?
+
+
+.pull-left[
+
+![](12-critiques_files/figure-html/student null and alt-1.png)&lt;!-- --&gt;
+]
+.pull-right[
+`$$Z_1 = \frac{CV_0 - \mu_1}{\frac{\sigma}{\sqrt{N}}}$$`
+
+- increase `\(\mu_1\)`
+- decrease `\(CV_0\)`
+- increase `\(N\)`
+- reduce `\(\sigma\)`
+]
+
+---
+
+Often the most challenging part of a power analysis is to settle on an effect size.  
+
+- Past research can often provide some guidance, especially if a meta-analysis is available. 
+
+    - Note that these are often over-estimates. 
+
+- Sometimes a field might have standards regarding what counts as a meaningful effect (e.g., minimal clinically important difference).  
+
+- Lacking this information, we can settle for more abstract benchmarks or rules of thumb about what are “small,” “medium”, and “large” effects. 
+    
+    - But as we discussed, these benchmarks need to be contextualized in real-world outcomes.
+
+    - Complicating these choices, effect sizes come in a variety of metrics.
+    
+---
+### Prevalence of false positives
+
+Consider where `\(\alpha\)`, `\(\beta\)` and power fall in this grid. 
+
+
+|             |   Reject `\(H_0\)`   |   Do not reject  |
+|------------:|:----------------:|:----------------:|
+|  `\(H_0\)` True |   Type I Error   | Correct decision |
+| `\(H_0\)` False | Correct decision |   Type II Error  |
+
+---
+### Prevalence of false positives
+
+Consider where `\(\alpha\)`, `\(\beta\)` and power fall in this grid. 
+
+
+|             |   Reject `\(H_0\)`   |   Do not reject  |
+|------------:|:----------------:|:----------------:|
+|  `\(H_0\)` True |   `\(\alpha\)`   | `\(1-\beta\)` |
+| `\(H_0\)` False | `\(1-\alpha\)` |   `\(\beta\)`  |
+
+What is the sum of these cells?
+
+---
+### Prevalence of false positives
+
+Figuring out how common Type I and Type II errors are in a literature requires an additional piece of information:
+
+- How often `\(H_0\)` is true.
+
+[Ioannidis (2005)](../readings/Ioannidis_2005.pdf) demonstrates that given R (the ratio of `\(H_0\)` false over `\(H-0\)` true), we can calculate the **positive predictive value** of a finding, which is the likelihood that `\(H_1\)` is true given we found a significant result:
+
+`$$\frac{(1-\beta)R}{(1-\beta)R+\alpha}$$`
+???
+
+Note that given publication bias, or the tendancy to only publish significant results, PPV can be thought of as the likelihood of a given published study being a false positive.
+
+---
+
+Let's make some assumptions. If psychology studies use `\(\alpha = .05\)` and are good at achieving adequate power ( `\(1-\beta = .80\)` ), how does the choice of hypothesis affect PPV?
+
+![](12-critiques_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+---
+
+However, there are many reasons to think that psychology studies are underpowered. Typical power may be closer to .5 or even worse. 
+
+![](12-critiques_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+---
+
+In addition to being under-powered, there's recognition that research practices have inflated family-wise error, making `\(\alpha\)` much bigger than it should be. 
+
+![](12-critiques_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+---
+
+![](images/ioannidis.png)
+
 
 ---
 ### Critiques of NHST
@@ -200,7 +344,7 @@ Let's simulate what would happen if we repeated an experiment 10,000 times in a 
 
 
 
-![](12-critiques_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+![](12-critiques_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 ---
 ### `\(H_O\)` false `\((N = 30, \mu = 0.25, \sigma = 1)\)`
@@ -208,7 +352,7 @@ Let's simulate what would happen if we repeated an experiment 10,000 times in a 
 
 
 
-![](12-critiques_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](12-critiques_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
 ---
 ### `\(H_O\)` false `\((N = 30, \mu = 0.50, \sigma = 1)\)`
@@ -216,10 +360,13 @@ Let's simulate what would happen if we repeated an experiment 10,000 times in a 
 
 
 
-![](12-critiques_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+![](12-critiques_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 
+---
 
-![](12-critiques_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+### `\(H_O\)` false `\((N = 30, \mu = 0.50, \sigma = 1)\)`
+
+![](12-critiques_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -244,7 +391,7 @@ Do they repeat the study? Say the motivated researcher tries again, only if they
 
 
 
-![](12-critiques_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](12-critiques_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 
 
@@ -254,13 +401,13 @@ Do they repeat the study? Say the motivated researcher tries again, only if they
 
 
 
-![](12-critiques_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](12-critiques_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 
 
 ---
 
 
-![](12-critiques_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](12-critiques_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -317,18 +464,35 @@ The reality is that key elements have been left out:
 
 - and the tests run before and after the ones that were published.
 
+---
+
+Regarding replications, there's an additional methodological challenge to grapple with.
+
+--
+
+**Example:** The original study `\((N = 25)\)` found a significant effect, `\(\bar{X} = 20, 95% CI [5, 35]\)`. The second study `\((N = 40)\)` does not find a significant effect, `\(\bar{X} = 10, 95% CI [-1, 21]\)`. Did the second study replicate the first?
 
 ---
 
-### Calls for change have included:
+There is disagreement about what counts as "replicating the effect." 
+ - Both studies significant?
+ - Significant difference in effect size?
 
-- Effect size estimates and CI but not `\(p\)`
+![](images/anderson_2016_table1.png)
+.small[Anderson &amp; Maxwell [(2016)](../readings/anderson_2016.pdf)]
 
-- Require exact replication attempts as a condition of publication and funding.
+---
 
-- Require pre-registration.
+Ultimately, much of the problems, both pre-2011 and since, have stemmed from an over-reliance on _p_-values ([Anderson, 2019](../readings/anderson_2019.pdf)).
 
-- Publish everything and let meta-analysis sort it out.
+This is a point that bears repeating, early and often:
+
+**Science cannot use a single metric to evaluate the existence or importance of effects and theories.**
+
+- Detectives don't make a case on a single clue.
+- Doctors don't diagnosis illness using a single symptom.
+- You shouldn't rely on a single number either.
+- Plus, we need to stop relying on single studies. 
 
 ---
 
@@ -358,11 +522,6 @@ Failures to replicate are surprising, even troubling. We think of them as unfort
 
 Surprises in science have a long history of playing a key role in scientific progress.   
 
----
-
-What can (or should) failures to replicate tell us? 
-
-&gt; A good laboratory, like a good bank or corporation or government, has to run like a computer. Almost everything is done flawlessly, by the book, and all the numbers add up to the predicted sums. The days go by. And then, if it is a lucky day, and a lucky laboratory, somebody makes a mistake . . . something is obviously screwed up, and then the action can begin. The next step is the crucial one. If the investigator can bring himself to say, "But even so, look at that!" then the new finding, whatever it is, is ready for the snatching. What is needed for progress to be made, is the move based on the error . . . The capacity to leap across mountains of information to land lightly on the wrong side represents the highest of human endowments.	--Lewis Thomas (1974) *The Medusa and the Snail*
 
 ---
 
@@ -370,18 +529,6 @@ A failure to replicate should be viewed as particularly interesting.
 
 &gt; It is time to insist that science does not progress by carefully designed steps called "experiments" each of which has a well-defined beginning and end. Science is a continuous and often disorderly and accidental process. A first principle not formally recognized by scientific methodologists: when you run onto something interesting, drop everything else and study it. --B. F. Skinner (1968) *A case history in scientific method*
 
-
----
-
-&gt;The ability not only to look straight at what you want to see, but also to watch continually, through the corner of your eye, for the unexpected. I believe this to be one of the greatest gifts a scientist can have. Usually, we concentrate so much upon what we intend to examine that other things cannot reach our consciousness, even if they are far more important. This is particularly true of things so different from the commonplace that they seem improbable. Yet, only the improbable is really worthy of our attention! If the unexpected is nevertheless found to be true, the observation usually represents a great step forward. --Hans Selye (1964) *From Dream to Discovery*
-
----
-
-&gt; “The most exciting phrase to hear in science, the one that heralds new discoveries, is not ‘Eureka!’, but ‘That’s funny...” -Isaac Asimov
-
---
-
-&gt; [Science] needs a better word for "error" . . . Or maybe "error" will do after all, when you remember that it came from an old root meaning to wander about, looking for something. -Lewis Thomas
 
 ---
 

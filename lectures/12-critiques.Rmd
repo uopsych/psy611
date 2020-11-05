@@ -10,28 +10,311 @@ output:
       countIncrementalSlides: false
 ---
 
+## Annoucements
+
+- New breakout groups in lab
+- How's lab going?
+- Catching up on corrections
+- Homework #2 due Next Friday (9am)
+
+---
 ```{r, include = F}
 library(tidyverse)
+library(ggpubr)
+```
+
+## Recap
+
+Does switching environments improve memory? On a standard memory task, participants remember 17.7 words (out of 30) $(\sigma = 3.2)$ after studying word lists for 9 minutes. You recruit a sample of 8 participants and make them study word lists in the student center. Every 3 minutes, they are required to stand up and move to a different room in the student center. After studying, participants are tested. On average, they remember 19.1 words. 
+
+```{r, echo = F}
+mu = 17.7
+sigma = 3.2
+n = 9
+xbar = 19.1
+
+sem = sigma/sqrt(n)
+
+cv_pos = mu + 1.96*sem
+cv_neg = mu - 1.96*sem
+
+zstat = (xbar-mu)/sem
 ```
 
 
-## Previously
+---
 
-- Null hypothesis significance testing
+.pull-left[
 
-- Type I and Type II errors
+```{r, echo = F}
+lower_bound = mu-3*sem
+upper_bound = mu+3*sem
 
-- Power
+data.frame(M = c(lower_bound:upper_bound)) %>%
+  ggplot(aes(x = M)) +
+   stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "line") +
+  stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "area", fill = "purple", xlim = c(cv_pos, upper_bound)) +
+  stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "area", fill = "purple", xlim = c(lower_bound, cv_neg)) +
+  geom_vline(aes(xintercept = xbar), color = "red", linetype = "dashed") +
+  scale_x_continuous(breaks = round(c(lower_bound:upper_bound))) + 
+  labs(x = "Mean", y = "density", title = "Sampling distribution in original scale")+
+  theme_pubr()
+```
+]
+
+.pull-right[
+
+```{r, echo = F}
+data.frame(M = c(-3:3)) %>%
+  ggplot(aes(x = M)) +
+   stat_function(fun = function(x) dnorm(x), 
+                 geom = "line") +
+  stat_function(fun = function(x) dnorm(x), 
+                 geom = "area", fill = "purple", xlim = c(1.96, 3)) +
+  stat_function(fun = function(x) dnorm(x), 
+                 geom = "area", fill = "purple", xlim = c(-3, -1.96)) +
+  geom_vline(aes(xintercept = zstat), color = "red", linetype = "dashed") +
+  scale_x_continuous(breaks = c(-3:3)) +
+  labs(x = "Z-statistic", y = "density", title = "Sampling distribution in Z-statistic units")+
+  theme_pubr()
+```
+]
+
+The probability of getting this sample mean in this sampling distribution is:
+
+```{r}
+pnorm(q = 19.1, mean = 17.7, sd = 1.067, lower.tail = F)*2
+
+pnorm(q = 1.3125, lower.tail = F)*2
+```
 
 ---
 
-### Today...
+## Recap: Errors
 
-- What kind of science has NHST produced?
+What kind of error could we have just made?
 
-- The replication crisis
+--
 
-- What the future holds
+How do I assess the probability of errors?
+
+--
+
+Type I error (false positive) is equal to $\alpha$. You, the researcher, choose the Type I error rate you are comfortable with. 
+
+Type II error (false negative) depends on making a guess about the effect size. This determines the mean of an alternative distribution
+
+---
+
+```{r, echo = F}
+data.frame(M = c(lower_bound:(upper_bound+5))) %>%
+  ggplot(aes(x = M)) +
+  stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "line") +
+  stat_function(aes(fill = "Type I error"), fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "area", xlim = c(cv_pos, upper_bound),
+                alpha = .5) +
+  stat_function(aes(fill = "Type I error"), fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "area", xlim = c(lower_bound, cv_neg),
+                alpha = .5) +
+  stat_function(fun = function(x) dnorm(x, mean = mu+3, sd = sem), 
+                 geom = "line") +
+  geom_vline(aes(xintercept = cv_pos, color = "Type I error")) +
+  #scale_x_continuous(breaks = c(14:26), limits = c(14:26)) +
+  guides(color = F) +
+  labs(x = "Mean", y = "density", title = "Sampling distribution in original scale", fill = NULL)+
+  theme_pubr()
+```
+
+---
+
+```{r, echo = F}
+data.frame(M = c(lower_bound:(upper_bound+5))) %>%
+  ggplot(aes(x = M)) +
+   stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "line") +
+  stat_function(aes(fill = "Type II error"), fun = function(x) dnorm(x, mean = mu+3, sd = sem), 
+                 geom = "area", xlim = c(lower_bound, cv_pos),
+                alpha = .5) +
+  stat_function(aes(fill = "Power"), fun = function(x) dnorm(x, mean = mu+3, sd = sem), 
+                 geom = "area", xlim = c(cv_pos, upper_bound+5),
+                alpha = .5) +
+  stat_function(fun = function(x) dnorm(x, mean = mu+3, sd = sem), 
+                 geom = "line") +
+  geom_vline(aes(xintercept = cv_pos, color = "Type I error")) +
+  #scale_x_continuous(breaks = c(14:26), limits = c(14:26)) + 
+  scale_fill_brewer(palette = "Dark2") +
+  guides(color = F) +
+  labs(x = "Mean", y = "density", title = "Sampling distribution in original scale", fill = NULL)+
+  theme_pubr()
+```
+
+---
+
+### How can power be increased?
+
+
+.pull-left[
+
+```{r student null and alt, echo = F}
+data.frame(M = c(lower_bound:(upper_bound+5))) %>%
+  ggplot(aes(x = M)) +
+   stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "line") +
+  stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "line") +
+  stat_function(aes(fill = "Type I error"), fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "area", xlim = c(cv_pos, upper_bound),
+                alpha = .5) +
+  stat_function(aes(fill = "Type I error"), fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "area", xlim = c(lower_bound, cv_neg),
+                alpha = .5) +
+  stat_function(aes(fill = "Type II error"), fun = function(x) dnorm(x, mean = mu+3, sd = sem), 
+                 geom = "area", xlim = c(lower_bound, cv_pos),
+                alpha = .5) +
+  stat_function(aes(fill = "Power"), fun = function(x) dnorm(x, mean = mu+3, sd = sem), 
+                 geom = "area", xlim = c(cv_pos, upper_bound+5),
+                alpha = .5) +
+  stat_function(fun = function(x) dnorm(x, mean = mu+3, sd = sem), 
+                 geom = "line") +
+  geom_vline(aes(xintercept = cv_pos, color = "Type I error")) +
+  #scale_x_continuous(breaks = c(14:26), limits = c(14:26)) + 
+  scale_fill_brewer(palette = "Dark2") +
+  guides(color = F) +
+  labs(x = "Mean", y = "density", title = "Sampling distribution in original scale", fill = NULL)+
+  theme_pubr()
+
+```
+]
+.pull-right[
+$$Z_1 = \frac{CV_0 - \mu_1}{\frac{\sigma}{\sqrt{N}}}$$
+
+- increase $\mu_1$
+- decrease $CV_0$
+- increase $N$
+- reduce $\sigma$
+]
+
+---
+
+Often the most challenging part of a power analysis is to settle on an effect size.  
+
+- Past research can often provide some guidance, especially if a meta-analysis is available. 
+
+    - Note that these are often over-estimates. 
+
+- Sometimes a field might have standards regarding what counts as a meaningful effect (e.g., minimal clinically important difference).  
+
+- Lacking this information, we can settle for more abstract benchmarks or rules of thumb about what are “small,” “medium”, and “large” effects. 
+    
+    - But as we discussed, these benchmarks need to be contextualized in real-world outcomes.
+
+    - Complicating these choices, effect sizes come in a variety of metrics.
+    
+---
+### Prevalence of false positives
+
+Consider where $\alpha$, $\beta$ and power fall in this grid. 
+
+
+|             |   Reject $H_0$   |   Do not reject  |
+|------------:|:----------------:|:----------------:|
+|  $H_0$ True |   Type I Error   | Correct decision |
+| $H_0$ False | Correct decision |   Type II Error  |
+
+---
+### Prevalence of false positives
+
+Consider where $\alpha$, $\beta$ and power fall in this grid. 
+
+
+|             |   Reject $H_0$   |   Do not reject  |
+|------------:|:----------------:|:----------------:|
+|  $H_0$ True |   $\alpha$   | $1-\beta$ |
+| $H_0$ False | $1-\alpha$ |   $\beta$  |
+
+What is the sum of these cells?
+
+---
+### Prevalence of false positives
+
+Figuring out how common Type I and Type II errors are in a literature requires an additional piece of information:
+
+- How often $H_0$ is true.
+
+[Ioannidis (2005)](../readings/Ioannidis_2005.pdf) demonstrates that given R (the ratio of $H_0$ false over $H-0$ true), we can calculate the **positive predictive value** of a finding, which is the likelihood that $H_1$ is true given we found a significant result:
+
+$$\frac{(1-\beta)R}{(1-\beta)R+\alpha}$$
+???
+
+Note that given publication bias, or the tendancy to only publish significant results, PPV can be thought of as the likelihood of a given published study being a false positive.
+
+---
+
+Let's make some assumptions. If psychology studies use $\alpha = .05$ and are good at achieving adequate power ( $1-\beta = .80$ ), how does the choice of hypothesis affect PPV?
+
+```{r, echo = F, message = F, warning = F}
+ppv_fun = function(R, beta = .20, alpha = .05){
+  ppv = ((1-beta)*R)/((1-beta)*R + alpha)
+  return(ppv)
+}
+
+data.frame(prob = seq(0,1, by = .01)) %>%
+  mutate(ratio = prob/(1-prob),
+         ppv = ppv_fun(ratio)) %>%
+  ggplot(aes(x = prob, y = ppv)) +
+  geom_line() +
+  scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
+  scale_y_continuous("Positive Predictive Value")+
+  theme_pubr(base_size = 20)
+```
+---
+
+However, there are many reasons to think that psychology studies are underpowered. Typical power may be closer to .5 or even worse. 
+
+```{r, echo = F, message = F, warning = F}
+data.frame(prob = seq(0,1, by = .01)) %>%
+  mutate(ratio = prob/(1-prob),
+         ppv = ppv_fun(ratio),
+         ppv_low = ppv_fun(ratio, beta = .5)) %>%
+  ggplot(aes(x = prob)) +
+  geom_line(aes(y = ppv, color = ".80")) +
+  geom_line(aes(y = ppv_low, color = ".50")) +
+  scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
+  scale_y_continuous("Positive Predictive Value")+
+  scale_color_discrete("Power")+
+  theme_pubr(base_size = 20)
+```
+
+---
+
+In addition to being under-powered, there's recognition that research practices have inflated family-wise error, making $\alpha$ much bigger than it should be. 
+
+```{r, echo = F, message = F, warning = F}
+data.frame(prob = seq(0,1, by = .01)) %>%
+  mutate(ratio = prob/(1-prob),
+         ppv = ppv_fun(ratio),
+         ppv_low = ppv_fun(ratio, beta = .5),
+         ppv_alp = ppv_fun(ratio, alpha = .20),
+         ppv_low_alp = ppv_fun(ratio, beta = .5, alpha = .20)) %>%
+  ggplot(aes(x = prob)) +
+  geom_line(aes(y = ppv, color = ".80", linetype = ".05")) +
+  geom_line(aes(y = ppv_low, color = ".50", linetype = ".05")) +
+  geom_line(aes(y = ppv_alp, color = ".80", linetype = ".20")) +
+  geom_line(aes(y = ppv_low_alp, color = ".50", linetype = ".20")) +
+  scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
+  scale_y_continuous("Positive Predictive Value")+
+  scale_color_discrete("Power")+
+  scale_linetype_discrete("Alpha") +
+  theme_pubr(base_size = 20)
+```
+---
+
+![](images/ioannidis.png)
+
 
 ---
 ### Critiques of NHST
@@ -288,6 +571,9 @@ data.frame(sim = 1:sims, p=p_values) %>%
   labs(x = "p-value", y = "frequency")
 ```
 
+---
+
+### $H_O$ false $(N = 30, \mu = 0.50, \sigma = 1)$
 
 ```{r, echo = F, message=F, warning = F}
 data.frame(sim = 1:sims, p=p_values) %>%
@@ -391,7 +677,7 @@ for(i in 1:sims){
 data.frame(sim = 1:sims, p=p_values) %>%
   ggplot(aes(x = p)) +
   geom_density(alpha = .4, fill = "grey")+
-  #scale_x_continuous(limits = c(0, .1)) +
+  scale_x_continuous(limits = c(0, .1)) +
     theme_bw(base_size = 16) +
   labs(x = "p-value", y = "frequency", 
        title = "Two extra tries")
@@ -491,18 +777,35 @@ The reality is that key elements have been left out:
 
 - and the tests run before and after the ones that were published.
 
+---
+
+Regarding replications, there's an additional methodological challenge to grapple with.
+
+--
+
+**Example:** The original study $(N = 25)$ found a significant effect, $\bar{X} = 20, 95% CI [5, 35]$. The second study $(N = 40)$ does not find a significant effect, $\bar{X} = 10, 95% CI [-1, 21]$. Did the second study replicate the first?
 
 ---
 
-### Calls for change have included:
+There is disagreement about what counts as "replicating the effect." 
+ - Both studies significant?
+ - Significant difference in effect size?
 
-- Effect size estimates and CI but not $p$
+![](images/anderson_2016_table1.png)
+.small[Anderson & Maxwell [(2016)](../readings/anderson_2016.pdf)]
 
-- Require exact replication attempts as a condition of publication and funding.
+---
 
-- Require pre-registration.
+Ultimately, much of the problems, both pre-2011 and since, have stemmed from an over-reliance on _p_-values ([Anderson, 2019](../readings/anderson_2019.pdf)).
 
-- Publish everything and let meta-analysis sort it out.
+This is a point that bears repeating, early and often:
+
+**Science cannot use a single metric to evaluate the existence or importance of effects and theories.**
+
+- Detectives don't make a case on a single clue.
+- Doctors don't diagnosis illness using a single symptom.
+- You shouldn't rely on a single number either.
+- Plus, we need to stop relying on single studies. 
 
 ---
 
@@ -532,11 +835,6 @@ Failures to replicate are surprising, even troubling. We think of them as unfort
 
 Surprises in science have a long history of playing a key role in scientific progress.   
 
----
-
-What can (or should) failures to replicate tell us? 
-
-> A good laboratory, like a good bank or corporation or government, has to run like a computer. Almost everything is done flawlessly, by the book, and all the numbers add up to the predicted sums. The days go by. And then, if it is a lucky day, and a lucky laboratory, somebody makes a mistake . . . something is obviously screwed up, and then the action can begin. The next step is the crucial one. If the investigator can bring himself to say, "But even so, look at that!" then the new finding, whatever it is, is ready for the snatching. What is needed for progress to be made, is the move based on the error . . . The capacity to leap across mountains of information to land lightly on the wrong side represents the highest of human endowments.	--Lewis Thomas (1974) *The Medusa and the Snail*
 
 ---
 
@@ -544,18 +842,6 @@ A failure to replicate should be viewed as particularly interesting.
 
 > It is time to insist that science does not progress by carefully designed steps called "experiments" each of which has a well-defined beginning and end. Science is a continuous and often disorderly and accidental process. A first principle not formally recognized by scientific methodologists: when you run onto something interesting, drop everything else and study it. --B. F. Skinner (1968) *A case history in scientific method*
 
-
----
-
->The ability not only to look straight at what you want to see, but also to watch continually, through the corner of your eye, for the unexpected. I believe this to be one of the greatest gifts a scientist can have. Usually, we concentrate so much upon what we intend to examine that other things cannot reach our consciousness, even if they are far more important. This is particularly true of things so different from the commonplace that they seem improbable. Yet, only the improbable is really worthy of our attention! If the unexpected is nevertheless found to be true, the observation usually represents a great step forward. --Hans Selye (1964) *From Dream to Discovery*
-
----
-
-> “The most exciting phrase to hear in science, the one that heralds new discoveries, is not ‘Eureka!’, but ‘That’s funny...” -Isaac Asimov
-
---
-
-> [Science] needs a better word for "error" . . . Or maybe "error" will do after all, when you remember that it came from an old root meaning to wander about, looking for something. -Lewis Thomas
 
 ---
 

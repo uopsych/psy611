@@ -12,10 +12,14 @@ general lab feedback
 * find out what was in the bootcamp and you can skim or gloss that content
 * exercises throughout are good
 * try to budget at least 20 minutes for mini-hacks
-* is it possbile to use the learnr package and have students download shiny apps to run on their computer?
+* is it possible to use the learnr package and have students download shiny apps to run on their computer?
 * idea for the future: use learnr package to create labs, bundle these inside a package
 * add in-text R code (reporting sample sizes, means, proper formatting, etc)
 * add recaps at the beginning of lectures
+* talk about folder organization
+* import data files from GitHub for "lecture" part of lab; have students load in different data file for minihacks using working directory
+
+* should we switch probability and dplyr labs?
 
 TA expectations
 * prep labs (minor tweaks), attend lecture, take quizzes and homework assignments (to give feedback on difficulty and time)
@@ -84,16 +88,21 @@ lab-3.html
 9-sampling.html
 * add non-normal distribution example to excel spreadsheet
 
-lab-4.html
-* 
-
 10-nhst.html
-* more on pvalues
-* include figure with p-values bunching up at .05
-* move ratio of signal to noise here
+* "retain" not "fail to reject" the null
+* that funny symbol is captial Pi (this just a tip)
+* good to start with binomial (keep it up!)
+* take out stuff about t-tests?
+
+11-nhst.html
+* online demo good (Kristoffer)
+* change example with N = SD (confusing!)
+
 
 lab-5.html
-* skim tidy data and helper functions, but keep in so people can see them
+* pacing is good on this one! (30-40 min left over)
+* primarily worked off the .Rmd file, not website
+* included download link on the website -- students follow along in the Markdown
 
 2-homework.html
 
@@ -117,11 +126,13 @@ lab-7.html
 
 15-two-means_I.html (now 16)
 * reiterate signal/noise
+* add power
 
 lab-8.html
 * include welch's t-test
 * good to have them walk through the steps
 * had time to go through the mini-hacks
+* add power
 
 17-dependent means.html (now 15)
 * the cohen's d discussion is awkward but healthy. keep it in

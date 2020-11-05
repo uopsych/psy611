@@ -540,7 +540,7 @@ data.frame(alpha = size, power = sapply(size, function(x) pwr_fun(m1 = 100, m2 =
   ggplot(aes(x = alpha, y = power)) +
   geom_line(size = 1.5) +
   scale_x_continuous(expression(alpha)) +
-  ggtitle("Power to detect significant effect by sample size") +
+  ggtitle("Power to detect significant effect by alpha") +
   theme_pubr() +
   theme(text = element_text(size = 20))
 ```

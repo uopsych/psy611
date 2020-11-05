@@ -176,12 +176,12 @@ sem = SD/sqrt(N)
 
 ci_lb_z = M - sem * qnorm(p = .975)
 ci_ub_z = M + sem * qnorm(p = .975)
-print(c(ci_lb_z, ci_ub_z))
+c(ci_lb_z, ci_ub_z)
 
 
 ci_lb_z = M - sem * qt(p = .975, df = N-1)
 ci_ub_z = M + sem * qt(p = .975, df = N-1)
-print(c(ci_lb_z, ci_ub_z))
+c(ci_lb_z, ci_ub_z)
 ```
 
 ---
@@ -201,12 +201,12 @@ sem = SD/sqrt(N)
 
 ci_lb_z = M - sem * qnorm(p = .975)
 ci_ub_z = M + sem * qnorm(p = .975)
-print(c(ci_lb_z, ci_ub_z))
+c(ci_lb_z, ci_ub_z)
 
 
 ci_lb_z = M - sem * qt(p = .975, df = N-1)
 ci_ub_z = M + sem * qt(p = .975, df = N-1)
-print(c(ci_lb_z, ci_ub_z))
+c(ci_lb_z, ci_ub_z)
 ```
 ---
 
