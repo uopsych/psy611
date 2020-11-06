@@ -26,11 +26,11 @@ navbar:
       - text: "9 - Sampling"
         href: "lectures/09-sampling.html"
       - text: "10 - NHST I"
-        href: "lectures/10-nhst.html"        
+        href: "lectures/10-nhst.html"
       - text: "11 - NHST II"
-        href: "lectures/11-nhst.html"        
+        href: "lectures/11-nhst.html"
       - text: "12 - Critiques of NHST"
-        href: "lectures/12-critiques.html"        
+        href: "lectures/12-critiques.html"
     - text: Labs
       menu:
       - text:  "1 - Introduction to R"
@@ -43,6 +43,8 @@ navbar:
         href: "labs/lab-4_instructor.html"
       - text:  "5 - Data Wrangling"
         href: "labs/lab-5.html"
+      - text:  "6 - Data Visualization (.Rmd)"
+        href: "labs/lab-6.Rmd"
     - text: Homework
       href: homework.html
     - text: Useful Material
