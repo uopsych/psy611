@@ -86,6 +86,7 @@ pirates %>%
   ggplot(aes(x = age)) +
     # the geometric elements
     geom_histogram()
+
 ```
 
 Great - it looks like a histogram! ...but it is a bit hard to distinguish between the different bins. We can use the `fill` and `colour` (`color`) arguments inside the `geom_histogram()` function to specify the colour of the inside and outline of the **geometric element**, respectively. We can also include the `alpha` argument to set the opacity (i.e., the lack of transparency) of the **geometric element**. Let's make the inside of the bars `turquoise`, the outline of the bars `black`, and the opacity of the bars `.6` (i.e., 40% transparent).
@@ -192,7 +193,7 @@ pirates %>%
          subtitle = "A ggplot plot",
          x        = "Age",
          y        = "Frequency",
-         caption  = "Data from that `yarrr` package.")
+         caption  = "Data from that `yarrr` package.") 
 ```
 
 Finally, let's see if the age distribution differs by the pirate's `sex`. To do so, we can add `facet_wrap(~sex)`. In short, the plot will be split into different plots based on the groups of the variable included after the tilde (`~`).
@@ -222,94 +223,82 @@ pirates %>%
     facet_grid(~sex)
 ```
 
+Your turn! 1. Plot a histogram of the number of parrots each pirate has 2. Split by whether they wear a headband. 3. Label it appropriately and change the colors to ones that a pirate might like! 
+
+```{r}
+# your code here
+
+```
+
+
 ***
 
 # Categorical by Continuous {#cat}
 
 Cool. But when we are looking at our data, histograms only get us so far. Usually we are interested in the relationship between two or more variables.
 
-Below we've created a canvas with `sex` on the x-axis and `height` on the y-axis.
+Below we've created a canvas with `favorite.pirate` on the x-axis and `height` on the y-axis.
 
 ```{r}
 # the data set
 pirates %>%
   # the canvas
-  ggplot(aes(x = sex, y = height))
+  ggplot(aes(x = favorite.pirate, y = height))
 ```
 
-Even without adding **geometric elements**, we can see that `sex` is on the x-axis and `height` is on the y-axis. Now, let's add bars using `geom_col()` to compare the average height for women, men, and those who identify as some other sex.
+Even without adding **geometric elements**, we can see that `favorite.pirate` is on the x-axis and `height` is on the y-axis. Now, let's use `geom_boxplot()` to compare the height based on pirate preferences
 
 ```{r}
 # the data set
 pirates %>%
   # the canvas
-  ggplot(aes(x = sex, y = height)) +
+  ggplot(aes(x = favorite.pirate, y = height)) +
     # the geometric elements
-    geom_col()
+    geom_boxplot()
 ```
 
-Shoot! It looks like it added up all the heights. We wanted the average. Let's use `group_by()` and `summarize()` to calculate the means of the groups before plotting the values.
+
+
+Now let's update the colours (using `fill` and `colour`), the opacity (using `alpha`), the width of the boxes (using `width`), the theme (using `theme_bw()`), and the labels (using `lab()`).
 
 ```{r}
 # the data set
 pirates %>%
-  # get mean height by sex
-  group_by(sex) %>%
-  summarise(height_avg = mean(height)) %>%
   # the canvas
-  ggplot(aes(x = sex, y = height_avg)) +
+  ggplot(aes(x = favorite.pirate, y = height)) +
     # the geometric elements
-    geom_col()
-```
-
-There we go!
-
-Now let's update the colours (using `fill` and `colour`), the opacity (using `alpha`), the width of the bars (using `width`), the theme (using `theme_bw()`), and the labels (using `lab()`).
-
-```{r}
-# the data set
-pirates %>%
-  # get mean height by sex
-  group_by(sex) %>%
-  summarise(height_avg = mean(height)) %>%
-  # the canvas
-  ggplot(aes(x = sex, y = height_avg)) +
-    # the geometric elements
-    geom_col(fill   = "turquoise",
-             colour = "white",
+    geom_boxplot(fill   = "turquoise",
+             colour = "black",
              alpha  = .7,
              width  = .5) +
     # set theme
     theme_bw() +
     # add labels 
-    labs(title    = "Average height of pirate by pirate sex",
+    labs(title    = "Height by favorite pirate",
          subtitle = "A ggplot plot",
-         x        = "Sex",
+         x        = "favorite pirate",
          y        = "Height (cm)",
          caption  = "Data from that `yarrr` package.")
 ```
 
-Looks much better! Let's also rearrange the columns from shortest to tallest using `reorder(sex, height_avg)`. Here we are saying reorder the levels of the `sex` variable by average height (`height_avg`). *Note.* If we wanted to arrange from tallest to shortest, we would append `-` to the beginning of `height_avg` (i.e., `reorder(sex, -height_avg)`).
+Looks much better! Let's also rearrange the columns from shortest to tallest using `reorder(favorite.pirate, height)`. Here we are saying reorder the levels of the `favorite.pirate` variable by Height (`height`). *Note.* If we wanted to arrange from tallest to shortest, we would append `-` to the beginning of `height` (i.e., `reorder(favorite.pirate, -height)`).
 
 ```{r}
 # the data set
 pirates %>%
-  # get mean height by sex
-  group_by(sex) %>%
-  summarise(height_avg = mean(height)) %>%
   # the canvas
-  ggplot(aes(x = reorder(sex, height_avg), y = height_avg)) +
+  ggplot(aes(x = reorder(favorite.pirate, height), y = height)) +
     # the geometric elements
-    geom_col(fill   = "turquoise",
-             colour = "white",
+    geom_boxplot(fill   = "turquoise",
+             colour = "black",
              alpha  = .7,
              width  = .5) +
     # set theme
     theme_bw() +
     # add labels 
-    labs(title    = "Average height of pirate by pirate sex",
+    labs(title    = "Height by favorite pirate",
          subtitle = "A ggplot plot",
-         x        = "Sex",
+         x        = "Favorite Pirate",
          y        = "Height (cm)",
          caption  = "Data from that `yarrr` package.")
 ```
@@ -319,26 +308,31 @@ Now, let's flip our coordinates so that `x` is shown on the vertical axis and `y
 ```{r}
 # the data set
 pirates %>%
-  # get mean height by sex
-  group_by(sex) %>%
-  summarise(height_avg = mean(height)) %>%
   # the canvas
-  ggplot(aes(x = reorder(sex, height_avg), y = height_avg)) +
+  ggplot(aes(x = reorder(favorite.pirate, height), y = height)) +
     # the geometric elements
-    geom_col(fill   = "turquoise",
-             colour = "white",
+    geom_boxplot(fill   = "turquoise",
+             colour = "black",
              alpha  = .7,
              width  = .5) +
     # set theme
     theme_bw() +
     # add labels 
-    labs(title    = "Average height of pirate by pirate sex",
+    labs(title    = "Height by favorite pirate",
          subtitle = "A ggplot plot",
-         x        = "Sex",
+         x        = "Favorite Pirate",
          y        = "Height (cm)",
          caption  = "Data from that `yarrr` package.") +
     # flip coordinates
     coord_flip()
+```
+
+
+Your Turn! 1. Plot the weight of pirates by their sword type. 2. Order from the highest to lowest weight.  3. Label appropriately. 4. Choose better colors than I did.
+
+```{r}
+# your code here
+
 ```
 
 ***
@@ -390,22 +384,30 @@ pirates %>%
                   se     = FALSE)
 ```
 
-What if we wanted to distinguish the points by the pirates sex? As mentioned before, we can also specify an aesthetic mapping for `colour` (and `fill`). Let's map the point's colours to the pirates' sexes by including `aes(colour = sex))` in the `geom_point()` function.
+What if we wanted to distinguish the points by the pirates sex? As mentioned before, we can also specify an aesthetic mapping for `colour` (and `fill`). Let's map the point's colors to the pirates' sexes by including `aes(colour = sex)` in the `geom_point()` function.
 
 ```{r}
 # the data set
 pirates %>%
   # the canvas
     ggplot(aes(x = height, y = weight)) +
-      # the geometric elements
-      geom_point(aes(colour = sex)) +
+    # the geometric elements
+    geom_point(aes(colour = sex)) +
       geom_smooth(method = "lm", 
                   se     = FALSE)
 ```
 
-The points are different colours, but I was also hoping to get separate lines for each sex. 
+Your turn! 1. The points are different colors now, but there is a lot of overlap, so they are hard to see, let's change the opacity to help make the differences more visible. 2. Another problem is that the line is the same color as "other", fix that too.
+
+```{r}
+# your code here
+```
+
+
+Right now, there is only one regression line. What if I want to look at the relationship between height and weight for each sex?
 
 Only the points are grouped by colour because we only specified `colour = sex` in the aesthetic mapping (`aes()`) of `geom_point()`. We could specify `colour = sex` in both `geom_point()` and `geom_smooth()` to get different coloured points and different coloured lines for each sex *OR* we can specify `colour = sex` inside the `aes()` argument in the `ggplot()` function and `geom_point()` and `geom_smooth()` will inherit the aesthetic mapping. 
+
 
 ```{r}
 # the data set
@@ -413,12 +415,20 @@ pirates %>%
   # the canvas
     ggplot(aes(x = height, y = weight, colour = sex)) +
       # the geometric elements
-      geom_point() +
+      geom_point(alpha = .4) +
       geom_smooth(method = "lm", 
                   se     = FALSE)
 ```
 
-Success! (Well, sort of). I really don't like the colours.
+
+Your turn! These lines are pretty hard to see since they are overlapping. Let's make separate grids to visualize this better.
+
+
+```{r}
+# your code here
+```
+
+Getting better! I really don't like the colors though.
 
 Luckily, `{ggplot2}` has a solution for that: the `scale_` functions. Scale functions start with `scale_` and are followed by the aesthetic mapping you wish to scale (e.g., `x`, `y`, `colour`, `fill`, `size`, `alpha`, `shape`). The final part of the function specifies how you would like to scale the axis. For example, `scale_y_log10()` scales the y-axis to be on a logarithmic scale. 
 
@@ -430,9 +440,11 @@ pirates %>%
   # the canvas
     ggplot(aes(x = height, y = weight, colour = sex)) +
       # the geometric elements
-      geom_point() +
+      geom_point(alpha = .4) +
       geom_smooth(method = "lm", 
                   se     = FALSE) +
+   # split the plot by sex
+    facet_grid(~sex) +
     # manually set colours
     scale_colour_manual(values = c("red", "blue", "green"))
 ```
@@ -447,9 +459,11 @@ pirates %>%
   # the canvas
     ggplot(aes(x = height, y = weight, colour = sex)) +
       # the geometric elements
-      geom_point() +
+      geom_point(alpha = .4) +
       geom_smooth(method = "lm", 
                   se     = FALSE) +
+   # split the plot by sex
+    facet_grid(~sex) +
     # set colour pallete
     scale_colour_brewer(palette = "RdYlBu")
 ```
@@ -462,29 +476,15 @@ pirates %>%
   # the canvas
     ggplot(aes(x = height, y = weight, colour = sex)) +
       # the geometric elements
-      geom_point() +
+      geom_point(alpha = .4) +
       geom_smooth(method = "lm", 
                   se     = FALSE) +
+   # split the plot by sex
+    facet_grid(~sex) +
     # set colour pallete
     scale_colour_viridis_d()
 ```
 
-Much better! But I still can't distinguish between the different lines. Let's  use `facet_wrap()` to produce a separate plot for each sex.
-
-```{r}
-# the data set
-pirates %>%
-  # the canvas
-    ggplot(aes(x = height, y = weight, colour = sex)) +
-      # the geometric elements
-      geom_point() +
-      geom_smooth(method = "lm", 
-                  se     = FALSE) +
-    # set colour pallete
-    scale_colour_viridis_d() +
-    # facet wrap by sex
-    facet_wrap(~sex)
-```
 
 Finally, let's add proper labels (using `labs()`), change the theme (using `theme_bw()`), and drop the redundant legend (using `theme(legend.position = "none")`).
 
@@ -551,7 +551,7 @@ The minihacks all use the `movies` data set from the `{yarrr}` package.
 
 ## Minihack 2: Categorical by Continuous Plots
 
-1. Create a barplot with total revenue (`revenue.all`) on the y-axis and movie genre (`genre`) on the x-axis. (*Hint.* You will want to calculate the mean revenue for each genre before your plot it. You will also want to filter out cases (using`filter()`) that are `NA` for the `genre` variable.
+1. Create box plots with total revenue (`revenue.all`) on the y-axis and movie genre (`genre`) on the x-axis. 
 
 ```{r}
 # your code here
@@ -563,21 +563,40 @@ The minihacks all use the `movies` data set from the `{yarrr}` package.
 # your code here
 ```
 
-3. Flip the coordinates by adding the function `coord_flip()`
+3. Flip the Y and X axis.
 
 ```{r}
 # your code here
 ```
 
-4. Lastly, change the colour of the bars (*Hint.* You will want to use `fill`, not `colour`) and the `width` of the bars.
+
+4. Change the colors of the box plots. 
 
 ```{r}
 # your code here
 ```
 
-## Minihack 3: Continuous by Continuous Plots
+5. Remove the NA and then plot again. (*Hint.* Remember last week? You might want to use filter() and is.na() here.)
 
-1. Use `filter` to remove all rows that have `NA` for release year (`year`), total revenue (`revenue.all`), budget (`budget`), rating (`rating`), and genre (`genre`). Also, remove all rows that have a rating (`rating`) of `"Not Rated"`.
+```{r}
+# your code here
+```
+
+6. Hmmm does this look better as a violin plot? (*Hint.* Check the [cheat sheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf))
+
+```{r}
+# your code here
+```
+
+7. Maybe go back to the box plots, but change the y-axis to be logarithmic. (*Hint.* Check the [cheat sheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) under the scales section)
+
+```{r}
+# your code here
+```
+
+## Minihack 3: Continuous by Continuous plot
+
+1. Use `filter` to remove all rows that have `NA` for release year (`year`), total revenue (`revenue.all`), budget (`budget`), rating (`rating`), and genre (`genre`). Also, remove all rows that have a rating (`rating`) of `"Not Rated"`. 
 
 ```{r}
 # your code here
@@ -589,7 +608,7 @@ The minihacks all use the `movies` data set from the `{yarrr}` package.
 # your code here
 ```
 
-3. Add `geom_point()` and `geom_smooth()` to the plot. Make sure the `geom_smooth()` line is linear and remove standard errors. 
+3. Make a scatter plot with a regression line. Make sure the line is linear and remove standard errors. 
 
 ```{r}
 # your code here
