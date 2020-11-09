@@ -1,136 +1,258 @@
 ---
-title: "Lab 7: Preregistration"
-output: 
-  html_document: 
+title: 'Lab 7: RMarkdown'
+output:
+  html_document:
     theme: cosmo
-    toc: yes
+    toc: true
     toc_depth: 3
-    toc_float: TRUE
+    toc_float: true
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# suppress scientific notation
+options(scipen = 999)
+
+library(ggplot2)
+library(tidyverse)
+library(DT)
+library(dslabs)
+library(tidyverse)
+
+```
+
+You can download an RMarkdown file of today's lab [here](lab-7.Rmd) and a PDF of today's lab [here](lab-7.pdf).
 
 # Purpose
 
-The purpose of today's lab is to walk through how to create a pre-registration on the [Open Science Framework](https://osf.io){target="_blank"}. Rather than serve as a step-by-step tutorial, this page will mostly contain links to other resources on pre-registration and open science that you can use when drafting your own preregistrations, along with a few questions/prompts to guide our discussion. 
+The purpose of today's lab is to get more familiar with RMarkdown. RMarkdown is a file format that allows us to produce reports. You can use RMarkdown to produce html files (as we have been doing), but also word documents, pdfs, slideshows, websites, and more. In 612, we will be using RMarkdown to create APA manuscripts in R. 
 
-*Note:* A lot of the material in this document has been copied (or adapted) from pregistration workshops by Moin Syed (https://osf.io/pm8bh/) and Cassie Brandes (https://osf.io/pm8bh/). 
+For more information about RMarkdown, I would recommend this [cheatsheet](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) and this [book](https://bookdown.org/yihui/rmarkdown/).
 
-***
+# YAML
 
-# Overview of preregistration {.tabset .tabset-fade .tabset-pills}
+The YAML is the header of your RMarkdown file that starts and ends with `---`.  When you open a new RMarkdown file, it will automatically create a default YAML with a title, author, date, and output. You can set the output to which file type you want the report to print out in (`html_document`, `pdf_document`, `word_document`, `ioslides_presentation`, etc.)
 
-## What? 
+```yaml
+---
+title: Lab 7: RMarkdown
+author: Sarah Dimakis
+date: November 13, 2020
+output: 
+  html_document
+---
+```
 
-![](resources/lab7/what_prereg.png)
+For an html document, you can add a table of contents by specifying `toc: true` under the output. If you like how the table of contents is floating like it is on the course website, you can also add `toc_float: true`. Additionally, you can customize your theme, change the width and height of figures for the whole report, number your sections, and so on. For how to do these, refer [here](https://bookdown.org/yihui/rmarkdown/html-document.html).  
 
-## Why?
+```yaml
+---
+title: 'Lab 7: RMarkdown'
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+```
 
-![](resources/lab7/why_prereg.png)
+# Code chunks
 
-## When? 
+You can create a new code chunk with the shortcut `Ctrl + Alt + I`  (or `Cmd + Option + I` if you have a Mac). 
 
-![](resources/lab7/when_prereg.png)
+```{r}
 
-## How?
+```
 
-![](resources/lab7/how_prereg.png)
+## Code chunk options
 
-***
-# Types of preregistration
-
-![](resources/lab7/prereg_variants.png)
-Source: https://osf.io/t4p9g/
-
-***
-
-# Group exercise: "Find the flexibility"
-
-[Click here.](https://mfr.osf.io/render?url=https://osf.io/y8f4c/?action=download%26mode=render){target="blank"}
-
-***
-
-# Components of a pregistration {.tabset .tabset-fade .tabset-pills}
-
-## Background
-
-![](resources/lab7/prereg1.png)
-
-## Method
-![](resources/lab7/prereg2.png)
-
-## Analysis Plan
-![](resources/lab7/prereg3.png)
-
-## Exploratory Analysis
-![](resources/lab7/prereg4.png)
-
-***
-# Example preregistration
-
-[Click here.](https://osf.io/4qut8){target="_blank"}
-
-***
-
-# Walk through OSF
-
-[Link to OSF](https://osf.io){target="_blank"}
-
-[How to create a pre-registration on OSF](https://help.osf.io/hc/en-us/articles/360019738834-Create-a-Preregistration){target="_blank"}
-
-***
-
-# FAQ
-Sources: [OSF Slide Decks](https://osf.io/t4p9g/){target="_blank"}; [Association for Psychological Science](https://www.psychologicalscience.org/observer/research-preregistration-101#.WD_Dz5K5Ll5){target="_blank"}
-
-## 1. What do I need to do when writing up my preregistered study?
-
-* Include a link to your preregistration
-* Report results of *all* pre-registered analyses
-* Any unregistered analyses must be transparent 
-
-See [here](https://mfr.osf.io/render?url=https://osf.io/zwkqj/?action=download%26mode=render){target="_blank"} and [here](https://mfr.osf.io/render?url=https://osf.io/3k7hf/?action=download%26mode=render){target="_blank"} for more resources from the Center for Open Science on what to include when reporting the results of preregistered research.
+Code chunks have the default setting that all code will be evaluated and all code and results of the code will be printed out in your report when you knit it. But you may want to override the defaults. For example, you may want your final report to show **only** your figure but not the code that created the figure. You would edit the code chunk, inside the brackets, like this:
 
 
+````markdown
+`r ''````{r, echo = FALSE}
+````
 
-## 2. What if I need to change my research plan? 
+Here are some more options that I use often.
 
-* If you decide to make changes to your analysis plan *after* looking at your data/results, be sure to still report what you said what you were originally going to do, and you can still report your unplanned analyses, but you must indicate that these were unplanned. 
+|Option          |Purpose                                               | Useful for...|
+|:--------------|:------------------------------------------|:----------------------------------|
+|`eval = FALSE`    |The code chunk will print but is not evaluated     |If you want to showcase sample code|
+|`echo = FALSE`    |The results will print but not the code chunk     | If you want to hide your code |
+|`include = FALSE` | The code chunk is evaluated but nothing is printed| You are loading libraries|
+|`warning = FALSE` | Warning messages will not be displayed|You want to get rid of a warning message in your report but you still want it to print the rest of your results out (if it is not a warning message try `message = FALSE`)|
+|`error = TRUE` | The error message will display in your report instead of in the console | You can use this to knit even when you have an error message|
 
-* If you decide to make changes *before* seeing your data, you can withdraw your original preregistration and create a new plan.
+Refer [here](https://bookdown.org/yihui/rmarkdown/r-code.html) for more options. To change the settings for every code chunk, you can set a global option. For example, if I wanted only the results and no code to print out for my entire report, I would put the code `knitr::opts_chunk$set(echo = FALSE)` in my first code chunk.
 
-## 3. Can't someone "scoop" my ideas?
 
-* Date-stamped preregistrations make your claim verifiable
-* By the time you’ve preregistered, you are ahead of any possible scooper.
-* Embargo your preregistration
+# Tables and tabbed sections  {.tabset .tabset-fade .tabset-pills}
 
-## 4. Isn't it easy to cheat?
+Tabbed sections are a way to organize your html file a little better. In this section, we will also be exploring how to make a table using the `DT` package.
 
-e.g. Making a “preregistration” after conducting the study; Making multiple preregistrations and only citing the one that “worked.”
+## Table 1
 
-* While fairly easy to do, this makes fraud more intentional. Preregistration helps keep you honest to *yourself*
+```{r, echo = FALSE}
+#First, I'm going to create a table of the first 100 rows from the diamonds data set  
+#The table will have 5 rows per page
 
-* Preregistration does not assume dishonesty. HARKing and similar practices that preregistration cures typically are unintentional rather than deliberate. Preregistration helps us remember (and show others) what we actually planned.
+#install.packages("DT")
+head(ggplot2::diamonds, 100) %>% 
+  DT::datatable(options = list(pageLength = 5))
+```
 
-## 5. Isn't preregistration a ton of extra work?
+## Table 2
+```{r, echo = FALSE}
+#This table adds a caption and removes the first row
+DT::datatable(head(ggplot2::diamonds, 100), 
+              caption = "Table 1. This is a dataset about diamonds.",
+              rownames = FALSE,
+              options = list(pageLength = 5))
+```
 
-* Preregistration certainly involves an investment of time "up front", but it can save you time later on when writing your manuscript.
-* Basically, once you have written a preregistration, you will have written most of the methods section. 
-* Sharing your preregistration and study materials openly will make it easier for others (or yourself) to reproduce your work later on. 
+## Table 3
+```{r, echo = FALSE}
+#This table adds a column filter
+head(ggplot2::diamonds, 100) %>% 
+  select(-c(x,y,z)) %>% 
+  DT::datatable(caption = "Table 1. This table has column filters.",
+              filter = 'bottom',
+              rownames = FALSE,
+              options = list(autoWidth = TRUE,
+                             pageLength = 5))
+```
 
-***
 
-# Any questions/concerns?
+## More resources
 
-***
+### The DT package
+>Click [here](https://rstudio.github.io/DT/) for more information about customizing tables with the DT package.
 
-# Resources
+### Summary Tables
+>For summary tables, I recommend the `kable` function from the `knitr` package and functions from the `kableExtra` package. You can find  more resources [here](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html). The knitr::kable function can make very basic tables, and the kableExtra functions can style those tables. Using the kableExtra package, you can highlight rows, add a scroll box, edit column names, insert pictures, figures, or icons into your tables, and so on.
 
-* [Video tutorial](https://www.youtube.com/watch?v=EnKkGO3OM9c&feature=emb_title){target="_blank"} on pre-registration from the Center for Open Science
+# Inline text
 
-* [OSF preregistration templates](https://osf.io/zab38/){target="_blank"}
+Inline text refers to text that is outside of code chunks. I am currently writing in inline text. In order to format the text that you write outside of code chunks, you have to abide by Markdown syntax. For example, you may want to **bold**, *italicize*, or ~~strikethrough~~ a word. You also may want to insert a list, table, headers, link, image, blockquote, or equation. Refer to the RMarkdown [cheatsheet](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) for how to format in Markdown syntax.
 
-* [Preregistration: A Plan, Not a Prison](https://cos.io/blog/preregistration-plan-not-prison/){target="_blank"}
 
-* [Pregistration workshop](https://osf.io/fkt8e/){target="_blank"} (2017) from the Society for Improving Psychological Science (SIPS). Slides [here](https://docs.google.com/presentation/d/1MJ-kqfSzd34iO9dW5saRLHW1xq3n2Tgm_18K4uTvdfY/edit#slide=id.p){target="_blank"}
+## Inline code
 
-* [A whole bunch of resources](https://mfr.osf.io/render?url=https://osf.io/v6mxc/?action=download%26mode=render){target="_blank"} curated by M. Brent Donnellan and Moin Syed
+Sometimes you may want to code outside of a code chunk. The most common reason for this is to report answers in your inline text. For example, let's say you are writing a manuscript in R and you need to report the mean and standard deviation for a variable. You can calculate the mean and standard deviation of the variable in the code chunk, then call the answer in the in-line text. This will reduce human transfer errors. 
+
+```{r}
+#Descriptive stats for diamond price 
+
+m_price <- mean(diamonds$price)
+
+sd_price <- sd(diamonds$price)
+
+range_price_low <- range(diamonds$price)[1]
+
+range_price_high <- range(diamonds$price)[2]
+```
+
+Now, I can call the variables inline, like this: The price of diamonds ranged from `r range_price_low` to `r range_price_high` (*M* = `r m_price`, *SD* = `r sd_price`). 
+
+You can do more than call a variable outside of the code chunks. For example, here is some code that I wrote to make the sentence look a little nicer. I am adding units (dollar signs), commas, and making sure that each number is rounded to two decimal places. When you code outside of the code chunks, the code becomes really difficult to read, so I recommend keeping complicated code inside of the code chunks.
+
+The price of diamonds ranged from \$`r format(as.double(range_price_low), nsmall = 2)` to \$`r format(as.double(range_price_high), nsmall = 2, big.mark = ",")` (*M* = \$`r format(m_price, big.mark = ",", nsmall = 2)`, *SD* = \$`r format(sd_price, big.mark= ",")`). 
+
+
+# Knitting errors
+Knitting errors are particularly frustrating error messages if you thought you were done with your project and the code had worked up to the point of knitting. Plus, the messages can be vague and confusing. Here's our advice:
+
+* Knit early and knit often. If you're working on the homework, it's a good idea to knit at least once after every problem.
+
+* When you get an error, you first want to try to locate where the error is. If you think you found it, you can comment out the entire code chunk by highlighting the code and typing `Ctrl + Shift + C` (or `Cmd + Shift + C` on a Mac), or you can change the code chunk options to `error = TRUE`. You should be able to knit now if the error message is coming from the code chunk that you just disabled. Otherwise, disable more code chunks, one at a time until it knits.
+
+* Once you've established where the error is, you may still not understand why the code isn't working. The most common reasons are...
+  + Your data set wasn't imported properly.
+  + You haven't loaded the proper libraries and you need to add at least one `library()` command.
+  + You are referring to a variable that hasn't been assigned yet. It probably worked before because it was assigned in your global environment, but it needs to be assigned before the line of code in order for it to knit.
+
+# Minihacks
+
+For today's minihacks, you will be using RMarkdown to create your own html file.
+
+1. Open up a new RMarkdown file and erase everything but the YAML. Edit the YAML in the following ways:
+    + Change the title to "Lab 7 Minihacks"
+    + Remove your name and the date
+    + Add a table of contents, numbered sections, and choose a theme. You should be outputting to an html file.  Some html themes you may want to try are `cerulean`, `journal`, `flatly`, `lumen`, `paper`, and `readable`.
+
+2. Create a new code chunk and load the following libraries: `ggplot2 `, `tidyverse`, and `dslabs`. `dslabs` is a package for data science data sets. If you don't have it, then you need to first install it in your console window using the command `install.packages("dslabs")`. 
+    + Change the default chunk option so that the code is evaluated, but neither the code nor any resulting messages will show up in your report.
+
+3. Now, we are going to use the `us_contagious_diseases` data set from the `dslabs` package. It has the yearly counts for seven contagious diseases for the years 1928 - 2011. I have created three data frames and called them `data_1`, `data_2`, and `data_3`. 
+    + Create a new heading called "Tables." 
+    + Under the header, copy and paste the code for the three data frames into your new RMarkdown file.
+    + Edit the code to print each data frame as a table using the `DT` package.
+    + Add a caption to each table, edit the column names, and remove the row numbers. You will need to examine the code closely to figure out which each table represents. 
+    + Change the chunk options so that you can only see the tables (not the code).
+
+
+```{r, message = FALSE}
+data_1 <- dslabs::us_contagious_diseases %>% 
+  group_by(disease) %>% 
+  summarise(sum_count = sum(count)) %>% 
+  as.data.frame()
+```
+
+```{r, message = FALSE}
+data_2 <- dslabs::us_contagious_diseases %>% 
+  filter(disease == "Measles") %>% 
+  group_by(year) %>% 
+  summarise(sum_count = sum(count)) %>% 
+  as.data.frame()
+```
+
+```{r}
+data_3 <- dslabs::us_contagious_diseases %>% 
+  filter(disease == "Measles" & year == "1938") %>%
+  mutate(per_measles = count/population * 100) %>% 
+  select(state, count, population, per_measles) %>% 
+  as.data.frame()
+```
+
+
+4. Copy and paste the code for these three figures into your RMarkdown file. 
+    + Reorganize the figures into a **tabbed** section called "Figures".
+    + Change the default chunk options so that you can only see the figures (no code). 
+    + Use chunk options to change the figure width to 8 inches.
+
+```{r, eval = FALSE}
+data_1 %>% 
+  ggplot(aes(x = disease, y = sum_count)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(x = "Type of disease", y= "Death count") + 
+  coord_flip()
+```
+
+```{r, eval = FALSE}
+data_2 %>% 
+  ggplot(aes(x = year, y = sum_count)) +
+  geom_point() +
+  theme_minimal() +
+  labs(x = "Year", y= "Death count") +
+  geom_vline(xintercept = 1963, color = "red", linetype = "dashed") + 
+  geom_text(x = 1980, y = 600000, label = "Vaccine invented in 1963", 
+            color = "red")
+```
+
+```{r, eval = FALSE}
+#install.packages("maps")
+library(maps)
+data_3 <- data_3 %>% 
+  mutate(region = tolower(state))
+states_map <- map_data("state")
+disease_map <- left_join(states_map, data_3, by = "region")
+ggplot(disease_map, aes(long, lat, group= group)) +
+  geom_polygon(aes(fill = per_measles), color = "white") +
+  labs(fill = "% Measles") +
+  theme_minimal()
+```
+
+5. Using in-line code, answer the following questions:
+    + Which disease had the highest number of infections in the US during this time span? What was the number of infections?
+    + What was the average number of Measles cases per year in the US from 1928 to 2011? Round this number to two decimal places.
