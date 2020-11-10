@@ -27,7 +27,142 @@ Critiques of NHST
 
 - Easily gamed in the pursuit of incentives
   - Recall Goodhart's Law
-  
+
+---
+
+
+# _p_-curve
+
+_p_-curve made it clear that if our null hypotheses were indeed false, we would most often see very small _p_-values.
+
+Importantly, this also signalled that literatures (or papers) that contained lots of p-values between .01 and .05 were relatively unlikely, unless there were some fishing expeditions going on. 
+
+---
+The publication of "False Positive Psychology" and the p-curve paper, following the claim by [Ioannidis (2005)](../readings/Ioannidis_2005.pdf) that as many as half of published findings are false prompted researchers to take a second look at the "knowns" in our literatures. 
+
+If we can demonstrate these "known" effects, then we're ok. Our effects are most likely true. 
+
+--
+
+And if that had happened, we probably wouldn't have two lectures in this class dedicated to problems with NHST and how to address them.
+
+---
+
+## A quick digression...
+
+![](images/replication.png)
+.small[[Condon, Graham, Mroczek, 2018](https://psyarxiv.com/2fn5x/)]
+
+---
+
+The inability to replicate published research has been viewed as especially troubling. 
+
+- This has been a long-standing concern, but the poster child is undoubtedly ["Estimating the reproducibility of psychological science"](../readings/OSC_2015.pdf) by the Open Science Collaboration (Science, 2015, 349, 943).
+
+---
+
+Only 36% of the studies were replicated, despite high power and claimed fidelity of the methods.
+
+![](images/replicability.png)
+
+---
+
+![](images/replicability2.png)
+---
+
+###Why is it so hard to replicate?
+
+- Poor understanding of context necessary to produce most effects
+    - We do not recognize the boundary conditions of effects especially when the limiting conditions are kept constant
+
+- Incomplete communication of the necessary conditions
+    - Akin to reading just the first few ingredients for a recipe and then trying to duplicate the dish.
+
+
+---
+
+###Why is it so hard to replicate?
+
+Sparse communication fosters belief by others that effects are simpler and easier to produce than they really are.
+
+The reality is that key elements have been left out:
+
+- specific methodological or analytic details
+
+- and the tests run before and after the ones that were published.
+
+---
+
+Regarding replications, there's an additional methodological challenge to grapple with.
+
+--
+
+**Example:** 
+
+- The original study $(N = 25)$ found a significant effect, $\bar{X} = 20$ (95% CI [5, 35]). 
+
+- The second study $(N = 40)$ does not find a significant effect, $\bar{X} = 10$ (95% CI [-1, 21]). 
+
+- Did the second study replicate the first?
+
+---
+
+There is disagreement about what counts as "replicating the effect." 
+ - Both studies significant?
+ - Significant difference in effect size?
+
+![](images/anderson_2016_table1.png)
+.small[Anderson & Maxwell [(2016)](../readings/anderson_2016.pdf)]
+
+---
+
+Ultimately, much of the problems, both pre-2011 and since, have stemmed from an over-reliance on _p_-values ([Anderson, 2019](../readings/anderson_2019.pdf)).
+
+This is a point that bears repeating, early and often:
+
+**Science cannot use a single metric to evaluate the existence or importance of effects and theories.**
+
+- Detectives don't make a case on a single clue.
+- Doctors don't diagnosis illness using a single symptom.
+- You shouldn't rely on a single number either.
+- Plus, we need to stop relying on single studies. 
+
+---
+
+## What kind of challenges will need to be addressed?
+
+- Institutionalization of CI and ES but not $p$
+
+- Journals must change their values
+
+- How do we shift media values? Replication is not “sexy.”
+
+- How do we shift academic values? What will be the impact on tenure? How do we re-calibrate “productivity?”  Citation indices?
+
+---
+
+The inability to replicate much work has been viewed as a singular failure of psychology as a science.
+
+- But is that the best way to view it?
+
+As data, the replication crisis, it is potentially quite informative and suggests some importance features of psychology as a science.
+
+At a minimum, it tells us we don’t understand a phenomenon as well as we think we do.  That is hardly a failure of science, unless we don’t take the next steps to resolve our ignorance.
+
+---
+
+Failures to replicate are surprising, even troubling. We think of them as unfortunate occurrences. Bad luck even.  But should they be viewed that way?  
+
+Surprises in science have a long history of playing a key role in scientific progress.   
+
+
+---
+
+A failure to replicate should be viewed as particularly interesting.
+
+> It is time to insist that science does not progress by carefully designed steps called "experiments" each of which has a well-defined beginning and end. Science is a continuous and often disorderly and accidental process. A first principle not formally recognized by scientific methodologists: when you run onto something interesting, drop everything else and study it. --B. F. Skinner (1968) *A case history in scientific method*
+
+
 ---
 
 ## Today...
@@ -125,6 +260,18 @@ Also, [new methods](../readings/Meta-analyses-are-f.pdf) for approaching meta-an
 - New(ish) tools for reducing the file drawer problem 
 - New(ish) tools for limiting _p_-hacking
 - New(ish) tools for limiting publication bias
+
+---
+### Developing norms (not new)
+
+- A _major_ challenge to both reproducibility and robust science is how opaque other peoples' data and analsyes are. 
+
+ - Fix by having standards and developing methods for communicating details.
+
+- Brain Imaging Data Structure (new!) **([BIDS](https://bids.neuroimaging.io/))**
+
+- [codebook](https://cran.r-project.org/web/packages/codebook/index.html) R package
+
 
 ---
 
