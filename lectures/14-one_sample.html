@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>One-sample hypothesis tests</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# One-sample hypothesis tests
+
+---
+
+
+
+
+## What have we been doing?
+
+.pull-left[
+![](images/legos.png)
+]
+
+.pull-right[
+* Motivation for statistics
+* Research methods
+* Descriptive statistics
+* Matrix algebra
+* Probability
+* Sampling
+* NHST
+]
+
+
+---
+
+## Where are we going?
+
+
+.pull-left[
+![](images/lego_hammer.jpg)
+]
+
+.pull-right[
+* Inferential tests
+
+* Different kinds of outcomes
+  * Categorical (today)
+  * Continuous
+
+* Different kinds of research designs
+  * One group
+  * Two groups
+  * 3+ groups (PSY 612)
+  * Relationships (PSY 612)
+]
+
+
+---
+
+## Today...
+
+* The chi-square goodness-of-fit test
+* The chi-square test of independence
+
+---
+
+### Key questions:
+
+* How do we know if category frequencies are consistent with null hypothesis expectations?
+
+* How do we handle categories with very low frequencies?
+
+* How do we compare one sample to a population mean?
+
+---
+
+# What are the steps of NHST?
+
+--
+
+1. Define null and alternative hypothesis.
+
+--
+
+2. Set and justify alpha level.
+
+--
+
+3. Determine which sampling distribution ( `\(z\)`, `\(t\)`, or `\(\chi^2\)` for now)
+
+--
+
+4. Calculate parameters of your sampling distribution under the null.
+  * If `\(z\)`, calculate `\(\mu\)` and `\(\sigma_M\)`
+
+--
+
+5. Calculate test statistic under the null.
+  * If `\(z\)`, `\(\frac{\bar{X} - \mu}{\sigma_M}\)`
+  
+--
+
+6. Calculate probability of that test statistic or more extreme under the null, and compare to alpha.
+
+---
+
+One-sample tests compare your given sample with a "known" population.
+
+* Research question: does this sample come from this population?
+
+**Hypotheses**
+
+`\(H_0\)`: Yes, this sample comes from this population.
+
+`\(H_1\)`: No, this sample comes from a different population. 
+
+---
+
+The [sample data](../data/census_at_school.csv) were obtained from Census at School, a website developed by the American Statistical Association to help students in the 4th through 12th grades understand statistical problem-solving. 
+
+  * The site sponsors a survey that students can complete and a database that students and instructors can use to illustrate principles in quantitative methods.  
+  
+  * The database includes students from all 50 states, from grade levels 4 through 12, both boys and girls,  who have completed the survey dating back to 2010.  
+
+---
+
+We’ll focus on this one:
+
+Which of the following superpowers would you most like to have? Select one.
+
+* Invisibility
+* Telepathy (read minds)
+* Freeze time
+* Super strength
+* Fly
+
+The responses from 200 randomly selected Oregon students were obtained from the Census at School database. 
+
+
+
+---
+
+
+```r
+school %&gt;%
+  group_by(Superpower) %&gt;%
+  summarize(Frequency = n()) %&gt;%
+  mutate(Proportion = Frequency/sum(Frequency)) %&gt;%
+  kable(., format = "html", digits = 2)
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Superpower &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Frequency &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Proportion &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fly &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 42 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.21 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Freeze time &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.29 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Invisibility &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Super strength &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.06 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Telepathy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 57 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.28 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+Descriptively this is interesting.  But, are the responses unusual or atypical in any way?  To answer that question, we need some basis for comparison—a null hypothesis.  One option would be to ask if the Oregon preferences are different compared to students from the general population.
+
+---
+
+class: center
+
+![](14-one_sample_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+---
+
+`\(H_0\)`: Oregon student superpower preferences are similar to the preferences of typical students in the United States.
+
+`\(H_1\)`: Oregon student superpower preferences are different from the preferences of typical students in the United States. 
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Superpower &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; OR Observed Proportion &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; USA Proportion &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fly &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Freeze time &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.25 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Invisibility &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.20 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Super strength &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.06 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.08 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Telepathy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.28 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.24 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+We can set our alpha ( `\(\alpha\)` ) level anywhere we like. Let's stick with .05 for convention's sake.
+
+Now we identify our sampling distribution. We'll use the **chi-square** ( `\(\chi^2\)` ) **distribution** because we're dealing with
+* one-sample, and 
+* a categorical outcome. 
+
+This can be a point of confusion: the way you measure the variable determines whether it is categorical or continuous. We can create summary statistics from categorical variables by counting or calculating proprotions -- but that makes the summary statistics continuous, *not the outcome variable itself*.
+
+---
+
+## Degrees of freedom
+
+The `\(\chi^2\)` distribution is a single-parameter distribution defined by it's degrees of freedom.
+
+In the case of a **goodness-of-fit test** (like this one), the degrees of freedom are `\(\textbf{k-1}\)`, where k is the number of groups.
+
+--
+
+The **Degrees of freedom** are the number of genuinely independent things in a calculation. It's specifically calculated as the number of quantities in a calculation minus the number of constraints. 
+
+What it means in principle is that given a set number of categories (k) and a constraint (the proportions have to add up to 1), I can freely choose numbers for k-1 categories. But for the kth category, there's only one number that will work. 
+
+---
+.left-column[
+.small[
+The degrees of freedom are the number of categories (k) minus 1.  Given that the category frequencies must sum to the total sample size, k-1 category frequencies are free to vary; the last is determined.
+
+]
+]
+
+
+```
+## [1] 9.487729
+```
+
+![](14-one_sample_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+---
+
+## Calculating the `\(\chi^2\)` test statistic
+
+To compare the Oregon observed frequencies to the US data, we need to calculate the frequencies that would have been expected if Oregon was just like all of the other states.
+
+The expected frequencies under this null model can be obtained by taking each preference category proportion from the US data (the null expectation) and multiplying it by the sample size for Oregon:
+
+`$$E_i = P_iN_{OR}$$`
+---
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Superpower &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Observed
+Freq &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Expected Freq &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fly &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 42 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 46.91 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Freeze time &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 58 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50.37 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Invisibility &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 39.51 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Super strength &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 15.80 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Telepathy &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 57 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 47.41 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+Now what?  We need some way to index differences between these frequencies, preferably one that translates easily into a sampling distribution so that we can sensibly determine how rare or unusual the Oregon data are compared to the US (null) distribution.
+
+---
+
+`$$\chi^2_{df = k-1} = \sum^k_{i=1}\frac{(O_i-E_i)^2}{E_i}$$`
+
+The chi-square goodness of fit (GOF) statistic compares observed and expected frequencies.  It is small when the observed frequencies closely match the expected frequencies under the null hypothesis.  The chi-square distribution can be used to determine the particular `\(\chi^2\)` value that corresponds to a rare or unusual profile of observed frequencies.
+
+---
+
+
+```r
+or_observed
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##             42             58             30             13             57
+```
+
+```r
+or_expected
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##       46.91358       50.37037       39.50617       15.80247       47.40741
+```
+
+---
+
+
+```r
+or_observed
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##             42             58             30             13             57
+```
+
+```r
+or_expected
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##       46.91358       50.37037       39.50617       15.80247       47.40741
+```
+
+
+```r
+(chi_square = sum((or_observed - or_expected)^2/or_expected))
+```
+
+```
+## [1] 6.395722
+```
+
+---
+
+
+```r
+or_observed
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##             42             58             30             13             57
+```
+
+```r
+or_expected
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##       46.91358       50.37037       39.50617       15.80247       47.40741
+```
+
+
+```r
+(chi_square = sum((or_observed - or_expected)^2/or_expected))
+```
+
+```
+## [1] 6.395722
+```
+
+```r
+(critical_val = qchisq(p = 0.95, df = length(or_expected)-1))
+```
+
+```
+## [1] 9.487729
+```
+
+---
+
+
+```r
+or_observed
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##             42             58             30             13             57
+```
+
+```r
+or_expected
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##       46.91358       50.37037       39.50617       15.80247       47.40741
+```
+
+
+```r
+(chi_square = sum((or_observed - or_expected)^2/or_expected))
+```
+
+```
+## [1] 6.395722
+```
+
+```r
+(critical_val = qchisq(p = 0.95, df = length(or_expected)-1))
+```
+
+```
+## [1] 9.487729
+```
+
+```r
+(p_val = pchisq(q = chi_square, df = length(or_expected)-1, lower.tail = F))
+```
+
+```
+## [1] 0.1714805
+```
+
+---
+
+.left-column[
+.small[
+The degrees of freedom are the number of categories (k) minus 1.  Given that the category frequencies must sum to the total sample size, k-1 category frequencies are free to vary; the last is determined.
+
+]
+]
+
+![](14-one_sample_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+---
+.left-column[
+.small[
+The degrees of freedom are the number of categories (k) minus 1.  Given that the category frequencies must sum to the total sample size, k-1 category frequencies are free to vary; the last is determined.
+
+]
+]
+
+![](14-one_sample_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+
+---
+
+
+```r
+p.usa
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##     0.23456790     0.25185185     0.19753086     0.07901235     0.23703704
+```
+
+```r
+chisq.test(x = or_observed, p = p.usa)
+```
+
+```
+## 
+## 	Chi-squared test for given probabilities
+## 
+## data:  or_observed
+## X-squared = 6.3957, df = 4, p-value = 0.1715
+```
+
+The Oregon student preferences are not unusual under the null hypothesis (USA preferences). 
+
+Note that the `chisq.test` function takes for x a vector of the counts. In other words, to use this function, you need to calculate the summary statisttic of counts and feed that into the function.
+
+---
+
+
+```r
+c.test = chisq.test(x = or_observed, p = p.usa)
+str(c.test)
+```
+
+```
+## List of 9
+##  $ statistic: Named num 6.4
+##   ..- attr(*, "names")= chr "X-squared"
+##  $ parameter: Named num 4
+##   ..- attr(*, "names")= chr "df"
+##  $ p.value  : num 0.171
+##  $ method   : chr "Chi-squared test for given probabilities"
+##  $ data.name: chr "or_observed"
+##  $ observed : 'table' int [1:5(1d)] 42 58 30 13 57
+##   ..- attr(*, "dimnames")=List of 1
+##   .. ..$ : chr [1:5] "Fly" "Freeze time" "Invisibility" "Super strength" ...
+##  $ expected : 'table' num [1:5(1d)] 46.9 50.4 39.5 15.8 47.4
+##   ..- attr(*, "dimnames")=List of 1
+##   .. ..$ : chr [1:5] "Fly" "Freeze time" "Invisibility" "Super strength" ...
+##  $ residuals: 'table' num [1:5(1d)] -0.717 1.075 -1.512 -0.705 1.393
+##   ..- attr(*, "dimnames")=List of 1
+##   .. ..$ : chr [1:5] "Fly" "Freeze time" "Invisibility" "Super strength" ...
+##  $ stdres   : 'table' num [1:5(1d)] -0.82 1.243 -1.688 -0.735 1.595
+##   ..- attr(*, "dimnames")=List of 1
+##   .. ..$ : chr [1:5] "Fly" "Freeze time" "Invisibility" "Super strength" ...
+##  - attr(*, "class")= chr "htest"
+```
+
+---
+
+
+```r
+c.test$residuals
+```
+
+```
+## 
+##            Fly    Freeze time   Invisibility Super strength      Telepathy 
+##     -0.7173792      1.0750184     -1.5124228     -0.7049825      1.3931982
+```
+
+---
+
+
+```r
+lsr::goodnessOfFitTest(x = as.factor(school$Superpower), p = p.usa)
+```
+
+```
+## 
+##      Chi-square test against specified probabilities
+## 
+## Data variable:   as.factor(school$Superpower) 
+## 
+## Hypotheses: 
+##    null:        true probabilities are as specified
+##    alternative: true probabilities differ from those specified
+## 
+## Descriptives: 
+##                observed freq. expected freq. specified prob.
+## Fly                        42       46.91358      0.23456790
+## Freeze time                58       50.37037      0.25185185
+## Invisibility               30       39.50617      0.19753086
+## Super strength             13       15.80247      0.07901235
+## Telepathy                  57       47.40741      0.23703704
+## 
+## Test results: 
+##    X-squared statistic:  6.396 
+##    degrees of freedom:  4 
+##    p-value:  0.171
+```
+
+(Note that this function, `goodnessOfFitTest`, takes the raw data, not the vector of counts.)
+
+---
+
+What if we had used the equal proportions null hypothesis?
+
+
+```r
+lsr::goodnessOfFitTest(x = as.factor(school$Superpower))
+```
+
+```
+## 
+##      Chi-square test against specified probabilities
+## 
+## Data variable:   as.factor(school$Superpower) 
+## 
+## Hypotheses: 
+##    null:        true probabilities are as specified
+##    alternative: true probabilities differ from those specified
+## 
+## Descriptives: 
+##                observed freq. expected freq. specified prob.
+## Fly                        42             40             0.2
+## Freeze time                58             40             0.2
+## Invisibility               30             40             0.2
+## Super strength             13             40             0.2
+## Telepathy                  57             40             0.2
+## 
+## Test results: 
+##    X-squared statistic:  36.15 
+##    degrees of freedom:  4 
+##    p-value:  &lt;.001
+```
+
+Why might this be a sensible or useful test?
+
+---
+
+## `\(chi^2\)` test of independence
+
+Another common way that categorical data are encountered in research is in a cross-tabulation.  The simplest is a two-way table representing how two categorical variables are related.
+
+The second example data set comes from Goldstein et al. (2012), who followed 413 young participants with bipolar disorder over an average of 5 years to determine the predictors of suicide attempts.  One predictor was whether a first-degree or second-degree relative had ever been diagnosed with depression.
+
+
+.small[Goldstein et al. (2012). Predictors of prospectively examined suicide attempts among youth with bipolar disorder.  *Archives of General Psychiatry, 69*, 1113-1122.
+]
+---
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+ &lt;tr&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2"&gt;Depression&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2"&gt;Suicide&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2"&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;No Attempt&lt;/td&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;Attempt&lt;/td&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Nondepressed&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;70&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;4&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;74&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Depressed&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;267&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;72&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;339&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;"&gt;Total&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;337&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;76&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;413&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;/table&gt;
+
+Descriptively it appears that suicide attempts were more common among participants who had depressed relatives.
+
+The rate of suicide attempts among participants without depressed relatives was (4/74) .054. The rate of suicide attempts among participants with depressed relatives was (72/339) .21.  Seems to be quite different.
+
+---
+
+What is the null hypothesis here?  
+
+--
+
+There are several ways to think about it.  First, we could propose that the rate of suicide attempts is the same for those with depressed relatives and those without depressed relatives.  Second, we could propose that the rate of depressed relatives is the same for those who attempt suicide and those who do not attempt suicide.
+
+Both of these are ways of saying that depression status of relatives is independent of suicide attempt status.
+
+How do we turn that into expected frequencies so that we can use the same basic procedure that we used for the superpower data?
+
+
+---
+First, let’s convert the frequency table to proportions, which can also be viewed as the probabilities of the cells and margin totals.
+
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+ &lt;tr&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2"&gt;Depression&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2"&gt;Suicide&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2"&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;No Attempt&lt;/td&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;Attempt&lt;/td&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Nondepressed&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;70&lt;/span&gt;&lt;br&gt;&lt;span style="color:#993333;"&gt;16.9&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;4&lt;/span&gt;&lt;br&gt;&lt;span style="color:#993333;"&gt;1&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;74&lt;/span&gt;&lt;br&gt;&lt;span style="color:#993333;"&gt;17.9&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Depressed&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;267&lt;/span&gt;&lt;br&gt;&lt;span style="color:#993333;"&gt;64.6&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;72&lt;/span&gt;&lt;br&gt;&lt;span style="color:#993333;"&gt;17.4&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;339&lt;/span&gt;&lt;br&gt;&lt;span style="color:#993333;"&gt;82&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;"&gt;Total&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;337&lt;/span&gt;&lt;br&gt;&lt;span style="color:#993333;"&gt;81.6&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;76&lt;/span&gt;&lt;br&gt;&lt;span style="color:#993333;"&gt;18.4&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;413&lt;/span&gt;&lt;br&gt;&lt;span style="color:#993333;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;/table&gt;
+
+---
+
+If two events are independent, the probability of their joint occurrence is the product of their individual probabilities.
+
+Under null hypothesis, we are assuming the two events (depressed status of relatives, suicide attempt status) are independent.  
+
+To get the expected probability of a joint event under the null hypothesis (a cell in the two-way table), we can take the product of the corresponding row and column probabilities.
+
+`$$P_{rc} = P_{r.}P_{.c}$$`
+
+---
+
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+ &lt;tr&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2"&gt;Depression&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2"&gt;Suicide&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2"&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;No Attempt&lt;/td&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;Attempt&lt;/td&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Nondepressed&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:#993333;"&gt;16.9&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:#993333;"&gt;1&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:#993333;"&gt;17.9&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Depressed&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:#993333;"&gt;64.6&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:#993333;"&gt;17.4&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:#993333;"&gt;82&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;"&gt;Total&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:#993333;"&gt;81.6&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:#993333;"&gt;18.4&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:#993333;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;/table&gt;
+
+.15 = .18(.82) = the expected proportion of the sample that has not attempted suicide and also does not have first-degree or second-degree relatives with depression.
+
+These proportions can, in turn, be transformed to expected frequencies by multiplying by the sample size.
+
+`$$E_{rc} = P_{rc}N$$`
+
+---
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+ &lt;tr&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2"&gt;Depression&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2"&gt;Suicide&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2"&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;No Attempt&lt;/td&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;Attempt&lt;/td&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Nondepressed&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:#339999;"&gt;60&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:#339999;"&gt;14&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:#339999;"&gt;74&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Depressed&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:#339999;"&gt;277&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:#339999;"&gt;62&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:#339999;"&gt;339&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;"&gt;Total&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:#339999;"&gt;337&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:#339999;"&gt;76&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:#339999;"&gt;413&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;/table&gt;
+
+The expected cell frequencies can be obtained from the marginal frequencies as well:
+
+`$$E_{rc} = \frac{O_{r.}O_{.c}}{N}$$`
+---
+
+Once the observed and expected frequencies are determined, the `\(\chi^2\)` statistic is calculated as before:
+
+`$$\chi^2_{df = (r-1)(c-1)} = \sum^r_{i=1}\sum^c_{j=1}\frac{(O_{ij}-E_{ij})^2}{E_{ij}}$$`
+---
+
+
+```r
+cross_tabs = table(suicide$depression, suicide$attempt)
+chisq.test(cross_tabs, correct = F)
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  cross_tabs
+## X-squared = 10.141, df = 1, p-value = 0.00145
+```
+
+The obtained `\(\chi^2\)` is rare under the null hypothesis of no relationship between the two event categories. We can reject the null: Suicide attempts are more common among individuals with relatives who have been diagnosed with depression.
+
+---
+
+The test statistic has a single degree of freedom, determined by (number of rows-1)(number of columns-1).
+
+This might seem odd given that there are 4 cells in the two-way table and by our prior logic that might imply df=4-1=3.
+
+But, we have three constraints on the model:
+ 
+* The cell frequencies must sum to the overall sample size
+
+* The row totals must sum to the overall sample size
+
+* The column totals must sum to the overall sample size 
+
+---
+
+![](14-one_sample_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+
+
+---
+
+The `chisq.test()` function defaults to a correction that reduces the size of the test statistic, making it more conservative.  
+
+
+```r
+cross_tabs = table(suicide$depression, suicide$attempt)
+chisq.test(cross_tabs, correct = F)
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  cross_tabs
+## X-squared = 10.141, df = 1, p-value = 0.00145
+```
+
+
+```r
+chisq.test(cross_tabs)
+```
+
+```
+## 
+## 	Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  cross_tabs
+## X-squared = 9.1142, df = 1, p-value = 0.002536
+```
+
+Next time we will discuss why that correction is necessary. 
+
+
+---
+
+class: inverse
+
+# Next time...
+
+Effect sizes 
+
+one-sample *t*-tests
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,541 @@
+---
+title: 'One-sample hypothesis tests'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, rladies, rladies-fonts, "my-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+--- 
+
+```{r}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+
+```{r, echo = F, results = 'hide', message = F, warning = F}
+library(here)
+library(tidyverse)
+library(psych)
+library(psychTools)
+library(knitr)
+library(kableExtra)
+library(ggpubr)
+```
+
+
+## Today...
+
+* The chi-square goodness-of-fit test
+* One-sample *t*-tests
+
+---
+
+### Key questions:
+
+* How do we know if category frequencies are consistent with null hypothesis expectations?
+
+* How do we handle categories with very low frequencies?
+
+* How do we compare one sample to a population mean?
+
+---
+
+# What are the steps of NHST?
+
+--
+
+1. Define null and alternative hypothesis.
+
+--
+
+2. Set and justify alpha level.
+
+--
+
+3. Determine which sampling distribution ( $z$, $t$, or $\chi^2$ for now)
+
+--
+
+4. Calculate parameters of your sampling distribution under the null.
+  * If $z$, calculate $\mu$ and $\sigma_M$
+
+--
+
+5. Calculate test statistic under the null.
+  * If $z$, $\frac{\bar{X} - \mu}{\sigma_M}$
+  
+--
+
+6. Calculate probability of that test statistic or more extreme under the null, and compare to alpha.
+
+---
+
+One-sample tests compare your given sample with a "known" population.
+
+* Research question: does this sample come from this population?
+
+**Hypotheses**
+
+$H_0$: Yes, this sample comes from this population.
+
+$H_1$: No, this sample comes from a different population. 
+
+---
+
+The [sample data](../data/census_at_school.csv) were obtained from Census at School, a website developed by the American Statistical Association to help students in the 4th through 12th grades understand statistical problem-solving. 
+
+  * The site sponsors a survey that students can complete and a database that students and instructors can use to illustrate principles in quantitative methods.  
+  
+  * The database includes students from all 50 states, from grade levels 4 through 12, both boys and girls,  who have completed the survey dating back to 2010.  
+
+---
+
+We’ll focus on this one:
+
+Which of the following superpowers would you most like to have? Select one.
+
+* Invisibility
+* Telepathy (read minds)
+* Freeze time
+* Super strength
+* Fly
+
+The responses from 200 randomly selected Oregon students were obtained from the Census at School database. 
+
+```{r, echo = F}
+school = read_csv(here("data/census_at_school.csv"))
+school = school %>% filter(!is.na(Superpower))
+```
+
+---
+
+```{r frequency table, results = 'asis'}
+school %>%
+  group_by(Superpower) %>%
+  summarize(Frequency = n()) %>%
+  mutate(Proportion = Frequency/sum(Frequency)) %>%
+  kable(., format = "html", digits = 2)
+```
+
+Descriptively this is interesting.  But, are the responses unusual or atypical in any way?  To answer that question, we need some basis for comparison—a null hypothesis.  One option would be to ask if the Oregon preferences are different compared to students from the general population.
+
+---
+
+class: center
+
+```{r, echo = FALSE, message=FALSE, warning = F}
+school_usa = read_csv(here("data/census_at_school_usa.csv"))
+
+school_usa$Region = "USA"
+school %>%
+  full_join(select(school_usa, Region, Superpower)) %>%
+  filter(!is.na(Superpower)) %>%
+  group_by(Region, Superpower) %>%
+  summarize(Frequency = n()) %>%
+  mutate(Proportion = Frequency/sum(Frequency)) %>%
+  ggplot(aes(x = Superpower, y = Proportion, fill = Region)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  ggtitle("Category Proportion as a \nfunction of Source") +
+  theme_bw(base_size = 20) + theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, vjust = .5))
+```
+
+---
+
+$H_0$: Oregon student superpower preferences are similar to the preferences of typical students in the United States.
+
+$H_1$: Oregon student superpower preferences are different from the preferences of typical students in the United States. 
+
+```{r, echo = F, results = 'asis', message=F}
+school %>%
+  full_join(select(school_usa, Region, Superpower)) %>%
+  mutate(Region = ifelse(Region == "OR", "OR", "USA")) %>%
+  filter(!is.na(Superpower)) %>%
+  group_by(Region, Superpower) %>%
+  summarize(Frequency = n()) %>%
+  mutate(Proportion = Frequency/sum(Frequency)) %>%
+  select(-Frequency) %>%
+  spread(Region, Proportion) %>%
+  kable(., col.names = c("Superpower", "OR Observed Proportion", "USA Proportion"), format = "html", digits = 2)
+```
+
+---
+
+We can set our alpha ( $\alpha$ ) level anywhere we like. Let's stick with .05 for convention's sake.
+
+Now we identify our sampling distribution. We'll use the **chi-square** ( $\chi^2$ ) **distribution** because we're dealing with
+* one-sample, and 
+* a categorical outcome. 
+
+This can be a point of confusion: the way you measure the variable determines whether it is categorical or continuous. We can create summary statistics from categorical variables by counting or calculating proprotions -- but that makes the summary statistics continuous, *not the outcome variable itself*.
+
+---
+
+## Degrees of freedom
+
+The $\chi^2$ distribution is a single-parameter distribution defined by it's degrees of freedom.
+
+In the case of a **goodness-of-fit test** (like this one), the degrees of freedom are $\textbf{k-1}$, where k is the number of groups.
+
+--
+
+The **Degrees of freedom** are the number of genuinely independent things in a calculation. It's specifically calculated as the number of quantities in a calculation minus the number of constraints. 
+
+What it means in principle is that given a set number of categories (k) and a constraint (the proportions have to add up to 1), I can freely choose numbers for k-1 categories. But for the kth category, there's only one number that will work. 
+
+---
+.left-column[
+.small[
+The degrees of freedom are the number of categories (k) minus 1.  Given that the category frequencies must sum to the total sample size, k-1 category frequencies are free to vary; the last is determined.
+
+]
+]
+
+```{r, echo = FALSE}
+(critical_val = qchisq(p = 0.95, df = 5-1))
+
+data.frame(x = seq(0,20)) %>%
+  ggplot(aes(x = x)) +
+  stat_function(fun = function(x) dchisq(x, df = 5-1), geom = "line") +
+  stat_function(fun = function(x) dchisq(x, df = 5-1), geom = "area", fill = "purple", 
+                xlim =c(critical_val, 20)) +
+  geom_vline(aes(xintercept = critical_val), linetype = 2, color = "purple")+
+  geom_text(aes(x = critical_val+2, y = dchisq(critical_val, 5-1) + .05, 
+                label = paste("Critical Value =", round (critical_val,2))), angle = 90)+
+  labs(x = "Chi-Square", y = "Density", title = "Area under the curve") +
+  theme_pubr(base_size = 20)
+```
+
+---
+
+## Calculating the $\chi^2$ test statistic
+
+To compare the Oregon observed frequencies to the US data, we need to calculate the frequencies that would have been expected if Oregon was just like all of the other states.
+
+The expected frequencies under this null model can be obtained by taking each preference category proportion from the US data (the null expectation) and multiplying it by the sample size for Oregon:
+
+$$E_i = P_iN_{OR}$$
+---
+```{r, echo = F}
+usa_freq = table(school_usa$Superpower)
+usa_prop = usa_freq/sum(usa_freq)
+
+school %>%
+  filter(!is.na(Superpower)) %>%
+  group_by(Superpower) %>%
+  summarize(Frequency = n()) %>%
+  mutate(Expected = usa_prop*200,
+         Expected = round(Expected, 2)) %>%
+  kable(., format = "html", digits = 2, align = c("l", "c", "c"),
+        col.names = c("Superpower", "Observed\nFreq", "Expected Freq"))
+```
+
+Now what?  We need some way to index differences between these frequencies, preferably one that translates easily into a sampling distribution so that we can sensibly determine how rare or unusual the Oregon data are compared to the US (null) distribution.
+
+---
+
+$$\chi^2_{df = k-1} = \sum^k_{i=1}\frac{(O_i-E_i)^2}{E_i}$$
+
+The chi-square goodness of fit (GOF) statistic compares observed and expected frequencies.  It is small when the observed frequencies closely match the expected frequencies under the null hypothesis.  The chi-square distribution can be used to determine the particular $\chi^2$ value that corresponds to a rare or unusual profile of observed frequencies.
+
+---
+
+```{r create obs, echo = 3:4}
+or_observed = table(school$Superpower)
+or_expected = (table(school_usa$Superpower)/sum(table(school_usa$Superpower)))*200
+or_observed
+or_expected
+```
+
+---
+
+```{r, ref.label="create obs", echo=3:4}
+
+```
+
+```{r}
+(chi_square = sum((or_observed - or_expected)^2/or_expected))
+```
+
+---
+
+```{r, ref.label="create obs", echo=3:4}
+
+```
+
+```{r, highlight=2}
+(chi_square = sum((or_observed - or_expected)^2/or_expected))
+(critical_val = qchisq(p = 0.95, df = length(or_expected)-1))
+```
+
+---
+
+```{r, ref.label="create obs", echo=3:4}
+
+```
+
+```{r, highlight=2}
+(chi_square = sum((or_observed - or_expected)^2/or_expected))
+(critical_val = qchisq(p = 0.95, df = length(or_expected)-1))
+(p_val = pchisq(q = chi_square, df = length(or_expected)-1, lower.tail = F))
+```
+
+---
+
+.left-column[
+.small[
+The degrees of freedom are the number of categories (k) minus 1.  Given that the category frequencies must sum to the total sample size, k-1 category frequencies are free to vary; the last is determined.
+
+]
+]
+
+```{r, echo = FALSE}
+data.frame(x = seq(0,20)) %>%
+  ggplot(aes(x = x)) +
+  stat_function(fun = function(x) dchisq(x, df = length(or_expected)-1), geom = "line") +
+  stat_function(fun = function(x) dchisq(x, df = length(or_expected)-1), geom = "area", fill = "purple", 
+                xlim =c(critical_val, 20)) +
+  geom_vline(aes(xintercept = critical_val), linetype = 2, color = "purple")+
+    geom_vline(aes(xintercept = chi_square), linetype = 2, color = "black")+
+  geom_text(aes(x = critical_val+2, y = dchisq(critical_val, length(or_expected)-1) + .05, 
+                label = paste("Critical Value =", round (critical_val,2))), angle = 90)+
+    geom_text(aes(x = chi_square+2, y = dchisq(critical_val, length(or_expected)-1) + .05, 
+                label = paste("Test statistic =", round (chi_square,2))), angle = 90)+
+  labs(x = "Chi-Square", y = "Density", title = "Area under the curve") +
+  theme_pubr(base_size = 20)
+```
+
+---
+.left-column[
+.small[
+The degrees of freedom are the number of categories (k) minus 1.  Given that the category frequencies must sum to the total sample size, k-1 category frequencies are free to vary; the last is determined.
+
+]
+]
+
+```{r, echo = FALSE}
+data.frame(x = seq(0,20)) %>%
+  ggplot(aes(x = x)) +
+  stat_function(fun = function(x) dchisq(x, df = length(or_expected)-1), geom = "line") +
+  stat_function(fun = function(x) dchisq(x, df = length(or_expected)-1), geom = "area", fill = "purple", 
+                xlim =c(chi_square, 20)) +
+  geom_vline(aes(xintercept = critical_val), linetype = 2, color = "black")+
+  geom_vline(aes(xintercept = chi_square), linetype = 2, color = "purple")+
+  geom_text(aes(x = critical_val+2, y = dchisq(critical_val, length(or_expected)-1) + .05, 
+                label = paste("Critical Value =", round (critical_val,2))), angle = 90)+
+  geom_text(aes(x = chi_square+2, y = dchisq(critical_val, length(or_expected)-1) + .05, 
+                label = paste("Test statistic =", round (chi_square,2))), angle = 90)+
+  labs(x = "Chi-Square", y = "Density", title = "Area under the curve") +
+  theme_pubr(base_size = 20)
+```
+
+---
+
+```{r, echo = 2:3}
+p.usa = (table(school_usa$Superpower)/sum(table(school_usa$Superpower)))
+p.usa
+chisq.test(x = or_observed, p = p.usa)
+```
+
+The Oregon student preferences are not unusual under the null hypothesis (USA preferences). 
+
+Note that the `chisq.test` function takes for x a vector of the counts. In other words, to use this function, you need to calculate the summary statisttic of counts and feed that into the function.
+
+---
+
+```{r}
+c.test = chisq.test(x = or_observed, p = p.usa)
+str(c.test)
+```
+
+---
+
+```{r}
+c.test$residuals
+```
+
+---
+
+```{r, echo = 2}
+p.usa = as.data.frame(p.usa)[,"Freq"]
+lsr::goodnessOfFitTest(x = as.factor(school$Superpower), p = p.usa)
+```
+
+(Note that this function, `goodnessOfFitTest`, takes the raw data, not the vector of counts.)
+
+---
+
+What if we had used the equal proportions null hypothesis?
+
+```{r}
+lsr::goodnessOfFitTest(x = as.factor(school$Superpower))
+```
+
+Why might this be a sensible or useful test?
+
+---
+
+Another common way that categorical data are encountered in research is in a cross-tabulation.  The simplest is a two-way table representing how two categorical variables are related.
+
+The second example data set comes from Goldstein et al. (2012), who followed 413 young participants with bipolar disorder over an average of 5 years to determine the predictors of suicide attempts.  One predictor was whether a first-degree or second-degree relative had ever been diagnosed with depression.
+
+
+.small[Goldstein et al. (2012). Predictors of prospectively examined suicide attempts among youth with bipolar disorder.  *Archives of General Psychiatry, 69*, 1113-1122.
+]
+---
+```{r, echo = F, results = 'asis'}
+suicide = read.csv(here("data/suicide_depression.csv"))
+suicide = suicide %>%
+  mutate(Depression = factor(depression, 
+                             levels = c("no", "yes"), 
+                             labels = c("Nondepressed", "Depressed"))) %>%
+  mutate(Suicide = factor(attempt, 
+                             levels = c("no", "yes"), 
+                             labels = c("No Attempt", "Attempt"))) 
+
+cross = sjPlot::tab_xtab(var.row = suicide$Depression, 
+                 var.col = suicide$Suicide, show.summary = F)
+cross
+```
+
+Descriptively it appears that suicide attempts were more common among participants who had depressed relatives.
+
+The rate of suicide attempts among participants without depressed relatives was (4/74) .054. The rate of suicide attempts among participants with depressed relatives was (72/339) .21.  Seems to be quite different.
+
+---
+
+What is the null hypothesis here?  
+
+--
+
+There are several ways to think about it.  First, we could propose that the rate of suicide attempts is the same for those with depressed relatives and those without depressed relatives.  Second, we could propose that the rate of depressed relatives is the same for those who attempt suicide and those who do not attempt suicide.
+
+Both of these are ways of saying that depression status of relatives is independent of suicide attempt status.
+
+How do we turn that into expected frequencies so that we can use the same basic procedure that we used for the superpower data?
+
+
+---
+First, let’s convert the frequency table to proportions, which can also be viewed as the probabilities of the cells and margin totals.
+
+```{r, echo = F}
+cross = sjPlot::tab_xtab(var.row = suicide$Depression, 
+                 var.col = suicide$Suicide, show.cell.prc = T,
+                 show.summary = F)
+cross
+```
+
+---
+
+If two events are independent, the probability of their joint occurrence is the product of their individual probabilities.
+
+Under null hypothesis, we are assuming the two events (depressed status of relatives, suicide attempt status) are independent.  
+
+To get the expected probability of a joint event under the null hypothesis (a cell in the two-way table), we can take the product of the corresponding row and column probabilities.
+
+$$P_{rc} = P_{r.}P_{.c}$$
+
+---
+
+```{r, echo = F}
+cross = sjPlot::tab_xtab(var.row = suicide$Depression, 
+                 var.col = suicide$Suicide,
+                 show.cell.prc = T,
+                 show.obs = F, 
+                 show.summary = F)
+cross
+```
+
+.15 = .18(.82) = the expected proportion of the sample that has not attempted suicide and also does not have first-degree or second-degree relatives with depression.
+
+These proportions can, in turn, be transformed to expected frequencies by multiplying by the sample size.
+
+$$E_{rc} = P_{rc}N$$
+
+---
+```{r, echo = F}
+cross = sjPlot::tab_xtab(var.row = suicide$Depression, 
+                 var.col = suicide$Suicide,
+                 show.exp = T,
+                 show.obs = F, 
+                 show.summary = F)
+cross
+```
+
+The expected cell frequencies can be obtained from the marginal frequencies as well:
+
+$$E_{rc} = \frac{O_{r.}O_{.c}}{N}$$
+---
+
+Once the observed and expected frequencies are determined, the $\chi^2$ statistic is calculated as before:
+
+$$\chi^2_{df = (r-1)(c-1)} = \sum^r_{i=1}\sum^c_{j=1}\frac{(O_{ij}-E_{ij})^2}{E_{ij}}$$
+---
+
+```{r}
+cross_tabs = table(suicide$depression, suicide$attempt)
+chisq.test(cross_tabs, correct = F)
+```
+
+The obtained $\chi^2$ is rare under the null hypothesis of no relationship between the two event categories. We can reject the null: Suicide attempts are more common among individuals with relatives who have been diagnosed with depression.
+
+---
+
+The test statistic has a single degree of freedom, determined by (number of rows-1)(number of columns-1).
+
+This might seem odd given that there are 4 cells in the two-way table and by our prior logic that might imply df=4-1=3.
+
+But, we have three constraints on the model:
+ 
+* The cell frequencies must sum to the overall sample size
+
+* The row totals must sum to the overall sample size
+
+* The column totals must sum to the overall sample size 
+
+---
+
+```{r, echo = FALSE}
+critical_val = 3.84
+chi_square = chisq.test(cross_tabs, correct = F)$statistic
+data.frame(x = seq(0,10)) %>%
+  ggplot(aes(x = x)) +
+  stat_function(fun = function(x) dchisq(x, df = 1), geom = "line") +
+  stat_function(fun = function(x) dchisq(x, df = 1), geom = "area", fill = "purple", 
+                xlim =c(critical_val, 10)) +
+  geom_vline(aes(xintercept = critical_val), linetype = 2, color = "purple")+
+    geom_vline(aes(xintercept = chi_square), linetype = 2, color = "black")+
+  geom_text(aes(x = critical_val+2, y = dchisq(critical_val, 1) + .5, 
+                label = paste("Critical Value =", round (critical_val,2))), angle = 90)+
+    geom_text(aes(x = chi_square+2, y = dchisq(critical_val, 1) + .5, 
+                label = paste("Test statistic =", round (chi_square,2))), angle = 90)+
+  labs(x = "Chi-Square", y = "Density", title = "Area under the curve") +
+  theme_pubr(base_size = 20)
+```
+
+
+---
+
+The `chisq.test()` function defaults to a correction that reduces the size of the test statistic, making it more conservative.  
+
+```{r}
+cross_tabs = table(suicide$depression, suicide$attempt)
+chisq.test(cross_tabs, correct = F)
+```
+
+```{r}
+chisq.test(cross_tabs)
+```
+
+Next time we will discuss why that correction is necessary. 
+
+
+---
+
+# Next time...
+
+Effect sizes for $\chi^2$
+
+One-sample *t*-tests
