@@ -156,6 +156,12 @@ Now, I can call the variables inline, like this: The price of diamonds ranged fr
 
 You can do more than call a variable outside of the code chunks. For example, here is some code that I wrote to make the sentence look a little nicer. I am adding units (dollar signs), commas, and making sure that each number is rounded to two decimal places. When you code outside of the code chunks, the code becomes really difficult to read, so I recommend keeping complicated code inside of the code chunks.
 
+```{r, echo = F, eval = F}
+format(                       # this function makes numbers pretty for printing
+  as.double(range_price_low), 
+  nsmall = 2)
+```
+
 The price of diamonds ranged from \$`r format(as.double(range_price_low), nsmall = 2)` to \$`r format(as.double(range_price_high), nsmall = 2, big.mark = ",")` (*M* = \$`r format(m_price, big.mark = ",", nsmall = 2)`, *SD* = \$`r format(sd_price, big.mark= ",")`). 
 
 
