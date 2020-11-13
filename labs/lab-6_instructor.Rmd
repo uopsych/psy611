@@ -222,7 +222,7 @@ pirates %>%
     facet_grid(~sex)
 ```
 
-Your turn! Plot a histogram of the number of parrots each pirate has, split by whether they wear a headband. Label it appropriately and change the colors to ones that a pirate might like! I've started the code below, fill in the '?'
+Your turn! 1. Plot a histogram of the number of parrots each pirate has 2. Split by whether they wear a headband. 3. Label it appropriately and change the colors to ones that a pirate might like! 
 
 ```{r}
 # the data set
@@ -274,12 +274,12 @@ pirates %>%
   # the canvas
   ggplot(aes(x = favorite.pirate, y = height)) +
     # the geometric elements
-    geom_boxplot()
+    geom_violin()
 ```
 
 
 
-Now let's update the colours (using `fill` and `colour`), the opacity (using `alpha`), the width of the bars (using `width`), the theme (using `theme_bw()`), and the labels (using `lab()`).
+Now let's update the colours (using `fill` and `colour`), the opacity (using `alpha`), the width of the boxes (using `width`), the theme (using `theme_bw()`), and the labels (using `lab()`).
 
 ```{r}
 # the data set
@@ -290,24 +290,24 @@ pirates %>%
     geom_boxplot(fill   = "turquoise",
              colour = "black",
              alpha  = .7,
-             width  = .5) +
+             width  = .8) +
     # set theme
     theme_bw() +
     # add labels 
-    labs(title    = "Average height by favorite pirate",
+    labs(title    = "Height by favorite pirate",
          subtitle = "A ggplot plot",
          x        = "favorite pirate",
          y        = "Height (cm)",
          caption  = "Data from that `yarrr` package.")
 ```
 
-Looks much better! Let's also rearrange the columns from shortest to tallest using `reorder(favorite.pirate, height)`. Here we are saying reorder the levels of the `favorite.pirate` variable by average height (`height`). *Note.* If we wanted to arrange from tallest to shortest, we would append `-` to the beginning of `height` (i.e., `reorder(favorite.pirate, -height)`).
+Looks much better! Let's also rearrange the columns from shortest to tallest using `reorder(favorite.pirate, height)`. Here we are saying reorder the levels of the `favorite.pirate` variable by Height (`height`). *Note.* If we wanted to arrange from tallest to shortest, we would append `-` to the beginning of `height` (i.e., `reorder(favorite.pirate, -height)`).
 
 ```{r}
 # the data set
 pirates %>%
   # the canvas
-  ggplot(aes(x = reorder(favorite.pirate, height), y = height)) +
+  ggplot(aes(x = reorder(favorite.pirate, -height), y = height)) +
     # the geometric elements
     geom_boxplot(fill   = "turquoise",
              colour = "black",
@@ -316,7 +316,7 @@ pirates %>%
     # set theme
     theme_bw() +
     # add labels 
-    labs(title    = "Average height by favorite pirate",
+    labs(title    = "Height by favorite pirate",
          subtitle = "A ggplot plot",
          x        = "Favorite Pirate",
          y        = "Height (cm)",
@@ -338,7 +338,7 @@ pirates %>%
     # set theme
     theme_bw() +
     # add labels 
-    labs(title    = "Average height by favorite pirate",
+    labs(title    = "Height by favorite pirate",
          subtitle = "A ggplot plot",
          x        = "Favorite Pirate",
          y        = "Height (cm)",
@@ -460,11 +460,13 @@ pirates %>%
       # the geometric elements
       geom_point(alpha = .4) +
       geom_smooth(method = "lm", 
-                  se     = FALSE)
+                  se     = FALSE) +
+  facet_grid(.~sex)
 ```
 
 
 Your turn! These lines are pretty hard to see since they are overlapping. Let's make separate grids to visualize this better.
+
 
 
 ```{r}
@@ -480,7 +482,7 @@ pirates %>%
     facet_grid(~sex)
 ```
 
-Success! (Well, sort of). I really don't like the colours.
+Getting better! I really don't like the colors though.
 
 Luckily, `{ggplot2}` has a solution for that: the `scale_` functions. Scale functions start with `scale_` and are followed by the aesthetic mapping you wish to scale (e.g., `x`, `y`, `colour`, `fill`, `size`, `alpha`, `shape`). The final part of the function specifies how you would like to scale the axis. For example, `scale_y_log10()` scales the y-axis to be on a logarithmic scale. 
 
