@@ -35,6 +35,8 @@ navbar:
         href: "lectures/13-open_science.html"
       - text: "14 - One-sample I (Chi-Square)"
         href: "lectures/14-one_sample.html"
+      - text: "15 - One-sample II"
+        href: "lectures/15-one_sample.html"
     - text: Labs
       menu:
       - text:  "1 - Introduction to R"

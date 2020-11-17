@@ -10,7 +10,7 @@ output:
       countIncrementalSlides: false
 --- 
 
-```{r}
+```{r, echo = F}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
@@ -28,7 +28,18 @@ school = read_csv(here("data/census_at_school.csv"))
 school = school %>% filter(!is.na(Superpower))
 ```
 
+## Last time...
 
+* Chi-square $(\chi^2)$ tests
+   * Goodness of fit
+   * Independence
+   
+--
+
+$$\chi^2_{df} = \sum\frac{(O-E)^2}{E}$$
+$$\chi^2_{df} = \frac{\text{Signal}}{\text{Noise}}$$
+
+---
 Categorical data are discrete, and under the null hypothesis, we can think of the cell frequencies as arising from a binomial distribution with N trials and cell probabilities equal to the null hypothesis values $(P_i)$.
 
 The observed frequencies are compared to the expected frequencies under the  null hypothesis.  The differences are capture in the form of the Pearson $\chi^2$ statistic.  
