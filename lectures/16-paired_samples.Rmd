@@ -320,7 +320,14 @@ psych::describe(school[,c("Importance_reducing_pollution", "Importance_recycling
   kable(., col.names = c("N", "Mean", "SD"),
         digits = 2) %>%
   kable_styling()
+
+cor_12 = cor(school$Importance_reducing_pollution, 
+             school$Importance_recycling_rubbish, 
+             use = "pairwise")
+
 ```
+
+The correlation between these variables is `r round(cor_12, digits = 2)`.
 
 ---
 
@@ -331,15 +338,39 @@ But the calculation of the standard deviation becomes a little more complicated:
 $$\large \hat{\sigma}_\Delta = \sqrt{\hat{\sigma}^2_{M_1} + \hat{\sigma}^2_{M_2} - 2r(\hat{\sigma}_{M_1}\hat{\sigma}_{M_2})}$$
 
 ```{r}
-sd_1 = sd(school$Importance_reducing_pollution, na.rm=T)
-sd_2 = sd(school$Importance_recycling_rubbish, na.rm=T)
-cor_12 = cor(school$Importance_reducing_pollution, school$Importance_recycling_rubbish, use = "pairwise")
-
+sd_1 = 937.03
+sd_2 = 652.65
+cor_12 = .61
 var_d = sd_1^2 + sd_2^2 -2*cor_12*sd_1*sd_2
 sqrt(var_d)
-
-sd(school$Importance_reducing_pollution-school$Importance_recycling_rubbish, na.rm=T)
 ```
+
+---
+
+Now you have all the information you need for the statistical test!
+
+```{r}
+(t = (792.15-714.85)/(746.92/sqrt(194)))
+
+pt(t, df = 193, lower.tail = F)*2
+```
+
+```{r, echo = F, fig.height=4, fig.width = 10}
+df =193
+cv_t = qt(df = df, p = .975)
+t_x = seq(-3.76, 3.76)
+data.frame(t_x) %>%
+  ggplot(aes(x=t_x)) +
+  stat_function(fun = function(x) dt(x, df), geom = "line") +
+  stat_function(fun = function(x) dt(x, df), geom = "area", 
+                xlim = c(cv_t, 3.76), fill = "purple") +
+  stat_function(fun = function(x) dt(x, df), geom = "area", 
+                xlim = c(-3.76, -1*cv_t), fill = "purple") +
+  geom_vline(aes(xintercept = t), color = "red") +
+  labs(title = "Sampling distribution \n(in t)", y = "density", x = "t")+
+  theme_bw(base_size = 20)
+```
+
 
 ???
 

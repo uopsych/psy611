@@ -356,6 +356,8 @@ For example, you read a study that compares a sample of Oregon students to known
 &lt;/tbody&gt;
 &lt;/table&gt;
 
+The correlation between these variables is 0.61.
+
 ---
 
 It turns out that the mean difference score is the same as the difference in means, so that's an easy part of the calculation. 
@@ -366,25 +368,40 @@ But the calculation of the standard deviation becomes a little more complicated:
 
 
 ```r
-sd_1 = sd(school$Importance_reducing_pollution, na.rm=T)
-sd_2 = sd(school$Importance_recycling_rubbish, na.rm=T)
-cor_12 = cor(school$Importance_reducing_pollution, school$Importance_recycling_rubbish, use = "pairwise")
-
+sd_1 = 937.03
+sd_2 = 652.65
+cor_12 = .61
 var_d = sd_1^2 + sd_2^2 -2*cor_12*sd_1*sd_2
 sqrt(var_d)
 ```
 
 ```
-## [1] 746.1475
+## [1] 746.9157
+```
+
+---
+
+Now you have all the information you need for the statistical test!
+
+
+```r
+(t = (792.15-714.85)/(746.92/sqrt(194)))
+```
+
+```
+## [1] 1.441472
 ```
 
 ```r
-sd(school$Importance_reducing_pollution-school$Importance_recycling_rubbish, na.rm=T)
+pt(t, df = 193, lower.tail = F)*2
 ```
 
 ```
-## [1] 746.1475
+## [1] 0.1510719
 ```
+
+![](16-paired_samples_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
 
 ???
 
