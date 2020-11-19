@@ -177,3 +177,18 @@ schedule
 
 2-measurement.html
 * Take out C&M? Replace with something else? Remove entirely? It's very dense, and maybe just too much. 
+
+14-one_sample.html
+* explain ()
+* critical value dashed, test statistic solid lines
+
+15-one_sample.html
+* can be quick check 
+* use one chi-square example throughout (don't switch back to lecture 14 example)
+* change quiz 6 item to be about population mean, not sample mean
+* add section here about shift in confidence intervals (95% CI around null mean, 95% around sample mean)
+
+lab-7.html
+* great work with Markdown
+* maybe move up to week 3 (if moving matrix algebra moved to end of term)?
+* on the other hand, nice to have a break from the challenging stuff mid-term

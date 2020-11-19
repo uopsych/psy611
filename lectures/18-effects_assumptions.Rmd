@@ -380,6 +380,65 @@ $$\text{Overlap} = P(X \leq -\frac{|d|}{2})*2$$
 
 ---
 
+## Cohen's D (Paired samples t)
+
+Calculating a standardized effect size for a paired samples t-test (and research design that includes nesting or dependency) is slightly complicated, because there are two levels at which you can describe results. 
+
+The first level is the **within-subject** (or within-pair, or within-gull) level, and this communicates effect size in the unit of differences (of units).
+
+$$d = \frac{\bar{\Delta}}{\hat{\sigma_\Delta}} = \frac{`r round(m_delta,2)`}{`r round(s_delta,2)`} = `r round(m_delta/s_delta,2)`$$
+
+
+The interpretation is that, on average, variability within a single gull is about .72 standard deviations of differences.
+
+---
+
+### Cohen's D (Paired samples t)
+
+```{r} 
+lsr::cohensD(x = gulls$At, y = gulls$Away, method = "paired")
+```
+
+
+The second level is the **between-conditions** variance, which is in the units of your original outcome and communicates how the means of the two conditions differ.
+
+For that, you can use the Cohen's d calculated for independent samples *t*-tests.
+
+```{r}
+lsr::cohensD(x = gulls$At, y = gulls$Away, method = "pooled")
+```
+
+---
+
+**Which one should you use?**
+
+The first thing to recognize is that, unlike hypothesis testing, there are no standards for effect sizes. When Cohen developed his formula in 1988, he never bothered to precisely define $\large \sigma$. Interpretations have varied, but no single method for within-subjects designs has been identified. 
+
+Most often, textbooks will argue for the within-pairs version, because this mirrors the hypothesis test. 
+
+Some (see below) argue the between-conditions version is actually better because the paired-design is used to reduce noise by adjusting our calculation of the standard error. But that shouldn't make our effect bigger, just easier to detect. The other argument is that using the same formula (the between-conditions version) allows us to compare effect sizes across many different designs, which are all trying to capture the same effect.
+
+.small[Westfall, J. (2016). [Five different "Cohen's d" statistics for within-subject designs](http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/)]
+
+---
+
+### Cohen's D from *t*
+
+This can be calculating from *t*-statistics, allowing you to calculate standardized effect sizes from manuscripts even when the authors did not provide them. 
+
+.pull-left[
+**One sample or within-subjects for paired**
+
+$$\large d = \frac{t}{\sqrt{N-1}}$$
+]
+.pull-right[**Independent sample**
+
+$$\large d = \frac{2t}{\sqrt{N_1+N_2-1}}$$
+]
+
+
+---
+
 ## When should you not use Student's *t*-test?
 
 Recall the three assumptions of Student's *t*-test:

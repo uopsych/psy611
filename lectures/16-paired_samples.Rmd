@@ -10,6 +10,14 @@ output:
       countIncrementalSlides: false
 ---
 
+## Annoucements
+
+* Oral exam questions will be posted soon
+
+* Breakout groups today
+
+---
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(here)
@@ -22,32 +30,16 @@ library(kableExtra)
 
 ## Previously...
 
-* independent samples t-tests
+* chi-square $(\chi^2) tests$
 
-* pooled variance
-
-* effect sizes -- Cohen's D and distribution overlap
-
-* assumptions and dealing with violations
-  * normality -- Wilcoxon Rank Sum
-  * homogeneity of variance -- Welch's *t*-test
-  * independence -- ??
+* one-sample _t_-tests
   
 ---
 
 ### Today
 
-Dealing with that pesky independence problem
+Paired-samples _t_-tests
 
-The independent samples t-test (Student's or Welch's) assumes that the responses in one group are uncorrelated with the responses in the other group.
-
-That independence assumption is sometimes violated, as in the following common research situations:
-
-* Longitudinal data
-* Paired samples
-* Paired measures 
-
-Note that these are violations *between* groups, but not within groups. For now, we'll deal with the problem of violating independence between two groups, but these techniques won't help you if there is dependency within a group
 ---
 
 In **longitudinal research**, the same people provide responses to the same measure on two occasions (the individuals in the two groups are the same).
@@ -64,14 +56,13 @@ The advantage of repeated measures designs is that, compared to an independent g
 
 * Two groups are more alike than in simple randomization
 
-
 * The correlated sampling units will have less variability on "nuisance variables" because those are either the same over time (longitudinal) or over measures (paired measures), or very similar over people (paired samples).
 
 * Nuisance variables -- anything that isn't relevant to the study. 
 
 ---
 
-Each of these repeated measures problems can be viewed as a transformation of the original two measures into a single measure:  a difference score.  This reduces the analysis to a one-sample *t*-test on the difference score, with null mean = 0.
+Each of these repeated measures problems can be viewed as a transformation of the original two measures into a single measure: a difference score.  This reduces the analysis to a one-sample *t*-test on the difference score, with null mean = 0.
 
 ---
 
@@ -375,65 +366,6 @@ What happens if $\large r$ is negative?
 
 ---
 
-## Cohen's D
-
-Calculating a standardized effect size for a paired samples t-test (and research design that includes nesting or dependency) is slightly complicated, because there are two levels at which you can describe results. 
-
-The first level is the **within-subject** (or within-pair, or within-gull) level, and this communicates effect size in the unit of differences (of units).
-
-$$d = \frac{\bar{\Delta}}{\hat{\sigma_\Delta}} = \frac{`r round(m_delta,2)`}{`r round(s_delta,2)`} = `r round(m_delta/s_delta,2)`$$
-
-
-The interpretation is that, on average, variability within a single gull is about .72 standard deviations of differences.
-
----
-
-### Cohen's D
-
-```{r} 
-lsr::cohensD(x = gulls$At, y = gulls$Away, method = "paired")
-```
-
-
-The second level is the **between-conditions** variance, which is in the units of your original outcome and communicates how the means of the two conditions differ.
-
-For that, you can use the Cohen's d calculated for independent samples *t*-tests.
-
-```{r}
-lsr::cohensD(x = gulls$At, y = gulls$Away, method = "pooled")
-```
-
----
-
-**Which one should you use?**
-
-The first thing to recognize is that, unlike hypothesis testing, there are no standards for effect sizes. When Cohen developed his formula in 1988, he never bothered to precisely define $\large \sigma$. Interpretations have varied, but no single method for within-subjects designs has been identified. 
-
-Most often, textbooks will argue for the within-pairs version, because this mirrors the hypothesis test. 
-
-Some (see below) argue the between-conditions version is actually better because the paired-design is used to reduce noise by adjusting our calculation of the standard error. But that shouldn't make our effect bigger, just easier to detect. The other argument is that using the same formula (the between-conditions version) allows us to compare effect sizes across many different designs, which are all trying to capture the same effect.
-
-.small[Westfall, J. (2016). [Five different "Cohen's d" statistics for within-subject designs](http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/)]
-
----
-
-### Cohen's D from *t*
-
-This can be calculating from *t*-statistics, allowing you to calculate standardized effect sizes from manuscripts even when the authors did not provide them. 
-
-.pull-left[
-**One sample or within-subjects for paired**
-
-$$\large d = \frac{t}{\sqrt{N-1}}$$
-]
-.pull-right[**Independent sample**
-
-$$\large d = \frac{2t}{\sqrt{N_1+N_2-1}}$$
-]
-
-
----
-
 ## Assumptions
 
 * Independence (between pairs)
@@ -444,18 +376,11 @@ $$\large d = \frac{2t}{\sqrt{N_1+N_2-1}}$$
 
 ---
 
-## Violating normality
-
-For two independent samples, we can use the Wilcoxon Sum Rank test if we have severe violations of normality. There is a paired-samples version as well.
-
-```{r, warning = F}
-wilcox.test(gulls$At, gulls$Away, paired = T)
-```
-
----
-
 class: inverse
 
 ### Next time...
 
-Wrapping up *t*-tests and the big picture
+* Independent samples _t_-tests
+
+
+### But first, breakout groups!

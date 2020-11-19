@@ -216,7 +216,7 @@ This can be a point of confusion: the way you measure the variable determines wh
 
 The $\chi^2$ distribution is a single-parameter distribution defined by it's degrees of freedom.
 
-In the case of a **goodness-of-fit test** (like this one), the degrees of freedom are $\textbf{k-1}$, where k is the number of groups.
+In the case of a **goodness-of-fit test** (like this one), the degrees of freedom are $\textbf{k-1}$, where k is the number of categories.
 
 --
 

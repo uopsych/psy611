@@ -23,6 +23,8 @@ library(psychTools)
 library(knitr)
 library(kableExtra)
 library(ggpubr)
+library(gganimate)
+
 school_usa = read_csv(here("data/census_at_school_usa.csv"))
 school = read_csv(here("data/census_at_school.csv"))
 school = school %>% filter(!is.na(Superpower))
@@ -38,6 +40,103 @@ school = school %>% filter(!is.na(Superpower))
 
 $$\chi^2_{df} = \sum\frac{(O-E)^2}{E}$$
 $$\chi^2_{df} = \frac{\text{Signal}}{\text{Noise}}$$
+---
+### Example
+
+Nate Silver is examining data from the 2020 election in an effort to improve his prediction models. He suspects that there may be a relationship between being a red county (the majority voting for the Republican candidate) and being a rural county. He looks at the contingency table of these two variables:
+
+|              | Urban | Rural | Row Total |
+|--------------|:-----:|:-----:|:---------:|
+| Red          |  731  |  492  |    1223   |
+| Blue         |  1708 |  210  |    1918   |
+| Column total |  2439 |  702  |    3141   |
+
+What statistical test will Nate use to analyze his data?
+
+---
+
+
+Step 1. Define null and alternative hypothesis.
+
+  * $H_0$: Being rural county is independent of being a red county. (No relationship)
+  * $H_A$: Being rural county is dependent on being a red county. (Relationship) 
+
+--
+
+Step 2. Set and justify alpha level. $(\alpha = .001)$
+
+--
+
+Step 3. Determine which sampling distribution $(\chi^2)$
+
+--
+
+Step 4. Calculate parameters of your sampling distribution under the null.
+  * If $\chi^2$, calculate df.
+
+--
+
+Step 5. Calculate test statistic under the null.
+
+---
+$$\chi^2_{df = (r-1)(c-1)} = \sum^r_{i=1}\sum^c_{j=1}\frac{(O_{ij}-E_{ij})^2}{E_{ij}}$$
+
+We'll need to calculate the expected frequencies of each of the four cells. Expected frequencies should communicate what we expect _if the null hypothesis is true_, in this case, if the probability of being a red county is in fact independent of being a rural county. Recall from the [lecture on probability](https://uopsych.github.io/psy611/lectures/06-probability.html#15): 
+
+If A and B are independent:
+$$\Large \text{A and B }= P (A \cap B) = P(A)P(B)$$
+We apply this rule to our contingency table.
+
+---
+
+First, transform our row and column totals into proportions:
+
+|              |       Urban      |      Rural      |     Row Total    |
+|--------------|:----------------:|:---------------:|:----------------:|
+| Red          |        731       |       492       | 1223/3141 = .389 |
+| Blue         |       1708       |       210       | 1918/3141 = .611 |
+| Column total | 2439/3141 = .777 | 702/3141 = .223 |       3141       |
+
+---
+
+Second, use the probability of the union of independent events formula to calculate the joint probability of each cell:
+
+|              |        Urban        |        Rural        | Row Total |
+|--------------|:-------------------:|:-------------------:|:---------:|
+| Red          | (.389)(.777) = .302 | (.389)(.223) = .087 |    .389   |
+| Blue         | (.611)(.777) = .475 | (.611)(.223) = .136 |    .611   |
+| Column total |         .777        |         .223        |    3141   |
+
+---
+
+Lastly, multiply these proportions by the total number of counties to get the expected frequencies. 
+
+|              |          Urban         |         Rural         | Row Total |
+|--------------|:----------------------:|:---------------------:|:---------:|
+| Red          |  (.302)(3141) = 948.58 | (.087)(3141) = 273.27 |    .389   |
+| Blue         | (.475)(3141) = 1491.98 | (.136)(3141) = 427.18 |    .611   |
+| Column total |          .777          |          .223         |    3141   |
+
+---
+
+Now we calculate our test statistic:
+
+$$\chi^2_{df = (r-1)(c-1)} = \sum^r_{i=1}\sum^c_{j=1}\frac{(O_{ij}-E_{ij})^2}{E_{ij}}$$
+
+$$\chi^2_{df = 1} = \frac{(731-948.58)^2}{948.58} + \frac{(492-273.27)^2}{273.27} +\\ \frac{(1708-1491.98)^2}{1491.98} + \frac{(210-427.18)^2}{427.18}\\ = 433.07$$
+---
+
+Step 6. Calculate probability of that test statistic or more extreme under the null, and compare to alpha.
+
+```{r}
+pchisq(q = 433.07, 
+       df = 1, 
+       lower.tail = F) #remember that we're interested in this test statistic or greater
+```
+
+(No need to multiply by two here, because $\chi^2$ tests are always one-tail tests.)
+
+Our _p_-value is smaller than alpha, so we reject the null hypothesis.
 
 ---
 Categorical data are discrete, and under the null hypothesis, we can think of the cell frequencies as arising from a binomial distribution with N trials and cell probabilities equal to the null hypothesis values $(P_i)$.
@@ -358,6 +457,40 @@ t.test(x = school$Score_in_memory_game, mu = 45.05,
 lsr::oneSampleTTest(x = school$Score_in_memory_game, 
                     mu = 45.05, one.sided = FALSE)
 ```
+
+
+---
+## Shifting confidence intervals
+
+```{r, echo = F, cache = T}
+mu = 45.05
+xbar = 49.1
+s = 13.4
+N = 227
+sem = s/sqrt(N)
+moe = qt(.975, df = N-1)*sem
+
+plotdata = expand.grid(mean = c(mu,xbar),
+            tscore = seq(-6, 6, by =.01)) %>%
+  mutate(density = map_dbl(tscore, ~dt(.x, df = N-1)),
+         X = map2_dbl(tscore, mean, ~(.x*sem)+.y)) %>%
+  mutate(ci_lower = map_dbl(mean, ~.x-moe),
+         ci_upper = map_dbl(mean, ~.x+moe))
+
+anim = plotdata %>%
+  ggplot(aes(x = X, y = density)) +
+  geom_point(size = .5) +
+  geom_vline(aes(xintercept = mu, color = "H0 mean")) +
+  geom_vline(aes(xintercept = xbar, color = "Sample mean")) +
+  geom_vline(aes(xintercept = ci_lower), linetype = "dashed")+
+  geom_vline(aes(xintercept = ci_upper), linetype = "dashed")+
+  scale_x_continuous(limits = c(42, 55)) +
+  transition_states(mean, transition_length = 2, state_length = 2) +
+  theme_pubr()
+
+anim
+```
+
 
 ---
 
