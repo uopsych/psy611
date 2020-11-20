@@ -757,7 +757,14 @@ t.test(cbt_data$DIFF)
 
 3. Report and interpret you results using r code embedded in text. *Optional Bonus:* Add a measure of effect size also.
 
-Anxiety symptoms were significantly reduced between before and after treatment, `r apa_print(toutput)$full_result`. 
+```{r}
+pst <- pairedSamplesTTest(formula = ~ after + before, # one-sided formula
+                   data = cbt_data # wide format
+                  )
+```
+
+
+Anxiety symptoms were significantly reduced between before and after treatment, `r apa_print(toutput)$full_result`, *d*=`r round(pst$effect.size, 2)`. 
 
 4. Create a table to display the descriptive statistics from this data.
 
@@ -776,6 +783,23 @@ kbl(describe(cbt_data[2:3]),
 ggpaired(cbt_data, cond1 = "before", cond2 = "after",
          color = "condition", line.color = "gray", line.size = 0.4,
          palette = "jco")
+```
+
+ggplot version:
+
+```{r}
+#make into long format
+cbt_data %>%
+  gather(time, anxiety, 2:3)-> cbt_long 
+
+#basic version of plot
+ggplot(cbt_long, aes(x=time, y=anxiety, color=time)) +
+  geom_boxplot() +
+  geom_point() +
+  geom_line(aes(group=id),
+            color='black',
+            alpha=.6)
+
 ```
 
 
