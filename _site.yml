@@ -56,7 +56,7 @@ navbar:
       - text:  "7 - RMarkdown"
         href: "labs/lab-7.html"
       - text:  "8 - One Sample and Paired t-tests"
-        href: "labs/lab-8.html"
+        href: "labs/lab-8_instructor.html"
     - text: Homework
       href: homework.html
     - text: Useful Material
