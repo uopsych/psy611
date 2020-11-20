@@ -1,5 +1,5 @@
 ---
-title: "Lab 8: One-sample and Independent Samples *t*-tests"
+title: "Lab 8: One-sample and Paired Samples *t*-tests"
 output: 
   html_document: 
     theme: cosmo
@@ -18,43 +18,46 @@ options(scipen = 999)
 
 #load required packages
 library(tidyverse) # includes dplyr and ggplot2 functions
-library(gganimate) # allows the creation of gifs from ggplot2
 library(lsr) # includes t-test functions
 library(carData) # includes the Guyer data set
 library(here) # for finding image paths
 library(ggpubr) # for making an error line plot
+library(papaja) # for reporting results
+library(rio) # for importing data
+library(psych) # for descriptives
 ```
 
-# Purpose
 
-Today's lab will guide you through the process of conducting a [One-Sample *t*-test](#one) and an [Independent Samples *t*-test](#independent). For each test, we will first go through the process of conducting the tests using arithmetic and probability distributions in R. Then we will compare and contrast *t*-test functions from the `{stats}` and `{lsr}` packages. For the independent samples *t*-test, we also discuss a way to quickly plot the data using `{ggpubr}`.
+Today's lab will guide you through the process of conducting a [One-Sample *t*-test](#one) and a [Paired Samples *t*-test](#paired). For each test, we will first go through the process of conducting the tests using arithmetic and probability distributions in R. Then we will compare and contrast *t*-test functions from the `{stats}` and `{lsr}` packages. 
 
 To quickly navigate to the desired section, click one of the following links:
 
 1. [One-Sample *t*-test](#one)
-1. [Independent Samples *t*-test](#independent)
+1. [Paired Samples *t*-test](#paired)
 1. [Minihacks](#minihacks)
 
 As always, there are [minihacks](#minihacks) to test your knowledge.
 
 ***
 
-# The Data
+# One-Sample *t*-test {#one}
+
+## The Data
 
 ![](`r here("labs", "resources", "lab8", "lab8_9.png")`)
 
-Today we will be analyzing data from Fox and Guyer's (1978) anonymity and cooperation study. The data is included in the `{carData}` package and you can see information about the data set using `?Guyer`. Twenty groups of four participants each played 30 trials of the the prisoner's dilemma game. The number of cooperative choices (`cooperation`) made by each group were scored out of 120 (i.e., cooperative choices made by 4 participants over 30 trials). The groups either made decisions publicly or privately (`condition`) and groups were either comprised of all women or all men (`sex`).
+In our first example, we will be analyzing data from Fox and Guyer's (1978) anonymity and cooperation study. The data is included in the `{carData}` package and you can see information about the data set using `?Guyer`. Twenty groups of four participants each played 30 trials of the the prisoner's dilemma game. The number of cooperative choices (`cooperation`) made by each group were scored out of 120 (i.e., cooperative choices made by 4 participants over 30 trials). 
 
 Run the following code to load the data into your global environment.
 
 ```{r}
 # load data 
-data <- Guyer
+dat <- Guyer
 ```
 
 ***
 
-# One-Sample *t*-test {#one}
+## What is a One-Sample *t*-test?
 
 ![](`r here("labs", "resources", "lab8", "lab8_1.png")`)
 
@@ -76,9 +79,9 @@ To make our lives easier, we will first calculate some descriptive statistics: (
 
 ```{r}
 # calculate descriptives
-coop_mean <- mean(data$coop)
-coop_sd   <- sd(data$coop)
-coop_n    <- length(data$coop)
+coop_mean <- mean(dat$coop)
+coop_sd   <- sd(dat$coop)
+coop_n    <- length(dat$coop)
 
 # calculate degrees of freedoom
 coop_df   <- coop_n - 1
@@ -178,7 +181,7 @@ The image above shows our acquired mean with a 95% confidence interval.
 There are two useful functions for conducting a one-sample *t*-test in R. The first, is called `t.test()` and it is automatically loaded as part of the `{stats}` package when you first open R. To run a one-sample *t*-test using `t.test()`, you provide the function the column of the data you are interested in (e.g., `x = data$cooperation`) and the mean value you want to compare the data against (e.g., `mu = 60`). 
 
 ```{r}
-t.test(x = data$cooperation, mu = 60)
+t.test(x = dat$cooperation, mu = 60)
 ```
 
 As part of the output, you are provided the mean of cooperation, the *t*-statistic, the degrees of freedom, the *p*-value, and the 95% confidence interval. The values outputted by `t.test()` should be exactly the same as the values we calculated. Unfortunately, we did not get a measure of the effect size.
@@ -186,317 +189,529 @@ As part of the output, you are provided the mean of cooperation, the *t*-statist
 The `oneSampleTTest()` function from the the `{lsr}` package includes Cohen's *d* automatically, but the downside is that you have to load the package separately.
 
 ```{r}
-oneSampleTTest(x = data$cooperation, mu = 60)
+oneSampleTTest(x = dat$cooperation, mu = 60)
 ```
 
 As you can see from the output, `oneSampleTTest()` provides you all of the information that `t.test()` did, but it also includes Cohen's *d*. 
 
 ## Interpretation and Write-Up
 
-An example of how to write-up a one-sample *t*-test is included below.
+You can use the 'apa_print()' function from the papaja package to efficiently writeup your results in apa format.
 
-"Average cooperation (*M* = 48.30, *SD* = 14.29) was substantially less than 60, *t*(19) = 3.66, *p* = .002, 95% CI [41.61, 54.97], *d* = 0.82.
+```{r}
+#First I'll run my t-test again, but this time I'll save it to a variable:
+toutput  <- t.test(x = dat$cooperation, mu = 60)
+
+#Let's look at our output options
+apa_print(toutput)
+
+
+```
+
+Depending on what object you give to apa_print, it may give you different commonly reported statistics from that test. You can access these with a '$'. Here is an example of how I might report this:
+
+"Average cooperation (`r apa_print(toutput)$estimate`) was significantly less than 60, `r apa_print(toutput)$statistic`.
+
+## Visualization
+
+To plot this, we're just plotting one variable. You already know how to do this! Here is one option. I've plotted a boxplot below.
+
+
+```{r}
+
+# the data set
+dat %>%
+  # the canvas
+  ggplot(aes(y = cooperation)) +
+    # the geometric elements
+       geom_boxplot() +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Average Cooperation Scores",
+         y        = "Cooperation")
+```
+
+
+
+Or I might want to plot a histogram. I used the additional geom, 'geom_vline' to plot a line representing the theorized population mean.
+
+```{r}
+
+# the data set
+dat %>%
+  # the canvas
+  ggplot(aes(x = cooperation)) +
+    # the geometric elements
+       geom_histogram(
+                   fill   = "purple",
+                   colour = "black",
+                   alpha  = .6,
+                   bins   = 5) +
+  #add vertical line
+  geom_vline(xintercept =60,
+             color='blue',
+             linetype = "dashed") +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Histogram of Cooperation Scores",
+         x        = "Cooperation")
+```
+
+
+
 
 ***
 
-# Independent Samples *t*-test {#independent}
+# Paired-Sample *t*-test {#paired}
 
-![](`r here("labs", "resources", "lab8", "lab8_6.png")`)
+To illustrate how paired-samples *t*-tests work, we are going to walk through [an example from your textbook](https://learningstatisticswithr-bookdown.netlify.com/ttest.html#pairedsamplesttest){target="_blank"}. In this example, the data comes from Dr. Chico's introductory statistics class. Students in the class take two tests over the course of the semester. Dr. Chico gives notoriously difficult exams with the intention of motivating her students to work hard in the class and thus learn as much as possible. Dr. Chico's theory is that the first test will serve as a "wake up call" for her students, such that when they realize how difficult the class actually is they will be motivated to study harder and earn a higher grade on the second test than they got on the first test.
 
-Cool. But what if we wanted to compare the mean level of cooperation when decisions were made publicly versus the mean level of cooperation when decisions were made anonymously. In that case, we would use an independent samples *t*-test, which compares the means of, well, two independent samples. For instance, I might suspect that the mean cooperation will be greater when decisions about cooperation are made publicly rather than when decisions about cooperation are made anonymously. The alternative hypothesis ($H_{1}$), in that case, would be that the mean cooperation in the public group is not equal to the mean cooperation in the anonymous group ($\mu_1 \neq \mu_2$). The null hypothesis ($H_{0}$) would be that the means of the two groups are equal ($\mu_1 = \mu_2$).
-
-## Using Arithmetic
-
-To calculate an independent samples *t*-test by hand, we will want to start by splitting our data frame into two data frames according to whether the groups made decisions anonymously or publicly. 
+You can load in the data from this example by running the following code:
 
 ```{r}
-data_public <- data %>%
-  filter(condition == "public")
+chico_wide <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/chico_wide.csv")
 
-data_anonymous <- data %>%
-  filter(condition == "anonymous")
+# long format
+chico_long <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/chico_long.csv")
 ```
 
-Then, as we did for the one-sample *t*-test, we want to calculate descriptive statistics for both of the conditions.
+**Note:** You should now have 2 versions of the same data set loaded into your global environment. The only difference in these versions of the data is their "shape" -- one is "wide" and the other is "long". In the wide form, every row corresponds to a unique *person*; in the long form, every row corresponds to a unique *observation* or *measurement*.
+
+* To get a sense of the differences between these two versions of the data, see below:
 
 ```{r}
-# calculate group1 descriptives
-group1_mean  <- mean(data_public$cooperation)
-group1_sd    <- sd(data_public$cooperation)
-group1_var   <- group1_sd^2
-group1_n     <- length(data_public$cooperation)
+head(chico_wide)
 
-# calculate group2 descriptives
-group2_mean  <- mean(data_anonymous$cooperation)
-group2_sd    <- sd(data_anonymous$cooperation)
-group2_var   <- group2_sd^2
-group2_n     <- length(data_anonymous$cooperation)
-
-# print the descriptive statistics
-list("public"    = c("mean" = group1_mean,
-                     "sd"   = group1_sd,
-                     "var"  = group1_var,
-                     "n"    = group1_n),
-     "anonymous" = c("mean" = group2_mean,
-                     "sd"   = group2_sd,
-                     "var"  = group2_var,
-                     "n"    = group2_n))
+head(chico_long)
 ```
 
-As we can see from the statistics, the number of participants in each condition was equal ($n_1 = 10$; $n_2 = 10$). The mean (`55.70`) and standard deviation (`14.85`) of cooperation in the public condition were both larger than the mean (`40.90`) and standard deviation (`9.42`) of cooperation in the anonymous group. 
+We will work with both versions of this dataset today.
 
-![](`r here("labs", "resources", "lab8", "lab8_8.png")`)
+## Data exploration 
 
-To calculate the *t*-statistic, we will use a similar equation to that used for the one-sample *t*-test, but the numerator will be the difference between the condition means ($\bar X_1 - \bar X_2$) and the denominator will be the standard error of the difference between the means ($\hat \sigma_p \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}$).
-
-$$\frac{\bar X_1 - \bar X_2}{\hat \sigma_p \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}$$
-
-The standard error of the difference between the means is the pooled standard deviation ($\hat \sigma_p$) decreased by the sample size ($\sqrt{\frac{1}{N_1} + \frac{1}{N_2}}$). The pooled standard deviation is calculated using the following equation:
-
-$$\hat \sigma_p = \frac{((N_1 - 1) \times \hat \sigma_1^2) + ((N_2 - 1) \times \hat \sigma_2^2)}{(N_1 - 1) + (N_2 - 1)}$$
-
-Below is the code for calculating the *t*-statistic according to the equations above.
+Let's take a closer look at the data before we actually run a *t*-test to see what might be going on...
 
 ```{r}
-# calculate the t-statistic
-mean_diff    <- group1_mean - group2_mean
-group1_w     <- group1_n - 1
-group2_w     <- group2_n - 1
-sd_pooled    <- sqrt(((group1_w * group1_var) + (group2_w * group2_var)) / (group1_w + group2_w))
-n_correction <- sqrt((1 / group1_n) + (1 / group2_n))
-se           <- sd_pooled * n_correction
-t_stat       <- mean_diff / se
-
-# print the t-statistic
-c("t_stat" = t_stat)
+describe(chico_wide)
 ```
 
-Next, we will calculate a *p*-value for the *t*-statistic. The code for calculating the *p*-value is exactly the same as before, but we will use $\mbox{df} = N-2$ for the degrees of freedom instead of $\mbox{df} = N-1$ because our statistic contains two means. 
+**Question:** What do you notice about the means of the two groups? Can we conclude anything?
 
-```{r}
-# calculate degrees of freedom
-df <- group1_n + group2_n - 2
 
-# print out the degrees of freedom
-c("df" = df)
-```
 
-Now that we have our *t*-statistic and degrees of freedom, we can calculate the *p*-value.
+What if we look at the data graphically? 
 
-```{r}
-# calculate p-value
-p_val <- pt(q = abs(t_stat), df = df, lower.tail = FALSE) * 2
-
-# print p-value
-c("p_val" = p_val)
-```
-
-Looks like the probability of obtaining a difference in means of this size or greater, when the null hypothesis is true, is 1.59%.
-
-The code for calculating Cohen's *d* is a bit more complex than what we used above, but, again, we are simply deriving the difference in means in standardized units.
-
-```{r}
-# calculate cohen's d
-d_val <- mean_diff / sqrt((group1_sd^2 + group2_sd^2) / 2)
-
-# print cohen's d
-c("d_val" = d_val)
-```
-
-Looks like cooperation when decisions were made publicly was far higher than cooperation when decisions were made anonymously. 
-
-We can also calculate the 95% confidence interval for this difference. 
-
-```{r}
-# calculate upper and lower limits of 95% CI
-ci_low <- mean_diff + (se * qt(.025, df = df))
-ci_up  <- mean_diff + (se * qt(.975, df = df))
-
-# print 95% confidence interval
-c("95% CI Lower" = ci_low,
-  "95% CI Upper" = ci_up)
-```
-
-Again, we can be 95% certain that our confidence interval contains the true population mean. 
-
-## Using Functions
-
-As with the one-sample *t*-test, we can use the `t.test()` function from the the built-in `{stats}` package to conduct an independent samples *t*-test. 
-
-```{r}
-t.test(data_public$cooperation, data_anonymous$cooperation, var.equal = TRUE)
-```
-
-Since we specified `var.equal = TRUE` in the `t.test()` function, it calculated a Student's *t*-test. If we had specified `var.equal = FALSE` (the default for both `t.test()` and `independentSamplesTTest()`) we would have calculated a Welch's *t*-test. Unlike Student's *t*-test, Welch's *t*-test does not assume equal variances between groups. However, when the variances and sample sizes are equal, Welch's *t*-test will produce a *t*-statistic that is nearly indistinguishable from the *t*-statistic produced by Student's *t*-test. There is really no need to ever use Student's *t*-test (other than cases with very small sample sizes).
-
-We can also use the `independentSamplesTTest` function in the `{lsr}` package to get the output with Cohen's *d* included. 
-
-```{r}
-independentSamplesTTest(formula   = cooperation ~ condition, 
-                        data      = data, 
-                        var.equal = TRUE)
-```
-
-The `formula` argument for `independentSamplesTTest` may look unfamiliar to some of you. It uses `formula` syntax, which you will use a lot when you start analyzing data using multiple regression models. In brief, whatever comes on the left of the tilde (`~`) is the dependent variable (in this case, `cooperation`) and whatever comes on the right of the tilde is the independent variable (in this case, `condition`).
-
-## Interpretation and Write-Up
-
-A proper write-up for our Independent Sample *t*-test would be:
-
-"Cooperation in the public condition (*M* = 55.70, *SD* = 14.84) was much greater than cooperation in the anonymous condition (*M* = 40.90, *SD* = 9.42), *t*(18) = 2.66, *p* = .018, 95% CI [3.12, 26.64], *d* = 1.19.
-
-## Plotting an Independent Samples *t*-test
-
-We can quickly plot our means and 95% confidence interval using the `ggerrorplot()` function in the `{ggpubr}` package.
+One way this is often plotted is with 95% confidence intervals. One easy way to do that is with the 'ggerrorplot()' function in the {ggpubr} package.
 
 ```{r}
 # create plot
-ggerrorplot(data, 
-            x         = "condition", 
-            y         = "cooperation", 
+ggerrorplot(chico_long, 
+            x         = "time", 
+            y         = "grade", 
             desc_stat = "mean_ci", 
-            color     = "condition", 
-            ylab      = "Cooperation") +
-  # add results of the t.test
-  stat_compare_means(method = "t.test")
+            color     = "time", 
+            ylab      = "Grade")
 ```
+
+
+
+* Based on the descriptive statistics and the plot above with widely overlapping confidence intervals, it might seem intuitive to think that the improvement in test scores from Test 1 to Test 2 is due entirely to chance. However, if we look at the data in a different way, we will see why this impression may not be correct...
+
+```{r}
+ggplot(chico_wide, aes(x=grade_test1, y=grade_test2)) +
+  #add pints
+  geom_point()+
+   # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Scatterplot of Testing Across 2 Timepoints",
+         x        = "Time 1",
+         y        = "Time 2")
+```
+
+
+**Question**: What do you notice about the pattern of points in this plot?
+
+* Let's create a new variable to represent the *improvement* for each student from Test 1 to Test 2.
+
+```{r}
+chico_wide <- chico_wide %>% 
+  mutate(diff = grade_test2 - grade_test1)
+
+head(chico_wide)
+```
+
+* Now let's look at a histogram of these improvement scores:
+
+```{r}
+
+# the data set
+chico_wide %>%
+  # the canvas
+  ggplot(aes(x = diff)) +
+    # the geometric elements
+       geom_histogram(
+                   fill   = "red",
+                   colour = "black") +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Histogram of Improvement",
+         x        = "Improvement")
+```
+* Notice that the vast majority of students have an improvement score above 0; in other words, virtually all students improved their score to some extent from Test 1 to Test 2. 
 
 ***
 
+## What is a paired samples *t*-test?
+
+* In our example above, we created a new variable, `chico_wide$diff`, that represents the *difference* between each student's score on Test 1 and Test 2. 
+
+* More generally, if $X_{i1}$ is the score that the $i$-th participant obtained on the first variable, and $X_{i2}$ is the score that the same person obtained on the second one, then the difference score is:
+
+$$ \Delta_i = X_{i1} - X_{i2}$$
+
+* The population mean of difference scores could be represented as:
+
+$$ \mu_\Delta = \mu_1  - \mu_2$$ 
+
+* Fundamentally, paired samples *t*-tests operate at the level of difference scores. Accordingly, we can state the null and alternative hypotheses for a paired-samples *t*-test as follows:
+
+$$ H_0: \mu_\Delta = 0 $$ 
+$$ H_1: \mu_\Delta \neq 0 $$ 
+
+* So far this looks really similar to a one-sample *t*-test; in this case, we are testing whether the mean of some set of difference scores is different from 0. As such, our *t*-statistics for a paired samples *t*-test looks similar to what we have already learned for a one-sample *t*-test:
+
+$$t = \frac{\bar \Delta}{\hat \sigma_\Delta / \sqrt{N}}$$
+
+## Using arithmetic 
+
+For running a paired *t*-test by hand, we essentially run a one-sample *t*-test. The main difference is that our mean and standard deviation are the mean and standard deviation of the difference scores.  
+
+```{r}
+# calculate mean and sd
+chico_mean   <- mean(chico_wide$diff)
+chico_sd     <- sd(chico_wide$diff)
+
+# print the mean and sd
+c("mean" = chico_mean,
+  "sd"   = chico_sd)
+
+```
+
+As discussed in class, we can also calculate the standard deviation of the difference scores with the standard deviations of both groups by using the following equation:
+
+$$\sqrt{\hat\sigma_{M1}^2 + \hat\sigma_{M2}^2 - 2r(\hat\sigma_{M1}\hat\sigma_{M2})}$$
+
+```{r}
+# calculate standard deviation of both groups
+g1_sd <- sd(chico_wide$grade_test1)
+g2_sd <- sd(chico_wide$grade_test2)
+
+# calculate the correlation of both groups
+g_cor <- cor(chico_wide$grade_test1, chico_wide$grade_test2)
+
+# calculate the standard deviation
+chico_sd_alt <- sqrt(g1_sd^2 + g2_sd^2 - (2 * g_cor * (g1_sd * g2_sd)))
+
+# print the sd calculated using the alternative method
+c("sd" = chico_sd_alt)
+```
+
+Both methods should produce the same value for the standard deviation of the difference scores. 
+
+Next we can calculate the sample size and the degrees of freedom for our test. Keep in mind that our sample size is not the total number of observations (`40`). Instead, it is the total number of participants (`20`).
+
+```{r}
+# calculate sample size and degrees of freedom
+chico_n      <- length(chico_wide$diff)
+chico_df     <- chico_n - 1
+
+# print the sample size and the degrees of freedom
+c("n"  = chico_n,
+  "df" = chico_df)
+```
+
+For the degrees of freedom we only subtract one because, as with a one-sample t-test we are only dealing with one mean (i.e., the mean of the difference scores).
+
+The final step before we calculate our *t*-statistic is to calculate the standard error. 
+
+```{r}
+# calculate the standard error
+chico_se <- chico_sd / sqrt(chico_n)
+
+# print the sample size and the degrees of freedom
+c("se" = chico_se)
+```
+
+Now all we have to do to calculate our *t*-statistic is divide the mean difference scores by the standard error of the mean difference scores.
+
+```{r}
+# calculate the t-statistic
+chico_t <- chico_mean / chico_se
+
+# print the t-statistic
+c("t" = chico_t)
+```
+
+And, as always, we can calculate a *p*-value for our *t*-statistic using the `pt()` function. 
+
+```{r}
+# calculate the t-statistic
+chico_p <- pt(q = abs(chico_t), df = chico_n - 1, lower.tail = FALSE) * 2
+
+# print the t-statistic
+c("p" = chico_p)
+```
+  
+We can also used the same code we used for our one-sample *t*-test and our independent samples *t*-test to calculate the confidence interval around the mean of the difference scores. 
+
+```{r}
+# calculate the confidence interval
+chico_ci_low <- chico_mean + chico_se * qt(p = .025, df = chico_df, lower.tail = TRUE)
+chico_ci_up  <- chico_mean + chico_se * qt(p = .975, df = chico_df, lower.tail = TRUE)
+
+# print the t-statistic
+c("95% CI Lower" = chico_ci_low,
+  "95% CI Upper" =  chico_ci_up)
+```
+
+And we calculate a Cohen's d in exactly the same way as the one-sample and independent samples *t*-test:
+
+$$ d = \frac{\bar \Delta}{\hat \sigma_\Delta} $$
+
+If we divide the mean of the difference scores by the standard deviation of the differences scores we get the Cohen's d (i.e., the standardized mean of the difference scores) at the within-subjects level.  
+
+```{r}
+# calculate cohen's d
+chico_d <- chico_mean / chico_sd
+
+# print cohen's d
+c("d" = chico_d)
+```
+
+Looks like there was a large effect! On average, students showed a large improvement on the second test.
+
+## Using functions {#func}
+
+###One-sample *t*-test of difference scores
+
+We can conduct our *t*-test using one-sample *t*-test functions. The example immediately below uses the `t.test()` function in the `{stats}` package to conduct the one-sample *t*-test of the difference scores.
+
+```{r}
+t.test(x = chico_wide$diff, mu = 0)
+```
+
+This next bit of code uses the `oneSampleTTest()` function from the `{lsr}` package to conduct the one-sample *t*-test of the difference scores.
+
+```{r}
+oneSampleTTest(x = chico_wide$diff, mu = 0)
+```
+
+## Paired samples *t*-test
+
+The `t.test()` function from the `{stats}` package also allows you to input raw scores (i.e., not the difference scores) and run a paired samples *t*-test using the `paired = TRUE` argument. The results will be exactly the same as running the one sample *t*-test on the difference scores. 
+
+```{r}
+t.test(x = chico_wide$grade_test1,
+       y = chico_wide$grade_test2,
+       paired = TRUE)
+```
+
+We can also use the `pairedSamplesTTest()` function from the `{lsr}` package.
+
+```{r}
+pairedSamplesTTest(formula = ~ grade_test2 + grade_test1, # one-sided formula
+                   data = chico_wide # wide format
+                  )
+```
+
+### Long vs. wide format
+
+Note that in the example above, using the `pairedSamplesTTest()` function, we used the wide format data. When using wide data with `pairedSamplesTTest()`, you enter a one-sided formula that contains your two repeated measures conditions (e.g. `~ grade_test2 + gradte_test1`).
+
+The `pairedSamplesTTest()` function can also be used with long data. In this case, you must use a two-sided formula: `outcome ~ group`. You also need to specify the name of the ID variable. Note that the grouping variable must also be a factor. 
+
+```{r}
+# grouping variable (time) must be a factor
+chico_long <- chico_long %>% 
+  mutate(time = as.factor(time))
+
+pairedSamplesTTest(formula = grade ~ time, # two-sided formula
+                   data = chico_long, # long format
+                   id = "id" # name of the id variable
+                   )
+```
+
+### Calculating Cohen's D using functions
+
+In addition to being produced automatically when you run `pairedSamplesTTest()`, the within-subjects Cohen's d can be produced by using the `cohensD()` function from `{lsr}` with the argument `method = "paired"`. 
+
+```{r}
+lsr::cohensD(x      = chico_wide$grade_test1,
+             y      = chico_wide$grade_test2, 
+             method = "paired")
+```
+
+We can also calculate the Cohen's d for the between-conditions variance using the `method = "pooled"` argument. 
+
+```{r}
+lsr::cohensD(x      = chico_wide$grade_test1,
+             y      = chico_wide$grade_test2, 
+             method = "pooled")
+```
+
+## Interpretation and Write-Up 
+
+
+```{r}
+#First I'll run my t-test again, but this time I'll save it to a variable:
+pairedtoutput  <- t.test(x = chico_wide$grade_test1,
+                         y = chico_wide$grade_test2,
+                          paired = TRUE)
+
+#Let's look at our output options
+apa_print(pairedtoutput)
+
+
+```
+
+A paired samples *t*-test was used to compare scores on Dr. Chico's first and second exam. The students scored significantly higher on the second test than on the first test, `r apa_print(pairedtoutput)$full_result`
+
+## Plotting paired-samples data 
+
+When plotting paired samples data, we want some way to clearly represent the repeated measures structure of the data. One way to do this is to draw a line between each pair of data points. This can be done with the `ggpaired()` function from `{ggpubr}`.
+
+```{r}
+# wide format
+ggpaired(chico_wide, 
+         cond1      = "grade_test1", 
+         cond2      = "grade_test2",
+         color      = "condition", 
+         line.color = "gray", 
+         line.size  = 0.4,
+         palette  = "jco")
+```
+
+
+* If you want to make the plot with the long format of the data, you can do the following:
+
+```{r eval=FALSE}
+# long format
+ggpaired(chico_long, 
+         x          = "time", 
+         y          = "grade",
+         color      = "time", 
+         line.color = "gray", 
+         line.size  = 0.4,
+         palette    = "jco")
+```
+
+
 # Minihacks {#minihacks}
 
-You are welcome to work with a partner or in a small group of 2-3 people. Please feel free to ask the lab leader any questions you might have!
+## Minihack 1:
 
-## Minihack 1: Trouble Shooting
+You are developing a scale to quantify how delicious a food is. You design it such that 0 is as delicious as an olive, 25 is delicious as cement, and 50 is delicious as a lemon. You aren't sure exactly where pancakes should fall, but it is an important validation of this measure that a pancake would be drawn from a population that is more delicious than a lemon. You order takeout pancakes from 17 local diners and score each
 
-My advisor told me that I had multiple errors in my code. She told me the line numbers where the errors are, but she thought it would be a good learning experience for me to try to solve the errors myself. I need your help. Fix the errors in the following chunks of code.
+Generate the data by running the the following code:
 
-**Error 1:**
-
-I am trying to calculate a 95% confidence interval for a mean, but the interval I get doesn't even include my estimated mean.
-
-```{r, eval=FALSE}
-ci_lower <- 20 + ((5 / sqrt(120)) * qnorm(.025, 100))
-ci_upper <- 20 + ((5 / sqrt(120)) * qnorm(.975, 100))
-```
-
-**Error 2:**
-
-I am trying to calculate the *p*-value for a *t*-statistic of 3.10, but I keep getting a *p*-value that is greater than 1 (which my advisor says is quite unlikely).
-
-```{r, eval = FALSE}
-# calculate p-value
-p_val <- pt(q = 3.10, df = 19, lower.tail = TRUE) * 2
-
-# print p_value
-p_val
-```
-
-Error 3:
-
-I prefer `t.test()` over `independentSamplesTTest()` because I'm an R purist, and I wanted to calculate a Cohen's *d* value using the `t2d()` function in the `{psych}` package. I don't think it is working properly. I have a *t*-statistic of `5.12`and the sample sizes for my two groups are `15` and `22`.
-
-```{r, eval = FALSE}
-# load psych
-library(psych)
-
-# calculate cohen's d
-t2d(t = 5.12, n = 15, n1 = 22)
-```
-
-## Minihack 2: Using Arithmetic
-
-You are reviewing a manuscript that claims people who were assigned to use a light editor theme in R Studio wrote better code than people who were assigned to use a dark editor theme in R Studio. Better code was operationalized as performance on a coding test (scored out of 25). The researchers state that the difference is significant at *p* = .023 (two-tailed), but you have your doubts. The researchers are not willing to share their data with you, but you glean the following information from the manuscript.
-
-$\hat{\mu}_{DarkTheme}$ = 16.56
-
-$\hat{\mu}_{LightTheme}$ = 20.01
-
-$\hat{\sigma}_{DarkTheme}$ = 5.44
-
-$\hat{\sigma}_{LightTheme}$ = 3.12
-
-$n_{DarkTheme}$ = 8
-
-$n_{LightTheme}$ = 19
-
-1. Calculate the *t*-statistic for the difference between the two means. Assume the variances of the two groups are equal.
-
-```{r}
-mean_diff    <- 16.56 - 20.01
-group1_w     <- 8 - 1
-group2_w     <- 19 - 1
-sd_pooled    <- sqrt(((group1_w * 5.44^2) + (group2_w * 3.12^2)) / (group1_w + group2_w))
-n_correction <- sqrt((1 / 8) + (1 / 19))
-se           <- sd_pooled * n_correction
-t_stat       <- mean_diff / se
-```
-
-2. Is the difference between the two means significant? *Note.* You will have to calculate the degrees of freedom.
-
-```{r}
-# calculate degrees of freedom
-df <- 27 - 2
-
-# calculate p-value
-pt(q = abs(t_stat), df = df, lower.tail = FALSE) * 2
-```
-
-3. Why do you think the researchers got the *p*-value they did?
-
-```{r}
-# calculate one-taled t-tst
-pt(q = abs(t_stat), df = df, lower.tail = FALSE)
-```
-
-## Minihack 3: Using Functions
-
-The same researchers of the editor theme manuscript submit another paper on the difference in coding abilities between Mac and PC users. They argue that PC users are better at coding than Mac users. Again, coding ability was operationalized as performance on a coding test scored out of 25. Despite a growing fear that you are becoming Reviewer 2, you acquire their data through GitHub to check their analyses. 
-
-Run the following lines of code to load the data:
 ```{r}
 # set seed for reproducability
 set.seed(42)
 
 # load data
-data_os <- data.frame("id"      = 1:1e5,
-                      "os"      = c(rep("pc", 2e4), 
-                                    rep("mac", 8e4)),
-                      "ability" = c(rnorm(2e4, 15, 90),
-                                    rnorm(8e4, 13.9, 1)))
+dat_pancake <- data.frame("id"      = 1:17,
+                          "Delicious" =  rnorm(17, 55, 10))
+
 ```
 
-1. Perform an Independent Samples *t*-test on the data (preferably using a built in function).
+1. Run an appropriate test based on your research question. 
 
 ```{r}
-independentSamplesTTest(ability ~ os, data = data_os, var.equal = TRUE)
+(toutput  <- t.test(x = dat_pancake$Delicious, mu = 50))
+
+
 ```
 
-2. After running the code, you think that maybe you should have run a Welch's *t*-test instead of a Student's *t*-test. Investigate your chosen function to figure out how to perform a Welch's *t*-test on the data. Do you find a different result? Why or why not?
+
+
+2. Report and interpret your results using embedded r code
+
+We found that the average pancake deliciousness of the pancake(`r apa_print(toutput)$estimate`) was significantly higher than  where we placed a lemon on our scale, `r apa_print(toutput)$statistic`. More work needs to be done, but this is an important initial validation of our measure.
+
+
+
+3. Plot a histogram of your data. Include lines both with different colors and line shapes for meaningful points on the scale. Optional Bonus: Add a legend with labels for those lines.
 
 ```{r}
-independentSamplesTTest(ability ~ os, data = data_os, var.equal = FALSE)
+# the data set
+dat_pancake %>%
+  # the canvas
+  ggplot(aes(x = Delicious)) +
+    # the geometric elements
+       geom_histogram(
+                   fill   = "brown",
+                   colour = "yellow") +
+  #add vertical line
+  geom_vline(aes(xintercept=50,
+                 color="lemon"),
+             linetype = "solid") +
+  geom_vline(aes(xintercept=25,
+                 color="cement"),
+             linetype = "dashed") +
+  geom_vline(aes(xintercept=0,
+                 color="olive"),
+             linetype = "dotdash") +
+  scale_color_manual(name = "SCALE", values = c(lemon = "orange", cement = "gray", olive = "green")) +
+    # set theme
+    theme_bw() +
+    # add labels 
+    labs(title    = "Histogram of Pancake Deliciousness",
+         x        = "Deliciousness")
 ```
 
-3. Let's give the researchers the benefit of the doubt and assume the variances of both groups are equal. Is there a **meaningful** difference between Mac and PC users? Use a statistic to provide support for your answer.
+4. Show a different visualization and put this new plot and the previous plot on separate tabs.
+
+
+
+## Minihack 2: 
+
+A clinical psychologist wants to know whether a new cognitive-behavioral therapy (CBT) program helps alleviate anxiety. He enrolls 12 individuals diagnosed with an anxiety disorder in a 6-week CBT program. Participants are given an Anxiety Scale before they begin and after they complete treatment.  
+
+Import the data by running the the following code:
 
 ```{r}
-# The Cohen's d is .01. It is a very small effect.
+cbt_data <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/cbt_data.csv")
 ```
 
-4. Plot the data using `ggerrorplot()`. Does this support your answer to question 3?
+
+1. Run a paired-samples *t*-test to determine whether participants' anxiety scores changed from before to after the CBT treatment.
 
 ```{r}
-# create plot
-ggerrorplot(data_os, 
-            x         = "os", 
-            y         = "ability", 
-            desc_stat = "mean_ci", 
-            color     = "os", 
-            ylab      = "Cooperation") +
-  # add result sof t.test
-  stat_compare_means(method = "t.test")
+(toutput <- t.test(cbt_data$after, cbt_data$before, paired = TRUE))
+
 ```
 
+
+2. Report and interpret you results using r code embedded in text.
+
+Anxiety symptoms were significantly reduced between before and after treatment, `r apa_print(toutput)$full_result`. 
+
+3. Create a table to display the descriptive statistics from this data.
+
+4. Plot the data using `ggpaired()`. Bonus: Try to recreate this plot using ggplot.
+
+```{r}
+ggpaired(cbt_data, cond1 = "before", cond2 = "after",
+         color = "condition", line.color = "gray", line.size = 0.4,
+         palette = "jco")
+```
+
+
+
+***
 
 
