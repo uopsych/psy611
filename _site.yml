@@ -55,7 +55,7 @@ navbar:
         href: "labs/lab-6_instructor.html"
       - text:  "7 - RMarkdown"
         href: "labs/lab-7.html"
-      - text:  "8 - One Sample and Paired t-tests"
+      - text:  "8 - One Sample and Paired t-tests (.Rmd)"
         href: "labs/lab-8.Rmd"
     - text: Homework
       href: homework.html
@@ -63,7 +63,7 @@ navbar:
       href: bonus.html
     - text: Oral Exam
       href: oral_exam.html
-    
+
   right:
     - text: Previous Years
       menu:

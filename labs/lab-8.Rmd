@@ -395,7 +395,7 @@ dat_pancake <- data.frame("id"      = 1:17,
 1. Run an appropriate test based on your research question. 
 
 ```{r}
-(toutput  <- t.test(x = dat_pancake$Delicious, mu = 50))
+#Your code here
 
 
 ```
@@ -411,35 +411,15 @@ We found that the average pancake deliciousness of the pancake(`r apa_print(tout
 3. Plot a histogram of your data. Include lines both with different colors and line shapes for meaningful points on the scale. Optional Bonus: Add a legend with labels for those lines.
 
 ```{r}
-# the data set
-dat_pancake %>%
-  # the canvas
-  ggplot(aes(x = Delicious)) +
-    # the geometric elements
-       geom_histogram(
-                   fill   = "brown",
-                   colour = "yellow") +
-  #add vertical line
-  geom_vline(aes(xintercept=50,
-                 color="lemon"),
-             linetype = "solid") +
-  geom_vline(aes(xintercept=25,
-                 color="cement"),
-             linetype = "dashed") +
-  geom_vline(aes(xintercept=0,
-                 color="olive"),
-             linetype = "dotdash") +
-  scale_color_manual(name = "SCALE", values = c(lemon = "orange", cement = "gray", olive = "green")) +
-    # set theme
-    theme_bw() +
-    # add labels 
-    labs(title    = "Histogram of Pancake Deliciousness",
-         x        = "Deliciousness")
+#Your code here
 ```
 
 4. Show a different visualization and put this new plot and the previous plot on separate tabs.
 
 
+```{r}
+#Your code here
+```
 
 ## Minihack 2: 
 
@@ -455,23 +435,30 @@ cbt_data <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs
 1. Run a paired-samples *t*-test to determine whether participants' anxiety scores changed from before to after the CBT treatment.
 
 ```{r}
-(toutput <- t.test(cbt_data$after, cbt_data$before, paired = TRUE))
+#Your code here
+```
 
+2. Verify your results usiing a one sample t-test on difference scores
+
+```{r}
+#Your code here
 ```
 
 
-2. Report and interpret you results using r code embedded in text.
+3. Report and interpret you results using r code embedded in text.
 
-Anxiety symptoms were significantly reduced between before and after treatment, `r apa_print(toutput)$full_result`. 
 
-3. Create a table to display the descriptive statistics from this data.
+
+4. Create a table to display the descriptive statistics from this data.
+
+```{r}
+#Your code here
+```
 
 4. Plot the data using `ggpaired()`. Bonus: Try to recreate this plot using ggplot.
 
 ```{r}
-ggpaired(cbt_data, cond1 = "before", cond2 = "after",
-         color = "condition", line.color = "gray", line.size = 0.4,
-         palette = "jco")
+#Your code here
 ```
 
 
