@@ -26,12 +26,14 @@ Homework assignments will appear here. You'll be able to access the assignment, 
 
 - [Download homework-avengers.csv here.](homework/homework-avengers.csv)
 
-<!-- ### [**Homework 3**](homework/homework_3.html) -->
+### [**Homework 3**](homework/homework_3.html)
 
-<!-- **Due December 13, 9am** -->
+**Due December 11, 9am**
 
-<!-- - [Download RMD file here.](homework/homework_3.Rmd) -->
+- [Download RMD file here.](homework/homework_3.Rmd)
 
-<!-- - [Download homework-school.csv here.](homework/homework-school.csv)  -->
+- [Download homework-school.csv here.](homework/homework-school.csv)
 
-<!-- - [Download homework-nls.csv here.](homework/homework-nls.csv)  -->
+- [Download homework-nls.csv here.](homework/homework-nls.csv)
+
+- [Download homework-world-2.csv here.](homework/homework-world-2.csv)

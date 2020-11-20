@@ -41,6 +41,9 @@ Other questions refer to the dataset `homework-nls` that contains the following 
 * happy_2010
 * depressed_2010
 
+
+Finally, we return once again to the [World Happiness Survey](http://www.gallup.com/178667/gallup-world-poll-work.aspx), an attempt to track important issues in over 160 countries, representing about 99% of the world's population. A small part of that survey is in the dataset `homework-world-2`. Included are the country name, country development status (First World, Second World, Third World, or Other), the life ladder score, and a binary happiness variable called Above_Average.
+
 # 2-point questions
 
 ### Question 1 {#P2Q1}
@@ -170,14 +173,12 @@ Use the dataset `homework-nls` for the following question.
 
 Use the dataset `homework-nls` for the following question.
 
-* Create the following two new variables:
+* Create the following two new variables (note that some of these variables were created in question 5.2. See the instructions for that questionz to ensure that variables are properly defined):
 
   * diff_content = content_2010-content_2000
   * diff_sad = sad_2010-sad_2000
 
 * Conduct independent samples t-tests for each measure; use sex as the grouping variable. Report the t-value, p-value, confidence interval, and effect size for each test.
-
-* Conceptually, what kind of effect is being examined with the t-tests in this question?
 
 * Create a graphic (two if you must, but it would be better if you could create just one) to visualize these effects. Be sure to include confidence intervals. 
 
@@ -201,27 +202,27 @@ Using the `homework-school` dataset, you will test whether adolescent boys or gi
 
 ### Question 2
 
-In this question, you will perform an interpret a $\chi^2$ test of independence. In the dataset called `homework-school` there is the following question: 
 
-*Which would you prefer to be? Select one: Rich, Happy, Famous, Healthy*
+The "above average effect" (AAE) describes a curious phenomenon in which most people claim to be above average on most positive attributes—a statistical impossibility. This can manifest itself in a lot of ways, including most people claiming to be smarter than average, better than average leaders, and better than average drivers. All of these, of course, fail the test of daily experience, which tells you that most people drive like idiots, couldn’t lead a hungry man to a steak dinner, and would be no better than even-money to win as a contestant on Jeopardy if competing against a fence post.
+You’ll test if the AAE manifests itself in the world happiness data that we have examined previously in the course. 
 
-Answers are coded in the variable called `Preferred_Status`. Students are also coded by which kind of school they attend, High school or Middle school, in the variable called `School`. 
+In the dataset `homework-world-2`, the instructions for the `Happiness` measure were: "Please imagine a ladder, with steps numbered from 0 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. On which step of the ladder would you say you personally feel you stand at this time?"
 
-* Count the number of students who prefer each status *by school*. Your answer should have the same format as following table (the rows and columns may be in a different order):
+The variable, `Above_Average`, is scored 1 if the life ladder score was above 5, the mid-point of the life ladder; otherwise it is scored 0.
 
-|      | Rich | Happy | Famous | Healthy |
-|:-----|:----:|:-----:|:------:|:-------:|
-|high  |?     |?      |?       |?        |
-|middle|?     |?      |?       |?        |
+Pick one of these measures to test the AAE. (If choosing the ladder, use the value of 5 as the expected happiness value if, in fact, there is no AAE. If using the Above_Average variable, then the value .5 as the expected value if there is no AAE):
+
+* What is the null hypothesis? What is the alternative hypothesis? 
+
+* Set your alpha level. Should you conduct a one-tailed test or a two-tailed test? 
+
+* Determine the parameters of your sampling distribution. Create a figure of this distribution that includes an indication of the critical value(s).
+
+* Conduct your statistical test and interpret the result in terms of your null and alternative hypothesis. 
 
 
-* Convert the preferences to proportions within school level and display in a bar graph. 
-
-* Conduct a $\chi^2$ test for independence. Report the $\chi^2$ statistic, degrees of freedom, and $p$-value. 
-
-* Interpret this test: What were your null and alternative hypotheses? What was your decision (reject or fail to reject)? How do you interpret this in terms of your variables?
-
-* How are the expected values calculated for a $\chi^2$ test of independence? Calculate the expected value of the cell High School students who prefer being famous "by hand."
+* The test you have conducted might be criticized for being a bit
+lenient. After all, some countries in the survey are quite well-off and would have good reasons for reporting higher than average levels of happiness. If the AAE is robust, it should show up even for countries that have less compelling reasons to be happy. Repeat the your statistical, but now separately for countries in the four development categories. Report all test statistics and _p_-values.
 
 # 20-point questions
 
