@@ -408,7 +408,7 @@ We found that the average pancake deliciousness of the pancake(`r apa_print(tout
 
 
 
-3. Plot a histogram of your data. Include lines both with different colors and line shapes for meaningful points on the scale. Optional Bonus: Add a legend with labels for those lines.
+3. Plot a histogram of your data. Include lines both with different colors and line shapes for meaningful points on the scale. *Optional Bonus:* Add a legend with labels for those lines.
 
 ```{r}
 #Your code here
@@ -438,7 +438,7 @@ cbt_data <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs
 #Your code here
 ```
 
-2. Verify your results usiing a one sample t-test on difference scores
+2. Verify your results using a one sample t-test on difference scores
 
 ```{r}
 #Your code here
