@@ -19,110 +19,77 @@ library(kableExtra)
 library(ggpubr)
 ```
 
+# Last time
+
+* paired samples _t_-tests
+
+---
+
+## Example
+
+You have good reason to believe that dogs are smarter than cats. You design a study in which you recruit dogs and cats from households that have one of each and conduct a series of IQ tests to measure each animal's intelligence on a scale from 1 (not so smart) to 5 (genius). 
+
+| Cat | Dog |
+|:---:|:---:|
+|2 | 1|
+|5 | 4|
+|3 | 3|
+|1 | 3|
+|2 | 5|
+
+---
+
+```{r}
+pets = data.frame(cat = c(2,5,3,1,2), 
+                  dog = c(1,4,3,3,5))
+
+pets$difference = pets$cat-pets$dog
+
+psych::describe(pets, fast = T)
+```
+
+$$\large \frac{\hat{\sigma}_\Delta}{\sqrt{N}} = \frac{1.82}{\sqrt{5}} = 0.81$$
+
+$$\large t = \frac{\bar{\Delta}}{\frac{\hat{\sigma}_\Delta}{\sqrt{N}}} = \frac{-0.60}{0.81} = -0.74$$
+---
+
+```{r, echo = F}
+stat = mean(pets$difference)/(sd(pets$difference)/sqrt(5))
+df = 4
+cv_t = qt(df = df, p = .975)
+t_x = seq(-3.75, 3.75)
+data.frame(t_x) %>%
+  ggplot(aes(x=t_x)) +
+  stat_function(fun = function(x) dt(x, df), geom = "line") +
+  stat_function(fun = function(x) dt(x, df), geom = "area", 
+                xlim = c(cv_t, 3.75), fill = "purple") +
+  stat_function(fun = function(x) dt(x, df), geom = "area", 
+                xlim = c(-3.75, -1*cv_t), fill = "purple") +
+  geom_vline(aes(xintercept = stat), color = "red", linetype = 2, size = 2)+
+  labs(title = "Sampling distribution \n(in t)", y = "density", x = "t")+
+  theme_bw(base_size = 20)
+```
+
+---
+
+We can also calculate the area at least as far away from the null as our test statistic.
+
+```{r}
+stat = mean(pets$difference)/(sd(pets$difference)/sqrt(5))
+pt(abs(stat), df = 5-1, lower.tail = F)
+pt(abs(stat), df = 5-1, lower.tail = F)*2
+```
+
+
+
+---
 
 # Today
-
-* One mean versus the population (review)
 
 * Two independent means
 
 ---
 
-# One-sample *t*-test
-
-The one-sample t-test is appropriate when a single sample mean is compared to a population mean but the population standard deviation is unknown.  
-
-A sample estimate of the population standard deviation is used instead.  
-
-The appropriate sampling distribution is the t-distribution, with N-1 degrees of freedom.
-
-$$t_{df=N-1} = \frac{\bar{X}-\mu}{\frac{\hat{\sigma}}{\sqrt{N}}}$$
----
-
-## A new example
-
-We can again use the Census at School database, which includes six questions asking students to rate the following issues on a scale from 0 (not important) to 1000 (very important):
-
-* Reducing pollution
-* Recycling
-* Conserving water
-* Conserving energy (electricity, gas, oil for heating, lighting, car travel)
-* Owning a computer
-* Access to the internet
-
-A random sample of 247 Oregon high schoolers can be compared to the means from high schoolers from all 50 states.
-
-
----
-
-```{r, results = 'hide', warning = F, message = F}
-school = read_csv(here("data/census_at_school.csv"))
-school = school %>% filter(ClassGrade >= 9)
-
-usa = read_csv(here("data/census_at_school_usa.csv"))
-usa = usa %>% filter(ClassGrade >= 9 & Region != "OR")
-```
-
----
-
-The null and alternative hypotheses:
-
-$$H_0: \bar{X}_{OR} = \mu_{USA}$$
-
-$$H_1: \bar{X}_{OR} \neq \mu_{USA}$$
-
-```{r, eval = F}
-t.test(school$Importance_reducing_pollution, 
-       mu = mean(usa$Importance_reducing_pollution, na.rm=T),
-       alternative = "two.sided", conf.level = .95)
-```
-
-```{r, echo = F, results = 'asis'}
-variables = names(usa)[grepl("Importance", names(usa))]
-USA_means = usa %>%
-  select(variables) %>%
-  mutate_all(function(x) as.numeric(gsub("\\D+","",x))) %>%
-  summarise_all(mean, na.rm=T)
-
-school %>%
-  select(variables) %>%
-  mutate_all(function(x) as.numeric(gsub("\\D+","",x))) %>% 
-  gather("variable", "scores") %>%
-  nest(scores) %>%
-  mutate(OR = map(data, function(x) mean(x$scores, na.rm=T))) %>%
-  mutate(usa = t(USA_means)[,1]) %>%
-  mutate(t = map2(data, usa, function(x,y) t.test(x$scores, mu = y))) %>%
-  mutate(t.value = map(t, "statistic")) %>%
-  mutate(t.value = map(t.value, 1)) %>%
-  mutate(p.value = map(t, "p.value")) %>%
-  select(variable, OR, usa, t.value, p.value) %>%
-  unnest() %>%
-  mutate(variable = gsub("Importance_", "", variable)) %>%
-  kable(., digits = 2, col.names = c("Issue", "USA Mean", "OR mean", "t value", "p value")) %>%
-  kable_styling()
-```
-
----
-
-.small[The lsr package has t-test functions that provide more detailed output.]
-
-```{r}
-lsr::oneSampleTTest(x = school$Importance_reducing_pollution, 
-       mu = mean(usa$Importance_reducing_pollution, na.rm=T))
-```
-
----
-
-### Assumptions
-
-* Normality
-* Independence
-
-If population scores are normally distributed, the sampling distribution of the mean will also be normally distributed.
-
-If the data are independent, then the *t* distribution chosen by $df = N-1$ will provide an accurate approximation of the sampling distribution of the mean for purposes of making inferences.
-
----
 
 ## Independent samples *t*-test
 
@@ -159,7 +126,7 @@ $$H_1: \mu_1 - \mu_2 \neq 0$$
 
 ---
 
-Calculating the demoninator of this test is not straightfoward. If we think of our test as a one-sample test of our difference score, then we need our standard error to be that of difference in means, not means themselves.
+Calculating the demoninator of this test is not straightfoward. If we think of our test as a one-sample test of our difference score, then we need our standard error to be that of difference in means, not means themselves, just like in the paired samples _t_=test.
 
 $\text{SE (difference in means)} = \sigma_D$
 
@@ -404,7 +371,7 @@ data.frame(x) %>%
 
 ---
 
-Alternatively, we can not do any of that, and use an R function.
+Alternatively, we can skip calculating statistics by hand, and use an R function.
 
 ```{r}
 t.test(friends~Gender, data = school_new, var.equal = T)
@@ -511,6 +478,33 @@ ggerrorplot(school_new, x = "Gender", y = "friends",
 ```
 ---
 
+Plots of confidence intervals can contain information on statistical significance, although, as with everything grounded in frequentist probability, there are strict limits to what you can and cannot conclude. 
+
+For example, if a 95% confidence interval contains a value X, then the statistic the confidence interval describs is **not statistically significantly different from X.**
+
+---
+
+```{r message = F, warning = F, echo = F}
+ggerrorplot(school_new, x = "Gender", y = "friends", 
+            desc_stat = "mean_ci", color = "Gender", 
+            ylab = "Hours spent with friends (per week)") +
+  geom_hline(aes(yintercept = 10), linetype = "dashed")
+```
+
+---
+
+Similarly, when comparing two means, if the confidence interval one of mean contains the second mean, the two means are **not statistically significantly** different. 
+
+If the confidence intervals around those means do not overlap, then the two means **are significantly different.**
+
+But, if the confidence intervals do overlap but do not contain the other means, the significance of the comparison test is indeterminate. 
+
+--
+
+Lastly, it's important to note that _a difference in significance is not the same as a significant difference._ This can seem obvious in a two-groups _t_-test, but it will come up in sneaky ways in the future. 
+
+---
+
 ### What is a test statistic?
 
 .pull-left[
@@ -524,17 +518,16 @@ $$t = \frac{\bar{X}-\mu}{\frac{s}{\sqrt{N}}}$$
 
 $$t = \frac{(\bar{X}_1 - \bar{X}_2)-(\mu_1 - \mu_2)}{\sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}$$
 
+$$t = \frac{\bar{\Delta}-\mu_0}{\sqrt{\frac{\hat{\sigma_{\Delta}}}{N}}}$$
+
+$$\chi^2 = \sum{\frac{(O_i-E_i)^2}{E_i}}$$
+
 ]
 
 All test statistics measure 
 
 $$\frac{\text{Signal}}{\text{Noise}}$$
 
----
-
-class: center
-
-![](images/signal.png)
 ---
 
 class: inverse
