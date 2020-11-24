@@ -39,6 +39,9 @@ navbar:
         href: "lectures/15-one_sample.html"
       - text: "16 - Two means (paired)"
         href: "lectures/16-paired_samples.html"
+      - text: "17 - Two means (independent)"
+        href: "lectures/17-independent_samples.html"
+        
     - text: Labs
       menu:
       - text:  "1 - Introduction to R"
