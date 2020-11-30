@@ -21,9 +21,9 @@ library(ggpubr)
 
 ## Reminders
 
-Quiz 9 is on Thursday next week
+* Quiz 9 is on Thursday next week
 
-Sign up for your oral exam time slot ASAP!
+* Psych Twitter talked about [effect sizes](https://twitter.com/farid_anvari/status/1332745933860298754) over the [weekend](https://twitter.com/BrentWRoberts/status/1332769974201569281?s=20).
 
 ---
 
