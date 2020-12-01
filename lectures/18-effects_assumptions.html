@@ -1,25 +1,24 @@
----
-title: 'Comparing two means: effect sizes and assumptions'
-output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    css: [default, rladies, rladies-fonts, "my-theme.css"]
-    nature:
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Comparing two means: effect sizes and assumptions</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Comparing two means: effect sizes and assumptions
+
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(here)
-library(knitr)
-library(kableExtra)
-library(ggpubr)
 
-gulls = read.delim(here("data/gulls/pairs.txt"))
-```
+
 
 ## Reminders
 
@@ -39,7 +38,7 @@ gulls = read.delim(here("data/gulls/pairs.txt"))
 
   * Standard error of the **difference of means**
   
-  * Pooled variance, $\hat{\sigma}_P$
+  * Pooled variance, `\(\hat{\sigma}_P\)`
   
   * Confidence intervals around the difference in means
   
@@ -53,137 +52,142 @@ It's generally argued that Republicans have an age problem -- but are they subst
 
 In 2014 (midterm election before the most recent presidential election), [*Five Thirty Eight* did an analysis](https://fivethirtyeight.com/features/both-republicans-and-democrats-have-an-age-problem/) of the ages of elected members of Congress. They've provided their data, so we can run analyses on our own.
 
-```{r, echo = 1, message = F}
+
+```r
 library(fivethirtyeight)
-library(tidyverse)
 ```
 ---
 
-```{r}
-congress = congress_age %>%
-  filter(congress == 113) %>% # just the most recent
+
+```r
+congress = congress_age %&gt;%
+  filter(congress == 113) %&gt;% # just the most recent
   filter(party %in% c("R", "D")) # remove independents
 ```
 
-```{r}
+
+```r
 psych::describe(congress$age)
 ```
----
 
-```{r}
-congress %>% ggplot(aes(x = age)) + geom_histogram(bins = 50, color = "white") + labs(x = "Age in years", y = "Frequency", title = "Age Distribution of Congressional \nMembers in 113th Congress", caption = "This is pretty normal.") + theme_bw(base_size = 20)
+```
+##    vars   n  mean    sd median trimmed   mad  min max range  skew kurtosis   se
+## X1    1 542 57.58 10.92  57.95   57.66 10.82 29.8  93  63.2 -0.02    -0.13 0.47
 ```
 ---
 
-```{r}
-congress %>% ggplot(aes(x = age, fill = party)) + geom_histogram(bins = 50, color = "white", position = "dodge") + labs(x = "Age in years", y = "Frequency", title = "Age Distribution of Congressional \nMembers in 113th Congress", caption = "This is pretty normal.") + scale_fill_manual(values = c("blue", "red")) + theme_bw(base_size = 20)
+
+```r
+congress %&gt;% ggplot(aes(x = age)) + geom_histogram(bins = 50, color = "white") + labs(x = "Age in years", y = "Frequency", title = "Age Distribution of Congressional \nMembers in 113th Congress", caption = "This is pretty normal.") + theme_bw(base_size = 20)
 ```
+
+![](18-effects_assumptions_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+---
+
+
+```r
+congress %&gt;% ggplot(aes(x = age, fill = party)) + geom_histogram(bins = 50, color = "white", position = "dodge") + labs(x = "Age in years", y = "Frequency", title = "Age Distribution of Congressional \nMembers in 113th Congress", caption = "This is pretty normal.") + scale_fill_manual(values = c("blue", "red")) + theme_bw(base_size = 20)
+```
+
+![](18-effects_assumptions_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 
 ---
 
-```{r}
+
+```r
 psych::describeBy(congress$age, group = congress$party)
 ```
 
-
-```{r, echo = F}
-stats = psych::describeBy(congress$age, group = congress$party)
 ```
+## 
+##  Descriptive statistics by group 
+## group: D
+##    vars   n  mean    sd median trimmed   mad  min max range  skew kurtosis   se
+## X1    1 259 59.55 10.85   60.4   59.85 10.53 29.8  93  63.2 -0.19     0.02 0.67
+## ------------------------------------------------------------ 
+## group: R
+##    vars   n  mean    sd median trimmed  mad  min  max range skew kurtosis   se
+## X1    1 283 55.78 10.68   56.1   55.67 9.79 31.6 89.7  58.1 0.13    -0.11 0.64
+```
+
+
+
 
 .pull-left[
 $$
-\begin{aligned}
- \bar{X}_1 &= `r round(stats$D[1, "mean"],2)` \\
- \hat{\sigma}_1 &= `r round(stats$D[1, "sd"],2)` \\
- N_1 &= `r round(stats$D[1, "n"])` \\
-\end{aligned}
+`\begin{aligned}
+ \bar{X}_1 &amp;= 59.55 \\
+ \hat{\sigma}_1 &amp;= 10.85 \\
+ N_1 &amp;= 259 \\
+\end{aligned}`
 $$
 ]
 
 .pull-right[
 $$
-\begin{aligned}
- \bar{X}_2 &= `r round(stats$R[1, "mean"],2)` \\
- \hat{\sigma}_2 &= `r round(stats$R[1, "sd"],2)` \\
- N_2 &= `r round(stats$R[1, "n"])` \\
-\end{aligned}
+`\begin{aligned}
+ \bar{X}_2 &amp;= 55.78 \\
+ \hat{\sigma}_2 &amp;= 10.68 \\
+ N_2 &amp;= 283 \\
+\end{aligned}`
 $$
 ]
 
 ---
 
-```{r, echo = F}
-x1 = stats$D[1, "mean"]
-s1 = stats$D[1, "sd"]
-n1 = stats$D[1, "n"]
 
-x2 = stats$R[1, "mean"]
-s2 = stats$R[1, "sd"]
-n2 = stats$R[1, "n"]
-
-rx1 = round(x1, 2)
-rs1 = round(s1, 2)
-rn1 = round(n1, 2)
-rx2 = round(x2, 2)
-rs2 = round(s2, 2)
-rn2 = round(n2, 2)
-
-s=sqrt(((n1-1)*s1^2+(n2-1)*s2^2)/(n1+n2-2))
-
-s_d = s*sqrt((1/n1) + (1/n2))
-
-df = n1+n2-2
-```
 
 
 Next we build the sampling distribution under the null hypotheses.
 
 $$
-\begin{aligned}
- \mu &= 0 \\
+`\begin{aligned}
+ \mu &amp;= 0 \\
  \\
- \sigma_D &= \sqrt{\frac{(`r rn1`-1){`r rs1`}^2 + (`r rn2`-1){`r rs2`}^2}{`r rn1`+`r rn2`-2}} \sqrt{\frac{1}{`r rn1`} + \frac{1}{`r rn2`}}\\
- &= `r round(s,2)`\sqrt{\frac{1}{`r rn1`} + \frac{1}{`r rn2`}} = `r round(s_d,2)`\\
+ \sigma_D &amp;= \sqrt{\frac{(259-1){10.85}^2 + (283-1){10.68}^2}{259+283-2}} \sqrt{\frac{1}{259} + \frac{1}{283}}\\
+ &amp;= 10.76\sqrt{\frac{1}{259} + \frac{1}{283}} = 0.93\\
  \\
- df &= `r n1+n2-2`
-\end{aligned}
+ df &amp;= 540
+\end{aligned}`
 $$ 
 ---
 
-```{r, echo = 2, fig.height = 6, fig.width = 8}
-(cv = qt(p = .975, df = 540))
-(t = (x1-x2)/s_d)
-
-x = c(-5:5)
-
-data.frame(x) %>%
-  ggplot(aes(x=x)) +
-  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
-                xlim = c(cv, 5), fill = "purple") +
-  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
-                xlim = c(-5, cv*-1), fill = "purple") +
-  stat_function(fun= function(x) dt(x, df = df), geom = "line") +
-  geom_vline(aes(xintercept = t), color = "black")+
-  labs(x = "Difference in means", y = "density") +
-  theme_light(base_size = 20)
 
 ```
+## [1] 1.964367
+```
+
+```r
+(t = (x1-x2)/s_d)
+```
+
+```
+## [1] 4.071568
+```
+
+![](18-effects_assumptions_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 ---
 
-```{r, fig.height = 6, fig.width = 8}
+
+```r
 library(ggpubr)
 ggerrorplot(congress, x = "party", y = "age", desc_stat = "mean_ci", xlab = "Party", ylab = "Average Age", 
             color = "party", palette = c("red", "blue"))
 ```
 
+![](18-effects_assumptions_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
 ---
 
-```{r}
+
+```r
 ggerrorplot(congress, x = "party", y = "age", desc_stat = "mean_ci", xlab = "Party", ylab = "Average Age", 
             color = "party", palette = c("red", "blue"), add = "violin") +
   stat_compare_means(comparisons =list(c("R", "D")))
 ```
+
+![](18-effects_assumptions_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -193,55 +197,26 @@ Researchers commonly examine effects within separate groups. This can be an appr
 
 For example, traditional benchmarks might suggest that the average young adult reports a stress-level of 3.4 out of 5. But these benchmarks are estimated from a population of white young adults; you conduct a study looking at young Hispanic adults and young African American adults. 
 
-```{r, echo = F}
-calc_m_sd = function(n, lower, upper){
-  mean = (upper+lower)/2
-  cv = qt(p = .975, df = n-1)
-  moe = upper-mean
-  sem = moe/cv
-  sd = sem*sqrt(n)
-  return(list(mean = mean, 
-              sd = sd, 
-              sem = sem))
-}
 
-hispanic = calc_m_sd(n = 36, lower = 3.3, upper = 3.8)
-black = calc_m_sd(n = 62, lower = 3.5, upper = 3.9)
-```
 
 
 .pull-left[
-$$\bar{X}_H: `r hispanic$mean`$$
-$$s_H: `r round(hispanic$sd,3)`$$
-$$N_H: 36$$
+`$$\bar{X}_H: 3.55$$`
+`$$s_H: 0.739$$`
+`$$N_H: 36$$`
 ]
 
 .pull-left[
-$$\bar{X}_B: `r black$mean`$$
-$$s_B: `r round(black$sd,3)`$$
-$$N_B: 62$$
+`$$\bar{X}_B: 3.7$$`
+`$$s_B: 0.788$$`
+`$$N_B: 62$$`
 ]
 
 ---
 
 We can plot these effects against our population mean:
 
-```{r, echo = F}
-data.frame(group = c("hispanic", "black"), 
-           mean = c(hispanic$mean, black$mean),
-           sem = c(hispanic$sem, black$sem),
-           n = c(36, 62)
-           ) %>%
-  mutate(cv = qt(df = n-1, p = .975),
-         moe = cv*sem) %>%
-  ggplot(aes(x = group, y = mean, color = group)) +
-  geom_point(stat = "identity", size = 3) +
-  geom_errorbar(aes(ymin = mean-moe, ymax = mean+moe), size = 1.5) +
-  geom_hline(aes(yintercept = 3.4), color = "black", linetype = "dashed", size = 1.5) +
-  labs(x = "Group", y = "Average Stress Level", title = "Average stress level of ethnic groups", caption = "These groups are not significantly different.\nAfrican Americans are sig. different from whites,\nbut Hispanics are not.")+
-  theme_bw(base_size = 20)
-
-```
+![](18-effects_assumptions_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
 ???
 
@@ -255,7 +230,7 @@ This expands beyond one-sample t-tests. For example, if there is a sig. correlat
 
 Cohen suggested one of the most common effect size estimates—the standardized mean difference—useful when comparing a group mean to a population mean or two group means to each other. This is referred to as **Cohen's d**. 
 
-$$\delta = \frac{\mu_1 - \mu_0}{\sigma} \approx d = \frac{\bar{X}_1-\bar{X}_2}{\hat{\sigma}_p}$$
+`$$\delta = \frac{\mu_1 - \mu_0}{\sigma} \approx d = \frac{\bar{X}_1-\bar{X}_2}{\hat{\sigma}_p}$$`
 
 --
 
@@ -273,34 +248,32 @@ Let's go back to our politics example:
 .pull-left[
 **Democrats**
 $$
-\begin{aligned}
- \bar{X}_1 &= `r round(stats$D[1, "mean"],2)` \\
- \hat{\sigma}_1 &= `r round(stats$D[1, "sd"],2)` \\
- N_1 &= `r round(stats$D[1, "n"])` \\
-\end{aligned}
+`\begin{aligned}
+ \bar{X}_1 &amp;= 59.55 \\
+ \hat{\sigma}_1 &amp;= 10.85 \\
+ N_1 &amp;= 259 \\
+\end{aligned}`
 $$
 ]
 
 .pull-right[
 **Republicans**
 $$
-\begin{aligned}
- \bar{X}_2 &= `r round(stats$R[1, "mean"],2)` \\
- \hat{\sigma}_2 &= `r round(stats$R[1, "sd"],2)` \\
- N_2 &= `r round(stats$R[1, "n"])` \\
-\end{aligned}
+`\begin{aligned}
+ \bar{X}_2 &amp;= 55.78 \\
+ \hat{\sigma}_2 &amp;= 10.68 \\
+ N_2 &amp;= 283 \\
+\end{aligned}`
 $$
 ]
 
-$$\hat{\sigma}_p = \sqrt{\frac{(`r rn1`-1){`r rs1`}^2 + (`r rn2`-1){`r rs2`}^2}{`r rn1`+`r rn2`-2}} 
- = `r round(s,2)`$$
+`$$\hat{\sigma}_p = \sqrt{\frac{(259-1){10.85}^2 + (283-1){10.68}^2}{259+283-2}} 
+ = 10.76$$`
  
-```{r, echo = F}
-d = (x1-x2)/s
-```
+
  
  
-$$d = \frac{`r round(x1,2)`-`r round(x2,2)`}{`r round(s,2)`} = `r round(d,2)`$$
+`$$d = \frac{59.55-55.78}{10.76} = 0.35$$`
 
 How do we interpret this? Is this a large effect?
 
@@ -319,7 +292,7 @@ Cohen (1988) suggests the following guidelines for interpreting the size of d:
 ]
 
 An aside, to calculate Cohen's D for a one-sample *t*-test: 
-$$d = \frac{\bar{X}-\mu}{\hat{\sigma}}$$
+`$$d = \frac{\bar{X}-\mu}{\hat{\sigma}}$$`
 
 
 .small[Cohen, J. (1988), Statistical power analysis for the behavioral sciences (2nd Ed.). Hillsdale: Lawrence Erlbaum.]
@@ -330,73 +303,58 @@ Another useful metric is the overlap between the two population distributions --
 
 ---
 
-```{r overlap_plot, echo = F, message=F, warning = F}
-x = seq(from = 20, to = 100, by = 1)
-d.alt = dnorm(x, mean = x1, sd = s)
-d.nul = dnorm(x, mean = x2, sd = s)
-
-loc = min(which(d.alt-d.nul > 0))
-loc = (x[loc] + x[loc-1])/2
-
-area = pnorm(loc, mean = x2, sd = s, lower.tail = F) + pnorm(loc, mean = x1, sd = s, lower.tail = T)
-
-p = ggplot(data.frame(x=x), aes(x)) +
-  stat_function(fun = function(x) dnorm(x, mean = x2, sd = s), 
-                geom = "line", aes(color = "Republicans")) + 
-  stat_function(fun = function(x) dnorm(x, mean = x1, sd = s), 
-                geom = "line", aes(color = "Democrats")) + 
-  scale_color_discrete("Model") +
-  ggtitle(paste0("Overlap = ", round(area,3))) + 
-  scale_color_manual(values = c("blue", "red")) +
-  labs(x = "Congressperson Age",
-          y = "Density", 
-          title = "Estimated population distributions of\ncongresspersons by party")+
-  theme_bw(base_size = 20)
-
-p
-```
+![](18-effects_assumptions_files/figure-html/overlap_plot-1.png)&lt;!-- --&gt;
 
 
 ---
 
-```{r, echo = F}
-p +   
-  stat_function(fun = function(x) dnorm(x, mean = x2, sd = s),
-                geom = "area", xlim = c(loc,100), fill = "black") +
-  stat_function(fun = function(x) dnorm(x, mean = x1, sd = s),
-                geom = "area", xlim =c(20, loc), fill = "black")
-
-```
+![](18-effects_assumptions_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 
 
-These distributions have `r round(area*100,2)` % overlap.
+These distributions have 86.1 % overlap.
 
 ---
 ### Calculation of distribution overlap
 
 There is a straightforward relationship between Cohen's d and distribution overlap:
 
-$$\text{Overlap} = P(X \leq -\frac{|d|}{2})*2$$
+`$$\text{Overlap} = P(X \leq -\frac{|d|}{2})*2$$`
 
-```{r}
+
+```r
 2 * pnorm(-abs(0.35)/2)
+```
+
+```
+## [1] 0.8610796
 ```
 
 ---
 
 ## Cohen's D (Paired-samples _t_)
 
-```{r, echo = F}
-difference = gulls$At - gulls$Away
-m_delta = mean(difference)
-s_delta = sd(difference)
+
+
+
+Recall our gull example from the paired-samples _t_-test lecture. The average difference in seconds was `\(83.11 (SD = 115.85)\)`.
+
+
+```r
+t.test(gulls$At, gulls$Away, paired = T)
 ```
 
-
-Recall our gull example from the paired-samples _t_-test lecture. The average difference in seconds was $`r papaja::printnum(m_delta)` (SD = `r papaja::printnum(s_delta)`)$.
-
-```{r}
-t.test(gulls$At, gulls$Away, paired = T)
+```
+## 
+## 	Paired t-test
+## 
+## data:  gulls$At and gulls$Away
+## t = 3.1269, df = 18, p-value = 0.005826
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##   27.26807 138.94246
+## sample estimates:
+## mean of the differences 
+##                83.10526
 ```
 
 ---
@@ -406,7 +364,7 @@ Calculating a standardized effect size for a paired samples t-test (and research
 
 The first level is the **within-subject** (or within-pair, or within-gull) level, and this communicates effect size in the unit of differences (of units).
 
-$$d = \frac{\bar{\Delta}}{\hat{\sigma_\Delta}} = \frac{`r round(m_delta,2)`}{`r round(s_delta,2)`} = `r round(m_delta/s_delta,2)`$$
+`$$d = \frac{\bar{\Delta}}{\hat{\sigma_\Delta}} = \frac{83.11}{115.85} = 0.72$$`
 
 
 The interpretation is that, on average, variability within a single gull is about .72 standard deviations of differences of seconds.
@@ -415,8 +373,13 @@ The interpretation is that, on average, variability within a single gull is abou
 
 ### Cohen's D (Paired-samples _t_)
 
-```{r} 
+
+```r
 lsr::cohensD(x = gulls$At, y = gulls$Away, method = "paired")
+```
+
+```
+## [1] 0.7173615
 ```
 
 
@@ -424,15 +387,20 @@ The second level is the **between-conditions** variance, which is in the units o
 
 For that, you can use the Cohen's d calculated for independent samples *t*-tests.
 
-```{r}
+
+```r
 lsr::cohensD(x = gulls$At, y = gulls$Away, method = "pooled")
+```
+
+```
+## [1] 0.8137369
 ```
 
 ---
 
 **Which one should you use?**
 
-The first thing to recognize is that, unlike hypothesis testing, there are no standards for effect sizes. When Cohen developed his formula in 1988, he never bothered to precisely define $\large \sigma$. Interpretations have varied, but no single method for within-subjects designs has been identified. 
+The first thing to recognize is that, unlike hypothesis testing, there are no standards for effect sizes. When Cohen developed his formula in 1988, he never bothered to precisely define `\(\large \sigma\)`. Interpretations have varied, but no single method for within-subjects designs has been identified. 
 
 Most often, textbooks will argue for the within-pairs version, because this mirrors the hypothesis test. 
 
@@ -449,11 +417,11 @@ This can be calculating from *t*-statistics, allowing you to calculate standardi
 .pull-left[
 **One sample or within-subjects for paired**
 
-$$\large d = \frac{t}{\sqrt{N-1}}$$
+`$$\large d = \frac{t}{\sqrt{N-1}}$$`
 ]
 .pull-right[**Independent sample**
 
-$$\large d = \frac{2t}{\sqrt{N_1+N_2-1}}$$
+`$$\large d = \frac{2t}{\sqrt{N_1+N_2-1}}$$`
 ]
 
 
@@ -481,17 +449,25 @@ There are no good statistical tests to determine whether you've violated the fir
 
 Homogeneity of variance can be checked with Levene’s procedure.  It tests the null hypothesis that the variances for two or more groups are equal (or within sampling variability of each other): 
 
-$$H_0: \sigma^2_1 = \sigma^2_2$$
-$$H_0: \sigma^2_1 \neq \sigma^2_2$$
+`$$H_0: \sigma^2_1 = \sigma^2_2$$`
+`$$H_0: \sigma^2_1 \neq \sigma^2_2$$`
 Levene's test can be expanded to more than two variances; in this case, the alternative hypothesis is that at least one variance is different from at least one other variance. 
 
-Levene's produces a statistic, *W*, that is *F* distributed with degrees of freedom of $k-1$ and $N-k$.
+Levene's produces a statistic, *W*, that is *F* distributed with degrees of freedom of `\(k-1\)` and `\(N-k\)`.
 
 ---
 
-```{r, warning = F, message=F}
+
+```r
 library(car)
 leveneTest(age~party, data = congress, center = "mean")
+```
+
+```
+## Levene's Test for Homogeneity of Variance (center = "mean")
+##        Df F value Pr(&gt;F)
+## group   1  0.0663  0.797
+##       540
 ```
 
 
@@ -512,7 +488,7 @@ Welch’s *t*-test removes the homogeneity requirement, but uses a different cal
 
 ### Welch's *t*-test
 
-$$t = \frac{\bar{X}_1-\bar{X_2}}{\sqrt{\frac{\hat{\sigma}^2_1}{N_1}+\frac{\hat{\sigma}^2_2}{N_2}}}$$
+`$$t = \frac{\bar{X}_1-\bar{X_2}}{\sqrt{\frac{\hat{\sigma}^2_1}{N_1}+\frac{\hat{\sigma}^2_2}{N_2}}}$$`
 
 So that's a bit different -- the main difference here is the way that we weight sample variances. It's true that larger samples still get more weight, but not as much as in Student's version. Also, we divide variances here by N instead of N-1, making our standard error larger. 
 
@@ -526,14 +502,29 @@ So that's a bit different -- the main difference here is the way that we weight 
 
 The degrees of freedom are different: 
 
-$$df = \frac{[\frac{\hat{\sigma}^2_1}{N_1}+\frac{\hat{\sigma}^2_2}{N_2}]^2}{\frac{[\frac{\hat{\sigma}^2_1}{N1}]^2}{N_1-1}+\frac{[\frac{\hat{\sigma}^2_2}{N2}]^2}{N_2-1}}$$
+`$$df = \frac{[\frac{\hat{\sigma}^2_1}{N_1}+\frac{\hat{\sigma}^2_2}{N_2}]^2}{\frac{[\frac{\hat{\sigma}^2_1}{N1}]^2}{N_1-1}+\frac{[\frac{\hat{\sigma}^2_2}{N2}]^2}{N_2-1}}$$`
 
 These degrees of freedom can be fractional.  As the sample variances converge to equality, these df approach those for Student’s *t*, for equal N.  
 
 ---
 
-```{r}
+
+```r
 t.test(age~party, data = congress, var.equal = F)
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  age by party
+## t = 4.0688, df = 534.2, p-value = 5.439e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  1.949133 5.588133
+## sample estimates:
+## mean in group D mean in group R 
+##        59.55097        55.78233
 ```
 
 
@@ -559,13 +550,25 @@ But...
 
 ---
 
-```{r}
+
+```r
 shapiro.test(x = congress$age)
 ```
 
-```{r, warning = F, message = F, fig.height = 4, fig.width = 9}
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  congress$age
+## W = 0.99663, p-value = 0.3168
+```
+
+
+```r
 hist(congress$age, col = "purple", border = "white")
 ```
+
+![](18-effects_assumptions_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -575,8 +578,18 @@ A common non-parametric test that can be used in place of the independent sample
 * For one of the groups, add up all the ranks. That's your test statistic, *W*.
 * To build the sampling distribution, randomly shuffle the group labels and add up the ranks for your group of interest again. Repeat this process until you've calculated the rank sum for every possible group assignment. 
 
-```{r}
+
+```r
 wilcox.test(age~party, data = congress)
+```
+
+```
+## 
+## 	Wilcoxon rank sum test with continuity correction
+## 
+## data:  age by party
+## W = 44488, p-value = 1.674e-05
+## alternative hypothesis: true location shift is not equal to 0
 ```
 
 
@@ -595,3 +608,126 @@ Plus the final quiz
 
 
 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

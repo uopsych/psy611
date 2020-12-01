@@ -41,6 +41,8 @@ navbar:
         href: "lectures/16-paired_samples.html"
       - text: "17 - Two means (independent)"
         href: "lectures/17-independent_samples.html"
+      - text: "18 - Effect sizes and assumptions"
+        href: "lectures/18-effects_assumptions.html"
         
     - text: Labs
       menu:

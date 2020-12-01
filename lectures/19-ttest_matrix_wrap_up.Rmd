@@ -20,77 +20,6 @@ library(knitr)
 library(kableExtra)
 ```
 
-### Office hours during finals week
-
-Cam: Monday, 12pm-2pm
-
-Brenden: Available by appointment Tuesday
-
-Sara: Available by appointment Mon-Thurs
-
-### Advice
-
-Your textbook is a good resource.
-
----
-
-## Example
-
-You have good reason to believe that dogs are smarter than cats. You design a study in which you recruit dogs and cats from households that have one of each and conduct a series of IQ tests to measure each animal's intelligence on a scale from 1 (not so smart) to 5 (genius). 
-
-| Cat | Dog |
-|:---:|:---:|
-|2 | 1|
-|5 | 4|
-|3 | 3|
-|1 | 3|
-|2 | 5|
-
----
-
-```{r}
-pets = data.frame(cat = c(2,5,3,1,2), 
-                  dog = c(1,4,3,3,5))
-
-pets$difference = pets$cat-pets$dog
-
-psych::describe(pets, fast = T)
-```
-
-$$\large \frac{\hat{\sigma}_\Delta}{\sqrt{N}} = \frac{1.82}{\sqrt{5}} = 0.81$$
-
-$$\large t = \frac{\bar{\Delta}}{\frac{\hat{\sigma}_\Delta}{\sqrt{N}}} = \frac{-0.60}{0.81} = -0.74$$
----
-
-```{r, echo = F}
-stat = mean(pets$difference)/(sd(pets$difference)/sqrt(5))
-df = 4
-cv_t = qt(df = df, p = .975)
-t_x = seq(-3.75, 3.75)
-data.frame(t_x) %>%
-  ggplot(aes(x=t_x)) +
-  stat_function(fun = function(x) dt(x, df), geom = "line") +
-  stat_function(fun = function(x) dt(x, df), geom = "area", 
-                xlim = c(cv_t, 3.75), fill = "purple") +
-  stat_function(fun = function(x) dt(x, df), geom = "area", 
-                xlim = c(-3.75, -1*cv_t), fill = "purple") +
-  geom_vline(aes(xintercept = stat), color = "red", linetype = 2, size = 2)+
-  labs(title = "Sampling distribution \n(in t)", y = "density", x = "t")+
-  theme_bw(base_size = 20)
-```
-
----
-
-We can also calculate the area at least as far away from the null as our test statistic.
-
-```{r}
-stat = mean(pets$difference)/(sd(pets$difference)/sqrt(5))
-pt(abs(stat), df = 5-1, lower.tail = F)
-pt(abs(stat), df = 5-1, lower.tail = F)*2
-```
-
-
----
 
 ## *t*-tests and Matrix Algebra
 
@@ -171,7 +100,7 @@ $$(T_R)X(T_C) = M$$
 This set of linear combinations calculates the different means of our two groups. That's great! 
 
 
-But there's another way. We can create a single transformation matrix, \large \mathbf{T}, that's very simple:
+But there's another way. We can create a single transformation matrix, $\large \mathbf{T}$, that's very simple:
 
 $$\mathbf{T} = \left(\begin{array}
 {rr}
@@ -497,7 +426,7 @@ class: inverse
 
 ## Next time...
 
-PSY 612 in 2020
+PSY 612 in 2021
 
 
 
