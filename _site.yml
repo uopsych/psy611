@@ -43,7 +43,9 @@ navbar:
         href: "lectures/17-independent_samples.html"
       - text: "18 - Effect sizes and assumptions"
         href: "lectures/18-effects_assumptions.html"
-        
+      - text: "19 - t-test wrap up"
+        href: "lectures/19-ttest_matrix_wrap_up.html"
+       
     - text: Labs
       menu:
       - text:  "1 - Introduction to R"

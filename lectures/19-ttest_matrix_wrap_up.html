@@ -38,6 +38,7 @@ class: center, middle, inverse, title-slide
   * Independence
   * Homogeneity of variance
   * Normality
+  
 ---
 
 ## Example
@@ -206,18 +207,18 @@ We can calculate this by hand: remember, this is the area under our alternative 
 (critical_value = qnorm(mean = 0, 
                         sd = 7.098, 
                         p = .025, 
-                        lower.tail = T))
+                        lower.tail = F))
 ```
 
 ```
-## [1] -13.91182
+## [1] 13.91182
 ```
 
 ```r
 pnorm(q = critical_value, 
-      mean = -38.5, 
+      mean = 38.5, 
       sd = 7.098, 
-      lower.tail = T)
+      lower.tail = F)
 ```
 
 ```
@@ -540,31 +541,31 @@ In this case, *b* will be a vector with 2 scalars.
 ```r
 X = panem$srle
 T_mat = matrix(1, ncol = 2, nrow = length(X))
-T_mat[panem$district == "12", 2] = 0
+T_mat[panem$district == "Capital", 2] = 0
 ```
 
 ```
 ##       [,1] [,2]
-##  [1,]    1    1
-##  [2,]    1    1
-##  [3,]    1    1
-##  [4,]    1    1
-##  [5,]    1    1
-##  [6,]    1    1
-##  [7,]    1    1
-##  [8,]    1    1
-##  [9,]    1    1
-## [10,]    1    1
-## [11,]    1    0
-## [12,]    1    0
-## [13,]    1    0
-## [14,]    1    0
-## [15,]    1    0
-## [16,]    1    0
-## [17,]    1    0
-## [18,]    1    0
-## [19,]    1    0
-## [20,]    1    0
+##  [1,]    1    0
+##  [2,]    1    0
+##  [3,]    1    0
+##  [4,]    1    0
+##  [5,]    1    0
+##  [6,]    1    0
+##  [7,]    1    0
+##  [8,]    1    0
+##  [9,]    1    0
+## [10,]    1    0
+## [11,]    1    1
+## [12,]    1    1
+## [13,]    1    1
+## [14,]    1    1
+## [15,]    1    1
+## [16,]    1    1
+## [17,]    1    1
+## [18,]    1    1
+## [19,]    1    1
+## [20,]    1    1
 ```
 
 ---
@@ -577,9 +578,9 @@ solve(t(T_mat) %*% T_mat) %*% t(T_mat) %*% X
 ```
 
 ```
-##       [,1]
-## [1,]  93.4
-## [2,] -38.5
+##      [,1]
+## [1,] 54.9
+## [2,] 38.5
 ```
 
 What do these numbers represent?
@@ -599,10 +600,10 @@ We can use the same matrix, `\(\large \mathbf{T}\)` , to transform the variance-
 We use the pooled variance, instead of the empirical estimate. 
 
 ```r
-var1 = var(panem$srle[panem$district == "12"])
-var2 = var(panem$srle[panem$district == "Capital"])
-n1 = length(which(panem$district == "12"))
-n2 = length(which(panem$district == "Capital"))
+var1 = var(panem$srle[panem$district == "Capital"])
+var2 = var(panem$srle[panem$district == "12"])
+n1 = length(which(panem$district == "Capital"))
+n2 = length(which(panem$district == "12"))
 pooled = ((n1-1)*var1 +(n2-1)*var2)/(n1+n2-2)
 ```
 
@@ -626,9 +627,9 @@ solve(t(T_mat) %*% T_mat) %*% t(T_mat) %*% X
 ```
 
 ```
-##       [,1]
-## [1,]  93.4
-## [2,] -38.5
+##      [,1]
+## [1,] 54.9
+## [2,] 38.5
 ```
 ]
 
@@ -648,7 +649,7 @@ pooled * solve(t(T_mat) %*% T_mat)
 --
 
 .pull-left[
-`$$t_{b_1} = \frac{93.4}{25.196} = 3.707$$`
+`$$t_{b_1} = \frac{54.9}{\sqrt{25.196}} = 10.937$$`
 
 
 
@@ -659,7 +660,7 @@ This is a one-sample *t*-test comparing the mean of the reference group to 0.
 --
 
 .pull-right[
-`$$t_{b_2} = \frac{-38.5}{50.392} = -0.764$$`
+`$$t_{b_2} = \frac{38.5}{\sqrt{50.392}} = 5.423$$`
 
 
 This is an independent-samples *t*-test comparing the mean of the two groups
@@ -942,6 +943,9 @@ class: inverse
 
 PSY 612 in 2021
 
+(But first):
+* Quiz 9 now 
+* Journal 10 due Monday night
 
 
 
