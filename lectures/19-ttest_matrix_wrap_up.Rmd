@@ -145,7 +145,7 @@ t = (sum_stats$m[1] - sum_stats$m[2])/se
 
 Calculate our _t_-statistic:
 
-$$t = \frac{\bar{X}_1 - \bar{X}_2 - \mu_1 - \mu_2}{\sigma_D} = \frac{`r printnum(sum_stats$m[1])` - `r printnum(sum_stats$m[2])` - 0}{`r printnum(se)`} = `r printnum(t)`$$
+$$t = \frac{(\bar{X}_1 - \bar{X}_2) - (\mu_1 - \mu_2)}{\sigma_D} = \frac{`r printnum(sum_stats$m[1])` - `r printnum(sum_stats$m[2])` - 0}{`r printnum(se)`} = `r printnum(t)`$$
 ---
 
 ```{r}
@@ -254,7 +254,7 @@ Did we meet the assumptions of this test?
 --
 
 ```{r, warning = F}
-car::leveneTest(srle~district, data = panem)
+car::leveneTest(srle~district, data = panem, center = "mean")
 ```
 
 --
@@ -331,10 +331,10 @@ T_pre %*% as.matrix(fake_data[,-c(1:2)])
 
 ```{r}
 T_post = matrix(
-  c(.25,
-    .25,
-    .25,
-    .25),
+  c(1/4,
+    1/4,
+    1/4,
+    1/4),
   ncol = 1
 )
 
