@@ -14,18 +14,345 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 library(here)
 library(tidyverse)
+library(papaja)
 library(ggpubr)
 library(fivethirtyeight)
 library(knitr)
 library(kableExtra)
 ```
+## Annoucements
 
+* Thank you, Max!
+* The GEs and I are available by appointment through finals week. 
+
+* Reminder: Homework 3 due next Friday (9am)
+  * Grading starts this weekend: expect corrections within 24 hours.
+  
+---
+## Last time...
+
+* Effect sizes and assumptions of _t_-tests
+
+  * Cohen's D
+  * Overlap of population distributions
+  
+  * Independence
+  * Homogeneity of variance
+  * Normality
+---
+
+## Example
+
+In the country of Panem, there are 13 (or 14?) distinct geographic districts, each of which specializes in a particular trade or industry. The Capital is the most technologically advanced and is home to wealthy elites (CEOs, politicians, university professors, etc). District 12 is a coal-mining district. 
+
+Researchers asked whether these two geographic regions differ in their exposure to daily life stress. Citizens of these districts were randomly sampled and completed the [Survey of Recent Life Experiences](https://link.springer.com/article/10.1007/BF00848327), which measures daily hassles. Scores can range from 0 (no daily hassles) to 160 (constant daily hassles).
+
+What are the null and alternative hypotheses? What kind of test will we run?
+
+---
+
+| Capital | District 12 |
+|:-------:|:-----------:|
+| 12      | 100         |
+| 72      | 92         |
+| 81      | 110         |
+| 69      | 99         |
+| 44      | 80         |
+| 61      | 96         |
+| 55      | 102         |
+| 43      | 98         |
+| 60      | 71         |
+| 52      | 86         |
+
+---
+```{r}
+panem = data.frame(
+  district = rep(c("Capital", "12"), each = 10),
+  srle = c(
+    12,72,81,69,44,61,55,43,60,52,
+    100,92,110,99,80,96,102,98,71,86)
+)
+
+psych::describeBy(panem, group = panem$district)
+```
+
+```{r, echo = F, messsrle = F, warning = F, results ='hide'}
+sum_stats = panem %>%
+  group_by(district) %>%
+  summarize(
+    n = n(),
+    m = mean(srle),
+    sd = sd(srle)
+  )
+```
+
+---
+.pull-left[
+**Capital**  
+$N = `r printnum(sum_stats$n[1])`$  
+$M = `r printnum(sum_stats$m[1])`$  
+$SD = `r printnum(sum_stats$sd[1])`$]
+
+.pull-right[
+**District 12**  
+$N = `r printnum(sum_stats$n[2])`$  
+$M = `r printnum(sum_stats$m[2])`$  
+$SD = `r printnum(sum_stats$sd[2])`$]
+
+* Set an alpha-level. 
+
+* Define sampling distribution. 
+
+$$\mu_D = \mu_0$$
+$$\sigma_D = ??$$
+--
+
+The standard error of the difference in means is the $\frac{\text{population standard deviation}}{\sqrt{N}}$.
+
+But we have two sample sizes, and we have two estimates of the population SD.
+
+---
+
+```{r, echo = F}
+pool_var = ((9*sum_stats$sd[1]^2) + (9*sum_stats$sd[2]^2))/(18)
+pool_sd = sqrt(pool_var)
+```
+
+
+Calculate pooled variance (to get our best estimate of the population variance):
+
+$$\large{\hat{\sigma}^2_p = \frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}}$$
+$$\large{\hat{\sigma}^2_p = \frac{(10-1)`r printnum(sum_stats$sd[1])`^2 + (10-1)`r printnum(sum_stats$sd[2])`^2}{10+10-2}} = `r printnum(pool_var)`$$
+Don't forget to take the square root to get our SD estimate.
+
+$$\large{\hat{\sigma}_p = \sqrt{\hat{\sigma}^2_p} = \sqrt{`r printnum(pool_var)`} = `r printnum(sqrt(pool_var))`} $$
+
+---
+
+```{r, echo = F}
+se = sqrt(pool_var)*sqrt((1/10) + (1/10))
+```
+
+
+Deal with two sample sizes by weighting by $\sqrt{\frac{1}{N_1} + \frac{1}{N_2}}$ instead of $\frac{1}{\sqrt{N}}$.
+
+$$\sigma_D = \sigma_p\sqrt{\frac{1}{N_1} + \frac{1}{N_2}} = `r printnum(sqrt(pool_var))`\sqrt{\frac{1}{10} + \frac{1}{10}} = `r printnum(se)`$$
+
+```{r, echo = F}
+t = (sum_stats$m[1] - sum_stats$m[2])/se
+```
+
+Calculate our _t_-statistic:
+
+$$t = \frac{\bar{X}_1 - \bar{X}_2 - \mu_1 - \mu_2}{\sigma_D} = \frac{`r printnum(sum_stats$m[1])` - `r printnum(sum_stats$m[2])` - 0}{`r printnum(se)`} = `r printnum(t)`$$
+---
+
+```{r}
+t.test(srle~district, data = panem, var.equal = T)
+```
+
+---
+
+```{r, echo = F}
+cohend = (sum_stats$m[1] - sum_stats$m[2])/sqrt(pool_var)
+```
+
+Is this a large difference? 
+
+$d = \frac{\bar{X}_1 - \bar{X}_2}{\sigma_p} = \frac{`r printnum(sum_stats$m[1])` - `r printnum(sum_stats$m[2])` - 0}{`r printnum(sqrt(pool_var))`} = `r printnum(cohend)`$
+
+```{r}
+(cohensd = lsr::cohensD(srle~district, data = panem, method = "pooled"))
+```
+
+---
+
+How much power did we have to detect this effect?
+
+```{r, echo = F}
+mu = 0
+s = sqrt(pool_var)
+sem = se
+
+mean = sum_stats$m[1] - sum_stats$m[2]
+
+cv = qnorm(mean = mu, sd = se, p = .025, lower.tail = F)
+
+
+ggplot(data.frame(x = seq(-20, 60)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x, m = mu, sd = sem)) +
+  
+  stat_function(fun = function(x) dnorm(x, m = mean, sd = sem),
+                geom = "area", xlim = c(cv, 60), 
+                aes(fill = "Power"), alpha = .5) +
+  stat_function(fun = function(x) dnorm(x, m = mean, sd = sem),
+                geom = "area", xlim = c(-20, cv), 
+                aes(fill = "Type II Error"), alpha = .5) +
+  stat_function(fun = function(x) dnorm(x, m = mu, sd = sem),
+                geom = "area", xlim = c(cv, 60), 
+                aes(fill = "Type I Error"), alpha = .5) +
+  stat_function(fun = function(x) dnorm(x, m = mean, sd = sem)) +
+  geom_vline(aes(xintercept = mu))+
+  geom_vline(aes(xintercept = mean))+
+  geom_hline(aes(yintercept = 0))+
+  scale_x_continuous("Difference in means", breaks = seq(-20,60,10)) +
+  scale_y_continuous(NULL, breaks = NULL) + 
+  theme_pubr() +
+  theme( text = element_text(size = 20),
+    legend.position = "bottom")
+```
+
+---
+
+We can calculate this by hand: remember, this is the area under our alternative distribution that is from the critical value and farther away from our mean.
+
+```{r}
+(critical_value = qnorm(mean = 0, 
+                        sd = 7.098, 
+                        p = .025, 
+                        lower.tail = T))
+pnorm(q = critical_value, 
+      mean = -38.5, 
+      sd = 7.098, 
+      lower.tail = T)
+```
+
+---
+
+But you don't need to do things by hand:
+
+```{r}
+library(pwr)
+pwr.t.test(n = 10, 
+           d = cohensd, 
+           sig.level = .05, 
+           type = "two")
+```
+
+The arguments for the `pwr.t.test` function are sample size (`n`), effect size (`d`), alpha level (`sig.level`), and power (`power`). Give it any three, and it will return the fourth!
+
+---
+
+
+
+This is very useful. For example, if we wanted to replicate this study, how many participants would we need? We can use the same function to find out:
+
+```{r}
+pwr.t.test(
+  d = cohensd,
+  sig.level = .05, 
+  power = .90, 
+  type = "two"
+)
+```
+
+---
+
+Did we meet the assumptions of this test?
+
+--
+
+```{r, warning = F}
+car::leveneTest(srle~district, data = panem)
+```
+
+--
+
+```{r, echo = 1, fig.height = 2, fig.width=8}
+shapiro.test(x = panem$srle)
+panem %>% ggplot(aes(x = srle)) + geom_histogram(bins = 5, fill = "purple", color = "white") + theme_pubr()
+```
+
+---
+## Remember matrix algebra?
+
+In week 3, we covered the mechanics of matrix algebra, including addition/subtraction and multiplication. 
+
+The important takeaway was that we can use tranformation matrices to create linear combinations of rows and columns. These linear combinations help us to summarize datasets in valuable ways.
+
+$$y = 5x_1 + \frac{1}{7}x_2 - 12x_3$$
+
+$$\large \mathbf{M} = \left[\begin{array}
+{r}
+5  \\
+\frac{1}{7}  \\
+-12  \\
+\end{array}\right]$$
+
+---
+
+Transformation matrices applied to a data matrix using *pre*-multiplication creates linear combinations of rows -- this allows us to aggregate observations into meaningful "groups", like control/treatment, freshman/senior, time 1/time 2.
+
+Transformation matrices applied to a data matrix using *post*-multiplication creates linear combinations of columns -- this allows us to aggregate variables into meaningful indices, like summing variables to get the number correct on a test or finding the average response to a set of items in a scale.
+
+Using both pre- and post-multiplication _together_ is an efficient way of asking questions, like:
+* are average levels of the CESD lower after an intervention compared to before?
+* what is the average score on each of 4 quizzes?
+
+---
+
+## Example
+
+```{r, echo = F}
+set.seed(1203)
+group = sample(c("A", "B"), size = 8, replace = T)
+level = ifelse(group == "A", 3, 6)
+fake_data = data.frame(
+  ID = c(1:8),
+  group = group,
+  item1 = round(level + rnorm(n = 8, mean = 2)),
+  item2 = round(level + rnorm(n = 8, mean = -1)),
+  item3 = round(level + rnorm(n = 8, mean = 2)),
+  item4 = round(level + rnorm(n = 8, mean = -2))
+)
+```
+
+```{r}
+fake_data
+```
+
+```{r}
+T_pre = matrix(
+  c( 1,0,0,1,1,0,1,0,
+     0,1,1,0,0,1,0,1), 
+  byrow = T, nrow = 2
+)
+```
+
+---
+
+```{r}
+T_pre %*% as.matrix(fake_data[,-c(1:2)])
+.25*T_pre %*% as.matrix(fake_data[,-c(1:2)])
+```
+
+---
+
+```{r}
+T_post = matrix(
+  c(.25,
+    .25,
+    .25,
+    .25),
+  ncol = 1
+)
+
+as.matrix(fake_data[,-c(1:2)]) %*% T_post
+```
+
+---
+
+```{r}
+.25*T_pre %*% as.matrix(fake_data[,-c(1:2)]) %*% T_post
+```
+
+---
 
 ## *t*-tests and Matrix Algebra
 
 ### Independent-samples *t*-test
 
-At it's heart, the independent samples *t*-test proposes a model in which our best guess of a person's score is the mean of their group. 
+At it's heart, the independent samples *t*-test proposes a model in which our best guess of a person's score is the mean of their district. 
 
 We can use **linear combinations** of both rows and columns to generate these "best guess" scores. 
 
@@ -36,11 +363,11 @@ Assume your data take the following form:
 
 $$\large \mathbf{X} = \left(\begin{array}
 {rr}
-\text{Party} & \text{Age} \\
-D & 85.9  \\
-R & 78.8  \\
+\text{district} & \text{SRLE} \\
+Cap & 12  \\
+D12 & 100  \\
 \vdots & \vdots  \\
-D & 83.2 
+Cap & 72 
 \end{array}\right)$$
 ]
 
@@ -68,11 +395,11 @@ Assume your data take the following form:
 
 $$\large \mathbf{X} = \left(\begin{array}
 {rr}
-\text{Party} & \text{Age} \\
-D & 85.9  \\
-R & 78.8  \\
+\text{district} & \text{SRLE} \\
+Cap & 12  \\
+D12 & 100  \\
 \vdots & \vdots  \\
-D & 83.2 
+Cap & 72 
 \end{array}\right)$$
 ]
 
@@ -89,15 +416,15 @@ What are your linear combinations of rows?
 
 $$\mathbf{T_R} = \left(\begin{array}
 {rrrr}
-\frac{1}{N_D} & 0 & \dots & \frac{1}{N_D} \\
-0 & \frac{1}{N_R} & \dots & 0 \\
+\frac{1}{N_C} & 0 & \dots & \frac{1}{N_C} \\
+0 & \frac{1}{N_{D12}} & \dots & 0 \\
 \end{array}\right)$$
 
 ---
 
 $$(T_R)X(T_C) = M$$
 
-This set of linear combinations calculates the different means of our two groups. That's great! 
+This set of linear combinations calculates the different means of our two districts. That's great! 
 
 
 But there's another way. We can create a single transformation matrix, $\large \mathbf{T}$, that's very simple:
@@ -117,19 +444,15 @@ In this case, *b* will be a vector with 2 scalars.
 
 ---
 
-```{r, echo = F}
-congress = congress_age %>%
-  filter(congress == 113) %>% # just the most recent
-  filter(party %in% c("R", "D")) # remove independents
-```
-
 
 ```{r, echo = 1:3}
-X = congress$age
+X = panem$srle
 T_mat = matrix(1, ncol = 2, nrow = length(X))
-T_mat[congress$party == "D", 2] = 0
-head(T_mat)
+T_mat[panem$district == "12", 2] = 0
+T_mat
 ```
+
+---
 
 $$(T'T)^{-1}T'X = (b)$$
 
@@ -153,10 +476,10 @@ $$\large  \text{Var}_b = \hat{\sigma}^2(T'T)^{-1}$$
 
 We use the pooled variance, instead of the empirical estimate. 
 ```{r}
-var1 = var(congress$age[congress$party == "D"])
-var2 = var(congress$age[congress$party == "R"])
-n1 = length(which(congress$party == "D"))
-n2 = length(which(congress$party == "R"))
+var1 = var(panem$srle[panem$district == "12"])
+var2 = var(panem$srle[panem$district == "Capital"])
+n1 = length(which(panem$district == "12"))
+n2 = length(which(panem$district == "Capital"))
 pooled = ((n1-1)*var1 +(n2-1)*var2)/(n1+n2-2)
 ```
 
@@ -183,7 +506,7 @@ var_b = pooled * solve(t(T_mat) %*% T_mat)
 --
 
 .pull-left[
-$$t_{b_1} = \frac{59.55}{0.447} = `r round(b[1,1]/var_b[1,1],3)`$$
+$$t_{b_1} = \frac{93.4}{25.196} = `r round(b[1,1]/var_b[1,1],3)`$$
 
 
 
@@ -194,10 +517,10 @@ This is a one-sample *t*-test comparing the mean of the reference group to 0.
 --
 
 .pull-right[
-$$t_{b_2} = \frac{-3.77}{0.857} = `r round(b[2,1]/var_b[2,2],3)`$$
+$$t_{b_2} = \frac{-38.5}{50.392} = `r round(b[2,1]/var_b[2,2],3)`$$
 
 
-This is an independent-samples *t*-test comparing the mean of the two groups.
+This is an independent-samples *t*-test comparing the mean of the two groups
 ]
 
 ---
@@ -420,6 +743,9 @@ Your job is to
 ![](images/tools.jpg)
 ]
 
+It's worth adding to that, as a graduate student, you're long past the days of trying to memorize and regurgitate information in a class. You're training to be an independent scholar. For that reason, we've focused on helping you figure things out for yourself, which will be a far more useful skill than learning less material more deeply now. 
+
+Teach a scientist to fish, or something like that.
 ---
 
 class: inverse

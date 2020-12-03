@@ -151,10 +151,14 @@ lab-8.html
 * had time to go through the mini-hacks
 * add power
 
-17-dependent means.html (now 15)
-* the cohen's d discussion is awkward but healthy. keep it in
+17-independent-sample.html
+* make figures consistent with each other
+* spell frequentist correctly
+
+18-effect-sizes.html
+* turn off scientific notation
+* fix alterantive hypothesis for Levene's test
 * pay attention to notation for standard deviation and standard error
-* no matter which d you use, say which one or indicate how you calculated
 
   
 CHANGES ALREADY ADDRESSED
