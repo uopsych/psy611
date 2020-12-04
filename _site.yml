@@ -45,7 +45,7 @@ navbar:
         href: "lectures/18-effects_assumptions.html"
       - text: "19 - t-test wrap up"
         href: "lectures/19-ttest_matrix_wrap_up.html"
-       
+
     - text: Labs
       menu:
       - text:  "1 - Introduction to R"
@@ -64,6 +64,8 @@ navbar:
         href: "labs/lab-7.html"
       - text:  "8 - One Sample and Paired t-tests"
         href: "labs/lab-8_instructor.html"
+      - text:  "9 - Independent Samples t-tests"
+        href: "labs/lab-9.Rmd"
     - text: Homework
       href: homework.html
     - text: Useful Material
