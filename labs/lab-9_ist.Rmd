@@ -45,7 +45,15 @@ Run the following code to load the data into your global environment.
 ```{r}
 # load data 
 data <- Guyer
+
+# Separate the groups into two dataframes
+data_public <- data %>%
+  filter(condition == "public")
+
+data_anonymous <- data %>%
+  filter(condition == "anonymous")
 ```
+
 
 
 # Independent Samples *t*-test {#independent}
