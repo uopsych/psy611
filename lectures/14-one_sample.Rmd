@@ -10,10 +10,12 @@ output:
       countIncrementalSlides: false
 --- 
 
+```{r}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
 
 ```{r, echo = F, results = 'hide', message = F, warning = F}
-knitr::opts_chunk$set(message = FALSE, warning = FALSE)
-
 library(here)
 library(tidyverse)
 library(psych)
@@ -22,53 +24,12 @@ library(knitr)
 library(kableExtra)
 library(ggpubr)
 ```
-## What have we been doing?
 
-.pull-left[
-![](images/legos.png)
-]
-
-.pull-right[
-* Motivation for statistics
-* Research methods
-* Descriptive statistics
-* Matrix algebra
-* Probability
-* Sampling
-* NHST
-]
-
-
----
-
-## Where are we going?
-
-
-.pull-left[
-![](images/lego_hammer.jpg)
-]
-
-.pull-right[
-* Inferential tests
-
-* Different kinds of outcomes
-  * Categorical (today)
-  * Continuous
-
-* Different kinds of research designs
-  * One group
-  * Two groups
-  * 3+ groups (PSY 612)
-  * Relationships (PSY 612)
-]
-
-
----
 
 ## Today...
 
 * The chi-square goodness-of-fit test
-* The chi-square test of independence
+* One-sample *t*-tests
 
 ---
 
@@ -216,7 +177,7 @@ This can be a point of confusion: the way you measure the variable determines wh
 
 The $\chi^2$ distribution is a single-parameter distribution defined by it's degrees of freedom.
 
-In the case of a **goodness-of-fit test** (like this one), the degrees of freedom are $\textbf{k-1}$, where k is the number of categories.
+In the case of a **goodness-of-fit test** (like this one), the degrees of freedom are $\textbf{k-1}$, where k is the number of groups.
 
 --
 
@@ -416,8 +377,6 @@ Why might this be a sensible or useful test?
 
 ---
 
-## $chi^2$ test of independence
-
 Another common way that categorical data are encountered in research is in a cross-tabulation.  The simplest is a two-way table representing how two categorical variables are related.
 
 The second example data set comes from Goldstein et al. (2012), who followed 413 young participants with bipolar disorder over an average of 5 years to determine the predictors of suicide attempts.  One predictor was whether a first-degree or second-degree relative had ever been diagnosed with depression.
@@ -575,10 +534,8 @@ Next time we will discuss why that correction is necessary.
 
 ---
 
-class: inverse
-
 # Next time...
 
-Effect sizes 
+Effect sizes for $\chi^2$
 
-one-sample *t*-tests
+One-sample *t*-tests

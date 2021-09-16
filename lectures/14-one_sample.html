@@ -3,10 +3,10 @@
   <head>
     <title>One-sample hypothesis tests</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <script src="site_libs/header-attrs-2.4/header-attrs.js"></script>
+    <link href="site_libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="site_libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="site_libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="my-theme.css" type="text/css" />
   </head>
   <body>
@@ -19,54 +19,18 @@ class: center, middle, inverse, title-slide
 
 
 
-
-## What have we been doing?
-
-.pull-left[
-![](images/legos.png)
-]
-
-.pull-right[
-* Motivation for statistics
-* Research methods
-* Descriptive statistics
-* Matrix algebra
-* Probability
-* Sampling
-* NHST
-]
+```r
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
 
 
----
-
-## Where are we going?
 
 
-.pull-left[
-![](images/lego_hammer.jpg)
-]
-
-.pull-right[
-* Inferential tests
-
-* Different kinds of outcomes
-  * Categorical (today)
-  * Continuous
-
-* Different kinds of research designs
-  * One group
-  * Two groups
-  * 3+ groups (PSY 612)
-  * Relationships (PSY 612)
-]
-
-
----
 
 ## Today...
 
 * The chi-square goodness-of-fit test
-* The chi-square test of independence
+* One-sample *t*-tests
 
 ---
 
@@ -198,7 +162,7 @@ Descriptively this is interesting.  But, are the responses unusual or atypical i
 
 class: center
 
-![](14-one_sample_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+![](14-one_sample_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -280,7 +244,7 @@ The degrees of freedom are the number of categories (k) minus 1.  Given that the
 ## [1] 9.487729
 ```
 
-![](14-one_sample_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](14-one_sample_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -490,7 +454,7 @@ The degrees of freedom are the number of categories (k) minus 1.  Given that the
 ]
 ]
 
-![](14-one_sample_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+![](14-one_sample_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 
 ---
 .left-column[
@@ -500,7 +464,7 @@ The degrees of freedom are the number of categories (k) minus 1.  Given that the
 ]
 ]
 
-![](14-one_sample_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](14-one_sample_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -645,8 +609,6 @@ lsr::goodnessOfFitTest(x = as.factor(school$Superpower))
 Why might this be a sensible or useful test?
 
 ---
-
-## `\(chi^2\)` test of independence
 
 Another common way that categorical data are encountered in research is in a cross-tabulation.  The simplest is a two-way table representing how two categorical variables are related.
 
@@ -877,7 +839,7 @@ But, we have three constraints on the model:
 
 ---
 
-![](14-one_sample_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](14-one_sample_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -916,13 +878,11 @@ Next time we will discuss why that correction is necessary.
 
 ---
 
-class: inverse
-
 # Next time...
 
-Effect sizes 
+Effect sizes for `\(\chi^2\)`
 
-one-sample *t*-tests
+One-sample *t*-tests
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

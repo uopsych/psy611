@@ -1,7 +1,7 @@
 ---
 title: "Psy 611: Data Analysis I"
 subtitle: "Department of Psychology, University of Oregon"
-author: "Fall 2020. Instructor: Sara J. Weston"
+author: "Fall 2021. Instructor: Sara J. Weston"
 output: 
   html_document:
     toc: TRUE
@@ -17,9 +17,9 @@ thorough grounding in statistical concepts, methods, and applications of relevan
 
 ## Meeting times and locations
 
-**Lecture:** Tuesdays and Thursdays, 10:15 - 11:45am, [Zoom](https://uoregon.zoom.us/j/99978411347?pwd=c0dXbnd1YmZMU1ZsamRTT0Urd2wxdz09) 
+**Lecture:** Tuesdays and Thursdays, 10:15 - 11:45am, 222 LA and [Zoom](https://uoregon.zoom.us/j/97292141256?pwd=aE1yUW5oT0ZER214TGcwM2xXeUN3UT09) 
 
-**Lab:** Friday, 10:15-11:45am, [Zoom](https://uoregon.zoom.us/j/97415753884?pwd=SkFKYXBSR0tURUl6Rk5sZUd4YU9Vdz09)
+**Lab:** Friday, 10:15-11:45am, [Zoom](https://uoregon.zoom.us/j/97605175179?pwd=MVFoN2VudVM4a2Y5OXFvaklTRS85Zz09)
 
 All labs and lectures will be recorded, and these recordings will be made available to current students through Canvas. Attendance is not required. 
 
@@ -30,11 +30,11 @@ For Zoom best practices and tips, see this [cheat sheet](readings/PSY 611 Zoom C
 **Sara Weston** -- [sweston2@uoregon.edu](mailto:sweston2@uoregon.edu)
 Office Hours: [By appointment](https://calendly.com/sara-weston/weston-office-hours)
 
-**Sarah Dimakis** -- [sdimakis@uoregon.edu](mailto:sdimakis@uoregon.edu)
-Office Hours: [By appointment](https://calendly.com/sarahdimakis/office-hours)
+**Sara Lieber** -- [slieber@uoregon.edu](mailto:slieber@uoregon.edu)
+Office Hours: TBD
 
-**Max Drascher** -- [mdrasche@uoregon.edu](mailto:mdrasche@uoregon.edu)
-Office Hours: [By appointment](https://calendly.com/md_officehrs/30min)
+**Vinita Vader** -- [vvader@uoregon.edu](mailto:vvader@uoregon.edu)
+Office Hours: TBD
 
 # Materials
 

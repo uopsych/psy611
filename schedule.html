@@ -13,13 +13,22 @@
 
 <title>Syllabus</title>
 
-<script src="site_libs/header-attrs-2.4/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -36,14 +45,9 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -56,32 +60,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -91,10 +70,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -111,40 +86,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -172,7 +120,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -184,7 +132,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -195,10 +143,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -210,7 +171,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -336,7 +296,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -369,63 +329,7 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="lectures/01-intro.html">1 - Introduction</a>
-    </li>
-    <li>
-      <a href="lectures/02-measurement.html">2 - Validity</a>
-    </li>
-    <li>
-      <a href="lectures/03-describing-data.html">3 - Describing data (univariate)</a>
-    </li>
-    <li>
-      <a href="lectures/04-describing_data.html">4 - Describing data (bivariate)</a>
-    </li>
-    <li>
-      <a href="lectures/05-matrix.html">5 - Matrix algebra</a>
-    </li>
-    <li>
-      <a href="lectures/06-probability.html">6 - Probability</a>
-    </li>
-    <li>
-      <a href="lectures/07-binomial.html">7 - Binomial distributions</a>
-    </li>
-    <li>
-      <a href="lectures/08-normal.html">8 - Normal distributions</a>
-    </li>
-    <li>
-      <a href="lectures/09-sampling.html">9 - Sampling</a>
-    </li>
-    <li>
-      <a href="lectures/10-nhst.html">10 - NHST I</a>
-    </li>
-    <li>
-      <a href="lectures/11-nhst.html">11 - NHST II</a>
-    </li>
-    <li>
-      <a href="lectures/12-critiques.html">12 - Critiques of NHST</a>
-    </li>
-    <li>
-      <a href="lectures/13-open_science.html">13 - Open Science</a>
-    </li>
-    <li>
-      <a href="lectures/14-one_sample.html">14 - One-sample I (Chi-Square)</a>
-    </li>
-    <li>
-      <a href="lectures/15-one_sample.html">15 - One-sample II</a>
-    </li>
-    <li>
-      <a href="lectures/16-paired_samples.html">16 - Two means (paired)</a>
-    </li>
-    <li>
-      <a href="lectures/17-independent_samples.html">17 - Two means (independent)</a>
-    </li>
-    <li>
-      <a href="lectures/18-effects_assumptions.html">18 - Effect sizes and assumptions</a>
-    </li>
-    <li>
-      <a href="lectures/19-ttest_matrix_wrap_up.html">19 - t-test wrap up</a>
-    </li>
+    <li class="dropdown-header">Coming soon!</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -435,30 +339,7 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="labs/lab-1.html">1 - Introduction to R</a>
-    </li>
-    <li>
-      <a href="labs/lab-2.html">2 - R Basics and Descriptives</a>
-    </li>
-    <li>
-      <a href="labs/lab-3.html">3 - Matrix Algebra</a>
-    </li>
-    <li>
-      <a href="labs/lab-4_instructor.html">4 - Probability Distributions</a>
-    </li>
-    <li>
-      <a href="labs/lab-5.html">5 - Data Wrangling</a>
-    </li>
-    <li>
-      <a href="labs/lab-6_instructor.html">6 - Data Visualization</a>
-    </li>
-    <li>
-      <a href="labs/lab-7.html">7 - RMarkdown</a>
-    </li>
-    <li>
-      <a href="labs/lab-8_instructor.html">8 - One Sample and Paired t-tests</a>
-    </li>
+    <li class="dropdown-header">Coming soon!</li>
   </ul>
 </li>
 <li>
@@ -480,6 +361,9 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="https://uopsych.github.io/psy611_2020/">2020</a>
+    </li>
+    <li>
       <a href="https://uopsych.github.io/psy611_2019/">2019</a>
     </li>
   </ul>
@@ -495,7 +379,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -509,12 +393,12 @@ div.tocify {
 <p>LSR readings can be found in the free, online textbook, <a href="https://learningstatisticswithr-bookdown.netlify.com/index.html"><em>Learning Statistics with R</em></a> by Danielle Navarro. For those interested in taking notes, I recommend the use of the <a href="http://Hypothes.is">Hypothes.is</a> app to annotate webpages. I will note that the formatting of the book online is wonky in a few places. If this bothers you, or you prefer to work offline, you can download a <a href="https://learningstatisticswithr.com/lsr-0.6.pdf">PDF version</a> of the book.</p>
 <table>
 <colgroup>
-<col width="7%" />
-<col width="7%" />
-<col width="40%" />
-<col width="20%" />
-<col width="12%" />
-<col width="13%" />
+<col width="4%" />
+<col width="4%" />
+<col width="22%" />
+<col width="57%" />
+<col width="4%" />
+<col width="6%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -529,7 +413,7 @@ div.tocify {
 <tbody>
 <tr class="odd">
 <td>1</td>
-<td>09/29</td>
+<td>09/28</td>
 <td>Introduction and overview</td>
 <td>LSR Ch 1 &amp; 3</td>
 <td></td>
@@ -537,15 +421,15 @@ div.tocify {
 </tr>
 <tr class="even">
 <td>-</td>
-<td>10/01</td>
-<td>Threats to measurement validity</td>
+<td>09/39</td>
+<td>Research methods</td>
 <td>LSR CH 2 &amp; 4, <a href="readings/Cronbach_Meehl_1955.pdf">Cronbach &amp; Meehl (1955)</a></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>10/02</td>
+<td>10/01</td>
 <td><em>Lab: Introduction to R</em></td>
 <td></td>
 <td></td>
@@ -553,7 +437,7 @@ div.tocify {
 </tr>
 <tr class="even">
 <td>2</td>
-<td>10/06</td>
+<td>10/05</td>
 <td>Describing data</td>
 <td>LSR Ch 5 &amp; 6</td>
 <td>Quiz 1</td>
@@ -561,7 +445,7 @@ div.tocify {
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>10/08</td>
+<td>10/07</td>
 <td>Describing data</td>
 <td><a href="readings/Ozer_Funder_2019.pdf">Ozer &amp; Funder (2019)</a></td>
 <td></td>
@@ -569,7 +453,7 @@ div.tocify {
 </tr>
 <tr class="even">
 <td>-</td>
-<td>10/09</td>
+<td>10/08</td>
 <td><em>Lab: R basics and descriptives</em></td>
 <td></td>
 <td></td>
@@ -577,31 +461,31 @@ div.tocify {
 </tr>
 <tr class="odd">
 <td>3</td>
-<td>10/13</td>
-<td>Matrix algebra</td>
+<td>10/12</td>
+<td>Latent variables and psychometrics</td>
 <td></td>
-<td>Quiz 2</td>
+<td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>-</td>
-<td>10/15</td>
+<td>10/14</td>
 <td>Probability</td>
 <td>LSR Intro to Part IV and Ch 9.1-9.3, <a href="readings/Wetzels_etal_2011.pdf">Wetzels et al. (2011)</a></td>
-<td></td>
+<td>Quiz 2</td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>10/16</td>
-<td><em>Lab: Matrix algebra</em></td>
+<td>10/15</td>
+<td><em>Lab: Psychometrics </em></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>4</td>
-<td>10/20</td>
+<td>10/19</td>
 <td>Probability</td>
 <td>LSR Ch 9.4</td>
 <td>Quiz 3</td>
@@ -609,7 +493,7 @@ div.tocify {
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>10/22</td>
+<td>10/21</td>
 <td>Probability</td>
 <td>LSR Ch 9.5-9.6</td>
 <td></td>
@@ -617,7 +501,7 @@ div.tocify {
 </tr>
 <tr class="even">
 <td>-</td>
-<td>10/23</td>
+<td>10/22</td>
 <td><em>Lab: Probability distributions</em></td>
 <td></td>
 <td></td>
@@ -625,7 +509,7 @@ div.tocify {
 </tr>
 <tr class="odd">
 <td>5</td>
-<td>10/27</td>
+<td>10/26</td>
 <td>Sampling</td>
 <td>LSR Ch 10</td>
 <td>Quiz 4</td>
@@ -633,7 +517,7 @@ div.tocify {
 </tr>
 <tr class="even">
 <td>-</td>
-<td>10/29</td>
+<td>10/28</td>
 <td>Hypothesis testing</td>
 <td>LSR Ch 11</td>
 <td></td>
@@ -641,7 +525,7 @@ div.tocify {
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>10/30</td>
+<td>10/29</td>
 <td><em>Lab: Data wrangling</em></td>
 <td></td>
 <td></td>
@@ -649,7 +533,7 @@ div.tocify {
 </tr>
 <tr class="even">
 <td>6</td>
-<td>11/03</td>
+<td>11/02</td>
 <td>Hypothesis testing</td>
 <td><a href="readings/Sainani_2012.pdf">Sainani (2012)</a></td>
 <td>Quiz 5</td>
@@ -657,7 +541,7 @@ div.tocify {
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>11/05</td>
+<td>11/04</td>
 <td>Critiques of hypothesis testing</td>
 <td><a href="readings/Simmons_etal_2011.pdf">Simmons et al. (2011)</a> <a href="readings/Cumming_2014.pdf">Cumming (2014)</a></td>
 <td></td>
@@ -665,7 +549,7 @@ div.tocify {
 </tr>
 <tr class="even">
 <td>-</td>
-<td>11/06</td>
+<td>11/05</td>
 <td><em>Lab: Graphing with ggplot2</em></td>
 <td></td>
 <td></td>
@@ -673,7 +557,7 @@ div.tocify {
 </tr>
 <tr class="odd">
 <td>7</td>
-<td>11/10</td>
+<td>11/09</td>
 <td>Open Science</td>
 <td><a href="https://fivethirtyeight.com/features/science-isnt-broken/">Five Thirty Eight</a></td>
 <td>Quiz 6</td>
@@ -681,7 +565,7 @@ div.tocify {
 </tr>
 <tr class="even">
 <td>-</td>
-<td>11/12</td>
+<td>11/11</td>
 <td>One-sample tests</td>
 <td>LSR Ch 13.1-13.2</td>
 <td></td>
@@ -689,7 +573,7 @@ div.tocify {
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>11/13</td>
+<td>11/12</td>
 <td><em>Lab: TBA</em></td>
 <td></td>
 <td></td>
@@ -697,7 +581,7 @@ div.tocify {
 </tr>
 <tr class="even">
 <td>8</td>
-<td>11/17</td>
+<td>11/16</td>
 <td>One-sample tests</td>
 <td></td>
 <td>Quiz 7</td>
@@ -705,7 +589,7 @@ div.tocify {
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>11/19</td>
+<td>11/18</td>
 <td>Comparing two means (paired)</td>
 <td>LSR Ch 13.3-13.11</td>
 <td></td>
@@ -713,7 +597,7 @@ div.tocify {
 </tr>
 <tr class="even">
 <td>-</td>
-<td>11/20</td>
+<td>11/19</td>
 <td><em>Lab: One- and paired-samples t-tests</em></td>
 <td></td>
 <td></td>
@@ -721,7 +605,7 @@ div.tocify {
 </tr>
 <tr class="odd">
 <td>9</td>
-<td>11/24</td>
+<td>11/23</td>
 <td>Comparing two means (independent)</td>
 <td></td>
 <td>Quiz 8</td>
@@ -729,7 +613,7 @@ div.tocify {
 </tr>
 <tr class="even">
 <td>-</td>
-<td>11/26</td>
+<td>11/25</td>
 <td><strong>Thanksgiving</strong></td>
 <td></td>
 <td></td>
@@ -737,7 +621,7 @@ div.tocify {
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>11/27</td>
+<td>11/26</td>
 <td><em>Lab: No Lab</em></td>
 <td></td>
 <td></td>
@@ -745,7 +629,7 @@ div.tocify {
 </tr>
 <tr class="even">
 <td>10</td>
-<td>12/01</td>
+<td>11/39</td>
 <td>Effect sizes and assumptions</td>
 <td></td>
 <td></td>
@@ -753,7 +637,7 @@ div.tocify {
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>12/03</td>
+<td>12/02</td>
 <td>Wrap-up</td>
 <td></td>
 <td>Quiz 9</td>
@@ -761,7 +645,7 @@ div.tocify {
 </tr>
 <tr class="even">
 <td>-</td>
-<td>12/04</td>
+<td>12/03</td>
 <td><em>Lab: Independent samples t-tests</em></td>
 <td></td>
 <td></td>
@@ -769,7 +653,15 @@ div.tocify {
 </tr>
 <tr class="odd">
 <td>Finals</td>
-<td>12/11</td>
+<td>12/06</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>-</td>
+<td>12/08</td>
 <td></td>
 <td></td>
 <td></td>
@@ -777,7 +669,7 @@ div.tocify {
 </tr>
 </tbody>
 </table>
-<p><strong>Final:</strong> Oral exam will take place the week of December 7.</p>
+<p><strong>Final:</strong> Oral exam will take place the week of December 6.</p>
 </div>
 <div id="graded-materials" class="section level1">
 <h1>Graded materials</h1>
@@ -820,18 +712,18 @@ div.tocify {
 </div>
 <div id="policies" class="section level1">
 <h1>Policies</h1>
-<p><strong>Cheating and plagarism.</strong> Any student caught cheating on an assignment, quiz, or exam will receive a 0 on that assignment. Frankly, you’re in graduate school, and the purpose of work is to create opportunities to learn and improve. Even if cheating helps you in the short term, you’ll quickly find yourself ill-prepared for the career you have chosen. If you find yourself tempted to cheat, please come speak to Dr. Weston about an extension and developing tools to improve your success.</p>
+<p><strong>Cheating and plagiarism.</strong> Any student caught cheating on an assignment, quiz, or exam will receive a 0 on that assignment. Frankly, you’re in graduate school, and the purpose of work is to create opportunities to learn and improve. Even if cheating helps you in the short term, you’ll quickly find yourself ill-prepared for the career you have chosen. If you find yourself tempted to cheat, please come speak to Dr. Weston about an extension and developing tools to improve your success.</p>
 <p><strong>Students with special needs.</strong> The UO works to create inclusive learning environments. If there are aspects of the instruction or design of this course that result in disability-related barriers to your participation, please notify me as soon as possible. You may also wish to contact Disability Services in 164 Oregon Hall at 541-346-1155 or <a href="mailto:disabsrv@uoregon.edu">disabsrv@uoregon.edu</a>.</p>
 </div>
 <div id="basic-needs" class="section level1">
 <h1>Basic needs</h1>
 <p>Any student who has difficulty affording groceries or accessing sufficient food to eat every day, or who lacks a safe and stable place to live and believes this may affect their performance in this course is urged to contact the Dean of Students Office (346-3216, 164 Oregon Hall) for support.</p>
-<p>This UO webpage includes resources for food, housing, healthcare, childcare, transportation, technology, finances, and legal support: <a href="https://blogs.uoregon.edu/basicneeds/food/">https://blogs.uoregon.edu/basicneeds/food/</a></p>
+<p>This UO web page includes resources for food, housing, health care, childcare, transportation, technology, finances, and legal support: <a href="https://blogs.uoregon.edu/basicneeds/food/">https://blogs.uoregon.edu/basicneeds/food/</a></p>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Final grades are due the following Tuesday, so there are limited opportunties to redo this particular assignment for points. I will do my best to grade these within 24 hours of receipt so you have a chance to retry any missed points. Consider Monday 12/14 at 9am that last possible moment to turn in this assignment.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Final grades are due the following Tuesday, so there are limited opportunities to redo this particular assignment for points. I will do my best to grade these within 24 hours of receipt so you have a chance to retry any missed points. Consider Friday 12/10 at 5pm PT the last possible time to submit this assignment.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
@@ -846,7 +738,7 @@ div.tocify {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -864,7 +756,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -873,6 +765,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

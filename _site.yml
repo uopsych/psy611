@@ -7,65 +7,11 @@ navbar:
       href: schedule.html
     - text: Lectures
       menu:
-      - text: "1 - Introduction"
-        href: "lectures/01-intro.html"
-      - text: "2 - Validity"
-        href: "lectures/02-measurement.html"
-      - text: "3 - Describing data (univariate)"
-        href: "lectures/03-describing-data.html"
-      - text: "4 - Describing data (bivariate)"
-        href: "lectures/04-describing_data.html"
-      - text: "5 - Matrix algebra"
-        href: "lectures/05-matrix.html"
-      - text: "6 - Probability"
-        href: "lectures/06-probability.html"
-      - text: "7 - Binomial distributions"
-        href: "lectures/07-binomial.html"
-      - text: "8 - Normal distributions"
-        href: "lectures/08-normal.html"
-      - text: "9 - Sampling"
-        href: "lectures/09-sampling.html"
-      - text: "10 - NHST I"
-        href: "lectures/10-nhst.html"
-      - text: "11 - NHST II"
-        href: "lectures/11-nhst.html"
-      - text: "12 - Critiques of NHST"
-        href: "lectures/12-critiques.html"
-      - text: "13 - Open Science"
-        href: "lectures/13-open_science.html"
-      - text: "14 - One-sample I (Chi-Square)"
-        href: "lectures/14-one_sample.html"
-      - text: "15 - One-sample II"
-        href: "lectures/15-one_sample.html"
-      - text: "16 - Two means (paired)"
-        href: "lectures/16-paired_samples.html"
-      - text: "17 - Two means (independent)"
-        href: "lectures/17-independent_samples.html"
-      - text: "18 - Effect sizes and assumptions"
-        href: "lectures/18-effects_assumptions.html"
-      - text: "19 - t-test wrap up"
-        href: "lectures/19-ttest_matrix_wrap_up.html"
+      - text: "Coming soon!"
 
     - text: Labs
       menu:
-      - text:  "1 - Introduction to R"
-        href: "labs/lab-1.html"
-      - text:  "2 - R Basics and Descriptives"
-        href: "labs/lab-2.html"
-      - text:  "3 - Matrix Algebra"
-        href: "labs/lab-3.html"
-      - text:  "4 - Probability Distributions"
-        href: "labs/lab-4_instructor.html"
-      - text:  "5 - Data Wrangling"
-        href: "labs/lab-5.html"
-      - text:  "6 - Data Visualization"
-        href: "labs/lab-6_instructor.html"
-      - text:  "7 - RMarkdown"
-        href: "labs/lab-7.html"
-      - text:  "8 - One Sample and Paired t-tests"
-        href: "labs/lab-8_instructor.html"
-      - text:  "9 - Independent Samples t-tests"
-        href: "labs/lab-9_ist_instructors.html"
+      - text: "Coming soon!"
     - text: Homework
       href: homework.html
     - text: Useful Material
@@ -76,6 +22,8 @@ navbar:
   right:
     - text: Previous Years
       menu:
+      - text: 2020
+        href: "https://uopsych.github.io/psy611_2020/"
       - text: 2019
         href: "https://uopsych.github.io/psy611_2019/"
     - icon: fa-github
