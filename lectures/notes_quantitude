@@ -1,0 +1,43 @@
+Notes from Quantitude S2E21
+
+Latent variables -- the things we cannot directly observe
+Variable -- individual differences on it
+A placeholder for the covariation among a set of variables.
+
+  Is it missing for at least some of the observations in your dataset?
+
+  Examples: depression, anxiety, the economy, the quality of a college/uni, Pandora music station, gravity, disease or underlying     conditions
+
+Terminology: factors, constructs, hidden variables
+
+Latent variables are at the level at which your theory exists.
+  Good place to talk about non-theoretical science (machine learning, network analysis)
+  C&H assume good thing -- latent variables help generalize findings outside specific item
+  
+Assumptions
+
+Are latent variables real things?
+
+Causal indicators
+  What is the relationship of the indicators to the latent variable?
+  How will you model it?
+  
+
+recommendations:
+Bollen 2002 annual review of psychology
+
+Notes from Borsboom 2006
+
+Operationalizations are not subtitutes of theoretical attributes, they only relate to them. 
+  Distinguish between measurement and construct
+  Strong assumption that measure is adequate proxy for attribute
+  Mistaken belief that properties that pertain to measure also pertain to attribute -- e.g., can calculate sumscore and order people in linear fashion on this measure, but doesn't mean nderlying attribute (e.g., self efficacy) allows for linear ordering of people. there may be multidimensional structure or latent classes.
+  
+Classical test theory
+  Connection between theoretical attribute and observed score is fixed (axiomatic) and focus shifts to reliability and criterion validity.
+  Case study of IAT: original paper for this measure does not discuss dynamics underlying the test. Purports to study individual differences, yet validity based on means over experimental conditions, no formal model offered. Took 8 years for psychometric analysis to suggest scoring is problematic.
+
+Construct validity
+  I'm not sure what Borsboom is arguing here. I think he means to say that we've decided construct validity is both too difficult and not definitive enough to bother with?
+  
+"This may be the central problem of psychometrics: psychological theory does not motivate speciﬁc psychometric models. It does not say how theoretical attributes are structured, how observables are related to them, or what the functional form of that relation is. It is often silent even on whether that relation is directional and, if so, what its direction is. It only says that certain attributes and certain observables have something to do with each other." (p 435)

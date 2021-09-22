@@ -1,5 +1,6 @@
 ---
-title: 'Threats to measurement validity'
+title: 'Threats to validity'
+subtitle: 'AKA Research methods in 90 minutes'
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -505,7 +506,7 @@ However:
 ![](images/cronbach.png)
 ???
 
-##Questions: 
+## Questions: 
 
 **1. What is construct validity?** -- Does this variable measure what it says it's going to measure?
 
@@ -534,22 +535,23 @@ class: middle
 What makes it reliable? (covered in LSR and C&M)
 - internal consistency (inter-rater reliability, test-retest)
 
----
+<!-- --- -->
 
-class:inverse
+<!-- class:inverse -->
 
-## In breakout groups
+<!-- ## In breakout groups -->
 
-How would we create a convincing measure of "sense of humor"? 
-- How would you operationalize this? How would you measure it?
+<!-- How would we create a convincing measure of "sense of humor"?  -->
+<!-- - How would you operationalize this? How would you measure it? -->
 
-Consider from Cronbach & Meehl:
+<!-- Consider from Cronbach & Meehl: -->
 
-- Is there a criterion by which you can validate your measure?
-- Is your measure culture free? 
-- Is your measure able to be manipulated through experimental methods (e.g., priming)? 
----
-![](images/humor_nnet.jpg)
+<!-- - Is there a criterion by which you can validate your measure? -->
+<!-- - Is your measure culture free?  -->
+<!-- - Is your measure able to be manipulated through experimental methods (e.g., priming)?  -->
+
+<!-- --- -->
+<!-- ![](images/humor_nnet.jpg) -->
 
 ---
 

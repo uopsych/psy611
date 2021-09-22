@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Latent variables</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Latent variables
+## What are we measuring?
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+    /* Change the background color to white for shaded rows (even rows) */
+
+    .remark-slide thead, .remark-slide tr:nth-child(2n) {
+        background-color: white;
+    }
+&lt;/style&gt;
+
+## Last time
+
+---
+
+## Today
+
+Moral of the story: measuring stuff is hard. Put some thought into it.
+
+---
+
+## Quantitude podcast
+
+* According to Curran and Hancock, what is a latent variable?
+
+* What are some examples of latent variables in the podcast?
+
+???
+
+From C&amp;H
+
+Latent variables -- the things we cannot directly observe
+Variable -- individual differences on it
+A placeholder for the covariation among a set of variables.
+
+  Is it missing for at least some of the observations in your dataset?
+
+Examples: depression, anxiety, the economy, the quality of a college/uni, Pandora music station, gravity, disease or underlying conditions
+
+---
+
+### Measuring latent variables
+
+If latent variables are unobserved, how do we study them?
+
+--
+
+* The challenge of **psychometrics** is assign numbers to observations in a way that best summarizes the underlying constructs ([Revelle, 2009](http://personality-project.org/r/book/Chapter3.pdf))
+
+How do we create this in our dataset (practically speaking)?
+
+--
+
+* With the people around you, come up with 3 latent variables that you might be interested in and describe how you would measure them.
+
+???
+
+Walk students through example of job success How would you measure this? What items would you use? How would you assign numbers to those items?
+
+How would you use those numbers to create a job success score?
+
+---
+
+### Assumptions of (most) measurements
+
+What assumptions do we make when we construct latent variables?
+
+--
+
+* What else do our items capture?
+
+* Are all items weighted equally?
+
+* Does the latent variable cause the items?
+
+???
+
+Use job success measure. How are items biased?
+(who gets raises or promotions?)
+
+---
+
+### Relationship between latent variables and theory
+
+Latent variables live at the level of theory. 
+
+* Your theory is about success/happiness/arousal/memory/etc, not about the measure (items or operationalizations).
+
+* Does your theory specify how the latent variable is associated with your measure?
+    * Probably not... we'll return to this.
+
+---
+
+### Relationship between latent variables and theory
+
+Do you need theory for good statistics or empirical work?
+
+* Machine learning models
+  
+  * Don't need theory to make predictions.
+  * In fact, best predictions often come by throwing out theory.
+
+* Network models
+
+  * No underlying theory about the cause of covariation between items. 
+  * Allows for exploration of item structure.
+
+---
+
+## What's wrong with latent variables
+
+![](images/borsboom.png)
+
+---
+
+[Borsboom (2006)](../readings/Borsboom_2006.pdf) argues that good measurement practices -- specifically, testing that measures capture latent variable -- has been ignored in psychology.
+
+
+* Operationalizations assumed substitutes for latent variables
+* No exploration or tests of whether more captures latent variable
+* Construct validity (Cronbach &amp; Meehl, 1955, among others) made to seem too difficult
+
+---
+
+### IAT
+
+
+&lt;img src="images/iat.jpeg" width="100%" /&gt;
+
+???
+
+
+
+Go through assumptions
+* Operationalizations assumed substitutes -- what are we actually trying to measure? 
+
+---
+
+### IAT
+.pull-left[
+&lt;img src="images/original_iat.png" width="100%" /&gt;
+]
+.pull-right[
+From Greenwald, McGhee, &amp; Schwartz ([1998](https://pubmed.ncbi.nlm.nih.gov/9654756/))
+]
+
+???
+
+No exploration or tests of whether more captures latent variable
+Evidence presented is group means, not individual differences.
+What's the theory underlying this. What is the shape of the outcome? Is it really linear? Is there a cut-off? How do practice effects weigh in?
+
+---
+
+### IAT
+
+![](images/iat_correlation.png)
+From Greenwald, McGhee, &amp; Schwartz ([1998](https://pubmed.ncbi.nlm.nih.gov/9654756/))
+
+???
+ Construct validity is hard, am I right?
+
+---
+
+## The underlying process
+
+Where do the numbers come from? 
+
+What assumptions do our statistics make about where the numbers come from?
+
+A few examples from Revelle ([2009](http://personality-project.org/r/book/Chapter3.pdf))
+
+---
+
+### Whose point of view?
+
+Consider the problem of a department chairman who wants to recruit faculty by emphasizing
+the smallness of class size but also report to a dean how effective the department is at meeting
+its teaching requirements. What is the typical class size?
+
+&lt;table class=" lightable-classic" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Faculty Member &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Freshman/Sophmore &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Junior &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Senior &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Graduate &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Mean &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Median &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 12.5 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 12.5 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 12.5 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; D &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 35.0 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 15 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; E &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 200 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 400 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 177.5 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 150 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr grouplength="2"&gt;&lt;td colspan="7" style="border-bottom: 0;"&gt;&lt;strong&gt;Total&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;background-color: lightgray !important;" indentlevel="1"&gt; Mean &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 56 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 46 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 110 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;background-color: lightgray !important;"&gt; 50.0 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;background-color: lightgray !important;"&gt; 39 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;background-color: lightgray !important;" indentlevel="1"&gt; Median &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;background-color: lightgray !important;"&gt; 12.5 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: lightgray !important;background-color: lightgray !important;"&gt; 10 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+???
+
+Tell faculty that median class size is 10 and tell dean the mean class size is 50. Excellent!
+
+---
+
+What about from the students' perspective?
+
+&lt;table class=" lightable-classic" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Class size &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Number of classes &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Number of students &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 120 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 80 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 200 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 200 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 200 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 400 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 400 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+```r
+class_size = c(rep(10, 120),
+               rep(20, 80),
+               rep(100, 200),
+               rep(200, 200),
+               rep(400, 400))
+mean(class_size)
+```
+
+```
+## [1] 222.8
+```
+
+```r
+median(class_size)
+```
+
+```
+## [1] 200
+```
+
+---
+
+### Is the process generating numbers linear?
+
+Many of the statistics we use (e.g., mean) assume the process generating numbers is linear. That is, as you move up on the latent construct, you move in a linear fashion along the measurement. What happens if that's not the case?
+
+Physiological arousal is thought to reflect levels of excitement, alertness and energy. 
+* Two psychophysiological indicators of the degree of palmer sweating. 
+* **Skin conductance (SC)** is measured by passing a small current through two electrodes, one attached to one finger, another attached to another finger. 
+* **Skin resistance (SR)** is also measured by two electrodes, and reflects the resistance of the skin to passing an electric current.
+* These two measures are the reciprocal of one another. 
+
+---
+
+
+```r
+conductance = seq(1, 5, length = 100)
+resistance = 1/conductance
+plot(conductance, resistance, type = "l")
+```
+
+![](05-variables_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+---
+
+Consider two experimenters, A and B. They both are interested in the effect of an exciting movie upon the arousal of their subjects. Experimenter A uses Skin Conductance, experimenter B measures Skin Resistance. They first take their measures, and then, after the movie, take their measures again.
+
+&lt;table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Subject &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Conductance &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Resistance &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr grouplength="2"&gt;&lt;td colspan="3" style="border-bottom: 1px solid;"&gt;&lt;strong&gt;Pretest&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:right;padding-left: 2em;" indentlevel="1"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;padding-left: 2em;" indentlevel="1"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr grouplength="1"&gt;&lt;td colspan="3" style="border-bottom: 1px solid;"&gt;&lt;strong&gt;Average&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:right;padding-left: 2em;" indentlevel="1"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr grouplength="2"&gt;&lt;td colspan="3" style="border-bottom: 1px solid;"&gt;&lt;strong&gt;Posttest&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:right;padding-left: 2em;" indentlevel="1"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;padding-left: 2em;" indentlevel="1"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.25 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr grouplength="1"&gt;&lt;td colspan="3" style="border-bottom: 1px solid;"&gt;&lt;strong&gt;Average&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:right;padding-left: 2em;" indentlevel="1"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.63 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+![](05-variables_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+---
+
+![](05-variables_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+---
+
+What's the real conclusion?
+
+* The movie induces greater variability
+
+
+What's the moral?
+
+* We don't expect either of these variables to behave linearly -- there are bounds. 
+* A traditional mean calculation won't work here. 
+
+A similar situation is measuring a construct over time that has circular rhythms. Think of anything that goes up and down over the course of a day (energy, affect, etc).
+
+---
+
+Scores indicate the time of day the subject experienced their peak. 
+
+
+
+&lt;table class=" lightable-classic" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Subject &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Energetic Arousal &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Positive Affect &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Tense Arousal &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Negative Affect &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr grouplength="2"&gt;&lt;td colspan="5" style="border-bottom: 0;"&gt;&lt;strong&gt;Mean&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Arithmetic &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Circular &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+### Non-linearirty and pre-existing differences
+
+The issues of non-linearity are especially troublesome when there are pre-existing differences between groups. This can lead to interactions at the level of the observations (measures/operationalization) even when there are not interactions at the level of the latent variable. 
+
+Consider a study of "thematic analysis" across three schools: 
+* a "high-quality, high prestige 4 year liberal arts college located in New
+England" (Ivy)
+* a "4-year state supported institution, relatively nonselective, and enrolling mostly lower-middle-class
+commuter students who are preparing for specific vocations such as teaching" (TC)
+* a community college (CC).
+
+(From Winter &amp; McClelland, 1978)
+
+---
+
+![](05-variables_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+
+What is your conclusion?
+
+---
+
+![](05-variables_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+
+What is your conclusion?
+
+---
+
+.pull-left[
+![](05-variables_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](05-variables_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+]
+
+Both panels are generated from the exact same monotonic curve, but with items of different difficulties.
+
+`$$prob(correct|\theta,\delta) = \frac{1}{1+e^{\delta-\theta}}$$`
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

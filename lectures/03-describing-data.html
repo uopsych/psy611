@@ -3,7 +3,7 @@
   <head>
     <title>Describing Data I</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
@@ -97,7 +97,7 @@ The dataset is available on GitHub for those interested in trying at home.
 
 
 ```r
-world = read.csv("../data/world_happiness_2015.csv")
+world = read.csv(here("data/world_happiness_2015.csv"))
 world
 ```
 
@@ -650,13 +650,13 @@ We'll get to expected values when we talk about probability distributions, but f
 
 ---
   
-  ![](03-describing-data_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](03-describing-data_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 In a normal distribution, the mean, median, and mode are all relatively equal. 
 
 ---
   
-  ![](03-describing-data_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](03-describing-data_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 
 In a skewed distribution, both the mean and median get pulled away from the mode. The mean is pulled further.  
 
@@ -787,6 +787,91 @@ The mean is more affected than the median by extreme values.  If the data are se
   - Use the median (not susceptible to extreme values)
 
 What are the pros and cons of these approaches?  What justifies their use?
+
+---
+
+## Other measures of variability
+
+* *Range*
+  * the difference between the maximum data point and the smallest
+  
+
+```r
+min(world$Happiness)
+```
+
+```
+## [1] 2.701591
+```
+
+```r
+max(world$Happiness)
+```
+
+```
+## [1] 7.603434
+```
+
+```r
+range(world$Happiness)
+```
+
+```
+## [1] 2.701591 7.603434
+```
+
+```r
+psych::describe(world$Happiness)
+```
+
+```
+##    vars   n mean   sd median trimmed mad min max range  skew kurtosis  se
+## X1    1 136 5.43 1.11   5.42    5.44 1.2 2.7 7.6   4.9 -0.07    -0.69 0.1
+```
+
+---
+
+## Other measures of variability
+
+
+* *Interquartile range (IQR)* 
+  * The middle 50%
+
+
+```r
+median(world$Happiness)
+```
+
+```
+## [1] 5.421877
+```
+
+```r
+quantile(world$Happiness, probs = .50)
+```
+
+```
+##      50% 
+## 5.421877
+```
+
+```r
+quantile(world$Happiness, probs = c(.25, .75))
+```
+
+```
+##      25%      75% 
+## 4.654128 6.327964
+```
+
+```r
+IQR(world$Happiness)
+```
+
+```
+## [1] 1.673836
+```
+  
   
 ---
 
@@ -877,7 +962,7 @@ Variance (and standard deviation) are *biased* estimators when applied to sample
 
 ---
 
-![](03-describing-data_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](03-describing-data_files/figure-html/simulate bias-1.png)&lt;!-- --&gt;
 
 
 

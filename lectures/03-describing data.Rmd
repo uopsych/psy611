@@ -69,6 +69,7 @@ Describing data!
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(tidyverse) # for pipes and plots
 library(lsr) # for mode and maxFreq functions
+library(here) # for working directory
 ```
 
 
@@ -91,7 +92,7 @@ The dataset is available on GitHub for those interested in trying at home.
 ---
 
 ```{r}
-world = read.csv("../data/world_happiness_2015.csv")
+world = read.csv(here("data/world_happiness_2015.csv"))
 world
 ```
 
@@ -303,7 +304,7 @@ We'll get to expected values when we talk about probability distributions, but f
 
 ---
   
-  ```{r, echo = FALSE, warning = FALSE, message = FALSE}
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
 world %>% ggplot(aes(x = Happiness)) + 
   geom_histogram(fill = "gray") +
   geom_vline(aes(xintercept = mean(Happiness))) +
@@ -317,7 +318,7 @@ In a normal distribution, the mean, median, and mode are all relatively equal.
 
 ---
   
-  ```{r, echo = FALSE, warning = FALSE, message = FALSE}
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
 world %>% ggplot(aes(x = Corruption)) + 
   geom_histogram(fill = "gray") +
   geom_vline(aes(xintercept = mean(Corruption, na.rm=T))) +
@@ -414,6 +415,34 @@ The mean is more affected than the median by extreme values.  If the data are se
   - Use the median (not susceptible to extreme values)
 
 What are the pros and cons of these approaches?  What justifies their use?
+
+---
+
+## Other measures of variability
+
+* **Range** -- the difference between the maximum data point and the smallest
+  
+```{r}
+min(world$Happiness)
+max(world$Happiness)
+range(world$Happiness)
+psych::describe(world$Happiness)
+```
+
+---
+
+## Other measures of variability
+
+
+* **Interquartile range (IQR)** -- the middle 50%
+
+```{r}
+median(world$Happiness)
+quantile(world$Happiness, probs = .50)
+quantile(world$Happiness, probs = c(.25, .75))
+IQR(world$Happiness)
+```
+  
   
 ---
 

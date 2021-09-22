@@ -13,15 +13,17 @@ output:
 # Overview
 
 This course is the first in a 3-term sequence of classes designed to provide a
-thorough grounding in statistical concepts, methods, and applications of relevance to psychological science and related sciences. The aim of the course is to help students develop skills in the analysis and interpretation of real psychological data. Our focus will be both conceputual and mathematical -- that is, understanding the underlying mathematical principals of statistics enhances ones' ability to interpret and think critically about the use of statistics. Students will also learn the basics of the R language and use this program to wrangle, visualize, summarize, and test hypotheses with data. 
+thorough grounding in statistical concepts, methods, and applications of relevance to psychological science and related sciences. The aim of the course is to help students develop skills in the analysis and interpretation of real psychological data. Our focus will be both conceptual and mathematical -- that is, understanding the underlying mathematical principals of statistics enhances ones' ability to interpret and think critically about the use of statistics. Students will also learn the basics of the R language and use this program to wrangle, visualize, summarize, and test hypotheses with data. 
 
 ## Meeting times and locations
 
-**Lecture:** Tuesdays and Thursdays, 10:15 - 11:45am, 222 LA and [Zoom](https://uoregon.zoom.us/j/97292141256?pwd=aE1yUW5oT0ZER214TGcwM2xXeUN3UT09) 
+**Lecture:** Tuesdays and Thursdays, 10:00 - 11:20am, 222 LA and [Zoom](https://uoregon.zoom.us/j/97292141256?pwd=aE1yUW5oT0ZER214TGcwM2xXeUN3UT09) 
 
-**Lab:** Friday, 10:15-11:45am, [Zoom](https://uoregon.zoom.us/j/97605175179?pwd=MVFoN2VudVM4a2Y5OXFvaklTRS85Zz09)
+**Lab:** Friday, 10:00-11:20am, [Zoom](https://uoregon.zoom.us/j/97605175179?pwd=MVFoN2VudVM4a2Y5OXFvaklTRS85Zz09)
 
-All labs and lectures will be recorded, and these recordings will be made available to current students through Canvas. Attendance is not required. 
+This class is officially offered in-person. I will give live lectures in Lawrence 222 and you are welcome to attend in person. At the same time, my goal is to make it as safe and easy as possible for students to access this course in whatever format they are comfortable. Therefore, all lectures will be live-streamed via Zoom and recorded for later viewing. In-person attendance in lecture is not required. Feel free to stay at home if you prefer. And **absolutely do not attend class in-person if you feel unwell**. If you have COVID symptoms or have been in close contact with someone with known COVID, quarantine and call the UO Health Center at 541-346-2770. 
+
+As per UO policy, masks are required indoors. 
 
 For Zoom best practices and tips, see this [cheat sheet](readings/PSY 611 Zoom Cheat Sheet.pdf).
 

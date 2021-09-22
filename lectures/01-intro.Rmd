@@ -97,6 +97,7 @@ But the world is changing rapidly. Heuristics don't apply, there are better ways
 
 Goal: don't just do the test, understand what the test does, why you might want to use it, and how you can avoid abusing it
 
+
 ---
 
 ## Road map
@@ -108,6 +109,24 @@ Goal: don't just do the test, understand what the test does, why you might want 
 | 5   |Sampling and making inferences about the unknown|
 | 6-9| Making a decision|
 |10| Evaluating that decision|
+
+---
+
+## Graduate school vs undergraduate
+
+**Undergraduate**
+* Complete assignment
+* Receive grade and (maybe) feedback
+* Move on to next assignment
+
+--
+
+**Graduate**
+* Attempt assignment
+* Receive feedback
+* Edit/retry/improve work
+* Receive feedback
+* ... rinse, repeat...
 
 ---
 
@@ -175,6 +194,23 @@ If you want extra help, the library offers `R` workshops, as well as workshops o
 The library also has R consultants (GEs) available during most work hours to help troubleshoot.
 
 [https://library.uoregon.edu/research-data-management/training-workshops](https://library.uoregon.edu/research-data-management/training-workshops)
+
+---
+
+## COVID-19
+
+* Lectures will be live-streamed (Zoom) and recorded. 
+
+* If you attend in-person:
+  * Keep track of who you sit near.
+  * Wear a mask.
+  * No eating or drinking.
+  * Wash hands.
+  * Stay home if sick.
+  
+* Office hours can be through Zoom or in-person (you choose).
+
+* Course material is fully online (Canvas and class website). 
 
 ---
 
