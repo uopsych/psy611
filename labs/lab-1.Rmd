@@ -25,6 +25,8 @@ options(scipen = 999)
 
 You can download the lab [here](lab-1.pdf).
 
+Add new material here. 
+
 
 # Purpose
 
