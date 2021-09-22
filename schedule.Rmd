@@ -22,7 +22,7 @@ LSR readings can be found in the free, online textbook, [_Learning Statistics wi
 | -    | 10/08 | _Lab: R basics and descriptives_       |                                                                                                     |        |            |             
 | 3    | 10/12 | Latent variables and psychometrics     | Podcast: [Quantitude, S2E21 -- Yes, Virginia... There ARE Latent Variables](https://quantitudepod.org/listen/) (Make sure you scroll down to the correct episode)                                                                                                   |        |            |             
 | -    | 10/14 | Probability                            | LSR Intro to Part IV and Ch 9.1-9.3, [Wetzels et al. (2011)](readings/Wetzels_etal_2011.pdf)        | Quiz 2 |            |             
-| -    | 10/15 | _Lab: Psychometrics _                  |                                                                                                     |        |            |             
+| -    | 10/15 | _Lab: Functional programming_                  |                                                                                                     |        |            |             
 | 4    | 10/19 | Probability                            | LSR Ch 9.4                                                                                          | Quiz 3 |            |
 | -    | 10/21 | Probability                            | LSR Ch 9.5-9.6                                                                                      |        |            |
 | -    | 10/22 | _Lab: Probability distributions_       |                                                                                                     |        |  HW 1 Due  |
