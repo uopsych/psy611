@@ -321,6 +321,18 @@ Four scales
 
 ---
 
+## Breakout groups
+
+Pick one of the following constructs and come up with four ways of measuring it (one for each of the scales: nominal, ordinal, interval, ratio):
+
+* Self-esteem
+* Political preference
+* Memory
+* Dog-enthusiasm
+* Anxiety
+
+---
+
 ## Scales of measurement
 
 .pull-left[
