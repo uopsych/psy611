@@ -6,10 +6,10 @@ output:
     toc: yes
     toc_depth: 3
     toc_float: yes
-  pdf_document:
+  word_document:
     toc: yes
     toc_depth: '3'
-  word_document:
+  pdf_document:
     toc: yes
     toc_depth: '3'
 editor_options:
@@ -23,8 +23,8 @@ knitr::opts_chunk$set(echo = TRUE)
 options(scipen = 999)
 ```
 
-You can download the lab [here](lab-1.pdf).
-
+You can download the .Rmd file [here](lab-1.Rmd).
+You can download the .doc file [here](lab-1.docx).
 
 # Purpose
 
@@ -61,7 +61,7 @@ A second piece of software that is not required to use R but is nonetheless usef
 
 1. Navigate to the webpage for the [Comprehensive R Archive Network](https://cran.r-project.org) (commonly referred to as CRAN).
 1. Under "Download and Install R" click the appropriate link for your operating system. For example, if you are using a Mac, you would click on [Download R for (Mac) OS X](https://cran.r-project.org/bin/macosx/).
-1. Click the link for the latest release. As of writing this, the newest package is `R 4.0.2. "Taking Off Again"` (all version nicknames are references to the [Peanuts comic strip](https://twitter.com/snoopy/status/976452382480531458)). I would click `R-4.0.2.pkg` to start the download.
+1. Click the link for the latest release. As of writing this (September, 2021), the newest version is `R 4.1.1. "Kick Things"` (all version nicknames are references to the [Peanuts comic strip](https://twitter.com/snoopy/status/976452382480531458)). I would click `R-4.1.1.pkg` to start the download.
 1. Once the file is downloaded, click on it to open it. Your operating system should guide you through the rest of the installation process. 
 
 *Note.* The same steps are used to update the R Engine: You install a new version and replace the old version in the process. 
@@ -71,7 +71,8 @@ A second piece of software that is not required to use R but is nonetheless usef
 1. Click [Download RStudio](https://www.rstudio.com/products/rstudio/download/).
 1. Click the [Download](https://www.rstudio.com/products/rstudio/download/#download) listed under the free version. For our purposes (and, in fact, for most people's purposes) the free version is all that is needed.-->
 1. Navigate to the webpage for the free version of [RStudio](https://www.rstudio.com/products/rstudio/download/#download). For our purposes (and for most people's purposes) the free version of [RStudio](https://www.rstudio.com/products/rstudio/download/#download) is all that you need. The available installers are listed at the bottom of the page under the header "Installers for Supported Platforms."
-1. Select the installer for your operating system. Since I am using Windows 10, I would click `RStudio 1.3.1093 - Windows 10/8/7 (64-bit)`.
+1. Select the installer for your operating system. Since I am using a macOS, I would click `RStudio-1.4.1717.dmg`.
+If you are using Windows 10, you would click `RStudio-1.4.1717.exe`.
 1. Once the file is downloaded, click on it to open it. Your operating system should guide you through the rest of the installation process. 
 
 *Note.* To update [RStudio](https://www.rstudio.com) after it is already installed, all you have to do is navigate to `Help > Check for Updates` in the menubar. 
@@ -191,65 +192,81 @@ As shown in the above image, the simple text in the `R Markdown` document on the
 
 ## Arithmetic commands {#ac}
 
-As mentioned above, you can pass commands to the R-engine via the console. R has arithmetic commands for doing basic math operations, including addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`), and exponentiation (`^`).
+As mentioned above, you can pass commands to the R-engine via the console. R has arithmetic commands for doing basic math operations, including addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`), and exponentiation (`^`). You can try running the code below. 
 
-```{r, echo = FALSE, out.width = "175px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_addition.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_subtraction.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_multiplication.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_division.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_exponentiation.png"))
+```{r, eval=FALSE}
+10 + 5
+10 - 5
+10 * 5
+10 / 5
+10 ^ 5
 ```
 
-R will automatically follow the PEMDAS order of operations (BEDMAS if you are from Canada or New Zealand). Parentheses can be used to tell R what parts of the equation should be evaluated first. As shown below and as expected, `(10 + 5) * 2` is not equivalent to `10 + 5 * 2`.
+R will automatically follow the PEMDAS order of operations (BEDMAS if you are from Canada or New Zealand or India). Parentheses can be used to tell R what parts of the equation should be evaluated first. As shown below and as expected, `(10 + 5) * 2` is not equivalent to `10 + 5 * 2`.
 
-```{r, echo = FALSE, out.width = "175px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_paren.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_noparen.png"))
+```{r, eval=FALSE}
+(10 + 5) * 2
+ 10 + 5 * 2
 ```
 
 ## Creating Variables {#variables}
 
 You can create variables using the assignment operator (`<-`). Whatever is on the left of the assignment operator is saved to name specified on the right of the assignment operator. I like to imagine that there is a box with a name on it and you are placing a value, inside of the box. For example, if we wanted to place `10` into a variable called `my_number`, we would write:
 
-```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_assign.png"))
+```{r, eval=FALSE}
+
+my_number <- 10
+
 ```
 
 If we want to see what is stored in `my_number`, we can simply type `my_number` into the console and press `enter`. We are essentially asking the computer, "What's in the box with `my_number` written on it?"
 
-```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_peek.png"))
+```{r, eval=FALSE}
+
+my_number 
+
 ```
+
+Now try running the code below. 
+
+```{r, eval=FALSE}
+
+print(my_number <- 10)
+(my_number <- 10)
+
+```
+
+There are different situations in which these variations in obtaining values from a stored object are helpful. 
 
 If we want to overwrite `my_number` with a new value, we simply assign a new value to `my_number`.
 
-```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_reassign.png"))
+```{r, eval=FALSE}
+my_number <- 20
 ```
 
 Looking at `my_number` again, we can see that it is now `20`.
 
-```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_peek2.png"))
+```{r, eval=FALSE}
+my_number
 ```
 
 We can treat variables just like we would the underlying values. For example, we can add `5` to `my_number` by using `+`.
 
-```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_var_add.png"))
+```{r, eval=FALSE}
+my_number + 5
 ```
 
 Keep in mind, the above operation does not save the result of `my_number + 5` to `my_number`. To do that, we would have to assign the result of `my_number + 5` to `my_number`.
 
-```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_reassign_add.png"))
+```{r, eval = FALSE}
+my_number <- my_number + 5
+my_number
 ```
 
 If we want to remove a variable from our environment, we can use `rm()`.
 
-```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_rm.png"))
+```{r, eval = FALSE}
+rm(my_number)
 ```
 
 ### Types of Variables
@@ -269,50 +286,54 @@ knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "l
 
 A collection of values is called a `vector`. If they are all of the same type, we call them `atomic vectors`. In R, we use the `c()` command to concatenate (or combine) values into an `atomic vector`.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vector.png"))
+```{r, eval = FALSE}
+c(10, 20, 30, 40, 50, 60)
 ```
 
 Just as we did with the `scalar` values above, we can assign a vector to a variable.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_assign.png"))
+```{r, eval = FALSE}
+my_vector <- c(10, 20, 30, 40, 50, 60)
 ```
 
-To print out the entire vector, we simply type `my_vector` into the console.
+To print out the entire vector, we can type `my_vector` into the console.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_print.png"))
+```{r, eval = FALSE}
+my_vector
 ```
 
 In order to select just one value from the vector, we use square brackets (`[]`). For example, if we wanted the third value from `my_vector` we would type `my_vector[3]`^[1](#foot_vector)^. 
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_index.png"))
+```{r, eval = FALSE}
+my_vector[3]
 ```
 
 If we want to replace a specific value in a vector, we use the assignment operator (`<-`) in conjunction with the square brackets (`[]`).
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_index_assign.png"))
+```{r, eval = FALSE}
+my_vector[3] <- 30
+my_vector
 ```
 
 As with single-value objects we can perform arithmetic operations on vectors, but the behaviour is not identical. If the vectors are the same length, each value from one vector will be paired with a corresponding value from the other vector. See below for an example of this in action.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_add.png"))
+```{r, eval = FALSE}
+my_vector_2 <- c(1,2,3,4,5,6)
+my_vector + my_vector_2
 ```
 
 If the vectors of different lengths, the shorter vector will be recycled (i.e., repeated) to be the same length as the longer vector.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_recycle.png"))
+```{r,eval = FALSE}
+my_vector_3 <- c(1000, 2000)
+my_vector + my_vector_3
 ```
 
 This also works when the longer vector is not a multiple of the shorter vector, but you will get the warning: `longer object length is not a multiple of shorter object length`.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_recycle_odd.png"))
+```{r,eval = FALSE}
+my_vector_4 <- c(1000, 2000, 3000, 4000)
+my_vector + my_vector_4
 ```
 
 ***
@@ -325,11 +346,11 @@ knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1
 
 A vector that can accomodate more than one type of value (e.g., a `double` AND a `character`) is called a `list`. To create a `list`, we use `list()` instead of `c()`. If we wanted to create a vector with the values `5L`, `10`, `"fifteen"`, and `FALSE` we would use `list(5L, 10, "fifteen", FALSE)`.
 
-```{r, echo = FALSE, out.width = "300px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_lists.png"))
+```{r,eval = FALSE}
+list(5L, 10, "fifteen", FALSE)
 ```
 
-Although `lists` are an incredibly powerful type of data structure, dealing with them can be quite frustrating (especially for beginning coders). Since you are unlikely to need to know the inner workings of `list`s for anything we will be doing in this course, I have chosen not to include much about them here. However, as you become a more advanced user, learning to leverage lists will allow you to write code that is far more efficient.
+Although `lists` are an incredibly powerful type of data structure, dealing with them can be quite frustrating (especially for beginning coders). Since you are unlikely to need to know the inner workings of `list`s for anything we will be doing in this course, I have chosen not to include much about them here. However, as you become a more advanced user, learning to leverage lists will allow you to write code that is far more efficient. Lists are helpful in data cleaning and manipulation. 
 
 ### Data Frames
 
@@ -337,98 +358,99 @@ In R you will mostly be working with `data frames`. A `data frame` is technicall
 
 Let's look at a `data frame` that is automatically loaded when you open R, `mtcars`. Type `mtcars` to print out the data frame. 
 
-```{r, echo = FALSE, out.width = "600px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_mtcars.png"))
+```{r,eval = FALSE}
+mtcars
 ```
 
 The data frame `mtcars` has a row for 32 cars featured in the *1974 Motor Trend* magazine. There is a column for the car's miles per gallon (`mpg`), number of cylinders (`cyl`), engine displacement (`disp`), horse power (`hp`), rear axle ratio (`drat`), weight in thousands of pounds (`wt`), quarter-mile time (`qsec`), engine shape (`vs`), transmission type (`am`), number of forward gears (`gear`), and number of carburetors (`carb`).
 
 With data frames, you can extract a value by including `[row, col]` immediately after the object. For example, if we wanted to extract the number of gears in the `Datsun 710` we could use `mtcars[3, 10]` to extract the value stored in the third row, tenth column.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_extract.png"))
+```{r,eval = FALSE}
+mtcars[3,10]
 ```
-
 Since the rows and columns have names, we can also be explicit and use the name of the row (`"Datsun  710"`) and the name of the column (`"gear"`) instead of the row and column indices.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_extract_explicit.png"))
+```{r,eval = FALSE}
+mtcars["Datsun  710","gear"]
 ```
-
 We can also extract an entire column by dropping the index value for the row. Since you don't specify a given row, the computer assumes you want all of the values in the column. For example, to extract all values stored in the gear column, we could use `[, 10]` or `[, "gear"]`.
 
-```{r, echo = FALSE, out.width = "700px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_col_extract.png"))
+```{r,eval = FALSE}
+`[, 10]
+[, "gear"]
 ```
 
 To extract an entire row, we drop the column index. To extract all of the values associated with the `Datsun 710`, we would drop the column index (e.g., `[3, ]` or `["Datsun 710", ]`)
 
-```{r, echo = FALSE, out.width = "700px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_row_extract.png"))
+```{r, eval = FALSE}
+mtcars[3, ]
+mtcars["Datsun 710", ]
 ```
 
 You can also extract columns using `$` followed by the column name without quotes.
 
-```{r, echo = FALSE, out.width = "700px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_col_dollar.png"))
+```{r,eval = FALSE}
+mtcars$gear
 ```
 
 If we want to extract multiple columns (or multiple rows) we use vectors. For example, if we wanted the number of gears and carburetors in the `Datsun 710` and the `Duster 360` we would use `[c("Datsun 710", "Duster 360"), c("gear", "carb")]` or `[c(3, 7), c(10:11)]`.
 
-```{r, echo = FALSE, out.width = "550px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_extract_vector.png"))
+```{r, eval = FALSE}
+mtcars[c("Datsun 710", "Duster 360"), c("gear", "carb")]
 ```
 
 ## Functions {#functions}
 
 Up to this point, we have been more-or-less directly telling R what we want it to do. This is great if we want to understand the processes that underlie R, but it can be incredibly time-consuming. Thankfully, we have functions. Functions are essentially pre-packaged snippets of code that take one or more pieces of input (called `arguments`) and return one or more pieces of output (called `values`). For example, `length()` is a function that takes a vector as its sole argument and returns the length of the vector as its sole value. 
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_length.png"))
+```{r, eval = FALSE}
+length(c(10, 20, 30, 40, 50, 60))
 ```
 
 The function `unique()` also takes a vector as its primary argument, but---instead of returning the length of the vector as its value---it returns only the unique values of that vector.
 
-```{r, echo = FALSE, out.width = "600px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_unique.png"))
+```{r, eval=FALSE}
+unique(c("cond_a", "cond_a", "cond_b", "cond_a", "cond_b", "cond_a"))
 ```
 
 The `mean()` function and `sd()` function are two functions that you will end up using a lot. The former (`mean()`) takes a numeric vector and returns the average of the vector.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_mean.png"))
+```{r, eval=FALSE}
+mean(c(10, 20, 30, 40, 50, 60))
+
 ```
 
 The latter (`sd()`) also takes a numeric vector, but it returns the standard deviation of the vector instead.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_sd.png"))
+```{r, eval=FALSE}
+sd(c(10, 20, 30, 40, 50, 60))
 ```
 
 Although it is more conceptual, it is also useful to mention the `typeof()` function here. The function `typeof()` takes any object and tells you what type of variable it is.
 
-```{r, echo = FALSE, out.width = "225px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_type_int.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_type_double.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_type_character.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_type_logical.png"))
+```{r, eval = FALSE}
+typeof(10L)
+typeof(10)
+typeof("hello")
+typeof(TRUE)
 ```
 
 Using the suite of `as.*()` functions (e.g., `as.numeric()`, `as.character()`, `as.logical()`, `as.integer()`), we can likewise coerce objects to other types.
 
-```{r, echo = FALSE, out.width = "225px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_as_num.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_as_char.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_as_logical.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_as_integer.png"))
+```{r, eval = FALSE}
+as.numeric("10")
+as.character(10)
+as.logical(1)
+as.integer(10.3)
 ```
 
 ## Help Documentation
 
 Sometimes when working in R you will want to know more about a function. For example, you might want to know what arguments the function `sd()` takes. You can use `?` at the beginning of any function call to display the help documentation for that function. 
 
-```{r, echo = FALSE, out.width = "225px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "help_documentation", "lab1_help_call.png"))
+```{r, eval = FALSE}
+?sd
 ```
 
 ![](`r here::here("labs", "resources", "lab1", "help_documentation", "lab1_help_doc.png")` "Help Documentation")
@@ -437,14 +459,14 @@ From the help documentation we can see that `sd()` takes two arguments: (1) An R
 
 Typically R will infer, based on the order of the arguments, what values correspond to which arguments. For example, since `sd()` expects that the argument `x` will be provided first and the argument `na.rm` will be provided second, the following works:
 
-```{r, echo = FALSE, out.width = "500px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "help_documentation", "lab1_sd.png"))
+```{r, eval = FALSE}
+sd(c(10, 20, 30, 40, 50, 60), FALSE)
 ```
 
 However, we can also explicitly tell R what values are associated with which arguments.
 
-```{r, echo = FALSE, out.width = "500px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "help_documentation", "lab1_sd_explicit.png"))
+```{r, eval = FALSE}
+sd(x = c(10, 20, 30, 40, 50, 60), na.rm = FALSE)
 ```
 
 The help documentation for a function often also includes an example of how to use the function and details on what the expected output will be.
@@ -455,9 +477,7 @@ The help documentation for a function often also includes an example of how to u
 You will come across many messages in your time using RStudio. Some messages are error messages and some are warning messages. If a message says `warning message` then R was able to run the code but not as it was intended. An `error message` means that R was not able to run the code at all. Here is an example of code that would produce a warning message.
 
 ```{r,eval=FALSE,out.width = "500px"}
-
 mean(c(4,5,"6",7,5))
-
 ```
 
 
@@ -471,11 +491,8 @@ Scott from Stack overflow suggests converting the character "6" into a numeric v
 
 ![](`r here::here("labs", "resources", "lab1", "googling_error", "error_message_2.JPG")` "Google error message")
 
-```{r,out.width = "500px"}
-
-
+```{r, eval=FALSE}
 mean(c(4,5,as.numeric("6"),7,5))
-
 ```
 
 
@@ -483,14 +500,21 @@ mean(c(4,5,as.numeric("6"),7,5))
 
 Comments are pieces of code text that are not interpreted by the computer. In R we use the octothorpe/pound sign/hashtag (`#`) at the beginning of a line to denote a comment. The first and third line of code below are not evaluated, whereas the second and fourth line are.
 
-```{r, echo = FALSE, out.width = "225px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "comments", "lab1_comment.png"))
+```{r, eval=FALSE}
+#1 + 1
+ 2 + 2
+#3 + 3
+ 4 + 4
 ```
 
 Comments are mostly used to remind yourself (or other people) *what* a piece of code does and *why* the code is written the way that it is. Below is a piece of code that checks if a string is a valid phone number. We can see that the comments explain, not only what each piece of code is doing, but also why the second piece of code was written the way that it was. 
 
-```{r, echo = FALSE, out.width = "900px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "comments", "lab1_validate.png"))
+```{r, eval = FALSE}
+#assign the phone number 
+phone_number <- "(541)-346-4921"
+
+#validate the phone number; I did not account for the country codes because all of the numbers are either from the US or Canada
+grepl("^\\(*\\d{3}\\)* ( |-)*\\d{3}( |-)*\\d{4}$", phone_number)
 ```
 
 ***
@@ -501,57 +525,59 @@ A `package` can include code, documentation for that code, and/or data. A helpfu
 
 ![](`r here::here("labs", "resources", "lab1", "packages", "psych_toolbox_2.png")` "RStudio Source Pane")
 
-There are general purpose toolboxes that contain tools for running common analyses in psychology (e.g., `psych`), toolboxes for helping your run advanced statistical models (e.g., `lavaan`; `lmer`), toolboxes for text mining (e.g., `tidytext`), and toolboxes for plotting (e.g., `ggplot2`, `gganimate`). If you have a problem that needs to be solved, there will probably be a package for it. 
+There are general purpose toolboxes that contain tools for running common analyses in psychology (e.g., `{psych}`), toolboxes for helping your run advanced statistical models (e.g., `{lavaan}`; `{lmer}`), toolboxes for text mining (e.g., `{tidytext}`), and toolboxes for plotting (e.g., `{ggplot2}`, `{gganimate}`). If you have a problem that needs to be solved, there will probably be a package for it. 
 
 ### Installing packages
 
-To install a package onto your computer, you simply pass the name of the package to `install.packages()`. As a demonstration, we install the `psych` package below. The `psych` package has several useful data analysis tools for psychologists. 
+To install a package onto your computer, you simply pass the name of the package to `install.packages()`. As a demonstration, we install the `{psych}` package below. The `{psych}` package has several useful data analysis tools for psychologists. 
 
-```{r, echo = FALSE, out.width = "300px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "packages", "lab1_install.png"))
+```{r, eval = FALSE}
+install.packages("psych")
 ```
 
 *Note.* When installing packages, the package name must be enclosed in quotes: `install.packages("psych")` **NOT** `install.packages(psych)`. You generally only need to install a package once. 
 
 ### Loading a package
 
-Just because we've installed a package to our computer doesn't mean we have access to its functions. Buying a toolbox doesn't necessarily give you access to its tools. You also have to open the toolbox. To open `psych` and load its functions, we use `library()`.
+Just because we've installed a package to our computer doesn't mean we have access to its functions. Buying a toolbox doesn't necessarily give you access to its tools. You also have to open the toolbox. To open `{psych}` and load its functions, we use `library()`.
 
-```{r, echo = FALSE, out.width = "300px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "packages", "lab1_load.png"))
+```{r, eval = FALSE}
+library(psych)
 ```
 
 *Note.* A package can be loaded with or without quotes: `library("psych")` **OR** `library(psych)`. We have to load a package every time that R is restarted.
 
 ### Try psych commands
 
-Now that we have installed and loaded the `psych` package, let's try out of some its commands.
+Now that we have installed and loaded the `{psych}` package, let's try out of some its commands.
 
 Using `corr.test()` we can make a correlation matrix of the variables in `mtcars`.
 
-```{r, echo = FALSE, out.width = "900px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "packages", "lab1_corr_test.png"))
+```{r, eval = FALSE}
+corr.test(mtcars)
 ```
 
 Using `skew()`, we can look at the skew of all of the columns in `mtcars`.
 
-```{r, echo = FALSE, out.width = "900px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "packages", "lab1_skew.png"))
+```{r, eval = FALSE}
+skew(mtcars)
 ```
 
 We can also use `t2d()` to calculate the Cohen's *d* for a t-value of 3.00 with 300 participants.
 
-```{r, echo = FALSE, out.width = "250px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "packages", "lab1_t2d.png"))
+```{r, eval = FALSE}
+t2d(yt= 3.00, n = 300)
 ```
 
-This is only a small subset of the functions available in the `psych` package, and `psych` is only one package of over 11,000 on CRAN (as of 2018). This is not to mention the tens of thousands of packages hosted on online repositories like [GitHub](https://github.com). As Cory Costello noted during R Bootcamp, the question with R is never *if* but *how*.
+This is only a small subset of the functions available in the `{psych}` package, and `{psych}` is only one package of over 18,262 on CRAN (as of 27th September, 2021). This is not to mention the tens of thousands of packages hosted on online repositories like [GitHub](https://github.com). 
 
-<!--### Try `yarrr` commands-->
+Now try evaluating the following code. You will need to install the `{yarrr}` package. Remember to load the `{yarrr}` package before you try out of some its commands (adapted from [__YaRrr: A Pirate's Guide to R__](https://bookdown.org/ndphillips/YaRrr/)).
 
-<!--Now that we have installed and loaded the `yarrr` package, let's try out of some its commands (adapted from [__YaRrr: A Pirate's Guide to R__](https://bookdown.org/ndphillips/YaRrr/)).-->
+```{r, eval = FALSE}
+#Install and load the package
+install.packages("yarrr")
+library(yarrr)
 
-```{r, eval = FALSE, include = FALSE}
 # we can look at the documentation for the pirates dataset
 ?pirates
 
@@ -600,24 +626,40 @@ The final topic that we will cover in this lab is how to load data into R. Over 
 
 For this example, we will be using the planets data set from Star Wars. [The data can be downloaded here.](https://docs.google.com/spreadsheets/d/1W577PILjAkOSTNw7r85jjHrJaaXuOkiPuQcu2yA6F58/export?format=xlsx)
 
-When I took this course, you would have to use file-type-specific functions to load data into R (e.g., `read.csv`, `read_excel`). The `rio` package streamlines this process by having a single import function (`import()`) that infers the file type from its extension (e.g., `.csv`, `.xlsx`, `.sav`). Additionally, the `here` package makes it very easy to reference folders in your directory.
+There used to be file-type-specific functions to load data into R (e.g., `read.csv`, `read_excel`) a few years ago. You might see these often if you are looking up solutions for your coding problems. The `{rio}` package streamlines this process by having a single import function (`import()`) that infers the file type from its extension (e.g., `.csv`, `.xlsx`, `.sav`). It also allows you to specify the class and format of your data when you import it; this feature very useful when you are trying to streamline your workflow. Additionally, the `{here}` package makes it very easy to reference folders in your directory.
 
-As we did for `psych`, if you don't have these packages already, you will first need to install `rio` and `here`. You can install `rio` and `here` with the following code: `install.packages(c("rio", "here"))`.
+As we did for `{psych}`, if you don't have these packages already, you will first need to install `{rio}` and `{here}`. You can install `{rio}` and `{here}` with the following code: `install.packages(c("rio", "here"))`.
 
-Second, we will need to load `rio` and `here` using the library functions. Then, we will import the data by using the `import` function from the `rio` package and the `here` function from the `here` package. In order to use the `here` function, we need to know which folder my dataset is saved in. In this case, the `sw_planets.xlsx` is saved in `labs` -> `data`.  Finally, we will save the data into a variable, `planets_data`. 
+Second, we will need to load `{rio}` and `{here}` using the library functions. Then, we will import the data by using the `import` function from the `{rio}` package and the `here` function from the `{here}` package. (If you are using a certain library only once, consider using the the `::` for importing a function instead of loading the entire library). In order to use the `here` function, we need to know which folder my dataset is saved in. In this case, the `sw_planets.xlsx` is saved in `labs` -> `data`.  Finally, we will save the data into a variable, `planets_data`. 
+
+
 
 ![](`r here::here("labs", "resources", "lab1", "importing_data", "rio_here.JPG")` "Importing data")
 
+```{r, eval=FALSE}
+#install.packages(c("rio","here", "janitor", "tidyverse"))
+library(tidyverse)
+library(rio)
+library(here)
+library(janitor)
+
+#You may need to modify the following code according to yoour workflow
+planets_data <- rio::import(here::here("labs", "data", "sw_planets.xlsx"),                                  setclass = "tb_df") %>% 
+    rio::characterize() %>% #converts appropriate variables to character or factor
+    janitor::clean_names() #cleans up variable names and makes them accustomed to a tidy format
+```
+
+
 To ensure it was read in properly, we can look at the first six rows of the imported dataset by using the `head()` function. 
 
-```{r, echo = FALSE, out.width = "900px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "importing_data", "lab1_head.png"))
+```{r, eval = FALSE}
+head(planets_data)
 ```
 
 We can also look at the last six rows by using the `tail()` function.
 
-```{r, echo = FALSE, out.width = "900px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "importing_data", "lab1_tail.png"))
+```{r, eval = FALSE}
+tail(planets_data)
 ```
 
 ***
@@ -668,7 +710,7 @@ seq(from = 10, to = 50, by = 5)
 
 5. Install and load the package `ggplot2`.
 
-6. If you succesfully completed the proceeding steps, you should be able to run the following code without producing an error. If you get an error, try to figure out why you are receiving the error. 
+6. If you successfully completed the proceeding steps, you should be able to run the following code without producing an error. If you get an error, try to figure out why you are receiving the error. 
 
 ```{r, eval = FALSE}
 ggplot(marvel_data, aes(x      = reorder(align, -appearances), 
