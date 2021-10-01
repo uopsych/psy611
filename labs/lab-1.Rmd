@@ -1,17 +1,17 @@
 ---
 title: 'Lab 1: Introduction to R and RStudio'
 output:
-  html_document:
-    theme: cosmo
-    toc: yes
-    toc_depth: 3
-    toc_float: yes
   word_document:
     toc: yes
     toc_depth: '3'
   pdf_document:
     toc: yes
     toc_depth: '3'
+  html_document:
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
 editor_options:
   chunk_output_type: console
 ---
@@ -702,13 +702,28 @@ seq(from = 10, to = 50, by = 5)
 
 1. Download the [Marvel character dataset](https://docs.google.com/spreadsheets/d/1n59gFMfvLXN1rUwRjFV5qf5VNp3im_bj6AgHuv7mXTs/export?format=xlsx) to your computer. Put the data file in your `labs` -> `data` folder.
 
+
 2. Import the data into R and assign it to a variable called `marvel_data`. 
+```{r}
+#Your code goes here
+```
+
 
 3. Ah! The value for the number of appearances of Spider-Man seems to be an error! It should be `4043` not `40430`! Use square brackets (`[]`) to replace the erroneous value with the correct value (*hint:* The value is stored in the first row of the eighth column).
+```{r}
+#Your code goes here
+```
+
 
 4. Using `mean()` and dollar sign notation (`data$column`), calculate the average number of appearances for all of the Marvel characters. Assign the result to a variable called `mean_appearances`.
+```{r}
+#Your code goes here
+```
 
 5. Install and load the package `ggplot2`.
+```{r}
+#Your code goes here
+```
 
 6. If you successfully completed the proceeding steps, you should be able to run the following code without producing an error. If you get an error, try to figure out why you are receiving the error. 
 
