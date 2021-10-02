@@ -377,8 +377,8 @@ mtcars["Datsun  710","gear"]
 We can also extract an entire column by dropping the index value for the row. Since you don't specify a given row, the computer assumes you want all of the values in the column. For example, to extract all values stored in the gear column, we could use `[, 10]` or `[, "gear"]`.
 
 ```{r,eval = FALSE}
-`[, 10]
-[, "gear"]
+mtcars[, 10]
+mtcars[, "gear"]
 ```
 
 To extract an entire row, we drop the column index. To extract all of the values associated with the `Datsun 710`, we would drop the column index (e.g., `[3, ]` or `["Datsun 710", ]`)
@@ -566,7 +566,7 @@ skew(mtcars)
 We can also use `t2d()` to calculate the Cohen's *d* for a t-value of 3.00 with 300 participants.
 
 ```{r, eval = FALSE}
-t2d(yt= 3.00, n = 300)
+t2d(t= 3.00, n = 300)
 ```
 
 This is only a small subset of the functions available in the `{psych}` package, and `{psych}` is only one package of over 18,262 on CRAN (as of 27th September, 2021). This is not to mention the tens of thousands of packages hosted on online repositories like [GitHub](https://github.com). 
