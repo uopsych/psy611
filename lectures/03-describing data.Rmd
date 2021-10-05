@@ -13,50 +13,11 @@ output:
 
 Research design and validity
 
+- Construct
 - Statistical conclusion
 - Internal
-- Construct
 - External
 
-**Statistics in the news:** An [article](https://fivethirtyeight.com/features/how-the-two-party-system-obscures-the-complexity-of-black-americans-politics/) published this morning in _FiveThirtyEight_ on measuring political preferences of Black Americans.
-
-.small[Jefferson, H. & Yan, A. (2020). How the two-party system obscures the complexity of Black Americans' politics. _FiveThirtyEight.com_]
----
-
-## Measurement and statistics
-
-The characteristics of measures (like reliability) are defined quantitatively.
-
-
-.pull-left[
-$$r_{KK} = \frac{K\bar{r_{ij}}}{1 + (K-1)\bar{r_{ij}}}$$
-
-Formula for coefficient 
-$\alpha$
-where 
-$K$ 
-is the number of items and 
-$\bar{r_{ij}}$
-is the average correlation between any two items on the test.
-
-*By the way, 
-$\alpha$
-is a poor measure of reliability.
-]
-
-
-.pull-right[
-$$r_{xy} = \rho_{xy}\sqrt{r_{xx}r_{yy}}$$
-
-Formula for the sample correlation between constructs 
-$X$ 
-and 
-$Y$
-given internal consistencies
-$r_{xx}$ 
-and 
-$r_{yy}$.
-]
 
 ---
 
@@ -87,7 +48,7 @@ library(here) # for working directory
 
 Examples today are based on data from the [2015 World Happiness Report](https://worldhappiness.report/ed/2015/), which is an annual survey part of the [Gallup World Poll](https://www.gallup.com/178667/gallup-world-poll-work.aspx). 
 
-The dataset is available on GitHub for those interested in trying at home.
+The dataset is available on [GitHub](https://raw.githubusercontent.com/uopsych/psy611/master/data/world_happiness_2015.csv) for those interested in trying at home. .footnote[ To save this file to your computer, copy all the text on the linked webpage, then paste the text into a new text file (which you can create inside RStudio). Save this file as  .csv type file, like `world_happiness_2015.csv` and load using `rio::import`.]
 
 ---
 
@@ -124,6 +85,13 @@ names(world)
 
 ---
 
+```{r}
+dim(world)
+glimpse(world) #need tidyverse
+```
+
+---
+
 ## Distributions
 
 A **distribution** often refers to a description of the [relative] number of times a variable X will take each of its unique values. 
@@ -157,7 +125,9 @@ The first two moments (mean and variance) will be central to many inferential pr
 
 - Example: a set of numbers is:  `7, 7, 8, 3, 9, 2`. 
 
-$$\mu = \frac{\Sigma(x_i)}{N}=\frac{7+7+8+3+9+2}{6}=\frac{`r sum(c(7,7,8,3,9,2))`}{6}=`r mean(c(7,7,8,3,9,2))`$$
+For a vector $x$ with length $N$, the mean $(\mu)$ of $x$ is:
+
+$$\mu = \frac{\Sigma_{i=1}^N(x_i)}{N} = \frac{\Sigma(x_i)}{N}=\frac{7+7+8+3+9+2}{6}=\frac{`r sum(c(7,7,8,3,9,2))`}{6}=`r mean(c(7,7,8,3,9,2))`$$
 
 
 ---
@@ -182,16 +152,22 @@ $$\mu = \frac{\Sigma(x_i)}{N}=\frac{7+7+8+3+9+2}{6}=\frac{`r sum(c(7,7,8,3,9,2))
 
 - Can only be used with interval- and ratio-level variables. 
 
+--
+
+- The expected value of a (continuous) random variable, $E(X)$, is the mean.
+
 ???
 
 Balancing point of the data. 
   The farther a data point is from the mean, the greater 'weight' it has. 
 Draw this for students:
 ![](images/fulcrum.jpg)
+We'll get to expected values when we talk about probability distributions, but for now, treat the expected value as the mean of a continuous variable.
+
 ---
 It's important to remember that the mean of a population (or group) may not represent well some (or any) members of the population.
 
-- Example: André-François Raffray and the French apartment
+- Example: [André-François Raffray](https://www.nytimes.com/1995/12/29/world/a-120-year-lease-on-life-outlasts-apartment-heir.html) and the French apartment
 
 ![](images/apartment.jpg)
 
@@ -199,9 +175,9 @@ It's important to remember that the mean of a population (or group) may not repr
 
 lawyer André-François Raffray in 1965
 
-agreed to pay a woman $2500 francs each month and when she died, he would take possession of the apartment. 
+agreed to pay a 90-year-old woman $2500 francs each month and when she died, he would take possession of the apartment. 
 
-Average life expectancy of French women was 74.5. Andre was 47 years old
+Average life expectancy of French women was 74.5. Andre was 45 years old
 
 the woman lived another 32 years to become the oldest person on record, outliving Andre by two years. He had paid more than twice the market value for the apartment
 
@@ -282,7 +258,7 @@ sum((x - mean(x))^2)/length(x)
 - It's additive.
   - Given two variables X and Y, if I create $Z = X + Y$ then $Var(Z) = Var(X) + Var(Y)$
 - It can be calculated using expected values.
-  - $\sigma^2 = E(X^2) - E(X)^2$
+  - $\sigma^2 = E(X^2) - (E(X))^2$
 - Represents all values in a dataset
 
 --
@@ -298,9 +274,6 @@ sum((x - mean(x))^2)/length(x)
 ```{r}
 sqrt(sum(deviation^2)/length(deviation))
 ```
-
-???
-We'll get to expected values when we talk about probability distributions, but for now, treat the expected value as the mean of a continuous variable.
 
 ---
   
@@ -343,8 +316,8 @@ In a skewed distribution, both the mean and median get pulled away from the mode
 Most inferential statistics assume distributions are not skewed and are mesokurtic.
 
 ???
-  platykurtic: too flat, negative kurtosis
-leptokurtic: too pointy, positive kurtosis
+* platykurtic: too flat, negative kurtosis
+* leptokurtic: too pointy, positive kurtosis
 
 ---
   ```{r, echo = FALSE, warning = FALSE, message=FALSE}
@@ -437,13 +410,45 @@ psych::describe(world$Happiness)
 * **Interquartile range (IQR)** -- the middle 50%
 
 ```{r}
-median(world$Happiness)
-quantile(world$Happiness, probs = .50)
-quantile(world$Happiness, probs = c(.25, .75))
-IQR(world$Happiness)
+median(world$Corruption, na.rm = T)
+quantile(world$Corruption, probs = .50, na.rm = T)
+quantile(world$Corruption, probs = c(.25, .75), na.rm = T)
+IQR(world$Corruption, na.rm = T)
 ```
-  
-  
+
+---
+
+```{r, echo = F}
+world %>% ggplot(aes(x = Corruption)) + 
+  geom_histogram(fill = "gray") +
+  geom_vline(aes(xintercept = median(Corruption, na.rm=T))) + 
+  geom_label(aes(x = median(Corruption, na.rm=T), 
+                 y = maxFreq(Corruption)*2), 
+             label = "median") +
+  geom_vline(aes(xintercept = quantile(Corruption, 
+                                       probs = .25,
+                                       na.rm=T)),
+             color = "blue") + 
+  geom_vline(aes(xintercept = quantile(Corruption, 
+                                       probs = .75,
+                                       na.rm=T)),
+             color = "blue") + 
+  geom_label(aes(x = quantile(Corruption, 
+                              probs = .25, 
+                              na.rm=T), 
+                 y = maxFreq(Corruption)*3, 
+             label = "lower IQR"),
+             color = "blue") +
+  geom_label(aes(x = quantile(Corruption, 
+                              probs = .75, 
+                              na.rm=T), 
+                 y = maxFreq(Corruption)*4, 
+             label = "upper IQR"),
+             color = "blue") +
+  labs(y = "Count") +
+  theme_bw()
+```
+
 ---
 
 class: inverse
@@ -596,7 +601,7 @@ Scores interpreted as distance from the mean, in standard deviations.
 
 - $\Large \Sigma z = 0$
 - $\Large \Sigma z^2 = N$
-- $\Large s_z = \frac{\Sigma z^2}{n}$
+- $\Large s_z = \frac{\Sigma z^2}{N}$
 
 ---
 
