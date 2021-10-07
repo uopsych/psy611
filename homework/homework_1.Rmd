@@ -40,7 +40,7 @@ This question is about order of operations:
 
 ### Question 2
 
-Calculate descriptive statistics separately for these four groups in the `homework-world` dataset. 
+Calculate descriptive statistics separately for the four groups (`World`) in the `homework-world` dataset. 
 
 
 ### Question 3
@@ -67,10 +67,27 @@ Using the `homework-world` dataset, create a boxplot graph for the `Corruption` 
   - the presence of outliers within each group?
 
 
+### Question 5
 
+Consider the following function:
 
-### Question 5 (missing)
+```{r}
+mystery = function(x,y){
+  if(!is.numeric(x)) stop("x is not numeric")
+  if(!is.numeric(y)) stop("y is not numeric")
+  est = cor(x,y, use = "pairwise")
+  abs_est = abs(est)
+  if(abs_est < .3) message = "This is small"
+  if(abs_est >= .3 & abs_est < .5) message = "This is medium"
+  if(abs_est >= .5) message = "This is large"
+  return(message)
+}
+```
 
+* What are the formals in this function?
+* What is the environment of this function?
+* What is the this function trying to do? What is its purpose?
+* Apply this function to the set of variables, Corruption and GDP. What do you learn about the relationship between these two variables?
   
 
 # 5-point questions
@@ -125,9 +142,23 @@ Create a composite score for the non-categorical variables (`Happiness`, `GDP`, 
   
   - By collapsing all of these variables into one composite score we are claiming them to be good proxies for some "thing." What might you name that thing and how would you justify it quantitatively?
   
-### Question 2 (missing)
+### Question 2
 
+In class, we discussed the differences between calculating the variance of the sample versus calculating the _estimated_ variance of the population from the sample. 
 
+* Write a function that, when given a numeric variable, computes the _population_ variance (i.e., the formula used when you have the entire population). Test it on the following vector:
+
+```{r}
+x = c(25, 26, 15, 27, 23, 27, 18, 35, 18, 23)
+```
+
+* Write a function that, when given a numeric variable, computes the _estimated population_ variance. Test it on the vector above.
+
+* Use the `var` function to estimate the variance of the vector above. Which of your functions does the `var` function match? Why do you think this is the formula assigned to the `var` function?
+
+* Now write a function that estimates the mean absolute deviation (from the mean). Test it on the above vector.
+
+* Does your function estimate the same quality as the function `mad`? If not, why not?
   
 # 20-point questions
 

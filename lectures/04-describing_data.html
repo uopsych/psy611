@@ -3,7 +3,7 @@
   <head>
     <title>Describing Data II</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
@@ -19,15 +19,20 @@ class: center, middle, inverse, title-slide
 
 
 
+
+
+
 class: inverse
 
 ### Annoucements
 
 - That quiz, huh?
 
-- Strategic breakout groups in lab
-
 - Homework 1 due in two weeks 
+
+- Measure yourself for an in-class demo today [tinyurl.com/uwn463vj](https://tinyurl.com/uwn463vj)
+  * height (inches)
+  * length of right forearm (inches)
 
 ---
 
@@ -39,7 +44,7 @@ class: inverse
 `$$\small SS = \Sigma(X_i-\mu_x)^2$$`
 **Variance**
 `$$\small \sigma^2 = \frac{\Sigma(X_i-\mu_x)^2}{N} = \frac{SS}{N}$$`
-**Standard devation**
+**Standard deviation**
 `$$\scriptsize \sigma = \sqrt{\frac{\Sigma(X_i-\mu_x)^2}{N}}= \sqrt{\frac{SS}{N}} = \sqrt{\sigma^2}$$`]
 
 
@@ -48,9 +53,9 @@ class: inverse
 **Sums of squares**
 `$$\small SS = \Sigma(X_i-\bar{X})^2$$`
 **Variance**
-`$$\small s^2 = \frac{\Sigma(X_i-\bar{X})^2}{N-1} = \frac{SS}{N-1}$$`
-**Standard devation**
-`$$\scriptsize s = \sqrt{\frac{\Sigma(X_i-\bar{X})^2}{N-1}}= \sqrt{\frac{SS}{N-1}} = \sqrt{s^2}$$`]
+`$$\small \hat{\sigma}^2 = s^2 = \frac{\Sigma(X_i-\bar{X})^2}{N-1} = \frac{SS}{N-1}$$`
+**Standard deviation**
+`$$\scriptsize \hat{\sigma} = s = \sqrt{\frac{\Sigma(X_i-\bar{X})^2}{N-1}}= \sqrt{\frac{SS}{N-1}} = \sqrt{s^2}$$`]
 ---
 
 ## Bi-variate descriptives
@@ -156,7 +161,7 @@ Moment = variance is the second moment of a distribution
 data %&gt;% ggplot(aes(x = x, y = y)) + geom_point(size = 3) + theme_bw()
 ```
 
-![](04-describing_data_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+![](04-describing_data_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 
 What is the correlation between these two variables?
 
@@ -171,7 +176,7 @@ Correlation = 0.68
 data %&gt;% ggplot(aes(x = x, y = y)) + geom_point(size = 3) + theme_bw()
 ```
 
-![](04-describing_data_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](04-describing_data_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 What is the correlation between these two variables?
 
@@ -186,7 +191,7 @@ Correlation = -0.41
 data %&gt;% ggplot(aes(x = x, y = y)) + geom_point(size = 3) + theme_bw()
 ```
 
-![](04-describing_data_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+![](04-describing_data_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 
 What is the correlation between these two variables?
 
@@ -204,7 +209,17 @@ Correlation = 0
 - Correlations can be compared across studies, measures, constructs, time. 
 
 - Example: the correlation between age and height among children is `\(r = .70\)`. The correlation between self- and other-ratings of extraversion is `\(r = .25\)`. 
-    
+
+---
+
+## In-class demo
+
+Add your height (in inches), forearm length (in inches), and gender to this spreadsheet: [tinyurl.com/uwn463vj](https://tinyurl.com/uwn463vj)
+
+
+???
+
+Correlation in Pearson &amp; Lee (1903) is about .627.
 ---
 
 ## What is a large correlation?
@@ -223,45 +238,6 @@ Correlation = 0
 - `\(r^2\)`: Proportion of variance "explained"
     - [Ozer &amp; Funder (2019)](https://uopsych.github.io/psy611/readings/Ozer_Funder_2019.pdf) claim this is misleading and nonsensical
     - Fisher (2019) suggests this particular argument is non-scientific (follow up [here](https://twitter.com/aaronjfisher/status/1168252269797629952) and then [here](https://www.psychologytoday.com/us/blog/personal-and-precise/201909/can-we-get-it-right-without-needing-be-right))
----
-
-### In breakout groups
-
-Order the following effect sizes from smallest to largest:
-
-- people attribute failures to bad luck 
-- High elevations have lower annual temps
-- Ibuprofen and pain relief
-- scarcity increases the perceived value of a commodity 
-- people in a bad mood are more aggressive 
-- communicators perceived as more credible are more persuasive
-- Men weigh more than women
-- SES and IQ predicting mortality 
-- Antihistomine and symptom relief
-- Height and weight among adults
-
-What would you guess each effect size is?
-
-
-
-???
-**What are good benchmarks?**
-
-- people attribute failures to bad luck ($r = .10$), 
-- communicators perceived as more credible are more persuasive ($r = .10$)
-- Antihistomine and symptom relief: `\(r = .11\)`
-- scarcity increases the perceived value of a commodity ($r = .12$), 
-- Ibuprofen and pain relief: `\(r = .14\)`
-- SES and IQ predicting mortality `\(r = 25\)`
-- Men weigh more than women: `\(r = .26\)`
-- High elevations have lower annual temps: `\(r = .34\)`
-- Classic social psych studies: `\(r\)` between .35 and .45
-- people in a bad mood are more aggressive ($r = .41$)
-- Height and weight among `\(r = .44\)`
-
-**Implications**
-- Don't dismiss small effects
-- Be skeptical of large effects
 
 ---
 
@@ -278,7 +254,6 @@ What would you guess each effect size is?
 ???
 
 "benchmarks" lack context and are arbitrary
-`\(r^2\)` is stupid and worded in a way that makes it sound more causal than it is
 
 fix:
 - better benchmarks 
@@ -294,7 +269,9 @@ fix:
 - Report effect sizes in context
 - Stop using empty terminology
 - Revise guildelines
+
 ---
+
 ## What affects correlations?
 
 It's not enough to calculate a correlation between two variables. You should always look at a figure of the data to make sure the number accurately describes the relationship. Correlations can be easily fooled by qualities of your data, like:
@@ -319,7 +296,7 @@ p = data %&gt;% ggplot(aes(x=x, y=y)) + geom_point()
 ggMarginal(p, type = "density")
 ```
 
-![](04-describing_data_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](04-describing_data_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 ---
 
 ## Outliers
@@ -331,7 +308,7 @@ ggMarginal(p, type = "density")
 data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() 
 ```
 
-![](04-describing_data_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](04-describing_data_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 ---
 
 ## Outliers
@@ -341,12 +318,7 @@ data %&gt;% ggplot(aes(x=x, y=y)) + geom_point()
 data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red") + geom_smooth(data = data[-51,], method = "lm", se = FALSE)
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-## `geom_smooth()` using formula 'y ~ x'
-```
-
-![](04-describing_data_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](04-describing_data_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -359,12 +331,7 @@ data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se
 data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red") + geom_smooth(data = data[-c(n+1),], method = "lm", se = FALSE)
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-## `geom_smooth()` using formula 'y ~ x'
-```
-
-![](04-describing_data_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](04-describing_data_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 ---
 
 ## Restriction of range
@@ -376,11 +343,7 @@ data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se
 data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red")
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
-![](04-describing_data_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](04-describing_data_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 ???
 
@@ -395,12 +358,7 @@ What if I told you there were scores on X could range from 97 to 103?
 data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red") + geom_point(data = real_data) + geom_smooth(method = "lm", se = FALSE, data = real_data, color = "blue")
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-## `geom_smooth()` using formula 'y ~ x'
-```
-
-![](04-describing_data_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+![](04-describing_data_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 ???
 
@@ -418,11 +376,7 @@ My idea: that many psychology studies only look at undergraduates (restricted ag
 data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red")
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
-![](04-describing_data_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](04-describing_data_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -469,11 +423,7 @@ If your Operation Y of Construct B includes items (or tasks or manipulations) th
 data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red")
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
-![](04-describing_data_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](04-describing_data_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -481,14 +431,10 @@ data %&gt;% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se
 
 
 ```r
-data %&gt;% ggplot(aes(x=x, y=y, color = gender)) + geom_point() + geom_smooth(method = "lm", se = FALSE) + guides(color = F)
+data %&gt;% ggplot(aes(x=x, y=y, color = gender)) + geom_point() + geom_smooth(method = "lm", se = FALSE) + guides(color = "none")
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
-![](04-describing_data_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](04-describing_data_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 ---
 
 ### Special cases of the Pearson correlation
@@ -694,7 +640,7 @@ class: inverse
 
 ## Next time...
 
-matrix algebra
+latent variables (podcast!)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

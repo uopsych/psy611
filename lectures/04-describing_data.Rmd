@@ -10,6 +10,11 @@ output:
       countIncrementalSlides: false
 ---
 
+```{r, include = F}
+knitr::opts_chunk$set(message = F, warning = F)
+```
+
+
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 library(MASS) # for simulating variables with specific correlations
 library(tidyverse) # for graphing
@@ -22,9 +27,11 @@ class: inverse
 
 - That quiz, huh?
 
-- Strategic breakout groups in lab
-
 - Homework 1 due in two weeks 
+
+- Measure yourself for an in-class demo today [tinyurl.com/uwn463vj](https://tinyurl.com/uwn463vj)
+  * height (inches)
+  * length of right forearm (inches)
 
 ---
 
@@ -36,7 +43,7 @@ class: inverse
 $$\small SS = \Sigma(X_i-\mu_x)^2$$
 **Variance**
 $$\small \sigma^2 = \frac{\Sigma(X_i-\mu_x)^2}{N} = \frac{SS}{N}$$
-**Standard devation**
+**Standard deviation**
 $$\scriptsize \sigma = \sqrt{\frac{\Sigma(X_i-\mu_x)^2}{N}}= \sqrt{\frac{SS}{N}} = \sqrt{\sigma^2}$$]
 
 
@@ -45,9 +52,9 @@ $$\scriptsize \sigma = \sqrt{\frac{\Sigma(X_i-\mu_x)^2}{N}}= \sqrt{\frac{SS}{N}}
 **Sums of squares**
 $$\small SS = \Sigma(X_i-\bar{X})^2$$
 **Variance**
-$$\small s^2 = \frac{\Sigma(X_i-\bar{X})^2}{N-1} = \frac{SS}{N-1}$$
-**Standard devation**
-$$\scriptsize s = \sqrt{\frac{\Sigma(X_i-\bar{X})^2}{N-1}}= \sqrt{\frac{SS}{N-1}} = \sqrt{s^2}$$]
+$$\small \hat{\sigma}^2 = s^2 = \frac{\Sigma(X_i-\bar{X})^2}{N-1} = \frac{SS}{N-1}$$
+**Standard deviation**
+$$\scriptsize \hat{\sigma} = s = \sqrt{\frac{\Sigma(X_i-\bar{X})^2}{N-1}}= \sqrt{\frac{SS}{N-1}} = \sqrt{s^2}$$]
 ---
 
 ## Bi-variate descriptives
@@ -213,7 +220,17 @@ Correlation = `r round(cor(data$x, data$y),2)`
 - Correlations can be compared across studies, measures, constructs, time. 
 
 - Example: the correlation between age and height among children is $r = .70$. The correlation between self- and other-ratings of extraversion is $r = .25$. 
-    
+
+---
+
+## In-class demo
+
+Add your height (in inches), forearm length (in inches), and gender to this spreadsheet: [tinyurl.com/uwn463vj](https://tinyurl.com/uwn463vj)
+
+
+???
+
+Correlation in Pearson & Lee (1903) is about .627.
 ---
 
 ## What is a large correlation?
@@ -232,45 +249,6 @@ Correlation = `r round(cor(data$x, data$y),2)`
 - $r^2$: Proportion of variance "explained"
     - [Ozer & Funder (2019)](https://uopsych.github.io/psy611/readings/Ozer_Funder_2019.pdf) claim this is misleading and nonsensical
     - Fisher (2019) suggests this particular argument is non-scientific (follow up [here](https://twitter.com/aaronjfisher/status/1168252269797629952) and then [here](https://www.psychologytoday.com/us/blog/personal-and-precise/201909/can-we-get-it-right-without-needing-be-right))
----
-
-### In breakout groups
-
-Order the following effect sizes from smallest to largest:
-
-- people attribute failures to bad luck 
-- High elevations have lower annual temps
-- Ibuprofen and pain relief
-- scarcity increases the perceived value of a commodity 
-- people in a bad mood are more aggressive 
-- communicators perceived as more credible are more persuasive
-- Men weigh more than women
-- SES and IQ predicting mortality 
-- Antihistomine and symptom relief
-- Height and weight among adults
-
-What would you guess each effect size is?
-
-
-
-???
-**What are good benchmarks?**
-
-- people attribute failures to bad luck ($r = .10$), 
-- communicators perceived as more credible are more persuasive ($r = .10$)
-- Antihistomine and symptom relief: $r = .11$
-- scarcity increases the perceived value of a commodity ($r = .12$), 
-- Ibuprofen and pain relief: $r = .14$
-- SES and IQ predicting mortality $r = 25$
-- Men weigh more than women: $r = .26$
-- High elevations have lower annual temps: $r = .34$
-- Classic social psych studies: $r$ between .35 and .45
-- people in a bad mood are more aggressive ($r = .41$)
-- Height and weight among $r = .44$
-
-**Implications**
-- Don't dismiss small effects
-- Be skeptical of large effects
 
 ---
 
@@ -287,7 +265,6 @@ What would you guess each effect size is?
 ???
 
 "benchmarks" lack context and are arbitrary
-$r^2$ is stupid and worded in a way that makes it sound more causal than it is
 
 fix:
 - better benchmarks 
@@ -303,7 +280,9 @@ fix:
 - Report effect sizes in context
 - Stop using empty terminology
 - Revise guildelines
+
 ---
+
 ## What affects correlations?
 
 It's not enough to calculate a correlation between two variables. You should always look at a figure of the data to make sure the number accurately describes the relationship. Correlations can be easily fooled by qualities of your data, like:
@@ -495,7 +474,7 @@ data %>% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = 
 ## Multiple groups
 
 ```{r, fig.height = 5}
-data %>% ggplot(aes(x=x, y=y, color = gender)) + geom_point() + geom_smooth(method = "lm", se = FALSE) + guides(color = F)
+data %>% ggplot(aes(x=x, y=y, color = gender)) + geom_point() + geom_smooth(method = "lm", se = FALSE) + guides(color = "none")
 ```
 ---
 
@@ -607,4 +586,4 @@ class: inverse
 
 ## Next time...
 
-matrix algebra
+latent variables (podcast!)
