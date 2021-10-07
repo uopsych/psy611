@@ -14,19 +14,13 @@
 class: center, middle, inverse, title-slide
 
 # Threats to validity
-## Research methods in 90 minutes
+## AKA Research methods in 90 minutes
 
 ---
 
 class: inverse
 
-## Notes and reminders
-
-- Recordings of lecture/lab are on Canvas.
-
-- Only one lab meeting this week (10:15am)
-
-   - We assume you have downloaded R/RStudio
+## Reminders
 
 - Complete your journal assignment on Canvas by the end of Monday.
 
@@ -89,13 +83,128 @@ class: middle
 Four kinds of validity in research threaten our ability to make valid causal inferences.  Solving each problem either directly requires quantitative methods or makes use of principles that are central to quantitative methods.
 
 
+- Construct validity
+
 - Statistical conclusion validity
 
 - Internal validity
 
-- Construct validity
-
 - External validity
+
+---
+
+## Construct validity
+
+- The validity of the inference that a given operationalization of units, treatments, observations, or settings represents well the construct of which it is assumed to be an instance.
+
+![](images/intro_operation.jpg)
+
+---
+
+## Construct validity
+
+![](images/cronbach.png)
+
+Note: Terminology used by C&amp;M doesn't match what's used more recently. (predictive, concurrent, content, construct)
+
+---
+
+Consider the SAT (Quant section only). What construct(s) does this measure?
+
+???
+
+Make list on the board. Should include things like
+* math ability
+* effort (studying)
+* access to test prep
+* quality of schooling
+* number of times taken
+
+Might also include
+* (English) verbal ability (word items)
+* ability to sit still
+
+
+---
+
+## Construct validity
+
+A primary component of construct validity is the "criterion." What is a criterion, and what critiques do the authors offer of criterion?
+
+???
+
+* What if criterions are bad?
+* What if criterions have a lot of error?
+* There's often ambiguity of which measure is the criterion.
+* No single criterion is sufficient.
+
+---
+
+What were some of the additional methods described by Cronbach &amp; Meehl?
+
+--
+
+* group differences 
+* correlation matrices and factor analysis 
+* studies of internal structure (reliability)
+* studies of change over occasion 
+* studies of process
+
+???
+
+* Don't want groups to be synonymous with measure
+* If correlations unexpected, not sure which measure (or both) is at fault
+* High internal consistency can lower validity!
+* test-retest good (if we don't expect change); better to show change after intervening experience
+* observe process but how?
+
+---
+
+### Nomological net(work)
+
+What is this?
+
+--
+
+* Interlocking system of "laws" which constitute a theory. 
+* Or, specifying which other constructs and properties relate to our construct and how
+
+* We have to be able to observe at least some of the network
+
+
+---
+
+&gt; When observations will not fit into the network as it stands, the scientist has a certain freedom in selecting where to modify the network (Cronbach &amp; Meehl, 1953, p. 12).
+
+There is no correct way to build a nomological network. (There are many incorrect ways....)
+- There may be many equally good, but different ways to build the NN of a single construct. 
+- Often lack of evidence
+- Your job will frequently be to pick a single model, with no evidence, and justify it. 
+- Finding places where a nomological network can be improved is a way to move a research program forward. 
+
+---
+
+See the list on page 22 of C&amp;M (1955) -- this contains the most important points in the article, ending with:
+
+&gt; "The investigation of a test's construct validity is not essentially different from the general scientific procedures for developing and confirming theories" (p 22).
+
+---
+
+### Threats to construct validity
+
+- inadequate explication of constructs
+
+- construct confounding
+
+- confounding constructs with levels of constructs
+
+- reactive self-report changes
+
+- reactivity to the experimental situation
+
+- experimenter expectancy
+
+- novelty and disruption effects
 
 ---
 
@@ -114,7 +223,7 @@ Four kinds of validity in research threaten our ability to make valid causal inf
 
 ### (Some) threats to statistical conclusion validity
 
-- low statistical power
+- **low statistical power**
 
 - violations of assumptions of statistical tests
 
@@ -130,49 +239,49 @@ Four kinds of validity in research threaten our ability to make valid causal inf
 
 - heterogeneity of units
 
----
-
-### Low statistical power
-
-The problem of statistical power is easily understood with a simple two-group problem:
 
 
-.pull-left[
+&lt;!-- ### Low statistical power --&gt;
 
-|Group 1 | Group 2 |
-|:------:|:-------:|
-| `\(M_1\)`  | `\(M_2\)`   |
-| `\(SD_1\)` | `\(SD_2\)`  |
+&lt;!-- The problem of statistical power is easily understood with a simple two-group problem: --&gt;
 
 
-]
+&lt;!-- .pull-left[ --&gt;
 
-.pull-right[
-
-`$$t = \frac{M_1 - M_2}{\sqrt{\hat{\sigma}^2(\frac{1}{n_1}+\frac{1}{n_2})}}$$`
-
-
-]
-.center[
-
-]
---
+&lt;!-- |Group 1 | Group 2 | --&gt;
+&lt;!-- |:------:|:-------:| --&gt;
+&lt;!-- | `\(M_1\)`  | `\(M_2\)`   | --&gt;
+&lt;!-- | `\(SD_1\)` | `\(SD_2\)`  | --&gt;
 
 
-**Quantitative ways to increase power:**
-- Use matching, stratifying or blocking
-- Measure and correct for covariates
-- Correct for unreliable measurement
-- Use within-participants designs
-- Ensure that powerful statistical tests are used and their assumptions are met.
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right[ --&gt;
+
+&lt;!-- `$$t = \frac{M_1 - M_2}{\sqrt{\hat{\sigma}^2(\frac{1}{n_1}+\frac{1}{n_2})}}$$` --&gt;
 
 
-???
+&lt;!-- ] --&gt;
+&lt;!-- .center[ --&gt;
 
-The formula for the t-test makes clear that power is increased by increasing effect strength (numerator) or decreasing error (denominator). 
+&lt;!-- ] --&gt;
 
-The most obvious way to accomplish the latter is
-by increasing sample size.  But other tactics are possible, many of them statistical.
+
+
+&lt;!-- **Quantitative ways to increase power:** --&gt;
+&lt;!-- - Use matching, stratifying or blocking --&gt;
+&lt;!-- - Measure and correct for covariates --&gt;
+&lt;!-- - Correct for unreliable measurement --&gt;
+&lt;!-- - Use within-participants designs --&gt;
+&lt;!-- - Ensure that powerful statistical tests are used and their assumptions are met. --&gt;
+
+
+&lt;!-- ??? --&gt;
+
+&lt;!-- The formula for the t-test makes clear that power is increased by increasing effect strength (numerator) or decreasing error (denominator).  --&gt;
+
+&lt;!-- The most obvious way to accomplish the latter is --&gt;
+&lt;!-- by increasing sample size.  But other tactics are possible, many of them statistical. --&gt;
 
 ---
 
@@ -229,7 +338,7 @@ confounds = Other explanations are ruled less plausible
 ### Threats to internal validity
 
 .pull-left[
-- **ambiguous temporal precedence**
+- &lt;span style="color: purple;"&gt;**ambiguous temporal precedence**&lt;/span&gt;
 
 - selection
 
@@ -264,7 +373,7 @@ But, when treatment is not possible, then logic and common sense can sometimes d
 .pull-left[
 - ambiguous temporal precedence
 
-- **selection**
+- &lt;span style="color: purple;"&gt;**selection**&lt;/span&gt;
 
 - attrition
 
@@ -301,7 +410,7 @@ Combat this with random assignment.
 
 - selection
 
-- **attrition**
+- &lt;span style="color: purple;"&gt;**attrition**&lt;/span&gt;
 
 - history
 
@@ -333,7 +442,7 @@ How could the design be modified and statistics used to help rule out selection 
 
 - attrition
 
-- **history**
+- &lt;span style="color: purple;"&gt;**history**&lt;/span&gt;
 
 - maturation
 
@@ -365,7 +474,7 @@ How could the design be modified and statistics used to help rule out selection 
 
 - history
 
-- **maturation**
+- &lt;span style="color: purple;"&gt;**maturation**&lt;/span&gt;
 
 - regression
 
@@ -396,7 +505,7 @@ Maturation refers to changes in the organism that occur regardless of treatment 
 
 - maturation
 
-- **regression**
+- &lt;span style="color: purple;"&gt;**regression**&lt;/span&gt;
 
 - testing
 
@@ -437,7 +546,7 @@ Reduce with
 
 - regression
 
-- **testing**
+- &lt;span style="color: purple;"&gt;**testing**&lt;/span&gt;
 
 - instrumentation
 ]
@@ -472,7 +581,7 @@ Without adding a control group, how might this threat be reduced?
 
 - testing
 
-- **instrumentation**
+- &lt;span style="color: purple;"&gt;**instrumentation**&lt;/span&gt;
 ]
 
 .pull-right[
@@ -506,111 +615,6 @@ However:
 
 **Statistical control should best be thought of as a method of last resort, to be used when design controls are not available or have failed.**
 
-
----
-
-## Construct validity
-
-![](images/cronbach.png)
-???
-
-## Questions: 
-
-**1. What is construct validity?** -- Does this variable measure what it says it's going to measure?
-
-**2. How do we determine construct validity?** -- Show that the variable correlates with all of the things it should correlate with and none of the things it shouldn't
-
-**3. How do we figure out what it should correlate with?** -- Nomological net(work); theory
----
-
-## Construct validity
-
-- The validity of the inference that a given operationalization of units, treatments, observations, or settings represents well the construct of which it is assumed to be an instance.
-
-![](images/intro_operation.jpg)
-
----
-
-class: middle
-
-- Construct validity refers to the correctness of the label that is applied to the operation. It depends on first demonstrating adequate reliability and then is bolstered by demonstrating relations of the target operation to other operations (nomological network of relations).
-
-&gt; "Since the meaning of theoretical constructs is set forth by stating the laws in which they occur, our incomplete knowledge of the laws of nature produces a vagueness in our constructs" (Cronbach &amp; Meehl, 1953, p. 15)
-
-  
-???
-
-What makes it reliable? (covered in LSR and C&amp;M)
-- internal consistency (inter-rater reliability, test-retest)
-
-&lt;!-- --- --&gt;
-
-&lt;!-- class:inverse --&gt;
-
-&lt;!-- ## In breakout groups --&gt;
-
-&lt;!-- How would we create a convincing measure of "sense of humor"?  --&gt;
-&lt;!-- - How would you operationalize this? How would you measure it? --&gt;
-
-&lt;!-- Consider from Cronbach &amp; Meehl: --&gt;
-
-&lt;!-- - Is there a criterion by which you can validate your measure? --&gt;
-&lt;!-- - Is your measure culture free?  --&gt;
-&lt;!-- - Is your measure able to be manipulated through experimental methods (e.g., priming)?  --&gt;
-
-&lt;!-- --- --&gt;
-&lt;!-- ![](images/humor_nnet.jpg) --&gt;
-
----
-
-&gt; When observations will not fit into the network as it stands, the scientist has a certain freedom in selecting where to modify the network (Cronbach &amp; Meehl, 1953, p. 12).
-
-There is no correct way to build a nomological network. (There are many incorrect ways....)
-- There may be many equally good, but different ways to build the NN of a single construct. 
-- Often lack of evidence
-- Your job will frequently be to pick a single model, with no evidence, and justify it. 
-- Finding places where a nomological network can be improved is a way to move a research program forward. 
-
----
-
-### Threats to construct validity
-
-- inadequate explication of constructs
-
-- construct confounding
-
-- confounding constructs with levels of constructs
-
-- reactive self-report changes
-
-- reactivity to the experimental situation
-
-- experimenter expectancy
-
-- novelty and disruption effects
-
----
-### Construct confounding
-
-.pull-left[Operations usually tap more than one construct. Failure to recognize the full set of constructs embedded in the operation can lead to incorrect inferences about the constructs that are active.
-
-A self-report of optimism might also reflect self-esteem or positive affect.  How can quantitative methods help?
-
-
-]
-
---
-
-.pull-right[A key distinction: With construct validity, the dispute is not about the causal relation between operational definitions. The dispute concerns how those operational definitions should be labeled.
-]
-
-
-
-???
-
-**SARA:** Draw Venn diagram with 3 circles: Construct A, Construct B, and Operation X
-
-![](images/confounding.jpg)
 
 ---
 
@@ -659,9 +663,9 @@ is a poor measure of reliability.
 
 
 .pull-right[
-`$$r_{xy} = \rho_{xy}\sqrt{r_{xx}r_{yy}}$$`
+`$$E(r_{xy}) = \rho_{xy}\sqrt{r_{xx}r_{yy}}$$`
 
-Formula for the sample correlation between constructs 
+Formula for the expected sample correlation between constructs 
 `\(X\)` 
 and 
 `\(Y\)`

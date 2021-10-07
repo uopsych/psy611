@@ -29,10 +29,22 @@ To receive full credit on this homework assignment, you must earn **30 points**.
 # 2-point questions
 
 ### Question 1
+
+This question is about order of operations: 
+
+4 divided by 2 plus 2 times 5
+
+* Using `R`, show that this value equals 12.
+* Using `R`, show that this value equals 5.
+* Using `R`, show that this value equals 20. 
+
+### Question 2
+
 Calculate descriptive statistics separately for these four groups in the `homework-world` dataset. 
 
 
-### Question 2
+### Question 3
+
 In class, you were shown a formula for variance as a function of expected values, $\sigma^2 = E(X^2) - E(X)^2$. 
 
   - Create a variable in **R** called X and give it the values 4, 2, 5, 3, 2, 4, 5, 1, 1, 5. 
@@ -46,7 +58,8 @@ In class, you were shown a formula for variance as a function of expected values
   - Which formula, population parameter or sample statistic, does the expected value formula calculate?
 
 
-### Question 3
+### Question 4
+
 Using the `homework-world` dataset, create a boxplot graph for the `Corruption` variable, with separate boxplots for the four groups defined by the new variable, World. What does this graph tell you, in broad strokes, about:
 
   - group differences in corruption central tendency?
@@ -54,54 +67,10 @@ Using the `homework-world` dataset, create a boxplot graph for the `Corruption` 
   - the presence of outliers within each group?
 
 
-### Question 4
-Enter the following matrices into R 
-
-$$G = \left(\begin{array}
-{rrr}
-5 & 7 & 3 \\
-4 & 10 & 5\\
--3 & 6 & 6 \\ 
-\end{array}
-\right)$$
-
-and 
-
-$$H = \left(\begin{array}
-{rrr}
-17 & 2 & 1  \\
-4 & 10 & 0 \\
-1 & -2 & 3 \\ 
-\end{array}\right)$$
-
-  - Calculate the following: 
-
-    - $G + H$
-    - $GH$
-  - Demonstrate whether $GH = HG$
 
 
-### Question 5
+### Question 5 (missing)
 
-Using matrix algebra and the matrix: 
-
-$$B = \left(\begin{array}
-{rrr}
-2 & 2 & 9 \\
--5 & 17 & -4\\
-0 & 2 & 1 \\ 
-\end{array}
-\right)$$
-
-  - multiply all rows in B by 4
-  
-  
-
-  - multiply all columns in B by $\frac{1}{2}$
-  
-
-  - simultaneously multiple the first row by 3, the second row by $\frac{1}{3}$, and the third row by 10 while multiplying the first column by 2.
-  
   
 
 # 5-point questions
@@ -156,30 +125,8 @@ Create a composite score for the non-categorical variables (`Happiness`, `GDP`, 
   
   - By collapsing all of these variables into one composite score we are claiming them to be good proxies for some "thing." What might you name that thing and how would you justify it quantitatively?
   
-### Question 2
+### Question 2 (missing)
 
-Use matrix algebra to calculate the following qualities of the `homework-world` dataset. You'll need to first create a matrix from the data frame that doesn't have the first column (`Country`) inside. 
-
-Note that if you are also answering question 1 from this section, you may have altered these variables. Be sure you're working with the original variables, as they were when you first loaded the dataset. : 
-
-  - For each country, what is is the sum of the variables `Support` and `Freedom` (for the purposes of this question, assume these are measured in the same unit)? What happens if a country is missing data for either `Support` or `Freedom`?
-  
-  
-  - For the rest of the questions in this section, use only complete cases, or rows with no missing data. You can get this by indexing with the `complete.cases` function:
-  
-```{r,eval = F}
-world = world[complete.cases(world), ]
-```
-  
-  - What is the average Happiness value for each World group?
-  
-  - Create a composite that is the average of `Support`, `Freedom`, and `Corruption`, with `Corrupution` negatively keyed. What is the average score on this composite by group?
-
-  - Calculate the variance-covariance matrix of these data. To calculate the mean of each variable, make use of the formula discussed in class (instead of using a function with the word "mean" in it): 
-
-$$\Large \bar{X} = T\mathbf{X} = 1'\mathbf{X}(1'1)^{-1} = 1'\mathbf{X}\frac{1}{n}$$
-
-  - Create a vector $\mathbf{s}$ by extracting the diagonal of your variance-covariance matrix. Use $\mathbf{s}$ to create a diagonal matrix where the values on the diagonal are all $\frac{1}{\sqrt{\mathbf{s}}}$. Pre- and post-multiply the variance-covariance matrix by this diagonal matrix. What have you created? How does this process to the formula for this thing (covered in class)?
 
   
 # 20-point questions

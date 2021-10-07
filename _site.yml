@@ -7,11 +7,16 @@ navbar:
       href: schedule.html
     - text: Lectures
       menu:
-      - text: "Coming soon!"
-
+      - text: "1-Intro"
+        href: "lectures/01-intro.html"
+      - text: "2-Validity"
+        href: "lectures/02-validity.html"
+      - text: "3-Describing data I"
+        href: "lectures/03-describing-data.html"
     - text: Labs
       menu:
-      - text: "Coming soon!"
+      - text: "1-Introduction to R"
+        href: "labs/lab-1.html"
     - text: Homework
       href: homework.html
     - text: Useful Material
