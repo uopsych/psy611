@@ -10,11 +10,8 @@ editor_options:
   chunk_output_type: console
 ---
 
-You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-2/lab-2.Rmd). 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(error = TRUE)
 
 # suppress scientific notation
 options(scipen = 999)
@@ -384,18 +381,18 @@ my_sd <- sd(my_vector)
 ```
 
 
-3. Use `modeOf()` to find the mode of `simple_vector`. Make sure that the answer you get is `2`. Save your result to an object called `mode`. 
+3. Use `modeOf()` to find the mode of `simple_vector`. Make sure that the answer you get is `2`. Save your result to an object called `mode`. If you don't already have `simple_vector` loaded in your workspace, here it is again:
 
 ```{r eval=FALSE}
 simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 ```
 
-4. Use the function `maxFreq` to find the frequency of the modal value (i.e. how many time it occurs). Save your result to an object called `modal_freq`.
+4. Use the function `maxFreq()` to find the frequency of the modal value (i.e. how many time it occurs). Save your result to an object called `modal_freq`.
 
 
 5. Report the mode and frequency of the mode using r code embedded within your text.
 
-
+The mode is `r mode` and the frequency of the mode is `r modal_freq`.
 
 ***
 
