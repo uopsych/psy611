@@ -27,8 +27,6 @@ homework-1.rmd
 * 10.2 -- for Variance/Cov, what do you mean by "these data" (specify variables)
 
 
-2-validity.html
-* more time with humor example/discussing article (requires cutting some lecture material)
 
 lab-1.html
 * not enough time
@@ -40,9 +38,6 @@ lab-1.html
 * use rio to load in data, and explain ../ in file path
 * add formula for standard deviation to in addition to R code for standard deviation
 
-4-describing_data_2.html
-* clarify "people attribute failures to back luck"
-* examples from article -- maybe new examples or don't assign article?
 
 lab-2.html
 * 

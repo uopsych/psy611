@@ -58,7 +58,8 @@ The dataset is available on [GitHub](https://raw.githubusercontent.com/uopsych/p
 
 
 ```r
-world = read.csv(here("data/world_happiness_2015.csv"))
+library(rio)
+world = import(here("data/world_happiness_2015.csv"))
 world
 ```
 
