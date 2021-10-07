@@ -10,7 +10,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-2/lab-2.Rmd). 
+You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-2.Rmd). 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -45,9 +45,7 @@ Today's lab will cover:
 
 We'll use the same 2015 World Happiness Report dataset from lecture throughout today's lab.
 
-1. [Download the data here](https://drive.google.com/uc?export=download&id=1XXsB4L4wDxGkcc-JuVnotKWCnsDUsskW). 
-
-2. Create a new `.Rmd` document to follow along with the examples. Go ahead and load `{rio}` and `{psych}`, as we are going to need functions from these packages throughout. You will need to install these packages using `install.packages()` if you have not already done so.
+Go ahead and load `{rio}` and `{psych}`, as we are going to need functions from these packages throughout. 
 
 ```{r eval = FALSE}
 # load libraries
@@ -56,7 +54,7 @@ library(psych)
 ```
 
 
-3. Import the World Happiness data using the `rio` package and save it to an object called `world_happiness`. You can use the `import` function along with this url: https://github.com/uopsych/psy611/raw/master/labs/resources/lab2/world_happiness_2015.csv
+Import the World Happiness data using the `rio` package and save it to an object called `world_happiness`. You can use the `import` function along with this url: https://github.com/uopsych/psy611/raw/master/labs/resources/lab2/world_happiness_2015.csv
 
 ```{r, echo=FALSE}
 

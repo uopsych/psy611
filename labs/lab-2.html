@@ -244,7 +244,7 @@ div.tocify {
 </div>
 
 
-<p>You can download the rmd file <a href="https://uopsych.github.io/psy611/labs/lab-2/lab-2.Rmd">here</a>.</p>
+<p>You can download the rmd file <a href="https://uopsych.github.io/psy611/labs/lab-2.Rmd">here</a>.</p>
 <div id="purpose" class="section level1">
 <h1>Purpose</h1>
 <p>The purpose of today’s lab is to introduce you to some simple tools that will allow you to calculate and visualize <strong>descriptive statistics</strong> in R. This will not be a deep dive into the theoretical meaning behind descriptives, but rather a guide to some practical steps toward getting the most basic summary information out of a given dataset. Along the way, we will implement some of the skills we learned in <a href="https://uopsych.github.io/psy611/labs/lab-1.html" target="_blank">last week’s lab</a>, such as creating variables, working with data frames, installing packages, and learning how to use new functions.</p>
@@ -261,16 +261,11 @@ div.tocify {
 <div id="getting-started" class="section level1">
 <h1>Getting Started</h1>
 <p>We’ll use the same 2015 World Happiness Report dataset from lecture throughout today’s lab.</p>
-<ol style="list-style-type: decimal">
-<li><p><a href="https://drive.google.com/uc?export=download&amp;id=1XXsB4L4wDxGkcc-JuVnotKWCnsDUsskW">Download the data here</a>.</p></li>
-<li><p>Create a new <code>.Rmd</code> document to follow along with the examples. Go ahead and load <code>{rio}</code> and <code>{psych}</code>, as we are going to need functions from these packages throughout. You will need to install these packages using <code>install.packages()</code> if you have not already done so.</p></li>
-</ol>
+<p>Go ahead and load <code>{rio}</code> and <code>{psych}</code>, as we are going to need functions from these packages throughout.</p>
 <pre class="r"><code># load libraries
 library(rio)
 library(psych)</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Import the World Happiness data using the <code>rio</code> package and save it to an object called <code>world_happiness</code>. You can use the <code>import</code> function along with this url: <a href="https://github.com/uopsych/psy611/raw/master/labs/resources/lab2/world_happiness_2015.csv" class="uri">https://github.com/uopsych/psy611/raw/master/labs/resources/lab2/world_happiness_2015.csv</a></li>
-</ol>
+<p>Import the World Happiness data using the <code>rio</code> package and save it to an object called <code>world_happiness</code>. You can use the <code>import</code> function along with this url: <a href="https://github.com/uopsych/psy611/raw/master/labs/resources/lab2/world_happiness_2015.csv" class="uri">https://github.com/uopsych/psy611/raw/master/labs/resources/lab2/world_happiness_2015.csv</a></p>
 <p>Use the <code>str()</code> function to see the structure of the dataset. This tells us we have a data frame with 136 observations of 8 different variables: <code>Country</code>, <code>Happiness</code>, <code>GDP</code>, <code>Support</code>, <code>Life</code>, <code>Freedom</code>, <code>Generosity</code> and <code>Corruption</code>.</p>
 <p>You can also look at the first few rows of the data frame using <code>head()</code>.</p>
 <p>Notice that there are some <code>NA</code>’s, indicating that there is missing data. This will become important later.</p>
