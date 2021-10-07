@@ -17,6 +17,8 @@ navbar:
       menu:
       - text: "1-Introduction to R"
         href: "labs/lab-1.html"
+      - text: "2-Descriptive Statistics"
+        href: "labs/lab-2.html"
     - text: Homework
       href: homework.html
     - text: Useful Material
