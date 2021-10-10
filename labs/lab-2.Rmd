@@ -399,7 +399,7 @@ simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 
 ## Minihack 2: Outliers
 
-1. [Download this file](https://drive.google.com/uc?export=download&id=1ttBY-GrhZ_vbSEVwZqRl9tnEQRKW3aIa) and import it into R. Save it as an object called `corruption_std`. This contains a reduced form of the World Happiness dataset with three variables:
+1. Import the corruption_standardized.csv dataset using the import function from the rio package and this url: https://github.com/uopsych/psy611/raw/master/labs/resources/lab2/corruption_standardized.csv. Save it as an object called `corruption_std`. This contains a reduced form of the World Happiness dataset with three variables:
 
 -`Country`
 <br /> 
@@ -422,7 +422,7 @@ simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 
 ## Minihack 3: Descriptive plots 
 
-For this minihack, we're going to work with a slightly different version of the `world_happiness` data. You can [download the new version here](https://drive.google.com/uc?export=download&id=1U1smVA5X839bJN9eHNR-ViuTYJ2Pw8h4). This version has two new variables:
+For this minihack, we're going to work with a slightly different version of the `world_happiness` data. The dataset can be imported from the following url: https://github.com/uopsych/psy611/raw/master/labs/resources/lab2/world_happiness_2015_sim.csv. This version has two new variables:
 
 -`War` represents whether or not a country was an active participant in WWII or was invested in by the US or Soviet Union just after WWII
 
