@@ -18,43 +18,6 @@ homework general
 * B's get degrees 
 * don't say "it's in your best interest to attempt all of them"
 
-homework-1.rmd
-* include description of homework
-* fix "link to data here"
-* 10.1 -- clarify that you make the composite by following the steps in order
-* 10.1 -- after "justify quantitatively" add, "You may suggest additional data collection as part of the jusitification process."
-* 10.2 -- Write "using matrix algebra" at each step?
-* 10.2 -- for Variance/Cov, what do you mean by "these data" (specify variables)
-
-
-
-lab-1.html
-* not enough time
-* students using chat -- overwhelming, distracting
-* cut out arithmatic stuff (not needed)
-
-5-matrix.html
-* Explain the underlining element thing in matrix addition
-* "Different from algebra" not "different from linear algebra"
-* 1 = 1's not identity
-* "Subtraction is not distributive is nonsensical"
-* more about relation to statistics
-* intimidating?
-* pre and post multiplication
-
-
-quiz-2.docx
-* replace word "masquerade"
-
-lab-3.html
-* more practice with transformation matrices
-  * build up from simple to complex
-  * if we move matrix algebra to the end of the term and spread content out across two lectures, should be easier to focus on R code
-  * don't name T matrix object "T" but call it "T_mat" or something
-
-6-probability.html
-* 
-
 7-binomial.html
 * fix slide 17 (confusing wording)
 

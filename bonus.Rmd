@@ -44,6 +44,8 @@ Bem (2004) ["Writing the empirical journal article."](readings/Bem_2004.pdf) -- 
 
 **Szollosi et al. (2019). ["Preregistration is redundant, at best."](https://psyarxiv.com/x36pz/)** Preprint.
 
+**Anonymous et al. (2021). [Evidence of Fraud in an Influential Field Experiment about Dishonesty](http://datacolada.org/98)** -- This is not only a case study of the issues of fraud in psychology, but it also serves as an excellent example of how examining descriptive statistics and distributions can reveal a lot about data.
+
 ## On coding and data science
 
 Peters (2004) ["The Zen of Python."](https://www.python.org/dev/peps/pep-0020/) -- A list of 19 principles for writing better Python code; the principles also apply to writing better R code. 

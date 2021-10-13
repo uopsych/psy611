@@ -3,7 +3,7 @@
   <head>
     <title>Probability and Probability Distributions</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
@@ -17,10 +17,18 @@ class: center, middle, inverse, title-slide
 ---
 
 
-## Annoucements
 
-- Can I share your feedback with Sanjay?
-- Lab breakout groups
+
+## So far...
+
+* Variables and data collection
+* Research methods (validity)
+* Descriptive statistics
+
+## Today...
+
+* Something totally different
+
 ---
 
 In research, we wish to make inferences about the **unknown** state of the world based on **known** data we have in hand.
@@ -110,7 +118,6 @@ and describe
 ---
 
 class: center
-
 
 ![](06-probability_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
 
@@ -231,16 +238,33 @@ Simulation here will confirm what we know must be true given the defined model, 
 
 
 ```r
-set.seed(101719)
+set.seed(101421)
 nsim = 2000
 X = matrix(NA, ncol = 4, nrow = nsim)
 for(S in 1:nsim){
   X[S,1] = S
-  X[S,2] = rbinom(n = 1, size = S, prob = .5)/S
-  X[S,3] = rbinom(n = 1, size = S, prob = 1/6)/S
-  X[S,4] = rbinom(n = 1, size = S, prob = .01)/S
+  X[S,2] = rbinom(n = 1, size = 1, prob = .5)
+  X[S,3] = rbinom(n = 1, size = 1, prob = 1/6)
+  X[S,4] = rbinom(n = 1, size = 1, prob = .01)
 }
-X = as.data.frame(X); names(X) = c("num", "coin", "die", "scrabble")
+X = as.data.frame(X)
+names(X) = c("num", "coin", "die", "scrabble")
+head(X)
+```
+
+```
+##   num coin die scrabble
+## 1   1    1   0        0
+## 2   2    0   0        0
+## 3   3    0   0        0
+## 4   4    0   1        0
+## 5   5    0   0        0
+## 6   6    0   0        0
+```
+
+```r
+X = X %&gt;% 
+  mutate(across(-num, ~cumsum(.)/row_number()))
 ```
 
 ---
@@ -295,6 +319,14 @@ And even faster here.  All of these events are binary.  The behavior we see in t
 The binomial distribution will formally define this behavior. 
 
 ---
+class: center
+
+Notably, the examples plotted show one possibility of what may happen in a given experiment with repeated trials. But as statisticians, we have to contend with all possible outcomes...
+
+![](06-probability_files/figure-html/unnamed-chunk-8-1.gif)&lt;!-- --&gt;
+
+
+---
 
 The frequentist view is popular because it is objective.  The events in question are observable and the definition of probability (proportion of an event in the long run) is calculated in the same way by everyone.
 
@@ -304,11 +336,11 @@ On the other hand, in real life, "the long run" may not have a simple or realist
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-"The probability that Sara's dog is on the bed behind her is .8, or 80%."
+"The probability that Sara is wearing sneakers today is .7, or 70%."
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-At one level, we all have an intuitive feel for what this means and understand it to tell us the dog is likely in view.
+At one level, we all have an intuitive feel for what this means and understand it to tell us that Sara is probably wearing sneakers.
 
 ---
 
@@ -316,11 +348,11 @@ But, in the strict sense, that statement doesn’t have a sensible meaning in th
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-The dog either is or is not on the bed (there are only two outcomes in the sample space); it makes no sense to say that the dog is on the bed 80% right now and the event is not repeatable (the dog on the bed right now) in the strict sense, so the “long run” doesn’t seem to apply.
+Sara either is or is not wearing sneakers (there are only two outcomes in the sample space); it makes no sense to say that Sara is wearing sneakers 70% right now and the event is not repeatable (today only happens once) in the strict sense, so the “long run” doesn’t seem to apply.
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-Instead, we have to say something like, on days like today (which can be repeated), the probability that the dog is on the bed is .8.  
+Instead, we have to say something like, on days like today (which can be repeated), the probability that Sara is wearing sneakers is .7.  
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
@@ -396,7 +428,7 @@ class: center
 
 
 
-![](06-probability_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](06-probability_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 
 Three competing models are available to explain the occurrence of a target event.  
@@ -409,7 +441,7 @@ class: center
 
 
 
-![](06-probability_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](06-probability_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
 
 Three competing models are available to explain the occurrence of a target event.  
@@ -417,8 +449,6 @@ Three competing models are available to explain the occurrence of a target event
 I assume that this target event follows a binomial probability distribution. If that model is correct, at what point can I distinguish the models and declare a winner?
 
 ---
-
-class: center
 
 ## Example: Same model?
 
@@ -448,7 +478,7 @@ class: center
 
 
 
-![](06-probability_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+![](06-probability_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 
 My theory claims that the same underlying process (an assumption, here the binomial) governs the outcomes in three populations.  At what point can I make a confident claim about that assertion?
 
@@ -464,7 +494,7 @@ class: center
 
 
 
-![](06-probability_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+![](06-probability_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 My theory claims that the same underlying process (an assumption, here the binomial) governs the outcomes in three populations.  At what point can I make a confident claim about that assertion?
 
@@ -476,7 +506,7 @@ Are the data in these populations generated by the same underlying process (mode
 
 ### Distributions and their distinctions.
 
-**Population distribution:** the usually hypothetical set of all possible measurements.  
+**Population distribution:** the (usually hypothetical) set of all possible measurements.  
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
@@ -537,6 +567,8 @@ I have the personal theory that, generally speaking, Bayesians are smug.  I meet
 `\(P(S|B) = .8\)`
 
 `\(P(S|\neg B) = .3\)`
+
+--
 
 `$$\large \text{Bayesian | Smug} = P(B|S) = \frac{(.8)(.1)}{(.8)(.1) + (.3)(.9)} = 0.229$$`
 ---

@@ -10,10 +10,25 @@ output:
       countIncrementalSlides: false
 ---
 
-## Annoucements
+```{r, echo = F, warning = F, message = F, results = 'hide'}
+# packages used
+library(tidyverse)
+library(gganimate)
+# global chunk options: hide messages and warnings
+knitr::opts_chunk$set(message = F, warning = F)
 
-- Can I share your feedback with Sanjay?
-- Lab breakout groups
+```
+
+## So far...
+
+* Variables and data collection
+* Research methods (validity)
+* Descriptive statistics
+
+## Today...
+
+* Something totally different
+
 ---
 
 In research, we wish to make inferences about the **unknown** state of the world based on **known** data we have in hand.
@@ -104,9 +119,6 @@ and describe
 
 class: center
 
-```{r, echo = F, warning = F, message = F, results = 'hide'}
-library(tidyverse)
-```
 ```{r, echo = F}
 data.frame(die.toss = c(1:6), prob = rep(1/6, 6)) %>%
   ggplot(aes(x = die.toss, y = prob)) +
@@ -243,16 +255,20 @@ The utility here is that we know what the truth is and can see how closely we ap
 Simulation here will confirm what we know must be true given the defined model, but will also give a sense of how far off the mark short-run results can be.  This is valuable because we never have an infinite series of events; rarely do we have very long ones.  We live in a short-run world and need to know how that affects inferences that we want to make.
 
 ```{r}
-set.seed(101719)
+set.seed(101421)
 nsim = 2000
 X = matrix(NA, ncol = 4, nrow = nsim)
 for(S in 1:nsim){
   X[S,1] = S
-  X[S,2] = rbinom(n = 1, size = S, prob = .5)/S
-  X[S,3] = rbinom(n = 1, size = S, prob = 1/6)/S
-  X[S,4] = rbinom(n = 1, size = S, prob = .01)/S
+  X[S,2] = rbinom(n = 1, size = 1, prob = .5)
+  X[S,3] = rbinom(n = 1, size = 1, prob = 1/6)
+  X[S,4] = rbinom(n = 1, size = 1, prob = .01)
 }
-X = as.data.frame(X); names(X) = c("num", "coin", "die", "scrabble")
+X = as.data.frame(X)
+names(X) = c("num", "coin", "die", "scrabble")
+head(X)
+X = X %>% 
+  mutate(across(-num, ~cumsum(.)/row_number()))
 ```
 
 ---
@@ -298,6 +314,25 @@ And even faster here.  All of these events are binary.  The behavior we see in t
 The binomial distribution will formally define this behavior. 
 
 ---
+class: center
+
+Notably, the examples plotted show one possibility of what may happen in a given experiment with repeated trials. But as statisticians, we have to contend with all possible outcomes...
+
+```{r, echo = F}
+plot = expand_grid(N = 1:30, toss = 1:2000, prob = .5) %>% 
+  mutate(coin = map_dbl(prob, ~rbinom(n = 1, size = 1, prob = .))) %>% 
+  group_by(N) %>% 
+  mutate(coin = cumsum(coin)/row_number())
+
+plot %>%
+  ggplot(aes(x=toss, y=coin, frame=N)) + 
+  geom_line() + 
+  transition_manual(N)
+
+```
+
+
+---
 
 The frequentist view is popular because it is objective.  The events in question are observable and the definition of probability (proportion of an event in the long run) is calculated in the same way by everyone.
 
@@ -307,11 +342,11 @@ On the other hand, in real life, "the long run" may not have a simple or realist
 
 <p>&nbsp;</p>
 
-"The probability that Sara's dog is on the bed behind her is .8, or 80%."
+"The probability that Sara is wearing sneakers today is .7, or 70%."
 
 <p>&nbsp;</p>
 
-At one level, we all have an intuitive feel for what this means and understand it to tell us the dog is likely in view.
+At one level, we all have an intuitive feel for what this means and understand it to tell us that Sara is probably wearing sneakers.
 
 ---
 
@@ -319,11 +354,11 @@ But, in the strict sense, that statement doesn’t have a sensible meaning in th
 
 <p>&nbsp;</p>
 
-The dog either is or is not on the bed (there are only two outcomes in the sample space); it makes no sense to say that the dog is on the bed 80% right now and the event is not repeatable (the dog on the bed right now) in the strict sense, so the “long run” doesn’t seem to apply.
+Sara either is or is not wearing sneakers (there are only two outcomes in the sample space); it makes no sense to say that Sara is wearing sneakers 70% right now and the event is not repeatable (today only happens once) in the strict sense, so the “long run” doesn’t seem to apply.
 
 <p>&nbsp;</p>
 
-Instead, we have to say something like, on days like today (which can be repeated), the probability that the dog is on the bed is .8.  
+Instead, we have to say something like, on days like today (which can be repeated), the probability that Sara is wearing sneakers is .7.  
 
 <p>&nbsp;</p>
 
@@ -408,10 +443,10 @@ TO %>%
   geom_hline(aes(yintercept = .75), color = "red", linetype = 2, size = 2) + 
   geom_hline(aes(yintercept = .4), color = "red", linetype = 2, size = 2) + 
   geom_text(aes(x=x, y=y, label=label), data = label, color = "blue", size = 8) +
-  scale_x_continuous("Number of events", breaks = seq(1, num_data, length.out = 10)) + 
+  scale_x_continuous("Number of trials", breaks = seq(1, num_data, length.out = 10)) + 
   scale_y_continuous("Proportion of target outcomes", 
                      breaks = seq(0, 1, .1), limits = c(0,1)) + 
-  ggtitle("Proportion of target outcomes as a \nfunction of number of events") +
+  ggtitle("Proportion of target outcomes as a \nfunction of number of trials") +
   theme_gray(base_size = 20)
 ```
 
@@ -458,8 +493,6 @@ I assume that this target event follows a binomial probability distribution. If 
 
 ---
 
-class: center
-
 ## Example: Same model?
 
 My theory claims that the same underlying process (an assumption, here the binomial) governs the outcomes in three populations.  At what point can I make a confident claim about that assertion?
@@ -495,10 +528,10 @@ TO %>%
   geom_line(aes(y=prop1), color = RColorBrewer::brewer.pal(3, "Set2")[1], size = 2) + 
   geom_line(aes(y=prop2), color = RColorBrewer::brewer.pal(3, "Set2")[2], size = 2) + 
   geom_line(aes(y=prop3), color = RColorBrewer::brewer.pal(3, "Set2")[3], size = 2) + 
-  scale_x_continuous("Number of events") + 
+  scale_x_continuous("Number of trials") + 
   scale_y_continuous("Proportion of target outcomes", 
                      breaks = seq(0, 1, .1), limits = c(0,1)) + 
-  ggtitle("Proportion of target outcomes as a \nfunction of number of events") +
+  ggtitle("Proportion of target outcomes as a \nfunction of Number of trials") +
   theme_bw(base_size = 20)
 ```
 
@@ -553,7 +586,7 @@ Are the data in these populations generated by the same underlying process (mode
 
 ### Distributions and their distinctions.
 
-**Population distribution:** the usually hypothetical set of all possible measurements.  
+**Population distribution:** the (usually hypothetical) set of all possible measurements.  
 
 <p>&nbsp;</p>
 
@@ -614,6 +647,8 @@ $P(B) = .1 \text{(Bayesian are not common, overall)}$
 $P(S|B) = .8$
 
 $P(S|\neg B) = .3$
+
+--
 
 $$\large \text{Bayesian | Smug} = P(B|S) = \frac{(.8)(.1)}{(.8)(.1) + (.3)(.9)} = `r round((.8*.1)/(.8*.1 + .3*.9),3)`$$
 ---

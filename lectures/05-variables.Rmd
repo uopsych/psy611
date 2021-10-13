@@ -170,6 +170,7 @@ Do you need theory for good statistics or empirical work?
 
   * No underlying theory about the cause of covariation between items. 
   * Allows for exploration of item structure.
+  * E.g., work on [depression](https://eiko-fried.com/)
   
 ---
 
@@ -187,7 +188,7 @@ Do you need theory for good statistics or empirical work?
 
 
 * Operationalizations assumed substitutes for latent variables
-* No exploration or tests of whether more captures latent variable
+* No exploration or tests of whether measure captures latent variable
 * Construct validity (Cronbach & Meehl, 1955, among others) made to seem too difficult
 
 ---
