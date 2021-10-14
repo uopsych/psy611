@@ -1,17 +1,17 @@
 ---
 title: 'Lab 3: Functional Programming'
 output:
-  word_document:
-    toc: yes
-    toc_depth: '3'
-  pdf_document:
-    toc: yes
-    toc_depth: '3'
   html_document:
     theme: cosmo
     toc: yes
     toc_depth: 3
     toc_float: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+  word_document:
+    toc: yes
+    toc_depth: '3'
 editor_options:
   chunk_output_type: console
 ---
@@ -40,13 +40,16 @@ Let's talk a little more about why you would want to invest in this skill of fun
 
 # Components of a function
 
-Functions in R have three components: 
-- `body()` - the part inside the function
-- `formals()` - consist of arguments which direct how you use the function
-- `environment()` - location of the function
+Functions in R have three components:
+
+ * `body()` - the part inside the function
+ 
+ * `formals()` - consist of arguments which direct how you use the function
+ 
+ * `environment()` - location of the function
 
 Let's consider an example of a function. 
-# ![](`r here::here("labs", "resources", "lab3", "function_components.JPG")` "Compunents of Function")
+![](`r here::here("labs", "resources", "lab3", "function_components.JPG")` "Compunents of Function")
 
 The two arguments in this function are `vector` and `power_value`. The function takes inputs for these arguments and spits out the output based on the directions specified in the function. These arguments consist the $formals$. Next we will need to specify how the inputs of the arguments will be manipulated. The part which specifies the tasks that the function does with the inputs is the $body$ of the function. The location wherein the function is mapped is the $environment$. We won't go into the details of the environment in this lab. 
 
