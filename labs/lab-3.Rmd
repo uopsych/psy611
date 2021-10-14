@@ -1,13 +1,20 @@
 ---
-title: 'Lab 3: Matrix Algebra'
+title: 'Lab 3: Functional Programming'
 output:
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
   html_document:
     theme: cosmo
     toc: yes
     toc_depth: 3
     toc_float: yes
+editor_options:
+  chunk_output_type: console
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -16,717 +23,242 @@ knitr::opts_chunk$set(echo = TRUE)
 options(scipen = 999)
 ```
 
-
-You can download the lab [here](lab-3.pdf).
+You can download the .Rmd file [here](lab-3.Rmd).
+You can download the .doc file [here](lab-3.docx).
 
 # Purpose
 
-The purpose of today's lab is to learn how to enter matrices and perform operations on matrices in R, and to use R to expand your theoretical understanding of matrices and how they underlie statistical calculations. For the minihacks, you will be applying what you learned in lecture about using data matrices to calculate means and covariance matrices.
+In today's lab we will focus on understanding and building functions. R is an object oriented programming language, you can create objects in R and assign them specific names. Functions are a type of object which means that the useR has the power to create custom functions, which are saved to names. Functions are a fundamental part of data analysis in R. They help with carrying out coding operations in a swift and precise manner. They help to make workflows more dynamic and customized. Once you know how to build your own functions, coding in R becomes easier and you save a lot of time when analyzing data! It's one of those skills which demands tall investments and needs time to grow. However once you reach a certain level of growth the yields are sizable and worth all the investment. 
 
-Today's lab will cover:
+# Why use functions
 
-1. [Review of matrix types](#types)
-1. [How to create a matrix](#create)
-1. [Testing for equality](#equality)
-1. [Transpose](#transpose)
-1. [Addition/subtraction](#add_sub)
-1. [Multiplication](#mult)
-1. [Diagonal Matrices](#diag)
+Let's talk a little more about why you would want to invest in this skill of function building?   
 
+1. Functions help in organizing your workflow. They reduce errors and help keep a track of complex tasks. 
+1. Functions allow for developing and maintaining algorithms specific to your project. 
+1. Functions support reproducibility. If you build a function and embed it in a R package, anyone who is able to download the package is likely to have access to the function.  
+
+# Components of a function
+
+Functions in R have three components: 
+- `body()` - the part inside the function
+- `formals()` - consist of arguments which direct how you use the function
+- `environment()` - location of the function
+
+Let's consider an example of a function. 
+# ![](`r here::here("labs", "resources", "lab3", "function_components.JPG")` "Compunents of Function")
+
+The two arguments in this function are `vector` and `power_value`. The function takes inputs for these arguments and spits out the output based on the directions specified in the function. These arguments consist the $formals$. Next we will need to specify how the inputs of the arguments will be manipulated. The part which specifies the tasks that the function does with the inputs is the $body$ of the function. The location wherein the function is mapped is the $environment$. We won't go into the details of the environment in this lab. 
+
+
+Let's run the following code to see how this function works. 
+```{r, eval=TRUE}
+my_func <- function(vector, power_value){
+        transform_vec <- (vector)^power_value
+        return(transform_vec)
+}
+```
+
+
+Now let's look at the components of the function. 
+```{r eval=FALSE}
+#Peeking into the components of the function
+formals(my_func)
+body(my_func)
+environment(my_func)
+```
+
+As you can see you can peek into the structure of the function in R. This allows for understanding the mechanics of how the data is being manipulated as we build the function. 
+
+```{r eval=FALSE}
+#A vector x 
+x <- c(5, 9, 8, 10)
+
+#Applying the function to the vector x
+my_func(x, 2) 
+```
+
+Let's build a function together. You studied about *z-scores*  scores last week in [lab-2](https://uopsych.github.io/psy611/labs/lab-2.html#z-scores). Recall that they are also called $standardized$ $scores$. The formula to compute *z-scores* is $$ z = \frac{x_i - M}{s} $$ Let's build a function to compute z scores for a vector in R.  
+
+**Step** **1** - identify the input vector
+In the formula above, $x_i$ will be the input vector. Let's build a random input vector `x` for the purpose of this example. Starting with a made-up input helps to picture and take decisions about the type of data your function will take. I highly recommend starting with this step, but your approach may differ and that's totally fine. 
+```{r eval=FALSE}
+x <- c(5, 9, 8, 10, 14, 18, 19, 24, 35)
+```
+
+**Step** **2** - compute values needed   
+In the formula above you need to compute *mean* and *sd* in order to compute the *z-score*. Let's compute the *mean* and *sd* of the vector *x*. I will save the values in objects *m* and *s*
+
+```{r eval=FALSE}
+m = mean(x)
+s = sd(x)
+```
+
+Now, you can compute the *z-scores*
+```{r eval=FALSE}
+z = ((x - m)/s)
+```
+
+At this point you can see that you have all the elements you need to build a function for computing z-scores.  
+
+**Step** **3** - Wrap the objects in a function
+At this stage you create the function object and name the function object. 
+```{r eval=FALSE}
+z_scores <- function(x){
+                 m = mean(x)
+                 s = sd(x)
+                 z = ((x - m)/s)
+}
+
+z_scores(x)
+```
+
+You can see R run the function but you cannot see the output. You need to tell R to `return` the values in `z`. This is how R knows which value(s) from the body to output. 
+
+```{r eval=FALSE}
+z_scores <- function(x){
+                 m = mean(x)
+                 s = sd(x)
+                 z = ((x - m)/s)
+               return(z)
+}
+
+z_scores(x)
+```
+You have a function ready! 
+
+You can add more layers to this function, like the error message I have added here. I am stopping the function from doing any further operations if the input vector is non-numeric.  
+
+```{r eval=FALSE}
+z_scores <- function(x){
+  
+    if(!is.numeric(x)) {stop("x is not numeric")} else 
+      return(x)
+                 m = mean(x)
+                 s = sd(x)
+                 z = ((x - m)/s)
+               return(z)
+              return(message)
+}
+
+#With numeric vector
+z_scores(x = c(5, 9, 8, 10, 14, 18, 19, 24, 35))
+
+#With character (non-numeric) vector
+z_scores(x= c("apple", "banana"))
+```
+
+`scale` function in the `{base}` package can carry out the same task. 
+
+```{r eval=FALSE}
+scale(x = c(5, 9, 8, 10, 14, 18, 19, 24, 35))
+
+scale(x= c("apple", "banana"))
+```
+
+You can see that the output from the `scale` function is a matrix. There are times when obtaining a data frame or a tibble format for your output may be more helpful (for e.g., when you are using `{tidyverse}`. You will learn more about `{tidyverse}` in the future). The `z_scores` function, we just built, helps with this issue by returning the output as a numeric vector. When you write your functions you could also specify the formats of your output. It really does make life easier!
 
 ***
 
-# Review of matrix types {#types}
+# Suggestions for writing functions  
 
-__Notation and Terminology:__
+In this section we will talk about some of the practical aspects of writing functions. First, when you are analyzing data, you may come across instances which are ideal for building functions. It is helpful to identify them and recognize how functions can help your workflow. Secondly, writing functions is a skill, it takes time to understand and write good functions. It is also important to remember that a function that works better in one project may need modifications to be as effective in another. There is no one write answer to what a good function looks like.   
+Here are some suggestions to get you started on how to think about writing functions. Please note that this section does not cover all the information
+there is on this topic, you are encouraged to explore beyond this lab. 
 
-A matrix is an object that stores information in rows and columns. For a given matrix $A$, we use $a_{rc}$ to refer to the entry at row $r$ and column $c$. "Order" refers to the dimensions of a matrix: the number of rows and the number of columns. Here are six types of matrices:
 
-1. Rectangular: A matrix where the number of rows does not equal the number of columns.
-\[ A = \begin{bmatrix}
-1 & 2 & 3 \\
-3 & 2 & 1
-\end{bmatrix} \]
+## When to use functions?
+1. When you find yourself repeating operations - for e.g., you need to compute `mean`, `sd` and `range` for a multiple columns in a data frame. 
+1. You want to reuse a set of operations at another point in your workflow - for e.g., you need to use a function you built to create a plot in four different places in your workflow. 
+1. When you need some flexibility (sometimes you can build arguments which can take more than one value) - for e.g., you may want to specify an argument `na.rm` as `TRUE` in certain cases and `FALSE` in others. 
+1. When you want to carry out iterations or simulations - for e.g., you may want to find the mean of a sub sample (subset of the larger sample) and ask R to do this 100 times. 
 
-2. Square:  A matrix where the number of rows equals the number of columns. 
-\[ A = \begin{bmatrix}
-1 & 2\\
-3 & 4
-\end{bmatrix} \]
-
-3. Vector:  A matrix where the row or column (not both) is 1.  
-\[ A = \begin{bmatrix}
-3 & 1 & 2
-\end{bmatrix} \]
-
-4. Diagonal:  A square matrix where all of the elements equal zero except for those making up the principal diagonal.  
-\[ A = \begin{bmatrix}
-1 & 0 & 0 \\
-0 & 4 & 0 \\
-0 & 0 & 3
-\end{bmatrix} \]
-
-5. Identity:  A diagonal matrix with 1s along the principal diagonal.  
-\[ I = \begin{bmatrix}
-1 & 0 & 0 & 0 \\
-0 & 1 & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
-\end{bmatrix} \]
-
-6. Null:  A matrix that consists entirely of 0s.  
-\[ 0 = \begin{bmatrix}
-0 & 0 & 0 \\
-0 & 0 & 0
-\end{bmatrix} \]
+## What is a good function?  
+1. One that does what it is exactly supposed to do - make sure you try the function on smaller vectors/values to test whether it is giving the desirable output. 
+1. One that has object names which are appropriate and easy to identify what they stand for -  for e.g., if you are building a function to compute *Cohen's* *d* you might want to consider naming the function `Cohen_d`, it is within 10 characters and leaves no ambiguity in terms of what it does. There can be instances where function names exceed 10 characters which aid clarity (see `bootnet::bootnet_piecewiseIsing`). The same also stands for object names in the body of the function. 
+1. One that is annotated - it is good practice to add comments and annotate your code especially if you want people to use your function. 
 
 ***
-
-# How to create a matrix {#create}
-
-We create matrices in R by using the `matrix()` function. To do this, we need to provide the `data` (i.e., the elements, or numbers in the matrix), the number of rows (`nrow`), the number of columns (`ncol`), and then tell it whether the order of elements is entered `byrow` or not. If you're entering it row-wise, you want to set `byrow = TRUE`. If you're entering it column-wise, you want to set `byrow = FALSE` or leave this argument blank (as `byrow = FALSE` by default).
-
-Let's practice creating a few matrices:
-
-```{r equality_1_spec_marices}
-a_mat <- matrix(data = c(1, 2, 3, 
-                         1, 2, 3), 
-                nrow = 2, ncol = 3, byrow = TRUE) # spacing is irrelevant
-                                                  # but I find it easier to read
-a_mat # print a_mat
-
-b_mat <- matrix(data = c(1, 1, 
-                         2, 2, 
-                         3, 3), 
-                nrow = 3, ncol = 2, byrow = TRUE) 
-b_mat # print b_mat
-
-c_mat <- matrix(data = c(1, 1, 
-                         2, 4, 
-                         3, 5), 
-                nrow = 3, ncol = 2, byrow = TRUE) 
-c_mat # print c_mat
-
-d_mat <- matrix(data = c(1, 1,
-                         2, 2, 
-                         3, 3), 
-                nrow = 3, ncol = 2, byrow = TRUE) 
-d_mat # print d_mat
-```
-
-## Naming rows and columns
-
-If you want the rows and columns of your matrix to have labels, you can specify these using the `dimnames` argument of the `matrix()` function. Commonly, you would want to name your columns (which generally correspond to variables) but not your rows (which generally correspond to observations).
-
-For example, let's re-create `a_mat` from above, but give our columns the names `var1`, `var2` and `var3`. 
-
-```{r}
-a_mat_named <- matrix(data = c(1, 2, 3,
-                               1, 2, 3),
-                      nrow = 2, ncol = 3, byrow = TRUE,
-                      dimnames = list(NULL, c("var1", "var2", "var3")))
-
-a_mat_named
-```
-
-Notice that the `dimnames` argument expects a list (hence the use of `list()`) of length 2 that gives the names of the rows and columns, respectively. Since we didn't want to add row names, we set the first element of the list to `NULL`.
-
-## `rep()` function
-
-The `rep()` function allows you to replicate values, which can come in handy when creating matrices. For example, let's say we wanted to create the following matrix in R:
-
-\[ M = \begin{bmatrix}
-1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2\\
-3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3 & 3\\
-4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
-\end{bmatrix} \]
-
-This would be a pain to type out manually using the `matrix()` function. Instead, because we have repeating values in our matrix, we can use `rep()` to create each of the rows in our matrix must faster. 
-
-To use `rep()` you specify `x` = the value that you want to replicate and `times` = the number of times you want to replicate it. 
-
-e.g. `rep(x = 1, times = 10)` would result in `r rep(1, 10)`
-
-Now let's use `rep()` and `matrix()` to create matrix `M` from above:
-
-```{r}
-M <- matrix(c(rep(1, times = 16),
-              rep(0, times = 8), 
-              rep(2, times = 8),
-              rep(3, times = 16),
-              rep(4, times = 8), 
-              rep(0,times = 8)),
-            nrow = 4, 
-            byrow = TRUE)
-
-M
-```
-
-
-*** 
-
-# Testing for equality {#equality}
-
-## Equality of dimensions
-
-We can check whether or not the order of two matrices are the same using a combination of `dim()`, which returns the dimensions of the matrix (rows, columns) and the equality test `==`.
-
-<br />
-**NOTE**: `=` defines something (arguments in functions & objects) and `==` tests for equality. 
-
-We get two results for each test, which correspond to (in order): 
-<br /> 
-1. Do the matrices have the same number of rows? 
-<br /> 
-2. Do the matrices have the same number of columns?
-
-First let's check `A` against the others
-
-```{r equality_2_a}
-# check A against the others
-dim(a_mat) == dim(b_mat)
-dim(a_mat) == dim(c_mat)
-dim(a_mat) == dim(d_mat)
-```
-
-Recall,
-
- 
-
-\[A = \begin{bmatrix}
-1 & 2 & 3 \\
-1 & 2 & 3
-\end{bmatrix} \]
-
-\[B = \begin{bmatrix}
-1 & 1 \\
-2 & 2 \\
-3 & 3
-\end{bmatrix} \]
-
-\[C = \begin{bmatrix}
-1 & 1 \\
-2 & 4 \\
-3 & 5
-\end{bmatrix} \]
-
-\[D = \begin{bmatrix}
-1 & 1 \\
-2 & 2 \\
-3 & 3
-\end{bmatrix} \]
-
-As we knew (from looking at them ourselves), `A` (2 x 3) does not have the same order as `B`, `C`, and `D` (3 x 2).
-
-Next we'll check `B` against `C` and `D`:
-
-```{r equality_2_b}
-# Check B against C and D.
-dim(b_mat) == dim(c_mat)
-dim(b_mat) == dim(d_mat)
-```
-
-## Equality of elements
-
-The dimensions of `B`, `C`, and `D` are the same, so now let's test the equality of the elements.
-
-```{r equality_2_c}
-b_mat == c_mat
-b_mat == d_mat
-```
-
-We can see that `B` and `D` are identical matrices because they have the exact same elements. This is a simple trivial example, because we could already tell they were the same just by looking at them -- however, testing the equality of matrices can be very useful when you have much larger matrices that you can't compare by eye. 
-
-# Transpose {#transpose}
-
-The transpose of a matrix is a matrix that is flipped over its principal diagonal.
-
-__Example:__
-
-\[ X = \begin{bmatrix}
-1 & 2 \\
-5 & 1 \\
-7 & 2
-\end{bmatrix} \]
-
-To create the transpose of $X$, denoted $X'$, the following happens:
-
-1. The first column becomes the first row.
-2. The second column becomes the second row.
-
-**Question**: Since the order of the above matrix, $B$, is 3x2, what will the order of its transpose be?  
-
-\[ X' = \begin{bmatrix}
-1 & 5 & 7 \\
-2 & 1 & 2
-\end{bmatrix} \]
-
-## Transpose in R
-
-To transpose a matrix in R, you can use the function `t()`. Let's take a look at the transpose of matrix `X` from above.
-
-```{r transpose}
-# create the matrix
-X <- matrix(c(1, 2,
-            5, 1, 
-            7, 2), 
-            nrow = 3, ncol = 2, byrow = TRUE)
-
-# view the matrix
-X
-
-# take the transpose of the matrix
-t(X)
-```
-
-# Addition/Subtraction {#add_sub}
-
-Matrices of the same order can be added and subtracted. Recall from lecture the rules about addition and subtraction:
-
-<center>
-Matrix addition is **commutative**...
-</center>
-
-$$\large \mathbf{A}+\mathbf{B}=\mathbf{B}+\mathbf{A}$$
-
-<center>
-...and **associative**:
-</center>
-
-$$\large \mathbf{A} + \mathbf{B} + \mathbf{C} = (\mathbf{A} + \mathbf{B}) + \mathbf{C} = \mathbf{A} + (\mathbf{B} + \mathbf{C})$$
-<center>
-Matrix subtraction is **distributive**
-</center>
-
-$$\large \mathbf{A} – (\mathbf{B} + \mathbf{C}) = \mathbf{A} – \mathbf{B} – \mathbf{C}$$ 
-
-$$\large \mathbf{A} – (\mathbf{B} – \mathbf{C}) = \mathbf{A} – \mathbf{B} + \mathbf{C}$$
-Note: matrix subtraction is "distributive" because $(B + C)$ is being multiplied by the scalar -1. So, $-(B+C)$ becomes $(-B-C)$, and since addition is associative, $A +( -B-C) = A - B-C$.
-
-
-Let's test out these rules using R!
-
-```{r}
-# define some matrices to use as examples
-A <- matrix(data = c(6,1, 2,10), nrow = 2, ncol = 2, byrow = T) 
-B <- matrix(data = c(2,1, 1,6), nrow = 2, ncol = 2, byrow = T) 
-C <- matrix(data = c(4,1, 3,2), nrow = 2, ncol = 2, byrow = T) 
-```
-
-**Let's see if the following statements are true...**
-
-1) A + B = B + A ???
-
-2) (A + B) + C = A + (B + C) ???
-
-3) A - B = B - A ???
-
-4) A - (B - C) = A - B - C ???
-
-5) A - (B - C) = A - B + C ???
-
-```{r echo = FALSE, eval = FALSE}
-#1) A + B = B + A ???
-A + B == B + A
-
-#2) (A + B) + C = A + (B + C) ???
-(A + B) + C == A + (B + C)
-
-#3) A - B = B - A ???
-A - B == B - A
-
-#4) A - (B - C) = A - B - C ???
-A - (B - C) == A - B - C 
-
-#5) A - (B - C) = A - B + C ???
-A - (B - C) == A - B + C
-```
-
-
-# Multiplication {#mult}
-
-Two matrices are "conformable for multiplication" if they have dimensions allowing them to be multiplied. Specifically, the number of columns of the first matrix must be equal to the number of rows of the second matrix.
-
-## Example 1
-\[ A=\begin{bmatrix}
-1 & 3 \\
-2 & 1 \\
-4 & 6
-\end{bmatrix},
-B=\begin{bmatrix}
-1 & 5 & 8 & 3 \\
-4 & 2 & 6 & 4 
-\end{bmatrix}\]
-
-1. What is the order of $A$? And what about $B$?
-2. Is $AB$ conformable? 
-3. Is $BA$ conformable? 
-4. For $AB$, what will the order of the resulting matrix be?
-
-\[AB=\begin{bmatrix}
-(1 \times 1)+(3 \times 4) & (1 \times 5)+(3 \times 2) & (1 \times 8)+(3 \times 6) & (1 \times 3)+(3 \times 4) \\
-(2 \times 1)+(1 \times 4) & (2 \times 5)+(1 \times 2) & (2 \times 8)+(1 \times 6) & (2 \times 3)+(1 \times 4) \\
-(4 \times 1)+(6 \times 4) & (4 \times 5)+(6 \times 2) & (4 \times 8)+(6 \times 6) & (4 \times 3)+(6 \times 4)
-\end{bmatrix}
-\]
-
-\[AB=\begin{bmatrix}
-13 & 11 & 26 & 15 \\
-6 & 12 & 22 & 10 \\
-28 & 32 & 68 & 36
-\end{bmatrix}
-\]
-
-
-### Example 1 in R
-
-```{r multiplication}
-# Define the matrices
-A <- matrix(data = c(1, 3,
-                     2, 1,
-                     4, 6),
-            nrow = 3, ncol = 2, byrow = TRUE) 
-
-B <- matrix(data = c(1, 5, 8, 3, 
-                     4, 2, 6, 4), 
-            nrow = 2, ncol = 4, byrow = TRUE)
-```
-
-To multiply matrices in R, we have to use the special matrix multiplication operator, `%*%` 
-
-```{r}
-#multiply A by B
-A %*% B
-```
-
-**Question**: What would happen if we tried `B %*% A`?
-
-## Example 2
-\[ A=\begin{bmatrix}
-1 & 2 \\
-3 & 2 \\
-4 & 1
-\end{bmatrix},
-B=\begin{bmatrix}
-2 & 3 & 4 \\
-1 & 2 & 4 
-\end{bmatrix}\]
-
-1. What is the order of A? And what about B?
-2. Is $AB$ conformable?
-3. is $BA$ conformable?
-4. Does $AB = BA$?  In other words, does the matrix product possess the commutative property?
-
-### Example 2 in R
-
-```{r}
-# Define the matrices
-A <- matrix(data = c(1, 2,
-                     3, 2,
-                     4, 1),
-            nrow = 3, ncol = 2, byrow = TRUE) 
-
-B <- matrix(data = c(2, 3, 4, 
-                     1, 2, 4), 
-            nrow = 2, ncol = 3, byrow = TRUE)
-```
-
-```{r}
-# multiply A by B
-A %*% B
-```
-
-```{r}
-# multiply B by A
-B %*% A
-```
-
-
-**Question**: What would happen if we tried `A %*% B == B %*% A`?
-
-*Note:* Matrix multiplication *does* possess the associative property: $A(BC)=(AB)C$.
-
-## Identity Matrix
-
-The **identity matrix** is a diagonal matrix with 1s along the principal diagonal. For example...
-
-\[ I_2 = \begin{bmatrix}
-1 & 0 \\
-0 & 1
-\end{bmatrix} \]
-
-Let's take an example matrix `C`:
-
-\[ C=\begin{bmatrix}
-2 & 5 \\
-4 & 3
-\end{bmatrix}
-\]
-
-1. If C is multiplied by its identity matrix ($I_{2}$), what will the resulting matrix be?
-2. Does $CI_{2} = I_{2}C$?
-
-### Identity Matrix in R
-
-The simplest way to get an identity matrix in R is to use the `diag()` function.
-
-First we'll create a matrix `C`.
-```{r identity_1}
-C <- matrix(data = c(2, 5,
-                         4, 3), 
-                nrow = 2, ncol = 2, byrow = TRUE)
-C
-```
-
-And next we can get the identity matrix for `C`, or $I_2$. We want the identity matrix to have the same number of rows and columns as `C`. 
-
-```{r identity_2}
-id_mat <- diag(x = 1, nrow = nrow(C), ncol = ncol(C)) 
- 
-# Or we could have hard coded it: 
-#id_mat <- diag(x = 1, nrow = 2, ncol = 2)
-
-#diag() will default to a square matrix if you only define nrow or ncol but not both 
-```
-
-And finally, multiply them together with `%*%`
-```{r}
-C %*% id_mat
-```
-
-And we could test if $CI_2 = I_2C$ 
-```{r}
-C %*% id_mat == id_mat %*% C
-```
-
-*Note*: Multiplying by the identity matrix is a special case in which the commutative property holds true for matrix multiplication.
-
-# Diagonal Matrices {#diag}
-
-The identity matrix is a special case of a diagonal matrix. A diagonal matrix is a matrix in which the entries outside the main diagonal are all zero. In the case of the identity matrix, all of the diagonal elements are `1`'s. But we can create diagonal matrices that contain other values as well, again using the `diag()` function.
-
-## Creating diagonal matrices
-
-To create a diagonal matrix with 4 rows containing `2`'s all along the diagonal, we would do the following:
-
-```{r}
-diag_twos <- diag(x = 2, nrow = 4)
-
-diag_twos
-```
-To create a diagonal matrix with different values along the diagonal, you can assign a vector to the `x` argument in `diag`. Notice that I no longer needed to specify the number of rows because `diag` defaults to a square matrix.
-
-```{r}
-
-diag_vary <- diag(x = c(5,6,1))
-
-diag_vary
-
-```
-
-
-## Pre-multiplication
-
-Pre-multiplication of a matrix `X` by a diagonal matrix `D` results in the **rows** of `X` being multiplied by the corresponding diagonal element in `D`. 
-
-Let's use the following example for X:
-
-```{r}
-X <- matrix(c(1, 2, 3,
-              4, 5, 6),
-            nrow = 2, ncol = 3, byrow = TRUE)
-
-X
-```
-
-First we'll create our diagonal matrix that we will pre-multiply `X` by.
-
-```{r}
-A <- diag(x = c(2, 3))
-
-A
-```
-
-Now let's pre-multiply. This will result in multiplying all elements in the first row by `2` and all elements in the second row by `3`.
-
-```{r}
-A %*% X
-```
-
-When working with data, pre-multiplication of a data matrix `X` by another matrix results in a linear combination of your rows in `X`. When your rows are your participants, pre-multiplication would result in a linear combination of your participants. This may be useful, for example, if you want to calculate grand means or groups means for a particular variable.
-
-## Post-multiplication
-
-Post-multiplication of a matrix `X` by a diagonal matrix `D` results in the **columns** of `X` being multiplied by the corresponding diagonal element in `D`.
-
-Let's use the same matrix `X` as our example. 
-
-```{r}
-X
-```
-
-Now we'll create our diagonal matrix that we will post-multiply `X` by.  
-
-```{r}
-B <- diag(x = c(2,3,4))
-
-B
-```
-
-Now let's post-multiply by `X`. This will result in multiplying the first column in `X` by 2, the second column in `X` by 3, and the third column in `X` by 4.
-
-```{r}
-X %*% B
-```
-
-When working with data, post-multiplication of a data matrix `X` by another matrix results in a linear combination of your columns in `X`. When your columns are your variables, post-multiplication would result in a linear combination of your variables. This may be useful, for example, if you want to create a composite score for a scale.
-
-
-## Simultaneous multiplication
-
-We can also simultaneously pre- and post-multiply a matrix. For example, the code below will simultaneously multiply the first row by 2, the second row by 3, the first column by 2, the second column by 3, and the third column by 4.
-
-```{r}
-X
-A %*% X %*% B
-```
-
-# Calculating means with pre-multiplication {#premult_data}
-
-For this example, we will be working with a dataset from lecture. In the dataset, there are five participants and three variables. Note that for the group code, `0` is the treatment group and `1` is the control group. First, we will input the dataset into R as a matrix. 
-
-```{r}
-X = matrix(c(rep(0, times = 3,),
-             rep(1, times = 2),
-             5, 3, 5, 8, 5,
-             45, 34, 27, 32, 71),
-           byrow = FALSE,
-           nrow = 5,
-           dimnames = list(NULL, c("group", "var1", "var2")))
-X
-```
-Next, using the transformation matrix `T`, we will calculate the grand means for each variable, the group means for each group for each variable, and the difference between groups for each variable. 
-
-
-\[ T=\begin{bmatrix}
-\frac{1}{n} & \frac{1}{n} & \frac{1}{n} & \frac{1}{n} & \frac{1}{n} \\
-  \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & 0 & 0 \\
-  0 & 0 &  0 & \frac{1}{n_{G2}} & \frac{1}{n_{G2}}  \\
-  \frac{1}{n_{G1}} & \frac{1}{n_{G1}} & \frac{1}{n_{G1}} &-\frac{1}{n_{G2}} & -\frac{1}{n_{G2}}
-\end{bmatrix}
-\]
-
-Recall, pre-multiplication creates linear combinations of the  participants. So, in order to calculate a mean for `var1`, we want to add all of the observations together and divide by n. That is why each entry of the first row of the transformation matrix is $1/n$. The second row will calculate the means of the variables for the treatment group only. The `0`'s in the second row ensure that the control group will not be counted in calculating the treatment group mean. The third row will calculate the means of the variables for the control group only. The final row will calculate the difference in means between the treatment and control group on each variable.
-
-In order to create the transformation matrix, `T`, we need to know the total n and the n of each group.
-
-```{r}
-n_total <- nrow(X)
-n_total
-
-n_treat <- sum(X[,"group"]==0)
-n_treat
-
-n_control = sum(X[,"group"]==1)
-n_control
-```
-
-
-```{r}
-T <- matrix(c(rep(1/n_total, times = n_total),
-              rep(1/n_treat, times = n_treat),
-              rep(0, times = n_control),
-              rep(0, times = n_treat),
-              rep(1/n_control, times = n_control),
-              rep(1/n_treat, times = n_treat),
-              rep(-1/n_control, times = n_control)),
-            nrow = 4,
-            byrow = TRUE)
-T
-```
-Now, I will calculate the means by multiplying the transformation matrix and the data matrix. Note: I am excluding the first column because it is the group code (treatment group or control group).
-
-```{r}
-means <- T %*% X[,2:3]
-
-dimnames(means) <- list(c("grand means","treatment means", "control group means", "difference in means"), c("var1", "var2"))
-
-means
-```
-
-We can double check the grand means and the group means using the psych package that you used in lab last week.
-
-```{r, message = FALSE}
-library(psych)
-
-#double check grand means
-describe(X)
-
-#double check group means
-describeBy(X, group = "group")
-
-```
-
 
 # Minihacks {#minihacks}
 
-The minihacks for today are based on the following example:
+## Minihack 1: Components of Function
+This is a function that computes confidence intervals for the mean of a variable. You don't need to know what a confidence interval is at this point (although your function may come in handy later in the term!).
 
-You run an experiment to test the effectiveness of an memory-improvement intervention. As part of the study, participants take a difficult memory test at time 1, then participate in the intervention, and then retake the memory test one week later. Half the participants are assigned to a control condition, and half are assigned to the intervention. 
-
-Use the following code to create a matrix representing a dataset of scores, $X_{10,3}$:
-
-```{r create_data}
-X = matrix(c(45, 52, 54, 52, 50, 72, 43, 56, 62, 47,
-             41, 51, 57, 52, 45, 83, 55, 70, 75, 57,
-             0, 0, 0, 0, 0, 1, 1, 1, 1, 1), 
-           ncol = 3, byrow = F, 
-           dimnames = list(NULL, c("time_1", "time_2", "group")))
-X
+```{r include=TRUE, eval=FALSE}
+mean_ci <- function(x, alpha) {
+  se = sd(x) / sqrt(length(x))
+  mean(x) + se * qnorm(c(alpha / 2, 1 - alpha / 2))
+}
 ```
 
-You should now have a matrix with three columns, named `time_1` (memory score at time 1), `time_2` (memory score at time 2), and `group` (group, 0 = control, 1 = intervention).
+- What are the formals in this function?
+- What is the body of this function?
+- What is the environment of this function?
 
-## Minihack 1: Identifying linear combinations
+```{r}
+#Your code here
+```
 
-1. Take a look at the following code. Don't run the matrix multiplication step yet. What do you think the linear combination represented below will accomplish?
+## Minihack 2: Write a function (guided)
+Build a function to estimate the $mean$ of a variable in R. 
 
-```{r eval = FALSE}
-A <- matrix(rep(1), ncol = nrow(X))
+$$\mu = \frac{\Sigma_{i=1}^N(x_i)}{N}$$
+  
+  
+  *  First generate a vector `random_var` which takes values from the 1 to 10. *Hint*: You can use `cbind` to do this or look up the `seq` function.   
+  *  Build an object vector `col_sum` which contains the sum of all the values in `random_var`.  
+  *  Build an object `col_length` which contains the total number of values in vector `random_var`. *Hint*: Look up `length` function.   
+  *  Build the vector `m` which will contain the mean of all values in vector `random_var`. Hint: use the objects `col_sum` and `col_length` to do this.  
+  *  Now wrap `col_sum`, `col_length` and `m` in a function with two formals `random_var` and `na.rm`. Don't forget to set a default for `na.rm` (remember it takes logical inputs).
+  *  Name this function object as `my_mean`.  
+  *  Compute the mean of `random_var` using the `my_mean` function.   
+  *  Check if it matches the output from the `mean` function in base R.   
 
-B <- diag(1/(nrow(X)) , nrow = ncol(X))
 
-A %*% X %*% B
+```{r minihack2_answer}
+#Your code here
+```
+
+## Minihack 3: Debugging
+Use the `z_scores()` function that we built above for this mini hack. Compute z-scores of the following vector. 
+
+```{r eval=FALSE}
+x <- c(5, 9, 8, 10, 14, 18, NA, 19, 24, 35, NA)
+z_scores(x)
+```
+- Does the function work? Why?
+- Try fixing the bug in this function. Modify the functions so that it ignores NAs, and computes z-scores for all other values in the vector. *Hint* - Look up `?mean` and `?sd`, use the `na.rm` argument. 
+
+```{r}
+#Your code here
 ```
 
 
-2. Now run this code and check whether your intuition was correct. You should be able to check your answer by using another function that you've already learned.
+## Minihack 4:  Write a function (hands off)
 
-## Minihack 2: Creating your own linear combinations
+Sara mentioned $sum$ $of$ $squares$ $(SS)$ in the [class](https://uopsych.github.io/psy611/lectures/04-describing_data.html#3) last week. Write a function to compute $(SS)$. Build a random vector and test the function. 
 
-Use matrix algebra to do the following:
+```{r}
+#Your code here
+```
 
-1. Using post-multiplication, create a new vector representing the difference between `time_1` and `time2`.
 
-2. Using pre-multiplication, calculate the average `time_1` score for the whole sample.
+## Minihack 5: Function and data types  
+* Build a function to compute [coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation) for a vector.
+ 
+ $$ CV = \frac{SD}{Mean} $$
+ 
+* Use this function to compute the coefficient of variation for the two following vectors  
+ `x <- c(1:10)`  
+ `y <- c(1:10, NA)`
+ 
+*Hint*: You can use the base R functions to compute $sd$ and $mean$. You also want to explore the `na.rm` argument. 
 
-3. Using pre-multiplication, calculate the average `time_1` score for each group.
+```{r}
+#Your code here
+```
 
-## Minihack 3: Calculate a covariance matrix
 
-Recall from lecture that a covariance matrix is a square, symmetric matrix that contains variances on the principal diagonal, and covariances off the principle diagonal. Recall that, for a sample, the formula for variance is $s^2 = \frac{\sum(X_i - \bar{X})^2}{N-1}$ and the formula for covariance is $s_{XY} = \frac{\sum(X_i - \bar{X})(Y_i-\bar{Y})}{N-1}$. 
-
-1. Create a 10x3 matrix `C` where each entry in each column is the respective column mean of the data matrix `X`. Hint: `colMeans()` is a quick way to get the means of each column of a matrix.
-
-2. Create the matrix of deviation scores `D` by subtracting `C` from `X`.
-
-3. Calculate `D'D` (the transpose of `D` times `D`.) Store this calculation in a temporary matrix.
-
-4. What you have now is a matrix of numerators from your variance and covariance formulas (the sum of squares on the principle diagonal and the sum of cross products off the principle diagonal). What do you need to multiple each entry in your matrix by in order to do get a covariance matrix? Hint: the answer is in the formulas.
-
-5. Complete calculating the covariance matrix by multiplying the temporary matrix you calculated in part 3 and the scalar that you identified in part 4.
-
-6. Use the `cov()` function to show that you calculated the covariance matrix correctly.
 
 
