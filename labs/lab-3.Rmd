@@ -24,7 +24,7 @@ options(scipen = 999)
 ```
 
 You can download the .Rmd file [here](lab-3.Rmd).
-You can download the .doc file [here](lab-3.docx).
+You can download the .doc file [here](Lab-3.docx).
 
 # Purpose
 

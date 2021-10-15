@@ -9,6 +9,7 @@ general lab feedback
 * add recaps at the beginning of lectures
 * talk about folder organization
 * import data files from GitHub for "lecture" part of lab; have students load in different data file for minihacks using working directory
+* first few weeks of term filled with "stupid" problems (need to reinstall packages; load library in Rmd, etc) -- let students know we expect this and we're not designing class to avoid those. better to practice dealing with them now
 
 TA expectations
 * prep labs (minor tweaks), attend lecture, take quizzes and homework assignments (to give feedback on difficulty and time)
@@ -26,6 +27,7 @@ homework general
 
 9-sampling.html
 * add non-normal distribution example to excel spreadsheet
+* remind people about chocolate example -- any one draw can be very far off from the population
 
 10-nhst.html
 * "retain" not "fail to reject" the null
