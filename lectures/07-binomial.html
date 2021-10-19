@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 
 ### Annoucements
 
-- Sharing feedback with Sanjay
+- Mid-term feedback in journals
 
 - Homework #1 due Friday at 9 am
     - attach both .RMD and .html files to submission on Canvas
@@ -223,17 +223,11 @@ In some ways, this makes the formula easier to understand:
 
 What does the Law of Total Probability require to be true?
 
-
-```
-## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
-## "none")` instead.
-```
-
 ![](07-binomial_files/figure-html/binom-plot-1.png)&lt;!-- --&gt;
 
 
 ```r
-data.frame(num = 0:5, p = dbinom(x = 0:5, size = 5, prob = 1/6), three = as.factor(c(0,0,0,1,0,0))) %&gt;% ggplot(aes(x=num, y=p, fill = three)) + geom_bar(stat="identity") + scale_x_continuous("Number of sixes (X) in five rolls (N)", breaks=c(0:5)) +scale_y_continuous("Probability")+ guides(fill = F) + ggtitle("Binomial Probability Distribution")
+data.frame(num = 0:5, p = dbinom(x = 0:5, size = 5, prob = 1/6), three = as.factor(c(0,0,0,1,0,0))) %&gt;% ggplot(aes(x=num, y=p, fill = three)) + geom_bar(stat="identity") + scale_x_continuous("Number of sixes (X) in five rolls (N)", breaks=c(0:5)) +scale_y_continuous("Probability")+ guides(fill = "none") + ggtitle("Binomial Probability Distribution")
 ```
 
 ???
@@ -276,12 +270,6 @@ Sensible mean = number of arms example
 The mean, .835, does not exist in the sample space, and rounding up to 1 and claiming that to be the most typical outcome is not quite right either. 
 ]
 
-
-```
-## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
-## "none")` instead.
-```
-
 ![](07-binomial_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
 
 
@@ -295,7 +283,7 @@ The **probability mass (density) function** allows us to answer other questions 
 --
 
 I might want to know the value in the sample space at or below which a certain proportion of outcomes fall. This is a **percentile or quantile** question. 
-  -  "At or below what outcome in the sample space do 75% of the outcomes fall?"
+  -  "Most (75%) of five dice rolls yield X or fewer 6's."
 
 --
 
@@ -311,12 +299,6 @@ At or below what outcome in the sample space do .75 of the outcomes fall?
 What proportion of outcomes in the sample space that fall at or below a given outcome?
 
 .pull-left[
-
-```
-## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
-## "none")` instead.
-```
-
 ![](07-binomial_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 
 ]
@@ -330,7 +312,7 @@ In R, we can calculate the cumulative probability (X or lower), using the `pbino
 
 
 ```r
-# what is probability of rolling 2 or fewer 6's out of 5?
+# what is probability of rolling two or fewer 6's out of five rolls?
 pbinom(q = 2, size = 5, prob = 1/6)
 ```
 
@@ -446,7 +428,6 @@ We might have viable alternative models:
 We might have viable alternative models:
 * **Poisson distribution:** Used when there's not a fixed number of trials but rather a fixed interval of time. 
   * "What is the expected number of times a solider will be kicked in the head by a horse and die during this one year campaign?"
-  * "
 
 ---
 
@@ -461,15 +442,7 @@ Because of the difficulties in calculating large factorials, there is a large-sa
 
 
 
-
-```
-## Warning: No renderer available. Please install the gifski, av, or magick package
-## to create animated output
-```
-
-```
-## NULL
-```
+![](07-binomial_files/figure-html/unnamed-chunk-11-1.gif)&lt;!-- --&gt;
 
 
 ---
