@@ -17,11 +17,6 @@ library(ggpubr)
 colors = RColorBrewer::brewer.pal(4, "Set2")
 ```
 
-## Annoucements
-
-Use your @uoregon email to sign into lab tomorrow.
-
----
 
 ## Last time...
 
@@ -34,7 +29,6 @@ Use your @uoregon email to sign into lab tomorrow.
   * The number of trials is known and fixed
   
 * Probability mass function
-  * Tells us how likely each possible outcome is
 
 ---
 
@@ -57,7 +51,7 @@ $$X\sim N(\mu,\sigma)$$
 
 Note p not P
 
-### Also note function of Z-scores
+### Also note function of _z_-scores
 pull out 2, pull out 1/2
 
 ---
@@ -168,7 +162,7 @@ ggplot(data.frame(x = seq(0, 1)), aes(x)) +
   stat_function(fun = function(x) pnorm(x)-.5, color = "red") + 
   geom_hline(aes(yintercept = 0), color = "red", linetype = "dashed")+
   scale_x_continuous("Z") +
-  scale_y_continuous("Density", limits=c(0,.4)) +ggtitle("Area under the normal curve between Z and 0")+ theme(text = element_text(size = 20))
+  scale_y_continuous("Density", limits=c(0,.4)) +ggtitle("Area under the normal curve between Z and 0")+ theme(text = element_text(size = 15))
 
 ```
 
@@ -188,7 +182,7 @@ ggplot(data.frame(x = seq(0, .001, by =.00005)), aes(x)) +
   stat_function(fun = function(x) pnorm(x)-.5, color = "red") + 
   geom_hline(aes(yintercept = 0), color = "red", linetype = "dashed")+
   scale_x_continuous("Z") +
-  scale_y_continuous("Density") +ggtitle("Area under the normal curve\nbetween Z and 0")+ theme(text = element_text(size = 20))
+  scale_y_continuous("Density") +ggtitle("Area under the normal curve between Z and 0")+ theme(text = element_text(size = 15))
 
 ```
 
@@ -212,7 +206,7 @@ It does not make sense to talk about the probability of a point for a continuous
 
 ```{r, echo = F}
 ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
-  stat_function(fun = function(x) dnorm(x, mean = .5, sd = 2)) +
+  stat_function(fun = function(x) dnorm(x, mean = 0, sd = 2)) +
   stat_function(fun = function(x) dnorm(x, mean = 2, sd = .2), color = "blue") +
   stat_function(fun = function(x) dnorm(x, mean = -1.25, sd = 1), color = "red") +
   scale_x_continuous("Variable X") +
@@ -225,33 +219,33 @@ All of these distributions are normal and have an equivalent area (proportion) t
 
 ```{r, echo = F, fig.width=10, fig.height = 5}
 p1 = ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
-stat_function(fun = function(x) dnorm(x) , 
-                xlim = c(-1, 1),
+stat_function(fun = function(x) dnorm(x, mean = 0, sd = 2) , 
+                xlim = c(0-2, 0+2),
                 geom = "area", fill = colors[1]) +
-  stat_function(fun = function(x) dnorm(x)) +
+  stat_function(fun = function(x) dnorm(x, mean = 0, sd = 2)) +
   geom_hline(aes(yintercept = 0)) +
   scale_x_continuous("Variable X") +
-  scale_y_continuous("Density")+
+  scale_y_continuous("Density", limits = c(0,2))+
   ggtitle("Area under the normal curve")
 
 p2 = ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
-stat_function(fun = function(x) dnorm(x, sd = 1.5) , 
-                xlim = c(-1.5, 1.5),
+stat_function(fun = function(x) dnorm(x, mean = 2, sd = .2) , 
+                xlim = c(2-.2, 2+.2),
                 geom = "area", fill = colors[1]) +
-  stat_function(fun = function(x) dnorm(x, sd = 1.5)) +
+  stat_function(fun = function(x) dnorm(x, mean = 2, sd = .2)) +
   geom_hline(aes(yintercept = 0)) +
   scale_x_continuous("Variable X") +
-  scale_y_continuous("Density")+
+  scale_y_continuous("Density", limits = c(0,2))+
   ggtitle("Area under the normal curve")
 
 p3 = ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
-stat_function(fun = function(x) dnorm(x, sd = .5) , 
-                xlim = c(-.5, .5),
+stat_function(fun = function(x) dnorm(x, mean = -1.25, sd = 1) , 
+                xlim = c(-1.25-1, -1.25+1),
                 geom = "area", fill = colors[1]) +
-  stat_function(fun = function(x) dnorm(x, sd = .5)) +
+  stat_function(fun = function(x) dnorm(x, mean = -1.25, sd = 1)) +
   geom_hline(aes(yintercept = 0)) +
   scale_x_continuous("Variable X") +
-  scale_y_continuous("Density")+
+  scale_y_continuous("Density", limits = c(0,2))+
   ggtitle("Area under the normal curve")
 
 ggarrange(p1, p2, p3, ncol = 3)
@@ -287,7 +281,7 @@ Why?
 
 - not ratio scales, no set amount to compare
 - not the same units -- what I'm twice as heavy as I am tall?
-- Z-score is comparison to other people
+- _z_-score is comparison to other people
 
 ---
 
@@ -296,13 +290,103 @@ Why?
 There is only one (1) standard normal distribution. 
   
 **How is this useful?**
-  - Given any score, we can calculate the probability of getting a value greater than that z-score. *(Or less than that z-score.)*
+  - Given any score, we can calculate the probability of getting a value greater than that _z_-score. *(Or less than that _z_-score.)*
   
-  - Given any two z-scores, we can calculate the probability of getting a value between these scores. *(Or outside those z-scores)*
+  - Given any two _z_-scores, we can calculate the probability of getting a value between these scores. *(Or outside those _z_-scores)*
   
-  - Given a probability $p$, we can identify the z-score at which the proportion of scores below *(or above)* $p$ falls. 
+  - Given a probability $p$, we can identify the _z_-score at which the proportion of scores below *(or above)* $p$ falls. 
   
-  - Given a probability $p$, we can identify the z-score at which the proportion of scores that fall above $-Z$ and below $Z$ is equal to $p$.
+  - Given a probability $p$, we can identify the _z_-score at which the proportion of scores that fall above $-Z$ and below $Z$ is equal to $p$.
+  
+---
+
+### Example
+
+What's the probability of getting a _z_-score smaller than 1.2?
+
+```{r}
+pnorm(1.2)
+```
+
+
+```{r, echo = F, fig.height = 4, fig.width = 6}
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+stat_function(fun = function(x) dnorm(x) , 
+                xlim = c(-4, 1.2),
+                geom = "area", fill = colors[1]) +
+  stat_function(fun = function(x) dnorm(x)) +
+  geom_hline(aes(yintercept = 0)) +
+  scale_x_continuous("z-score") +
+  scale_y_continuous("Density")+
+  theme_pubr()
+```
+
+---
+
+### Example
+
+What's the probability of getting a score smaller than 68 when the mean of the distribution is 72 and the variance is 8?
+
+---
+
+```{r}
+(z = (68-72)/sqrt(8))
+pnorm(z)
+```
+Or
+```{r}
+pnorm(q = 68, mean = 72, sd = sqrt(8))
+```
+
+
+```{r, echo = F, fig.height = 4, fig.width = 6}
+ggplot(data.frame(x = seq(62, 81)), aes(x)) +
+stat_function(fun = function(x) dnorm(x, m = 72, sd = sqrt(8)) , 
+                xlim = c(62, 68),
+                geom = "area", fill = colors[1]) +
+  stat_function(fun = function(x) dnorm(x, m = 72, sd = sqrt(8))) +
+  geom_hline(aes(yintercept = 0)) +
+  scale_x_continuous("z-score") +
+  scale_y_continuous("Density")+
+  theme_pubr()
+```
+
+---
+
+In a distribution with mean 32 and standard deviation 4, what score corresponds to the 80th percentile?
+
+---
+
+```{r}
+(z = qnorm(.80))
+32 + (4*z)
+```
+
+or 
+
+```{r}
+qnorm(.80, m = 32, sd = 4)
+```
+
+--- 
+
+What's the likelihood of a score falling between X = 2 and x = 7 when the mean = 3 and the standard deviation is 2?
+
+---
+```{r}
+(z2 = (2-3)/2)
+(z7 = (7-3)/2)
+(belowz2 = pnorm(-.5))
+(belowz7 = pnorm(2))
+belowz7-belowz2
+```
+or
+```{r}
+(below2 = pnorm(2, m = 3, sd = 2))
+(below7 = pnorm(7, m = 3, sd = 2))
+below7-below2
+```
+
   
 ---
 ### Sampling distributions are normal 
@@ -461,35 +545,6 @@ Sometimes our interest will be in variability rather than means.  When we want t
 $$\text{If } Z \sim N(0,1), \\\text{then }Z^2 \sim \chi^2_1 \\\text{ and } \sum_{i=1}^{N}Z^2 \sim \chi^2_N$$
 
 In other words, the sum of squared standard normal variables will have a $\chi^2$ distribution.  This is the key to understanding the sampling behavior of the sample variance...
-
----
-The sample variance is defined as:
-
-$$s^2 = \frac{\sum_{i = 1}^{N}(X_i-\bar{X})^2}{N-1}$$
---
-
-The important part is the numerator.  It is a sum of squares.  We can standardize by the population value, $\sigma$. If we assume the data are normally distributed, then
-
-$$\frac{(N-1)s^2}{\sigma^2} \sim \chi^2_{N-1}$$
-and we can use the $\chi^2$ distribution to inform us about the expected sampling behavior of the variance.
-
-???
-
-## On the board
-
-Write the formula (will it work if I just move the screen up?)
-
-We have X's but if we can turn these into Z's, we might be able to simply with a new distribution. How do we get from X to Z?
-
-$$Z = \frac{X-\bar{X}}{s}$$
-
-$$s^2 = \frac{\sum_{i = 1}^{N}(X_i-\bar{X})^2}{N-1}$$
-
-divide by $\sigma^2$ and multiple by (N-1) and you'll get Z's!
-
-Also point out, if sample comes from the same population, what does the equation simplify to? 1
-
-If from different populations -- not 1!
 
 ---
 
