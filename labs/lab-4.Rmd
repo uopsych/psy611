@@ -6,7 +6,11 @@ output:
     toc: yes
     toc_depth: 3
     toc_float: TRUE
+editor_options: 
+  chunk_output_type: console
 ---
+
+You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-4.Rmd).
 
 ```{r setup, include = FALSE}
 # set chunk options
@@ -19,9 +23,6 @@ options(scipen = 999)
 # load packages
 library(tidyverse)
 library(psych)
-
-
-
 ```
 
 # Purpose
@@ -38,7 +39,7 @@ To quickly navigate to the desired section, click one of the following links:
 
 # Binomial Distributions {#binomial}
 
-Imagine you are flipping a coin. If it is a fair coin, you would expect a 50% chance of the coin landing on heads and a 50% chance of the coin landing on heads. However, as shown in the animation below, every heads is not always paired with a tails. Sometimes there is a run of heads and sometimes there is a run of tails. Still, we would probably expect that, overall, there would be the same number of heads as tails. In other words, we would expect that if we flipped a single coin 100 times, the most likely outcome would be 50 heads and 50 tails.
+Imagine you are flipping a coin. If it is a fair coin, you would expect a 50% chance of the coin landing on heads and a 50% chance of the coin landing on tails. However, as shown in the animation below, every heads is not always paired with a tails. Sometimes there is a run of heads and sometimes there is a run of tails. Still, we would probably expect that, overall, there would be the same number of heads as tails. In other words, we would expect that if we flipped a single coin 100 times, the most likely outcome would be 50 heads and 50 tails.
 
 As you might recall from class, our intuition about the outcome of the 100 coin flips can be described in terms of a binomial distribution. Essentially, the binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when (1) the outcome on every trial is binary (e.g., a coin landed on a `heads` or a `tails`; a dice was either a `6` or `not a 6`) and the probability of the outcome on every trial is the same (e.g., the probability of getting a `heads` on flip `1` is the same as the probability of getting a `heads` on flip `100`).
 
@@ -56,34 +57,6 @@ ggplot(data_binom, aes(x = flip, y = prob)) +
        x       = "Number of Heads in 100 Flips",
        y       = "Probability") +
   theme_bw(base_size = 15) 
-```
-
-If we plot the probability distribution of the example above, two things are apparent: (1) the most probable outcome of flipping `100` coins is `50` `heads` and (2) there are additional outcomes that are, although less probable, also possible (e.g. 0 heads)
-
-```{r, include = FALSE}
-#set seed
-set.seed(2)
-
-# create data
-data_binom <- data.frame(flips = seq(1, 1000, 1), 
-                         prop  = map_dbl(seq(1, 1000, 1), 
-                                         ~mean(rbinom(n    = .x, 
-                                                      size = 1, 
-                                                      prob = 1/2))))
-
-# plot proportion of heads by number of flips
-ggplot(data_binom, aes(x = flips, y = prop, colour = prop)) +
-  geom_line(size = 1) +
-  labs(x = "Number of Flips",
-       y = "Proportion of Heads") +
-  scale_colour_gradient2(low      = "turquoise3", 
-                         mid      = "turquoise",
-                         high     = "turquoise3", 
-                         midpoint = 0.5) +
-  scale_y_continuous(limits = c(0, 1)) +
-  theme_bw(base_size = 15) +
-  theme(legend.position = "none")
-
 ```
 
 ## rbinom
@@ -139,12 +112,12 @@ There is a `.50` probability of getting `1` `heads` when you flip `2` coins. We 
 # your code here
 ```
 
-*What's the probability of drawing `2` `aces` out of a `1` deck of cards (with replacement)?*
+*What's the probability of drawing `2` `aces` out of `1` deck of cards (with replacement) when drawing twice?*
 ```{r}
 # your code here
 ```
 
-*What's the probability of drawing `0` Aces out of a deck of cards (with replacement)?*
+*What's the probability of drawing `0` Aces out of a deck of cards twice (with replacement)?*
 ```{r}
 # your code here
 ```
@@ -190,6 +163,7 @@ pbinom(q = 1, size = 2, prob = 1/2, lower.tail = FALSE)
 
 ```{r}
 # your code here
+pbinom(q = 3, size = 9, prob = 1/6, lower.tail = FALSE)
 ```
 
 ## qbinom
@@ -221,7 +195,7 @@ Unsurprisingly, `10 or less` `heads` has a 100% chance of occurring when you fli
 
 # Normal Distributions {#normal}
 
-Recall from class that a `normal distribution` is a continuous probability distribution that is defined by a mean ($\mu$) and a standard deviation ($\sigma$). Whereas the binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when the outcome of every trial is binary, the normal distribution describe the theoretical probability of obtaining a certain outcome from a continuous distribution that has a certain mean ($\mu$) and standard deviation ($\sigma$).
+Recall from class that a `normal distribution` is a continuous probability distribution that is defined by a mean ($\mu$) and a standard deviation ($\sigma$). Whereas the binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when the outcome of every trial is binary, the normal distribution describes the theoretical probability of obtaining a certain outcome from a continuous distribution that has a certain mean ($\mu$) and standard deviation ($\sigma$).
 
 ## rnorm
 
@@ -261,22 +235,19 @@ With only 5 samples drawn, the distribution may not look normal, but with a suff
 
 ## dnorm
 
-The normal distribution counterpart of `dbinom()` is `dnorm()`. Similar to `rnorm()`, it takes a mean (`mean`) and a standard deviation (`sd`), but instead of an argument for the number of observations you want to sample (`n`) you provide it a value (`x`). As mentioned in class, the probability of any one value in a normal distribution is `0.00` because the total probability of the distribution is `1.00` and there are infinite values in any continuous distribution. The reason `dnorm()` exists is mostly mathematical, but we can use it to calculate the height of the probability curve for any one value.
-
-
-```{r}
-dnorm(x = 0, mean = 0, sd = 1)
-```
+The normal distribution counterpart of `dbinom()` is `dnorm()`. Similar to `rnorm()`, it takes a mean (`mean`) and a standard deviation (`sd`), but instead of an argument for the number of observations you want to sample (`n`) you provide it a value (`x`). The reason `dnorm()` exists is to calculate the height of the probability curve for any one value.
 
 For example, if we enter the value `0` with a mean of `0` and a standard deviation `1`, we get `0.3989423`
+```{r}
+dnorm(x = -1:1, mean = 0, sd = 1)
+```
 
 
 Likewise, if we calculate the height of the probability plot at an `x` value of `1`, we see the result `0.2419707.`
 
 ```{r}
-dnorm(1, mean = 0, sd = 1)
+dnorm(x = 1, mean = 0, sd = 1)
 ```
-
 
 
 *What would be the height of the probability line at a value of -1 when the `mean` is `0` and the `sd` is `1`?*

@@ -6,6 +6,8 @@ output:
     toc: yes
     toc_depth: 3
     toc_float: TRUE
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include = FALSE}
@@ -635,7 +637,7 @@ pnorm(q = 9, mean = 5, sd = 1, lower.tail = FALSE)
 dunif(x = 1, min = 0, max = 100)
 ```
 
-2. Shortly after your run in with the magician, an advocate of null hypothesis testing approaches you and demands that you calculate the probability of getting a $\chi^2$-value of greater than `3.00` with `10` degrees of freedom. Use `chisq()` to calculate the probability.
+2. Shortly after your run in with the magician, an advocate of null hypothesis testing approaches you and demands that you calculate the probability of getting a $\chi^2$-value of greater than `3.00` with `10` degrees of freedom. Use `pchisq()` to calculate the probability.
 
 ```{r}
 pchisq(q = 3.00, df = 10, lower.tail = FALSE)
