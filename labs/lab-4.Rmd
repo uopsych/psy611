@@ -39,24 +39,24 @@ To quickly navigate to the desired section, click one of the following links:
 
 # Binomial Distributions {#binomial}
 
-Imagine you are flipping a coin. If it is a fair coin, you would expect a 50% chance of the coin landing on heads and a 50% chance of the coin landing on tails. However, as shown in the animation below, every heads is not always paired with a tails. Sometimes there is a run of heads and sometimes there is a run of tails. Still, we would probably expect that, overall, there would be the same number of heads as tails. In other words, we would expect that if we flipped a single coin 100 times, the most likely outcome would be 50 heads and 50 tails.
+The binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when 
+* (1) the outcome on every trial is binary (e.g., a coin landed on a `heads` or a `tails`; a dice was either a `6` or `not a 6`) 
+* (2) the probability of the outcome on every trial is the same (e.g., the probability of getting a `heads` on flip `1` is the same as the probability of getting a `heads` on flip `100`).
+* (3) the outcomes are independent of each other
 
-As you might recall from class, our intuition about the outcome of the 100 coin flips can be described in terms of a binomial distribution. Essentially, the binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when (1) the outcome on every trial is binary (e.g., a coin landed on a `heads` or a `tails`; a dice was either a `6` or `not a 6`) and the probability of the outcome on every trial is the same (e.g., the probability of getting a `heads` on flip `1` is the same as the probability of getting a `heads` on flip `100`).
+Imagine you are flipping a coin. If it is a fair coin, you would expect a 50% chance of the coin landing on heads and a 50% chance of the coin landing on tails. However, every heads is not always paired with a tails. Sometimes there is a run of heads and sometimes there is a run of tails. Still, we would probably expect that, overall, there would be the same number of heads as tails. In other words, we would expect that if we flipped a single coin 100 times, the most likely outcome would be 50 heads and 50 tails.
 
 ```{r, echo = FALSE}
 # create probability curve
-data_binom <- data.frame(flip = seq(1, 100, 1),
-                         prob = dbinom(seq(1, 100, 1), 100, 1/2))
+data <- seq(1, 100, 1)
 
-# plot probability curve
-ggplot(data_binom, aes(x = flip, y = prob)) +
-  geom_line(size   = 1.5, 
-            colour = "turquoise3",
-            alpha  = .8) +
-  labs(title = "Binomial Probability Distribution",
-       x       = "Number of Heads in 100 Flips",
-       y       = "Probability") +
-  theme_bw(base_size = 15) 
+heads <- dbinom(data, size = 100, prob = 1/2)
+
+plot(heads, type = 'h',
+     main = "Binomial Distribution (n = 100, p = 0.5)",
+     ylab = "Probability",
+     xlab = "# of Heads",
+     lwd = 3)
 ```
 
 ## rbinom
@@ -68,7 +68,10 @@ set.seed(3)
 ```
 
 ```{r}
-rbinom(n = 10, size = 2, prob = 1/2)
+rbinom(n = 10, size = 2, prob = 1/2) 
+# n = 10 (number of trials)
+# size = 2 (number of events on each trial)
+# prob = 1/2 (probability of a success on each trial)
 ```
 
 
