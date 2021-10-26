@@ -20,6 +20,8 @@ output:
 
 * Homework is for learning, not for testing
 
+  * Part of what you're learning is how to do new things
+
 * Work together
 
 ---
@@ -473,7 +475,7 @@ $$\bar{X} - (1.96\times SEM) \leq \mu \leq \bar{X} + (1.96\times SEM) $$
 
 $$\bar{X} - (1.96\times SEM) \leq \mu \leq \bar{X} + (1.96\times SEM) $$
 
-This is referred to as the **95% confidence interval (CI)**.  Note the assumption of normality, which should hold by the Central Limit Theorem, if N is sufficiently large.
+This is referred to as a **95% confidence interval (CI)**.  Note the assumption of normality, which should hold by the Central Limit Theorem, if N is sufficiently large.
 
 The 95% CI is sometimes represented as:
 

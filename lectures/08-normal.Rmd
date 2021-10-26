@@ -588,9 +588,9 @@ Another common question is related to comparing multiple variances.  Suppose we 
 |    $SD_1$   |    $SD_2$   | $SD_3$      | $SD_4$      |
 
 One approach to this question would start by taking the variability of the means, that is, variability between conditions: 
-$$\Large s^s_{\text{between}}$$
+$$\Large s^2_{\text{between}}$$
 ---
-$$\Large s^s_{\text{between}}$$
+$$\Large s^2_{\text{between}}$$
 
 This variability will include any that was produced by the experimental conditions as well as any random variability. We have no way of separating those two parts. How can we know if the experiment-induced part is "big enough" to claim that the experiment "worked?"
 
@@ -603,7 +603,7 @@ This variability will include any that was produced by the experimental conditio
 
 We could compare it to the variability of the individual scores within the conditions: 
 
-$$\Large s^s_{\text{within}}$$
+$$\Large s^2_{\text{within}}$$
 
 ---
 
