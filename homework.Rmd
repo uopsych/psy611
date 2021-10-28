@@ -17,13 +17,11 @@ Homework assignments will appear here. You'll be able to access the assignment, 
 - [Download files.](homework/homework-1.zip)
 
 
-<!-- ### [**Homework 2**](homework/homework_2.html) -->
+### [**Homework 2**](homework/homework_2.html)
 
-<!-- **Due November 13, 9am** -->
+**Due November 12, 9am**
 
-<!-- - [Download RMD file here.](homework/homework_2.Rmd) -->
-
-<!-- - [Download homework-avengers.csv here.](homework/homework-avengers.csv) -->
+- [Download files.](homework/homework-2.zip)
 
 <!-- ### [**Homework 3**](homework/homework_3.html) -->
 

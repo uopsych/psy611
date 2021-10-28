@@ -27,3 +27,12 @@
 
 * 8-normal.html
   * include distributions of chi-sq and F
+  
+* lab-4.html
+  * emphasize connection to simulation
+  * expect this to be shorter
+  * add use of dnorm to create figure
+  
+* 9-sampling.html
+  * keep excel spreadsheet!
+

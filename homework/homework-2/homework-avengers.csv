@@ -1,0 +1,22 @@
+Movie,YearOfRelease,Budget,RunningTime,Avengers,IronMan,CaptainAmerica,BlackWidow,NickFury,Thor,Hulk,Spiderman,BlackPanther,AntMan,GuardiansOfGalaxy,Thanos,CaptainMarvel,DrStrange,DomesticScreens,DomesticGross,WeekendGross,OverseasGross,WorldwideGross
+The Avengers,2012,220,143,yes,yes,yes,yes,yes,yes,yes,no,no,no,no,no,no,no,4349,623357910,207438708,895455078,1518812988
+Iron Man 2,2010,200,125,no,yes,no,yes,yes,no,no,no,no,no,no,no,no,no,4380,312433331,128122480,311500000,623933331
+Iron Man,2008,140,126,no,yes,no,no,yes,no,no,no,no,no,no,no,no,no,4105,318412101,98618668,266762121,585174222
+Thor,2011,150,114,no,no,no,no,yes,yes,no,no,no,no,no,no,no,no,3955,181030624,65723338,268295994,449326618
+Captain America: The First Avenger,2011,216.7,124,no,no,yes,no,yes,no,no,no,no,no,no,no,no,no,3715,176654505,65058524,193915269,370569774
+The Incredible Hulk,2008,150,112,no,no,no,no,no,no,yes,no,no,no,no,no,no,no,3505,134806913,55414050,128620638,263427551
+Avengers: Age of Ultron,2015,495.2,141,yes,yes,yes,yes,yes,yes,yes,no,no,no,no,no,no,no,4276,459005868,191271109,946397826,1405403694
+Iron Man 3,2013,200,131,no,yes,no,no,no,no,no,no,no,no,no,no,no,no,4253,409013994,174144585,805797258,1214811252
+Guardians of the Galaxy,2014,232.3,122,no,no,no,no,no,no,no,no,no,no,yes,yes,no,no,4080,333176600,94320883,440152029,773328629
+Captain America: The Winter Soldier,2014,177,136,no,no,yes,yes,yes,no,no,no,no,no,no,no,no,no,3938,259766572,95023721,454497695,714264267
+Thor: The Dark World,2013,272.1,112,no,no,no,no,no,yes,no,no,no,no,no,no,no,no,3841,206362140,85737841,438209262,644571402
+Ant-Man,2015,169.3,117,no,no,no,no,no,no,no,no,no,yes,no,no,no,no,3856,180202163,57225526,339109802,519311965
+Avengers: Infinity War,2018,400,149,yes,yes,yes,yes,yes,yes,yes,yes,yes,no,yes,yes,no,yes,4474,678815482,257698183,1369544272,2048359754
+Black Panther,2018,200,134,no,no,no,no,no,no,no,no,yes,no,no,no,no,no,4020,700059566,202003951,646853595,1346913161
+Captain America: Civil War,2016,250,147,no,yes,yes,yes,no,no,no,yes,yes,yes,no,no,no,no,4226,408084349,179139142,745220146,1153304495
+Captain Marvel,2019,175,124,no,no,yes,yes,yes,no,yes,no,no,no,no,no,yes,no,4310,405529047,153433423,690079633,1095608680
+Spider-Man: Homecoming,2017,175,133,no,yes,yes,no,no,no,no,yes,no,no,no,no,no,no,4348,334201140,117027503,545965784,880166924
+Guardians of the Galaxy Vol. 2,2017,200,137,no,no,no,no,no,no,no,no,no,no,yes,no,no,no,4347,389813101,146510104,473942950,863756051
+Thor: Ragnarok,2017,180,130,no,no,no,no,no,yes,yes,no,no,no,no,no,no,yes,4080,315058289,122744989,538918837,853977126
+Doctor Strange,2016,236.6,115,no,no,no,no,no,yes,no,no,no,no,no,no,no,yes,3882,232641920,85058311,445076475,677718395
+Ant-Man and the Wasp,2018,195,118,no,no,no,no,no,no,no,no,no,yes,no,no,no,no,4206,216648740,75812205,406025399,622674139
