@@ -21,10 +21,12 @@ library(tidyverse)
 library(janitor)
 ```
 
+You can download the .Rmd file [here](lab-3.Rmd).
+You can download the .doc file [here](Lab-3.docx).
 
 # Purpose
 
-The purpose of today's lab is to introduce you to the `tidyverse` as a framework for working with data structures in R.  We will mostly focus on data wrangling (particularly data transformation), including how to extract specific obervations and variables, how to generate new variables and how to summarize data. 
+The purpose of today's lab is to introduce you to the `tidyverse` as a framework for working with data structures in R.  We will mostly focus on data wrangling (particularly data transformation), including how to extract specific observations and variables, how to generate new variables and how to summarize data. 
 
 For further resources on these topics, check out [*R for Data Science*](https://r4ds.had.co.nz/){target="_blank"} by Hadley Wickham and [this cheatsheet on data wrangling](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf){target="_blank"} from RStudio.
 
@@ -68,7 +70,7 @@ library(tidyverse)
 
 * Data wrangling, broadly speaking, means getting your data into a useful form for visualizing and modelling it. Hadley Wickham, who has developed a lot of the tidyverse, conceptualizes the main steps involved in data wrangling as follows:
 
-  1. Importing your data (we covered this in [Week 1's lab](https://uopsych.github.io/psy611/labs/lab-1.html#importing_data_into_r){target="_blank"})
+  1. Importing your data (we covered this in [Week 1's lab](https://uopsych.github.io/psy611/labs/lab-1.html#Importing_Data_into_R){target="_blank"})
   
   2. Tidying your data (see brief overview below)
   
@@ -96,7 +98,7 @@ The following figure from *R for Data Science* illustrates this visually.
 ![Illustration of tidy data](resources/lab5/intro/tidy_data.png)
 </center>
 
-* If your data is not already in tidy format when you import it, you can use functions from the `{tidyR}` package, e.g. `gather()` and `spread()`, that allow you to "reshape" your data to get it into tidy format. 
+* If your data is not already in tidy format when you import it, you can use functions from the `{tidyR}` package, e.g. `pivot_longer()` and `pivot_wider()`, that allow you to "reshape" your data to get it into tidy format. 
 
 * However, this term we are mostly going to work with simpler datasets that are already tidy, so we are not going to focus on these functions today. These functions will become especially useful in the future when we work with repeated measures data that has multiple observations for each subject. If you are interested in learning more about reshaping your data with `{tidyR}`, check out [this chapter](https://r4ds.had.co.nz/tidy-data.html#introduction-6){target="_blank"} from *R for Data Science*.
 
@@ -135,26 +137,45 @@ The following figure from *R for Data Science* illustrates this visually.
 \n
 
   + You can enter a pipe with the shortcut `CTRL+Shift+M` for PC or `CMD+Shift+M` for Mac.
+  
+```{r eval=FALSE, echo=TRUE}
+#practice entering a pipe with the shortcut here
+```
+  
 
-* Strictly speaking, a pipe passes an object on the left-hand side as the first argument (or `.` argument) of whatever function is on the right-hand side.
+* A pipe passes an object on the left-hand side as the first argument (or `.` argument) of whatever function is on the right-hand side.
 
   + `x %>% f(y)` is the same as `f(x, y)`
 
   + `y %>% f(x, ., z)` is the same as `f(x, y, z )`
 
-For example, to calculate the mean of the `mpg` variable from the `mtcars` dataset and round our answer to 2 decimal places, we can do the following...
+Example: I want to calculate the mean of the mpg variable from the mtcars data set and round our answer to 2 decimal places. I can accomplish this by nesting:
 
-```{r}
+```{r eval=FALSE, echo=TRUE}
+round(mean(mtcars$mpg, na.rm = TRUE), 2)
+```
+
+Or, we could use pipes. Grammatically, you can think of a pipe as “then.” I have a variable, the mile per gallon of cars, THEN I want to take the mean of that variable, and THEN I want to round that answer to two decimal places.
+
+```{r eval=FALSE, echo=TRUE}
 mtcars$mpg %>% # select the `mpg` variable from the `mtcars` dataset
   mean(na.rm = TRUE) %>% # calculate the mean
   round(2) # round to 2 decimal places
 ```
 
-This accomplishes the same thing as "nesting" functions within each other...
+Now, rewrite the following code using pipes.
 
-```{r}
-round(mean(mtcars$mpg, na.rm = TRUE), 2)
+```{r eval=FALSE, echo=TRUE}
+round(sqrt(sum(mtcars$cyl)), 1)
 ```
+
+```{r instructor, eval=FALSE, echo=TRUE}
+mtcars$cyl %>% 
+  sum() %>% 
+  sqrt() %>% 
+  round()
+```
+
 
 ### Why use pipes?
 
@@ -193,7 +214,7 @@ names(world_happiness)
 * Personally, I find it annoying to have to remember to capitalize the first letter whenever I reference a variable name. The `clean_names()` function from the `{janitor}` package will (by default) convert all variable names to `snake_case` (but there are several other options...see [here](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html#clean-data.frame-names-with-clean_names){target="_blank"} for more info).
 
 ```{r eval=FALSE}
-install.packages("janitor") # if not already installed
+#install.packages("janitor") # if not already installed
 library(janitor)
 ```
 
@@ -227,7 +248,7 @@ names(world_happiness)
 
 For example, we can filter rows to retain data only for the United States.
 
-```{r}
+```{r eval=FALSE, echo=TRUE}
 world_happiness %>% 
   filter(country == "United States")
 ```
@@ -251,7 +272,7 @@ world_happiness %>%
 
 * For example, let's select observations for the United States, Mexico and Canada.
 
-```{r}
+```{r eval=FALSE, echo=TRUE}
 world_happiness %>% 
   filter(country == "United States" | country == "Mexico" | country == "Canada")
 ```
@@ -260,7 +281,7 @@ world_happiness %>%
 
 So we could have written our filter statement like this:
 
-```{r eval = FALSE}
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   filter(country %in% c("United States", "Mexico", "Canada"))
 ```
@@ -269,15 +290,23 @@ world_happiness %>%
 ### You try
 
 * Filter for observations that are greater than the mean of `happiness`
-
 ```{r}
+# your code here
+```
+
+
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   filter(happiness > mean(happiness, na.rm= TRUE))
 ```
 
 * Filter for observations that are greater than the mean of `happiness` but less than the mean of `gdp`
-
 ```{r}
+# your code here
+```
+
+
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   filter(happiness > mean(happiness, na.rm= TRUE), 
          gdp < mean(gdp, na.rm = TRUE))
@@ -296,7 +325,7 @@ world_happiness %>%
 
 For example, let's re-order observations by `happiness`. Note that rows are sorted in ascending order by default.
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   arrange(happiness) # sorts in ascending order by default
 
@@ -321,52 +350,75 @@ world_happiness %>%
 
 * Select one variable
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   select(country)
 ```
 
 * Select multiple variables
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   select(country, freedom, corruption)
 ```
 
 * Select a range of variables
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   select(country:support)
 ```
 
 * Rearrange the order of variables
-  + Note: `everything()` is a helper function that gives us all the remaining varaibles in the data frame (see more on [helper functions](#helper) below)
+  + Note: `everything()` is a helper function that gives us all the remaining variables in the data frame (see more on [helper functions](#helper) below)
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   select(country, world, everything()) 
 ```
 
 * De-select variables with a minus sign (`-`)
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   select(-happiness)
 ```
 
 * De-select range of variables
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   select(-(gdp:world))
 ```
 
 ### You try
 
+* Produce a data frame of the variables `country`, `gdp`, and `happiness` for countries whose `gdp` is greater than average.
+
+```{r}
+# your code here
+```
+
+
+```{r eval = FALSE, echo=TRUE}
+world_happiness %>% 
+  janitor::clean_names() %>% 
+  select(country, gdp, happiness) %>% 
+  filter(gdp>mean(gdp, na.rm = T)) %>% 
+  head()
+
+#mean(as.numeric(world_happiness$GDP), na.rm = TRUE)
+```
+
+
 * Produce a data frame that has only countries coded as `1` that have greater than average levels of freedom. Arrange the rows by `freedom` scores in descending order, and only display the `country` and `freedom` variables (in that order). How many observations are you left with?
 
 ```{r}
+# your code here
+```
+
+
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   filter(world == 1 & freedom > mean(freedom, na.rm = TRUE)) %>% 
   arrange(desc(freedom)) %>% 
@@ -409,7 +461,7 @@ world_happiness %>%
 * Create new variables
   + **Note**: New variables are automatically added at the end of the data frame (scroll to the right to see them)
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   mutate(corruption_z = scale(corruption), # z-score `corruption` variable
          life_int = round(life, 0)) # round `life` variable to a whole number
@@ -419,13 +471,13 @@ world_happiness %>%
 
 When we imported our data, the `world` variable was automatically categorized as an `integer`.
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 class(world_happiness$world)
 ```
 
 However, this variable refers to discrete categories, and we want to change it to be a `factor`. We can do this using `mutate()`.
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 # Note that I am re-saving the dataframe here to preserve this change
 world_happiness <- world_happiness %>% 
   mutate(world = as.factor(world))
@@ -433,7 +485,7 @@ world_happiness <- world_happiness %>%
 
 Now check the type again...
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 class(world_happiness$world)
 ```
 
@@ -457,14 +509,14 @@ class(world_happiness$world)
 
 Let's use `summarize()` to get the mean of `gdp` across all observations in the dataset. 
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   summarize(mean_gdp = mean(gdp, na.rm = TRUE))
 ```
 
 * Of course, we typically want to calculate more than just a mean. We can add other summary variables, separating them by commas. 
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   summarize(mean_gdp = mean(gdp, na.rm = TRUE), # mean
             sd_gdp = sd(gdp, na.rm = TRUE), # standard deviation
@@ -483,7 +535,7 @@ world_happiness %>%
 ![](resources/lab5/group_by/group_by.png)
 </center>
 
-```{r}
+```{r }
 world_happiness %>% 
   group_by(world)
 ```
@@ -500,7 +552,7 @@ At first glance, it doesn't appear that anything has happened. However, under th
 
 * To use these together, you just run `group_by()` followed by `summarize()` in a pipeline.
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   group_by(world) %>% # group by the world variable
   summarize(mean_gdp = mean(gdp, na.rm = TRUE), # mean
@@ -514,7 +566,7 @@ world_happiness %>%
 
 For the minihacks today, we will be working with the [`diamonds`](https://ggplot2.tidyverse.org/reference/diamonds.html){target="_blank"} dataset, which is built into R. This dataset contains the prices and various other attributes of about 54,000 different diamonds. Take a peek at the dataset with the following functions:
 
-```{r, eval=FALSE}
+```{r eval = FALSE, echo=TRUE}
 head(diamonds) # first few rows
 str(diamonds) # structure of the data frame
 ```
@@ -538,7 +590,7 @@ variable | meaning
 
 1. Take a look at the following chunk of code. If you're like me, this will make your head hurt. See if you can understand what this code is trying to do. 
 
-```{r eval = FALSE}
+```{r eval = FALSE, echo=TRUE}
 arrange(select(filter(diamonds, carat > 3 & carat < 4, cut == "Premium", color == "G" |  color == "H" | color == "I" | color == "J"), carat, color, price), color, desc(price))
 ```
 
@@ -549,7 +601,7 @@ arrange(select(filter(diamonds, carat > 3 & carat < 4, cut == "Premium", color =
 ```
 
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 diamonds %>% 
   filter(carat > 3 & carat < 4, 
          cut == "Premium", 
@@ -563,28 +615,28 @@ diamonds %>%
 
 Answer the questions below using functions from `{dplyr}`. Think about the order in which you will need to do different operations.
 
-1. What is the difference in average carat size between `Fair` and `Ideal` diamonds?
+1. On average, which cut of diamond is the most expensive?
 
 ```{r}
 # your code here
 ```
 
 
-```{r}
-diamonds %>% 
-  filter(cut %in% c("Fair", "Ideal")) %>% 
-  group_by(cut) %>% 
-  summarize(mean_carat = mean(carat, na.rm = TRUE))
+```{r eval = FALSE, echo=TRUE}
+diamonds %>%
+  group_by(cut) %>%
+  summarize(mean_price = mean(price)) %>% 
+  arrange(desc(mean_price))
 ```
 
-2. Which is more expensive on average, a diamons that is `Fair` and `IF` (worst cut, best clarity), or a diamond that is `Ideal` and `I1`(best cut, worst clarity)?
+2. Which is more expensive on average, a diamond that is `Fair` and `IF` (worst cut, best clarity), or a diamond that is `Ideal` and `I1`(best cut, worst clarity)?
 
 ```{r}
 # your code here
 ```
 
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 # two steps
 diamonds %>% 
   filter(cut == "Fair", 
@@ -623,7 +675,7 @@ diamonds %>%
 ```
   
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 # group by color, CI based on t distribution
 diamonds %>% 
   group_by(color) %>% 
@@ -643,7 +695,7 @@ diamonds %>%
 ```
 
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 diamonds %>% 
   group_by(color, cut) %>% 
   summarize(mean = mean(carat, na.rm = TRUE),
