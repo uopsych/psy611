@@ -214,7 +214,7 @@ For example, dogs are characterized by their ability to read humans' social cues
 
 This could be represented numerically as, as a **statistical hypothesis**:
 
-`$$\text{Proportion}_{\text{Correct Peformance}} = .50$$`
+`$$\text{Proportion}_{\text{Correct Performance}} = .50$$`
 
 ---
 
@@ -262,7 +262,7 @@ Instead, we're going to test our null hypothesis. Well, not really. We're going 
 
 Consider the example of puppies' abilities to read human social cues. 
 
-Let `\(\Pi\)` be the probability any particular selection is male. 
+Let `\(\Pi\)` be the probability the puppy chooses the correct cup. 
 
 In a task with two choices, an at-chance performance is `\(\Pi = .5\)`. This can be the null hypothesis because if this is true, than puppies would make the correct choice as often as they would make an incorrect choice.
 
@@ -310,7 +310,7 @@ dbinom(10, size = 12, prob = .5)
 
 ## Complications with the binomial
 
-The likelihood of the puppy being successful 10 times out of 12 *if the true probability of success is .5* is 0.05. That's pretty low! That's so low that we might begin to suspect that the true probability is not .5. 
+The likelihood of the puppy being successful 10 times out of 12 *if the true probability of success is .5* is 0.02. That's pretty low! That's so low that we might begin to suspect that the true probability is not .5. 
 
 But there's a problem with this example. [The real study](https://doi.org/10.1016/j.anbehav.2020.05.019) used a sample of many puppies (&gt;300), and the average number of correct trials per puppy was about 8.33. But the binomial won't allow us to calculate the probability of fractional successes!
 
