@@ -12,9 +12,6 @@ output:
 ```{r, include = FALSE}
 library(tidyverse)
 ```
-Representative sampling is important! Check out [this episode of the FiveThrityEight Politics Podcast](https://fivethirtyeight.com/features/politics-podcast-how-the-media-projects-the-winner-of-an-election/).
-
----
 
 ## Last time...
 
@@ -33,6 +30,72 @@ This is referred to as the **95% confidence interval (CI)**.  Note the assumptio
 The 95% CI is sometimes represented as:
 
 $$CI_{95} = \bar{X} \pm [1.96\frac{\hat{\sigma}}{\sqrt{N}}]$$
+
+Where does 1.96 come from?
+
+---
+
+
+```{r, echo = F}
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x)) +
+  stat_function(fun = function(x) dnorm(x),
+                xlim = c(-1.96, 1.96), geom = "area", fill = "purple", alpha = .3) +
+  geom_vline(aes(xintercept = 1.96), color = "purple")+
+  geom_vline(aes(xintercept = -1.96), color = "purple") +
+  geom_label(aes(x = 1.96, y = .3, label = "1.96"))+
+  geom_label(aes(x = -1.96, y = .3, label = "-1.96"))
+```
+---
+
+What if you didn't know the value?
+
+```{r, echo = F}
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x)) +
+  stat_function(fun = function(x) dnorm(x),
+                xlim = c(-1.96, 1.96), geom = "area", fill = "purple", alpha = .3) +
+  geom_vline(aes(xintercept = 1.96), color = "purple")+
+  geom_vline(aes(xintercept = -1.96), color = "purple") +
+  geom_label(aes(x = 1.96, y = .3, label = "?"))+
+  geom_label(aes(x = -1.96, y = .3, label = "?"))
+```
+
+---
+
+What if you didn't know the value?
+
+```{r, echo = F}
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x)) +
+  stat_function(fun = function(x) dnorm(x),
+                xlim = c(-1.96, 1.96), geom = "area", fill = "purple", alpha = .3) +
+  stat_function(fun = function(x) dnorm(x),
+                xlim = c(-4, -1.96), geom = "area", fill = "green", alpha = .3) +
+  stat_function(fun = function(x) dnorm(x),
+                xlim = c(4, 1.96), geom = "area", fill = "green", alpha = .3) +
+  geom_vline(aes(xintercept = 1.96), color = "purple")+
+  geom_vline(aes(xintercept = -1.96), color = "purple") +
+  geom_label(aes(x = 1.96, y = .3, label = "?"))+
+  geom_label(aes(x = -1.96, y = .3, label = "?"))
+```
+
+---
+
+What if you didn't know the value?
+
+```{r, echo = F, fig.height=6}
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x)) +
+  stat_function(fun = function(x) dnorm(x),
+                xlim = c(-4, 1.96), geom = "area", fill = "purple", alpha = .3) +
+  geom_vline(aes(xintercept = 1.96), color = "purple")+
+  geom_label(aes(x = 1.96, y = .3, label = "?"))
+```
+
+```{r}
+qnorm(.975)
+```
 
 
 ---
@@ -210,41 +273,6 @@ c(ci_lb_z, ci_ub_z)
 ```
 ---
 
-## Why do we divide by $\sqrt{N}$
-
-$$\sigma^2_M = E(\bar{x}^2)-(E(x))^2$$
-$$\bar{x}^2 = (\frac{\sum{x}}{N})^2$$
-
-$$\bar{x}^2 = \frac{1}{N^2}(x^2_1+x^2_2+\dots+x^2_N+2\sum{x_ix_j})$$
-$$E(\bar{x}^2) = \frac{1}{N^2}(E(x^2_1)+E(x^2_2)+\dots+E(x^2_N)+2\sum{E(x_ix_j)})$$
-$$\sigma^2_X = E(X^2)-(E(X))^2$$
-$$\sigma^2_X = E(X^2)-\mu^2$$
-$$\sigma^2_X+\mu^2 = E(X^2)$$
----
-
-$$E(\bar{x}^2) = \frac{1}{N^2}((\sigma^2_X+\mu^2)+(\sigma^2_X+\mu^2)+\dots+(\sigma^2_X+\mu^2)+2\sum{E(x_ix_j)})$$
-
-
-$$E(\bar{x}^2) = \frac{1}{N^2}(N(\sigma^2_X+\mu^2)+2\sum{E(x_ix_j)})$$
-
-$$E(x_ix_j) = E(x_i)E(x_j) = \mu\mu=\mu^2$$
-
-$$E(\bar{x}^2) = \frac{1}{N^2}(N(\sigma^2_X+\mu^2)+2\sum{(\mu^2)})$$
-$$E(\bar{x}^2) = \frac{1}{N^2}(N(\sigma^2_X+\mu^2)+2\frac{N(N-1)}{2}\mu^2)$$
----
-
-$$E(\bar{x}^2) = \frac{1}{N^2}(N(\sigma^2_X+\mu^2)+N(N-1)\mu^2)$$
-$$E(\bar{x}^2) = \frac{1}{N}(\sigma^2_X+\mu^2+(N-1)\mu^2)$$
-$$E(\bar{x}^2) = \frac{1}{N}(\sigma^2_X+N\mu^2)$$
-$$E(\bar{x}^2) = \frac{\sigma^2_X}{N}+\mu^2$$
----
-$$\sigma^2_M = E(\bar{x}^2)-(E(x))^2$$
-$$E(\bar{x}^2) = \frac{\sigma^2_X}{N}+\mu^2$$
-
-$$\sigma^2_M = \frac{\sigma^2_X}{N} + \mu^2-\mu^2$$
-$$\sigma^2_M = \frac{\sigma^2_X}{N}$$
-$$\sqrt{\sigma^2_M} = \sqrt{\frac{\sigma^2_X}{N}} = \frac{\sigma_X}{\sqrt{N}}$$
----
 class: inverse
 
 ## Hypothesis
@@ -255,11 +283,11 @@ What is a hypothesis?
 
 In statistics, a **hypothesis** is a statement about the population. It is usually a prediction that a parameter describing some characteristic of a variable takes a particular numerical value, or falls into a certain range of values. 
 
-For example, I might hypothesize that that given equal qualifications, male candidates are viewed more favorably and more likely to be hired than female candidates (Moss-Rascusin et al., PNAS, 2012). We would call this a **research hypothesis.**
+For example, dogs are characterized by their ability to read humans' social cues, but it is (was) unknown whether that skill is biologically prepared. I might hypothesize that when a human points to a hidden treat, puppies do not understand that social cue and their performance on a related task is at-chance. We would call this a **research hypothesis.**
 
 This could be represented numerically as, as a **statistical hypothesis**:
 
-$$\text{Proportion}_{\text{Male applicants hired}} > \text{Proportion}_{\text{Females applicants hired}}$$
+$$\text{Proportion}_{\text{Correct Peformance}} = .50$$
 
 ---
 
@@ -286,8 +314,8 @@ $$H_1: \mu \neq 4$$
 
 .pull-right[
 
-$$H_0: \mu \leq -4$$
-$$H_1: \mu > -4$$
+$$H_0: \mu \leq -7$$
+$$H_1: \mu > -7$$
 ]
 
 ---
@@ -305,19 +333,19 @@ $$P(D|H_0)$$
 
 ## Example #1
 
-Consider the example of possible gender discrimination in hiring a research technician at University X. 
+Consider the example of puppies' abilities to read human social cues. 
 
 Let $\Pi$ be the probability any particular selection is male. 
 
-University X claims that $\Pi = .5$. This can be the null hypothesis for two reasons: 
-  1. If this is true, than an equal number of men and women** would be hired, and there would be no bias.
-  2. Regardless of whether this matches the population, this is the University's claim and we want to test it. 
+In a task with two choices, an at-chance performance is $\Pi = .5$. This can be the null hypothesis because if this is true, than puppies would make the correct choice as often as they would make an incorrect choice.
+
+Note that the null hypothesis changes depending on the situation and research question. 
   
 ---
 
 ## Example #1
 
-As a critical and suspicious graduate student who is well informed about unconscious bias in STEM, you’re skeptical that there is no gender bias in hiring, and you have an alternative hypothesis that the probability of men being hired is greater than .5.
+As a dog-lover, you’re skeptical that reading human social cues is purely learned, and you have an alternative hypothesis that puppies will perform well over chance, thus having a probability of success on any given task greater than .5.
 
 $$H_0: \Pi = .5$$
 $$H_1: \Pi \neq .5$$
@@ -325,11 +353,11 @@ $$H_1: \Pi \neq .5$$
 
 ## Example #1
 
-To test the null hypothesis, you look at the hiring practices of University X over the last year, and find that they had 10 job openings, for which they hired 9 men. 
+To test the null hypothesis, you a single puppy and test them 12 times on a pointing task. The puppy makes the correct choice 10 times.
 
 The question you're going to ask is:
 
-  - "How likely is it that 9 out of 10 hires were men, if the probability of hiring a man is .5?"
+  - "How likely is it that the puppy is successful 10 times out of 12, if the probability of success is .5?"
   
 This is the essence of NHST.
 
@@ -340,19 +368,19 @@ You can already test this using what you know about the binomial distribution.
 ---
 
 ```{r}
-dbinom(9, size = 10, prob = .5)
+dbinom(10, size = 12, prob = .5)
 ```
 
 ```{r, echo = F, warning = F, message = F}
 library(tidyverse)
-men = 0:10
-data.frame(men = men, d = dbinom(men, size = 10, prob = .5), 
-           color = ifelse(men == 9, "1", "2")) %>%
-  ggplot(aes(x = men, y = d, fill = color)) +
+trial = 0:12
+data.frame(trial = trial, d = dbinom(trial, size = 12, prob = .5), 
+           color = ifelse(trial == 10, "1", "2")) %>%
+  ggplot(aes(x = trial, y = d, fill = color)) +
   geom_bar(stat = "identity") + 
-  guides(fill = F)+
-  scale_x_continuous("Number of men hired", breaks = c(0:10))+
-  scale_y_continuous("Probability of X men hired") +
+  guides(fill = "none")+
+  scale_x_continuous("Number of puppy successes", breaks = c(0:12))+
+  scale_y_continuous("Probability of X successes") +
   theme(text = element_text(size = 20))
   
 ```
@@ -362,17 +390,19 @@ data.frame(men = men, d = dbinom(men, size = 10, prob = .5),
 
 ## Complications with the binomial
 
-The likelihood of hiring a man 9 times out of 10 *if the true probability of hiring a man is .5* is `r round(dbinom(9,10,.5),2)`. That's pretty low! That's so low that we might begin to suspect that the true probability is not .5. 
+The likelihood of the puppy being successful 10 times out of 12 *if the true probability of success is .5* is `r round(dbinom(9,12,.5),2)`. That's pretty low! That's so low that we might begin to suspect that the true probability is not .5. 
 
-But there's a problem with this example. Sometimes University X has 10 job openings, but sometimes it has 1 and sometimes it has 30, and on and on. The binomial doesn't really apply to University X's hiring practices because N can change (and it's an assumption of the binomial that we know N). 
+But there's a problem with this example. [The real study](https://doi.org/10.1016/j.anbehav.2020.05.019) used a sample of many puppies (>300), and the average number of correct trials per puppy was about 8.33. But the binomial won't allow us to calculate the probability of fractional successes!
 
-What we really want is not to assess 9 out of 10 times, but a proportion, like .9. How many different proportions could result year to year?
+--
+
+What we really want is not to assess 10 out of 12 times, but a proportion, like .694. How many different proportions could result puppy to puppy?
 
 ---
 
 ## Our statistic is usually continuous
 
-When we estimate a statistic for our sample -- like the proportion of males hired, or the average IQ score, or the relationship between age in months and second attending to a new object -- that statistic is nearly always continuous. So we have to assess the probability of that statistic using a probability distribution for continuous variables, like the normal distribution. (Or t, or F, or $\chi^2$ ).
+When we estimate a statistic for our sample -- like the proportion of puppy success, or the average IQ score, or the relationship between age in months and second attending to a new object -- that statistic is nearly always continuous. So we have to assess the probability of that statistic using a probability distribution for continuous variables, like the normal distribution. (Or _t_, or _F_, or $\chi^2$ ).
 
 What is the probability of any value in a continuous distribution?
 
@@ -384,17 +414,17 @@ What is the probability of any value in a continuous distribution?
 .small[
 Instead of calculating the probability of our statistic, we calculate the probability of our statistic *or more extreme* under the null.
 
-The probability of hiring 9 men out of 10 or more extreme is `r round(pbinom(1,10,.5)*2,2)`.]
+The probability of success on 10 trials out of 12 or more extreme is `r round((1-pbinom(10,12,.5))*2,2)`.]
 ]
 
 ```{r sampling_binom, echo = F, warning = F, message = F}
-data.frame(men = men, d = dbinom(men, size = 10, prob = .5), 
-           color = ifelse(men %in% c(0,1, 9,10), "1", "2")) %>%
-  ggplot(aes(x = men, y = d, fill = color)) +
+data.frame(trials = trial, d = dbinom(trial, size = 12, prob = .5), 
+           color = ifelse(trial %in% c(0,1,2, 10,11,12), "1", "2")) %>%
+  ggplot(aes(x = trials, y = d, fill = color)) +
   geom_bar(stat = "identity") + 
-  guides(fill = F)+
-  scale_x_continuous("Number of men hired", breaks = c(0:10))+
-  scale_y_continuous("Probability of X men hired") +
+  guides(fill = "none")+
+  scale_x_continuous("Number of successes", breaks = c(0:12))+
+  scale_y_continuous("Probability of X successes") +
   theme(text = element_text(size = 20))
 ```
 
@@ -409,13 +439,14 @@ As we have more trials...
 ]
 
 ```{r , echo = F, warning = F, message = F}
-data.frame(men = 0:20, 
-           d = dbinom(0:20, size = 20, prob = .5), color = ifelse(0:20 %in% c(0:4, 16:20), "1", "2")) %>%
-  ggplot(aes(x = men, y = d, fill = color)) +
+data.frame(trials = 0:24, 
+           d = dbinom(0:24, size = 24, prob = .5), 
+           color = ifelse(0:24 %in% c(0:4, 20:24), "1", "2")) %>%
+  ggplot(aes(x = trials, y = d, fill = color)) +
   geom_bar(stat = "identity") + 
-  guides(fill = F)+
-  scale_x_continuous("Number of men hired", breaks = c(0:20))+
-  scale_y_continuous("Probability of X men hired") +
+  guides(fill = "none")+
+  scale_x_continuous("Number of trials hired", breaks = c(0:24))+
+  scale_y_continuous("Probability of X trials hired") +
   theme(text = element_text(size = 20))
 ```
 
@@ -430,13 +461,14 @@ data.frame(men = 0:20,
 ]
 
 ```{r , echo = F, warning = F, message = F}
-data.frame(men = 0:30, 
-           d = dbinom(0:30, size = 30, prob = .5), color = ifelse(0:30 %in% c(0:9, 21:30), "1", "2")) %>%
-  ggplot(aes(x = men, y = d, fill = color)) +
+data.frame(trials = 0:36, 
+           d = dbinom(0:36, size = 36, prob = .5), 
+           color = ifelse(0:36 %in% c(0:6, 30:36), "1", "2")) %>%
+  ggplot(aes(x = trials, y = d, fill = color)) +
   geom_bar(stat = "identity") + 
-  guides(fill = F)+
-  scale_x_continuous("Number of men hired", breaks = c(0:30))+
-  scale_y_continuous("Probability of X men hired") +
+  guides(fill = "none")+
+  scale_x_continuous("Number of trials hired", breaks = c(0:36))+
+  scale_y_continuous("Probability of X trials hired") +
   theme(text = element_text(size = 20))
 ```
 
@@ -464,8 +496,8 @@ data.frame(x = seq(-4,4)) %>%
   stat_function(fun = function(x) dnorm(x), xlim = c(2.32, 4), geom = "area", fill = colors[1])+
   geom_hline(aes(yintercept = 0)) +
   scale_x_continuous(breaks = NULL)+
-  labs(x = "Men",
-       y = "Probability of X men hired") +
+  labs(x = "successes",
+       y = "Probability of X successes") +
   theme(text = element_text(size = 20))
 ```
 
@@ -499,7 +531,7 @@ data.frame(x = seq(-4,4)) %>%
 ]
 
 .pull-right[
-When we were analyzing the gender problem, we built the distribution under the null using the binomial.
+When we were analyzing the puppy problem, we built the distribution under the null using the binomial.
 
 This is our **sampling distribution.** 
 
@@ -516,15 +548,13 @@ For now, we'll work through an example using the standard normal distribution.
 
 ## Example #2 
 
-University X has been around for 150 years, and so has 150 years worth of ratings of male applicants. You dig through all the old university files and calculate the average rating of male applicants  (5.3 out of 10) and also the standard deviation of those ratings (3.3). 
-
-You then collect the ratings of 9 female applicants in 2018 and calculate their average rating (2.9) and also the standard deviation of their rating (3.1)
+Bray and colleagues (2020) test a sample of 10* puppies on multiple cognitive tasks, including their ability to correctly find a treat hidden under one of two cups based on human pointing. The average success rate was 69.41% (SD = 18.88). 
 
 How do you generate the sampling distribution around the null?
 
 ???
 
-Null: distribution of men's scores -- you know this population, trying to see if ratings of female applicants come from the same distribution of scores
+Null: distribution of successes -- you know this population, trying to see if ratings of female applicants come from the same distribution of scores
 
 
 ---
@@ -543,12 +573,12 @@ $$SEM =
 ]
 
 ```{r, echo = F}
-data.frame(x = seq(0,10)) %>%
+data.frame(x = seq(0,100)) %>%
   ggplot(aes(x=x)) +
-  stat_function(fun = function(x) dnorm(x, mean = 5.3, sd = 3.3/sqrt(9)), geom = "area") +
-  geom_vline(aes(xintercept = 5.3), color = "purple")+
-      labs(title = as.expression(bquote("Population"~mu~"=5.3"~sigma~"=1.1")),
-           x = "Average rating of candidate",
+  stat_function(fun = function(x) dnorm(x, mean = 50, sd = 18.88/sqrt(10)), geom = "area") +
+  #geom_vline(aes(xintercept = 69.41), color = "purple")+
+      labs(title = as.expression(bquote("Population"~mu~"=50"~sigma~"=5.97")),
+           x = "Average proportion of successes",
            y = NULL)  +
   theme(text = element_text(size = 20))
 ```
@@ -575,15 +605,18 @@ $$SEM =
 
 ]
 
-```{r, echo = F}
-data.frame(x = seq(0,10)) %>%
+```{r sampling, echo = F}
+data.frame(x = seq(0,100)) %>%
   ggplot(aes(x=x)) +
-  stat_function(fun = function(x) dnorm(x, mean = 5.3, sd = 3.3/sqrt(9)), geom = "area") +
-  stat_function(fun = function(x) dnorm(x, mean = 5.3, sd = 3.3/sqrt(9)), geom = "area", xlim = c(0, 2.9), fill = colors[1]) +
-  stat_function(fun = function(x) dnorm(x, mean = 5.3, sd = 3.3/sqrt(9)), geom = "area", xlim = c(7.7, 10), fill = colors[1]) +
-  geom_vline(aes(xintercept = 2.9), color = "purple")+
-      labs(title = as.expression(bquote("Population"~mu~"=5.3"~sigma~"=1.1")),
-           x = "Average rating of candidate",
+  stat_function(fun = function(x) dnorm(x, mean = 50, sd = 18.88/sqrt(10)), 
+                geom = "area") +
+  stat_function(fun = function(x) dnorm(x, mean = 50, sd = 18.88/sqrt(10)), 
+                geom = "area", xlim = c(0, 35.81), fill = colors[1]) +
+  stat_function(fun = function(x) dnorm(x, mean = 50, sd = 18.88/sqrt(10)), 
+                geom = "area", xlim = c(64.19, 100), fill = colors[1]) +
+  geom_vline(aes(xintercept = 64.19), color = "purple") +
+      labs(title = as.expression(bquote("Population"~mu~"=50"~sigma~"=5.97")),
+           x = "Average proportion of successes",
            y = NULL)  +
   theme(text = element_text(size = 20))
 ```
@@ -592,53 +625,18 @@ data.frame(x = seq(0,10)) %>%
 
 Calculate SEM on board.
 
-$\sigma = 3.3$
-
-$N = 9$
-
+$sqrt(10) = `r sqrt(10)`$
 ---
 
 All well and good. 
 
-But rarely will you have access to all the data in your population, so you won't be able to calculate the standard deviation. What will you do?
-
---
+Note that we didn't have access to the population standard deviation -- we had to make use of the sample standard deviation instead:
 
 $$SEM = \frac{\hat{\sigma}}{\sqrt{N}} = \frac{s}{\sqrt{N}}$$
 
 So long as your estimate of the standard deviation is already corrected for bias (you've divided by $N-1$ ), then you can swap in your sample SD.
 
 
----
-
-.left-column[
-
-.small[
-If you didn't know the population (male's) standard deviation, you would use the sample of females to estimate the population standard deviation.
-
-$$SEM = \frac{\hat{\sigma}}{\sqrt{N}}$$]
-]
-
-```{r sampling, echo = F}
-data.frame(x = seq(0,10)) %>%
-  ggplot(aes(x=x)) +
-  stat_function(fun = function(x) dnorm(x, mean = 5.3, sd = 3.1/sqrt(9)), geom = "area") +
-  stat_function(fun = function(x) dnorm(x, mean = 5.3, sd = 3.1/sqrt(9)), geom = "area", xlim = c(0, 2.9), fill = colors[1]) +
-  stat_function(fun = function(x) dnorm(x, mean = 5.3, sd = 3.1/sqrt(9)), geom = "area", xlim = c(7.7, 10), fill = colors[1]) +
-  geom_vline(aes(xintercept = 2.9), color = "purple")+
-      labs(title = as.expression(bquote("Population"~mu~"=5.3"~sigma~"=1.03")),
-           x = "Average rating of candidate",
-           y = NULL)  +
-  theme(text = element_text(size = 20))
-```
-
-???
-
-Calculate SEM on board.
-
-$\hat{\sigma} = 3.1$
-
-$N = 9$
 
 ---
 
@@ -652,10 +650,10 @@ $N = 9$
 .pull-right[
 
 ```{r, echo = F}
-M = 5.3
-s = 3.1
-N = 9
-X = 2.9
+M = 50
+s = 18.88
+N = 10
+X = 69.41
 
 sem = s/sqrt(N)
 
@@ -668,27 +666,27 @@ We have a normal distribution for which we know the mean (M), the standard devia
 We can use this information to calculate a Z-score; in the context of comparing one mean to a sampling distribution of means, we call this a **Z-statistic**. 
 ]
 
-$$Z = \frac{\bar{X}- M}{SEM} = \frac{2.9-5.3}{1.03} = `r round(z, 2)`$$
+$$Z = \frac{\bar{X}- M}{SEM} = \frac{69.41-50}{5.97} = `r round(z, 2)`$$
 
 ---
 
-$$Z = \frac{\bar{X}- M}{SEM} = \frac{2.9-5.3}{1.03} = `r round(z, 2)`$$
+$$Z = \frac{\bar{X}- M}{SEM} = \frac{69.41-50}{5.97} = `r round(z, 2)`$$
 
 
 And here's where we use the properties of the Standard Normal Distribution to calculate probabilities, specifically the probability of getting a score this far away from $\mu$ or more extreme:
 
 ```{r, echo=c(1,2)}
-pnorm(-2.32) + pnorm(2.32, lower.tail = F)
-pnorm(-2.32)*2
-p = pnorm(-2.32)*2
+pnorm(-3.25) + pnorm(3.25, lower.tail = F)
+pnorm(-3.25)*2
+p = pnorm(-3.25)*2
 
 ```
 
-The probability that the average female applicant's score would be at least `r M-X` units away from the average male score is `r round(p, 3)`.
+The probability that the average puppy's success rate would be at least `r abs(M-X)` percentage points away from at-chance (50/%) `r round(p, 3)`.
 
 ---
 
-The probability that the average female applicant's score would be at least `r M-X` units away from the average male score is `r round(p, 3)`.
+The probability that the average puppy's success rate would be at least `r abs(M-X)` percentage points away from at-chance (50/%) `r round(p, 3)`.
 
 `r round(p, 3)` is our p-value. 
 
