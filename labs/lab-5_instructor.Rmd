@@ -1,12 +1,15 @@
 ---
-title: "Lab 5: Data Wrangling"
-output: 
-  html_document: 
+title: 'Lab 5: Data Wrangling'
+output:
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
     fig_caption: yes
     theme: cosmo
     toc: yes
     toc_depth: 3
-    toc_float: TRUE
+    toc_float: yes
     df_print: paged
 ---
 
@@ -22,7 +25,7 @@ library(janitor)
 ```
 
 You can download the .Rmd file [here](lab-5.Rmd).
-You can download the .doc file [here](Lab-5.docx).
+You can download the .doc file [here](lab-5.docx).
 
 # Purpose
 
@@ -140,6 +143,7 @@ The following figure from *R for Data Science* illustrates this visually.
   
 ```{r eval=FALSE, echo=TRUE}
 #practice entering a pipe with the shortcut here
+
 ```
   
 
@@ -167,13 +171,18 @@ Now, rewrite the following code using pipes.
 
 ```{r eval=FALSE, echo=TRUE}
 round(sqrt(sum(mtcars$cyl)), 1)
+
+mtcars$cyl %>% 
+  sum() %>% 
+  sqrt() %>% 
+  round(1)
 ```
 
 ```{r instructor, eval=FALSE, echo=TRUE}
 mtcars$cyl %>% 
   sum() %>% 
   sqrt() %>% 
-  round()
+  round(1)
 ```
 
 
@@ -200,7 +209,7 @@ mtcars$cyl %>%
 * Because you are already familiar with the World Happiness dataset, we will use this as a running example today (we'll use the same version from Homework 1). You can import the data with the following code:
 
 ```{r}
-world_happiness <- rio::import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab5/data/world_happiness.csv")
+world_happiness <- rio::import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab5/data/world_happiness.csv") 
 ```
 
 ### Clean names
@@ -284,6 +293,11 @@ So we could have written our filter statement like this:
 ```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   filter(country %in% c("United States", "Mexico", "Canada"))
+
+country_names = c("United States", "Mexico", "Canada")
+
+world_happiness %>% 
+  filter(country %in% country_names)
 ```
 
 
@@ -303,13 +317,14 @@ world_happiness %>%
 * Filter for observations that are greater than the mean of `happiness` but less than the mean of `gdp`
 ```{r}
 # your code here
+
 ```
 
 
 ```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   filter(happiness > mean(happiness, na.rm= TRUE), 
-         gdp < mean(gdp, na.rm = TRUE))
+         gdp < mean(gdp, na.rm = TRUE)) 
 ```
 
 
@@ -327,10 +342,12 @@ For example, let's re-order observations by `happiness`. Note that rows are sort
 
 ```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
-  arrange(happiness) # sorts in ascending order by default
+  arrange(happiness) %>%  # sorts in ascending order by default
+  head()
 
 world_happiness %>% 
-  arrange(desc(happiness)) # sort in descending order
+  arrange(desc(happiness)) %>% 
+  head()# sort in descending order
 ```
 
 ***
@@ -367,6 +384,7 @@ world_happiness %>%
 ```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   select(country:support)
+names(world_happiness)
 ```
 
 * Rearrange the order of variables
@@ -381,14 +399,16 @@ world_happiness %>%
 
 ```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
-  select(-happiness)
+  select(-happiness) %>% 
+  names()
 ```
 
 * De-select range of variables
 
 ```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
-  select(-(gdp:world))
+  select(-(gdp:world)) %>% 
+  names()
 ```
 
 ### You try
@@ -397,6 +417,8 @@ world_happiness %>%
 
 ```{r}
 # your code here
+
+
 ```
 
 
@@ -420,7 +442,7 @@ world_happiness %>%
 
 ```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
-  filter(world == 1 & freedom > mean(freedom, na.rm = TRUE)) %>% 
+  filter(world == 1 & freedom > mean(freedom, na.rm = TRUE)) %>%
   arrange(desc(freedom)) %>% 
   select(country, freedom)
 ```
@@ -464,7 +486,8 @@ world_happiness %>%
 ```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   mutate(corruption_z = scale(corruption), # z-score `corruption` variable
-         life_int = round(life, 0)) # round `life` variable to a whole number
+         life_int = round(life, 0)) %>%  # round `life` variable to a whole number
+  head()
 ```
 
 * Change existing variables
@@ -480,7 +503,7 @@ However, this variable refers to discrete categories, and we want to change it t
 ```{r eval = FALSE, echo=TRUE}
 # Note that I am re-saving the dataframe here to preserve this change
 world_happiness <- world_happiness %>% 
-  mutate(world = as.factor(world))
+  mutate(world = as.factor(world)) 
 ```
 
 Now check the type again...

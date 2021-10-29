@@ -246,7 +246,7 @@ div.tocify {
 </div>
 
 
-<p>You can download the .Rmd file <a href="lab-3.Rmd">here</a>. You can download the .doc file <a href="Lab-3.docx">here</a>.</p>
+<p>You can download the .Rmd file <a href="lab-5.Rmd">here</a>. You can download the .doc file <a href="lab-5.docx">here</a>.</p>
 <div id="purpose" class="section level1">
 <h1>Purpose</h1>
 <p>The purpose of today’s lab is to introduce you to the <code>tidyverse</code> as a framework for working with data structures in R. We will mostly focus on data wrangling (particularly data transformation), including how to extract specific observations and variables, how to generate new variables and how to summarize data.</p>
@@ -364,11 +364,16 @@ library(tidyverse)</code></pre>
   mean(na.rm = TRUE) %&gt;% # calculate the mean
   round(2) # round to 2 decimal places</code></pre>
 <p>Now, rewrite the following code using pipes.</p>
-<pre class="r"><code>round(sqrt(sum(mtcars$cyl)), 1)</code></pre>
+<pre class="r"><code>round(sqrt(sum(mtcars$cyl)), 1)
+
+mtcars$cyl %&gt;% 
+  sum() %&gt;% 
+  sqrt() %&gt;% 
+  round(1)</code></pre>
 <pre class="r"><code>mtcars$cyl %&gt;% 
   sum() %&gt;% 
   sqrt() %&gt;% 
-  round()</code></pre>
+  round(1)</code></pre>
 <div id="why-use-pipes" class="section level3">
 <h3>Why use pipes?</h3>
 <ol style="list-style-type: decimal">
@@ -387,7 +392,7 @@ library(tidyverse)</code></pre>
 <ul>
 <li>Because you are already familiar with the World Happiness dataset, we will use this as a running example today (we’ll use the same version from Homework 1). You can import the data with the following code:</li>
 </ul>
-<pre class="r"><code>world_happiness &lt;- rio::import(&quot;https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab5/data/world_happiness.csv&quot;)</code></pre>
+<pre class="r"><code>world_happiness &lt;- rio::import(&quot;https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab5/data/world_happiness.csv&quot;) </code></pre>
 <div id="clean-names" class="section level3">
 <h3>Clean names</h3>
 <ul>
@@ -460,7 +465,12 @@ world_happiness &lt;- world_happiness %&gt;%
 </ul>
 <p>So we could have written our filter statement like this:</p>
 <pre class="r"><code>world_happiness %&gt;% 
-  filter(country %in% c(&quot;United States&quot;, &quot;Mexico&quot;, &quot;Canada&quot;))</code></pre>
+  filter(country %in% c(&quot;United States&quot;, &quot;Mexico&quot;, &quot;Canada&quot;))
+
+country_names = c(&quot;United States&quot;, &quot;Mexico&quot;, &quot;Canada&quot;)
+
+world_happiness %&gt;% 
+  filter(country %in% country_names)</code></pre>
 <div id="you-try" class="section level3">
 <h3>You try</h3>
 <ul>
@@ -475,7 +485,7 @@ world_happiness &lt;- world_happiness %&gt;%
 <pre class="r"><code># your code here</code></pre>
 <pre class="r"><code>world_happiness %&gt;% 
   filter(happiness &gt; mean(happiness, na.rm= TRUE), 
-         gdp &lt; mean(gdp, na.rm = TRUE))</code></pre>
+         gdp &lt; mean(gdp, na.rm = TRUE)) </code></pre>
 </div>
 </div>
 <div id="sort-rows-with-arrange" class="section level2">
@@ -491,10 +501,12 @@ world_happiness &lt;- world_happiness %&gt;%
 </ul>
 <p>For example, let’s re-order observations by <code>happiness</code>. Note that rows are sorted in ascending order by default.</p>
 <pre class="r"><code>world_happiness %&gt;% 
-  arrange(happiness) # sorts in ascending order by default
+  arrange(happiness) %&gt;%  # sorts in ascending order by default
+  head()
 
 world_happiness %&gt;% 
-  arrange(desc(happiness)) # sort in descending order</code></pre>
+  arrange(desc(happiness)) %&gt;% 
+  head()# sort in descending order</code></pre>
 <hr />
 </div>
 </div>
@@ -523,7 +535,8 @@ world_happiness %&gt;%
 <li>Select a range of variables</li>
 </ul>
 <pre class="r"><code>world_happiness %&gt;% 
-  select(country:support)</code></pre>
+  select(country:support)
+names(world_happiness)</code></pre>
 <ul>
 <li>Rearrange the order of variables
 <ul>
@@ -536,12 +549,14 @@ world_happiness %&gt;%
 <li>De-select variables with a minus sign (<code>-</code>)</li>
 </ul>
 <pre class="r"><code>world_happiness %&gt;% 
-  select(-happiness)</code></pre>
+  select(-happiness) %&gt;% 
+  names()</code></pre>
 <ul>
 <li>De-select range of variables</li>
 </ul>
 <pre class="r"><code>world_happiness %&gt;% 
-  select(-(gdp:world))</code></pre>
+  select(-(gdp:world)) %&gt;% 
+  names()</code></pre>
 <div id="you-try-1" class="section level3">
 <h3>You try</h3>
 <ul>
@@ -560,7 +575,7 @@ world_happiness %&gt;%
 </ul>
 <pre class="r"><code># your code here</code></pre>
 <pre class="r"><code>world_happiness %&gt;% 
-  filter(world == 1 &amp; freedom &gt; mean(freedom, na.rm = TRUE)) %&gt;% 
+  filter(world == 1 &amp; freedom &gt; mean(freedom, na.rm = TRUE)) %&gt;%
   arrange(desc(freedom)) %&gt;% 
   select(country, freedom)</code></pre>
 </div>
@@ -636,7 +651,8 @@ world_happiness %&gt;%
 </ul>
 <pre class="r"><code>world_happiness %&gt;% 
   mutate(corruption_z = scale(corruption), # z-score `corruption` variable
-         life_int = round(life, 0)) # round `life` variable to a whole number</code></pre>
+         life_int = round(life, 0)) %&gt;%  # round `life` variable to a whole number
+  head()</code></pre>
 <ul>
 <li>Change existing variables</li>
 </ul>
@@ -645,7 +661,7 @@ world_happiness %&gt;%
 <p>However, this variable refers to discrete categories, and we want to change it to be a <code>factor</code>. We can do this using <code>mutate()</code>.</p>
 <pre class="r"><code># Note that I am re-saving the dataframe here to preserve this change
 world_happiness &lt;- world_happiness %&gt;% 
-  mutate(world = as.factor(world))</code></pre>
+  mutate(world = as.factor(world)) </code></pre>
 <p>Now check the type again…</p>
 <pre class="r"><code>class(world_happiness$world)</code></pre>
 <hr />
