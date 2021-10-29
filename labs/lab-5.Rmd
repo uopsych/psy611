@@ -24,8 +24,8 @@ library(tidyverse)
 library(janitor)
 ```
 
-You can download the .Rmd file [here](lab-5.Rmd).
-You can download the .doc file [here](lab-5.docx).
+You can download the .Rmd file [here](Lab-5.Rmd).
+You can download the .doc file [here](Lab-5.docx).
 
 # Purpose
 
