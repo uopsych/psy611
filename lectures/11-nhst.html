@@ -3,7 +3,7 @@
   <head>
     <title>NHST II</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
@@ -41,8 +41,8 @@ Healthy adults send an average of 32 text messages a day `\((\sigma = 7.3)\)`. I
 
 **Define hypotheses**
 
-- `\(H_0: \mu_{GAD} = \mu_{healthy}\)` OR `\(H_0: \mu_{GAD} = 32\)`
-- `\(H_1: \mu_{GAD} \neq \mu_{healthy}\)` OR `\(H_0: \mu_{GAD} \neq 32\)`
+-  `\(H_0: \mu_{GAD} = 32\)`
+-  `\(H_0: \mu_{GAD} \neq 32\)`
 
 --
 
@@ -69,18 +69,18 @@ Healthy adults send an average of 32 text messages a day `\((\sigma = 7.3)\)`. I
 
 ---
 
-**Compare your probability (p-value) to your `\(\alpha\)` level and decide whether your data are "statistically significant" (reject the null) or not (retain the null).**
+Compare your probability ( `\(p\)`-value) to your `\(\alpha\)` level and decide whether your data are "statistically significant" (reject the null) or not (retain the null).
 
 --
 
-Our _p_-value is larger than our `\(\alpha\)` level, so we retain the null. 
+Our `\(p\)`-value is larger than our `\(\alpha\)` level, so we retain the null. 
 ---
 
 ### Review
 
 - If we do not reject `\(H_0\)`, that does not mean that we accept it.  We have simply failed to reject it. It lives to fight another day.
 
-- A Z-statistic summarizes how unusual the sample estimate of a mean compared to the value of the mean as specified by the null hypothesis.
+- A _Z_-statistic summarizes how unusual the sample estimate of a mean compared to the value of the mean as specified by the null hypothesis.
 
   - More broadly, we refer to the **test statistic** as the statistic that summarizes how unusual the sample estimate of a parameter is from the point value specified by the null hypothesis.
   
@@ -108,7 +108,7 @@ If `\(p\)` is sufficiently small ( `\(p &lt; .05\)` ), we may choose to reject t
 
 - Fisher established (rather arbitrarily) the sanctity of the .05 and .01 significance levels during his work in agriculture, including work on the effectiveness of fertilizer.  A common source of fertilizer is cow manure. Male cattle are called bulls.  
 
-A common misinterpretation of the p value ( `\(\alpha\)` ) is that it is the probability of the null hypothesis being wrong.
+A common misinterpretation of the `\(p\)`-value ( `\(\alpha\)` ) is that it is the probability of the null hypothesis being wrong.
 
 Another common misunderstanding is that `\(1-\alpha\)` is the probability that results will replicate.
 
@@ -118,9 +118,11 @@ Another common misunderstanding is that `\(1-\alpha\)` is the probability that r
 
 - If the null hypothesis is false, then the only mistake to be made is a failure to detect a real effect.
 
+We collect a sample and compare this to a null hypothesis: `\(H_0: \mu_0 = 100\)`. Holding our sample mean `\((\bar{X} = 105)\)` constant, how does our `\(p\)`-value change as our sample size gets larger?
+
 ---
 
-We collect a sample and compare this to a null hypothesis: `\(H_0: \mu_0 = 100\)`. Holding our sample mean `\((\bar{X} = 105)\)` constant, how does our _p_-value change as our sample size gets larger?
+We collect a sample and compare this to a null hypothesis: `\(H_0: \mu_0 = 100\)`. Holding our sample mean `\((\bar{X} = 105)\)` constant, how does our `\(p\)`-value change as our sample size gets larger?
 
 ![](11-nhst_files/figure-html/unnamed-chunk-2-1.gif)&lt;!-- --&gt;
 
@@ -144,7 +146,7 @@ In hypothesis testing, we can make two kinds of errors.
 | `\(H_0\)` False | Correct decision |   Type II Error  |
 
 
-Falsely rejecting the null hypothesis is a **Type I error**.  Traditionally this has been viewed as particularly important to control at a low level (akin to avoiding false conviction of an innocent defendant). 
+Falsely rejecting the null hypothesis is a **Type I error**.  Traditionally, this has been viewed as particularly important to control at a low level (akin to avoiding false conviction of an innocent defendant). 
 
 ---
 
@@ -194,11 +196,11 @@ Controlling Type II errors is more challenging because it depends on several fac
 
 ### Some Greek letters
 
-`\(\alpha\)` -- The rate at which we make Type I errors, which is the same `\(\alpha\)` as the cut-off for `\(p\)` -values. 
+`\(\alpha\)` : The rate at which we make Type I errors, which is the same `\(\alpha\)` as the cut-off for `\(p\)` -values. 
 
-`\(\beta\)` -- The rate at which we make Type II errors. 
+`\(\beta\)` : The rate at which we make Type II errors. 
 
-`\(1-\beta\)` -- statistical power. 
+`\(1-\beta\)` : statistical power. 
 
 Note that all these probability statements are being made in the frequentist sense -- in the long run, we expect to make Type I errors `\(\alpha\)` proportion of the time and Type II errors `\(\beta\)` proportion of the time. 
 
@@ -217,7 +219,7 @@ We must specify a specific value for the alternative hypothesis to estimate and 
 
 ---
 
-Suppose we have a measure of social sensitivity that we have administered to a random sample of 20 psychology students.  This measure has a population mean ( `\(\mu\)` ) of 100 and a standard deviation ( `\(\sigma\)` ) of 20.  We suspect that psychology students are more sensitive to others than is typical and want to know if their mean, which is 110, is sufficient evidence to reject the null hypothesis that they are no more sensitive than the rest of the population.
+Suppose we have a measure of social sensitivity that we have administered to a random sample of 25 psychology students.  This measure has a population mean ( `\(\mu\)` ) of 100 and a standard deviation ( `\(\sigma\)` ) of 20.  We suspect that psychology students are more sensitive to others than is typical and want to know if their mean, which is 110, is sufficient evidence to reject the null hypothesis that they are no more sensitive than the rest of the population.
 
 We would also like to know how likely it is that we could make a mistake by concluding that psychology students are not different when they really are: A Type II error.
 
@@ -241,24 +243,24 @@ Given our distribution parameters, what Z-value corresponds to .05 above that li
 mu = 100
 x = 110
 s = 20
-n = 20
-sem = `\(\frac{20}{\sqrt{20}}\)` = 4.47
-z = 1.64
+n = 25
+sem = 4
+z = 1.96
 
 ---
 .pull-left[
-`$$\text{Critical Value} = \mu_0 + Z_{.95}\frac{\sigma}{\sqrt{N}}$$`
+`$$\text{Critical Value} = \mu_0 + Z_{.975}\frac{\sigma}{\sqrt{N}}$$`
 
 
 ```r
-qnorm(.95)
+qnorm(.975)
 ```
 
 ```
-## [1] 1.644854
+## [1] 1.959964
 ```
 
-`$$\text{Critical Value} = 100 + 1.645\frac{20}{\sqrt{20}} = 107.4$$`
+`$$\text{Critical Value} = 100 + 1.96\frac{20}{\sqrt{25}} = 107.84$$`
 
 
 What if the null hypothesis is false?  How likely are we to correctly reject the null hypothesis in the long run?
@@ -276,12 +278,15 @@ What if the null hypothesis is false?  How likely are we to correctly reject the
 
 ---
 
+
+
+
 .left-column[
 .small[
 To determine the probability of a Type II error we must specify a value for the alternative hypothesis.  We will use the sample mean of 110.
 
-In the long run, if psychology samples have a mean of 110 ( `\(\sigma = 20\)`, `\(N = 20\)` ), we will correctly reject the null with probability of .72 (power).  We will incorrectly fail to reject the
-null with probability of .28 ( `\(\beta\)` ).
+In the long run, if psychology samples have a mean of 110 ( `\(\sigma = 20\)`, `\(N = 25\)` ), we will correctly reject the null with probability of 0.71 (power).  We will incorrectly fail to reject the
+null with probability of 0.29 ( `\(\beta\)` ).
 
 ]
 ]
@@ -295,80 +300,84 @@ null with probability of .28 ( `\(\beta\)` ).
 
 
 .pull-left[
-![](11-nhst_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 
 Once the critical value and alternative value is established, we can determine the location of the critical value in the alternative distribution.
 ]
 
 --
 
+
+
+
 .pull-right[
 
 `$$Z_1 = \frac{CV_0 - \mu_1}{\frac{\sigma}{\sqrt{N}}}$$`
-`$$Z_1 = \frac{107.4 - 110}{\frac{20}{\sqrt{20}}} = -.59$$`
+`$$Z_1 = \frac{107.84 - 110}{\frac{20}{\sqrt{25}}} = -0.54$$`
 
-The proportion of the alternative distribution that falls below that point is the probability of a Type II error (.28); power is then .72.
+The proportion of the alternative distribution that falls below that point is the probability of a Type II error (.39); power is then .61.
 
 ```r
-pnorm(-.59)
+pnorm(-.54)
 ```
 
 ```
-## [1] 0.2775953
+## [1] 0.2945985
 ```
 
 ]
 
 ---
 
-The choice of 110 as the mean of `\(H_1\)` is completely arbirtary. What if we believe that the alternative mean is 115?  This larger signal should be easier to detect.
+The choice of 110 as the mean of `\(H_1\)` is completely arbitrary. What if we believe that the alternative mean is 115?  This larger signal should be easier to detect.
 .pull-left[
 
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
-`$$Z_1 = \frac{107.4 - 115}{\frac{20}{\sqrt{20}}} = -1.71$$`
+
+`$$Z_1 = \frac{107.84 - 115}{\frac{20}{\sqrt{25}}} = -1.79$$`
 
 ```r
-1-pnorm(-1.71) 
+1-pnorm(-1.79) 
 ```
 
 ```
-## [1] 0.9563671
+## [1] 0.963273
 ```
 ]
 
 ---
 
-What if instead we increase the sample size?  This will reduce variability in the sampling distribution, making the difference between the null and alternative distributions easier to see.
+What if instead we increase the sample size?  This will reduce variability in the sampling distribution, making the difference between the null and alternative distributions easier to see. (New `\(N\)` is 50.)
 
 
 .pull-left[
 
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
-`\(\text{CV} = 100 + 1.645\frac{20}{\sqrt{40}} = 105.2\)`
 
-`\(Z_1 = \frac{105.2 - 110}{\frac{20}{\sqrt{40}}} = -1.52\)`
+`\(\text{CV} = 100 + 1.96\frac{20}{\sqrt{50}} = 105.54\)`
+`$$Z_1 = \frac{105.54 - 110}{\frac{20}{\sqrt{50}}} = -1.58$$`
 
 
 ```r
-1-pnorm(-1.52) 
+1-pnorm(-1.57) 
 ```
 
 ```
-## [1] 0.9357445
+## [1] 0.9417924
 ```
 ]
 
 ---
 
-What if we decrease the significance level to .025?  
+What if we decrease the significance level to .01?  
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 
@@ -377,67 +386,88 @@ What if we decrease the significance level to .025?
 
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
 That will move the critical value:
-`$$CV_0 = 100 + 1.96[\frac{20}{\sqrt{20}}] = 108.8$$`
 
-`$$Z_1 = \frac{108.8 - 110}{\frac{20}{\sqrt{20}}} = -.28$$`
+`\(\text{CV} = 100 + 2.58\frac{20}{\sqrt{25}} = 110.3\)`
+`$$Z_1 = \frac{110.3 - 110}{\frac{20}{\sqrt{25}}} = 0.08$$`
 
 ```r
-1-pnorm(-.28) 
+1-pnorm(.08) 
 ```
 
 ```
-## [1] 0.6102612
+## [1] 0.4681186
 ```
 ]
 
-I strongly recommend playing around with different configurations of `\(N\)`, `\(\alpha\)` and the difference in means ( `\(d\)` ) in this [online demo](https://rpsychologist.com/d3/NHST/).
+---
+
+Oops, we've been ignoring the other tail. So far it hasn't mattered (the area has been so small) but it makes a difference when `\(H_0\)` and `\(H_1\)` overlap significantly. 
+.pull-left[
+
+
+
+![](11-nhst_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+]
+.pull-right[
+`$$Z_1 = \frac{107.84 - 102}{\frac{20}{\sqrt{25}}} = 1.46$$`
+`$$Z_2 = \frac{92.16 - 102}{\frac{20}{\sqrt{25}}} = -2.46$$`
+
+```r
+1-pnorm(1.46) 
+```
+
+```
+## [1] 0.07214504
+```
+
+```r
+pnorm(-2.46)
+```
+
+```
+## [1] 0.006946851
+```
+]
 
 ---
 
 More generally we can determine the relationship between effect size and power for a constant `\(\alpha\)` (.05) and sample size ( `\(N = 20\)` ).
 
-![](11-nhst_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 
 ---
 
 Likewise, we can display the relationship between sample size and power for a constant `\(\alpha\)` and effect size.
 
-![](11-nhst_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 
 ---
 
 Power changes as a function of significance level for a constant effect size and sample size.
 
-![](11-nhst_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 ---
 
-For a two-tailed test, we divide the rejection area equally in the two tails. If `\(\alpha = .05\)`, then each tail contains .025 and critical values will be 1.96 standard errors away from the null mean.
+For a one-tailed test, we put the entire rejection area into a single tail. If `\(\alpha = .05\)`, then one tail contains .05 and critical values will be either 1.64 or -1.64 standard errors away from the null mean.
 
-![](11-nhst_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
-
----
-
-The relationship of power to effect size is more complicated because deviations above and below the null mean are relevant.
-
-
-![](11-nhst_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 
 ---
 
 A two-tailed test is less powerful (more conservative) than a one-tailed test for the same sample size.
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
 
 ---
 
-![](11-nhst_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -445,7 +475,7 @@ A two-tailed test is less powerful (more conservative) than a one-tailed test fo
 
 
 .pull-left[
-![](11-nhst_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
 
 ]
 .pull-right[
@@ -457,6 +487,7 @@ A two-tailed test is less powerful (more conservative) than a one-tailed test fo
 - reduce `\(\sigma\)`
 ]
 
+I strongly recommend playing around with different configurations of `\(N\)`, `\(\alpha\)` and the difference in means ( `\(d\)` ) in this [online demo](https://rpsychologist.com/d3/NHST/).
 ---
 
 Often the most challenging part of a power analysis is to settle on an effect size.  
@@ -515,18 +546,18 @@ Note that given publication bias, or the tendancy to only publish significant re
 
 Let's make some assumptions. If psychology studies use `\(\alpha = .05\)` and are good at achieving adequate power ( `\(1-\beta = .80\)` ), how does the choice of hypothesis affect PPV?
 
-![](11-nhst_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
 ---
 
 However, there are many reasons to think that psychology studies are underpowered. Typical power may be closer to .5 or even worse. 
 
-![](11-nhst_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 
 ---
 
 In addition to being under-powered, there's recognition that research practices have inflated family-wise error, making `\(\alpha\)` much bigger than it should be. 
 
-![](11-nhst_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
 ---
 
 ![](images/ioannidis.png)
