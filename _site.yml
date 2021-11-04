@@ -27,9 +27,9 @@ navbar:
         href: "lectures/09-sampling.html"
       - text: "10-NHST I"
         href: "lectures/10-nhst.html"
-      - text: "11-NHST II"
+      - text: "11 & 12-NHST II"
         href: "lectures/11-nhst.html"
-      - text: "12-Critiques of NHST"
+      - text: "13-Critiques of NHST"
         href: "lectures/12-critiques.html"
     - text: Labs
       menu:

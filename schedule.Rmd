@@ -30,9 +30,9 @@ LSR readings can be found in the free, online textbook, [_Learning Statistics wi
 | -    | 10/28 | Hypothesis testing                     | LSR Ch 11                                                                                           |        |            |
 | -    | 10/29 | _Lab: Data wrangling_                  |                                                                                                     |        |            |             
 | 6    | 11/02 | Hypothesis testing                     | [Sainani (2012)](readings/Sainani_2012.pdf)                                                         | Quiz 5 |            |
-| -    | 11/04 | Critiques of hypothesis testing        | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf) [Cumming (2014)](readings/Cumming_2014.pdf) |        |            |
+| -    | 11/04 | Hypothesis testing        |   |        |            |
 | -    | 11/05 | _Lab: Graphing with ggplot2_           |                                                                                                     |        |            |             
-| 7    | 11/09 | Open Science                           | [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/)                      | Quiz 6 |            |
+| 7    | 11/09 | Critiques of hypothesis testing        | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf) [Cumming (2014)](readings/Cumming_2014.pdf)| Quiz 6 |            |
 | -    | 11/11 | No class: Veteran's Day                |                                                                                                     |        |            |
 | -    | 11/12 | _Lab: RMarkdown_                       |                                                                                                     |        |  HW 2 Due  |
 | 8    | 11/16 | One-sample tests                       |  LSR Ch 13.1-13.2                                                                                   | Quiz 7 |            |   
@@ -42,7 +42,7 @@ LSR readings can be found in the free, online textbook, [_Learning Statistics wi
 | -    | 11/25 | __Thanksgiving__                       |                                                                                                     |        |            |             
 | -    | 11/26 | _Lab: No Lab_                          |                                                                                                     |        |            |             
 | 10   | 11/39 | Effect sizes and assumptions           |                                                                                                     |        |            |             
-| -    | 12/02 | Wrap-up                                |                                                                                                     | Quiz 9 |            |   
+| -    | 12/02 | Open Science and Wrap-up             |  [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/)                      | Quiz 9 |            |   
 | -    | 12/03 | _Lab: Independent samples t-tests_     |                                                                                                     |        |            |             
 |Finals| 12/06 |                                        |                                                                                                     |        |            |             
 | -    | 12/08 |                                        |                                                                                                     |        | HW 3 Due [^1]  9am|         
