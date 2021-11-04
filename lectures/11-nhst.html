@@ -274,7 +274,21 @@ What if the null hypothesis is false?  How likely are we to correctly reject the
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 ![](11-nhst_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 ]
+---
 
+![](11-nhst_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+---
+
+![](11-nhst_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+---
+
+![](11-nhst_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+---
+
+![](11-nhst_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -283,7 +297,7 @@ What if the null hypothesis is false?  How likely are we to correctly reject the
 
 .left-column[
 .small[
-To determine the probability of a Type II error we must specify a value for the alternative hypothesis.  We will use the sample mean of 110.
+To determine the probability of a Type II error, we must specify a value for the alternative hypothesis.  We will use the sample mean of 110.
 
 In the long run, if psychology samples have a mean of 110 ( `\(\sigma = 20\)`, `\(N = 25\)` ), we will correctly reject the null with probability of 0.71 (power).  We will incorrectly fail to reject the
 null with probability of 0.29 ( `\(\beta\)` ).
@@ -300,7 +314,7 @@ null with probability of 0.29 ( `\(\beta\)` ).
 
 
 .pull-left[
-![](11-nhst_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 Once the critical value and alternative value is established, we can determine the location of the critical value in the alternative distribution.
 ]
@@ -315,7 +329,7 @@ Once the critical value and alternative value is established, we can determine t
 `$$Z_1 = \frac{CV_0 - \mu_1}{\frac{\sigma}{\sqrt{N}}}$$`
 `$$Z_1 = \frac{107.84 - 110}{\frac{20}{\sqrt{25}}} = -0.54$$`
 
-The proportion of the alternative distribution that falls below that point is the probability of a Type II error (.39); power is then .61.
+The proportion of the alternative distribution that falls below that point is the probability of a Type II error (.29); power is then .71.
 
 ```r
 pnorm(-.54)
@@ -334,7 +348,7 @@ The choice of 110 as the mean of `\(H_1\)` is completely arbitrary. What if we b
 
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
 
@@ -358,7 +372,7 @@ What if instead we increase the sample size?  This will reduce variability in th
 
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
 
@@ -386,7 +400,7 @@ What if we decrease the significance level to .01?
 
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
@@ -411,7 +425,7 @@ Oops, we've been ignoring the other tail. So far it hasn't mattered (the area ha
 
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
 `$$Z_1 = \frac{107.84 - 102}{\frac{20}{\sqrt{25}}} = 1.46$$`
@@ -438,36 +452,36 @@ pnorm(-2.46)
 
 More generally we can determine the relationship between effect size and power for a constant `\(\alpha\)` (.05) and sample size ( `\(N = 20\)` ).
 
-![](11-nhst_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
 
 ---
 
 Likewise, we can display the relationship between sample size and power for a constant `\(\alpha\)` and effect size.
 
-![](11-nhst_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
 
 ---
 
 Power changes as a function of significance level for a constant effect size and sample size.
 
-![](11-nhst_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
 
 ---
 
 For a one-tailed test, we put the entire rejection area into a single tail. If `\(\alpha = .05\)`, then one tail contains .05 and critical values will be either 1.64 or -1.64 standard errors away from the null mean.
 
-![](11-nhst_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
 
 ---
 
 A two-tailed test is less powerful (more conservative) than a one-tailed test for the same sample size.
 
 
-![](11-nhst_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 
 ---
 
-![](11-nhst_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -475,7 +489,7 @@ A two-tailed test is less powerful (more conservative) than a one-tailed test fo
 
 
 .pull-left[
-![](11-nhst_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+![](11-nhst_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 
 ]
 .pull-right[
@@ -488,79 +502,6 @@ A two-tailed test is less powerful (more conservative) than a one-tailed test fo
 ]
 
 I strongly recommend playing around with different configurations of `\(N\)`, `\(\alpha\)` and the difference in means ( `\(d\)` ) in this [online demo](https://rpsychologist.com/d3/NHST/).
----
-
-Often the most challenging part of a power analysis is to settle on an effect size.  
-
-- Past research can often provide some guidance, especially if a meta-analysis is available. 
-
-    - Note that these are often over-estimates. 
-
-- Sometimes a field might have standards regarding what counts as a meaningful effect (e.g., minimal clinically important difference).  
-
-- Lacking this information, we can settle for more abstract benchmarks or rules of thumb about what are “small,” “medium”, and “large” effects. 
-    
-    - But as we discussed, these benchmarks need to be contextualized in real-world outcomes.
-
-    - Complicating these choices, effect sizes come in a variety of metrics.
-    
----
-### Prevalence of false positives
-
-Consider where `\(\alpha\)`, `\(\beta\)` and power fall in this grid. 
-
-
-|             |   Reject `\(H_0\)`   |   Do not reject  |
-|------------:|:----------------:|:----------------:|
-|  `\(H_0\)` True |   Type I Error   | Correct decision |
-| `\(H_0\)` False | Correct decision |   Type II Error  |
-
----
-### Prevalence of false positives
-
-Consider where `\(\alpha\)`, `\(\beta\)` and power fall in this grid. 
-
-
-|             |   Reject `\(H_0\)`   |   Do not reject  |
-|------------:|:----------------:|:----------------:|
-|  `\(H_0\)` True |   `\(\alpha\)`   | `\(1-\beta\)` |
-| `\(H_0\)` False | `\(1-\alpha\)` |   `\(\beta\)`  |
-
-What is the sum of these cells?
-
----
-### Prevalence of false positives
-
-Figuring out how common Type I and Type II errors are in a literature requires an additional piece of information:
-
-- How often `\(H_0\)` is true.
-
-[Ioannidis (2005)](../readings/Ioannidis_2005.pdf) demonstrates that given R (the ratio of `\(H_0\)` false over `\(H-0\)` true), we can calculate the **positive predictive value** of a finding, which is the likelihood that `\(H_1\)` is true given we found a significant result:
-
-`$$\frac{(1-\beta)R}{(1-\beta)R+\alpha}$$`
-???
-
-Note that given publication bias, or the tendancy to only publish significant results, PPV can be thought of as the likelihood of a given published study being a false positive.
-
----
-
-Let's make some assumptions. If psychology studies use `\(\alpha = .05\)` and are good at achieving adequate power ( `\(1-\beta = .80\)` ), how does the choice of hypothesis affect PPV?
-
-![](11-nhst_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
----
-
-However, there are many reasons to think that psychology studies are underpowered. Typical power may be closer to .5 or even worse. 
-
-![](11-nhst_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
-
----
-
-In addition to being under-powered, there's recognition that research practices have inflated family-wise error, making `\(\alpha\)` much bigger than it should be. 
-
-![](11-nhst_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
----
-
-![](images/ioannidis.png)
 
 ---
 

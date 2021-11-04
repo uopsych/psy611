@@ -252,7 +252,7 @@ We begin by defining the location in the null hypothesis distribution beyond whi
 
 ```{r student null, echo = F}
 mu = 100
-x = 110
+xbar = 110
 s = 20
 n = 25
 sem = s/sqrt(n)
@@ -283,7 +283,7 @@ Start with our $\alpha$ level (.05)
 Given our distribution parameters, what Z-value corresponds to .05 above that line
 
 mu = `r mu`
-x = `r x`
+x = `r xbar`
 s = `r s`
 n = `r n`
 sem = `r sem`
@@ -313,21 +313,107 @@ What if the null hypothesis is false?  How likely are we to correctly reject the
 
 ```
 ]
+---
 
+```{r, echo = F}
+data.frame(x = seq(70, 140)) %>%
+  ggplot(aes(x = x)) +
+  stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "line") +
+  stat_function(aes(fill = "Type I error"), fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "area", xlim = c(cv, 140),
+                alpha = .5) +
+  stat_function(aes(fill = "Type I error"), fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "area", xlim = c(70, cv2),
+                alpha = .5) +
+  geom_vline(aes(xintercept = cv, color = "Critical Value")) +
+  guides(color = "none") +
+  scale_x_continuous(limits = c(70,140), breaks = seq(70, 140, 10)) +
+  scale_y_continuous(breaks = NULL) +
+  labs(x = "Mean", y = "density", fill = NULL)+
+  theme_pubr()
+```
 
 ---
 
 ```{r, echo = F}
-beta = pnorm(q = cv, mean = x, sd =sem)
+data.frame(x = seq(70, 140)) %>%
+  ggplot(aes(x = x)) +
+  stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem),
+                 geom = "line", alpha = .2) +
+  # stat_function(aes(fill = "Type I error"), fun = function(x) dnorm(x, mean = mu, sd = sem), 
+  #                geom = "area", xlim = c(cv, 140),
+  #               alpha = .5) +
+  # stat_function(aes(fill = "Type I error"), fun = function(x) dnorm(x, mean = mu, sd = sem), 
+  #                geom = "area", xlim = c(70, cv2),
+  #               alpha = .5) +
+  geom_vline(aes(xintercept = cv, color = "Critical Value")) +
+  guides(color = "none") +
+  scale_x_continuous(limits = c(70,140), breaks = seq(70, 140, 10)) +
+  scale_y_continuous(breaks = NULL) +
+  labs(x = "Mean", y = "density", fill = NULL)+
+  theme_pubr()
+```
+
+---
+
+```{r, echo = F}
+data.frame(x = seq(70, 140)) %>%
+  ggplot(aes(x = x)) +
+  stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem),
+                 geom = "line", alpha = .2) +
+  stat_function(fun = function(x) dnorm(x, mean = xbar, sd = sem),
+                 geom = "line") +
+  # stat_function(aes(fill = "Power"), fun = function(x) dnorm(x, mean = xbar, sd = sem),
+  #                geom = "area", xlim = c(cv, 140),
+  #               alpha = .5) +
+  # stat_function(aes(fill = "Type II error"), fun = function(x) dnorm(x, mean = xbar, sd = sem),
+  #                geom = "area", xlim = c(70, cv),
+  #               alpha = .5) +
+  geom_vline(aes(xintercept = cv, color = "Critical Value")) +
+  guides(color = "none") +
+  scale_x_continuous(limits = c(70,140), breaks = seq(70, 140, 10)) +
+  scale_y_continuous(breaks = NULL) +
+  labs(x = "Mean", y = "density", fill = NULL)+
+  theme_pubr()
+```
+
+---
+
+```{r, echo = F}
+data.frame(x = seq(70, 140)) %>%
+  ggplot(aes(x = x)) +
+  stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem),
+                 geom = "line", alpha = .2) +
+  stat_function(fun = function(x) dnorm(x, mean = xbar, sd = sem),
+                 geom = "line") +
+  stat_function(aes(fill = "Power"), fun = function(x) dnorm(x, mean = xbar, sd = sem),
+                 geom = "area", xlim = c(cv, 140),
+                alpha = .5) +
+  stat_function(aes(fill = "Type II error"), fun = function(x) dnorm(x, mean = xbar, sd = sem),
+                 geom = "area", xlim = c(70, cv),
+                alpha = .5) +
+  geom_vline(aes(xintercept = cv, color = "Critical Value")) +
+  guides(color = "none") +
+  scale_x_continuous(limits = c(70,140), breaks = seq(70, 140, 10)) +
+  scale_y_continuous(breaks = NULL) +
+  labs(x = "Mean", y = "density", fill = NULL)+
+  theme_pubr()
+```
+
+---
+
+```{r, echo = F}
+beta = pnorm(q = cv, mean = xbar, sd =sem)
 power = 1-beta
 ```
 
 
 .left-column[
 .small[
-To determine the probability of a Type II error we must specify a value for the alternative hypothesis.  We will use the sample mean of `r x`.
+To determine the probability of a Type II error, we must specify a value for the alternative hypothesis.  We will use the sample mean of `r xbar`.
 
-In the long run, if psychology samples have a mean of `r x` ( $\sigma = `r s`$, $N = `r n`$ ), we will correctly reject the null with probability of `r round(power,2)` (power).  We will incorrectly fail to reject the
+In the long run, if psychology samples have a mean of `r xbar` ( $\sigma = `r s`$, $N = `r n`$ ), we will correctly reject the null with probability of `r round(power,2)` (power).  We will incorrectly fail to reject the
 null with probability of `r round(beta,2)` ( $\beta$ ).
 
 ]
@@ -393,16 +479,16 @@ Once the critical value and alternative value is established, we can determine t
 --
 
 ```{r, echo = F}
-z_a = (cv-x)/sem
+z_a = (cv-xbar)/sem
 ```
 
 
 .pull-right[
 
 $$Z_1 = \frac{CV_0 - \mu_1}{\frac{\sigma}{\sqrt{N}}}$$
-$$Z_1 = \frac{`r round(cv,2)` - `r x`}{\frac{`r s`}{\sqrt{`r n`}}} = `r round(z_a, 2)`$$
+$$Z_1 = \frac{`r round(cv,2)` - `r xbar`}{\frac{`r s`}{\sqrt{`r n`}}} = `r round(z_a, 2)`$$
 
-The proportion of the alternative distribution that falls below that point is the probability of a Type II error (.39); power is then .61.
+The proportion of the alternative distribution that falls below that point is the probability of a Type II error (.29); power is then .71.
 ```{r CHANGE ME}
 pnorm(-.54)
 ```
@@ -720,122 +806,6 @@ $$Z_1 = \frac{CV_0 - \mu_1}{\frac{\sigma}{\sqrt{N}}}$$
 ]
 
 I strongly recommend playing around with different configurations of $N$, $\alpha$ and the difference in means ( $d$ ) in this [online demo](https://rpsychologist.com/d3/NHST/).
----
-
-Often the most challenging part of a power analysis is to settle on an effect size.  
-
-- Past research can often provide some guidance, especially if a meta-analysis is available. 
-
-    - Note that these are often over-estimates. 
-
-- Sometimes a field might have standards regarding what counts as a meaningful effect (e.g., minimal clinically important difference).  
-
-- Lacking this information, we can settle for more abstract benchmarks or rules of thumb about what are “small,” “medium”, and “large” effects. 
-    
-    - But as we discussed, these benchmarks need to be contextualized in real-world outcomes.
-
-    - Complicating these choices, effect sizes come in a variety of metrics.
-    
----
-### Prevalence of false positives
-
-Consider where $\alpha$, $\beta$ and power fall in this grid. 
-
-
-|             |   Reject $H_0$   |   Do not reject  |
-|------------:|:----------------:|:----------------:|
-|  $H_0$ True |   Type I Error   | Correct decision |
-| $H_0$ False | Correct decision |   Type II Error  |
-
----
-### Prevalence of false positives
-
-Consider where $\alpha$, $\beta$ and power fall in this grid. 
-
-
-|             |   Reject $H_0$   |   Do not reject  |
-|------------:|:----------------:|:----------------:|
-|  $H_0$ True |   $\alpha$   | $1-\beta$ |
-| $H_0$ False | $1-\alpha$ |   $\beta$  |
-
-What is the sum of these cells?
-
----
-### Prevalence of false positives
-
-Figuring out how common Type I and Type II errors are in a literature requires an additional piece of information:
-
-- How often $H_0$ is true.
-
-[Ioannidis (2005)](../readings/Ioannidis_2005.pdf) demonstrates that given R (the ratio of $H_0$ false over $H_0$ true), we can calculate the **positive predictive value** of a finding, which is the likelihood that $H_1$ is true given we found a significant result:
-
-$$\frac{(1-\beta)R}{(1-\beta)R+\alpha}$$
-???
-
-Note that given publication bias, or the tendancy to only publish significant results, PPV can be thought of as the likelihood of a given published study being a false positive.
-
----
-
-Let's make some assumptions. If psychology studies use $\alpha = .05$ and are good at achieving adequate power ( $1-\beta = .80$ ), how does the choice of hypothesis affect PPV?
-
-```{r, echo = F, message = F, warning = F}
-ppv_fun = function(R, beta = .20, alpha = .05){
-  ppv = ((1-beta)*R)/((1-beta)*R + alpha)
-  return(ppv)
-}
-
-data.frame(prob = seq(0,1, by = .01)) %>%
-  mutate(ratio = prob/(1-prob),
-         ppv = ppv_fun(ratio)) %>%
-  ggplot(aes(x = prob, y = ppv)) +
-  geom_line() +
-  scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
-  scale_y_continuous("Positive Predictive Value")+
-  theme_pubr(base_size = 20)
-```
----
-
-However, there are many reasons to think that psychology studies are underpowered. Typical power may be closer to .5 or even worse. 
-
-```{r, echo = F, message = F, warning = F}
-data.frame(prob = seq(0,1, by = .01)) %>%
-  mutate(ratio = prob/(1-prob),
-         ppv = ppv_fun(ratio),
-         ppv_low = ppv_fun(ratio, beta = .5)) %>%
-  ggplot(aes(x = prob)) +
-  geom_line(aes(y = ppv, color = ".80")) +
-  geom_line(aes(y = ppv_low, color = ".50")) +
-  scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
-  scale_y_continuous("Positive Predictive Value")+
-  scale_color_discrete("Power")+
-  theme_pubr(base_size = 20)
-```
-
----
-
-In addition to being under-powered, there's recognition that research practices have inflated family-wise error, making $\alpha$ much bigger than it should be. 
-
-```{r, echo = F, message = F, warning = F}
-data.frame(prob = seq(0,1, by = .01)) %>%
-  mutate(ratio = prob/(1-prob),
-         ppv = ppv_fun(ratio),
-         ppv_low = ppv_fun(ratio, beta = .5),
-         ppv_alp = ppv_fun(ratio, alpha = .20),
-         ppv_low_alp = ppv_fun(ratio, beta = .5, alpha = .20)) %>%
-  ggplot(aes(x = prob)) +
-  geom_line(aes(y = ppv, color = ".80", linetype = ".05")) +
-  geom_line(aes(y = ppv_low, color = ".50", linetype = ".05")) +
-  geom_line(aes(y = ppv_alp, color = ".80", linetype = ".20")) +
-  geom_line(aes(y = ppv_low_alp, color = ".50", linetype = ".20")) +
-  scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
-  scale_y_continuous("Positive Predictive Value")+
-  scale_color_discrete("Power")+
-  scale_linetype_discrete("Alpha") +
-  theme_pubr(base_size = 20)
-```
----
-
-![](images/ioannidis.png)
 
 ---
 

@@ -12,9 +12,7 @@ output:
 
 ## Annoucements
 
-- New breakout groups in lab
-- How's lab going?
-- Catching up on corrections
+- Nov 11 is a university holiday
 - Homework #2 due Next Friday (9am)
 
 ---
@@ -22,6 +20,7 @@ output:
 library(tidyverse)
 library(ggpubr)
 ```
+
 
 ## Recap
 
@@ -123,8 +122,8 @@ data.frame(M = c(lower_bound:(upper_bound+5))) %>%
   stat_function(fun = function(x) dnorm(x, mean = mu+3, sd = sem), 
                  geom = "line") +
   geom_vline(aes(xintercept = cv_pos, color = "Type I error")) +
-  #scale_x_continuous(breaks = c(14:26), limits = c(14:26)) +
-  guides(color = F) +
+  scale_x_continuous(breaks = seq(14,26,2), limits = c(14,26)) +
+  guides(color = "none") +
   labs(x = "Mean", y = "density", title = "Sampling distribution in original scale", fill = NULL)+
   theme_pubr()
 ```
@@ -145,9 +144,9 @@ data.frame(M = c(lower_bound:(upper_bound+5))) %>%
   stat_function(fun = function(x) dnorm(x, mean = mu+3, sd = sem), 
                  geom = "line") +
   geom_vline(aes(xintercept = cv_pos, color = "Type I error")) +
-  #scale_x_continuous(breaks = c(14:26), limits = c(14:26)) + 
+  scale_x_continuous(breaks = seq(14,26,2), limits = c(14,26)) +
   scale_fill_brewer(palette = "Dark2") +
-  guides(color = F) +
+  guides(color = "none") +
   labs(x = "Mean", y = "density", title = "Sampling distribution in original scale", fill = NULL)+
   theme_pubr()
 ```
@@ -183,7 +182,7 @@ data.frame(M = c(lower_bound:(upper_bound+5))) %>%
   geom_vline(aes(xintercept = cv_pos, color = "Type I error")) +
   #scale_x_continuous(breaks = c(14:26), limits = c(14:26)) + 
   scale_fill_brewer(palette = "Dark2") +
-  guides(color = F) +
+  guides(color = "none") +
   labs(x = "Mean", y = "density", title = "Sampling distribution in original scale", fill = NULL)+
   theme_pubr()
 
@@ -233,8 +232,8 @@ Consider where $\alpha$, $\beta$ and power fall in this grid.
 
 |             |   Reject $H_0$   |   Do not reject  |
 |------------:|:----------------:|:----------------:|
-|  $H_0$ True |   $\alpha$   | $1-\beta$ |
-| $H_0$ False | $1-\alpha$ |   $\beta$  |
+|  $H_0$ True |   $\alpha$   | $1-\alpha$ |
+| $H_0$ False | $1-\beta$ |   $\beta$  |
 
 What is the sum of these cells?
 
