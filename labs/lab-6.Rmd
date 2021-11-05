@@ -10,7 +10,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-6.Rmd). 
+You can download the rmd file [here](https://uopsych.github.io/psy611/lab-6.Rmd). 
 
 ```{r setup, include = FALSE}
 # set chunk options
@@ -32,7 +32,7 @@ library(psych)
 
 ggplot2 follows a theory of data visualization called the *grammar of graphics*. You can summarize this grammar as:
 
-![](labs/resources/lab6/intro-graphing.JPG)
+![](resources/lab6/intro-graphing.JPG)
 
 Each graph has the following components:
 
@@ -42,7 +42,7 @@ Each graph has the following components:
 
 Here is a general ggplot template:
 
-![](labs/resources/lab6/ggplot2-template.JPG)
+![](resources/lab6/ggplot2-template.JPG)
 
 
 # Visualizing Categorical Variables
@@ -413,7 +413,7 @@ ggplot(data = pirates) +
 ```
 
 Options for the shape aesthetic:
-![](labs/resources/lab6/shape-options.png)
+![](resources/lab6/shape-options.png)
 
 
 
