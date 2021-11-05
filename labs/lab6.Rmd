@@ -28,6 +28,25 @@ library(psych)
 ```
 
 
+# Introduction to Data Visualization
+
+ggplot2 follows a theory of data visualization called the *grammar of graphics*. You can summarize this grammar as:
+
+![](labs/resources/lab6/intro-graphing.JPG)
+
+Each graph has the following components:
+
+* `data`: the dataset containing the variables you want to visualize
+* `geom`: the type of geometric object you want to graph (i.e., bars, points, boxplots)
+* `aes`: the aesthetic attributes you want to apply to the geometric object (including which variables should be on the x & y axis, the color, shape, and size of the geometric object)
+
+Here is a general ggplot template:
+
+![](labs/resources/lab6/ggplot2-template.JPG)
+
+
+# Visualizing Categorical Variables
+
 The data set we're using for today's lab is called `pirates`, and it's from the `{yarrr}` package. Below, we're converting the pirates data set to a tibble (an upgraded type of data frame from the base R data frame). 
 ```{r}
 pirates <- as_tibble(pirates) # convert pirates data to a tibble 
@@ -39,13 +58,6 @@ Next, go ahead and inspect the pirates data set. What variables does the data se
 ```{r, eval = FALSE}
 
 ```
-
-# Introduction to Data Visualization
-
-![](ggplot2-template.JPG)
-
-
-# Visualizing Categorical Variables
 
 ## Bar Graphs
 
@@ -401,7 +413,7 @@ ggplot(data = pirates) +
 ```
 
 Options for the shape aesthetic:
-![](shape-options.png)
+![](labs/resources/lab6/shape-options.png)
 
 
 

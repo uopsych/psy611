@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Lab 6: Data Visualization with ggplot2</title>
+
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PSY 611</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="schedule.html">Syllabus</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Lectures
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lectures/01-intro.html">1-Intro</a>
+    </li>
+    <li>
+      <a href="lectures/02-validity.html">2-Validity</a>
+    </li>
+    <li>
+      <a href="lectures/03-describing-data.html">3-Describing data I</a>
+    </li>
+    <li>
+      <a href="lectures/04-describing_data.html">4-Describing data II</a>
+    </li>
+    <li>
+      <a href="lectures/05-variables.html">5-Latent Variables</a>
+    </li>
+    <li>
+      <a href="lectures/06-probability.html">6-Probability</a>
+    </li>
+    <li>
+      <a href="lectures/07-binomial.html">7-Binomial Distribution</a>
+    </li>
+    <li>
+      <a href="lectures/08-normal.html">8-Normal Distribution</a>
+    </li>
+    <li>
+      <a href="lectures/09-sampling.html">9-Sampling</a>
+    </li>
+    <li>
+      <a href="lectures/10-nhst.html">10-NHST I</a>
+    </li>
+    <li>
+      <a href="lectures/11-nhst.html">11 &amp; 12-NHST II</a>
+    </li>
+    <li>
+      <a href="lectures/12-critiques.html">13-Critiques of NHST</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Labs
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="labs/lab-1.html">1-Introduction to R</a>
+    </li>
+    <li>
+      <a href="labs/lab-2.html">2-Descriptive Statistics</a>
+    </li>
+    <li>
+      <a href="labs/lab-3.html">3-Functional Programming</a>
+    </li>
+    <li>
+      <a href="labs/lab-4.html">4-Probability Distributions</a>
+    </li>
+    <li>
+      <a href="labs/lab-5.html">5-Data Wrangling</a>
+    </li>
+    <li>
+      <a href="labs/lab-6.html">6-Data Visualization</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="homework.html">Homework</a>
+</li>
+<li>
+  <a href="bonus.html">Useful Material</a>
+</li>
+<li>
+  <a href="oral_exam.html">Oral Exam</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Previous Years
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://uopsych.github.io/psy611_2020/">2020</a>
+    </li>
+    <li>
+      <a href="https://uopsych.github.io/psy611_2019/">2019</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="https://github.com/uopsych/psy611">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Lab 6: Data Visualization with ggplot2</h1>
+
+</div>
+
+
+<p>You can download the rmd file <a href="https://uopsych.github.io/psy611/labs/lab-6.Rmd">here</a>.</p>
+<div id="introduction-to-data-visualization" class="section level1">
+<h1>Introduction to Data Visualization</h1>
+<p>ggplot2 follows a theory of data visualization called the <em>grammar of graphics</em>. You can summarize this grammar as:</p>
+<p><img src="labs/resources/lab6/intro-graphing.JPG" /></p>
+<p>Each graph has the following components:</p>
+<ul>
+<li><code>data</code>: the dataset containing the variables you want to visualize</li>
+<li><code>geom</code>: the type of geometric object you want to graph (i.e., bars, points, boxplots)</li>
+<li><code>aes</code>: the aesthetic attributes you want to apply to the geometric object (including which variables should be on the x &amp; y axis, the color, shape, and size of the geometric object)</li>
+</ul>
+<p>Here is a general ggplot template:</p>
+<p><img src="labs/resources/lab6/ggplot2-template.JPG" /></p>
+</div>
+<div id="visualizing-categorical-variables" class="section level1">
+<h1>Visualizing Categorical Variables</h1>
+<p>The data set we’re using for today’s lab is called <code>pirates</code>, and it’s from the <code>{yarrr}</code> package. Below, we’re converting the pirates data set to a tibble (an upgraded type of data frame from the base R data frame).</p>
+<pre class="r"><code>pirates &lt;- as_tibble(pirates) # convert pirates data to a tibble 
+pirates$sex &lt;- factor(pirates$sex) # convert sex to a factor
+levels(pirates$sex) &lt;- c(&quot;female&quot;, &quot;male&quot;, &quot;intersex&quot;) # label the levels of sex</code></pre>
+<p>Next, go ahead and inspect the pirates data set. What variables does the data set contain?</p>
+<div id="bar-graphs" class="section level2">
+<h2>Bar Graphs</h2>
+<p>By default, the y-axis will be set to frequency (i.e., count).</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_bar(aes(x = sex))</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div id="changing-y-axis" class="section level3">
+<h3>Changing y-axis</h3>
+<p>Changing y-axis to proportions.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_bar(aes(x = sex, y = ..prop.., group = 1))</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Changing y-axis to percentages.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_bar(aes(x = sex, y = ..prop.., group = 1)) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1L))</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="adding-color" class="section level3">
+<h3>Adding color</h3>
+<p>To make the bars all the same color, set fill to a specific color <em>outside</em> of the aesthetic function</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_bar(aes(x = sex), fill = &#39;blue&#39;)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>You can also change the outline color of the bars using color.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_bar(aes(x = sex), fill = &#39;blue&#39;, color = &#39;black&#39;)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Fill the bars with colors based on the <em>levels</em> of a categorical variable by setting the fill argument <em>inside</em> of the aesthetic function to a specific variable.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_bar(aes(x = sex, fill = sex), color = &#39;black&#39;)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="adding-an-additional-categorical-variable" class="section level3">
+<h3>Adding an additional categorical variable</h3>
+<p>Set the fill argument to a second categorical variable.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_bar(aes(x = sex, fill = headband))</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>It can be aesthetically helpful to dodge the bars.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_bar(aes(x = sex, fill = headband), position = &quot;dodge&quot;)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Or fill the bars.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_bar(aes(x = sex, fill = headband), position = &quot;fill&quot;)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="adding-a-title-caption-axis-labels" class="section level1">
+<h1>Adding a Title, Caption &amp; Axis Labels</h1>
+<p>Add these by adding the labs() function to your ggplot.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_bar(aes(x = sex, fill = sex), color = &#39;black&#39;) +
+  labs(title    = &quot;Bar Graph of Self-Reported Sexes of Pirates&quot;,
+       subtitle = &quot;Arrrrrrr matey!&quot;,
+       x        = &quot;Self-Reported Sex&quot;,
+       y        = &quot;Frequency&quot;,
+       caption  = &quot;Data taken from the `yarrr` package.&quot;)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Center the title &amp; subtitle.</p>
+<pre class="r"><code>centered_plot &lt;- ggplot(data = pirates) +
+  geom_bar(aes(x = sex, fill = sex), color = &#39;black&#39;) +
+  labs(title    = &quot;Bar Graph of Self-Reported Sexes of Pirates&quot;,
+       subtitle = &quot;Arrrrrrr matey!&quot;,
+       x        = &quot;Self-Reported Sex&quot;,
+       y        = &quot;Frequency&quot;,
+       caption  = &quot;Data taken from the `yarrr` package.&quot;) +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+
+centered_plot</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Customize the text size of your labels.</p>
+<pre class="r"><code>text_settings &lt;- 
+  theme(plot.title = element_text(size = 16, face = &#39;bold&#39;)) +
+  theme(plot.subtitle = element_text(size = 14)) +
+  theme(axis.title.x = element_text(size = 16, face = &#39;bold&#39;)) +
+  theme(axis.title.y = element_text(size = 16, face = &#39;bold&#39;)) +
+  theme(axis.text.x = element_text(size = 10)) +
+  theme(axis.text.y = element_text(size = 10)) 
+
+centered_plot + text_settings</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="themes" class="section level1">
+<h1>Themes</h1>
+<p>You can also choose one of a number of ggplot themes.</p>
+<p>Some examples of available themes:</p>
+<p>theme_gray() # this is the default theme for ggplot theme_bw() theme_dark() theme_classic() theme_light() theme_linedraw() theme_minimal() theme_void()</p>
+<pre class="r"><code>centered_plot + 
+  theme_bw() +
+  text_settings </code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
+<div id="visualizing-continuous-variables" class="section level1">
+<h1>Visualizing Continuous Variables</h1>
+<div id="histograms" class="section level2">
+<h2>Histograms</h2>
+<p>Default histogram.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_histogram(aes(x = age))</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div id="bin-widths" class="section level3">
+<h3>Bin Widths</h3>
+<p>Specify bin widths.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_histogram(aes(x = age), bins = 10)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_histogram(aes(x = age), bins = 30)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
+</div>
+<div id="color" class="section level3">
+<h3>Color</h3>
+<p>One option: make the entire histogram one color by using <code>fill</code> <em>outside</em> of the aesthetic argument. You can also use the <code>color</code> argument to choose a border color.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_histogram(aes(x = age), fill = &#39;turquoise&#39;, color = &#39;black&#39;)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>Another option: fill based on a categorical variable by setting <code>fill</code> to a specific variable <em>inside</em> of the aesthetic argument.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_histogram(aes(x = age, fill = sex), color = &#39;black&#39;)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+</div>
+<div id="transparency" class="section level3">
+<h3>Transparency</h3>
+<p>Change transparency using the alpha argument.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_histogram(aes(x = age, fill = sex), color = &#39;black&#39;, alpha = 0.6)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+</div>
+<div id="overlay-a-curve" class="section level3">
+<h3>Overlay a Curve</h3>
+<p>Add a smooth curve on top of your histogram.</p>
+<pre class="r"><code>ggplot(data = pirates, aes(x = age, y = ..density..)) +
+  geom_histogram(fill = &#39;turquoise&#39;, color = &#39;black&#39;, alpha = 0.45) +
+  geom_density(color = &#39;darkorchid&#39;, size = 1.1)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+</div>
+<div id="add-a-categorical-variable" class="section level3">
+<h3>Add a categorical variable</h3>
+<p>Use <code>facet_wrap</code> to get a histogram for a particular continuous variable across different levels of a categorical variable.</p>
+<pre class="r"><code>ggplot(data = pirates, aes(x = age, y = ..density..)) +
+  geom_histogram(fill = &#39;turquoise&#39;, color = &#39;black&#39;, alpha = 0.45) +
+  geom_density(color = &#39;darkorchid&#39;, size = 1.1) +
+  facet_wrap(~sex)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+</div>
+<div id="final-product" class="section level3">
+<h3>Final Product</h3>
+<p>Now, fancy it up with label customization.</p>
+<pre class="r"><code>ggplot(data = pirates, aes(x = age, y = ..density..)) +
+  geom_histogram(fill = &#39;turquoise&#39;, color = &#39;black&#39;, alpha = 0.45) +
+  geom_density(color = &#39;darkorchid&#39;, size = 1.1) +
+  facet_wrap(~sex) +
+  labs(title    = &quot;Age Distribution of Pirates&quot;,  # add labels
+       subtitle = &quot;Arrrrrrr matey!&quot;,
+       x        = &quot;Age&quot;,
+       y        = &quot;Density&quot;,
+       caption  = &quot;Data taken from the `yarrr` package.&quot;) +
+  theme_bw() +  # add a theme
+  theme(plot.title = element_text(hjust = 0.5),   # center the title
+        plot.subtitle = element_text(hjust = 0.5)) </code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+</div>
+</div>
+<div id="frequency-polygons" class="section level2">
+<h2>Frequency Polygons</h2>
+<p>Basic frequency polygon for a single variable.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_freqpoly(aes(x = age), color = &#39;blue&#39;, size = 1)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>See a frequency polygon for a particular continuous variable across different levels of a categorical variable.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_freqpoly(aes(x = age, color = headband), size = 1)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>Fancy it up with label customization.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_freqpoly(aes(x = age, color = headband), size = 1) +
+  labs(title    = &quot;Age Distribution of Pirates&quot;,  # add labels
+       subtitle = &quot;Arrrrrrr matey!&quot;,
+       x        = &quot;Age&quot;,
+       y        = &quot;Frequency&quot;,
+       caption  = &quot;Data taken from the `yarrr` package.&quot;) +
+  theme_bw() +  # add a theme
+  theme(plot.title = element_text(hjust = 0.5),   # center the title
+        plot.subtitle = element_text(hjust = 0.5)) </code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+</div>
+</div>
+<div id="more-options-for-visualizing-continuous-by-categorical-variables" class="section level1">
+<h1>MORE Options for Visualizing Continuous by Categorical Variables</h1>
+<div id="boxplots" class="section level2">
+<h2>Boxplots</h2>
+<p>Another variable in the <code>pirates</code> dataset is <code>favorite.pirate</code>, which is each pirate’s self-reported favorite pirate. Let’s visualize favorite pirates by age.</p>
+<p>Notice below, instead of a color name, I’ve used a color’s RGB code (i.e., hex #). Here are a couple of websites for finding hex codes:</p>
+<p><a href="https://www.rapidtables.com/web/color/RGB_Color.html">RGB Color Codes Chart</a> <a href="https://htmlcolorcodes.com/">HTML Color Codes</a></p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_boxplot(aes(x = favorite.pirate, y = age), fill = &#39;#808284&#39;, color = &#39;#9b111e&#39;, alpha = .7)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>We can also reorder the columns from youngest to older using <code>reorder(favorite.pirate, age)</code>.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_boxplot(aes(x = reorder(favorite.pirate, age), y = age), fill = &#39;#808284&#39;, color = &#39;#9b111e&#39;, alpha = .7)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>And if it’s helpful, you can flip the axes using <code>coord_flip</code>.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_boxplot(aes(x = reorder(favorite.pirate, age), y = age), fill = &#39;#808284&#39;, color = &#39;#9b111e&#39;, alpha = .7)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p>Now, fancying it up.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_boxplot(aes(x = reorder(favorite.pirate, age), y = age), fill = &#39;#808284&#39;, color = &#39;#9b111e&#39;, alpha = .7) +
+  coord_flip() +
+  labs(title    = &quot;Age by Favorite Pirate &quot;,  
+       subtitle = &quot;Arrrrrrr matey!&quot;,
+       x        = &quot;Age&quot;,
+       y        = &quot;Favorite Pirate&quot;,
+       caption  = &quot;Data taken from the `yarrr` package.&quot;) +
+  theme_bw() +  
+  theme(plot.title = element_text(hjust = 0.5),   
+        plot.subtitle = element_text(hjust = 0.5))</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+</div>
+</div>
+<div id="visualizing-two-continuous-variables" class="section level1">
+<h1>Visualizing Two Continuous Variables</h1>
+<div id="scatterplots" class="section level2">
+<h2>Scatterplots</h2>
+<p>Let’s look at the relationship between the pirates’ heights and weights using <code>geom_point</code>.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight))</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<div id="add-a-regression-line" class="section level3">
+<h3>Add a regression line</h3>
+<p>You can add the best-fitting regression line to the scatterplot using <code>geom_smooth</code>. Use the argument <code>method = "lm"</code> when you want the best-fitting <em>linear</em> regression line.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight)) +
+  geom_smooth(aes(x = height, y = weight), method = &quot;lm&quot;)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+</div>
+<div id="add-color" class="section level3">
+<h3>Add color</h3>
+<p>You can make all the points on the scatterplot one color by setting the <code>color</code> argument equal to the desired hue <em>outside</em> of the aesthetic argument.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight), color = &#39;light coral&#39;) +
+  geom_smooth(aes(x = height, y = weight), method = &quot;lm&quot;)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>Or color the points on the scatterplot based on which level of a categorical variable each point belongs to. To do so, set the <code>color</code> argument equal to the categorical variable of choice <em>inside</em> the aesthetic argument. (Set <code>se = FALSE</code> if you don’t want the standard error bars to show).</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight, color = sex)) +
+  geom_smooth(aes(x = height, y = weight), method = &quot;lm&quot;, se = FALSE, color = &#39;black&#39;)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+</div>
+<div id="adding-a-third-variable" class="section level3">
+<h3>Adding a third variable</h3>
+<p>As you just saw, you can add a third variable to a scatterplot representing the relationship between two continuous variables. There are a couple of ways of achieving this.</p>
+<p>Option 1: Mapping the third variable to an aesthetic</p>
+<p>Aesthetic Options: * Color * Alpha * Size * Shape</p>
+<p>Change the <code>color</code> argument below to the other three aesthetic options and see what you notice about how the graph changes.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight, color = sex))</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p>Options for the shape aesthetic: <img src="labs/resources/lab6/shape-options.png" /></p>
+<p>Option 2: Facet Wrapping</p>
+<p>Another option is to use facet wrapping, which will produce separate, side-by-side scatterplots showing the relationship between two continuous variables across the levels of a chosen categorical variables.</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight)) +
+  facet_wrap(~sex)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>And you can do both:</p>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight, color = sex)) +
+  facet_wrap(~sex)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+</div>
+<div id="final-product-1" class="section level3">
+<h3>Final Product</h3>
+<pre class="r"><code>ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight, color = sex), alpha = 0.4) +
+  geom_smooth(aes(x = height, y = weight), method = &quot;lm&quot;, se = FALSE, color = &#39;black&#39;) +
+  facet_wrap(~sex) +
+  labs(title    = &quot;The Relationship Between Height and Weight Across Levels of Self-Reported Sex&quot;,  
+       subtitle = &quot;Arrrrrrr matey!&quot;,
+       x        = &quot;Height&quot;,
+       y        = &quot;Weight&quot;,
+       caption  = &quot;Data taken from the `yarrr` package.&quot;) +
+  theme_bw() +  
+  theme(plot.title = element_text(hjust = 0.5),   
+        plot.subtitle = element_text(hjust = 0.5))</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="displaying-multiple-plots" class="section level1">
+<h1>Displaying multiple plots</h1>
+<p>To display multiple plots simultaneously, you can use the <code>plot_grid()</code> function from the <code>cowplot</code> package.</p>
+<p>This can be helpful if there are multiple visualizations that you want to compare or that have information you want to take in at the same time.</p>
+<pre class="r"><code># install.packages(cowplot)
+library(cowplot)
+
+final_hist &lt;- ggplot(data = pirates, aes(x = age, y = ..density..)) +
+  geom_histogram(fill = &#39;turquoise&#39;, color = &#39;black&#39;, alpha = 0.45) +
+  geom_density(color = &#39;darkorchid&#39;, size = 1.1) +
+  facet_wrap(~sex) +
+  labs(title    = &quot;Age Distribution of Pirates&quot;,  
+       subtitle = &quot;Arrrrrrr matey!&quot;,
+       x        = &quot;Age&quot;,
+       y        = &quot;Density&quot;,
+       caption  = &quot;Data taken from the `yarrr` package.&quot;) +
+  theme_bw() +  # add a theme
+  theme(plot.title = element_text(hjust = 0.5),   
+        plot.subtitle = element_text(hjust = 0.5)) 
+
+
+final_box &lt;- ggplot(data = pirates) +
+  geom_boxplot(aes(x = reorder(favorite.pirate, age), y = age), fill = &#39;#808284&#39;, color = &#39;#9b111e&#39;, alpha = .7) +
+  coord_flip() +
+  labs(title    = &quot;Age by Favorite Pirate &quot;,  
+       subtitle = &quot;Arrrrrrr matey!&quot;,
+       x        = &quot;Age&quot;,
+       y        = &quot;Favorite Pirate&quot;,
+       caption  = &quot;Data taken from the `yarrr` package.&quot;) +
+  theme_bw() +  
+  theme(plot.title = element_text(hjust = 0.5),   
+        plot.subtitle = element_text(hjust = 0.5))
+
+
+plot_grid(final_hist, final_box)</code></pre>
+<p><img src="lab6-test_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+</div>
+<div id="minihacks" class="section level1">
+<h1>Minihacks</h1>
+<p>The minihacks today are intentionally very open-ended. Get as creative as you want!</p>
+<p>Data visualization is a great way to uncover stories in the data that would be difficult to notice by just looking at the numbers. See what stories you can uncover by exploring individual variables and their relationships with each other.</p>
+<p>For all of these minihacks, you can use any variable(s) from the <code>pirates</code> dataset, or you can take a look at the <code>movies</code> dataset from the <code>{yarrr}</code> package to see if there are variables of interest to you.</p>
+<p>While we still have a few minutes left in class, I’ll ask people to share some of their visualizations!</p>
+<p>1a. Create a visualization of a single categorical variable and a single continuous variable. Add as many customization features as you want (e.g., color, labels, text settings, themes, etc.).</p>
+<p>1b. Describe what’s being illustrated by the visualization (as if you were explaining to someone who is very unfamiliar with this data and with interpreting visualizations).</p>
+<p>2a. Create a visualization of a continuous variable by a categorical variable. For example, you can create a boxplot/histogram/frequency polygon split by the levels of a categorical variable.</p>
+<p>2b. Again, describe the story being told by the visualization.</p>
+<p>3a. Create a scatterplot representing the relationship between two continuous variables. Choose one of the methods we discussed to add a third variable to the plot.</p>
+<p>3b. What’s the story here?</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
