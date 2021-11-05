@@ -10,7 +10,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-You can download the rmd file [here](https://uopsych.github.io/psy611/lab-6.Rmd). 
+You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-6.Rmd). 
 
 ```{r setup, include = FALSE}
 # set chunk options
