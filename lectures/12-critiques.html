@@ -3,7 +3,7 @@
   <head>
     <title>Critiques of NHST</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
@@ -20,19 +20,26 @@ class: center, middle, inverse, title-slide
 
 ## Annoucements
 
-- New breakout groups in lab
-- How's lab going?
-- Catching up on corrections
-- Homework #2 due Next Friday (9am)
+- Nov 11 is a university holiday
+- Homework #2 due Friday (9am)
 
 ---
 
 
+
 ## Recap
 
-Does switching environments improve memory? On a standard memory task, participants remember 17.7 words (out of 30) `\((\sigma = 3.2)\)` after studying word lists for 9 minutes. You recruit a sample of 8 participants and make them study word lists in the student center. Every 3 minutes, they are required to stand up and move to a different room in the student center. After studying, participants are tested. On average, they remember 19.1 words. 
+Does switching environments improve memory? On a standard memory task, participants remember 17.7 words (out of 30) `\((\sigma = 3.2)\)` after studying word lists for 9 minutes. You recruit a sample of 8 participants and make them study word lists in the student center. Every 3 minutes, they are required to stand up and move to a different room in the student center. After studying, participants are tested. On average, they remember 19.1 words `\((s = 2.9)\)`. 
 
 
+
+???
+
+sem = 1.07
+
+cv = [15.61, 19.79]
+
+zstat = 1.31
 
 
 ---
@@ -143,8 +150,8 @@ Consider where `\(\alpha\)`, `\(\beta\)` and power fall in this grid.
 
 |             |   Reject `\(H_0\)`   |   Do not reject  |
 |------------:|:----------------:|:----------------:|
-|  `\(H_0\)` True |   `\(\alpha\)`   | `\(1-\beta\)` |
-| `\(H_0\)` False | `\(1-\alpha\)` |   `\(\beta\)`  |
+|  `\(H_0\)` True |   `\(\alpha\)`   | `\(1-\alpha\)` |
+| `\(H_0\)` False | `\(1-\beta\)` |   `\(\beta\)`  |
 
 What is the sum of these cells?
 
@@ -470,7 +477,7 @@ Regarding replications, there's an additional methodological challenge to grappl
 
 --
 
-**Example:** The original study `\((N = 25)\)` found a significant effect, `\(\bar{X} = 20, 95% CI [5, 35]\)`. The second study `\((N = 40)\)` does not find a significant effect, `\(\bar{X} = 10, 95% CI [-1, 21]\)`. Did the second study replicate the first?
+**Example:** The original study `\((N = 25)\)` found a significant effect, `\(\bar{X} = 20\)`, 95% CI `\([5, 35]\)`. The second study `\((N = 40)\)` does not find a significant effect, `\(\bar{X} = 10\)`, 95% CI `\([-1, 21]\)`. Did the second study replicate the first?
 
 ---
 
@@ -536,7 +543,7 @@ class: inverse
 
 ## Next time...
 
-Open Science (and methods for improving your inference)
+One-sample tests `\((t \text{ and } \chi^2)\)`
 
 
 

@@ -1,0 +1,616 @@
+---
+title: "Lab 6: Data Visualization with ggplot2"
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+editor_options: 
+  chunk_output_type: console
+---
+
+You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-6.Rmd). 
+
+```{r setup, include = FALSE}
+# set chunk options
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+# suppress scientific notation
+
+#load required packages
+library(tidyverse) # includes ggplot2
+library(here) # used to streamline the creation of this document
+library(rio) # for importing data
+# install.packages("yarrr")
+library(yarrr) # import pirates and movies datasets
+library(psych)
+```
+
+
+# Introduction to Data Visualization
+
+ggplot2 follows a theory of data visualization called the *grammar of graphics*. You can summarize this grammar as:
+
+![](resources/lab6/intro-graphing.JPG)
+
+Each graph has the following components:
+
+* `data`: the dataset containing the variables you want to visualize
+* `geom`: the type of geometric object you want to graph (i.e., bars, points, boxplots)
+* `aes`: the aesthetic attributes you want to apply to the geometric object (including which variables should be on the x & y axis, the color, shape, and size of the geometric object)
+
+Here is a general ggplot template:
+
+![](resources/lab6/ggplot2-template.JPG)
+
+
+# Visualizing Categorical Variables
+
+The data set we're using for today's lab is called `pirates`, and it's from the `{yarrr}` package. Below, we're converting the pirates data set to a tibble (an upgraded type of data frame from the base R data frame). 
+```{r}
+pirates <- as_tibble(pirates) # convert pirates data to a tibble 
+pirates$sex <- factor(pirates$sex) # convert sex to a factor
+levels(pirates$sex) <- c("female", "male", "intersex") # label the levels of sex
+levels(pirates$sex)
+```
+
+Next, go ahead and inspect the pirates data set. What variables does the data set contain?
+```{r, eval = FALSE}
+head(pirates)
+?pirates
+```
+
+## Bar Graphs
+
+By default, the y-axis will be set to frequency (i.e., count).
+```{r}
+ggplot(data = pirates) +
+  geom_bar(aes(x = sex))
+```
+
+
+### Changing y-axis 
+
+Changing y-axis to proportions.
+```{r}
+ggplot(data = pirates) +
+  geom_bar(aes(x = sex, y = ..prop.., group = 1))
+```
+
+
+Changing y-axis to percentages.
+```{r}
+ggplot(data = pirates) +
+  geom_bar(aes(x = sex, y = ..prop.., group = 1)) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1L))
+```
+
+
+### Adding color
+
+To make the bars all the same color, set fill to a specific color *outside* of the aesthetic function
+```{r}
+ggplot(data = pirates) +
+  geom_bar(aes(x = sex), fill = 'blue')
+```
+
+
+You can also change the outline color of the bars using color.
+```{r}
+ggplot(data = pirates) +
+  geom_bar(aes(x = sex), fill = 'blue', color = 'black')
+```
+
+
+Fill the bars with colors based on the *levels* of a categorical variable by setting the fill argument *inside* of the aesthetic function to a specific variable. 
+```{r}
+ggplot(data = pirates) +
+  geom_bar(aes(x = sex, fill = sex), color = 'black')
+```
+
+
+### Adding an additional categorical variable
+
+Set the fill argument to a second categorical variable.
+```{r}
+ggplot(data = pirates) +
+  geom_bar(aes(x = sex, fill = headband))
+```
+
+
+It can be aesthetically helpful to dodge the bars.
+```{r}
+ggplot(data = pirates) +
+  geom_bar(aes(x = sex, fill = headband), position = "dodge")
+```
+
+
+Or fill the bars.
+```{r}
+ggplot(data = pirates) +
+  geom_bar(aes(x = sex, fill = headband), position = "fill")
+```
+
+# Customizing Color
+
+## Manually specifying colors
+
+You can manually choose the colors that ggplot fills the bars with by using `scale_fill_manual`.
+```{r}
+ggplot(data = pirates) +
+  geom_bar(aes(x = favorite.pirate, fill = favorite.pirate), color = 'black') +
+  scale_fill_manual(values = c('blue', 'red', 'green', 'yellow', 'purple', 'pink'))
+```
+
+## Custom color palettes
+
+The RColorBrewer package contains some rad custom color palettes. You can see the color palette options using `display.brewer.all()` after opening the RColorBrewer library. 
+
+```{r}
+# install.packages("RColorBrewer")
+library(RColorBrewer)
+display.brewer.all()
+```
+
+Let's manually choose our colors for the graph above again, but this time use one of the RColorBrewer color palettes. Choose one of the palettes and the number of colors to take from it.
+```{r}
+my_palette <- brewer.pal(6, "Spectral") # number of colors, name of color palette
+
+ggplot(data = pirates) +
+  geom_bar(aes(x = favorite.pirate, fill = favorite.pirate), color = 'black') +
+  scale_fill_manual(values = my_palette)
+```
+
+You can also choose specific colors from a color palette using indexing.
+```{r}
+my_2nd_palette <- c(brewer.pal(9, "Greens")[2], brewer.pal(9, "Greens")[3], brewer.pal(9, "Greens")[4], brewer.pal(9, "Greens")[5], brewer.pal(9, "Greens")[6], brewer.pal(9, "Greens")[7])
+
+ggplot(data = pirates) +
+  geom_bar(aes(x = favorite.pirate, fill = favorite.pirate), color = 'black') +
+  scale_fill_manual(values = my_2nd_palette)
+```
+
+Here are some custom palettes other people have made from hex codes that are pretty nice:
+
+```{r}
+jazzcup <- c("#80E0DF", "#31AEA6", "#3E88BC", "#783A9C", "#3A2C82")
+
+crystal_pepsi <- c("#CCFFFC", "#E4E9FF", "#F2DCFF", "#FFCEFF")
+
+sunset <- c("#F58F80", "#D5539C", "#FC2A7F", "#A81B56", "#691344")
+
+ggplot(data = pirates) +
+  geom_bar(aes(x = favorite.pirate, fill = favorite.pirate), color = 'black') +
+  scale_fill_manual(values = c(crystal_pepsi, '#E4E9FF', '#CCFFFC'))
+```
+
+
+
+# Adding a Title, Caption & Axis Labels
+
+Add these by adding the labs() function to your ggplot.
+```{r}
+ggplot(data = pirates) +
+  geom_bar(aes(x = sex, fill = sex), color = 'black') +
+  labs(title    = "Bar Graph of Self-Reported Sexes of Pirates",
+       subtitle = "Arrrrrrr matey!",
+       x        = "Self-Reported Sex",
+       y        = "Frequency",
+       caption  = "Data taken from the `yarrr` package.")
+```
+
+
+Center the title & subtitle.
+```{r}
+centered_plot <- ggplot(data = pirates) +
+  geom_bar(aes(x = sex, fill = sex), color = 'black') +
+  labs(title    = "Bar Graph of Self-Reported Sexes of Pirates",
+       subtitle = "Arrrrrrr matey!",
+       x        = "Self-Reported Sex",
+       y        = "Frequency",
+       caption  = "Data taken from the `yarrr` package.") +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+
+centered_plot
+```
+
+
+Customize the text size of your labels.
+```{r}
+text_settings <- 
+  theme(plot.title = element_text(size = 16, face = 'bold')) +
+  theme(plot.subtitle = element_text(size = 14)) +
+  theme(axis.title.x = element_text(size = 16, face = 'bold')) +
+  theme(axis.title.y = element_text(size = 16, face = 'bold')) +
+  theme(axis.text.x = element_text(size = 10)) +
+  theme(axis.text.y = element_text(size = 10)) 
+
+centered_plot + text_settings
+```
+
+
+# Themes
+
+You can also choose one of a number of ggplot themes. 
+
+Some examples of available themes:
+
+theme_gray() # this is the default theme for ggplot
+theme_bw() 
+theme_dark()
+theme_classic()
+theme_light()
+theme_linedraw()
+theme_minimal()
+theme_void()
+
+```{r}
+centered_plot + 
+  theme_minimal() +
+  text_settings 
+```
+
+
+
+# Visualizing Continuous Variables
+
+## Histograms
+
+Default histogram.
+```{r}
+ggplot(data = pirates) +
+  geom_histogram(aes(x = age))
+```
+
+### Bin Widths
+
+Specify bin widths.
+```{r}
+ggplot(data = pirates) +
+  geom_histogram(aes(x = age), bins = 10)
+
+ggplot(data = pirates) +
+  geom_histogram(aes(x = age), bins = 30)
+```
+
+
+### Color
+
+One option: make the entire histogram one color by using `fill` *outside* of the aesthetic argument. You can also use the `color` argument to choose a border color.
+```{r}
+ggplot(data = pirates) +
+  geom_histogram(aes(x = age), fill = 'turquoise', color = 'black')
+```
+
+Another option: fill based on a categorical variable by setting `fill` to a specific variable *inside* of the aesthetic argument.
+```{r}
+ggplot(data = pirates) +
+  geom_histogram(aes(x = age, fill = sex), color = 'black')
+```
+
+### Transparency
+
+Change transparency using the alpha argument.
+```{r}
+ggplot(data = pirates) +
+  geom_histogram(aes(x = age, fill = sex), color = 'black', alpha = 0.6)
+```
+
+### Overlay a Curve
+
+Add a smooth curve on top of your histogram.
+```{r}
+ggplot(data = pirates, aes(x = age, y = ..density..)) +
+  geom_histogram(fill = 'turquoise', color = 'black', alpha = 0.45) +
+  geom_density(color = 'darkorchid', size = 1.1)
+```
+
+
+### Add a categorical variable
+
+Use `facet_wrap` to get a histogram for a particular continuous variable across different levels of a categorical variable.
+```{r}
+ggplot(data = pirates, aes(x = age, y = ..density..)) +
+  geom_histogram(fill = 'turquoise', color = 'black', alpha = 0.45) +
+  geom_density(color = 'darkorchid', size = 1.1) +
+  facet_wrap(~sex)
+```
+
+
+### Final Product
+
+Now, fancy it up with label customization.
+```{r}
+ggplot(data = pirates, aes(x = age, y = ..density..)) +
+  geom_histogram(fill = 'turquoise', color = 'black', alpha = 0.45) +
+  geom_density(color = 'darkorchid', size = 1.1) +
+  facet_wrap(~sex) +
+  labs(title    = "Age Distribution of Pirates",  # add labels
+       subtitle = "Arrrrrrr matey!",
+       x        = "Age",
+       y        = "Density",
+       caption  = "Data taken from the `yarrr` package.") +
+  theme_bw() +  # add a theme
+  theme(plot.title = element_text(hjust = 0.5),   # center the title
+        plot.subtitle = element_text(hjust = 0.5)) 
+```
+
+
+
+## Frequency Polygons
+
+Basic frequency polygon for a single variable.
+```{r}
+ggplot(data = pirates) +
+  geom_freqpoly(aes(x = age), color = 'blue', size = 1)
+```
+
+See a frequency polygon for a particular continuous variable across different levels of a categorical variable.
+```{r}
+ggplot(data = pirates) +
+  geom_freqpoly(aes(x = age, color = headband), size = 1)
+```
+
+Fancy it up with label customization.
+```{r}
+ggplot(data = pirates) +
+  geom_freqpoly(aes(x = age, color = headband), size = 1) +
+  labs(title    = "Age Distribution of Pirates",  # add labels
+       subtitle = "Arrrrrrr matey!",
+       x        = "Age",
+       y        = "Frequency",
+       caption  = "Data taken from the `yarrr` package.") +
+  theme_bw() +  # add a theme
+  theme(plot.title = element_text(hjust = 0.5),   # center the title
+        plot.subtitle = element_text(hjust = 0.5)) 
+```
+
+
+# MORE Options for Visualizing Continuous by Categorical Variables
+
+## Boxplots
+
+Another variable in the `pirates` dataset is `favorite.pirate`, which is each pirate's self-reported favorite pirate. Let's visualize favorite pirates by age.
+
+Notice below, instead of a color name, I've used a color's RGB code (i.e., hex #). Here are a couple of websites for finding hex codes:
+
+[RGB Color Codes Chart](https://www.rapidtables.com/web/color/RGB_Color.html)
+[HTML Color Codes](https://htmlcolorcodes.com/)
+
+```{r}
+ggplot(data = pirates) +
+  geom_boxplot(aes(x = favorite.pirate, y = age), fill = '#808284', color = '#9b111e', alpha = .7)
+```
+
+We can also reorder the columns from youngest to older using `reorder(favorite.pirate, age)`. 
+```{r}
+ggplot(data = pirates) +
+  geom_boxplot(aes(x = reorder(favorite.pirate, age), y = age), fill = '#808284', color = '#9b111e', alpha = .7)
+```
+
+And if it's helpful, you can flip the axes using `coord_flip`.
+```{r}
+ggplot(data = pirates) +
+  geom_boxplot(aes(x = reorder(favorite.pirate, age), y = age), fill = '#808284', color = '#9b111e', alpha = .7) +
+  coord_flip()
+```
+
+Now, fancying it up.
+```{r}
+ggplot(data = pirates) +
+  geom_boxplot(aes(x = reorder(favorite.pirate, age), y = age), fill = '#808284', color = '#9b111e', alpha = .7) +
+  coord_flip() +
+  labs(title    = "Age by Favorite Pirate ",  
+       subtitle = "Arrrrrrr matey!",
+       x        = "Age",
+       y        = "Favorite Pirate",
+       caption  = "Data taken from the `yarrr` package.") +
+  theme_bw() +  
+  theme(plot.title = element_text(hjust = 0.5),   
+        plot.subtitle = element_text(hjust = 0.5))
+```
+
+
+
+# Visualizing Two Continuous Variables
+
+## Scatterplots
+
+Let's look at the relationship between the pirates' heights and weights using `geom_point`.
+```{r}
+ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight))
+```
+
+### Add a regression line
+
+You can add the best-fitting regression line to the scatterplot using `geom_smooth`. Use the argument `method = "lm"` when you want the best-fitting *linear* regression line.
+```{r}
+ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight)) +
+  geom_smooth(aes(x = height, y = weight), method = "lm")
+```
+
+
+### Add color
+
+You can make all the points on the scatterplot one color by setting the `color` argument equal to the desired hue *outside* of the aesthetic argument.
+```{r}
+ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight), color = 'light coral') +
+  geom_smooth(aes(x = height, y = weight), method = "lm")
+```
+
+Or color the points on the scatterplot based on which level of a categorical variable each point belongs to. To do so, set the `color` argument equal to the categorical variable of choice *inside* the aesthetic argument. (Set `se = FALSE` if you don't want the standard error bars to show).
+```{r}
+ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight, color = sex)) +
+  geom_smooth(aes(x = height, y = weight), method = "lm", se = FALSE, color = 'black')
+```
+
+
+
+### Adding a third variable
+
+As you just saw, you can add a third variable to a scatterplot representing the relationship between two continuous variables. There are a couple of ways of achieving this. 
+
+Option 1: Mapping the third variable to an aesthetic
+
+Aesthetic Options:
+* Color
+* Alpha
+* Size
+* Shape
+
+Change the `color` argument below to the other three aesthetic options and see what you notice about how the graph changes.
+```{r}
+ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight), shape = 8)
+```
+
+Options for the shape aesthetic:
+![](resources/lab6/shape-options.png)
+
+
+
+
+Option 2: Facet Wrapping
+
+Another option is to use facet wrapping, which will produce separate, side-by-side scatterplots showing the relationship between two continuous variables across the levels of a chosen categorical variables.
+```{r}
+ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight)) +
+  facet_wrap(~sex)
+```
+
+
+And you can do both:
+```{r}
+ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight, color = sex)) +
+  facet_wrap(~sex)
+```
+
+
+### Final Product
+```{r}
+ggplot(data = pirates) +
+  geom_point(aes(x = height, y = weight, color = sex), alpha = 0.4) +
+  geom_smooth(aes(x = height, y = weight), method = "lm", se = FALSE, color = 'black') +
+  facet_wrap(~sex) +
+  labs(title    = "The Relationship Between Height and Weight Across Levels of Self-Reported Sex",  
+       subtitle = "Arrrrrrr matey!",
+       x        = "Height",
+       y        = "Weight",
+       caption  = "Data taken from the `yarrr` package.") +
+  theme_bw() +  
+  theme(plot.title = element_text(hjust = 0.5),   
+        plot.subtitle = element_text(hjust = 0.5))
+```
+
+
+
+# Displaying multiple plots 
+
+To display multiple plots simultaneously, you can use the `plot_grid()` function from the `cowplot` package.
+
+This can be helpful if there are multiple visualizations that you want to compare or that have information you want to take in at the same time.
+```{r}
+# install.packages(cowplot)
+library(cowplot)
+
+final_hist <- ggplot(data = pirates, aes(x = age, y = ..density..)) +
+  geom_histogram(fill = 'turquoise', color = 'black', alpha = 0.45) +
+  geom_density(color = 'darkorchid', size = 1.1) +
+  facet_wrap(~sex) +
+  labs(title    = "Age Distribution of Pirates",  
+       subtitle = "Arrrrrrr matey!",
+       x        = "Age",
+       y        = "Density",
+       caption  = "Data taken from the `yarrr` package.") +
+  theme_bw() +  # add a theme
+  theme(plot.title = element_text(hjust = 0.5),   
+        plot.subtitle = element_text(hjust = 0.5)) 
+
+
+final_box <- ggplot(data = pirates) +
+  geom_boxplot(aes(x = reorder(favorite.pirate, age), y = age), fill = '#808284', color = '#9b111e', alpha = .7) +
+  coord_flip() +
+  labs(title    = "Age by Favorite Pirate ",  
+       subtitle = "Arrrrrrr matey!",
+       x        = "Age",
+       y        = "Favorite Pirate",
+       caption  = "Data taken from the `yarrr` package.") +
+  theme_bw() +  
+  theme(plot.title = element_text(hjust = 0.5),   
+        plot.subtitle = element_text(hjust = 0.5))
+
+
+plot_grid(final_hist, final_box)
+```
+
+
+# Plotting Data from Different Data Sets
+
+If you want to plot data coming from different data sets, then specify the `data` argument within the `geom_x` function itself. 
+
+Below, I've just made a shortened version of the `pirates` dataset (`pirates_short`) and plotted weight by height from both the original and shortened versions. It is likely helpful to specify different colors for each plot so you can tell which dataset the points are originating from.
+```{r}
+pirates_short <- pirates[1:100,]
+
+ggplot() +
+  geom_point(data = pirates, aes(x = weight, y = height), color = 'blue') +
+  geom_point(data = pirates_short, aes(x = weight, y = height), color = 'red')
+```
+
+
+# Minihacks
+
+The minihacks today are intentionally very open-ended. Get as creative as you want! 
+
+Data visualization is a great way to uncover stories in the data that would be difficult to notice by just looking at the numbers. See what stories you can uncover by exploring individual variables and their relationships with each other.
+
+For all of these minihacks, you can use any variable(s) from the `pirates` dataset, or you can take a look at the `movies` dataset from the `{yarrr}` package to see if there are variables of interest to you. 
+
+
+
+
+While we still have a few minutes left in class, I'll ask people to share some of their visualizations!
+
+
+1a. Create a visualization of a single categorical variable and a single continuous variable. Add as many customization features as you want (e.g., color, labels, text settings, themes, etc.). 
+
+```{r}
+
+
+```
+
+1b. Describe what's being illustrated by the visualization (as if you were explaining to someone who is very unfamiliar with this data and with interpreting visualizations).
+
+
+
+
+
+2a. Create a visualization of a continuous variable by a categorical variable. For example, you can create a boxplot/histogram/frequency polygon split by the levels of a categorical variable. 
+```{r}
+
+```
+
+
+
+2b. Again, describe the story being told by the visualization.
+
+
+
+
+
+3a. Create a scatterplot representing the relationship between two continuous variables. Choose one of the methods we discussed to add a third variable to the plot.
+```{r}
+
+```
+
+
+3b. What's the story here?

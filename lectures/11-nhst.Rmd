@@ -38,8 +38,8 @@ Healthy adults send an average of 32 text messages a day $(\sigma = 7.3)$. I rec
 
 **Define hypotheses**
 
-- $H_0: \mu_{GAD} = \mu_{healthy}$ OR $H_0: \mu_{GAD} = 32$
-- $H_1: \mu_{GAD} \neq \mu_{healthy}$ OR $H_0: \mu_{GAD} \neq 32$
+-  $H_0: \mu_{GAD} = 32$
+-  $H_0: \mu_{GAD} \neq 32$
 
 --
 
@@ -66,18 +66,18 @@ Healthy adults send an average of 32 text messages a day $(\sigma = 7.3)$. I rec
 
 ---
 
-**Compare your probability (p-value) to your $\alpha$ level and decide whether your data are "statistically significant" (reject the null) or not (retain the null).**
+Compare your probability ( $p$-value) to your $\alpha$ level and decide whether your data are "statistically significant" (reject the null) or not (retain the null).
 
 --
 
-Our _p_-value is larger than our $\alpha$ level, so we retain the null. 
+Our $p$-value is larger than our $\alpha$ level, so we retain the null. 
 ---
 
 ### Review
 
 - If we do not reject $H_0$, that does not mean that we accept it.  We have simply failed to reject it. It lives to fight another day.
 
-- A Z-statistic summarizes how unusual the sample estimate of a mean compared to the value of the mean as specified by the null hypothesis.
+- A _Z_-statistic summarizes how unusual the sample estimate of a mean compared to the value of the mean as specified by the null hypothesis.
 
   - More broadly, we refer to the **test statistic** as the statistic that summarizes how unusual the sample estimate of a parameter is from the point value specified by the null hypothesis.
   
@@ -105,7 +105,7 @@ If $p$ is sufficiently small ( $p < .05$ ), we may choose to reject the null hyp
 
 - Fisher established (rather arbitrarily) the sanctity of the .05 and .01 significance levels during his work in agriculture, including work on the effectiveness of fertilizer.  A common source of fertilizer is cow manure. Male cattle are called bulls.  
 
-A common misinterpretation of the p value ( $\alpha$ ) is that it is the probability of the null hypothesis being wrong.
+A common misinterpretation of the $p$-value ( $\alpha$ ) is that it is the probability of the null hypothesis being wrong.
 
 Another common misunderstanding is that $1-\alpha$ is the probability that results will replicate.
 
@@ -115,9 +115,11 @@ Another common misunderstanding is that $1-\alpha$ is the probability that resul
 
 - If the null hypothesis is false, then the only mistake to be made is a failure to detect a real effect.
 
+We collect a sample and compare this to a null hypothesis: $H_0: \mu_0 = 100$. Holding our sample mean $(\bar{X} = 105)$ constant, how does our $p$-value change as our sample size gets larger?
+
 ---
 
-We collect a sample and compare this to a null hypothesis: $H_0: \mu_0 = 100$. Holding our sample mean $(\bar{X} = 105)$ constant, how does our _p_-value change as our sample size gets larger?
+We collect a sample and compare this to a null hypothesis: $H_0: \mu_0 = 100$. Holding our sample mean $(\bar{X} = 105)$ constant, how does our $p$-value change as our sample size gets larger?
 
 ```{r, echo =F,  cache = T}
 data.frame(
@@ -163,7 +165,7 @@ In hypothesis testing, we can make two kinds of errors.
 | $H_0$ False | Correct decision |   Type II Error  |
 
 
-Falsely rejecting the null hypothesis is a **Type I error**.  Traditionally this has been viewed as particularly important to control at a low level (akin to avoiding false conviction of an innocent defendant). 
+Falsely rejecting the null hypothesis is a **Type I error**.  Traditionally, this has been viewed as particularly important to control at a low level (akin to avoiding false conviction of an innocent defendant). 
 
 ---
 
@@ -213,11 +215,11 @@ Controlling Type II errors is more challenging because it depends on several fac
 
 ### Some Greek letters
 
-$\alpha$ -- The rate at which we make Type I errors, which is the same $\alpha$ as the cut-off for $p$ -values. 
+$\alpha$ : The rate at which we make Type I errors, which is the same $\alpha$ as the cut-off for $p$ -values. 
 
-$\beta$ -- The rate at which we make Type II errors. 
+$\beta$ : The rate at which we make Type II errors. 
 
-$1-\beta$ -- statistical power. 
+$1-\beta$ : statistical power. 
 
 Note that all these probability statements are being made in the frequentist sense -- in the long run, we expect to make Type I errors $\alpha$ proportion of the time and Type II errors $\beta$ proportion of the time. 
 
@@ -236,7 +238,7 @@ We must specify a specific value for the alternative hypothesis to estimate and 
 
 ---
 
-Suppose we have a measure of social sensitivity that we have administered to a random sample of 20 psychology students.  This measure has a population mean ( $\mu$ ) of 100 and a standard deviation ( $\sigma$ ) of 20.  We suspect that psychology students are more sensitive to others than is typical and want to know if their mean, which is 110, is sufficient evidence to reject the null hypothesis that they are no more sensitive than the rest of the population.
+Suppose we have a measure of social sensitivity that we have administered to a random sample of 25 psychology students.  This measure has a population mean ( $\mu$ ) of 100 and a standard deviation ( $\sigma$ ) of 20.  We suspect that psychology students are more sensitive to others than is typical and want to know if their mean, which is 110, is sufficient evidence to reject the null hypothesis that they are no more sensitive than the rest of the population.
 
 We would also like to know how likely it is that we could make a mistake by concluding that psychology students are not different when they really are: A Type II error.
 
@@ -250,17 +252,20 @@ We begin by defining the location in the null hypothesis distribution beyond whi
 
 ```{r student null, echo = F}
 mu = 100
-x = 110
+xbar = 110
 s = 20
-n = 20
+n = 25
 sem = s/sqrt(n)
-cv = qnorm(mean = mu, sd = sem, p = .05, lower.tail = F)
+cv = qnorm(mean = mu, sd = sem, p = .025, lower.tail = F)
+cv2 = qnorm(mean = mu, sd = sem, p = .025, lower.tail = T)
 
 ggplot(data.frame(x = seq(70, 130)), aes(x)) +
   stat_function(fun = function(x) dnorm(x, m = mu, sd = sem)) +
   stat_function(fun = function(x) dnorm(x, m = mu, sd = sem),
                 geom = "area", xlim = c(cv, 130), fill = "red") +
   geom_vline(aes(xintercept = cv), color = "red")+
+  stat_function(fun = function(x) dnorm(x, m = mu, sd = sem),
+                geom = "area", xlim = c(cv2, 70), fill = "red") +
   geom_vline(aes(xintercept = mu))+
   geom_hline(aes(yintercept = 0))+
   scale_x_continuous("Means", breaks = seq(70,130,10)) +
@@ -277,22 +282,22 @@ Start with our $\alpha$ level (.05)
 
 Given our distribution parameters, what Z-value corresponds to .05 above that line
 
-mu = 100
-x = 110
-s = 20
-n = 20
-sem = $\frac{20}{\sqrt{20}}$ = 4.47
-z = 1.64
+mu = `r mu`
+x = `r xbar`
+s = `r s`
+n = `r n`
+sem = `r sem`
+z = 1.96
 
 ---
 .pull-left[
-$$\text{Critical Value} = \mu_0 + Z_{.95}\frac{\sigma}{\sqrt{N}}$$
+$$\text{Critical Value} = \mu_0 + Z_{.975}\frac{\sigma}{\sqrt{N}}$$
 
 ```{r}
-qnorm(.95)
+qnorm(.975)
 ```
 
-$$\text{Critical Value} = 100 + 1.645\frac{20}{\sqrt{20}} = 107.4$$
+$$\text{Critical Value} = `r mu` + 1.96\frac{`r s`}{\sqrt{`r n`}} = `r round(cv,2)`$$
 
 
 What if the null hypothesis is false?  How likely are we to correctly reject the null hypothesis in the long run?
@@ -308,33 +313,124 @@ What if the null hypothesis is false?  How likely are we to correctly reject the
 
 ```
 ]
+---
 
+```{r, echo = F}
+data.frame(x = seq(70, 140)) %>%
+  ggplot(aes(x = x)) +
+  stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "line") +
+  stat_function(aes(fill = "Type I error"), fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "area", xlim = c(cv, 140),
+                alpha = .5) +
+  stat_function(aes(fill = "Type I error"), fun = function(x) dnorm(x, mean = mu, sd = sem), 
+                 geom = "area", xlim = c(70, cv2),
+                alpha = .5) +
+  geom_vline(aes(xintercept = cv, color = "Critical Value")) +
+  guides(color = "none") +
+  scale_x_continuous(limits = c(70,140), breaks = seq(70, 140, 10)) +
+  scale_y_continuous(breaks = NULL) +
+  labs(x = "Mean", y = "density", fill = NULL)+
+  theme_pubr()
+```
 
 ---
 
+```{r, echo = F}
+data.frame(x = seq(70, 140)) %>%
+  ggplot(aes(x = x)) +
+  stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem),
+                 geom = "line", alpha = .2) +
+  # stat_function(aes(fill = "Type I error"), fun = function(x) dnorm(x, mean = mu, sd = sem), 
+  #                geom = "area", xlim = c(cv, 140),
+  #               alpha = .5) +
+  # stat_function(aes(fill = "Type I error"), fun = function(x) dnorm(x, mean = mu, sd = sem), 
+  #                geom = "area", xlim = c(70, cv2),
+  #               alpha = .5) +
+  geom_vline(aes(xintercept = cv, color = "Critical Value")) +
+  guides(color = "none") +
+  scale_x_continuous(limits = c(70,140), breaks = seq(70, 140, 10)) +
+  scale_y_continuous(breaks = NULL) +
+  labs(x = "Mean", y = "density", fill = NULL)+
+  theme_pubr()
+```
+
+---
+
+```{r, echo = F}
+data.frame(x = seq(70, 140)) %>%
+  ggplot(aes(x = x)) +
+  stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem),
+                 geom = "line", alpha = .2) +
+  stat_function(fun = function(x) dnorm(x, mean = xbar, sd = sem),
+                 geom = "line") +
+  # stat_function(aes(fill = "Power"), fun = function(x) dnorm(x, mean = xbar, sd = sem),
+  #                geom = "area", xlim = c(cv, 140),
+  #               alpha = .5) +
+  # stat_function(aes(fill = "Type II error"), fun = function(x) dnorm(x, mean = xbar, sd = sem),
+  #                geom = "area", xlim = c(70, cv),
+  #               alpha = .5) +
+  geom_vline(aes(xintercept = cv, color = "Critical Value")) +
+  guides(color = "none") +
+  scale_x_continuous(limits = c(70,140), breaks = seq(70, 140, 10)) +
+  scale_y_continuous(breaks = NULL) +
+  labs(x = "Mean", y = "density", fill = NULL)+
+  theme_pubr()
+```
+
+---
+
+```{r, echo = F}
+data.frame(x = seq(70, 140)) %>%
+  ggplot(aes(x = x)) +
+  stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem),
+                 geom = "line", alpha = .2) +
+  stat_function(fun = function(x) dnorm(x, mean = xbar, sd = sem),
+                 geom = "line") +
+  stat_function(aes(fill = "Power"), fun = function(x) dnorm(x, mean = xbar, sd = sem),
+                 geom = "area", xlim = c(cv, 140),
+                alpha = .5) +
+  stat_function(aes(fill = "Type II error"), fun = function(x) dnorm(x, mean = xbar, sd = sem),
+                 geom = "area", xlim = c(70, cv),
+                alpha = .5) +
+  geom_vline(aes(xintercept = cv, color = "Critical Value")) +
+  guides(color = "none") +
+  scale_x_continuous(limits = c(70,140), breaks = seq(70, 140, 10)) +
+  scale_y_continuous(breaks = NULL) +
+  labs(x = "Mean", y = "density", fill = NULL)+
+  theme_pubr()
+```
+
+---
+
+```{r, echo = F}
+beta = pnorm(q = cv, mean = xbar, sd =sem)
+power = 1-beta
+```
+
+
 .left-column[
 .small[
-To determine the probability of a Type II error we must specify a value for the alternative hypothesis.  We will use the sample mean of 110.
+To determine the probability of a Type II error, we must specify a value for the alternative hypothesis.  We will use the sample mean of `r xbar`.
 
-In the long run, if psychology samples have a mean of 110 ( $\sigma = 20$, $N = 20$ ), we will correctly reject the null with probability of .72 (power).  We will incorrectly fail to reject the
-null with probability of .28 ( $\beta$ ).
+In the long run, if psychology samples have a mean of `r xbar` ( $\sigma = `r s`$, $N = `r n`$ ), we will correctly reject the null with probability of `r round(power,2)` (power).  We will incorrectly fail to reject the
+null with probability of `r round(beta,2)` ( $\beta$ ).
 
 ]
 ]
 
 ```{r, echo = F}
 mean = 110
-n = 20
-cv = qnorm(mean = mu, sd = sem, p = .05, lower.tail = F)
+mu = 100
+n = 25
+s = 20
+sem = s/sqrt(n)
+cv = qnorm(mean = mu, sd = sem, p = .025, lower.tail = F)
+cv2 = qnorm(mean = mu, sd = sem, p = .025, lower.tail = T)
 ```
 
 
 ```{r student null and alt, echo = F}
-mu = 100
-s = 20
-
-sem = s/sqrt(n)
-
 ggplot(data.frame(x = seq(70, 130)), aes(x)) +
   stat_function(fun = function(x) dnorm(x, m = mu, sd = sem)) +
   
@@ -342,14 +438,24 @@ ggplot(data.frame(x = seq(70, 130)), aes(x)) +
                 geom = "area", xlim = c(cv, 130), 
                 aes(fill = "Power"), alpha = .5) +
   stat_function(fun = function(x) dnorm(x, m = mean, sd = sem),
-                geom = "area", xlim = c(70, cv), 
+                geom = "area", xlim = c(70, cv2), 
+                aes(fill = "Power"), alpha = .5) +
+  stat_function(fun = function(x) dnorm(x, m = mean, sd = sem),
+                geom = "area", xlim = c(cv2, cv), 
                 aes(fill = "Type II Error"), alpha = .5) +
   stat_function(fun = function(x) dnorm(x, m = mu, sd = sem),
                 geom = "area", xlim = c(cv, 130), 
                 aes(fill = "Type I Error"), alpha = .5) +
+  stat_function(fun = function(x) dnorm(x, m = mu, sd = sem),
+                geom = "area", xlim = c(cv2, 70), 
+                aes(fill = "Type I Error"), alpha = .5) +
   stat_function(fun = function(x) dnorm(x, m = mean, sd = sem)) +
-  geom_vline(aes(xintercept = mu))+
-  geom_vline(aes(xintercept = mean))+
+  #geom_vline(aes(xintercept = mu))+
+  #geom_vline(aes(xintercept = mean))+
+  geom_vline(aes(xintercept = cv), color = "purple")+
+  geom_label(aes(x = mu, y = .095, label = "H0")) +
+  geom_label(aes(x = mean, y = .095, label = "H1")) +
+  geom_label(aes(x = cv, y = .1, label = "CV"), color = "purple") +
   geom_hline(aes(yintercept = 0))+
   scale_x_continuous("Means", breaks = seq(70,130,10)) +
   scale_y_continuous(NULL, breaks = NULL) + 
@@ -372,24 +478,36 @@ Once the critical value and alternative value is established, we can determine t
 
 --
 
+```{r, echo = F}
+z_a = (cv-xbar)/sem
+```
+
+
 .pull-right[
 
 $$Z_1 = \frac{CV_0 - \mu_1}{\frac{\sigma}{\sqrt{N}}}$$
-$$Z_1 = \frac{107.4 - 110}{\frac{20}{\sqrt{20}}} = -.59$$
+$$Z_1 = \frac{`r round(cv,2)` - `r xbar`}{\frac{`r s`}{\sqrt{`r n`}}} = `r round(z_a, 2)`$$
 
-The proportion of the alternative distribution that falls below that point is the probability of a Type II error (.28); power is then .72.
-```{r}
-pnorm(-.59)
+The proportion of the alternative distribution that falls below that point is the probability of a Type II error (.29); power is then .71.
+```{r CHANGE ME}
+pnorm(-.54)
 ```
 
 ]
 
 ---
 
-The choice of 110 as the mean of $H_1$ is completely arbirtary. What if we believe that the alternative mean is 115?  This larger signal should be easier to detect.
+The choice of 110 as the mean of $H_1$ is completely arbitrary. What if we believe that the alternative mean is 115?  This larger signal should be easier to detect.
 .pull-left[
 ```{r, echo = F}
 mean = 115
+mu = 100
+s = 20
+n = 25
+sem = s/sqrt(n)
+cv = qnorm(mean = mu, sd = sem, p = .025, lower.tail = F)
+cv2 = qnorm(mean = mu, sd = sem, p = .025, lower.tail = T)
+
 ```
 
 
@@ -398,30 +516,33 @@ mean = 115
 ```
 ]
 .pull-right[
-$$Z_1 = \frac{107.4 - 115}{\frac{20}{\sqrt{20}}} = -1.71$$
+```{r, echo = F}
+z_a = (cv-mean)/sem
+```
+$$Z_1 = \frac{`r round(cv,2)` - `r mean`}{\frac{`r s`}{\sqrt{`r n`}}} = `r round(z_a,2)`$$
 ```{r}
-1-pnorm(-1.71) 
+1-pnorm(-1.79) 
 ```
 ]
 
 ---
 
-What if instead we increase the sample size?  This will reduce variability in the sampling distribution, making the difference between the null and alternative distributions easier to see.
+What if instead we increase the sample size?  This will reduce variability in the sampling distribution, making the difference between the null and alternative distributions easier to see. (New $N$ is 50.)
 
 
 .pull-left[
 ```{r, echo = F}
 mean = 110
-n = 40
+mu = 100
+s = 20
+n = 50
+sem = s/sqrt(n)
+cv = qnorm(mean = mu, sd = sem, p = .025, lower.tail = F)
+cv2 = qnorm(mean = mu, sd = sem, p = .025, lower.tail = T)
 ```
 
 
 ```{r fig.height=7, fig.width=7, echo = F}
-
-mu = 100
-
-sem = s/sqrt(n)
-
 ggplot(data.frame(x = seq(70, 130)), aes(x)) +
   stat_function(fun = function(x) dnorm(x, m = mu, sd = sem)) +
   
@@ -448,18 +569,20 @@ ggplot(data.frame(x = seq(70, 130)), aes(x)) +
 ```
 ]
 .pull-right[
-$\text{CV} = 100 + 1.645\frac{20}{\sqrt{40}} = 105.2$
-
-$Z_1 = \frac{105.2 - 110}{\frac{20}{\sqrt{40}}} = -1.52$
+```{r, echo = F}
+z_a = (cv-mean)/sem
+```
+$\text{CV} = `r mu` + 1.96\frac{`r s`}{\sqrt{`r n`}} = `r round(cv,2)`$
+$$Z_1 = \frac{`r round(cv,2)` - `r mean`}{\frac{`r s`}{\sqrt{`r n`}}} = `r round(z_a,2)`$$
 
 ```{r}
-1-pnorm(-1.52) 
+1-pnorm(-1.57) 
 ```
 ]
 
 ---
 
-What if we decrease the significance level to .025?  
+What if we decrease the significance level to .01?  
 <p>&nbsp;</p>
 
 
@@ -467,8 +590,12 @@ What if we decrease the significance level to .025?
 .pull-left[
 ```{r, echo = F}
 mean = 110
-n = 20
-cv = qnorm(mean = mu, sd = sem, p = .025, lower.tail = F)
+mu = 100
+s = 20
+n = 25
+sem = s/sqrt(n)
+cv = qnorm(mean = mu, sd = sem, p = .005, lower.tail = F)
+cv2 = qnorm(mean = mu, sd = sem, p = .005, lower.tail = T)
 ```
 
 
@@ -479,15 +606,45 @@ cv = qnorm(mean = mu, sd = sem, p = .025, lower.tail = F)
 
 .pull-right[
 That will move the critical value:
-$$CV_0 = 100 + 1.96[\frac{20}{\sqrt{20}}] = 108.8$$
-
-$$Z_1 = \frac{108.8 - 110}{\frac{20}{\sqrt{20}}} = -.28$$
+```{r, echo = F}
+z_a = (cv-mean)/sem
+```
+$\text{CV} = `r mu` + 2.58\frac{`r s`}{\sqrt{`r n`}} = `r round(cv,2)`$
+$$Z_1 = \frac{`r round(cv,2)` - `r mean`}{\frac{`r s`}{\sqrt{`r n`}}} = `r round(z_a,2)`$$
 ```{r}
-1-pnorm(-.28) 
+1-pnorm(.08) 
 ```
 ]
 
-I strongly recommend playing around with different configurations of $N$, $\alpha$ and the difference in means ( $d$ ) in this [online demo](https://rpsychologist.com/d3/NHST/).
+---
+
+Oops, we've been ignoring the other tail. So far it hasn't mattered (the area has been so small) but it makes a difference when $H_0$ and $H_1$ overlap significantly. 
+.pull-left[
+```{r, echo = F}
+mean = 102
+mu = 100
+s = 20
+n = 25
+sem = s/sqrt(n)
+cv = qnorm(mean = mu, sd = sem, p = .025, lower.tail = F)
+cv2 = qnorm(mean = mu, sd = sem, p = .025, lower.tail = T)
+z_a = (cv-mean)/sem
+z_a2 = (cv2-mean)/sem
+```
+
+
+```{r ref.label="student null and alt", fig.height=7, fig.width=7, echo = F}
+
+```
+]
+.pull-right[
+$$Z_1 = \frac{`r round(cv,2)` - `r mean`}{\frac{`r s`}{\sqrt{`r n`}}} = `r round(z_a,2)`$$
+$$Z_2 = \frac{`r round(cv2,2)` - `r mean`}{\frac{`r s`}{\sqrt{`r n`}}} = `r round(z_a2,2)`$$
+```{r}
+1-pnorm(1.46) 
+pnorm(-2.46)
+```
+]
 
 ---
 
@@ -496,7 +653,7 @@ More generally we can determine the relationship between effect size and power f
 ```{r, echo = F, fig.height=6, fig.width=9}
 pwr_fun = function(m1, m2, alpha, n, sd){
   sem = sd/sqrt(n)
-  cv = qnorm(p = 1-alpha, mean = m1, sd = sem)
+  cv = qnorm(p = 1-(alpha/2), mean = m1, sd = sem)
   z_1 = (cv-m2)/sem
   power = pnorm(q = z_1, lower.tail = F)
   return(power)
@@ -547,25 +704,21 @@ data.frame(alpha = size, power = sapply(size, function(x) pwr_fun(m1 = 100, m2 =
 
 ---
 
-For a two-tailed test, we divide the rejection area equally in the two tails. If $\alpha = .05$, then each tail contains .025 and critical values will be 1.96 standard errors away from the null mean.
+For a one-tailed test, we put the entire rejection area into a single tail. If $\alpha = .05$, then one tail contains .05 and critical values will be either 1.64 or -1.64 standard errors away from the null mean.
 
 ```{r, echo = F}
 mu = 100
 x = 110
 s = 20
-n = 20
+n = 25
 sem = s/sqrt(n)
-cv_hgh = qnorm(mean = mu, sd = sem, p = .025, lower.tail = F)
-cv_low = qnorm(mean = mu, sd = sem, p = .025, lower.tail = T)
+cv_sngle = qnorm(mean = mu, sd = sem, p = .05, lower.tail = F)
 
 ggplot(data.frame(x = seq(70, 130)), aes(x)) +
   stat_function(fun = function(x) dnorm(x, m = mu, sd = sem)) +
   stat_function(fun = function(x) dnorm(x, m = mu, sd = sem),
-                geom = "area", xlim = c(cv_hgh, 130), fill = "red") +
-  stat_function(fun = function(x) dnorm(x, m = mu, sd = sem),
-                geom = "area", xlim = c(70, cv_low), fill = "red") +
-  geom_vline(aes(xintercept = cv_hgh), color = "red")+
-  geom_vline(aes(xintercept = cv_low), color = "red")+
+                geom = "area", xlim = c(cv_sngle, 130), fill = "red") +
+  geom_vline(aes(xintercept = cv_sngle), color = "red")+
   geom_vline(aes(xintercept = mu))+
   geom_hline(aes(yintercept = 0))+
   scale_x_continuous("Means", breaks = seq(70,130,10)) +
@@ -577,10 +730,17 @@ ggplot(data.frame(x = seq(70, 130)), aes(x)) +
 
 ---
 
-The relationship of power to effect size is more complicated because deviations above and below the null mean are relevant.
+A two-tailed test is less powerful (more conservative) than a one-tailed test for the same sample size.
 
 
-```{r, echo = F, fig.height=6, fig.width=9}
+```{r, echo = F, fig.width=8}
+pwr1_fun = function(m1, m2, alpha, n, sd){
+  sem = sd/sqrt(n)
+  cv = qnorm(p = 1-(alpha), mean = m1, sd = sem)
+  z_1 = (cv-m2)/sem
+  power = pnorm(q = z_1, lower.tail = F)
+  return(power)
+}
 pwr2_fun = function(m1, m2, alpha, n, sd){
   sem = sd/sqrt(n)
   cv_1 = qnorm(p = 1-(alpha/2), mean = m1, sd = sem)
@@ -591,30 +751,10 @@ pwr2_fun = function(m1, m2, alpha, n, sd){
   return(power)
 }
 
-size = seq(70, 120, 1)
-
-data.frame(effect = size, 
-           power_1 = sapply(size, function(x) pwr_fun(m1 = 100, m2 = x, alpha = .05, n = 20, sd = 20)),
-           power_2 = sapply(size, function(x) pwr2_fun(m1 = 100, m2 = x, alpha = .05, n = 20, sd = 20))) %>%
-  ggplot(aes(x = effect)) +
-  geom_line(aes(y = power_1, color = "one-tail"), size = 1.5) +
-  geom_line(aes(y = power_2, color = "two-tail"), size = 1.5) +
-  scale_x_continuous(expression(H[1]~Mean)) +
-  ggtitle("Power to detect significant effect by mean") +
-  theme_pubr() +
-  theme(text = element_text(size = 20))
-```
-
----
-
-A two-tailed test is less powerful (more conservative) than a one-tailed test for the same sample size.
-
-
-```{r, echo = F, fig.width=8}
 size = seq(5,100,5)
 
 data.frame(effect = size, 
-           power_1 = sapply(size, function(x) pwr_fun(m1 = 100, m2 = 110, alpha = .05, n = x, sd = 20)),
+           power_1 = sapply(size, function(x) pwr1_fun(m1 = 100, m2 = 110, alpha = .05, n = x, sd = 20)),
            power_2 = sapply(size, function(x) pwr2_fun(m1 = 100, m2 = 110, alpha = .05, n = x, sd = 20))) %>%
   ggplot(aes(x = effect)) +
   geom_line(aes(y = power_1, color = "one-tail"), size = 1.5) +
@@ -665,122 +805,7 @@ $$Z_1 = \frac{CV_0 - \mu_1}{\frac{\sigma}{\sqrt{N}}}$$
 - reduce $\sigma$
 ]
 
----
-
-Often the most challenging part of a power analysis is to settle on an effect size.  
-
-- Past research can often provide some guidance, especially if a meta-analysis is available. 
-
-    - Note that these are often over-estimates. 
-
-- Sometimes a field might have standards regarding what counts as a meaningful effect (e.g., minimal clinically important difference).  
-
-- Lacking this information, we can settle for more abstract benchmarks or rules of thumb about what are “small,” “medium”, and “large” effects. 
-    
-    - But as we discussed, these benchmarks need to be contextualized in real-world outcomes.
-
-    - Complicating these choices, effect sizes come in a variety of metrics.
-    
----
-### Prevalence of false positives
-
-Consider where $\alpha$, $\beta$ and power fall in this grid. 
-
-
-|             |   Reject $H_0$   |   Do not reject  |
-|------------:|:----------------:|:----------------:|
-|  $H_0$ True |   Type I Error   | Correct decision |
-| $H_0$ False | Correct decision |   Type II Error  |
-
----
-### Prevalence of false positives
-
-Consider where $\alpha$, $\beta$ and power fall in this grid. 
-
-
-|             |   Reject $H_0$   |   Do not reject  |
-|------------:|:----------------:|:----------------:|
-|  $H_0$ True |   $\alpha$   | $1-\beta$ |
-| $H_0$ False | $1-\alpha$ |   $\beta$  |
-
-What is the sum of these cells?
-
----
-### Prevalence of false positives
-
-Figuring out how common Type I and Type II errors are in a literature requires an additional piece of information:
-
-- How often $H_0$ is true.
-
-[Ioannidis (2005)](../readings/Ioannidis_2005.pdf) demonstrates that given R (the ratio of $H_0$ false over $H-0$ true), we can calculate the **positive predictive value** of a finding, which is the likelihood that $H_1$ is true given we found a significant result:
-
-$$\frac{(1-\beta)R}{(1-\beta)R+\alpha}$$
-???
-
-Note that given publication bias, or the tendancy to only publish significant results, PPV can be thought of as the likelihood of a given published study being a false positive.
-
----
-
-Let's make some assumptions. If psychology studies use $\alpha = .05$ and are good at achieving adequate power ( $1-\beta = .80$ ), how does the choice of hypothesis affect PPV?
-
-```{r, echo = F, message = F, warning = F}
-ppv_fun = function(R, beta = .20, alpha = .05){
-  ppv = ((1-beta)*R)/((1-beta)*R + alpha)
-  return(ppv)
-}
-
-data.frame(prob = seq(0,1, by = .01)) %>%
-  mutate(ratio = prob/(1-prob),
-         ppv = ppv_fun(ratio)) %>%
-  ggplot(aes(x = prob, y = ppv)) +
-  geom_line() +
-  scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
-  scale_y_continuous("Positive Predictive Value")+
-  theme_pubr(base_size = 20)
-```
----
-
-However, there are many reasons to think that psychology studies are underpowered. Typical power may be closer to .5 or even worse. 
-
-```{r, echo = F, message = F, warning = F}
-data.frame(prob = seq(0,1, by = .01)) %>%
-  mutate(ratio = prob/(1-prob),
-         ppv = ppv_fun(ratio),
-         ppv_low = ppv_fun(ratio, beta = .5)) %>%
-  ggplot(aes(x = prob)) +
-  geom_line(aes(y = ppv, color = ".80")) +
-  geom_line(aes(y = ppv_low, color = ".50")) +
-  scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
-  scale_y_continuous("Positive Predictive Value")+
-  scale_color_discrete("Power")+
-  theme_pubr(base_size = 20)
-```
-
----
-
-In addition to being under-powered, there's recognition that research practices have inflated family-wise error, making $\alpha$ much bigger than it should be. 
-
-```{r, echo = F, message = F, warning = F}
-data.frame(prob = seq(0,1, by = .01)) %>%
-  mutate(ratio = prob/(1-prob),
-         ppv = ppv_fun(ratio),
-         ppv_low = ppv_fun(ratio, beta = .5),
-         ppv_alp = ppv_fun(ratio, alpha = .20),
-         ppv_low_alp = ppv_fun(ratio, beta = .5, alpha = .20)) %>%
-  ggplot(aes(x = prob)) +
-  geom_line(aes(y = ppv, color = ".80", linetype = ".05")) +
-  geom_line(aes(y = ppv_low, color = ".50", linetype = ".05")) +
-  geom_line(aes(y = ppv_alp, color = ".80", linetype = ".20")) +
-  geom_line(aes(y = ppv_low_alp, color = ".50", linetype = ".20")) +
-  scale_x_continuous(expression("Probability that"~H[1]~"is true")) +
-  scale_y_continuous("Positive Predictive Value")+
-  scale_color_discrete("Power")+
-  scale_linetype_discrete("Alpha") +
-  theme_pubr(base_size = 20)
-```
----
-
-![](images/ioannidis.png)
+I strongly recommend playing around with different configurations of $N$, $\alpha$ and the difference in means ( $d$ ) in this [online demo](https://rpsychologist.com/d3/NHST/).
 
 ---
 
