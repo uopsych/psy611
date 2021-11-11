@@ -1,11 +1,14 @@
 ---
 title: 'Lab 7: RMarkdown'
 output:
+  word_document:
+    toc: yes
+    toc_depth: '3'
   html_document:
     theme: cosmo
-    toc: true
+    toc: yes
     toc_depth: 3
-    toc_float: true
+    toc_float: yes
 ---
 
 
@@ -39,8 +42,8 @@ The YAML is the header of your RMarkdown file that starts and ends with `---`.  
 ```yaml
 ---
 title: Lab 7: RMarkdown
-author: Sarah Dimakis
-date: November 13, 2020
+author: Vinita Vader
+date: November 11, 2021
 output: 
   html_document
 ---
@@ -188,7 +191,7 @@ Now, I am adding headers with the `kableExtra::add_header_above` function and a 
 
 ## Table 6
 
-Finally, I am using the `kableExtra::row_spec` function to highlight the 4th row `Premium` in yellow. There are so many more things that you can do with the kableExtra package. [Here](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) is an excellent resource.
+Here I am using the `kableExtra::row_spec` function to highlight the 4th row `Premium` in yellow. There are so many more things that you can do with the kableExtra package. [Here](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) is an excellent resource.
 
 ```{r}
 
@@ -198,6 +201,18 @@ table_2 %>%
 ```
 
 ***
+
+## Table 7
+
+You can create a scroll box for your tables using the `scroll_box` function. This comes in handy when you have a large output to display. You can adjust the dimensions of the scroll box according to your preferences. 
+
+```{r}
+table_2 %>% 
+  kable_paper() %>%
+  scroll_box(width = "100%", height = "200px")
+```
+***
+
 
 # Inline text
 

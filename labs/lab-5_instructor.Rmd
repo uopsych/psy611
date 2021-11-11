@@ -143,7 +143,6 @@ The following figure from *R for Data Science* illustrates this visually.
   
 ```{r eval=FALSE, echo=TRUE}
 #practice entering a pipe with the shortcut here
-
 ```
   
 
@@ -171,11 +170,6 @@ Now, rewrite the following code using pipes.
 
 ```{r eval=FALSE, echo=TRUE}
 round(sqrt(sum(mtcars$cyl)), 1)
-
-mtcars$cyl %>% 
-  sum() %>% 
-  sqrt() %>% 
-  round(1)
 ```
 
 ```{r instructor, eval=FALSE, echo=TRUE}
@@ -317,6 +311,13 @@ world_happiness %>%
 * Filter for observations that are greater than the mean of `happiness` but less than the mean of `gdp`
 ```{r}
 # your code here
+world_happiness %>% 
+  filter(happiness>mean(happiness, na.rm = T) &
+         gdp<mean(gdp, na.rm = T))
+
+world_happiness %>% 
+  filter(happiness>mean(happiness, na.rm = T), 
+         gdp<mean(gdp, na.rm = T))
 
 ```
 
@@ -392,7 +393,8 @@ names(world_happiness)
 
 ```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
-  select(country, world, everything()) 
+  select(country, world, everything()) %>% 
+  names()
 ```
 
 * De-select variables with a minus sign (`-`)
@@ -417,8 +419,6 @@ world_happiness %>%
 
 ```{r}
 # your code here
-
-
 ```
 
 
@@ -503,7 +503,7 @@ However, this variable refers to discrete categories, and we want to change it t
 ```{r eval = FALSE, echo=TRUE}
 # Note that I am re-saving the dataframe here to preserve this change
 world_happiness <- world_happiness %>% 
-  mutate(world = as.factor(world)) 
+  mutate(world = as.factor(world))
 ```
 
 Now check the type again...
@@ -534,7 +534,7 @@ Let's use `summarize()` to get the mean of `gdp` across all observations in the 
 
 ```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
-  summarize(mean_gdp = mean(gdp, na.rm = TRUE))
+  summarize(mean_gdp = mean(gdp, na.rm = TRUE)) 
 ```
 
 * Of course, we typically want to calculate more than just a mean. We can add other summary variables, separating them by commas. 
@@ -621,6 +621,7 @@ arrange(select(filter(diamonds, carat > 3 & carat < 4, cut == "Premium", color =
 
 ```{r}
 # your code here
+
 ```
 
 
@@ -656,6 +657,19 @@ diamonds %>%
 
 ```{r}
 # your code here
+diamonds %>% 
+  filter(cut =="Fair", clarity == "IF") %>% 
+  summarize(mean_price = mean(price, na.rm = T))
+
+diamonds %>% 
+  filter(cut =="Ideal", clarity == "I1") %>% 
+  summarize(mean_price = mean(price, na.rm = T))
+
+diamonds %>% 
+  group_by(cut, clarity) %>% 
+  summarize (mean_price = mean(price, na.rm = T)) %>% 
+  filter(cut =="Fair" & clarity == "IF"|
+         cut =="Ideal" & clarity == "I1")
 ```
 
 
