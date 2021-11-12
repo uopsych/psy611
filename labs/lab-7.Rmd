@@ -419,6 +419,7 @@ ggplot(disease_map, aes(long, lat, group= group)) +
   theme_minimal()
 ```
 
+<br />
     + Change the default chunk options so that you can only see the figures (no code). 
     + Use chunk options to change the widths of the figures to 8 inches.
     + Knit and familiarize yourself with what information these graphs are presenting.
