@@ -375,13 +375,13 @@ data_3 %>%
   kbl()
 ```
 
-    + Create three subheaders "Table 1", "Table 2", and "Table 3" between the code chunks so that each code chunk is under the respective subheader.
-    + Now, edit the code to make better tables. Using the `kableExtra` package, for each table, add a table title and edit the column names. 
-    + For each table, change the table format to classic with the `kable_classic` function.
-    + For the second and third tables, try using the `kableExtra::scroll_box` function to limit the amount of space it takes up. 
-    + For the third table, highlight the Oregon row (row 38).
-    + Change the chunk options on the tables so that you can only see the tables (not the code).
-    + Knit to make sure that everything shows up how you want it.
++ Create three subheaders "Table 1", "Table 2", and "Table 3" between the code chunks so that each code chunk is under the respective subheader.
+    - Now, edit the code to make better tables. Using the `kableExtra` package, for each table, add a table title and edit the column names. 
+    - For each table, change the table format to classic with the `kable_classic` function.
+    - For the second and third tables, try using the `kableExtra::scroll_box` function to limit the amount of space it takes up. 
+    - For the third table, highlight the Oregon row (row 38).
+    - Change the chunk options on the tables so that you can only see the tables (not the code).
+    - Knit to make sure that everything shows up how you want it.
 
 4. Create a **tabbed** section called "Figures". You should have three tabs: "Figure 1", "Figure 2" and "Figure 3".
     + Copy and paste the code for these three figures into your RMarkdown file.
