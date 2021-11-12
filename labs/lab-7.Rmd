@@ -1,14 +1,14 @@
 ---
 title: 'Lab 7: RMarkdown'
 output:
-  word_document:
-    toc: yes
-    toc_depth: '3'
   html_document:
     theme: cosmo
     toc: yes
     toc_depth: 3
     toc_float: yes
+  word_document:
+    toc: yes
+    toc_depth: '3'
 ---
 
 
