@@ -419,10 +419,14 @@ ggplot(disease_map, aes(long, lat, group= group)) +
   theme_minimal()
 ```
 
-<br />
-    + Change the default chunk options so that you can only see the figures (no code). 
-    + Use chunk options to change the widths of the figures to 8 inches.
-    + Knit and familiarize yourself with what information these graphs are presenting.
+
++ Next,
+
+  + Change the default chunk options so that you can only see the figures (no code). 
+    
+  + Use chunk options to change the widths of the figures to 8 inches.
+    
+  + Knit and familiarize yourself with what information these graphs are presenting.
 
 
 5. Create one last level 1 header called "Questions". Create three subheadings "Question 1", "Question 2", and "Question 3". **Using in-line code**, answer the following questions under the respective subheading:
