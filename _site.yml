@@ -33,6 +33,9 @@ navbar:
         href: "lectures/12-critiques.html"
       - text: "14-One-sample tests"
         href: "lectures/14-one_sample.html"
+      - text: "Bonus: Chi-square test of independence"
+        href: "lectures/chi_square_independence.html"
+      
     - text: Labs
       menu:
       - text: "1-Introduction to R"
