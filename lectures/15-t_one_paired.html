@@ -93,7 +93,10 @@ We've already been covering one-sample *t*-tests, but let's formally walk throug
 
 ### A brief example
 
-Using the same Census at School data, we find that Oregon students who participated in a memory game ( `\(N = 227\)` ) completed the game in an average time of 49.1 seconds `\((s = 13.4)\)`. We know that the average US student completed the game in 45.04 seconds. How do our students compare?
+
+
+
+Using the same Census at School data, we find that Oregon students who participated in a memory game ( `\(N = 197\)` ) completed the game in an average time of `\(49.13\)` seconds `\((s = 13.42)\)`. We know that the average US student completed the game in 45.04 seconds. How do our students compare?
 
 --
 
@@ -106,12 +109,10 @@ Using the same Census at School data, we find that Oregon students who participa
 
 ???
 
-
-
-`\(sem = 0.8894\)`
-`\(t = 4.5537\)`
-`\(p1 = 0.0000043\)`
-`\(p = 0.0000086\)`
+`\(sem = 0.9562\)`
+`\(t = 4.2652\)`
+`\(p1 = 0.0000155\)`
+`\(p = 0.000031\)`
 
 
 ---
@@ -186,6 +187,11 @@ Draw attention here to:
 
 ---
 
+The difference in means was 4.08. Is that big?
+
+&lt;img src="images/four.jpeg" width="70%" /&gt;
+
+---
 # Cohen's D
 
 Cohen suggested one of the most common effect size estimates—the standardized mean difference—useful when comparing a group mean to a population mean or two group means to each other. 
@@ -217,7 +223,7 @@ Cohen (1988) suggests the following guidelines for interpreting the size of d:
 
 Another useful metric is the overlap between the two distributions -- the smaller the overlap, the farther apart the distributions
 
-![](15-t_one_paired_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](15-t_one_paired_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -468,7 +474,7 @@ To calculate the standard error of difference scores, we simply divide the stand
 `$$\frac{\hat{\sigma}_\Delta}{\sqrt{N}} = 26.58$$`
 ---
 
-![](15-t_one_paired_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](15-t_one_paired_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -486,7 +492,7 @@ In this case, N refers to the number of pairs, not the total sample size.
 
 ---
 
-![](15-t_one_paired_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+![](15-t_one_paired_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -550,7 +556,7 @@ ggpubr::ggpaired(data = gulls, cond1 = "At", cond2 = "Away", line.color = "grey"
                  title = "Some gulls approach food more quickly when \npeople look away from them")
 ```
 
-![](15-t_one_paired_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](15-t_one_paired_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -595,7 +601,7 @@ It turns out that the mean difference score is the same as the difference in mea
 
 But the calculation of the standard deviation becomes a little more complicated:
 
-`$$\large \hat{\sigma}_\Delta = \sqrt{\hat{\sigma}^2_{M_1} + \hat{\sigma}^2_{M_2} - 2r(\hat{\sigma}_{M_1}\hat{\sigma}_{M_2})}$$`
+`$$\large \hat{\sigma}_\Delta = \sqrt{\hat{\sigma}^2_{X_1} + \hat{\sigma}^2_{X_2} - 2r(\hat{\sigma}_{X_1}\hat{\sigma}_{X_2})}$$`
 
 
 ```r
@@ -631,7 +637,7 @@ pt(t, df = 193, lower.tail = F)*2
 ## [1] 0.1510719
 ```
 
-![](15-t_one_paired_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](15-t_one_paired_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 
 
 ???
@@ -645,7 +651,7 @@ What else can this equation tell us?
 
 ---
 
-`$$\large \hat{\sigma}_\Delta = \sqrt{\hat{\sigma}^2_{M_1} + \hat{\sigma}^2_{M_2} - 2r(\hat{\sigma}_{M_1}\hat{\sigma}_{M_2})}$$`
+`$$\large \hat{\sigma}_\Delta = \sqrt{\hat{\sigma}^2_{X_1} + \hat{\sigma}^2_{X_2} - 2r(\hat{\sigma}_{X_1}\hat{\sigma}_{X_2})}$$`
 
 What happens if `\(\large r\)` is large and positive?
 

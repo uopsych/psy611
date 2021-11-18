@@ -31,24 +31,6 @@ homework general
 
 2-homework.html
 
-
-lab-7.html
-* is this worth having?
-* next time, chi-square
-  * doing the test
-  * frequency tables
-  * output tables to word document
-  * extracting information
-  * in-line R code to summarize results
-* or more on data wrangling
-  * move summarize here
-  * more about first one
-    * tidy data
-* pros: first year sem already covers some of this?
-
-14-one-sample.html
-* reiterate signal/noise
-
 15-two-means_I.html (now 16)
 * reiterate signal/noise
 * add power

@@ -99,7 +99,19 @@ We've already been covering one-sample *t*-tests, but let's formally walk throug
 
 ### A brief example
 
-Using the same Census at School data, we find that Oregon students who participated in a memory game ( $N = 227$ ) completed the game in an average time of 49.1 seconds $(s = 13.4)$. We know that the average US student completed the game in 45.04 seconds. How do our students compare?
+```{r, echo = F}
+mu = 45.05
+N = length(school$Score_in_memory_game[!is.na(school$Score_in_memory_game)])
+x = mean(school$Score_in_memory_game,na.rm=T)
+s = sd(school$Score_in_memory_game, na.rm=T)
+
+sem = s/sqrt(N)
+t = (x-mu)/sem
+p1 = pt(abs(t), df = N-1, lower.tail = F)
+```
+
+
+Using the same Census at School data, we find that Oregon students who participated in a memory game ( $N = `r N`$ ) completed the game in an average time of $`r round(x,2)`$ seconds $(s = `r round(s,2)`)$. We know that the average US student completed the game in 45.04 seconds. How do our students compare?
 
 --
 
@@ -111,17 +123,6 @@ $H_1: \mu \neq 45.05$
 
 
 ???
-
-```{r, echo = F}
-mu = 45.05
-N = 227
-x = 49.1
-s = 13.4
-
-sem = s/sqrt(N)
-t = (x-mu)/sem
-p1 = pt(abs(t), df = N-1, lower.tail = F)
-```
 
 $sem = `r round(sem, 4)`$
 $t = `r round(t, 4)`$
@@ -187,6 +188,13 @@ anim
 
 ---
 
+The difference in means was `r round(x-mu,2)`. Is that big?
+
+```{r, echo = F, out.width='70%'}
+knitr::include_graphics("images/four.jpeg")
+```
+
+---
 # Cohen's D
 
 Cohen suggested one of the most common effect size estimates—the standardized mean difference—useful when comparing a group mean to a population mean or two group means to each other. 
@@ -221,9 +229,11 @@ Another useful metric is the overlap between the two distributions -- the smalle
 ```{r, echo = F}
 alt = mean(school$Score_in_memory_game, na.rm=T)
 null = 45.05
-se = sd(school$Score_in_memory_game, na.rm=T)/sqrt(length(which(!is.na(school$Score_in_memory_game))))
+se = sd(school$Score_in_memory_game, na.rm=T)
 
-x = seq(from = 40, to = 55, by = .01)
+min = 0
+max = 100
+x = seq(from = min, to = max, by = .01)
 d.alt = dnorm(x, mean = alt, sd = se)
 d.nul = dnorm(x, mean = null, sd = se)
 
@@ -234,9 +244,9 @@ area = pnorm(loc, mean = null, sd = se, lower.tail = F) + pnorm(loc, mean = alt,
 
 ggplot(data.frame(x=x), aes(x)) +
   stat_function(fun = function(x) dnorm(x, mean = null, sd = se), 
-                geom = "area", xlim = c(loc,55), fill = "black") + 
+                geom = "area", xlim = c(loc,max), fill = "black") + 
   stat_function(fun = function(x) dnorm(x, mean = alt, sd = se), 
-                geom = "area", xlim =c(45, loc), fill = "black") + 
+                geom = "area", xlim =c(min, loc), fill = "black") + 
   stat_function(fun = function(x) dnorm(x, mean = null, sd = se), geom = "line", aes(color = "null")) + 
   stat_function(fun = function(x) dnorm(x, mean = alt, sd = se), geom = "line", aes(color = "alternative")) + 
   scale_color_discrete("Model") +
@@ -570,7 +580,7 @@ It turns out that the mean difference score is the same as the difference in mea
 
 But the calculation of the standard deviation becomes a little more complicated:
 
-$$\large \hat{\sigma}_\Delta = \sqrt{\hat{\sigma}^2_{M_1} + \hat{\sigma}^2_{M_2} - 2r(\hat{\sigma}_{M_1}\hat{\sigma}_{M_2})}$$
+$$\large \hat{\sigma}_\Delta = \sqrt{\hat{\sigma}^2_{X_1} + \hat{\sigma}^2_{X_2} - 2r(\hat{\sigma}_{X_1}\hat{\sigma}_{X_2})}$$
 
 ```{r}
 sd_1 = 937.03
@@ -618,7 +628,7 @@ What else can this equation tell us?
 
 ---
 
-$$\large \hat{\sigma}_\Delta = \sqrt{\hat{\sigma}^2_{M_1} + \hat{\sigma}^2_{M_2} - 2r(\hat{\sigma}_{M_1}\hat{\sigma}_{M_2})}$$
+$$\large \hat{\sigma}_\Delta = \sqrt{\hat{\sigma}^2_{X_1} + \hat{\sigma}^2_{X_2} - 2r(\hat{\sigma}_{X_1}\hat{\sigma}_{X_2})}$$
 
 What happens if $\large r$ is large and positive?
 
