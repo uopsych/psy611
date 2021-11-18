@@ -9,7 +9,6 @@ output:
 editor_options: 
   chunk_output_type: console
 ---
-You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-8.Rmd).
 
 ```{r setup, include = FALSE}
 # set chunk options
@@ -168,7 +167,7 @@ apa_print(t_output)
 
 Depending on what object you give to apa_print, it may give you different commonly reported statistics from that test. You can access these with a '$'. Here is an example of how I might report this:
 
-"Average cooperation (`r apa_print(t_output)$estimate`) was significantly less than 60, `r apa_print(t_output)$statistic`.
+"Average cooperation (`r apa_print(t_output)$estimate`) was significantly less than 60, `r apa_print(toutput)$statistic`.
 
 
 ## Visualization
@@ -208,14 +207,22 @@ You can load in the data from this example by running the following code:
 
 ```{r}
 chico_wide <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/chico_wide.csv")
+
+# long format
+chico_long <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/chico_long.csv")
 ```
 
+**Note:** You should now have 2 versions of the same data set loaded into your global environment. The only difference in these versions of the data is their "shape" -- one is "wide" and the other is "long". In the wide form, every row corresponds to a unique *person*; in the long form, every row corresponds to a unique *observation* or *measurement*.
 
-* To get a sense of how this data set is formatted, take a look at it below:
+* To get a sense of the differences between these two versions of the data, see below:
 
 ```{r}
 chico_wide
+
+chico_long
 ```
+
+We will work with both versions of this dataset today.
 
 
 **Question:** What is a paired samples t-test?
@@ -249,7 +256,7 @@ $$H_{1}: \mu_{D} \neq 0$$
 The assumptions include..
 
 1. *Normality*: Assume that the population distribution is normally distributed. 
-2. *Independence*: Assume that each *pair* is independent of one another.
+2. *Independence*: Assume that the participants are independent of one another.
 
 
 
@@ -275,7 +282,7 @@ The t-statistic for the paired samples t-test takes the average difference score
 
 One way to conduct a paired samples t-test in R is to use the `t.test()` function we used earlier, but the variable you give as an input is the *difference scores* between two conditions of related scores. 
 
-The example immediately below uses the `t.test()` function in the `{stats}` package to conduct the one-sample *t*-test of the difference scores.
+he example immediately below uses the `t.test()` function in the `{stats}` package to conduct the one-sample *t*-test of the difference scores.
 
 ```{r}
 # First, construct a new variable of difference scores 
@@ -292,7 +299,7 @@ oneSampleTTest(x = chico_wide$diff, mu = 0)
 ```
 
 
-### Option 2: Paired samples *t*-test
+## Option 2: Paired samples *t*-test
 
 You can also conduct a paired samples t-test using the `t.test()` function with the raw scores from two related conditions if you set the argument `paired = TRUE`. The results will be exactly the same as running the one sample *t*-test on the difference scores. 
 
@@ -311,24 +318,14 @@ pairedSamplesTTest(formula = ~ grade_test2 + grade_test1, # one-sided formula
 
 
 
-#### Long vs. wide format
+### Long vs. wide format
 
-The data set we used above was in *wide* format. Wide format data is set up so that each row corresponds to a unique participant. You could also have your data set up in *long* format. Long format data is set up such that each row corresponds to a unique observation.
+Note that in the example above, using the `pairedSamplesTTest()` function, we used the wide format data. When using wide data with `pairedSamplesTTest()`, you enter a one-sided formula that contains your two repeated measures conditions (e.g. `~ grade_test2 + gradte_test1`).
 
-When using wide data with `pairedSamplesTTest()`, you enter a one-sided formula that contains your two repeated measures conditions (e.g. `~ grade_test2 + gradte_test1`).
-
-To use the `pairedSamplesTTest()` function with long format data, use a two-sided formula: `outcome ~ group`. You also need to specify the name of the ID variable. Note that the grouping variable must also be a factor. 
+The `pairedSamplesTTest()` function can also be used with long data. In this case, you must use a two-sided formula: `outcome ~ group`. You also need to specify the name of the ID variable. Note that the grouping variable must also be a factor. 
 
 ```{r}
-# long format
-chico_long <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/chico_long.csv")
-
-# Look at how the data is formatted
-chico_long
-```
-
-```{r}
-# grouping variable (time) and id variable must be factors
+# grouping variable (time) must be a factor
 chico_long <- chico_long %>% 
   mutate(time = as.factor(time), 
          id = as.factor(id))
@@ -346,16 +343,12 @@ pairedSamplesTTest(formula = grade ~ time, # two-sided formula
 pairedtoutput  <- t.test(x = chico_wide$grade_test1,
                          y = chico_wide$grade_test2,
                          paired = TRUE)
-pairedtoutput
 
 #Let's look at our output options
 apa_print(pairedtoutput)
 ```
 
 * Practice using the output from 'apa_print' to write your results here:
-
-
-There was a signiicant change in grades such that grades at time 2 were significantly _______ compared to at time 1 (`r  `), `r  `. 
 
 
 
@@ -413,7 +406,14 @@ pancakes <- data.frame("id"      = 1:17,
 
 ```{r}
 #Your code here
+pancake_analysis <- t.test(x = pancakes$Delicious, mu = 50)
+pancake_analysis
 
+apa_print(pancake_analysis)
+
+# or
+
+oneSampleTTest(x = pancakes$Delicious, mu = 50)
 
 ```
 
@@ -421,7 +421,7 @@ pancakes <- data.frame("id"      = 1:17,
 
 2. Report and interpret your results by filling in the embedded r code below.
 
-We found that the average deliciousness of pancakes (`r  `) was significantly higher compared to strawberries, `r  `. 
+We found that the average deliciousness of pancakes (`r apa_print(pancake_analysis)$estimate`) was significantly higher compared to strawberries, `r apa_print(pancake_analysis)$statistic`. 
 
 
 
@@ -429,8 +429,12 @@ We found that the average deliciousness of pancakes (`r  `) was significantly hi
 
 ```{r}
 #Your code here
-
-
+ggplot(data = pancakes) +
+  geom_histogram(aes(x = Delicious), fill = "light blue", color = "black", alpha = .8, bins = 6) +
+  theme_bw() +
+  geom_vline(xintercept = 50, color = "purple", linetype = "dashed") +
+  labs(title = "Histogram of Deliciousness Scores of Pancakes",
+       x = "Deliciousness")
 ```
 
 
@@ -451,29 +455,40 @@ cbt_data <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs
 
 ```{r}
 #Your code here
+cbt_data
+  
+paired_t_results <- t.test(x = cbt_data$before,
+       y = cbt_data$after,
+       paired = TRUE)
 
-
+# or
+  
+pairedSamplesTTest(formula = ~ before + after, # one-sided formula
+                   data = cbt_data)
 ```
 
 2. Verify your results using a one sample t-test on difference scores
 
 ```{r}
 #Your code here
+cbt_data$diff <- cbt_data$after - cbt_data$before
 
+t.test(x = cbt_data$diff, mu = 0)
 
+apa_print(paired_t_results)
 ```
 
 
 3. Report and interpret your results using r code embedded in text.
 
-There was a significant decrease in anxiety scores after CBT compared to before (`r  `), `r  `. 
+There was a significant decrease in anxiety scores after CBT compared to before (`r apa_print(paired_t_results)$estimate`), `r apa_print(paired_t_results)$statistic`. 
 
 
 4. Obtain a table of descriptive statistics.
 
 ```{r}
 #Your code here
-
+describe(cbt_data)
 ```
 
 
@@ -481,8 +496,14 @@ There was a significant decrease in anxiety scores after CBT compared to before 
 
 ```{r}
 #Your code here
+cbt_data
 
-
+ggpaired(cbt_data, 
+         cond1      = "before", # first condition
+         cond2      = "after", # second condition
+         color      = "condition", 
+         line.color = "gray", 
+         line.size  = 0.4)
 ```
 
 
