@@ -31,8 +31,10 @@ navbar:
         href: "lectures/11-nhst.html"
       - text: "13-Critiques of NHST"
         href: "lectures/12-critiques.html"
-      - text: "14-One-sample tests"
+      - text: "14-Chi-square Goodness of Fit"
         href: "lectures/14-one_sample.html"
+      - text: "15-t-tests: one- and paired-samples"
+        href: "lectures/15-t_one_paired.html"
       - text: "Bonus: Chi-square test of independence"
         href: "lectures/chi_square_independence.html"
       

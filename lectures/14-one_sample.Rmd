@@ -1,5 +1,5 @@
 ---
-title: 'One-sample hypothesis tests'
+title: 'Chi-Square Goodness of Fit'
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -431,217 +431,217 @@ Significant chi-square tests suggest the model does not fit -- the data have val
 
 ---
 
-When we move from categorical outcomes to variables measured on an interval or ratio scale, we become interested in means rather than frequencies.  Comparing means is usually done with the *t*-test, of which there are several forms.
+<!-- When we move from categorical outcomes to variables measured on an interval or ratio scale, we become interested in means rather than frequencies.  Comparing means is usually done with the *t*-test, of which there are several forms. -->
 
-The one-sample *t*-test is appropriate when a single sample mean is compared to a population mean but the population standard deviation is unknown.  A sample estimate of the population standard deviation is used instead.  The appropriate sampling distribution is the t-distribution, with N-1 degrees of freedom.
+<!-- The one-sample *t*-test is appropriate when a single sample mean is compared to a population mean but the population standard deviation is unknown.  A sample estimate of the population standard deviation is used instead.  The appropriate sampling distribution is the t-distribution, with N-1 degrees of freedom. -->
 
-$$t_{df=N-1} = \frac{\bar{X}-\mu}{\frac{\hat{\sigma}}{\sqrt{N}}}$$
-The heavier tails of the t-distribution, especially for small N, are the penalty we pay for having to estimate the population standard deviation from the sample.
+<!-- $$t_{df=N-1} = \frac{\bar{X}-\mu}{\frac{\hat{\sigma}}{\sqrt{N}}}$$ -->
+<!-- The heavier tails of the t-distribution, especially for small N, are the penalty we pay for having to estimate the population standard deviation from the sample. -->
 
----
+<!-- --- -->
 
-### One-sample *t*-tests
+<!-- ### One-sample *t*-tests -->
 
-*t*-tests were developed by William Sealy Gosset, who was a chemist studying the grains used in making beer. (He worked for Guinness.)
+<!-- *t*-tests were developed by William Sealy Gosset, who was a chemist studying the grains used in making beer. (He worked for Guinness.) -->
 
-* Specifically, he wanted to know whether particular strains of grain made better or worse beer than the standard. 
+<!-- * Specifically, he wanted to know whether particular strains of grain made better or worse beer than the standard.  -->
 
-* He developed the *t*-test, to test small samples of beer against a population with an unknown standard deviation.
-  
-  * Probably had input from Karl Pearson and Ronald Fisher
-  
-* Published this as "Student" because Guinness didn't want these tests tied to the production of beer. 
+<!-- * He developed the *t*-test, to test small samples of beer against a population with an unknown standard deviation. -->
 
----
+<!--   * Probably had input from Karl Pearson and Ronald Fisher -->
 
-### One-sample *t*-tests
+<!-- * Published this as "Student" because Guinness didn't want these tests tied to the production of beer.  -->
 
-We've already been covering one-sample *t*-tests, but let's formally walk through some of the steps and how this differs from a z-test.
+<!-- --- -->
 
-| | Z-test | *t*-test |
-| --|--------|--------|
-| $\large{\mu}$ | known | known |
-| $\sigma$ | known |unknown |
-| sem or $\sigma_M$ | $\frac{\sigma}{\sqrt{N}}$ | $\frac{\hat{\sigma}}{\sqrt{N}}$ |
-|Probability distribution | standard normal | t |
-| DF | none | N-1 |
-| Tails | One or two | One or two |
-| Critical value ( $\alpha = .05, two-tailed$ | 1.96 | Depends on DF |
+<!-- ### One-sample *t*-tests -->
 
----
+<!-- We've already been covering one-sample *t*-tests, but let's formally walk through some of the steps and how this differs from a z-test. -->
 
-### When you assume...
+<!-- | | Z-test | *t*-test | -->
+<!-- | --|--------|--------| -->
+<!-- | $\large{\mu}$ | known | known | -->
+<!-- | $\sigma$ | known |unknown | -->
+<!-- | sem or $\sigma_M$ | $\frac{\sigma}{\sqrt{N}}$ | $\frac{\hat{\sigma}}{\sqrt{N}}$ | -->
+<!-- |Probability distribution | standard normal | t | -->
+<!-- | DF | none | N-1 | -->
+<!-- | Tails | One or two | One or two | -->
+<!-- | Critical value ( $\alpha = .05, two-tailed$ | 1.96 | Depends on DF | -->
 
-...you can run a parametric statistical test!
+<!-- --- -->
 
-**Assumptions of the one-sample *t*-test**
+<!-- ### When you assume... -->
 
-**Normality.** We assume the sampling distribution of the mean is normally distributed. Under what two conditions can we be assured that this is true?
+<!-- ...you can run a parametric statistical test! -->
 
-**Independence.** Observations in the dataset are not associated with one another. Put another way, collecting a score from Participant A doesn't tell me anything about what Participant B will say. How can we be safe in this assumption?
+<!-- **Assumptions of the one-sample *t*-test** -->
 
----
+<!-- **Normality.** We assume the sampling distribution of the mean is normally distributed. Under what two conditions can we be assured that this is true? -->
 
-### A brief example
+<!-- **Independence.** Observations in the dataset are not associated with one another. Put another way, collecting a score from Participant A doesn't tell me anything about what Participant B will say. How can we be safe in this assumption? -->
 
-Using the same Census at School data, we find that Oregon students who participated in a memory game ( $N = 227$ ) completed the game in an average time of 49.1 seconds ( $s = 13.4$ ). We know that the average US student completed the game in 45.04 seconds. How do our students compare?
+<!-- --- -->
 
---
+<!-- ### A brief example -->
 
-**Hypotheses**
+<!-- Using the same Census at School data, we find that Oregon students who participated in a memory game ( $N = 227$ ) completed the game in an average time of 49.1 seconds ( $s = 13.4$ ). We know that the average US student completed the game in 45.04 seconds. How do our students compare? -->
 
-$H_0: \mu = 45.05$
+<!-- -- -->
 
-$H_1: \mu \neq 45.05$
+<!-- **Hypotheses** -->
 
----
+<!-- $H_0: \mu = 45.05$ -->
 
-$$\mu = 45.05$$
+<!-- $H_1: \mu \neq 45.05$ -->
 
-$$N = 227$$
+<!-- --- -->
 
-$$ \bar{X} = 49.1 $$
+<!-- $$\mu = 45.05$$ -->
 
-$$ s = 13.4 $$
+<!-- $$N = 227$$ -->
 
+<!-- $$ \bar{X} = 49.1 $$ -->
 
+<!-- $$ s = 13.4 $$ -->
 
 
 
-```{r}
-t.test(x = school$Score_in_memory_game, mu = 45.05, 
-       alternative = "two.sided")
-```
 
 
----
+<!-- ```{r} -->
+<!-- t.test(x = school$Score_in_memory_game, mu = 45.05,  -->
+<!--        alternative = "two.sided") -->
+<!-- ``` -->
 
-```{r}
-lsr::oneSampleTTest(x = school$Score_in_memory_game, 
-                    mu = 45.05, one.sided = FALSE)
-```
 
+<!-- --- -->
 
----
-## Shifting confidence intervals
+<!-- ```{r} -->
+<!-- lsr::oneSampleTTest(x = school$Score_in_memory_game,  -->
+<!--                     mu = 45.05, one.sided = FALSE) -->
+<!-- ``` -->
 
-```{r, echo = F, cache = T}
-mu = 45.05
-xbar = 49.1
-s = 13.4
-N = 227
-sem = s/sqrt(N)
-moe = qt(.975, df = N-1)*sem
 
-plotdata = expand.grid(mean = c(mu,xbar),
-            tscore = seq(-6, 6, by =.01)) %>%
-  mutate(density = map_dbl(tscore, ~dt(.x, df = N-1)),
-         X = map2_dbl(tscore, mean, ~(.x*sem)+.y)) %>%
-  mutate(ci_lower = map_dbl(mean, ~.x-moe),
-         ci_upper = map_dbl(mean, ~.x+moe))
+<!-- --- -->
+<!-- ## Shifting confidence intervals -->
 
-anim = plotdata %>%
-  ggplot(aes(x = X, y = density)) +
-  geom_point(size = .5) +
-  geom_vline(aes(xintercept = mu, color = "H0 mean")) +
-  geom_vline(aes(xintercept = xbar, color = "Sample mean")) +
-  geom_vline(aes(xintercept = ci_lower), linetype = "dashed")+
-  geom_vline(aes(xintercept = ci_upper), linetype = "dashed")+
-  scale_x_continuous(limits = c(42, 55)) +
-  transition_states(mean, transition_length = 2, state_length = 2) +
-  theme_pubr()
+<!-- ```{r, echo = F, cache = T} -->
+<!-- mu = 45.05 -->
+<!-- xbar = 49.1 -->
+<!-- s = 13.4 -->
+<!-- N = 227 -->
+<!-- sem = s/sqrt(N) -->
+<!-- moe = qt(.975, df = N-1)*sem -->
 
-anim
-```
+<!-- plotdata = expand.grid(mean = c(mu,xbar), -->
+<!--             tscore = seq(-6, 6, by =.01)) %>% -->
+<!--   mutate(density = map_dbl(tscore, ~dt(.x, df = N-1)), -->
+<!--          X = map2_dbl(tscore, mean, ~(.x*sem)+.y)) %>% -->
+<!--   mutate(ci_lower = map_dbl(mean, ~.x-moe), -->
+<!--          ci_upper = map_dbl(mean, ~.x+moe)) -->
 
+<!-- anim = plotdata %>% -->
+<!--   ggplot(aes(x = X, y = density)) + -->
+<!--   geom_point(size = .5) + -->
+<!--   geom_vline(aes(xintercept = mu, color = "H0 mean")) + -->
+<!--   geom_vline(aes(xintercept = xbar, color = "Sample mean")) + -->
+<!--   geom_vline(aes(xintercept = ci_lower), linetype = "dashed")+ -->
+<!--   geom_vline(aes(xintercept = ci_upper), linetype = "dashed")+ -->
+<!--   scale_x_continuous(limits = c(42, 55)) + -->
+<!--   transition_states(mean, transition_length = 2, state_length = 2) + -->
+<!--   theme_pubr() -->
 
----
+<!-- anim -->
+<!-- ``` -->
 
-# Cohen's D
 
-Cohen suggested one of the most common effect size estimates—the standardized mean difference—useful when comparing a group mean to a population mean or two group means to each other. 
+<!-- --- -->
 
-$$\delta = \frac{\mu_1 - \mu_0}{\sigma} \approx d = \frac{\bar{X}-\mu}{\hat{\sigma}}$$
+<!-- # Cohen's D -->
 
---
+<!-- Cohen suggested one of the most common effect size estimates—the standardized mean difference—useful when comparing a group mean to a population mean or two group means to each other.  -->
 
-Cohen’s d is in the standard deviation (Z) metric.
+<!-- $$\delta = \frac{\mu_1 - \mu_0}{\sigma} \approx d = \frac{\bar{X}-\mu}{\hat{\sigma}}$$ -->
 
+<!-- -- -->
 
----
+<!-- Cohen’s d is in the standard deviation (Z) metric. -->
 
-Cohens’s d for these data is .30.  In other words, the sample mean differs from the population mean by .30 standard deviation units. 
 
-Cohen (1988) suggests the following guidelines for interpreting the size of d:
+<!-- --- -->
 
-.large[
+<!-- Cohens’s d for these data is .30.  In other words, the sample mean differs from the population mean by .30 standard deviation units.  -->
 
-- 	.2 = Small
+<!-- Cohen (1988) suggests the following guidelines for interpreting the size of d: -->
 
-- 	.5 = Medium
+<!-- .large[ -->
 
-- 	.8 = Large	
+<!-- - 	.2 = Small -->
 
-]
-.small[Cohen, J. (1988), Statistical power analysis for the behavioral sciences (2nd Ed.). Hillsdale: Lawrence Erlbaum.]
----
+<!-- - 	.5 = Medium -->
 
-Another useful metric is the overlap between the two distributions -- the smaller the overlap, the farther apart the distributions
+<!-- - 	.8 = Large	 -->
 
-```{r, echo = F}
-alt = mean(school$Score_in_memory_game, na.rm=T)
-null = 45.05
-se = sd(school$Score_in_memory_game, na.rm=T)/sqrt(length(which(!is.na(school$Score_in_memory_game))))
+<!-- ] -->
+<!-- .small[Cohen, J. (1988), Statistical power analysis for the behavioral sciences (2nd Ed.). Hillsdale: Lawrence Erlbaum.] -->
+<!-- --- -->
 
-x = seq(from = 40, to = 55, by = .01)
-d.alt = dnorm(x, mean = alt, sd = se)
-d.nul = dnorm(x, mean = null, sd = se)
+<!-- Another useful metric is the overlap between the two distributions -- the smaller the overlap, the farther apart the distributions -->
 
-loc = min(which(d.alt-d.nul > 0))
-loc = (x[loc] + x[loc-1])/2
+<!-- ```{r, echo = F} -->
+<!-- alt = mean(school$Score_in_memory_game, na.rm=T) -->
+<!-- null = 45.05 -->
+<!-- se = sd(school$Score_in_memory_game, na.rm=T)/sqrt(length(which(!is.na(school$Score_in_memory_game)))) -->
 
-area = pnorm(loc, mean = null, sd = se, lower.tail = F) + pnorm(loc, mean = alt, sd = se, lower.tail = T)
+<!-- x = seq(from = 40, to = 55, by = .01) -->
+<!-- d.alt = dnorm(x, mean = alt, sd = se) -->
+<!-- d.nul = dnorm(x, mean = null, sd = se) -->
 
-ggplot(data.frame(x=x), aes(x)) +
-  stat_function(fun = function(x) dnorm(x, mean = null, sd = se), 
-                geom = "area", xlim = c(loc,55), fill = "black") + 
-  stat_function(fun = function(x) dnorm(x, mean = alt, sd = se), 
-                geom = "area", xlim =c(45, loc), fill = "black") + 
-  stat_function(fun = function(x) dnorm(x, mean = null, sd = se), geom = "line", aes(color = "null")) + 
-  stat_function(fun = function(x) dnorm(x, mean = alt, sd = se), geom = "line", aes(color = "alternative")) + 
-  scale_color_discrete("Model") +
-  ggtitle(paste0("Overlap = ", round(area,3))) + 
-  theme_bw(base_size = 20)
-```
+<!-- loc = min(which(d.alt-d.nul > 0)) -->
+<!-- loc = (x[loc] + x[loc-1])/2 -->
 
+<!-- area = pnorm(loc, mean = null, sd = se, lower.tail = F) + pnorm(loc, mean = alt, sd = se, lower.tail = T) -->
 
----
+<!-- ggplot(data.frame(x=x), aes(x)) + -->
+<!--   stat_function(fun = function(x) dnorm(x, mean = null, sd = se),  -->
+<!--                 geom = "area", xlim = c(loc,55), fill = "black") +  -->
+<!--   stat_function(fun = function(x) dnorm(x, mean = alt, sd = se),  -->
+<!--                 geom = "area", xlim =c(45, loc), fill = "black") +  -->
+<!--   stat_function(fun = function(x) dnorm(x, mean = null, sd = se), geom = "line", aes(color = "null")) +  -->
+<!--   stat_function(fun = function(x) dnorm(x, mean = alt, sd = se), geom = "line", aes(color = "alternative")) +  -->
+<!--   scale_color_discrete("Model") + -->
+<!--   ggtitle(paste0("Overlap = ", round(area,3))) +  -->
+<!--   theme_bw(base_size = 20) -->
+<!-- ``` -->
 
-### The usefulness of the one-sample *t*-test
 
-How often will you conducted a one-sample *t*-test on raw data?
+<!-- --- -->
 
---
+<!-- ### The usefulness of the one-sample *t*-test -->
 
-* (Probably) never
+<!-- How often will you conducted a one-sample *t*-test on raw data? -->
 
-How often will you come across one-sample *t*-tests?
+<!-- -- -->
 
---
+<!-- * (Probably) never -->
 
-* (Probably) a lot!
+<!-- How often will you come across one-sample *t*-tests? -->
 
-The one-sample *t*-test is used to test coefficients in a model. 
+<!-- -- -->
 
----
+<!-- * (Probably) a lot! -->
 
-```{r}
-model = lm(health ~ education, data = spi)
-summary(model)
-```
+<!-- The one-sample *t*-test is used to test coefficients in a model.  -->
 
----
+<!-- --- -->
 
-# Next time...
+<!-- ```{r} -->
+<!-- model = lm(health ~ education, data = spi) -->
+<!-- summary(model) -->
+<!-- ``` -->
 
-Comparing two means
+<!-- --- -->
+
+<!-- # Next time... -->
+
+<!-- Comparing two means -->

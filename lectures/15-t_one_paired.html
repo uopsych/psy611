@@ -21,7 +21,7 @@ class: center, middle, inverse, title-slide
 
 
 
----
+
 
 
 
@@ -71,11 +71,11 @@ We've already been covering one-sample *t*-tests, but let's formally walk throug
 | --|--------|--------|
 | `\(\large{\mu}\)` | known | known |
 | `\(\sigma\)` | known |unknown |
-| sem or `\(\sigma_M\)` | `\(\frac{\sigma}{\sqrt{N}}\)` | `\(\frac{\hat{\sigma}}{\sqrt{N}}\)` |
-|Probability distribution | standard normal | t |
-| DF | none | N-1 |
+| sem or `\(\sigma_M\)` | `\(\frac{\sigma}{\sqrt{N}}\)` | `\(\frac{\hat{\sigma}}{\sqrt{N}}\)` or `\(\frac{s}{\sqrt{N}}\)`|
+|Probability distribution | standard normal | `\(t\)` |
+| DF | none | `\(N-1\)` |
 | Tails | One or two | One or two |
-| Critical value ( `\(\alpha = .05, two-tailed\)` | 1.96 | Depends on DF |
+| Critical value ( `\(\alpha = .05\)` two-tailed) | 1.96 | Depends on DF |
 
 ---
 
@@ -85,7 +85,7 @@ We've already been covering one-sample *t*-tests, but let's formally walk throug
 
 **Assumptions of the one-sample *t*-test**
 
-**Normality.** We assume the sampling distribution of the mean is normally distributed. Under what two conditions can we be assured that this is true?
+**Normality.** We assume the sampling distribution of the mean is normally distributed. How can we make this assumption?
 
 **Independence.** Observations in the dataset are not associated with one another. Put another way, collecting a score from Participant A doesn't tell me anything about what Participant B will say. How can we be safe in this assumption?
 
@@ -93,7 +93,7 @@ We've already been covering one-sample *t*-tests, but let's formally walk throug
 
 ### A brief example
 
-Using the same Census at School data, we find that Oregon students who participated in a memory game ( `\(N = 227\)` ) completed the game in an average time of 49.1 seconds ( `\(s = 13.4\)` ). We know that the average US student completed the game in 45.04 seconds. How do our students compare?
+Using the same Census at School data, we find that Oregon students who participated in a memory game ( `\(N = 227\)` ) completed the game in an average time of 49.1 seconds `\((s = 13.4)\)`. We know that the average US student completed the game in 45.04 seconds. How do our students compare?
 
 --
 
@@ -103,18 +103,18 @@ Using the same Census at School data, we find that Oregon students who participa
 
 `\(H_1: \mu \neq 45.05\)`
 
+
+???
+
+
+
+`\(sem = 0.8894\)`
+`\(t = 4.5537\)`
+`\(p1 = 0.0000043\)`
+`\(p = 0.0000086\)`
+
+
 ---
-
-`$$\mu = 45.05$$`
-
-`$$N = 227$$`
-
-$$ \bar{X} = 49.1 $$
-
-$$ s = 13.4 $$
-
-
-
 
 
 
@@ -128,7 +128,7 @@ t.test(x = school$Score_in_memory_game, mu = 45.05,
 ## 	One Sample t-test
 ## 
 ## data:  school$Score_in_memory_game
-## t = 4.2652, df = 196, p-value = 3.104e-05
+## t = 4.2652, df = 196, p-value = 0.00003104
 ## alternative hypothesis: true mean is not equal to 45.05
 ## 95 percent confidence interval:
 ##  47.24269 51.01427
@@ -144,11 +144,6 @@ t.test(x = school$Score_in_memory_game, mu = 45.05,
 ```r
 lsr::oneSampleTTest(x = school$Score_in_memory_game, 
                     mu = 45.05, one.sided = FALSE)
-```
-
-```
-## Warning in lsr::oneSampleTTest(x = school$Score_in_memory_game, mu = 45.05, : 3
-## case(s) removed due to missingness
 ```
 
 ```
@@ -176,164 +171,17 @@ lsr::oneSampleTTest(x = school$Score_in_memory_game,
 ##    estimated effect size (Cohen's d):  0.304
 ```
 
+???
+
+Draw attention here to:
+
+1. confidence interval -- doesn't contain null hypothesis
+2. cohen's d
 
 ---
 ## Shifting confidence intervals
 
-
-```
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-
-## Warning: Removed 258 rows containing missing values (geom_point).
-```
-
-![](16-paired_samples_files/figure-html/unnamed-chunk-3-1.gif)&lt;!-- --&gt;
+![](15-t_one_paired_files/figure-html/unnamed-chunk-4-1.gif)&lt;!-- --&gt;
 
 
 ---
@@ -369,7 +217,7 @@ Cohen (1988) suggests the following guidelines for interpreting the size of d:
 
 Another useful metric is the overlap between the two distributions -- the smaller the overlap, the farther apart the distributions
 
-![](16-paired_samples_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](15-t_one_paired_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -408,17 +256,22 @@ summary(model)
 ## -2.6683 -0.5896  0.3317  0.5284  1.6071 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 3.353512   0.036015  93.116  &lt; 2e-16 ***
-## education   0.039348   0.007732   5.089  3.8e-07 ***
+##             Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept) 3.353512   0.036015  93.116 &lt; 0.0000000000000002 ***
+## education   0.039348   0.007732   5.089           0.00000038 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 0.9733 on 3251 degrees of freedom
 ##   (747 observations deleted due to missingness)
 ## Multiple R-squared:  0.007903,	Adjusted R-squared:  0.007598 
-## F-statistic:  25.9 on 1 and 3251 DF,  p-value: 3.803e-07
+## F-statistic:  25.9 on 1 and 3251 DF,  p-value: 0.0000003803
 ```
+
+---
+class:inverse
+
+repeated measures
 
 ---
 
@@ -601,7 +454,7 @@ And we can calculate the standard deviation
 
 --
 
-To calculate the standard error of our difference scores, we simply divide the standard deviation by the square root of the number of *pairs* or, in the case of repeated measures, the number of *subjects*.
+To calculate the standard error of difference scores, we simply divide the standard deviation by the square root of the number of *pairs* or, if repeated measures, the number of *subjects*.
 
 
 ```r
@@ -615,7 +468,7 @@ To calculate the standard error of our difference scores, we simply divide the s
 `$$\frac{\hat{\sigma}_\Delta}{\sqrt{N}} = 26.58$$`
 ---
 
-![](16-paired_samples_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](15-t_one_paired_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -633,7 +486,7 @@ In this case, N refers to the number of pairs, not the total sample size.
 
 ---
 
-![](16-paired_samples_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](15-t_one_paired_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -697,7 +550,7 @@ ggpubr::ggpaired(data = gulls, cond1 = "At", cond2 = "Away", line.color = "grey"
                  title = "Some gulls approach food more quickly when \npeople look away from them")
 ```
 
-![](16-paired_samples_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+![](15-t_one_paired_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -778,7 +631,7 @@ pt(t, df = 193, lower.tail = F)*2
 ## [1] 0.1510719
 ```
 
-![](16-paired_samples_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+![](15-t_one_paired_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
 
 
 ???
@@ -804,6 +657,15 @@ What happens if `\(\large r\)` is small and positive?
 
 What happens if `\(\large r\)` is negative?
 
+???
+
+large and postive: se is very small
+small and positive: se is smaller but not so much
+negative: se is bigger
+
+take away: likely to find differences when two measures are positively associated, but hurt if negatively
+may consider reverse scoring measures...
+
 ---
 
 ## Assumptions
@@ -821,9 +683,6 @@ class: inverse
 ### Next time...
 
 * Independent samples _t_-tests
-
-
-### But first, breakout groups!
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

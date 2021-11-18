@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>One-sample hypothesis tests</title>
+    <title>Chi-Square Goodness of Fit</title>
     <meta charset="utf-8" />
     <script src="libs/header-attrs-2.10/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
@@ -13,7 +13,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# One-sample hypothesis tests
+# Chi-Square Goodness of Fit
 
 ---
 
@@ -660,233 +660,220 @@ Significant chi-square tests suggest the model does not fit -- the data have val
 
 ---
 
-When we move from categorical outcomes to variables measured on an interval or ratio scale, we become interested in means rather than frequencies.  Comparing means is usually done with the *t*-test, of which there are several forms.
+&lt;!-- When we move from categorical outcomes to variables measured on an interval or ratio scale, we become interested in means rather than frequencies.  Comparing means is usually done with the *t*-test, of which there are several forms. --&gt;
 
-The one-sample *t*-test is appropriate when a single sample mean is compared to a population mean but the population standard deviation is unknown.  A sample estimate of the population standard deviation is used instead.  The appropriate sampling distribution is the t-distribution, with N-1 degrees of freedom.
+&lt;!-- The one-sample *t*-test is appropriate when a single sample mean is compared to a population mean but the population standard deviation is unknown.  A sample estimate of the population standard deviation is used instead.  The appropriate sampling distribution is the t-distribution, with N-1 degrees of freedom. --&gt;
 
-`$$t_{df=N-1} = \frac{\bar{X}-\mu}{\frac{\hat{\sigma}}{\sqrt{N}}}$$`
-The heavier tails of the t-distribution, especially for small N, are the penalty we pay for having to estimate the population standard deviation from the sample.
+&lt;!-- `$$t_{df=N-1} = \frac{\bar{X}-\mu}{\frac{\hat{\sigma}}{\sqrt{N}}}$$` --&gt;
+&lt;!-- The heavier tails of the t-distribution, especially for small N, are the penalty we pay for having to estimate the population standard deviation from the sample. --&gt;
 
----
+&lt;!-- --- --&gt;
 
-### One-sample *t*-tests
+&lt;!-- ### One-sample *t*-tests --&gt;
 
-*t*-tests were developed by William Sealy Gosset, who was a chemist studying the grains used in making beer. (He worked for Guinness.)
+&lt;!-- *t*-tests were developed by William Sealy Gosset, who was a chemist studying the grains used in making beer. (He worked for Guinness.) --&gt;
 
-* Specifically, he wanted to know whether particular strains of grain made better or worse beer than the standard. 
+&lt;!-- * Specifically, he wanted to know whether particular strains of grain made better or worse beer than the standard.  --&gt;
 
-* He developed the *t*-test, to test small samples of beer against a population with an unknown standard deviation.
-  
-  * Probably had input from Karl Pearson and Ronald Fisher
-  
-* Published this as "Student" because Guinness didn't want these tests tied to the production of beer. 
+&lt;!-- * He developed the *t*-test, to test small samples of beer against a population with an unknown standard deviation. --&gt;
 
----
+&lt;!--   * Probably had input from Karl Pearson and Ronald Fisher --&gt;
 
-### One-sample *t*-tests
+&lt;!-- * Published this as "Student" because Guinness didn't want these tests tied to the production of beer.  --&gt;
 
-We've already been covering one-sample *t*-tests, but let's formally walk through some of the steps and how this differs from a z-test.
+&lt;!-- --- --&gt;
 
-| | Z-test | *t*-test |
-| --|--------|--------|
-| `\(\large{\mu}\)` | known | known |
-| `\(\sigma\)` | known |unknown |
-| sem or `\(\sigma_M\)` | `\(\frac{\sigma}{\sqrt{N}}\)` | `\(\frac{\hat{\sigma}}{\sqrt{N}}\)` |
-|Probability distribution | standard normal | t |
-| DF | none | N-1 |
-| Tails | One or two | One or two |
-| Critical value ( `\(\alpha = .05, two-tailed\)` | 1.96 | Depends on DF |
+&lt;!-- ### One-sample *t*-tests --&gt;
 
----
+&lt;!-- We've already been covering one-sample *t*-tests, but let's formally walk through some of the steps and how this differs from a z-test. --&gt;
 
-### When you assume...
+&lt;!-- | | Z-test | *t*-test | --&gt;
+&lt;!-- | --|--------|--------| --&gt;
+&lt;!-- | `\(\large{\mu}\)` | known | known | --&gt;
+&lt;!-- | `\(\sigma\)` | known |unknown | --&gt;
+&lt;!-- | sem or `\(\sigma_M\)` | `\(\frac{\sigma}{\sqrt{N}}\)` | `\(\frac{\hat{\sigma}}{\sqrt{N}}\)` | --&gt;
+&lt;!-- |Probability distribution | standard normal | t | --&gt;
+&lt;!-- | DF | none | N-1 | --&gt;
+&lt;!-- | Tails | One or two | One or two | --&gt;
+&lt;!-- | Critical value ( `\(\alpha = .05, two-tailed\)` | 1.96 | Depends on DF | --&gt;
 
-...you can run a parametric statistical test!
+&lt;!-- --- --&gt;
 
-**Assumptions of the one-sample *t*-test**
+&lt;!-- ### When you assume... --&gt;
 
-**Normality.** We assume the sampling distribution of the mean is normally distributed. Under what two conditions can we be assured that this is true?
+&lt;!-- ...you can run a parametric statistical test! --&gt;
 
-**Independence.** Observations in the dataset are not associated with one another. Put another way, collecting a score from Participant A doesn't tell me anything about what Participant B will say. How can we be safe in this assumption?
+&lt;!-- **Assumptions of the one-sample *t*-test** --&gt;
 
----
+&lt;!-- **Normality.** We assume the sampling distribution of the mean is normally distributed. Under what two conditions can we be assured that this is true? --&gt;
 
-### A brief example
+&lt;!-- **Independence.** Observations in the dataset are not associated with one another. Put another way, collecting a score from Participant A doesn't tell me anything about what Participant B will say. How can we be safe in this assumption? --&gt;
 
-Using the same Census at School data, we find that Oregon students who participated in a memory game ( `\(N = 227\)` ) completed the game in an average time of 49.1 seconds ( `\(s = 13.4\)` ). We know that the average US student completed the game in 45.04 seconds. How do our students compare?
+&lt;!-- --- --&gt;
 
---
+&lt;!-- ### A brief example --&gt;
 
-**Hypotheses**
+&lt;!-- Using the same Census at School data, we find that Oregon students who participated in a memory game ( `\(N = 227\)` ) completed the game in an average time of 49.1 seconds ( `\(s = 13.4\)` ). We know that the average US student completed the game in 45.04 seconds. How do our students compare? --&gt;
 
-`\(H_0: \mu = 45.05\)`
+&lt;!-- -- --&gt;
 
-`\(H_1: \mu \neq 45.05\)`
+&lt;!-- **Hypotheses** --&gt;
 
----
+&lt;!-- `\(H_0: \mu = 45.05\)` --&gt;
 
-`$$\mu = 45.05$$`
+&lt;!-- `\(H_1: \mu \neq 45.05\)` --&gt;
 
-`$$N = 227$$`
+&lt;!-- --- --&gt;
 
-$$ \bar{X} = 49.1 $$
+&lt;!-- `$$\mu = 45.05$$` --&gt;
 
-$$ s = 13.4 $$
+&lt;!-- `$$N = 227$$` --&gt;
 
+&lt;!-- $$ \bar{X} = 49.1 $$ --&gt;
 
+&lt;!-- $$ s = 13.4 $$ --&gt;
 
 
 
 
-```r
-t.test(x = school$Score_in_memory_game, mu = 45.05, 
-       alternative = "two.sided")
-```
 
-```
-## 
-## 	One Sample t-test
-## 
-## data:  school$Score_in_memory_game
-## t = 4.2652, df = 196, p-value = 3.104e-05
-## alternative hypothesis: true mean is not equal to 45.05
-## 95 percent confidence interval:
-##  47.24269 51.01427
-## sample estimates:
-## mean of x 
-##  49.12848
-```
+&lt;!-- ```{r} --&gt;
+&lt;!-- t.test(x = school$Score_in_memory_game, mu = 45.05,  --&gt;
+&lt;!--        alternative = "two.sided") --&gt;
+&lt;!-- ``` --&gt;
 
 
----
+&lt;!-- --- --&gt;
 
+&lt;!-- ```{r} --&gt;
+&lt;!-- lsr::oneSampleTTest(x = school$Score_in_memory_game,  --&gt;
+&lt;!--                     mu = 45.05, one.sided = FALSE) --&gt;
+&lt;!-- ``` --&gt;
 
-```r
-lsr::oneSampleTTest(x = school$Score_in_memory_game, 
-                    mu = 45.05, one.sided = FALSE)
-```
 
-```
-## 
-##    One sample t-test 
-## 
-## Data variable:   school$Score_in_memory_game 
-## 
-## Descriptive statistics: 
-##             Score_in_memory_game
-##    mean                   49.128
-##    std dev.               13.421
-## 
-## Hypotheses: 
-##    null:        population mean equals 45.05 
-##    alternative: population mean not equal to 45.05 
-## 
-## Test results: 
-##    t-statistic:  4.265 
-##    degrees of freedom:  196 
-##    p-value:  &lt;.001 
-## 
-## Other information: 
-##    two-sided 95% confidence interval:  [47.243, 51.014] 
-##    estimated effect size (Cohen's d):  0.304
-```
+&lt;!-- --- --&gt;
+&lt;!-- ## Shifting confidence intervals --&gt;
 
+&lt;!-- ```{r, echo = F, cache = T} --&gt;
+&lt;!-- mu = 45.05 --&gt;
+&lt;!-- xbar = 49.1 --&gt;
+&lt;!-- s = 13.4 --&gt;
+&lt;!-- N = 227 --&gt;
+&lt;!-- sem = s/sqrt(N) --&gt;
+&lt;!-- moe = qt(.975, df = N-1)*sem --&gt;
 
----
-## Shifting confidence intervals
+&lt;!-- plotdata = expand.grid(mean = c(mu,xbar), --&gt;
+&lt;!--             tscore = seq(-6, 6, by =.01)) %&gt;% --&gt;
+&lt;!--   mutate(density = map_dbl(tscore, ~dt(.x, df = N-1)), --&gt;
+&lt;!--          X = map2_dbl(tscore, mean, ~(.x*sem)+.y)) %&gt;% --&gt;
+&lt;!--   mutate(ci_lower = map_dbl(mean, ~.x-moe), --&gt;
+&lt;!--          ci_upper = map_dbl(mean, ~.x+moe)) --&gt;
 
-![](14-one_sample_files/figure-html/unnamed-chunk-23-1.gif)&lt;!-- --&gt;
+&lt;!-- anim = plotdata %&gt;% --&gt;
+&lt;!--   ggplot(aes(x = X, y = density)) + --&gt;
+&lt;!--   geom_point(size = .5) + --&gt;
+&lt;!--   geom_vline(aes(xintercept = mu, color = "H0 mean")) + --&gt;
+&lt;!--   geom_vline(aes(xintercept = xbar, color = "Sample mean")) + --&gt;
+&lt;!--   geom_vline(aes(xintercept = ci_lower), linetype = "dashed")+ --&gt;
+&lt;!--   geom_vline(aes(xintercept = ci_upper), linetype = "dashed")+ --&gt;
+&lt;!--   scale_x_continuous(limits = c(42, 55)) + --&gt;
+&lt;!--   transition_states(mean, transition_length = 2, state_length = 2) + --&gt;
+&lt;!--   theme_pubr() --&gt;
 
+&lt;!-- anim --&gt;
+&lt;!-- ``` --&gt;
 
----
 
-# Cohen's D
+&lt;!-- --- --&gt;
 
-Cohen suggested one of the most common effect size estimates—the standardized mean difference—useful when comparing a group mean to a population mean or two group means to each other. 
+&lt;!-- # Cohen's D --&gt;
 
-`$$\delta = \frac{\mu_1 - \mu_0}{\sigma} \approx d = \frac{\bar{X}-\mu}{\hat{\sigma}}$$`
+&lt;!-- Cohen suggested one of the most common effect size estimates—the standardized mean difference—useful when comparing a group mean to a population mean or two group means to each other.  --&gt;
 
---
+&lt;!-- `$$\delta = \frac{\mu_1 - \mu_0}{\sigma} \approx d = \frac{\bar{X}-\mu}{\hat{\sigma}}$$` --&gt;
 
-Cohen’s d is in the standard deviation (Z) metric.
+&lt;!-- -- --&gt;
 
+&lt;!-- Cohen’s d is in the standard deviation (Z) metric. --&gt;
 
----
 
-Cohens’s d for these data is .30.  In other words, the sample mean differs from the population mean by .30 standard deviation units. 
+&lt;!-- --- --&gt;
 
-Cohen (1988) suggests the following guidelines for interpreting the size of d:
+&lt;!-- Cohens’s d for these data is .30.  In other words, the sample mean differs from the population mean by .30 standard deviation units.  --&gt;
 
-.large[
+&lt;!-- Cohen (1988) suggests the following guidelines for interpreting the size of d: --&gt;
 
-- 	.2 = Small
+&lt;!-- .large[ --&gt;
 
-- 	.5 = Medium
+&lt;!-- - 	.2 = Small --&gt;
 
-- 	.8 = Large	
+&lt;!-- - 	.5 = Medium --&gt;
 
-]
-.small[Cohen, J. (1988), Statistical power analysis for the behavioral sciences (2nd Ed.). Hillsdale: Lawrence Erlbaum.]
----
+&lt;!-- - 	.8 = Large	 --&gt;
 
-Another useful metric is the overlap between the two distributions -- the smaller the overlap, the farther apart the distributions
+&lt;!-- ] --&gt;
+&lt;!-- .small[Cohen, J. (1988), Statistical power analysis for the behavioral sciences (2nd Ed.). Hillsdale: Lawrence Erlbaum.] --&gt;
+&lt;!-- --- --&gt;
 
-![](14-one_sample_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+&lt;!-- Another useful metric is the overlap between the two distributions -- the smaller the overlap, the farther apart the distributions --&gt;
 
+&lt;!-- ```{r, echo = F} --&gt;
+&lt;!-- alt = mean(school$Score_in_memory_game, na.rm=T) --&gt;
+&lt;!-- null = 45.05 --&gt;
+&lt;!-- se = sd(school$Score_in_memory_game, na.rm=T)/sqrt(length(which(!is.na(school$Score_in_memory_game)))) --&gt;
 
----
+&lt;!-- x = seq(from = 40, to = 55, by = .01) --&gt;
+&lt;!-- d.alt = dnorm(x, mean = alt, sd = se) --&gt;
+&lt;!-- d.nul = dnorm(x, mean = null, sd = se) --&gt;
 
-### The usefulness of the one-sample *t*-test
+&lt;!-- loc = min(which(d.alt-d.nul &gt; 0)) --&gt;
+&lt;!-- loc = (x[loc] + x[loc-1])/2 --&gt;
 
-How often will you conducted a one-sample *t*-test on raw data?
+&lt;!-- area = pnorm(loc, mean = null, sd = se, lower.tail = F) + pnorm(loc, mean = alt, sd = se, lower.tail = T) --&gt;
 
---
+&lt;!-- ggplot(data.frame(x=x), aes(x)) + --&gt;
+&lt;!--   stat_function(fun = function(x) dnorm(x, mean = null, sd = se),  --&gt;
+&lt;!--                 geom = "area", xlim = c(loc,55), fill = "black") +  --&gt;
+&lt;!--   stat_function(fun = function(x) dnorm(x, mean = alt, sd = se),  --&gt;
+&lt;!--                 geom = "area", xlim =c(45, loc), fill = "black") +  --&gt;
+&lt;!--   stat_function(fun = function(x) dnorm(x, mean = null, sd = se), geom = "line", aes(color = "null")) +  --&gt;
+&lt;!--   stat_function(fun = function(x) dnorm(x, mean = alt, sd = se), geom = "line", aes(color = "alternative")) +  --&gt;
+&lt;!--   scale_color_discrete("Model") + --&gt;
+&lt;!--   ggtitle(paste0("Overlap = ", round(area,3))) +  --&gt;
+&lt;!--   theme_bw(base_size = 20) --&gt;
+&lt;!-- ``` --&gt;
 
-* (Probably) never
 
-How often will you come across one-sample *t*-tests?
+&lt;!-- --- --&gt;
 
---
+&lt;!-- ### The usefulness of the one-sample *t*-test --&gt;
 
-* (Probably) a lot!
+&lt;!-- How often will you conducted a one-sample *t*-test on raw data? --&gt;
 
-The one-sample *t*-test is used to test coefficients in a model. 
+&lt;!-- -- --&gt;
 
----
+&lt;!-- * (Probably) never --&gt;
 
+&lt;!-- How often will you come across one-sample *t*-tests? --&gt;
 
-```r
-model = lm(health ~ education, data = spi)
-summary(model)
-```
+&lt;!-- -- --&gt;
 
-```
-## 
-## Call:
-## lm(formula = health ~ education, data = spi)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.6683 -0.5896  0.3317  0.5284  1.6071 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 3.353512   0.036015  93.116  &lt; 2e-16 ***
-## education   0.039348   0.007732   5.089  3.8e-07 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.9733 on 3251 degrees of freedom
-##   (747 observations deleted due to missingness)
-## Multiple R-squared:  0.007903,	Adjusted R-squared:  0.007598 
-## F-statistic:  25.9 on 1 and 3251 DF,  p-value: 3.803e-07
-```
+&lt;!-- * (Probably) a lot! --&gt;
 
----
+&lt;!-- The one-sample *t*-test is used to test coefficients in a model.  --&gt;
 
-# Next time...
+&lt;!-- --- --&gt;
 
-Comparing two means
+&lt;!-- ```{r} --&gt;
+&lt;!-- model = lm(health ~ education, data = spi) --&gt;
+&lt;!-- summary(model) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- # Next time... --&gt;
+
+&lt;!-- Comparing two means --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
