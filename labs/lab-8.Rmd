@@ -309,6 +309,32 @@ pairedSamplesTTest(formula = ~ grade_test2 + grade_test1, # one-sided formula
                    data = chico_wide) # wide format
 ```
 
+#### Effect Size 
+There are a couple of ways of thinking about effect size for the paired samples t-test. 
+
+One is to get the effect size by calculating the effect size using the *difference* scores, as shown below. This is the effect size that's provided in the outputs above.
+```{r}
+cohensD(x = chico_wide$grade_test1,
+        y = chico_wide$grade_test2,
+        method = "paired")
+
+# this is how the "paired" effect size is calculated
+d_pooled <- 1.405/0.97
+d_pooled
+```
+
+
+This is in the units of the difference scores, though, not the units of the original variables. It also leaves out between-person variation (and thus might give you a sense that the effect size is *bigger* than it actually is). Another option, then, is to calculate the *pooled* effect size.
+```{r}
+cohensD(x = chico_wide$grade_test1,
+        y = chico_wide$grade_test2,
+        method = "pooled")
+
+# this is how the "pooled" effect size is calculated
+d_pooled <- (58.385 - 56.98)/sqrt((6.406^2 + 6.616^2)/2)
+d_pooled
+```
+
 
 
 #### Long vs. wide format
@@ -355,7 +381,7 @@ apa_print(pairedtoutput)
 * Practice using the output from 'apa_print' to write your results here:
 
 
-There was a signiicant change in grades such that grades at time 2 were significantly _______ compared to at time 1 (`r  `), `r  `. 
+There was a significant change in grades such that grades at time 2 were significantly _______ compared to at time 1 (`r  `), `r  `. 
 
 
 

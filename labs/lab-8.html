@@ -539,6 +539,28 @@ t.test(x = chico_wide$diff, mu = 0)</code></pre>
 ## Other information: 
 ##    two-sided 95% confidence interval:  [0.951, 1.859] 
 ##    estimated effect size (Cohen&#39;s d):  1.448</code></pre>
+<div id="effect-size" class="section level4">
+<h4>Effect Size</h4>
+<p>There are a couple of ways of thinking about effect size for the paired samples t-test.</p>
+<p>One is to get the effect size by calculating the effect size using the <em>difference</em> scores, as shown below. This is the effect size that’s provided in the outputs above.</p>
+<pre class="r"><code>cohensD(x = chico_wide$grade_test1,
+        y = chico_wide$grade_test2,
+        method = &quot;paired&quot;)</code></pre>
+<pre><code>## [1] 1.447952</code></pre>
+<pre class="r"><code># this is how the &quot;paired&quot; effect size is calculated
+d_pooled &lt;- 1.405/0.97
+d_pooled</code></pre>
+<pre><code>## [1] 1.448454</code></pre>
+<p>This is in the units of the difference scores, though, not the units of the original variables. It also leaves out between-person variation (and thus might give you a sense that the effect size is <em>bigger</em> than it actually is). Another option, then, is to calculate the <em>pooled</em> effect size.</p>
+<pre class="r"><code>cohensD(x = chico_wide$grade_test1,
+        y = chico_wide$grade_test2,
+        method = &quot;pooled&quot;)</code></pre>
+<pre><code>## [1] 0.2157646</code></pre>
+<pre class="r"><code># this is how the &quot;pooled&quot; effect size is calculated
+d_pooled &lt;- (58.385 - 56.98)/sqrt((6.406^2 + 6.616^2)/2)
+d_pooled</code></pre>
+<pre><code>## [1] 0.2157606</code></pre>
+</div>
 <div id="long-vs.-wide-format" class="section level4">
 <h4>Long vs. wide format</h4>
 <p>The data set we used above was in <em>wide</em> format. Wide format data is set up so that each row corresponds to a unique participant. You could also have your data set up in <em>long</em> format. Long format data is set up such that each row corresponds to a unique observation.</p>
@@ -662,7 +684,7 @@ apa_print(pairedtoutput)</code></pre>
 <ul>
 <li>Practice using the output from ‘apa_print’ to write your results here:</li>
 </ul>
-<p>There was a signiicant change in grades such that grades at time 2 were significantly _______ compared to at time 1 (), .</p>
+<p>There was a significant change in grades such that grades at time 2 were significantly _______ compared to at time 1 (), .</p>
 </div>
 <div id="plotting-paired-samples-data" class="section level2">
 <h2>Plotting paired-samples data</h2>
