@@ -23,14 +23,9 @@ Homework assignments will appear here. You'll be able to access the assignment, 
 
 - [Download files.](homework/homework-2.zip)
 
-<!-- ### [**Homework 3**](homework/homework_3.html) -->
 
-<!-- **Due December 11, 9am** -->
+### [**Homework 3**](homework/homework_3.html)
 
-<!-- - [Download RMD file here.](homework/homework_3.Rmd) -->
+**Due December 8, 9am**
 
-<!-- - [Download homework-school.csv here.](homework/homework-school.csv) -->
-
-<!-- - [Download homework-nls.csv here.](homework/homework-nls.csv) -->
-
-<!-- - [Download homework-world-2.csv here.](homework/homework-world-2.csv) -->
+- [Download files.](homework/homework-3.zip)
