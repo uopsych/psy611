@@ -3,7 +3,7 @@
   <head>
     <title>Comparing two means I</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
@@ -28,12 +28,11 @@ class: center, middle, inverse, title-slide
 
   * Office hours scheduling link will not work this week.
 
-* Journal not required this week.
-
 ---
 
 # Last time
 
+* one-sample _t_-tests 
 * paired samples _t_-tests
 
 ---
@@ -74,7 +73,7 @@ psych::describe(pets, fast = T)
 `$$\large t = \frac{\bar{\Delta}}{\frac{\hat{\sigma}_\Delta}{\sqrt{N}}} = \frac{-0.60}{0.81} = -0.74$$`
 ---
 
-![](17-independent_samples_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+![](16-independent_samples_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -96,6 +95,27 @@ pt(abs(stat), df = 5-1, lower.tail = F)*2
 
 ```
 ## [1] 0.5011694
+```
+
+Using the `t.test` function:
+
+
+```r
+t.test(pets$cat, pets$dog, paired = T)
+```
+
+```
+## 
+## 	Paired t-test
+## 
+## data:  pets$cat and pets$dog
+## t = -0.73855, df = 4, p-value = 0.5012
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2.855595  1.655595
+## sample estimates:
+## mean of the differences 
+##                    -0.6
 ```
 
 
@@ -244,7 +264,7 @@ school %&gt;%
  labs(x = "Hours per week", title = "Full sample") + theme_minimal(base_size = 20)
 ```
 
-![](17-independent_samples_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](16-independent_samples_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
@@ -258,7 +278,7 @@ school %&gt;%
   labs(x = "Hours per week", title = "Mathematically possible") + theme_minimal(base_size = 20)
 ```
 
-![](17-independent_samples_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+![](16-independent_samples_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -334,7 +354,7 @@ $$
 ## [1] 1.971719
 ```
 
-![](17-independent_samples_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](16-independent_samples_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -350,7 +370,7 @@ $$
 ## [1] 2.165904
 ```
 
-![](17-independent_samples_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](16-independent_samples_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -371,7 +391,7 @@ pt(t,
 
 ]
 
-![](17-independent_samples_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](16-independent_samples_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -388,7 +408,7 @@ t.test(friends~Gender, data = school_new, var.equal = T)
 ## 
 ## data:  friends by Gender
 ## t = 2.1659, df = 203, p-value = 0.03148
-## alternative hypothesis: true difference in means is not equal to 0
+## alternative hypothesis: true difference in means between group Female and group Male is not equal to 0
 ## 95 percent confidence interval:
 ##   0.5358328 11.4173373
 ## sample estimates:
@@ -517,7 +537,7 @@ ggerrorplot(school_new, x = "Gender", y = "friends",
             ylab = "Hours spent with friends (per week)")
 ```
 
-![](17-independent_samples_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](16-independent_samples_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 ---
 
 
@@ -529,7 +549,7 @@ ggerrorplot(school_new, x = "Gender", y = "friends",
             ylab = "Hours spent with friends (per week)")
 ```
 
-![](17-independent_samples_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+![](16-independent_samples_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
 ---
 
 Plots of confidence intervals can contain information on statistical significance, although, as with everything grounded in frequentist probability, there are strict limits to what you can and cannot conclude. 
@@ -538,7 +558,7 @@ For example, if a 95% confidence interval contains a value X, then the statistic
 
 ---
 
-![](17-independent_samples_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](16-independent_samples_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -584,8 +604,7 @@ class: inverse
 ## Next time
 
 * Assumptions
-* Cohen's D 
-* Matrix algebra
+* Effect sizes
 
 
 

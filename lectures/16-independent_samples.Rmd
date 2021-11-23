@@ -27,12 +27,11 @@ library(ggpubr)
 
   * Office hours scheduling link will not work this week.
 
-* Journal not required this week.
-
 ---
 
 # Last time
 
+* one-sample _t_-tests 
 * paired samples _t_-tests
 
 ---
@@ -90,6 +89,12 @@ We can also calculate the area at least as far away from the null as our test st
 stat = mean(pets$difference)/(sd(pets$difference)/sqrt(5))
 pt(abs(stat), df = 5-1, lower.tail = F)
 pt(abs(stat), df = 5-1, lower.tail = F)*2
+```
+
+Using the `t.test` function:
+
+```{r}
+t.test(pets$cat, pets$dog, paired = T)
 ```
 
 
@@ -371,11 +376,15 @@ pt(t,
 data.frame(x) %>%
   ggplot(aes(x=x)) +
   stat_function(fun= function(x) dt(x, df = df), geom = "area", 
-                xlim = c(t, 5), fill = "purple") +
+                xlim = c(cv, 5), fill = "purple",alpha = .5) +
   stat_function(fun= function(x) dt(x, df = df), geom = "area", 
-                xlim = c(-5, t*-1), fill = "purple") +
+                xlim = c(-5, cv*-1), fill = "purple",alpha = .5) +
+  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
+                xlim = c(t, 5), fill = "red",alpha = .7) +
+  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
+                xlim = c(-5, t*-1), fill = "red",alpha = .7) +
   stat_function(fun= function(x) dt(x, df = df), geom = "line") +
-  geom_vline(aes(xintercept = cv), color = "black")+
+  geom_vline(aes(xintercept = t), color = "black")+
   labs(x = "Difference in means", y = "density") +
   theme_light(base_size = 20)
 
@@ -547,8 +556,7 @@ class: inverse
 ## Next time
 
 * Assumptions
-* Cohen's D 
-* Matrix algebra
+* Effect sizes
 
 
 
