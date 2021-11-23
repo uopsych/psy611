@@ -36,7 +36,7 @@ navbar:
       - text: "15-t-tests: one- and paired-samples"
         href: "lectures/15-t_one_paired.html"
       - text: "16-t-tests: independent samples"
-        href: "lectures/16-independent-samples.html"
+        href: "lectures/16-independent_samples.html"
       - text: "Bonus: Chi-square test of independence"
         href: "lectures/chi_square_independence.html"
       
