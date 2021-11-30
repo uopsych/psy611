@@ -3,7 +3,7 @@
   <head>
     <title>Comparing two means: effect sizes and assumptions</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
@@ -20,15 +20,13 @@ class: center, middle, inverse, title-slide
 
 
 
-## Reminders
+## Annoucements/reminders
 
-* Quiz 9 is on Thursday next week
+* Quiz 9 is on Thursday (not today)
 
-* Homework 3 due next Friday, but grading starts this weekend
+* Homework 3 due next Wednesday
 
 * Please fill out the End-of-Course Student Experience Survey (available in DuckWeb)
-
-* Psych Twitter talked about [effect sizes](https://twitter.com/farid_anvari/status/1332745933860298754) over the [weekend](https://twitter.com/BrentWRoberts/status/1332769974201569281?s=20).
 
 ---
 
@@ -53,9 +51,6 @@ It's generally argued that Republicans have an age problem -- but are they subst
 In 2014 (midterm election before the most recent presidential election), [*Five Thirty Eight* did an analysis](https://fivethirtyeight.com/features/both-republicans-and-democrats-have-an-age-problem/) of the ages of elected members of Congress. They've provided their data, so we can run analyses on our own.
 
 
-```r
-library(fivethirtyeight)
-```
 ---
 
 
@@ -81,7 +76,7 @@ psych::describe(congress$age)
 congress %&gt;% ggplot(aes(x = age)) + geom_histogram(bins = 50, color = "white") + labs(x = "Age in years", y = "Frequency", title = "Age Distribution of Congressional \nMembers in 113th Congress", caption = "This is pretty normal.") + theme_bw(base_size = 20)
 ```
 
-![](18-effects_assumptions_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](17-effects_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 ---
 
 
@@ -89,7 +84,7 @@ congress %&gt;% ggplot(aes(x = age)) + geom_histogram(bins = 50, color = "white"
 congress %&gt;% ggplot(aes(x = age, fill = party)) + geom_histogram(bins = 50, color = "white", position = "dodge") + labs(x = "Age in years", y = "Frequency", title = "Age Distribution of Congressional \nMembers in 113th Congress", caption = "This is pretty normal.") + scale_fill_manual(values = c("blue", "red")) + theme_bw(base_size = 20)
 ```
 
-![](18-effects_assumptions_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](17-effects_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -165,7 +160,7 @@ $$
 ## [1] 4.071568
 ```
 
-![](18-effects_assumptions_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](17-effects_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -176,7 +171,7 @@ ggerrorplot(congress, x = "party", y = "age", desc_stat = "mean_ci", xlab = "Par
             color = "party", palette = c("red", "blue"))
 ```
 
-![](18-effects_assumptions_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](17-effects_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -187,42 +182,9 @@ ggerrorplot(congress, x = "party", y = "age", desc_stat = "mean_ci", xlab = "Par
   stat_compare_means(comparisons =list(c("R", "D")))
 ```
 
-![](18-effects_assumptions_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
-
----
-
-### A difference in significance is not a significant difference
-
-Researchers commonly examine effects within separate groups. This can be an appropriate strategy, especially if there is reason to think that the mechanisms linking X to Y differ by groups. 
-
-For example, traditional benchmarks might suggest that the average young adult reports a stress-level of 3.4 out of 5. But these benchmarks are estimated from a population of white young adults; you conduct a study looking at young Hispanic adults and young African American adults. 
+![](17-effects_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 
-
-
-.pull-left[
-`$$\bar{X}_H: 3.55$$`
-`$$s_H: 0.739$$`
-`$$N_H: 36$$`
-]
-
-.pull-left[
-`$$\bar{X}_B: 3.7$$`
-`$$s_B: 0.788$$`
-`$$N_B: 62$$`
-]
-
----
-
-We can plot these effects against our population mean:
-
-![](18-effects_assumptions_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
-
-???
-
-These groups are not significantly different from each other. Just because one group is sig and the other is not, doesn't mean they are different.
-
-This expands beyond one-sample t-tests. For example, if there is a sig. correlation in one group but not another, or a sig ANOVA, or a sig whatever; you have to formally test to say two groups are different.
 
 ---
 
@@ -296,38 +258,6 @@ An aside, to calculate Cohen's D for a one-sample *t*-test:
 
 
 .small[Cohen, J. (1988), Statistical power analysis for the behavioral sciences (2nd Ed.). Hillsdale: Lawrence Erlbaum.]
-
----
-
-Another useful metric is the overlap between the two population distributions -- the smaller the overlap, the farther apart the distributions. As a reminder, our data constitutes only samples representing the larger populations, so we use our statistics to build estimated population distributions.
-
----
-
-![](18-effects_assumptions_files/figure-html/overlap_plot-1.png)&lt;!-- --&gt;
-
-
----
-
-![](18-effects_assumptions_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
-
-
-These distributions have 86.1 % overlap.
-
----
-### Calculation of distribution overlap
-
-There is a straightforward relationship between Cohen's d and distribution overlap:
-
-`$$\text{Overlap} = P(X \leq -\frac{|d|}{2})*2$$`
-
-
-```r
-2 * pnorm(-abs(0.35)/2)
-```
-
-```
-## [1] 0.8610796
-```
 
 ---
 
@@ -424,10 +354,52 @@ This can be calculating from *t*-statistics, allowing you to calculate standardi
 `$$\large d = \frac{2t}{\sqrt{N_1+N_2-1}}$$`
 ]
 
+---
+
+Another useful metric is the overlap between the two population distributions -- the smaller the overlap, the farther apart the distributions. As a reminder, our data constitutes only samples representing the larger populations, so we use our statistics to build estimated population distributions.
 
 ---
 
-## When should you not use Student's *t*-test?
+![](17-effects_files/figure-html/overlap_plot-1.png)&lt;!-- --&gt;
+
+
+---
+
+![](17-effects_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+
+
+These distributions have 86.1 % overlap.
+
+---
+### Calculation of distribution overlap
+
+There is a straightforward relationship between Cohen's d and distribution overlap:
+
+`$$\text{Overlap} = P(X \leq -\frac{|d|}{2})*2$$`
+
+
+```r
+2 * pnorm(-abs(0.35)/2)
+```
+
+```
+## [1] 0.8610796
+```
+
+---
+
+Finally, when you have meaningful units, also express the effect size in terms of those units. This is the most interpretable effect size available to you.
+
+
+
+Democrats are, on average, 3.77 years older than Republicans.
+
+Gulls take, on average, 83.11 seconds longer to approach chips when people stare at them than when people are looking away.
+
+
+---
+
+## Assumptions: When can you not use Student's *t*-test?
 
 Recall the three assumptions of Student's *t*-test:
 
@@ -519,7 +491,7 @@ t.test(age~party, data = congress, var.equal = F)
 ## 
 ## data:  age by party
 ## t = 4.0688, df = 534.2, p-value = 5.439e-05
-## alternative hypothesis: true difference in means is not equal to 0
+## alternative hypothesis: true difference in means between group D and group R is not equal to 0
 ## 95 percent confidence interval:
 ##  1.949133 5.588133
 ## sample estimates:
@@ -568,7 +540,7 @@ shapiro.test(x = congress$age)
 hist(congress$age, col = "purple", border = "white")
 ```
 
-![](18-effects_assumptions_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](17-effects_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -601,7 +573,7 @@ class: inverse
 
 ## Next time...
 
-matrix algebra of t-tests and wrap up!
+statistical tools for open science and wrap up!
 
 Plus the final quiz
 
