@@ -3,7 +3,7 @@
   <head>
     <title>Comparing two means and fall term wrap-up</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
@@ -19,15 +19,8 @@ class: center, middle, inverse, title-slide
 
 
 
-## Annoucements
 
-* Thank you, Max!
-* The GEs and I are available by appointment through finals week. 
-
-* Reminder: Homework 3 due next Friday (9am)
-  * Grading starts this weekend: expect corrections within 24 hours.
   
----
 ## Last time...
 
 * Effect sizes and assumptions of _t_-tests
@@ -98,9 +91,6 @@ psych::describeBy(panem, group = panem$district)
 ```
 
 
-```
-## `summarise()` ungrouping output (override with `.groups` argument)
-```
 
 ---
 .pull-left[
@@ -167,7 +157,7 @@ t.test(srle~district, data = panem, var.equal = T)
 ## 
 ## data:  srle by district
 ## t = 5.4235, df = 18, p-value = 3.748e-05
-## alternative hypothesis: true difference in means is not equal to 0
+## alternative hypothesis: true difference in means between group 12 and group Capital is not equal to 0
 ## 95 percent confidence interval:
 ##  23.58608 53.41392
 ## sample estimates:
@@ -196,7 +186,7 @@ Is this a large difference?
 
 How much power did we have to detect this effect?
 
-![](19-ttest_matrix_wrap_up_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](18-wrap_up_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -315,502 +305,226 @@ shapiro.test(x = panem$srle)
 ## W = 0.94824, p-value = 0.3411
 ```
 
-![](19-ttest_matrix_wrap_up_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
-
----
-## Remember matrix algebra?
-
-In week 3, we covered the mechanics of matrix algebra, including addition/subtraction and multiplication. 
-
-The important takeaway was that we can use tranformation matrices to create linear combinations of rows and columns. These linear combinations help us to summarize datasets in valuable ways.
-
-`$$y = 5x_1 + \frac{1}{7}x_2 - 12x_3$$`
-
-`$$\large \mathbf{M} = \left[\begin{array}
-{r}
-5  \\
-\frac{1}{7}  \\
--12  \\
-\end{array}\right]$$`
+![](18-wrap_up_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 
 ---
 
-Transformation matrices applied to a data matrix using *pre*-multiplication creates linear combinations of rows -- this allows us to aggregate observations into meaningful "groups", like control/treatment, freshman/senior, time 1/time 2.
+## Today...
 
-Transformation matrices applied to a data matrix using *post*-multiplication creates linear combinations of columns -- this allows us to aggregate variables into meaningful indices, like summing variables to get the number correct on a test or finding the average response to a set of items in a scale.
+The open science movement (re:statistics)
 
-Using both pre- and post-multiplication _together_ is an efficient way of asking questions, like:
-* are average levels of the CESD lower after an intervention compared to before?
-* what is the average score on each of 4 quizzes?
+- Advancements in programming help researchers identify statistical problems
+- A push for new metrics in psychology research
+- Attempts to quantify the state of the field
+- Development of new research practices to reinvest in old statistics
+- Development analytic techniques
+
+---
+  
+## Open Science Movement
+
+Sometimes labelled **"the reform movement"** -- (psychological) scientists trying to address problems in the field identified as part of the replication crisis. 
+
+(Note, these are not distinct periods of history, nor are either of them considered over.)
+
+**Open** because one of the primary problems of the replication crisis was the lack of transparency. Stapel, Bem, everyone did work in private; kept data secret; buried, hid, lost key aspects of research. Opaque was normal.
+
+See [Kathawalla et al. (2020)](../readings/Kathawalla_2020.pdf) for a great tutorial for grad students!
+  
+
+---
+## 1. We identify problems
+
+
+New methods of conducting science on science (meta-science) -- often developed to find fraud, but super useful for detecting errors
+
+* [Granularity-related inconsistency of means (GRIM)](http://www.prepubmed.org/grim_test/) test -- is the mean mathematically possible given the sample size?
+
+* [Sample Parameter Reconstruction via Iterative TEchniques (SPRITE)](https://hackernoon.com/introducing-sprite-and-the-case-of-the-carthorse-child-58683c2bfeb) -- given a set of parameters and constraints, [generate](https://steamtraen.shinyapps.io/rsprite/) lots of possible samples and examine for common sense. 
+
+* [StatCheck](http://statcheck.io/) -- upload pdfs and word documents to look for inconsistencies (e.g., statistic, df)
+
+---
+## 1. We identify problems
+
+Conceptually, psychologists have struggled with the [interpretation of p-values](https://fivethirtyeight.com/features/not-even-scientists-can-easily-explain-p-values/).
+
+Even worse, we seemed to forget some of the most basic assumptions of our statistical tests. 
+
+- What must be true about our trials to use a binomial distribution?
+.small[Remember p-curve?]
 
 ---
 
-## Example
+## 2. A push for "new" metrics in psychology research (2014)
 
-
-
-
-```r
-fake_data
-```
-
-```
-##   ID group item1 item2 item3 item4
-## 1  1     A     7     1     5     1
-## 2  2     B     7     6     7     4
-## 3  3     B     7     5     9     3
-## 4  4     A     4     1     4    -1
-## 5  5     A     5     2     5     2
-## 6  6     B     7     3     7     4
-## 7  7     A     6     3     6     2
-## 8  8     B     9     3     9     4
-```
-
-
-```r
-T_pre = matrix(
-  c( 1,0,0,1,1,0,1,0,
-     0,1,1,0,0,1,0,1), 
-  byrow = T, nrow = 2
-)
-```
+ Disillusionment with _p_-values led many to propose radical changes.
+ 
+ But the field is ruled by researchers who made their name using NHST (and very likely, many of them also used these fishing-methods to build their careers). So a softer approach was more widely favored.
+ 
+ [Cumming (2014)](../readings/Cumming_2014.pdf) proposes the "new statistics" which emphasize effect sizes, confidence intervals, and meta-analyses. 
 
 ---
 
+Except...
 
-```r
-T_pre %*% as.matrix(fake_data[,-c(1:2)])
-```
+Confidence intervals are based on the same underlying probability distributions as our p-values. 
 
-```
-##      item1 item2 item3 item4
-## [1,]    22     7    20     4
-## [2,]    30    17    32    15
-```
-
-```r
-.25*T_pre %*% as.matrix(fake_data[,-c(1:2)])
-```
-
-```
-##      item1 item2 item3 item4
-## [1,]   5.5  1.75     5  1.00
-## [2,]   7.5  4.25     8  3.75
-```
+And what's the problem with meta-analyses?
 
 ---
 
+## 3. Attempts to quantify the state of the field 
 
-```r
-T_post = matrix(
-  c(1/4,
-    1/4,
-    1/4,
-    1/4),
-  ncol = 1
-)
+[The Reproducibility Project (2015) ](https://www.theatlantic.com/science/archive/2015/08/psychology-studies-reliability-reproducability-nosek/402466/) finds that most findings in psychological science don't replicate. 
 
-as.matrix(fake_data[,-c(1:2)]) %*% T_post
-```
-
-```
-##      [,1]
-## [1,] 3.50
-## [2,] 6.00
-## [3,] 6.00
-## [4,] 2.00
-## [5,] 3.50
-## [6,] 5.25
-## [7,] 4.25
-## [8,] 6.25
-```
+Also, [new methods](../readings/Meta-analyses-are-f.pdf) for approaching meta-analyses are studied and popularized. 
+- There is a growing realization that meta-analyses cannot fix the problem -- publication bias (and p-hacking) have polluted the waters. 
 
 ---
 
+# Some more drastic changes
 
-```r
-.25*T_pre %*% as.matrix(fake_data[,-c(1:2)]) %*% T_post
-```
+## 4. New(ish) research practices 
 
-```
-##        [,1]
-## [1,] 3.3125
-## [2,] 5.8750
-```
+- New(ish) tools for improving reproducibility
+- New(ish) tools for reducing the file drawer problem 
+- New(ish) tools for limiting _p_-hacking
+- New(ish) tools for limiting publication bias
 
 ---
 
-## *t*-tests and Matrix Algebra
+### Developing data norms (not new)
 
-### Independent-samples *t*-test
+- A _major_ challenge to both reproducibility and robust science is how opaque other peoples' data and analyses are. 
 
-At it's heart, the independent samples *t*-test proposes a model in which our best guess of a person's score is the mean of their district. 
+ - Fix by having standards and developing methods for communicating details.
 
-We can use **linear combinations** of both rows and columns to generate these "best guess" scores. 
+- Brain Imaging Data Structure (new!) **([BIDS](https://bids.neuroimaging.io/))**
+
+- [codebook](https://cran.r-project.org/web/packages/codebook/index.html) R package
 
 ---
-Assume your data take the following form:
+
+### Open Science Framework (OSF.io)
+
+* Repository, also includes version control
+  * Reproducibility
+  * Git (Github) is also a great repository for similar reasons!
+
+* Doesn't use code/terminal to update files
+  * Drag and drop, or linked with other repository (Dropbox, Box, Google Drive, etc)
+  
+* Also great for collaborations
+
+* Easy to navigate
+
+* Can be paired with applications you already use
+
+---
+### Reducing file drawer: PsyArXiv
 
 .pull-left[
-
-`$$\large \mathbf{X} = \left(\begin{array}
-{rr}
-\text{district} &amp; \text{SRLE} \\
-Cap &amp; 12  \\
-D12 &amp; 100  \\
-\vdots &amp; \vdots  \\
-Cap &amp; 72 
-\end{array}\right)$$`
+![](images/psyarxiv.png)
 ]
 
-.pull-right[
-What are your linear combinations of columns?
+* preprint = the pre-copyedited version of your manuscript
+
+* journals have different policies regarding what you can post. It's always a good idea to [check](http://sherpa.ac.uk/romeo/index.php).
+
+---
+
+### Preregistration
+
+OSF also allows you to preregister a project. 
+
+**[Preregistration](https://www.theguardian.com/science/blog/2013/jun/05/trust-in-science-study-pre-registration)** is creating a time-stamped, publicly available, frozen document of your research plan prior to executing that plan. 
+
+![](images/prereg.png)
+
+---
+
+### Limit p-hacking: Preregistration
 
 
-What are your linear combinations of rows?
-]
+#### Goal: Make it harder to _p_-hack and HARK
+  * Did the researcher preregister 3 outcome variables and only report one? 
+  * Did the research *actually* believe this correlation would be significant?
+  
+--
+  
+#### Goal: distinguish data-driven choices from theory based choices
+  * Was the covariate included because of theory or based on descriptive statistics?
+  
+--
+
+#### Goal: correctly identify confirmatory and exploratory research
+  * Exploratory research should be OK!
+  * Protection against editors and reviewers
+
+
+---
+
+### Preregistration
+
+**What goes in a preregistration?** Any decisions you feel comfortable making before you see the data. 
+
+- [Analyses or predictions](.../readings/ledgerwood.pdf)?
+
+- [See here for experimental guidelines](.../readings/vantveer_2016.pdf)
+- [See here for secondary data analysis](.../readings/vandenakker_2021.pdf)
+- [See here for ESM data](.../readings/kirtley_2021.pdf)
+- [See here for fMRI studies](https://www.psycharchives.org/handle/20.500.12034/4544)
+
+---
+
+### Registered reports
+
+**Registered reports (RR)** are a special kind of journal article
+
+&lt;img src="images/RR.png" width="80%" /&gt;
+
+.small[image credit: [Doropthy Bishop](https://blog.wellcomeopenresearch.org/2018/12/04/rewarding-best-practice-with-registered-reports/)]
+
+
+---
+## 5. Development of new(ish) analytic techniques
+
+**Sensitivity analyses** and [**multiverse analyses**](https://www.psychologicalscience.org/observer/run-all-the-models-dealing-with-data-analytic-flexibility) test the robustness of a finding. These often including testing every possible set of covariates or subgroups, to see whether a particular finding is just because of a unique combination of variables and people. 
+
+---
+
+## Criticisms
+
+Certainly there are some who argue that open science methods are broadly harmful: stifle creativity, slow down research, incentivize *ad hominem* attacks and "methodological terrorists", and encourage "data parasites." 
+
+It is worth admitting that, unless incentive structures don't change, there can be harm done with adoption of these methods. But part of the goal is to change the overall system.
 
 --
 
-**Linear combinations of columns:** 
+A more legitimate criticism is that adoption of these methods can fool researchers into believing that all research using these methods is "good" and all research not using them are "bad."
 
-`$$\large \mathbf{T_C} = \left(\begin{array}
-{r}
-0 \\
-1
-\end{array}\right)$$`
-
----
-Assume your data take the following form:
-
-.pull-left[
-
-`$$\large \mathbf{X} = \left(\begin{array}
-{rr}
-\text{district} &amp; \text{SRLE} \\
-Cap &amp; 12  \\
-D12 &amp; 100  \\
-\vdots &amp; \vdots  \\
-Cap &amp; 72 
-\end{array}\right)$$`
-]
-
-.pull-right[
-What are your linear combinations of columns?
-
-
-What are your linear combinations of rows?
-]
-
-
-
-**Linear combinations of rows:** 
-
-`$$\mathbf{T_R} = \left(\begin{array}
-{rrrr}
-\frac{1}{N_C} &amp; 0 &amp; \dots &amp; \frac{1}{N_C} \\
-0 &amp; \frac{1}{N_{D12}} &amp; \dots &amp; 0 \\
-\end{array}\right)$$`
-
----
-
-`$$(T_R)X(T_C) = M$$`
-
-This set of linear combinations calculates the different means of our two districts. That's great! 
-
-
-But there's another way. We can create a single transformation matrix, `\(\large \mathbf{T}\)`, that's very simple:
-
-`$$\mathbf{T} = \left(\begin{array}
-{rr}
-1 &amp; 0 \\
-1 &amp; 1 \\
-\vdots &amp; \vdots  \\
-1 &amp; 0 \\
-\end{array}\right)$$`
-
-Using this matrix, we can solve a different equation:
-
-`$$(T'T)^{-1}T'X = (b)$$`
-In this case, *b* will be a vector with 2 scalars.
-
----
-
-
-
-```r
-X = panem$srle
-T_mat = matrix(1, ncol = 2, nrow = length(X))
-T_mat[panem$district == "Capital", 2] = 0
-```
-
-```
-##       [,1] [,2]
-##  [1,]    1    0
-##  [2,]    1    0
-##  [3,]    1    0
-##  [4,]    1    0
-##  [5,]    1    0
-##  [6,]    1    0
-##  [7,]    1    0
-##  [8,]    1    0
-##  [9,]    1    0
-## [10,]    1    0
-## [11,]    1    1
-## [12,]    1    1
-## [13,]    1    1
-## [14,]    1    1
-## [15,]    1    1
-## [16,]    1    1
-## [17,]    1    1
-## [18,]    1    1
-## [19,]    1    1
-## [20,]    1    1
-```
-
----
-
-`$$(T'T)^{-1}T'X = (b)$$`
-
-
-```r
-solve(t(T_mat) %*% T_mat) %*% t(T_mat) %*% X
-```
-
-```
-##      [,1]
-## [1,] 54.9
-## [2,] 38.5
-```
-
-What do these numbers represent?
-
-???
-
-`$$\Large \bar{X} = T\mathbf{X} = 1'\mathbf{X}(1'1)^{-1}$$`
-
----
-
-### Standard errors
-
-We can use the same matrix, `\(\large \mathbf{T}\)` , to transform the variance-covariance into standard errors.
-
-`$$\large  \text{Var}_b = \hat{\sigma}^2(T'T)^{-1}$$`
-
-We use the pooled variance, instead of the empirical estimate. 
-
-```r
-var1 = var(panem$srle[panem$district == "Capital"])
-var2 = var(panem$srle[panem$district == "12"])
-n1 = length(which(panem$district == "Capital"))
-n2 = length(which(panem$district == "12"))
-pooled = ((n1-1)*var1 +(n2-1)*var2)/(n1+n2-2)
-```
-
-
-```r
-pooled * solve(t(T_mat) %*% T_mat)
-```
-
-```
-##           [,1]      [,2]
-## [1,]  25.19611 -25.19611
-## [2,] -25.19611  50.39222
-```
-
----
-
-.pull-left[
-
-```r
-solve(t(T_mat) %*% T_mat) %*% t(T_mat) %*% X
-```
-
-```
-##      [,1]
-## [1,] 54.9
-## [2,] 38.5
-```
-]
-
-.pull-right[
-
-```r
-pooled * solve(t(T_mat) %*% T_mat)
-```
-
-```
-##           [,1]      [,2]
-## [1,]  25.19611 -25.19611
-## [2,] -25.19611  50.39222
-```
-]
+["Preregistration is redundant, at best." (Oct 31, 2019). Szollosi et al.](https://psyarxiv.com/x36pz/)
 
 --
 
-.pull-left[
-`$$t_{b_1} = \frac{54.9}{\sqrt{25.196}} = 10.937$$`
-
-
-
-This is a one-sample *t*-test comparing the mean of the reference group to 0.
-
-]
-
---
-
-.pull-right[
-`$$t_{b_2} = \frac{38.5}{\sqrt{50.392}} = 5.423$$`
-
-
-This is an independent-samples *t*-test comparing the mean of the two groups
-]
+And it's worth adding that this kind of work can take longer.
 
 ---
 
-## *t*-tests and Matrix Algebra
+class: inverse
 
-### Paired-samples *t*-test
-
-The algebra for the paired-samples *t*-test is actually quite simple, because the difference score is a very simple weighted linear combination:
-
-`$$LC_i = W_1X_{1,i} + W_2X_{2,i} + \dots + W_kX_{k,i}$$`
-
-The variance of a weighted linear combination is a function of the weights (W) applied the variance-covariance matrix:
-
-.pull-left[
-
-`$$\large \left[\begin{array}
-{rr} 
-W_1 &amp; W_2
-\end{array}\right]
-\left[\begin{array}
-{rr} 
-\hat{\sigma}^2_{X_1} &amp; \hat{\sigma}_{X_1X_2} \\
-\hat{\sigma}_{X_2X_1} &amp; \hat{\sigma}^2_{X_1}
-\end{array}\right]
-\left[\begin{array}
-{r} 
-W_1 \\
-W_2
-\end{array} 
-\right]$$`
-
-]
-
-???
-What is the linear combination?
-
-Difference = At - Away
-
-Difference = (1)At + (-1)Away
+## Wrap up and a look ahead
 
 ---
 
-
-
-
-```r
-X = as.matrix(gulls[, c("At", "Away")])
-W = c(1, -1)
-```
-
-.pull-left[
-Difference scores:
-
-
-```r
-X %*% W
-```
-
-```
-##       [,1]
-##  [1,]  175
-##  [2,]  220
-##  [3,]    3
-##  [4,]   -3
-##  [5,]   34
-##  [6,]   21
-##  [7,]   -9
-##  [8,]    1
-##  [9,]  282
-## [10,]  294
-## [11,]    3
-## [12,]    1
-## [13,]   -2
-## [14,]   -7
-## [15,]  294
-## [16,]   47
-## [17,]  134
-## [18,]  -42
-## [19,]  133
-```
-]
-
-.pull-right[
-Standard deviation of difference scores:
-
-
-```r
-(V_X = cov(X))
-```
-
-```
-##             At     Away
-## At   18269.760 3719.675
-## Away  3719.675 2590.468
-```
-
-```r
-(V_Difference = W %*% V_X %*% W)
-```
-
-```
-##          [,1]
-## [1,] 13420.88
-```
-
-```r
-sqrt(V_Difference)
-```
-
-```
-##          [,1]
-## [1,] 115.8485
-```
-
-]
-
----
-
-### Matrix Algebra
-
-There is nothing particularly special about difference scores `\((W = 1, -1)\)`. Any conceptually sensible weights can be used to create  linear combinations, which can then be used in hypothesis tests:
-
-`$$t = \frac{\bar{LC}-\mu}{\frac{\hat{\sigma}_{LC}}{\sqrt{N}}}$$`
-
-In other words: you can test **any linear combination** of variables against **any null hypothesis** using this formula. You are not limited to differences in means or nil hypotheses `\(\large (\mu=0)\)`.
-
----
-
-Building and testing linear combinations of variables is nearly everything we'll do in PSY 612. 
-
-Most statistical methods propose some model, represented by linear combinations, and then tests how likely we would be to seee data like ours under that model. 
+Most statistical methods propose some model, represented by linear combinations, and then tests how likely we would be to see data like ours under that model. 
 
 * one-sample *t*-tests propose that a single value represents all the data
 
 * *t*-tests propose a model that two means differ 
 
-* more complicated models propose that some comination of variables, categorical and continuous, govern the patterns in the data
-
----
-
-We'll spend most of PSY 612 talking about different ways of building and testing models, but at their heart, all will use a combination of 
-
-
-`$$(T'T)^{-1}T'X = (b)$$`
-
-`$$LC_i = W_1X_{1,i} + W_2X_{2,i} + \dots + W_kX_{k,i}$$`
+* more complicated models propose that some combination of variables, categorical and continuous, govern the patterns in the data
 
 --
 
@@ -941,7 +655,7 @@ class: inverse
 
 ## Next time...
 
-PSY 612 in 2021
+PSY 612 in 2022
 
 (But first):
 * Quiz 9 now 
