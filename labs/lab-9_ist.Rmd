@@ -10,6 +10,8 @@ editor_options:
   chunk_output_type: console
 ---
 
+You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-9_ist.Rmd).
+
 ```{r setup, include = FALSE}
 # set chunk options
 knitr::opts_chunk$set(message = FALSE,
@@ -122,7 +124,7 @@ This measure of standard error will be slightly larger than the measure of stand
 
 The *degrees of freedom* for welch's t-test are:
 
-![](\resources\lab9\df_welch_ttest.JPG)
+![](resources\lab9\df_welch_ttest.JPG)
 
 
 ### The Independent Samples t-Statistic
@@ -286,9 +288,10 @@ Sometimes you also want to plot some sort of transformation of your data. One wa
 
 ```{r}
 ggplot(data, aes(x = condition, y = cooperation)) + #create canvas
-  stat_summary(fun = mean, #specify a function to run on your data
+  stat_summary(aes(color = condition), fun = mean, #specify a function to run on your data
         geom="point") + #here is where you specify what geom to use
-  stat_summary(fun.data = mean_ci, #specify a function to run on your data
+  stat_summary(aes(color = condition), 
+               fun.data = mean_ci, #specify a function to run on your data
         geom="errorbar") #here is where you specify what geom to use
 ```
 
