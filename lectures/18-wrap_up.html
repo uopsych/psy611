@@ -67,27 +67,19 @@ panem = data.frame(
     100,92,110,99,80,96,102,98,71,86)
 )
 
-psych::describeBy(panem, group = panem$district)
+psych::describeBy(panem$srle, group = panem$district, fast = T)
 ```
 
 ```
 ## 
 ##  Descriptive statistics by group 
 ## group: 12
-##           vars  n mean   sd median trimmed  mad min max range  skew kurtosis
-## district*    1 10  1.0  0.0      1    1.00 0.00   1   1     0   NaN      NaN
-## srle         2 10 93.4 11.5     97   94.12 7.41  71 110    39 -0.54    -0.87
-##             se
-## district* 0.00
-## srle      3.64
+##    vars  n mean   sd min max range   se
+## X1    1 10 93.4 11.5  71 110    39 3.64
 ## ------------------------------------------------------------ 
 ## group: Capital
-##           vars  n mean    sd median trimmed   mad min max range  skew kurtosis
-## district*    1 10  1.0  0.00    1.0       1  0.00   1   1     0   NaN      NaN
-## srle         2 10 54.9 19.28   57.5      57 18.53  12  81    69 -0.78     -0.1
-##            se
-## district* 0.0
-## srle      6.1
+##    vars  n mean    sd min max range  se
+## X1    1 10 54.9 19.28  12  81    69 6.1
 ```
 
 
@@ -307,6 +299,34 @@ shapiro.test(x = panem$srle)
 
 ![](18-wrap_up_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 
+
+---
+
+Hold up: how often is it really the case that the population variances are the same (homogeneity of variance)?
+
+For an independent-samples _t_-test, it's trivially easy to bypass the homogeneity of variance assumption and use a Welch's _t_-test instead. There's a loss of power, but for sample sizes used today, it's not so bad.
+
+
+```r
+t.test(srle~district, data = panem)
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  srle by district
+## t = 5.4235, df = 14.686, p-value = 7.591e-05
+## alternative hypothesis: true difference in means between group 12 and group Capital is not equal to 0
+## 95 percent confidence interval:
+##  23.34113 53.65887
+## sample estimates:
+##      mean in group 12 mean in group Capital 
+##                  93.4                  54.9
+```
+
+**However**, this is not the last you'll see of this assumption, and relaxing this assumption will become more difficult.
+
 ---
 
 ## Today...
@@ -417,7 +437,7 @@ Also, [new methods](../readings/Meta-analyses-are-f.pdf) for approaching meta-an
   
 * Also great for collaborations
 
-* Easy to navigate
+* "Easy" to navigate
 
 * Can be paired with applications you already use
 
@@ -447,9 +467,9 @@ OSF also allows you to preregister a project.
 ### Limit p-hacking: Preregistration
 
 
-#### Goal: Make it harder to _p_-hack and HARK
+#### Goal: Make it harder to p-hack and HARK
   * Did the researcher preregister 3 outcome variables and only report one? 
-  * Did the research *actually* believe this correlation would be significant?
+  * Did the researcher *actually* believe this correlation would be significant?
   
 --
   
@@ -660,7 +680,9 @@ PSY 612 in 2022
 (But first):
 * Quiz 9 now 
 * Journal 10 due Monday night
-
+* Oral exams next week
+* Homework 3 due Wednesday (9am)
+* All revisions due Friday (5pm)
 
 
 

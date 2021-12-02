@@ -67,7 +67,7 @@ panem = data.frame(
     100,92,110,99,80,96,102,98,71,86)
 )
 
-psych::describeBy(panem, group = panem$district)
+psych::describeBy(panem$srle, group = panem$district, fast = T)
 ```
 
 ```{r, echo = F, messsrle = F, warning = F, results ='hide'}
@@ -257,6 +257,19 @@ shapiro.test(x = panem$srle)
 panem %>% ggplot(aes(x = srle)) + geom_histogram(bins = 5, fill = "purple", color = "white") + theme_pubr()
 ```
 
+
+---
+
+Hold up: how often is it really the case that the population variances are the same (homogeneity of variance)?
+
+For an independent-samples _t_-test, it's trivially easy to bypass the homogeneity of variance assumption and use a Welch's _t_-test instead. There's a loss of power, but for sample sizes used today, it's not so bad.
+
+```{r}
+t.test(srle~district, data = panem)
+```
+
+**However**, this is not the last you'll see of this assumption, and relaxing this assumption will become more difficult.
+
 ---
 
 ## Today...
@@ -367,7 +380,7 @@ Also, [new methods](../readings/Meta-analyses-are-f.pdf) for approaching meta-an
   
 * Also great for collaborations
 
-* Easy to navigate
+* "Easy" to navigate
 
 * Can be paired with applications you already use
 
@@ -397,9 +410,9 @@ OSF also allows you to preregister a project.
 ### Limit p-hacking: Preregistration
 
 
-#### Goal: Make it harder to _p_-hack and HARK
+#### Goal: Make it harder to p-hack and HARK
   * Did the researcher preregister 3 outcome variables and only report one? 
-  * Did the research *actually* believe this correlation would be significant?
+  * Did the researcher *actually* believe this correlation would be significant?
   
 --
   
@@ -612,7 +625,9 @@ PSY 612 in 2022
 (But first):
 * Quiz 9 now 
 * Journal 10 due Monday night
-
+* Oral exams next week
+* Homework 3 due Wednesday (9am)
+* All revisions due Friday (5pm)
 
 
 
