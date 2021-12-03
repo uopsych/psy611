@@ -370,49 +370,68 @@ data_os <- data.frame("id"      = 1:1e5,
                                     rnorm(8e4, 13.9, 1)))
 ```
 
-1. Perform an *student's independent samples t-test* on the data (using a built in function).
+1. Perform an Independent Samples *t*-test on the data (preferably using a built in function).
 
 ```{r}
-#Your code here
+independentSamplesTTest(ability ~ os, data = data_os, var.equal = TRUE)
 ```
 
 2. After running the code, you think that maybe you should have run a Welch's *t*-test instead of a Student's *t*-test. Investigate your chosen function to figure out how to perform a Welch's *t*-test on the data. Do you find a different result? Why or why not?
 
 ```{r}
-#Your code here
+independentSamplesTTest(ability ~ os, data = data_os, var.equal = FALSE)
 ```
 
 3. Let's give the researchers the benefit of the doubt and assume the variances of both groups are equal. Is there a **meaningful** difference between Mac and PC users? Use a statistic to provide support for your answer.
 
 ```{r}
-#Your code here
+# The Cohen's d is .02. It is a very small effect.
 ```
 
 
 4. Plot the data using `ggerrorplot()`. Does this support your answer to question 3?
 
 ```{r}
-#Your code here
+# create plot
+ggerrorplot(data_os, 
+            x         = "os", 
+            y         = "ability", 
+            desc_stat = "mean_ci", 
+            color     = "os", 
+            ylab      = "Cooperation") +
+  # add results of t.test
+  stat_compare_means(method = "t.test")
 ```
 
 5. Recreate this plot using ggplot. Change the y-axis to a range that makes sense.
 
 ```{r}
-#Your code here
+ggplot(data_os, aes(x=os, y=ability)) + #create canvas
+  stat_summary(fun = mean, #specify a function to run on your data
+        geom="point") + #here is where you specify what geom to use
+  stat_summary(fun.data = mean_ci, #specify a function to run on your data
+        geom="errorbar") + #here is where you specify what geom to use 
+  # add results of t.test
+  stat_compare_means(method = "t.test") +
+  coord_cartesian(ylim=c(12,17))
+
 ```
 
 
-6. Use the Cohen's d to calculate the percentage of overlap between the groups. (See lecture 17) 
+
+6. Use the Cohen's d to calculate the percentage of overlap between the groups. (See lecture 18) 
 
 ```{r}
-#Your code here
+(overlap <- 2 * pnorm(-abs(.02)/2))
 ```
 
 
-7. Your colleague doesn't care about the comparison between PC and Mac users. They are only interested in PC users and whether they differ from an ability level of 14. What should you tell him? What statistical test supports you?
+7. Your colleague doesn't care about the comparison between pc and mac users. They are only interested in pc users and whether they differ from an ability level of 14. What should you tell him? What statistical test supports you?
 
 ```{r}
-#Your code here
+dat_pc <- data_os %>% 
+  filter(os == 'pc')
+t.test(dat_pc$ability, mu=14)
 ```
 
 ## Minihack 2: POWER
@@ -425,7 +444,8 @@ data_os <- data.frame("id"      = 1:1e5,
 2. You are planning on running a fourth version of a study comparing how tall plants grow after listening to the Beatles or Mozart when they were seedlings. Previous versions of the study found a Cohen's d of .1, .6, and .2. You want to replicate this study with a pea plant, but don't expect pea plants to differ from other plants. How many plants should I plan on including if I want a power of at least .8?
 
 ```{r}
-#Your code here
+
+pwr.t.test(d=mean(c(.1,.6,.2)), power=.8)
 
 ```
 
@@ -433,7 +453,8 @@ data_os <- data.frame("id"      = 1:1e5,
 3. Whoops! I forgot to mention that this a design where pairs of genetically identical plants are sorted into the two conditions. How many pairs of plants do I need?
 
 ```{r}
-#Your code here
+
+pwr.t.test(d=mean(c(.1,.6,.2)), power=.8, type ='paired')
 
 ```
 
@@ -441,9 +462,12 @@ data_os <- data.frame("id"      = 1:1e5,
 4. Write code to extract the sample size needed (round up) and display it embedded in an explanation.
 
 ```{r}
-#Your code here
+
+pow_out <- pwr.t.test(d=mean(c(.1,.6,.2)), power=.8, type ='paired')
+
 ```
 
+To achieve a power of .8, I would need `r ceiling(pow_out$n)` pairs of plants.
 
 ## Minihack 3: Trouble Shooting
 
@@ -461,6 +485,7 @@ pwr.t2n.test(n1=30, #n of group 1
            power = NULL, # Set what you want to calculate to NULL or leave out entirely
            type = 'two.sample', #independent sample t-test
            alternative = 'two.sided'  #two-tailed test
+             
              )
 ```
 
@@ -493,3 +518,5 @@ ggplot(data_os, aes(x=os, y=ability)) + #create canvas
   stat_compare_means(method = "t.test") +
   coord_cartesian(ylim=c(12,17))
 ```
+
+
