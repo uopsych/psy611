@@ -287,6 +287,7 @@ Sometimes you also want to plot some sort of transformation of your data. One wa
 ```{r}
 ggplot(data, aes(x = condition, y = cooperation)) + #create canvas
   stat_summary(fun = mean, #specify a function to run on your data
+               
         geom="point") + #here is where you specify what geom to use
   stat_summary(fun.data = mean_ci, #specify a function to run on your data
         geom="errorbar") #here is where you specify what geom to use
