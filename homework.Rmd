@@ -12,20 +12,20 @@ Homework assignments will appear here. You'll be able to access the assignment, 
 
 ### [**Homework 1**](homework/homework_1.html)
 
-**Due October 22, 9am**
+**Due October 21, 9am**
 
 - [Download files.](homework/homework-1.zip)
 
 
-### [**Homework 2**](homework/homework_2.html)
+<!-- ### [**Homework 2**](homework/homework_2.html) -->
 
-**Due November 12, 9am**
+<!-- **Due November 11, 9am** -->
 
-- [Download files.](homework/homework-2.zip)
+<!-- - [Download files.](homework/homework-2.zip) -->
 
 
-### [**Homework 3**](homework/homework_3.html)
+<!-- ### [**Homework 3**](homework/homework_3.html) -->
 
-**Due December 8, 9am**
+<!-- **Due December 7, 9am** -->
 
-- [Download files.](homework/homework-3.zip)
+<!-- - [Download files.](homework/homework-3.zip) -->

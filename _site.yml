@@ -7,63 +7,14 @@ navbar:
       href: schedule.html
     - text: Lectures
       menu:
-      - text: "1-Intro"
-        href: "lectures/01-intro.html"
-      - text: "2-Validity"
-        href: "lectures/02-validity.html"
-      - text: "3-Describing data I"
-        href: "lectures/03-describing-data.html"
-      - text: "4-Describing data II"
-        href: "lectures/04-describing_data.html"
-      - text: "5-Latent Variables"
-        href: "lectures/05-variables.html"
-      - text: "6-Probability"
-        href: "lectures/06-probability.html"
-      - text: "7-Binomial Distribution"
-        href: "lectures/07-binomial.html"
-      - text: "8-Normal Distribution"
-        href: "lectures/08-normal.html"
-      - text: "9-Sampling"
-        href: "lectures/09-sampling.html"
-      - text: "10-NHST I"
-        href: "lectures/10-nhst.html"
-      - text: "11 & 12-NHST II"
-        href: "lectures/11-nhst.html"
-      - text: "13-Critiques of NHST"
-        href: "lectures/12-critiques.html"
-      - text: "14-Chi-square Goodness of Fit"
-        href: "lectures/14-one_sample.html"
-      - text: "15-t-tests: one- and paired-samples"
-        href: "lectures/15-t_one_paired.html"
-      - text: "16-t-tests: independent samples"
-        href: "lectures/16-independent_samples.html"
-      - text: "17-t-tests: Effect sizes and Assumptions"
-        href: "lectures/17-effects.html"
-      - text: "18-Open Science and Wrap-up"
-        href: "lectures/18-wrap_up.html"
-      - text: "Bonus: Chi-square test of independence"
-        href: "lectures/chi_square_independence.html"
+      - text: "Coming soon!"
+      #- text: "1-Intro"
+       # href: "lectures/01-intro.html"
+
       
     - text: Labs
       menu:
-      - text: "1-Introduction to R"
-        href: "labs/lab-1.html"
-      - text: "2-Descriptive Statistics"
-        href: "labs/lab-2.html"
-      - text: "3-Functional Programming"
-        href: "labs/lab-3.html"
-      - text: "4-Probability Distributions"
-        href: "labs/lab-4.html"
-      - text: "5-Data Wrangling"
-        href: "labs/lab-5.html"
-      - text: "6-Data Visualization"
-        href: "labs/lab-6.html"
-      - text: "7-RMarkdown"
-        href: "labs/lab-7.html"
-      - text: "8-One- and Paired-Sample t-Test"
-        href: "labs/lab-8.html"
-      - text: "9-Independent Samples t-Test"
-        href: "labs/lab-9_ist.html"
+      - text: "Coming soon!"
     - text: Homework
       href: homework.html
     - text: Useful Material
@@ -74,6 +25,8 @@ navbar:
   right:
     - text: Previous Years
       menu:
+      - text: 2021
+        href: "https://uopsych.github.io/psy611_2021/"
       - text: 2020
         href: "https://uopsych.github.io/psy611_2020/"
       - text: 2019

@@ -13,40 +13,40 @@ output:
 LSR readings can be found in the free, online textbook, [_Learning Statistics with R_](https://learningstatisticswithr-bookdown.netlify.com/index.html) by Danielle Navarro. For those interested in taking notes, I recommend the use of the [Hypothes.is](http://Hypothes.is) app to annotate webpages. I will note that the formatting of the book online is wonky in a few places. If this bothers you, or you prefer to work offline, you can download a [PDF version](https://learningstatisticswithr.com/lsr-0.6.pdf) of the book. 
 
 | Week | Date  |  Topic                                 |Readings                                                                                             | Quiz   | Homework   |
--------|-------|----------------------------------------|-----------------------------------------------------------------------------------------------------|--------|------------|
-| 1    | 09/28 | Introduction and overview              | LSR Ch 1 \& 3                                                                                       |        |            |
-| -    | 09/39 | Research methods                       | LSR CH 2 \& 4, [Cronbach \& Meehl (1955)](readings/Cronbach_Meehl_1955.pdf)                         |        |            |
-| -    | 10/01 | _Lab: Introduction to R_               |                                                                                                     |        |            |             
-| 2    | 10/05 | Describing data                        | LSR Ch 5 \& 6                                                                                       | Quiz 1 |            |
-| -    | 10/07 | Describing data                        | [Ozer & Funder (2019)](readings/Ozer_Funder_2019.pdf)                                               |        |            |
-| -    | 10/08 | _Lab: R basics and descriptives_       |                                                                                                     |        |            |             
-| 3    | 10/12 | Latent variables and psychometrics     | Podcast: [Quantitude, S2E21 -- Yes, Virginia... There ARE Latent Variables](https://quantitudepod.org/listen/) (Make sure you scroll down to the correct episode) [CC available here](https://uoregon.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9e5c5f9e-666b-4741-875b-adba015e9ded).                                                                                                   |        |            |             
-| -    | 10/14 | Probability                            | LSR Intro to Part IV and Ch 9.1-9.3, [Wetzels et al. (2011)](readings/Wetzels_etal_2011.pdf)        | Quiz 2 |            |             
-| -    | 10/15 | _Lab: Functional programming_                  |                                                                                                     |        |            |             
-| 4    | 10/19 | Probability                            | LSR Ch 9.4                                                                                          | Quiz 3 |            |
-| -    | 10/21 | Probability                            | LSR Ch 9.5-9.6                                                                                      |        |            |
-| -    | 10/22 | _Lab: Probability distributions_       |                                                                                                     |        |  HW 1 Due  |
-| 5    | 10/26 | Sampling                               | LSR Ch 10                                                                                           | Quiz 4 |            |
-| -    | 10/28 | Hypothesis testing                     | LSR Ch 11                                                                                           |        |            |
-| -    | 10/29 | _Lab: Data wrangling_                  |                                                                                                     |        |            |             
-| 6    | 11/02 | Hypothesis testing                     | [Sainani (2012)](readings/Sainani_2012.pdf)                                                         | Quiz 5 |            |
-| -    | 11/04 | Hypothesis testing        |   |        |            |
-| -    | 11/05 | _Lab: Graphing with ggplot2_           |                                                                                                     |        |            |             
-| 7    | 11/09 | Critiques of hypothesis testing        | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf) [Cumming (2014)](readings/Cumming_2014.pdf)| Quiz 6 |            |
-| -    | 11/11 | No class: Veteran's Day                |                                                                                                     |        |            |
-| -    | 11/12 | _Lab: RMarkdown_                       |                                                                                                     |        |  HW 2 Due  |
-| 8    | 11/16 | One-sample tests                       |  LSR Ch 13.1-13.2                                                                                   | Quiz 7 |            |   
-| -    | 11/18 | Comparing two means (paired)           | LSR Ch 13.3-13.11                                                                                   |        |            |
-| -    | 11/19 | _Lab: One- and paired-samples t-tests_ |                                                                                                     |        |            |             
-| 9    | 11/23 | Comparing two means (independent)      |                                                                                                     | Quiz 8 |            |   
-| -    | 11/25 | __Thanksgiving__                       |                                                                                                     |        |            |             
-| -    | 11/26 | _Lab: No Lab_                          |                                                                                                     |        |            |             
-| 10   | 11/39 | Effect sizes and assumptions           |                                                                                                     |        |            |             
-| -    | 12/02 | Open Science and Wrap-up             |  [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/)                      | Quiz 9 |            |   
-| -    | 12/03 | _Lab: Independent samples t-tests_     |                                                                                                     |        |            |             
-|Finals| 12/06 |                                        |                                                                                                     |        |            |             
-| -    | 12/08 |                                        |                                                                                                     |        | HW 3 Due [^1]  9am|         
-**Final:** Oral exam will take place the week of December 6.
+-------|-------|:---------------------------------------|:----------------------------------------------------------------------------------------------------|--------|------------|
+| 1    | 09/27 | Introduction and overview              | LSR Ch 1 \& 3                                                                                       |        |            |
+| -    | 09/29 | Research methods                       | LSR CH 2 \& 4                         |        |            |
+| -    | 09/30 | _Lab: Introduction to R_               |                                                                                                     |        |            |             
+| 2    | 10/04 | Describing data                        | LSR Ch 5 \& 6                                                                                       | Quiz 1 |            |
+| -    | 10/06 | Describing data                        | [Ozer & Funder (2019)](readings/Ozer_Funder_2019.pdf)                                               |        |            |
+| -    | 10/07 | _Lab: R basics and descriptives_       |                                                                                                     |        |            |             
+| 3    | 10/11 | Latent variables and psychometrics     | Podcast: [Quantitude, S2E21 -- Yes, Virginia... There ARE Latent Variables](https://quantitudepod.org/listen/) (Make sure you scroll down to the correct episode) [CC available here](https://uoregon.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9e5c5f9e-666b-4741-875b-adba015e9ded).                                                                                                   |        |            |             
+| -    | 10/13 | Probability                            | LSR Intro to Part IV and Ch 9.1-9.3, [Wetzels et al. (2011)](readings/Wetzels_etal_2011.pdf)        | Quiz 2 |            |             
+| -    | 10/14 | _Lab: Functional programming_                  |                                                                                                     |        |            |             
+| 4    | 10/18 | Probability                            | LSR Ch 9.4                                                                                          | Quiz 3 |            |
+| -    | 10/20 | Probability                            | LSR Ch 9.5-9.6                                                                                      |        |            |
+| -    | 10/21 | _Lab: Probability distributions_       |                                                                                                     |        |  HW 1 Due  |
+| 5    | 10/25 | Sampling                               | LSR Ch 10                                                                                           | Quiz 4 |            |
+| -    | 10/27 | Hypothesis testing                     | LSR Ch 11                                                                                           |        |            |
+| -    | 10/28 | _Lab: Data wrangling_                  |                                                                                                     |        |            |             
+| 6    | 11/01 | Hypothesis testing                     | [Sainani (2012)](readings/Sainani_2012.pdf)                                                         | Quiz 5 |            |
+| -    | 11/03 | Hypothesis testing        |   |        |            |
+| -    | 11/04 | _Lab: Graphing with ggplot2_           |                                                                                                     |        |            |             
+| 7    | 11/08 | Critiques of hypothesis testing        | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf) [Cumming (2014)](readings/Cumming_2014.pdf)| Quiz 6 |            |
+| -    | 11/10 | Open Science and Wrap-up             |  [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/)                       |        |            |
+| -    | 11/11 | _Lab: No Lab_                          |                                                                                                     |        |  HW 2 Due  |
+| 8    | 11/15 | One-sample tests                       | LSR Ch 13.1-13.2                                                                                    | Quiz 7 |            |   
+| -    | 11/17 | Comparing two means (paired)           | LSR Ch 13.3-13.11                                                                                   |        |            |
+| -    | 11/18 | _Lab: One- and paired-samples t-tests_ |                                                                                                     |        |            |             
+| 9    | 11/22 | Something different: RMarkdown         |                                                                                                     | Quiz 8 |            |   
+| -    | 11/24 | __Thanksgiving__                       |                                                                                                     |        |            |             
+| -    | 11/25 | _Lab: No Lab_                          |                                                                                                     |        |            |             
+| 10   | 11/29 | Comparing two means (independent)      |                                                                                                     |        |            |       
+| -    | 12/01 | Effect sizes and assumptions           |                                                                                                     | Quiz 9 |            |   
+| -    | 12/02 | _Lab: Independent samples t-tests_     |                                                                                                     |        |            |             
+|Finals| 12/05 |                                        |                                                                                                     |        |            |             
+| -    | 12/07 |                                        |                                                                                                     |        | HW 3 Due [^1]  9am|         
+**Final:** Oral exam will take place the week of December 5.
 
 # Graded materials
 
@@ -84,10 +84,6 @@ The purpose of this assignment is to help facilitate communication between you a
 ## Oral exam
 
 The oral exam will take place during finals week. About two weeks prior, you will be asked to schedule a time to complete the exam. The exam will take roughly 15 minutes. You will be asked to explain basic and elemental concepts, as if you were teaching an advanced undergraduate or new graduate student. 
-
-<!-- ## Take-home Exam -->
-
-<!-- The take-home exam will consist of two parts: (1) a multiple-choice exam that will take place on Canvas and (2) an application section using R. You may not collaborate on the take-home exam, nor discuss the take-home exam with your classmates. Your TA and I will provide only limited clarifications to questions and will not help with any portion of the exam. The take-home exam will be available two weeks before it is due. -->
 
 # Materials needed
 

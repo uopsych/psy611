@@ -1,7 +1,7 @@
 ---
 title: "Psy 611: Data Analysis I"
 subtitle: "Department of Psychology, University of Oregon"
-author: "Fall 2021. Instructor: Sara J. Weston"
+author: "Fall 2022. Instructor: Sara J. Weston"
 output: 
   html_document:
     toc: TRUE
@@ -17,19 +17,17 @@ thorough grounding in statistical concepts, methods, and applications of relevan
 
 ## Meeting times and locations
 
-**Lecture:** Tuesdays and Thursdays, 10:00 - 11:20am, 222 LA and [Zoom](https://uoregon.zoom.us/j/97292141256?pwd=aE1yUW5oT0ZER214TGcwM2xXeUN3UT09) 
+**Lecture:** Tuesdays and Thursdays, 10:00 - 11:20am, [107 ESL](https://map.uoregon.edu/) 
 
 **Lab (Section 15486):** Fridays,
-9:00 - 10:20 am, Straub 008 and [Zoom](https://uoregon.zoom.us/j/97605175179?pwd=MVFoN2VudVM4a2Y5OXFvaklTRS85Zz09)
+9:00 - 10:20 am, Straub 006 
 
-**Lab (Section 15487):** Fridays,10:30 - 11:50 am, Straub 008 and [Zoom](https://uoregon.zoom.us/j/96836414141?pwd=aDVCemhyb0dlR3ZGamU2dytVVUZQUT09) 
+**Lab (Section 15487):** Fridays,10:30 - 11:50 am, Straub 006 
 
 
 <!-- , 10:00-11:20am, [Zoom](https://uoregon.zoom.us/j/97605175179?pwd=MVFoN2VudVM4a2Y5OXFvaklTRS85Zz09) -->
 
-This class is officially offered in-person. I will give live lectures in Lawrence 222 and you are welcome to attend in person. At the same time, my goal is to make it as safe and easy as possible for students to access this course in whatever format they are comfortable. Therefore, all lectures will be live-streamed via Zoom and recorded for later viewing. In-person attendance in lecture is not required. Feel free to stay at home if you prefer. And **absolutely do not attend class in-person if you feel unwell**. If you have COVID symptoms or have been in close contact with someone with known COVID, quarantine and call the UO Health Center at 541-346-2770. 
-
-As per UO policy, masks are required indoors. 
+This class is officially offered in-person. I will give live lectures in Lawrence 222 and you are welcome to attend in person. At the same time, my goal is to make it safe and easy for students to access this course in whatever format they are comfortable. Therefore, all lectures will be recorded for later viewing. In-person attendance in lecture is not required. Feel free to stay at home if you prefer. And **absolutely do not attend class in-person if you feel unwell**. If you have COVID symptoms or have been in close contact with someone with known COVID, quarantine and call the UO Health Center at 541-346-2770. 
 
 For Zoom best practices and tips, see this [cheat sheet](readings/PSY 611 Zoom Cheat Sheet.pdf).
 
@@ -38,11 +36,11 @@ For Zoom best practices and tips, see this [cheat sheet](readings/PSY 611 Zoom C
 **Sara Weston** -- [sweston2@uoregon.edu](mailto:sweston2@uoregon.edu)
 Office Hours: [By appointment](https://calendly.com/sara-weston/weston-office-hours) 
 
-**Sara Lieber** -- [slieber@uoregon.edu](mailto:slieber@uoregon.edu)
-Office Hours: [By appointment](https://calendly.com/slieber-psy611/sara-l-office-hours)
+**Bernice Cheung** -- [kcheung3@uoregon.edu](mailto:kcheung3@uoregon.edu)
+Office Hours: TBD
 
-**Vinita Vader** -- [vvader@uoregon.edu](mailto:vvader@uoregon.edu)
-Office Hours: [By appointment](https://calendly.com/vinitavader/15min)
+**Max Drascher** -- [mdrasche@uoregon.edu](mailto:mdrasche@uoregon.edu)
+Office Hours: TBD
 
 # Materials
 

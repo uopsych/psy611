@@ -13,8 +13,8 @@
 
 <title>Syllabus</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -65,6 +65,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -85,6 +86,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -310,7 +314,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -323,102 +327,23 @@ div.tocify {
   <a href="schedule.html">Syllabus</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Lectures
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="lectures/01-intro.html">1-Intro</a>
-    </li>
-    <li>
-      <a href="lectures/02-validity.html">2-Validity</a>
-    </li>
-    <li>
-      <a href="lectures/03-describing-data.html">3-Describing data I</a>
-    </li>
-    <li>
-      <a href="lectures/04-describing_data.html">4-Describing data II</a>
-    </li>
-    <li>
-      <a href="lectures/05-variables.html">5-Latent Variables</a>
-    </li>
-    <li>
-      <a href="lectures/06-probability.html">6-Probability</a>
-    </li>
-    <li>
-      <a href="lectures/07-binomial.html">7-Binomial Distribution</a>
-    </li>
-    <li>
-      <a href="lectures/08-normal.html">8-Normal Distribution</a>
-    </li>
-    <li>
-      <a href="lectures/09-sampling.html">9-Sampling</a>
-    </li>
-    <li>
-      <a href="lectures/10-nhst.html">10-NHST I</a>
-    </li>
-    <li>
-      <a href="lectures/11-nhst.html">11 &amp; 12-NHST II</a>
-    </li>
-    <li>
-      <a href="lectures/12-critiques.html">13-Critiques of NHST</a>
-    </li>
-    <li>
-      <a href="lectures/14-one_sample.html">14-Chi-square Goodness of Fit</a>
-    </li>
-    <li>
-      <a href="lectures/15-t_one_paired.html">15-t-tests: one- and paired-samples</a>
-    </li>
-    <li>
-      <a href="lectures/16-independent_samples.html">16-t-tests: independent samples</a>
-    </li>
-    <li>
-      <a href="lectures/17-effects.html">17-t-tests: Effect sizes and Assumptions</a>
-    </li>
-    <li>
-      <a href="lectures/18-wrap_up.html">18-Open Science and Wrap-up</a>
-    </li>
-    <li>
-      <a href="lectures/chi_square_independence.html">Bonus: Chi-square test of independence</a>
-    </li>
+    <li class="dropdown-header">Coming soon!</li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Labs
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="labs/lab-1.html">1-Introduction to R</a>
-    </li>
-    <li>
-      <a href="labs/lab-2.html">2-Descriptive Statistics</a>
-    </li>
-    <li>
-      <a href="labs/lab-3.html">3-Functional Programming</a>
-    </li>
-    <li>
-      <a href="labs/lab-4.html">4-Probability Distributions</a>
-    </li>
-    <li>
-      <a href="labs/lab-5.html">5-Data Wrangling</a>
-    </li>
-    <li>
-      <a href="labs/lab-6.html">6-Data Visualization</a>
-    </li>
-    <li>
-      <a href="labs/lab-7.html">7-RMarkdown</a>
-    </li>
-    <li>
-      <a href="labs/lab-8.html">8-One- and Paired-Sample t-Test</a>
-    </li>
-    <li>
-      <a href="labs/lab-9_ist.html">9-Independent Samples t-Test</a>
-    </li>
+    <li class="dropdown-header">Coming soon!</li>
   </ul>
 </li>
 <li>
@@ -433,12 +358,15 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Previous Years
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://uopsych.github.io/psy611_2021/">2021</a>
+    </li>
     <li>
       <a href="https://uopsych.github.io/psy611_2020/">2020</a>
     </li>
@@ -469,7 +397,15 @@ div.tocify {
 
 <div id="weekly-schedule" class="section level1">
 <h1>Weekly schedule</h1>
-<p>LSR readings can be found in the free, online textbook, <a href="https://learningstatisticswithr-bookdown.netlify.com/index.html"><em>Learning Statistics with R</em></a> by Danielle Navarro. For those interested in taking notes, I recommend the use of the <a href="http://Hypothes.is">Hypothes.is</a> app to annotate webpages. I will note that the formatting of the book online is wonky in a few places. If this bothers you, or you prefer to work offline, you can download a <a href="https://learningstatisticswithr.com/lsr-0.6.pdf">PDF version</a> of the book.</p>
+<p>LSR readings can be found in the free, online textbook, <a
+href="https://learningstatisticswithr-bookdown.netlify.com/index.html"><em>Learning
+Statistics with R</em></a> by Danielle Navarro. For those interested in
+taking notes, I recommend the use of the <a
+href="http://Hypothes.is">Hypothes.is</a> app to annotate webpages. I
+will note that the formatting of the book online is wonky in a few
+places. If this bothers you, or you prefer to work offline, you can
+download a <a href="https://learningstatisticswithr.com/lsr-0.6.pdf">PDF
+version</a> of the book.</p>
 <table>
 <colgroup>
 <col width="4%" />
@@ -483,8 +419,8 @@ div.tocify {
 <tr class="header">
 <th>Week</th>
 <th>Date</th>
-<th>Topic</th>
-<th>Readings</th>
+<th align="left">Topic</th>
+<th align="left">Readings</th>
 <th>Quiz</th>
 <th>Homework</th>
 </tr>
@@ -492,263 +428,277 @@ div.tocify {
 <tbody>
 <tr class="odd">
 <td>1</td>
-<td>09/28</td>
-<td>Introduction and overview</td>
-<td>LSR Ch 1 &amp; 3</td>
+<td>09/27</td>
+<td align="left">Introduction and overview</td>
+<td align="left">LSR Ch 1 &amp; 3</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>-</td>
-<td>09/39</td>
-<td>Research methods</td>
-<td>LSR CH 2 &amp; 4, <a href="readings/Cronbach_Meehl_1955.pdf">Cronbach &amp; Meehl (1955)</a></td>
+<td>09/29</td>
+<td align="left">Research methods</td>
+<td align="left">LSR CH 2 &amp; 4</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>10/01</td>
-<td><em>Lab: Introduction to R</em></td>
-<td></td>
+<td>09/30</td>
+<td align="left"><em>Lab: Introduction to R</em></td>
+<td align="left"></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>2</td>
-<td>10/05</td>
-<td>Describing data</td>
-<td>LSR Ch 5 &amp; 6</td>
+<td>10/04</td>
+<td align="left">Describing data</td>
+<td align="left">LSR Ch 5 &amp; 6</td>
 <td>Quiz 1</td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>10/07</td>
-<td>Describing data</td>
-<td><a href="readings/Ozer_Funder_2019.pdf">Ozer &amp; Funder (2019)</a></td>
+<td>10/06</td>
+<td align="left">Describing data</td>
+<td align="left"><a href="readings/Ozer_Funder_2019.pdf">Ozer &amp;
+Funder (2019)</a></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>-</td>
-<td>10/08</td>
-<td><em>Lab: R basics and descriptives</em></td>
-<td></td>
+<td>10/07</td>
+<td align="left"><em>Lab: R basics and descriptives</em></td>
+<td align="left"></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>3</td>
-<td>10/12</td>
-<td>Latent variables and psychometrics</td>
-<td>Podcast: <a href="https://quantitudepod.org/listen/">Quantitude, S2E21 – Yes, Virginia… There ARE Latent Variables</a> (Make sure you scroll down to the correct episode) <a href="https://uoregon.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9e5c5f9e-666b-4741-875b-adba015e9ded">CC available here</a>.</td>
+<td>10/11</td>
+<td align="left">Latent variables and psychometrics</td>
+<td align="left">Podcast: <a
+href="https://quantitudepod.org/listen/">Quantitude, S2E21 – Yes,
+Virginia… There ARE Latent Variables</a> (Make sure you scroll down to
+the correct episode) <a
+href="https://uoregon.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9e5c5f9e-666b-4741-875b-adba015e9ded">CC
+available here</a>.</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>-</td>
-<td>10/14</td>
-<td>Probability</td>
-<td>LSR Intro to Part IV and Ch 9.1-9.3, <a href="readings/Wetzels_etal_2011.pdf">Wetzels et al. (2011)</a></td>
+<td>10/13</td>
+<td align="left">Probability</td>
+<td align="left">LSR Intro to Part IV and Ch 9.1-9.3, <a
+href="readings/Wetzels_etal_2011.pdf">Wetzels et al. (2011)</a></td>
 <td>Quiz 2</td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>10/15</td>
-<td><em>Lab: Functional programming</em></td>
-<td></td>
+<td>10/14</td>
+<td align="left"><em>Lab: Functional programming</em></td>
+<td align="left"></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>4</td>
-<td>10/19</td>
-<td>Probability</td>
-<td>LSR Ch 9.4</td>
+<td>10/18</td>
+<td align="left">Probability</td>
+<td align="left">LSR Ch 9.4</td>
 <td>Quiz 3</td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>10/21</td>
-<td>Probability</td>
-<td>LSR Ch 9.5-9.6</td>
+<td>10/20</td>
+<td align="left">Probability</td>
+<td align="left">LSR Ch 9.5-9.6</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>-</td>
-<td>10/22</td>
-<td><em>Lab: Probability distributions</em></td>
-<td></td>
+<td>10/21</td>
+<td align="left"><em>Lab: Probability distributions</em></td>
+<td align="left"></td>
 <td></td>
 <td>HW 1 Due</td>
 </tr>
 <tr class="odd">
 <td>5</td>
-<td>10/26</td>
-<td>Sampling</td>
-<td>LSR Ch 10</td>
+<td>10/25</td>
+<td align="left">Sampling</td>
+<td align="left">LSR Ch 10</td>
 <td>Quiz 4</td>
 <td></td>
 </tr>
 <tr class="even">
 <td>-</td>
-<td>10/28</td>
-<td>Hypothesis testing</td>
-<td>LSR Ch 11</td>
+<td>10/27</td>
+<td align="left">Hypothesis testing</td>
+<td align="left">LSR Ch 11</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>10/29</td>
-<td><em>Lab: Data wrangling</em></td>
-<td></td>
+<td>10/28</td>
+<td align="left"><em>Lab: Data wrangling</em></td>
+<td align="left"></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>6</td>
-<td>11/02</td>
-<td>Hypothesis testing</td>
-<td><a href="readings/Sainani_2012.pdf">Sainani (2012)</a></td>
+<td>11/01</td>
+<td align="left">Hypothesis testing</td>
+<td align="left"><a href="readings/Sainani_2012.pdf">Sainani
+(2012)</a></td>
 <td>Quiz 5</td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>11/04</td>
-<td>Hypothesis testing</td>
-<td></td>
+<td>11/03</td>
+<td align="left">Hypothesis testing</td>
+<td align="left"></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>-</td>
-<td>11/05</td>
-<td><em>Lab: Graphing with ggplot2</em></td>
-<td></td>
+<td>11/04</td>
+<td align="left"><em>Lab: Graphing with ggplot2</em></td>
+<td align="left"></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>7</td>
-<td>11/09</td>
-<td>Critiques of hypothesis testing</td>
-<td><a href="readings/Simmons_etal_2011.pdf">Simmons et al. (2011)</a> <a href="readings/Cumming_2014.pdf">Cumming (2014)</a></td>
+<td>11/08</td>
+<td align="left">Critiques of hypothesis testing</td>
+<td align="left"><a href="readings/Simmons_etal_2011.pdf">Simmons et
+al. (2011)</a> <a href="readings/Cumming_2014.pdf">Cumming
+(2014)</a></td>
 <td>Quiz 6</td>
 <td></td>
 </tr>
 <tr class="even">
 <td>-</td>
-<td>11/11</td>
-<td>No class: Veteran’s Day</td>
-<td></td>
+<td>11/10</td>
+<td align="left">Open Science and Wrap-up</td>
+<td align="left"><a
+href="https://fivethirtyeight.com/features/science-isnt-broken/">Five
+Thirty Eight</a></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>11/12</td>
-<td><em>Lab: RMarkdown</em></td>
-<td></td>
+<td>11/11</td>
+<td align="left"><em>Lab: No Lab</em></td>
+<td align="left"></td>
 <td></td>
 <td>HW 2 Due</td>
 </tr>
 <tr class="even">
 <td>8</td>
-<td>11/16</td>
-<td>One-sample tests</td>
-<td>LSR Ch 13.1-13.2</td>
+<td>11/15</td>
+<td align="left">One-sample tests</td>
+<td align="left">LSR Ch 13.1-13.2</td>
 <td>Quiz 7</td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>11/18</td>
-<td>Comparing two means (paired)</td>
-<td>LSR Ch 13.3-13.11</td>
+<td>11/17</td>
+<td align="left">Comparing two means (paired)</td>
+<td align="left">LSR Ch 13.3-13.11</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>-</td>
-<td>11/19</td>
-<td><em>Lab: One- and paired-samples t-tests</em></td>
-<td></td>
+<td>11/18</td>
+<td align="left"><em>Lab: One- and paired-samples t-tests</em></td>
+<td align="left"></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>9</td>
-<td>11/23</td>
-<td>Comparing two means (independent)</td>
-<td></td>
+<td>11/22</td>
+<td align="left">Something different: RMarkdown</td>
+<td align="left"></td>
 <td>Quiz 8</td>
 <td></td>
 </tr>
 <tr class="even">
 <td>-</td>
-<td>11/25</td>
-<td><strong>Thanksgiving</strong></td>
-<td></td>
+<td>11/24</td>
+<td align="left"><strong>Thanksgiving</strong></td>
+<td align="left"></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>11/26</td>
-<td><em>Lab: No Lab</em></td>
-<td></td>
+<td>11/25</td>
+<td align="left"><em>Lab: No Lab</em></td>
+<td align="left"></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>10</td>
-<td>11/39</td>
-<td>Effect sizes and assumptions</td>
-<td></td>
+<td>11/29</td>
+<td align="left">Comparing two means (independent)</td>
+<td align="left"></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>-</td>
-<td>12/02</td>
-<td>Open Science and Wrap-up</td>
-<td><a href="https://fivethirtyeight.com/features/science-isnt-broken/">Five Thirty Eight</a></td>
+<td>12/01</td>
+<td align="left">Effect sizes and assumptions</td>
+<td align="left"></td>
 <td>Quiz 9</td>
 <td></td>
 </tr>
 <tr class="even">
 <td>-</td>
-<td>12/03</td>
-<td><em>Lab: Independent samples t-tests</em></td>
-<td></td>
+<td>12/02</td>
+<td align="left"><em>Lab: Independent samples t-tests</em></td>
+<td align="left"></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>Finals</td>
-<td>12/06</td>
-<td></td>
-<td></td>
+<td>12/05</td>
+<td align="left"></td>
+<td align="left"></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>-</td>
-<td>12/08</td>
+<td>12/07</td>
+<td align="left"></td>
+<td align="left"></td>
 <td></td>
-<td></td>
-<td></td>
-<td>HW 3 Due <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> 9am</td>
+<td>HW 3 Due <a href="#fn1" class="footnote-ref"
+id="fnref1"><sup>1</sup></a> 9am</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Final:</strong> Oral exam will take place the week of December 6.</p>
+<p><strong>Final:</strong> Oral exam will take place the week of
+December 5.</p>
 </div>
 <div id="graded-materials" class="section level1">
 <h1>Graded materials</h1>
@@ -761,48 +711,127 @@ div.tocify {
 </ul>
 <div id="quizzes" class="section level2">
 <h2>Quizzes</h2>
-<p>Quizzes are intended to assess your understanding of the theoretical principles underlying statistics. There will be a quiz every Tuesday, with the exception of the first week, when there will be no quiz, and the final week when the quiz will be on Thursday.</p>
-<p>Quizzes may be resubmitted with corrections and receive full credit. To resubmit a quiz, attach a separate piece of paper to your quiz; for each question that was answered incorrectly, identify the correct answer, and explain why this is the correct answer. Only if the explanation sufficiently conveys an understanding of the theoretical principles will credit be given. There are no limits to the number of times a quiz may be resubmitted.</p>
+<p>Quizzes are intended to assess your understanding of the theoretical
+principles underlying statistics. There will be a quiz every Tuesday,
+with the exception of the first week, when there will be no quiz, and
+the final week when the quiz will be on Thursday.</p>
+<p>Quizzes may be resubmitted with corrections and receive full credit.
+To resubmit a quiz, attach a separate piece of paper to your quiz; for
+each question that was answered incorrectly, identify the correct
+answer, and explain why this is the correct answer. Only if the
+explanation sufficiently conveys an understanding of the theoretical
+principles will credit be given. There are no limits to the number of
+times a quiz may be resubmitted.</p>
 </div>
 <div id="homework-assignments" class="section level2">
 <h2>Homework assignments</h2>
-<p>Homework assignments are intended to gauge your ability to apply the topics covered in class to the practice of data analysis. Homework assignments are to be done using R and RMarkdown; completed assignments should be submitted through Canvas, and students must attach both the .Rmd file and the compiled HTML file.</p>
-<p>Homework assignments are due at the time the first lab starts on the day the assignment is listed. Homework assignments may be resubmitted with corrections and receive full credit. Please note, however, that corrections can only be made to problems that were answered at initial submission. There is no limit to the number of times a homework assignment may be resubmitted.</p>
-<p>Late assignments will receive 50% of the points earned. For example, if you correctly answer questions totalling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points.</p>
-<p>You may discuss homework assignments with your classmates; however, it is important that you complete each assignment on your own and do not simply copy someone else’s code. If I believe one student has copied another’s work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points.</p>
+<p>Homework assignments are intended to gauge your ability to apply the
+topics covered in class to the practice of data analysis. Homework
+assignments are to be done using R and RMarkdown; completed assignments
+should be submitted through Canvas, and students must attach both the
+.Rmd file and the compiled HTML file.</p>
+<p>Homework assignments are due at the time the first lab starts on the
+day the assignment is listed. Homework assignments may be resubmitted
+with corrections and receive full credit. Please note, however, that
+corrections can only be made to problems that were answered at initial
+submission. There is no limit to the number of times a homework
+assignment may be resubmitted.</p>
+<p>Late assignments will receive 50% of the points earned. For example,
+if you correctly answer questions totalling 28 points, the assignment
+will receive 14 points. If you resubmit this assignment with corrected
+answers (a total of 30 points), the assignment will receive 15
+points.</p>
+<p>You may discuss homework assignments with your classmates; however,
+it is important that you complete each assignment on your own and do not
+simply copy someone else’s code. If I believe one student has copied
+another’s work, both students will receive a 0 on the homework
+assignment and will not be allowed to resubmit the assignment for
+points.</p>
 </div>
 <div id="journal-entries" class="section level2">
 <h2>Journal entries</h2>
-<p>Each week you’ll complete a short journal entry on Canvas. To earn full points, you’ll have to write at least 200 words about anything at all. This can include content related to the course, such as how well you feel you understand the material or how you see the material come up in other work. This can also include anything related to your personal life or mental health that you would like for me to know, such as whether you are struggling to balance classes and research, having trouble creating a workspace at home, or whether you can balance time spent on campus and off. This can also be completely random things, like a news article you can’t stop thinking about, or musings on the mist-downpour continuum of Oregon weather. The content of what you write has <em>no impact</em> on your grade. In addition, what you write will be kept confidential.</p>
+<p>Each week you’ll complete a short journal entry on Canvas. To earn
+full points, you’ll have to write at least 200 words about anything at
+all. This can include content related to the course, such as how well
+you feel you understand the material or how you see the material come up
+in other work. This can also include anything related to your personal
+life or mental health that you would like for me to know, such as
+whether you are struggling to balance classes and research, having
+trouble creating a workspace at home, or whether you can balance time
+spent on campus and off. This can also be completely random things, like
+a news article you can’t stop thinking about, or musings on the
+mist-downpour continuum of Oregon weather. The content of what you write
+has <em>no impact</em> on your grade. In addition, what you write will
+be kept confidential.</p>
 <p>You may skip 2 journal entries with no penalty.</p>
-<p>The purpose of this assignment is to help facilitate communication between you and me. In a normal term, there would be many opportunities for us to chat casually, for you to hang back and ask a clarifying quesiton, or even for me to notice if you’ve lost a little pep and check in. Our ability to check in with each other becomes exponentially harder over Zoom. I have used this assignment since Spring 2020 and found it an excellent way to build relationships with students. Plus, I found that many students were more comfortable discussing questions and concerns in their journal assignments rather than through email or Zoom meetings.</p>
+<p>The purpose of this assignment is to help facilitate communication
+between you and me. In a normal term, there would be many opportunities
+for us to chat casually, for you to hang back and ask a clarifying
+quesiton, or even for me to notice if you’ve lost a little pep and check
+in. Our ability to check in with each other becomes exponentially harder
+over Zoom. I have used this assignment since Spring 2020 and found it an
+excellent way to build relationships with students. Plus, I found that
+many students were more comfortable discussing questions and concerns in
+their journal assignments rather than through email or Zoom
+meetings.</p>
 </div>
 <div id="oral-exam" class="section level2">
 <h2>Oral exam</h2>
-<p>The oral exam will take place during finals week. About two weeks prior, you will be asked to schedule a time to complete the exam. The exam will take roughly 15 minutes. You will be asked to explain basic and elemental concepts, as if you were teaching an advanced undergraduate or new graduate student.</p>
-<!-- ## Take-home Exam -->
-<!-- The take-home exam will consist of two parts: (1) a multiple-choice exam that will take place on Canvas and (2) an application section using R. You may not collaborate on the take-home exam, nor discuss the take-home exam with your classmates. Your TA and I will provide only limited clarifications to questions and will not help with any portion of the exam. The take-home exam will be available two weeks before it is due. -->
+<p>The oral exam will take place during finals week. About two weeks
+prior, you will be asked to schedule a time to complete the exam. The
+exam will take roughly 15 minutes. You will be asked to explain basic
+and elemental concepts, as if you were teaching an advanced
+undergraduate or new graduate student.</p>
 </div>
 </div>
 <div id="materials-needed" class="section level1">
 <h1>Materials needed</h1>
-<p>We will be using R for all data wrangling, visualization, and analysis. You may not use another statistical program in this course. Students must have the latest version of R, which can be downloaded <a href="https://ftp.osuosl.org/pub/cran/">here</a>. It is strongly recommended that students also download the RStudio GUI, available <a href="https://www.rstudio.com/products/rstudio/download/#download">here</a>. Both softwares are free.</p>
+<p>We will be using R for all data wrangling, visualization, and
+analysis. You may not use another statistical program in this course.
+Students must have the latest version of R, which can be downloaded <a
+href="https://ftp.osuosl.org/pub/cran/">here</a>. It is strongly
+recommended that students also download the RStudio GUI, available <a
+href="https://www.rstudio.com/products/rstudio/download/#download">here</a>.
+Both softwares are free.</p>
 <p>All reading assignments will be posted online.</p>
 </div>
 <div id="policies" class="section level1">
 <h1>Policies</h1>
-<p><strong>Cheating and plagiarism.</strong> Any student caught cheating on an assignment, quiz, or exam will receive a 0 on that assignment. Frankly, you’re in graduate school, and the purpose of work is to create opportunities to learn and improve. Even if cheating helps you in the short term, you’ll quickly find yourself ill-prepared for the career you have chosen. If you find yourself tempted to cheat, please come speak to Dr. Weston about an extension and developing tools to improve your success.</p>
-<p><strong>Students with special needs.</strong> The UO works to create inclusive learning environments. If there are aspects of the instruction or design of this course that result in disability-related barriers to your participation, please notify me as soon as possible. You may also wish to contact Disability Services in 164 Oregon Hall at 541-346-1155 or <a href="mailto:disabsrv@uoregon.edu">disabsrv@uoregon.edu</a>.</p>
+<p><strong>Cheating and plagiarism.</strong> Any student caught cheating
+on an assignment, quiz, or exam will receive a 0 on that assignment.
+Frankly, you’re in graduate school, and the purpose of work is to create
+opportunities to learn and improve. Even if cheating helps you in the
+short term, you’ll quickly find yourself ill-prepared for the career you
+have chosen. If you find yourself tempted to cheat, please come speak to
+Dr. Weston about an extension and developing tools to improve your
+success.</p>
+<p><strong>Students with special needs.</strong> The UO works to create
+inclusive learning environments. If there are aspects of the instruction
+or design of this course that result in disability-related barriers to
+your participation, please notify me as soon as possible. You may also
+wish to contact Disability Services in 164 Oregon Hall at 541-346-1155
+or <a href="mailto:disabsrv@uoregon.edu">disabsrv@uoregon.edu</a>.</p>
 </div>
 <div id="basic-needs" class="section level1">
 <h1>Basic needs</h1>
-<p>Any student who has difficulty affording groceries or accessing sufficient food to eat every day, or who lacks a safe and stable place to live and believes this may affect their performance in this course is urged to contact the Dean of Students Office (346-3216, 164 Oregon Hall) for support.</p>
-<p>This UO web page includes resources for food, housing, health care, childcare, transportation, technology, finances, and legal support: <a href="https://blogs.uoregon.edu/basicneeds/food/">https://blogs.uoregon.edu/basicneeds/food/</a></p>
+<p>Any student who has difficulty affording groceries or accessing
+sufficient food to eat every day, or who lacks a safe and stable place
+to live and believes this may affect their performance in this course is
+urged to contact the Dean of Students Office (346-3216, 164 Oregon Hall)
+for support.</p>
+<p>This UO web page includes resources for food, housing, health care,
+childcare, transportation, technology, finances, and legal support: <a
+href="https://blogs.uoregon.edu/basicneeds/food/">https://blogs.uoregon.edu/basicneeds/food/</a></p>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
-<li id="fn1"><p>Final grades are due the following Tuesday, so there are limited opportunities to redo this particular assignment for points. I will do my best to grade these within 24 hours of receipt so you have a chance to retry any missed points. Consider Friday 12/10 at 5pm PT the last possible time to submit this assignment.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Final grades are due the following Tuesday, so there are
+limited opportunities to redo this particular assignment for points. I
+will do my best to grade these within 24 hours of receipt so you have a
+chance to retry any missed points. Consider Friday 12/10 at 5pm PT the
+last possible time to submit this assignment.<a href="#fnref1"
+class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
