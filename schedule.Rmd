@@ -15,9 +15,9 @@ LSR readings can be found in the free, online textbook, [_Learning Statistics wi
 | Week | Date  |  Topic                                 |Readings                                                                                             | Quiz   | Homework   |
 -------|-------|:---------------------------------------|:----------------------------------------------------------------------------------------------------|--------|------------|
 | 1    | 09/27 | Introduction and overview              | LSR Ch 1 \& 3                                                                                       |        |            |
-| -    | 09/29 | Research methods                       | LSR CH 2 \& 4, [Bringmann et al., 2022, ](readings/bringmann_etal_2022.pdf)                         |        |            |
+| -    | 09/29 | Research methods                       | LSR CH 2 \& 4, [Rothman et al. (2013)](readings/Rothman_2013.pdf)[^1]                         |        |            |
 | -    | 09/30 | _Lab: Introduction to R_               |                                                                                                     |        |            |             
-| 2    | 10/04 | Latent variables and psychometrics     | Podcast: [Quantitude, S2E21 -- Yes, Virginia... There ARE Latent Variables](https://quantitudepod.org/listen/) (Make sure you scroll down to the correct episode) [CC available here](https://uoregon.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9e5c5f9e-666b-4741-875b-adba015e9ded). | Quiz 1 |            |
+| 2    | 10/04 | Latent variables and psychometrics     | Podcast: [Quantitude, S2E21 -- Yes, Virginia... There ARE Latent Variables](https://quantitudepod.org/listen/) (Make sure you scroll down to the correct episode) [CC available here](https://uoregon.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9e5c5f9e-666b-4741-875b-adba015e9ded)., [Bringmann et al., 2022, ](readings/bringmann_etal_2022.pdf) | Quiz 1 |            |
 | -    | 10/06 | Describing data                        | LSR Ch 5 \& 6                                                                                       |        |            |
 | -    | 10/07 | _Lab: R basics and descriptives_       |                                                                                                     |        |            |             
 | 3    | 10/11 | Describing data                        | [Ozer & Funder (2019)](readings/Ozer_Funder_2019.pdf)                                               |        |            |             
@@ -45,7 +45,7 @@ LSR readings can be found in the free, online textbook, [_Learning Statistics wi
 | -    | 12/01 | Effect sizes and assumptions           |                                                                                                     | Quiz 9 |            |   
 | -    | 12/02 | _Lab: Independent samples t-tests_     |                                                                                                     |        |            |             
 |Finals| 12/05 |                                        |                                                                                                     |        |            |             
-| -    | 12/07 |                                        |                                                                                                     |        | HW 3 Due [^1]  9am|         
+| -    | 12/07 |                                        |                                                                                                     |        | HW 3 Due [^2]  9am|         
 **Final:** Oral exam will take place the week of December 5.
 
 # Graded materials
@@ -104,4 +104,10 @@ Any student who has difficulty affording groceries or accessing sufficient food 
 
 This UO web page includes resources for food, housing, health care, childcare, transportation, technology, finances, and legal support: [https://blogs.uoregon.edu/basicneeds/food/](https://blogs.uoregon.edu/basicneeds/food/)
 
-[^1]: Final grades are due the following Tuesday, so there are limited opportunities to redo this particular assignment for points. I will do my best to grade these within 24 hours of receipt so you have a chance to retry any missed points. Consider Friday 12/10 at 5pm PT the last possible time to submit this assignment.
+[^1]: There are several great commentaries on this article that I would encourage you to read. They are:
+  - [Richiardi et al. (2013).](readings/Richiardi_2013.pdf) Representativeness is usually not necessary and often should be avoided.
+  - [Nohr et al. (2013).](readings/Nohr_2013.pdf) Epidemiologists have debated representativeness for more than 40 years—has the time come to move on?
+  - [Elwood (2013).](readings/Elwood_2013.pdf) On representativeness
+  - [Ebrahim et al. (2013).](readings/Ebrahim_2013.pdf) Should we always deliberately be non-representative?
+
+[^2]: Final grades are due the following Tuesday, so there are limited opportunities to redo this particular assignment for points. I will do my best to grade these within 24 hours of receipt so you have a chance to retry any missed points. Consider Friday 12/10 at 5pm PT the last possible time to submit this assignment.

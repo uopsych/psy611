@@ -13,7 +13,7 @@
 
 <title>Syllabus</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -146,11 +146,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -439,7 +443,8 @@ version</a> of the book.</p>
 <td>09/29</td>
 <td align="left">Research methods</td>
 <td align="left">LSR CH 2 &amp; 4, <a
-href="readings/bringmann_etal_2022.pdf">Bringmann et al., 2022,</a></td>
+href="readings/Rothman_2013.pdf">Rothman et al. (2013)</a><a href="#fn1"
+class="footnote-ref" id="fnref1"><sup>1</sup></a></td>
 <td></td>
 <td></td>
 </tr>
@@ -460,7 +465,8 @@ href="https://quantitudepod.org/listen/">Quantitude, S2E21 – Yes,
 Virginia… There ARE Latent Variables</a> (Make sure you scroll down to
 the correct episode) <a
 href="https://uoregon.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9e5c5f9e-666b-4741-875b-adba015e9ded">CC
-available here</a>.</td>
+available here</a>., <a
+href="readings/bringmann_etal_2022.pdf">Bringmann et al., 2022,</a></td>
 <td>Quiz 1</td>
 <td></td>
 </tr>
@@ -693,8 +699,8 @@ Thirty Eight</a></td>
 <td align="left"></td>
 <td align="left"></td>
 <td></td>
-<td>HW 3 Due <a href="#fn1" class="footnote-ref"
-id="fnref1"><sup>1</sup></a> 9am</td>
+<td>HW 3 Due <a href="#fn2" class="footnote-ref"
+id="fnref2"><sup>2</sup></a> 9am</td>
 </tr>
 </tbody>
 </table>
@@ -827,11 +833,22 @@ href="https://blogs.uoregon.edu/basicneeds/food/">https://blogs.uoregon.edu/basi
 <div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
-<li id="fn1"><p>Final grades are due the following Tuesday, so there are
+<li id="fn1"><p>There are several great commentaries on this article
+that I would encourage you to read. They are: - <a
+href="readings/Richiardi_2013.pdf">Richiardi et al. (2013).</a>
+Representativeness is usually not necessary and often should be avoided.
+- <a href="readings/Nohr_2013.pdf">Nohr et al. (2013).</a>
+Epidemiologists have debated representativeness for more than 40
+years—has the time come to move on? - <a
+href="readings/Elwood_2013.pdf">Elwood (2013).</a> On representativeness
+- <a href="readings/Ebrahim_2013.pdf">Ebrahim et al. (2013).</a> Should
+we always deliberately be non-representative?<a href="#fnref1"
+class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Final grades are due the following Tuesday, so there are
 limited opportunities to redo this particular assignment for points. I
 will do my best to grade these within 24 hours of receipt so you have a
 chance to retry any missed points. Consider Friday 12/10 at 5pm PT the
-last possible time to submit this assignment.<a href="#fnref1"
+last possible time to submit this assignment.<a href="#fnref2"
 class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
