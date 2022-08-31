@@ -1,0 +1,642 @@
+---
+title: "Research Methods"
+format: 
+  revealjs:
+    multiplex: true
+    slide-number: true
+    theme: simple
+    incremental: true
+    touch: true
+editor: visual
+---
+
+## Reminders
+
+:::{.nonincremental}
+- Complete your journal assignment on Canvas by the end of Monday.
+:::
+
+---
+
+## Why statistics
+
+- An essential aid to “signal detection”
+
+- A universal language for communicating what we find.
+
+- Required for competent evaluation of others’ work.
+
+
+---
+
+## Goal of today
+
+Advanced skill in quantitative methods carries with it the responsibility to use those skills carefully and ethically.
+
+Today, we'll discuss methodological issues present in statistics. 
+
+- It can be tempting to use statistics to fix poor research design.
+- These issues cannot be fixed quantitatively (even when it looks like they can).
+
+- After today, we focus on what happens after you collect data. But it is still your job to study research design, data collection, and theoretical logic. 
+
+
+---
+
+## Constructs
+
+Our basic goal in science is to make inferences about the causal relations between constructs.
+	
+![](images/intro_construct.jpg)
+
+---
+
+
+::::{.columns}
+
+:::{.column width="60%"}
+
+We can’t do that directly, so we rely on proxies for those constructs.
+
+![](images/intro_operation.jpg)
+
+:::
+
+:::{.column width="40%"}
+
+In order to infer that A --> B, we have to make three assumptions:
+
+:::{.nonincremental}
+ - X is a good proxy for A
+ - Y is a good proxy for B
+ - X and Y are causally related
+:::
+
+:::
+
+::::
+
+---
+
+When the first two assumptions are true, the relation between X and Y will provide a good estimate of the relation between A and B.
+
+What threatens our ability to carry out this seemingly simple task? 
+
+How do quantitative methods help us solve these problems?
+
+---
+
+## Validity
+
+Four kinds of validity in research threaten our ability to make valid causal inferences.  Solving each problem either directly requires quantitative methods or makes use of principles that are central to quantitative methods.
+
+
+- Statistical conclusion validity
+
+- Internal validity
+
+- External validity
+
+- Construct validity
+
+---
+
+## Statistical conclusion validity
+
+**Definition:** the validity of the inference that X and Y are related
+
+![](images/intro_operation.jpg)
+
+- most basic: correlation coefficient (
+$r_{xy}$
+)
+    - even more advanced methods index covariation in some way
+
+---
+
+### (Some) threats to statistical conclusion validity
+
+- low statistical power
+
+- violations of assumptions of statistical tests
+
+- fishing and the error rate problem
+
+- unreliable measures
+
+- restricted range
+
+- unreliable treatment implementation
+
+- extraneous variance in the experimental setting
+
+- heterogeneity of units
+
+---
+
+## Internal validity
+
+**Definition:** the validity of the inference that X and Y are causally related.
+
+  - Given that X and Y are correlated, can we validly infer that the relation is causal?
+
+- Traditional view: direction, correlation, confounds
+  - John Stuart Mill (1843)
+
+- Counter-factual view
+   - Effect is what did happen compared to what would have happened to the same people had they not had the treatment at the same time.
+   - Major research design tools: manipulation, control, random assignment, replication, logic, common sense.
+
+    
+:::{.notes}
+
+direction = Cause precedes effect
+
+correlation = Cause covaries with effect
+
+confounds = Other explanations are ruled less plausible
+
+:::
+
+---
+
+### Threats to internal validity
+
+::::{.columns}
+
+:::{.column width="50%"}
+
+:::{.nonincremental}
+- ambiguous temporal precedence
+
+- selection
+
+- attrition
+
+- history
+
+- maturation
+
+- regression
+
+- testing
+
+- instrumentation
+:::
+
+:::
+
+::::
+
+---
+
+### Threats to internal validity
+
+:::: {.columns}
+
+::: {.column width="50%"}
+:::{.nonincremental}
+- <span style="color: purple;">**ambiguous temporal precedence**</span>
+
+- selection
+
+- attrition
+
+- history
+
+- maturation
+
+- regression
+
+- testing
+
+- instrumentation
+:::
+
+:::
+
+::: {.column width="50%"}
+
+Temporal precedence can be established in an experiment because treatment precedes outcome. 
+
+But, when treatment is not possible, then logic and common sense can sometimes dictate temporal precedence.
+
+- prenatal nutrition and cognitive development
+
+- depression and cancer
+
+
+:::
+
+::::
+
+
+---
+
+### Threats to internal validity
+
+:::: {.columns}
+
+::: {.column width="50%"}
+:::{.nonincremental}
+- ambiguous temporal precedence
+
+- <span style="color: purple;">**selection**</span>
+
+- attrition
+
+- history
+
+- maturation
+
+- regression
+
+- testing
+
+- instrumentation
+:::
+:::
+
+
+::: {.column width="50%"}
+Any systematic differences between groups that might account for an observed effect.
+
+example: Test scores of students who visit the Psychology tutoring center vs students who do not visit tutoring center.
+
+How to combat this?
+
+
+:::
+::::
+
+::: {.notes}
+
+Combat this with random assignment.
+
+:::
+
+---
+
+### Threats to internal validity
+
+:::: {.columns}
+
+::: {.column width="50%"}
+:::{.nonincremental}
+- ambiguous temporal precedence
+
+- selection
+
+- <span style="color: purple;">**attrition**</span>
+
+- history
+
+- maturation
+
+- regression
+
+- testing
+
+- instrumentation
+:::
+:::
+
+::: {.column width="50%"}
+
+Even if random assignment is used, participants may drop out of the study, producing unequal groups, a situation that has the same inferential problems as selection.
+
+How could the design be modified and statistics used to help rule out selection and attrition confounds?
+
+:::
+
+::::
+
+---
+
+### Threats to internal validity
+
+:::: {.columns}
+
+::: {.column width="50%"}
+:::{.nonincremental}
+- ambiguous temporal precedence
+
+- selection
+
+- attrition
+
+- <span style="color: purple;">**history**</span>
+
+- maturation
+
+- regression
+
+- testing
+
+- instrumentation
+:::
+:::
+
+::: {.column width="50%"}
+
+History refers to any event that occurs between the beginning of treatment and the measurement of outcome that might have produced the observed effect.
+
+Ex: A marketing campaign intended to increase beer sales happens to coincide with other events that might have the same effect: a particularly hot period of weather, a long losing streak by the Detroit Tigers, or the Republican National Convention.  How would these threats be eliminated?
+
+:::
+::::
+
+---
+
+### Threats to internal validity
+
+:::: {.columns}
+
+::: {.column width="50%"}
+:::{.nonincremental}
+- ambiguous temporal precedence
+
+- selection
+
+- attrition
+
+- history
+
+- <span style="color: purple;">**maturation**</span>
+
+- regression
+
+- testing
+
+- instrumentation
+:::
+:::
+
+::: {.column width="50%"}
+
+Maturation refers to changes in the organism that occur regardless of treatment and that may masquerade as a treatment effect.
+
+Ex: A school-wide educational intervention is predicted to increase achievement test scores.  The entire school must get the same curriculum, so a control group in the school is not possible.  How can the threat be reduced?
+
+:::
+::::
+
+---
+
+### Threats to internal validity
+
+:::: {.columns}
+
+::: {.column width="50%"}
+:::{.nonincremental}
+- ambiguous temporal precedence
+
+- selection
+
+- attrition
+
+- history
+
+- maturation
+
+- <span style="color: purple;">**regression**</span>
+
+- testing
+
+- instrumentation
+:::
+:::
+
+::: {.column width="50%"}
+Regression (to the mean) occurs when participants are selected because of their extreme scores and those scores are unreliable. The scores will regress toward the mean at the second assessment
+
+Ex: *Sports Illustrated* cover jinx
+
+How might this problem be reduced?
+
+:::
+
+::::
+
+:::{.notes}
+
+Reduce with 
+- random assignment
+- selection based on multiple measurements
+
+:::
+
+---
+
+### Threats to internal validity
+
+:::: {.columns}
+
+::: {.column width="50%"}
+:::{.nonincremental}
+- ambiguous temporal precedence
+
+- selection
+
+- attrition
+
+- history
+
+- maturation
+
+- regression
+
+- <span style="color: purple;">**testing**</span>
+
+- instrumentation
+:::
+:::
+
+::: {.column width="50%"}
+
+
+Testing refers to the possible change that may occur just because participants have been previously measured. These are often called practice or fatigue effects.
+
+Ex: Students do better on the first half of test compared to the second.
+Ex: Students do better in the second half of the term compared to the first. 
+
+Without adding a control group, how might this threat be reduced?
+
+:::
+::::
+
+---
+
+### Threats to internal validity
+
+:::: {.columns}
+
+::: {.column width="50%"}
+:::{.nonincremental}
+- ambiguous temporal precedence
+
+- selection
+
+- attrition
+
+- history
+
+- maturation
+
+- regression
+
+- testing
+
+- <span style="color: purple;">**instrumentation**</span>
+:::
+:::
+
+::: {.column width="50%"}
+
+Change may occur because the measurement changes over time, perhaps becoming more or less reliable. 
+
+Instrumentation reflects changes in the measurement; testing reflects changes in the object of measurement.
+
+"When a measure becomes a target, it ceases to be a good measure." (Goodhart)
+:::
+::::
+
+---
+
+![](images/goodhart.jpg)
+
+---
+
+The key point with internal validity is that something else besides the treatment is a plausible alternative explanation for any apparent treatment effect. 
+
+Solving threats to internal validity is a research design problem, not a statistics problem.  Nonetheless, quantitative methods play a key role in making the case for internal validity.
+
+---
+
+### Removing the influence of other variables
+
+If the "other variables" can be measured, their influence can be statistically controlled so that the hypothesized relation can be detected more accurately.
+
+However:
+
+**Statistical control should best be thought of as a method of last resort, to be used when design controls are not available or have failed.**
+
+
+---
+
+## External validity 
+
+**Definition:** The validity of the inference that a causal relation between operations generalizes to other units, treatments, observations, or settings.
+
+![](images/intro_operation.jpg)
+
+---
+
+### Threats to external validity
+
+- interaction of the causal relation with units
+
+- interaction of the causal relation with treatment variations
+
+- interaction of the causal relation with observations
+
+- interaction of the causal relation with settings
+
+- context-dependent mediation
+
+- Quantitative methods provide a powerful way to demonstrate moderation (interactions) and mediation effects.
+
+---
+
+## What does it mean to be "valid"?
+
+- Now's a great time to pause and reflect on validity in general. Some kinds of validity are essential: statistical conclusion, construct. 
+
+- Internal validity is very important, but only when research has reached a specific stage. 
+
+- External validity is of course valuable, and failing to meet external validity limits what we have learned. 
+
+- But failing external validity does not mean a study is useless. 
+
+---
+
+- Moreover, efforts to secure external validity often come too early in the process of studying a phenomenon. 
+
+- And, researchers often fail to ask what kinds of interactions do (or do not) matter when assessing external validity.
+
+- Representativeness is a key example of external validity. Psychologists often wish to generalize their findings to all people in a population. Thus, there is pressure to recruit samples that are representative of those populations (e.g., age, gender, race, etc).
+
+- How could this be flawed?
+
+---
+
+## [Rothman, Gallacher, & Hatch (2013)](readings/Rothman_2013.pdf)
+
+
+- What argument do Rothman and colleagues make in this paper?
+- Why is representativeness problematic?
+
+:::{.notes}
+Rothman argues that representativeness is not a reasonable requirement for scientific research.
+
+overcontrolling for characteristics can clarity an effect
+
+representativeness does not enhance generalizability, but rather knowledge of conditions and mechanisms
+
+sometimes better to oversample smaller populations
+:::
+
+---
+
+## [Rothman, Gallacher, & Hatch (2013)](readings/Rothman_2013.pdf)
+
+**Takeaways**
+
+- Representativeness may or may not be useful.
+
+- Often, it's better to either recruit a homogenous sample (to minimize differences between groups or reduce noise)...
+
+- ... or overrecruit from smaller groups to test for differences.
+
+- But the biggest takeaway should be that these principles do not apply equally to all studies! You should consider what the goals of YOUR study are and how best to meet those goals.
+
+
+---
+
+## Construct validity
+
+**Definition:** The validity of the inference that a given operationalization of units, treatments, observations, or settings represents well the construct of which it is assumed to be an instance.
+
+![](images/intro_operation.jpg)
+
+---
+
+### Threats to construct validity
+
+- inadequate explication of constructs
+
+- construct confounding
+
+- confounding constructs with levels of constructs
+
+- reactive self-report changes
+
+- reactivity to the experimental situation
+
+- experimenter expectancy
+
+- novelty and disruption effects
+
+---
+
+## Next time...
+
+Variables, measurement, constructs 
+
+Reminder:
+
+- Complete your journal entry by Monday night!
+
+
+
+

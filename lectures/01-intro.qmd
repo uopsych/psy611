@@ -5,6 +5,7 @@ format:
     multiplex: true
     slide-number: true
     theme: simple
+    touch: true
 editor: visual
 ---
 
