@@ -61,7 +61,9 @@ Your final grade is comprised of three components:
 
 Quizzes are intended to assess your understanding of the theoretical principles underlying statistics. There will be a quiz every Tuesday, with the exception of the first week, when there will be no quiz, and the final week when the quiz will be on Thursday.
 
-Quizzes may be resubmitted with corrections and receive full credit. To resubmit a quiz, attach a separate piece of paper to your quiz; for each question that was answered incorrectly, identify the correct answer, and explain why this is the correct answer. Only if the explanation sufficiently conveys an understanding of the theoretical principles will credit be given. There are no limits to the number of times a quiz may be resubmitted.
+Quizzes may be resubmitted with corrections and receive full credit. To resubmit a quiz, write your corrections on the back of the quiz; for each question that was answered incorrectly, identify the correct answer, and explain why this is the correct answer. Only if the explanation sufficiently conveys an understanding of the theoretical principles will credit be given. There are no limits to the number of times a quiz may be resubmitted.
+
+If you are absent the day of a quiz, email Sara to schedule a make-up quiz. 
 
 ## Homework assignments
 
@@ -69,7 +71,7 @@ Homework assignments are intended to gauge your ability to apply the topics cove
 
 Homework assignments are due at the time the first lab starts on the day the assignment is listed. Homework assignments may be resubmitted with corrections and receive full credit. Please note, however, that corrections can only be made to problems that were answered at initial submission. There is no limit to the number of times a homework assignment may be resubmitted.
 
-Late assignments will receive 50\% of the points earned. For example, if you correctly answer questions totalling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points.
+Late assignments will receive 50\% of the points earned. For example, if you correctly answer questions totalling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points. Late assignments will be accepted only within 7 days of the original deadline.
 
 You may discuss homework assignments with your classmates; however, it is important that you complete each assignment on your own and do not simply copy someone else's code. If I believe one student has copied another's work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points. 
 
