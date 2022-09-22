@@ -1,0 +1,67 @@
+---
+title: "Helpful and/or interesting material"
+output: 
+  html_document:
+    toc: TRUE
+    toc_depth: 2
+    toc_float: TRUE
+    theme: cosmo
+---
+
+This page contains links to journal articles, blog posts, webpages, etc., that we (the instructors) believe may be useful to you, or at the very least interesting. **Bold** articles are ones that we consider **must-reads** but don't have enough time to actually assign. And to be clear, must-read means that people will probably assume you've read this and know the basic points.  
+
+## On data collection, measuring constructs, scales
+
+Lord (1953) ["On the statistical treatment of football numbers."](readings/Lord_1953.pdf) -- This one is worth reading several times, ideally with a friend. Don't worry, it's quite short. A small note: "Tchebycheff" is sometimes written as "Chebyshev" and in either case is pronounced Cheb-ee-sheve. 
+
+Cox (1980) ["The optimal number of response alternatives for a scale: A revew"](https://www.jstor.org/stable/pdf/3150495.pdf?casa_token=pnuy8XQLHTIAAAAA:QOUc17Ic0cquCBXuqyRvfCSBUiXkFwDoVjuOxHB8qjJHtyJXGSlam7Zxcd2RIABVOXMy-YARHJ6dHhuGc_ABJaTBk8Lf8FLF9EKX9wlrn99yB5CWPgg) -- For those developing new measures, it's worth spending some time reading about psychometrics. As with everything, there's no one-size-fits-all answer to how many response options, whether to include a midpoint, and how to label your scales. But you should understand the implications of these choices before you write your own items.
+
+Malone & Goldstone (2019) ["Episode 936: The Modal American."](https://www.npr.org/2019/08/28/755191639/episode-936-the-modal-american) -- This episode of NPR's podcast, _Planet Money_, is a great discussion of what we mean when we say "average," why the mean can be a bad measure of central tendency, and how complicated calculating simple statistics are. They don't use the words "artifact" or "collinearity", but they discuss both and how they can lead to bad answers.
+
+Rohrer (2019) ["Indirect Effect *Ex Machina*."](http://www.the100.ci/2019/10/03/indirect-effect-ex-machina) -- come for the ice cream and sauerkraut, stay for the creeping dread that many mediation studies are probably wrong. 
+
+Chester & Lasko (2019) ["Construct Validation of Experimental Manipulations in Social Psychology: Current Practices and Recommendations for the Future."](https://psyarxiv.com/t7ev9) -- a totally brand new preprint about construct validity in social psychology. They do a great job of explaining different kinds of validity in addition to empirically describing the extent to which social psychologists check for construct validity.  Here is a lovely quote: "In the context of archery, construct validity is the practice of checking that the arrow hit the bullseye and internal validity is the practice of preventing the wind and your own breathing from influencing your aim."
+
+<!-- ## On (matrix) algebra -->
+
+<!-- Kahn Academy ["Linear algebra."](https://www.khanacademy.org/math/linear-algebra) For those looking for tutorials to practice matrix algebra. I've linked to the broader page because it includes linear combinations.  -->
+
+<!-- 3Blue1Brown's [YouTube channel.](https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw) Thanks to Scott Wallner for recommending these! There are playlists for [linear algebra](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab), [calculus](https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr), and [fractals](https://www.youtube.com/watch?v=gB9n2gHsHN4), among others.  -->
+
+## On sampling distributions
+
+[Simulation on the Rice Virtual Lab in Statistics](https://onlinestatbook.com/stat_sim/sampling_dist/) See a population, take a sample. Or take 5 samples. Or 10,000. Build your sampling distribution by hand. Compare sampling distributions with different sample sizes. See how the population distribution changes the sampling distribution.
+
+[Confidence Interval Demo](https://rpsychologist.com/d3/ci/) by Kristoffer Magnusson. Respect sampling variability! This demo shows that not only does the mean change with each sample, but so does the width of the confidence interval (gasp!). But seriously, spend some time on this site. It will change the way you see statistics, literally speaking.
+
+## On probability and its use and misuse
+
+Fry (2019) ["What statistics can and can't tell us about ourselves."](https://www.newyorker.com/magazine/2019/09/09/what-statistics-can-and-cant-tell-us-about-ourselves) This article in the *New Yorker* explains issues of (frequentist) probability in terms you can explain to your grandma, as well as makes clear the issues of the Fisher tradition of reducing experiments to p-values. 
+
+Resnick (2017) ["What a nerdy debate about p-values shows about science -- and how to fix it."](https://www.vox.com/science-and-health/2017/7/31/16021654/p-values-statistical-significance-redefine-0005) Another great article, this time on *Vox*, about p-values
+
+## On the credibility revolution (aka replication crisis or reproducibility crisis)
+
+**Ioannidis (2005) ["Why most published findings are false."](readings/Ioannidis_2005.pdf)** -- This is one of the articles that kick-started the concern. 
+
+**Bem (2011) ["Feeling the future: Experimental evidence for anomalous retroactive influences on cognition and affect."](readings/Bem_2011.pdf)** -- It's true, ESP is real. Or is it? What (if anything) in this article makes you skeptical of the results? Try to articulate the weaknesses. 
+
+Bem (2004) ["Writing the empirical journal article."](readings/Bem_2004.pdf) -- This was assigned to me when I was a graduate student. Some of the advice is actually very good, although most of the best stuff can be found in Strunk and White. The part of this article that's really worth reading is the "Analyzing Data" and "Reporting the Findings" subsections of "Planning your article."
+
+**Szollosi et al. (2019). ["Preregistration is redundant, at best."](https://psyarxiv.com/x36pz/)** Preprint.
+
+**Anonymous et al. (2021). [Evidence of Fraud in an Influential Field Experiment about Dishonesty](http://datacolada.org/98)** -- This is not only a case study of the issues of fraud in psychology, but it also serves as an excellent example of how examining descriptive statistics and distributions can reveal a lot about data.
+
+## On coding and data science
+
+Peters (2004) ["The Zen of Python."](https://www.python.org/dev/peps/pep-0020/) -- A list of 19 principles for writing better Python code; the principles also apply to writing better R code. 
+
+Hill (2019) ["Meet xaringan."](https://arm.rbind.io/slides/xaringan.html#1) -- There are a ton of resource for learning how to make slides using R. Too many to list here. I like this one because it's accessible, funny, visually appealing, and will help you make slides that you're proud of. (By the way, UO has theme you can use.)
+
+Bryan (2019?) ["Happy Git with R."](https://happygitwithr.com) -- Interested in using GitHub for version control? Jenny Bryan will guide you through the process and metaphorically hand you a tissue when you're screaming with frustration. 
+
+## On being a grad student, being a scientist, balancing life and work
+
+[Growing up in Science](https://www.cns.nyu.edu/events/growingupinscience/) -- a set of online, global, free events about mentorship, being a student, challenges, successes, failures, and more.
+
+
