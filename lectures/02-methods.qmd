@@ -130,13 +130,10 @@ Four kinds of validity in research threaten our ability to make valid causal inf
 
 -   Given that X and Y are correlated, can we validly infer that the relation is causal?
 
--   Traditional view: direction, correlation, confounds
+-   Traditional view: direction, correlation, confounds (John Stuart Mill, 1843)
 
-    -   John Stuart Mill (1843)
+-   Counter-factual view: Effect is what did happen compared to what would have happened to the same people had they not had the treatment at the same time.
 
--   Counter-factual view
-
-    -   Effect is what did happen compared to what would have happened to the same people had they not had the treatment at the same time.
     -   Major research design tools: manipulation, control, random assignment, replication, logic, common sense.
 
 ::: notes
@@ -204,9 +201,11 @@ Temporal precedence can be established in an experiment because treatment preced
 But, when treatment is not possible, then logic and common sense can sometimes dictate temporal precedence.
 
 -   prenatal nutrition and cognitive development
-
--   depression and cancer
 :::
+:::
+
+::: notes
+or depression and cancer
 :::
 
 ------------------------------------------------------------------------
@@ -307,6 +306,35 @@ How could the design be modified and statistics used to help rule out selection 
 ::: {.column width="50%"}
 History refers to any event that occurs between the beginning of treatment and the measurement of outcome that might have produced the observed effect.
 
+:::
+:::
+
+------------------------------------------------------------------------
+
+### Threats to internal validity
+
+::: columns
+::: {.column width="50%"}
+::: nonincremental
+-   ambiguous temporal precedence
+
+-   selection
+
+-   attrition
+
+-   [**history**]{style="color: purple;"}
+
+-   maturation
+
+-   regression
+
+-   testing
+
+-   instrumentation
+:::
+:::
+
+::: {.column width="50%"}
 Ex: A marketing campaign intended to increase beer sales happens to coincide with other events that might have the same effect: a particularly hot period of weather, a long losing streak by the Detroit Tigers, or the Republican National Convention. How would these threats be eliminated?
 :::
 :::
@@ -337,8 +365,36 @@ Ex: A marketing campaign intended to increase beer sales happens to coincide wit
 :::
 
 ::: {.column width="50%"}
-Maturation refers to changes in the organism that occur regardless of treatment and that may masquerade as a treatment effect.
+Maturation refers to changes in the organism that occur regardless of treatment and that may look like a treatment effect.
+:::
+:::
 
+------------------------------------------------------------------------
+
+### Threats to internal validity
+
+::: columns
+::: {.column width="50%"}
+::: nonincremental
+-   ambiguous temporal precedence
+
+-   selection
+
+-   attrition
+
+-   history
+
+-   [**maturation**]{style="color: purple;"}
+
+-   regression
+
+-   testing
+
+-   instrumentation
+:::
+:::
+
+::: {.column width="50%"}
 Ex: A school-wide educational intervention is predicted to increase achievement test scores. The entire school must get the same curriculum, so a control group in the school is not possible. How can the threat be reduced?
 :::
 :::
@@ -538,7 +594,7 @@ sometimes better to oversample smaller populations
 
 **Takeaways**
 
--   Representativeness may or may not be useful.
+-   Representativeness may or may not be useful. *It depends!*
 
 -   Often, it's better to either recruit a homogenous sample (to minimize differences between groups or reduce noise)...
 
