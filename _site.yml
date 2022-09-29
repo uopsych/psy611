@@ -9,6 +9,8 @@ navbar:
       menu:
       - text: "1-Intro"
         href: "lectures/01-intro.html"
+      - text: "2-Methods"
+        href: "lectures/02-methods.html"
     - text: Labs
       menu:
       - text: "Coming soon!"
