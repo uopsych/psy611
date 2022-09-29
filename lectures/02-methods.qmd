@@ -17,6 +17,11 @@ editor: visual
 -   Download and install R/Rstudio before lab tomorrow.
 :::
 
+ 
+From the library: 
+
+The library also offers free short workshops. This term, we are offering workshops on R, Python, GitHub, using Zotero to manage your citations, and more. Our Friday lunch chats (Coffee + Data && Code) offer a great opportunity to meet folks interested in data and code from across the university.
+
 ------------------------------------------------------------------------
 
 ## Why statistics
@@ -555,28 +560,16 @@ However:
 
 -   Now's a great time to pause and reflect on validity in general. Some kinds of validity are essential: statistical conclusion, construct.
 
--   Internal validity is very important, but only when research has reached a specific stage.
-
--   External validity is of course valuable, and failing to meet external validity limits what we have learned.
-
--   But failing external validity does not mean a study is useless.
+-   Other types of validity (internal, external) are not necessary for every study, but should be the goals of a *program* of research. 
 
 ------------------------------------------------------------------------
 
--   Moreover, efforts to secure external validity often come too early in the process of studying a phenomenon.
+## Representativeness
 
--   And, researchers often fail to ask what kinds of interactions do (or do not) matter when assessing external validity.
+- What is this? What is it useful for?
 
--   Representativeness is a key example of external validity. Psychologists often wish to generalize their findings to all people in a population. Thus, there is pressure to recruit samples that are representative of those populations (e.g., age, gender, race, etc).
+- When is representativeness counterproductive?
 
--   How could this be flawed?
-
-------------------------------------------------------------------------
-
-## [Rothman, Gallacher, & Hatch (2013)](readings/Rothman_2013.pdf)
-
--   What argument do Rothman and colleagues make in this paper?
--   Why is representativeness problematic?
 
 ::: notes
 Rothman argues that representativeness is not a reasonable requirement for scientific research.
@@ -586,6 +579,18 @@ overcontrolling for characteristics can clarity an effect
 representativeness does not enhance generalizability, but rather knowledge of conditions and mechanisms
 
 sometimes better to oversample smaller populations
+:::
+
+------------------------------------------------------------------------
+
+## Group discussion
+
+For each of the following, would you say that representativeness (1) improves the study, (2) weakens the study, or (3) has no effect on the study?
+
+::: nonincremental
+- polling to determine the frontrunner in the Oregon senatorial race
+- testing whether a new SSRI has side effects
+- developing a self-report measure of athleticism
 :::
 
 ------------------------------------------------------------------------
