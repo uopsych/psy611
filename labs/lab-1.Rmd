@@ -24,10 +24,16 @@ editor_options:
 # 
 # Spend more time on projects and features of RStudios.
 
+<<<<<<< HEAD
 # Change the package that is installed and loaded the rio package -- make this the loading data into R section. Move packages/loading data to after functions and before Help.
 
 # Make sure you get to importing data into R!!
 
+=======
+# Change the package that is installed and loaded the rio package -- make this the loading data into R section
+
+# Make sure you get to importing data into R!!
+>>>>>>> master
 ```
 
 
