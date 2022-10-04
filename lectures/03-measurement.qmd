@@ -1,0 +1,555 @@
+---
+title: "Measurement"
+format: 
+  revealjs:
+    multiplex: true
+    slide-number: true
+    theme: simple
+    incremental: true
+    touch: true
+editor: visual
+---
+
+```{r, include = F}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ggpubr)
+library(directlabels)
+options(knitr.kable.NA = '')
+```
+
+
+## Last time
+
+Validity (4 types)
+
+  - Construct
+  - Statistical Conclusion
+  - Internal
+  - External
+  
+------------------------------------------------------------------------
+
+## Today
+
+Let's talk about construct validity and measuring what we want to measure. 
+
+- BUT before we talk about construct validity, we must first discuss conceptual clarity. 
+
+------------------------------------------------------------------------
+
+## Conceptual clarity ([Bringmann, Elmer, & Eronen, 2022](readings/bringmann_etal_2022.pdf))
+
+- Identifying and characterizing the concept of study
+  - This is independent of measurement and must happen before measurement
+  
+- Why is conceptual clarity important?
+
+::: notes
+
+- Especially with concepts from everday life, there are often many ways to define the concept. (Bringmann and co describe friendship, but think of others)
+  - Must have consistency when evaluating a concept in a systematic way (e.g., science)
+
+- Importantly, statistics cannot provide evidence for conceptual clarity
+
+:::
+
+------------------------------------------------------------------------
+
+## How to evaluate and improve conceptual clarity
+
+- Iterate, iterate, iterate
+- Explicitly discuss in empirical (and non-empirical) work
+- Justify the use of measures for concept
+- Use multiple measures (multiverse analysis)
+
+------------------------------------------------------------------------
+
+## How to evaluate and improve conceptual clarity
+
+- Conduct studies on concepts before studying how they relate to over variables, change over time, can be manipulated, etc.
+- Use qualitative methods to understand how participants interpret measures.
+
+------------------------------------------------------------------------
+
+Once a concept has been clarified, the next step is to measure it. Usually, we find that our concept is a...
+
+- LATENT VARIABLE
+
+------------------------------------------------------------------------
+
+## Quantitude podcast
+
+- According to Curran and Hancock, what is a latent variable?
+
+- What are some examples of latent variables in the podcast?
+
+::: notes
+
+From C&H
+
+Latent variables -- the things we cannot directly observe
+Variable -- individual differences on it
+A placeholder for the covariation among a set of variables.
+
+  Is it missing for at least some of the observations in your dataset?
+
+Examples: depression, anxiety, the economy, the quality of a college/uni, Pandora music station, gravity, disease or underlying conditions
+
+:::
+
+------------------------------------------------------------------------
+
+### [Bollen (2002)](../readings/Bollen_2002.pdf)
+
+Definitions of latent variables:
+
+::: columns
+::: {.column width="50%"}
+
+Informal
+
+:::nonincremental
+  - Hypothetical construct
+  - Unmeasureable
+  - Data reduction
+:::
+:::
+::: {.column width="50%"}
+
+ Formal
+ 
+:::nonincremental
+  - Local independence
+  - Expected value
+  - Nondeterministic function
+:::
+:::
+:::
+
+::: notes
+
+Underlying assumption of these definitions: we measure latent variables using multiple observed variables
+
+:::
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="50%"}
+
+Sample realization definition: A latent random (or nonrandom) variable is a random (or nonrandom) variable for which there is no sample realization for at least some observations in a given sample.
+::: 
+::: {.column width="50%"}
+
+![](images/sanjay_twitter.png)
+
+:::
+:::
+
+
+------------------------------------------------------------------------
+
+
+### Measuring latent variables
+
+If latent variables are unobserved, how do we study them?
+
+
+- The challenge of **psychometrics** is assign numbers to observations in a way that best summarizes the underlying constructs ([Revelle, 2009](http://personality-project.org/r/book/Chapter3.pdf))
+
+- How do we create this in our dataset (practically speaking)?
+
+
+* With the people around you, come up with one latent variables that you might be interested in and describe how you would measure them.
+
+::: notes
+
+Walk students through example of job success How would you measure this? What items would you use? How would you assign numbers to those items?
+
+How would you use those numbers to create a job success score?
+
+:::
+
+------------------------------------------------------------------------
+
+### Thinking about measurements
+
+What questions should we ask ourselves as we construct latent variables?
+
+
+
+- What else does our measure capture?
+
+- (If multiple items) are all items weighted equally?
+
+- (If multiple items) are items causal indicators or effect indicators?
+
+- Is our latent variable _a posteriori_ and _a priori_?
+
+::: notes
+
+Use job success measure. How are observations biased?
+(who gets raises or promotions?)
+
+:::
+
+------------------------------------------------------------------------
+
+### Relationship between latent variables and theory
+
+Latent variables live at the level of theory. 
+
+* Your theory is about success/happiness/arousal/memory/etc, not about the measure (items or operationalizations).
+
+* Does your theory specify how the latent variable is associated with your measure?
+    * Probably not... we'll return to this.
+  
+
+------------------------------------------------------------------------
+
+### Relationship between latent variables and theory
+
+Do you need theory for good statistics or empirical work?
+
+* Machine learning models
+  
+  * Don't need theory to make predictions.
+  * In fact, best predictions often come by throwing out theory.
+
+* Network models
+
+  * No underlying theory about the cause of covariation between items. 
+  * Allows for exploration of item structure.
+  * E.g., work on [depression](https://eiko-fried.com/)
+  
+------------------------------------------------------------------------
+
+![](images/Scientific_Method.png)
+
+------------------------------------------------------------------------
+
+## What's wrong with latent variables
+
+![](images/borsboom.png)
+
+------------------------------------------------------------------------
+
+[Borsboom (2006)](../readings/Borsboom_2006.pdf) argues that good measurement practices -- specifically, testing that measures capture latent variable -- has been ignored in psychology.
+
+
+* Operationalizations assumed substitutes for latent variables
+* No exploration or tests of whether measure captures latent variable
+* Construct validity (Cronbach & Meehl, 1955, among others) made to seem too difficult
+
+------------------------------------------------------------------------
+
+
+### IAT
+
+
+```{r, echo = F, out.width='100%'}
+knitr::include_graphics("images/iat.jpeg")
+```
+
+::: notes
+
+Go through assumptions
+
+* Operationalizations assumed substitutes -- what are we actually trying to measure? 
+
+:::
+
+------------------------------------------------------------------------
+
+
+### IAT
+
+::: columns
+
+::: {.column width="50%"}
+
+
+<img src="images/original_iat.png" height="500px" />
+
+:::
+
+::: {.column width="50%"}
+From Greenwald, McGhee, & Schwartz ([1998](https://pubmed.ncbi.nlm.nih.gov/9654756/))
+:::
+:::
+
+::: notes
+
+* No exploration or tests of whether more captures latent variable
+* Evidence presented is group means, not individual differences.
+* What's the theory underlying this. What is the shape of the outcome? Is it really linear? Is there a cut-off? How do practice effects weigh in?
+
+:::
+
+------------------------------------------------------------------------
+
+
+### IAT
+
+![](images/iat_correlation.png)
+
+From Greenwald, McGhee, & Schwartz ([1998](https://pubmed.ncbi.nlm.nih.gov/9654756/))
+
+::: notes
+
+ Construct validity is hard, am I right?
+ 
+:::
+
+------------------------------------------------------------------------
+
+
+## The underlying process
+
+Where do the numbers come from? 
+
+What assumptions do our statistics make about where the numbers come from?
+
+A few examples from Revelle ([2009](http://personality-project.org/r/book/Chapter3.pdf))
+
+------------------------------------------------------------------------
+
+### Whose point of view?
+
+Consider the problem of a department chairman who wants to recruit faculty by emphasizing the smallness of class size but also report to a dean how effective the department is at meeting its teaching requirements. What is the typical class size?
+
+------------------------------------------------------------------------
+
+### Whose point of view?
+
+```{r, echo = F, results = 'asis'}
+tribble(
+  ~`Faculty Member`, ~`Freshman/\nSophmore`, ~`Junior`, ~`Senior`, ~`Graduate`, ~Mean, ~Median,
+  "A",  20,  10,  10, 10,  12.5,  10,
+  "B",  20,  10,  10, 10,  12.5,  10,
+  "C",  20,  10,  10, 10,  12.5,  10,
+  "D",  20, 100,  10, 10,  35.0,  15,
+  "E", 200, 100, 400, 10, 177.5, 150,
+  "Mean", 56, 46, 110, 10, 50.0, 39,
+  "Median", 20, 10, 10, 10, 12.5, 10
+  ) %>% 
+  kbl(booktabs = T) %>% 
+  kable_classic(font_size = 25) %>% 
+  group_rows("Total", 6, 7) %>% 
+  column_spec(6, background = "lightgray") %>% 
+  column_spec(7, background = "lightgray") %>% 
+  row_spec(6, background = "lightgray") %>% 
+  row_spec(7, background = "lightgray")
+```
+
+::: notes
+
+Tell faculty that median class size is 10 and tell dean the mean class size is 50. Excellent!
+
+:::
+
+------------------------------------------------------------------------
+
+
+What about from the students' perspective?
+
+```{r, echo = F, results = 'asis'}
+tribble(
+  ~`Class size`, ~`Number of classes`, ~`Number of students`, 
+    10, 12, 120,
+    20, 4, 80,
+    100, 2, 200,
+    200, 1, 200,
+    400, 1, 400
+  ) %>% 
+  kbl %>% 
+  kable_classic (font_size = 25)
+```
+
+```{r}
+class_size = c(rep(10, 120),
+               rep(20, 80),
+               rep(100, 200),
+               rep(200, 200),
+               rep(400, 400))
+print(paste0("Mean = ", mean(class_size)))
+print(paste0("Median = ", median(class_size)))
+```
+
+------------------------------------------------------------------------
+
+### Is the process generating numbers linear?
+
+Many of the statistics we use (e.g., mean) assume the process generating numbers is linear. That is, as you move up on the latent construct, you move in a linear fashion along the measurement. What happens if that's not the case?
+
+------------------------------------------------------------------------
+
+Scores indicate the time of day the subject experienced their peak. 
+
+
+```{r, echo = F, results = 'asis'}
+tribble(
+  ~Subject, ~`Energetic Arousal`, ~`Positive Affect`, ~`Tense Arousal`, ~`Negative Affect`,
+  "1",  9, 14, 19, 24,
+  "2", 11, 16, 21,  2,
+  "3", 13, 18, 23,  4,
+  "4", 15, 20,  1,  6,
+  "5", 17, 22,  3,  8,
+  "6", 19, 24,  5, 10,
+  "Arithmetic", 14, 19, 12, 9,
+  "Circular", 14, 19, 24, 5,
+) %>% 
+  kbl %>% 
+  kable_classic(font_size = 20) %>% 
+  group_rows("Mean", 7, 8)
+```
+
+------------------------------------------------------------------------
+
+### Non-linearirty and pre-existing differences
+
+The issues of non-linearity are especially troublesome when there are pre-existing differences between groups. This can lead to interactions at the level of the observations (measures/operationalization) even when there are not interactions at the level of the latent variable. 
+
+------------------------------------------------------------------------
+
+### Non-linearirty and pre-existing differences
+
+
+Consider a study of "thematic analysis" across three schools: 
+
+- a "high-quality, high prestige 4-year liberal arts college located in New
+England" (Ivy)    
+- a "4-year state supported institution, relatively nonselective, and enrolling mostly lower-middle-class
+commuter students who are preparing for specific vocations such as teaching" (TC)
+- a community college (CC).
+
+(From Winter & McClelland, 1978)
+
+------------------------------------------------------------------------
+
+```{r, echo = F}
+prob_correct = function(theta, delta){
+  1/(1 + exp(delta-theta))
+}
+
+expand.grid(
+  school = c("CC", "TC", "Ivy"),
+  year = seq(0,4, length.out = 100)
+) %>% 
+  mutate(
+    initial = case_when(
+      school == "CC" ~ -1,
+      school == "TC" ~  0,
+      school == "Ivy" ~ 1,),
+    ability = initial + year,
+    performance = map_dbl(ability, prob_correct, delta = 4)) %>% 
+  ggplot(aes(x = year, y = performance, group = school)) +
+  geom_line() +
+  geom_dl(aes(label = school), method = "last.points") +
+  labs(title = "Writing ability") +
+  theme_pubr()
+  
+```
+
+
+What is your conclusion?
+
+------------------------------------------------------------------------
+
+```{r, echo = F}
+expand.grid(
+  school = c("CC", "TC", "Ivy"),
+  year = seq(0,4, length.out = 100)
+) %>% 
+  mutate(
+    initial = case_when(
+      school == "CC" ~ -1,
+      school == "TC" ~  0,
+      school == "Ivy" ~ 1,),
+    ability = initial + year,
+    performance = map_dbl(ability, prob_correct, delta = 1)) %>% 
+  ggplot(aes(x = year, y = performance, group = school)) +
+  geom_line() +
+  geom_dl(aes(label = school), method = "last.points") +
+  labs(title = "Math ability") +
+  theme_pubr()
+  
+```
+
+What is your conclusion?
+
+------------------------------------------------------------------------
+
+::: columns
+
+::: {.column width="50%"}
+
+```{r, echo = F}
+expand.grid(
+  school = c("CC", "TC", "Ivy"),
+  year = seq(0,4, length.out = 100)
+) %>% 
+  mutate(
+    initial = case_when(
+      school == "CC" ~ -1,
+      school == "TC" ~  0,
+      school == "Ivy" ~ 1,),
+    ability = initial + year,
+    performance = map_dbl(ability, prob_correct, delta = 4)) %>% 
+  ggplot(aes(x = year, y = performance, group = school)) +
+  geom_line() +
+  geom_dl(aes(label = school), method = "last.points") +
+  scale_y_continuous(limits = c(0,1)) +
+  labs(title = "Writing ability") +
+  theme_pubr()
+  
+```
+
+::: 
+::: {.column width="50%"}
+
+
+```{r, echo = F}
+expand.grid(
+  school = c("CC", "TC", "Ivy"),
+  year = seq(0,4, length.out = 100)
+) %>% 
+  mutate(
+    initial = case_when(
+      school == "CC" ~ -1,
+      school == "TC" ~  0,
+      school == "Ivy" ~ 1,),
+    ability = initial + year,
+    performance = map_dbl(ability, prob_correct, delta = 1)) %>% 
+  ggplot(aes(x = year, y = performance, group = school)) +
+  geom_line() +
+  scale_y_continuous(limits = c(0,1)) +
+  geom_dl(aes(label = school), method = "last.points") +
+  labs(title = "Math ability") +
+  theme_pubr()
+  
+```
+
+:::
+:::
+
+Both panels are generated from the exact same monotonic curve, but with items of different difficulties.
+
+$$prob(correct|\theta,\delta) = \frac{1}{1+e^{\delta-\theta}}$$
+
+------------------------------------------------------------------------
+
+## Takeaways
+
+- Latent variables are not directly measured for at least some people in a given sample
+- We try to infer the value of a latent variable through our observed variable(s)
+- In doing so, we must bring theory to bear, not only on how the latent variable connects to other (latent) variables or constructs, but specifically how our latent variable is related to our operationalization
+- Misspecifying the relationship between latent variables and operationalizations can result in misleading or wrong results.
+
+------------------------------------------------------------------------
+
+## Next time...
+
+Probability
