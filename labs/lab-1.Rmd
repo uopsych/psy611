@@ -16,6 +16,21 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r, eval = F}
+
+# This is a note for the next GE to teach this lab: there is too much stuff in here to cover! Don't delete anything, but you don't need to include all of this material in your lecture. 
+# 
+# You can skip downloading and installing. Skim the Aritmetic code (adding, multiplying), skim lists
+# 
+# Spend more time on projects and features of RStudios.
+
+# Change the package that is installed and loaded the rio package -- make this the loading data into R section. Move packages/loading data to after functions and before Help.
+
+# Make sure you get to importing data into R!!
+
+```
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -497,134 +512,6 @@ Comments are mostly used to remind yourself (or other people) *what* a piece of 
 knitr::include_graphics(here::here("labs", "resources", "lab1", "comments", "lab1_validate.png"))
 ```
 
-***
-
-## Packages {#packages}
-
-A `package` can include code, documentation for that code, and/or data. A helpful way to think of packages is as a toolbox full of data analysis tools. 
-
-![](`r here::here("labs", "resources", "lab1", "packages", "psych_toolbox_2.png")` "RStudio Source Pane")
-
-There are general purpose toolboxes that contain tools for running common analyses in psychology (e.g., `{psych}`), toolboxes for helping your run advanced statistical models (e.g., `{lavaan}`; `{lmer}`), toolboxes for text mining (e.g., `{tidytext}`), and toolboxes for plotting (e.g., `{ggplot2}`, `{gganimate}`). If you have a problem that needs to be solved, there will probably be a package for it. 
-
-### Installing packages
-
-To install a package onto your computer, you simply pass the name of the package to `install.packages()`. As a demonstration, we install the `{psych}` package below. The `{psych}` package has several useful data analysis tools for psychologists. 
-
-```{r, echo = FALSE, out.width = "300px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "packages", "lab1_install.png"))
-```
-
-*Note.* When installing packages, the package name must be enclosed in quotes: `install.packages("psych")` **NOT** `install.packages(psych)`. You generally only need to install a package once. 
-
-### Loading a package
-
-Just because we've installed a package to our computer doesn't mean we have access to its functions. Buying a toolbox doesn't necessarily give you access to its tools. You also have to open the toolbox. To open `{psych}` and load its functions, we use `library()`.
-
-```{r, echo = FALSE, out.width = "300px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "packages", "lab1_load.png"))
-```
-
-*Note.* A package can be loaded with or without quotes: `library("psych")` **OR** `library(psych)`. We have to load a package every time that R is restarted.
-
-### Try psych commands
-
-Now that we have installed and loaded the `{psych}` package, let's try out of some its commands.
-
-Using `corr.test()` we can make a correlation matrix of the variables in `mtcars`.
-
-```{r, echo = FALSE, out.width = "900px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "packages", "lab1_corr_test.png"))
-```
-
-Using `skew()`, we can look at the skew of all of the columns in `mtcars`.
-
-```{r, echo = FALSE, out.width = "900px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "packages", "lab1_skew.png"))
-```
-
-We can also use `t2d()` to calculate the Cohen's *d* for a t-value of 3.00 with 300 participants.
-
-```{r, echo = FALSE, out.width = "250px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "packages", "lab1_t2d.png"))
-```
-
-This is only a small subset of the functions available in the `{psych}` package, and `{psych}` is only one package of over 18,262 on CRAN (as of 27th September, 2021). This is not to mention the tens of thousands of packages hosted on online repositories like [GitHub](https://github.com). 
-
-<!--### Try `yarrr` commands-->
-
-<!--Now that we have installed and loaded the `yarrr` package, let's try out of some its commands (adapted from [__YaRrr: A Pirate's Guide to R__](https://bookdown.org/ndphillips/YaRrr/)).-->
-
-```{r, eval = FALSE, include = FALSE}
-# we can look at the documentation for the pirates dataset
-?pirates
-
-# we can look at the first six rows of the dataset
-head(pirates)
-
-# we can calculate the mean age of the pirates in the dataset
-mean(pirates$age)
-# the maximum age
-max(pirates$age)
-# and create a count table of the pirates' genders
-table(pirates$sex)
-
-# we can make a scatterplot with the pirates' height on the x-axis and the pirates' weight on the y-axis
-plot(pirates$height, pirates$weight)
-
-# we can customize that plot
-plot(x = pirates$height, y = pirates$weight,
-     main = "Look, Ma! A scatterplot!",
-     xlab = "Height (in cm)",
-     ylab = "Weight (in cm)",
-     pch = 16,
-     col = gray(.0, .1))
-
-# we can make violin plots looking comparing the ages of the pirates across their swords of choice
-pirateplot(formula = age ~ sword.type,
-           data = pirates,
-           main = "Pirateplot of age by favorite sword")
-
-# we can run a t-test comparing the mean age of pirates with a headband and the mean age of pirates without a headband
-t.test(formula = age ~ headband,
-       data = pirates,
-       alternative = "two.sided")
-
-# we can construct a linear model predicting the number of tattoos a pirate has from their sword of choice
-tat.sword.lm <- lm(formula = tattoos ~ sword.type,
-                   data = pirates)
-
-# and we can conducted an analysis of variance looking at whether the number of tattoos differs by their sword of choice
-anova(tat.sword.lm)
-```
-
-## Importing Data into R {#data}
-
-The final topic that we will cover in this lab is how to load data into R. Over the course of your grad school careers (and many times in this class) you will need to import data into R to be analyzed.
-
-For this example, we will be using the planets data set from Star Wars. [The data can be downloaded here.](https://docs.google.com/spreadsheets/d/1W577PILjAkOSTNw7r85jjHrJaaXuOkiPuQcu2yA6F58/export?format=xlsx)
-
-There used to be file-type-specific functions to load data into R (e.g., `read.csv`, `read_excel`) a few years ago. You might see these often if you are looking up solutions for your coding problems. The `{rio}` package streamlines this process by having a single import function (`import()`) that infers the file type from its extension (e.g., `.csv`, `.xlsx`, `.sav`). It also allows you to specify the class and format of your data when you import it; this feature very useful when you are trying to streamline your workflow. Additionally, the `{here}` package makes it very easy to reference folders in your directory.
-
-As we did for `{psych}`, if you don't have these packages already, you will first need to install `{rio}` and `{here}`. You can install `{rio}` and `{here}` with the following code: `install.packages(c("rio", "here"))`.
-
-Second, we will need to load `{rio}` and `{here}` using the library functions. Then, we will import the data by using the `import` function from the `{rio}` package and the `here` function from the `{here}` package. (If you are using a certain library only once, consider using the the `::` for importing a function instead of loading the entire library). In order to use the `here` function, we need to know which folder my dataset is saved in. In this case, the `sw_planets.xlsx` is saved in `labs` -> `data`.  Finally, we will save the data into a variable, `planets_data`. 
-
-
-
-![](`r here::here("labs", "resources", "lab1", "importing_data", "rio_here.JPG")` "Importing data")
-
-To ensure it was read in properly, we can look at the first six rows of the imported dataset by using the `head()` function. 
-
-```{r, echo = FALSE, out.width = "900px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "importing_data", "lab1_head.png"))
-```
-
-We can also look at the last six rows by using the `tail()` function.
-
-```{r, echo = FALSE, out.width = "900px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "importing_data", "lab1_tail.png"))
-```
 
 ***
 
