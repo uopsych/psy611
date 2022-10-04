@@ -218,7 +218,7 @@ Do you need theory for good statistics or empirical work?
   * Don't need theory to make predictions.
   * In fact, best predictions often come by throwing out theory.
 
-* Network models
+* Network models (not social)
 
   * No underlying theory about the cause of covariation between items. 
   * Allows for exploration of item structure.
@@ -552,4 +552,4 @@ $$prob(correct|\theta,\delta) = \frac{1}{1+e^{\delta-\theta}}$$
 
 ## Next time...
 
-Probability
+Describing data
