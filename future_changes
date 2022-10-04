@@ -5,10 +5,12 @@
 * lab-1.html
   * take out section on installing R and RStudio, move to separate page on website and Canvas
   * make a mini hack to set up projects (set up project for lab 1 or homework 1)
-
-* 3-latent variables.html
-  * IAT example works well -- maybe bring back the IAT at the end?, or split it up (introduce measure at beginning and discuss later)
   
+* 2-validity
+  * add figure of X-A-Y-B to examples
+
+* 3-measurement.html
+  * add figure of X-A-Y-B to the example of 4 types
   
 * 6-probability.html
   * demo today good (something similar for sampling error)
