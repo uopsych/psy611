@@ -1,0 +1,686 @@
+---
+title: "Describing Data I"
+format: 
+  revealjs:
+    multiplex: true
+    slide-number: true
+    incremental: true
+    touch: true
+    code-overflow: wrap
+execute: 
+  echo: true
+editor: visual
+---
+
+## Last time...
+
+Measurement
+
+::: nonincremental
+-   Conceptual clarity
+-   Latent variables
+:::
+
+------------------------------------------------------------------------
+
+## Today...
+
+Describing data![^1]
+
+[^1]: Here's where you start seeing `R` code in lecture slides. You should be able to copy and paste if you want to follow along. Although please note that I may not share all the code I use. You can always see the code on the GitHub page.
+
+\
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)  # for pipes and plots
+library(lsr)        # for mode and maxFreq functions
+library(psych)      # for several useful functions, including describe
+library(here)       # for working directory
+```
+
+------------------------------------------------------------------------
+
+## Why do we describe data?
+
+-   Understand your data
+
+    -   There's a lot to learn from descriptive statistics
+
+-   Find errors in data entry or collection
+
+------------------------------------------------------------------------
+
+## Happiness
+
+Examples today are based on data from the [2015 World Happiness Report](https://worldhappiness.report/ed/2015/), which is an annual survey part of the [Gallup World Poll](https://www.gallup.com/178667/gallup-world-poll-work.aspx).
+
+The dataset is available on [GitHub](https://raw.githubusercontent.com/uopsych/psy611/master/data/world_happiness_2015.csv) for those interested in trying at home.[^2]
+
+[^2]: To save this file to your computer, copy all the text on the linked webpage, then paste the text into a new text file (which you can create inside RStudio). Save this file as .csv type file, like `world_happiness_2015.csv` and load using `rio::import`.
+
+------------------------------------------------------------------------
+
+```{r, echo = T}
+#| code-overflow: wrap
+#| 
+library(rio) 
+world = import(here("data/world_happiness_2015.csv"))
+# or if you haven't downloaded the data
+world = import("https://raw.githubusercontent.com/uopsych/psy611/master/data/world_happiness_2015.csv")
+```
+
+```{r, echo = F}
+world
+```
+
+::: notes
+Data measured at country level, one row per country.
+
+Draw attention to `NA`s.
+:::
+
+------------------------------------------------------------------------
+
+```{r}
+names(world)
+```
+
+::: {style="font-size: .75em"}
+**Happiness**: "Please imagine a ladder, with steps numbered from 0 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. On which step of the ladder would you say you personally feel you stand at this time?"
+
+**GDP**: Log gross domestic product per capita
+
+**Support**: "If you were in trouble, do you have relatives or friends you can count on to help you whenever you need them, or not?"
+
+**Life**: Healthy life expectancy at birth
+
+**Freedom**: "Are you satisfied or dissatisfied with your freedom to choose what you do with your life?"
+
+**Corruption**: "Is corruption widespread throughout the government or not" and "Is corruption widespread within businesses or not?" (average of 2 questions)
+
+**Generosity**: "Have you donated money to a charity in the past month?" (residual, adjusting for GDP)
+:::
+
+------------------------------------------------------------------------
+
+```{r}
+dim(world)
+glimpse(world) # tidyverse
+```
+
+------------------------------------------------------------------------
+
+## Distributions
+
+A **distribution** often refers to a description of the \[relative\] number of times a variable X will take each of its unique values.
+
+```{r, fig.height=4}
+hist(world$Happiness, breaks = 30, 
+     main = "Distribution of happiness scores", 
+     xlab = "Happiness")
+```
+
+::: notes
+One common assumption is that the data are normally distributed.
+:::
+
+------------------------------------------------------------------------
+
+## Moments of a distribution
+
+::: nonincremental
+1.  Mean
+2.  Variance
+3.  Skew
+4.  Kurtosis
+:::
+
+::: notes
+The first two moments (mean and variance) will be central to many inferential procedures (e.g., ANOVA). We will make assumptions about the other two moments (skew and kurtosis) in order to use some statistical procedures.
+:::
+
+------------------------------------------------------------------------
+
+## Mean, $\mu$
+
+::: nonincremental
+-   The **mean** is the average. The population mean is represented by the Greek symbol $\mu$.
+
+-   Example: a set of numbers is: `7, 7, 8, 3, 9, 2`.
+:::
+
+For a vector $x$ with length $N$, the mean $(\mu)$ of $x$ is:
+
+$$\mu = \frac{\Sigma_{i=1}^N(x_i)}{N} = \frac{\Sigma(x_i)}{N}=\frac{7+7+8+3+9+2}{6}=\frac{`r sum(c(7,7,8,3,9,2))`}{6}=`r mean(c(7,7,8,3,9,2))`$$
+
+------------------------------------------------------------------------
+
+## Properties of the mean
+
+-   The mean can take a value not found in the dataset.
+
+-   Fulcrum of the data
+
+-   Deviations from the mean sum to 0
+
+-   The mean is strongly influenced by outliers.
+
+-   Can only be used with interval- and ratio-level variables.
+
+-   The expected value of a (continuous) random variable, $E(X)$, is the mean.
+
+::: notes
+Balancing point of the data. The farther a data point is from the mean, the greater 'weight' it has. Draw this for students: ![](images/fulcrum.jpg) We'll get to expected values when we talk about probability distributions, but for now, treat the expected value as the mean of a continuous variable.
+:::
+
+------------------------------------------------------------------------
+
+It's important to remember that the mean of a population (or group) may not represent well some (or any) members of the population.
+
+Example: [André-François Raffray](https://www.nytimes.com/1995/12/29/world/a-120-year-lease-on-life-outlasts-apartment-heir.html) and the French apartment
+
+![](images/apartment.jpg)
+
+::: notes
+lawyer André-François Raffray in 1965
+
+agreed to pay a 90-year-old woman \$2500 francs each month and when she died, he would take possession of the apartment.
+
+Average life expectancy of French women was 74.5. Andre was 45 years old
+
+the woman lived another 32 years to become the oldest person on record, outliving Andre by two years. He had paid more than twice the market value for the apartment
+:::
+
+------------------------------------------------------------------------
+
+## Other measures of central tendency
+
+-   **Median** -- the middle point of the data
+    -   e.g., in the set of numbers `7, 7, 8, 3, 9, 2`, the median number is 7.
+    -   Can be used with ordinal-, interval-, or ratio-level variables.
+-   **Mode** -- the number that most commonly occurs in the distribution.
+    -   e.g., in the set of numbers above, the mode is 7.
+    -   Can be used with any kind of variable.
+
+------------------------------------------------------------------------
+
+## Center and spread
+
+-   Distributions are most often described by their first two moments, mean and **variance**.
+
+-   Typically, these moments are the two used in common inferential techniques.
+
+-   The mean represents the average score in a distribution. A good measure of spread will tell us something about how the typical score deviates from the mean.
+
+-   Why can't we use the average deviation?
+
+------------------------------------------------------------------------
+
+## Average deviation
+
+```{r}
+x = c(7,7,8,3,9,2)
+mean(x)
+
+x - mean(x)
+
+sum(x - mean(x))
+
+sum(x - mean(x))/length(x)
+```
+
+------------------------------------------------------------------------
+
+## Sums of squares
+
+Our solution is to square deviations.
+
+```{r}
+x = c(7,7,8,3,9,2)
+mean(x)
+deviation = x - mean(x)
+deviation^2
+sum(deviation^2)
+```
+
+The sum of squared deviations is referred to as **the Sum of Squares (SS)**.
+
+::: notes
+For those familiar with ANOVA (PSY 612), sums of squares may sound familiar.
+
+As we talk about total variability in a construct, this will be our measure.
+:::
+
+------------------------------------------------------------------------
+
+## Variance
+
+We calculate the average squared deviation: this is our variance, $\sigma^2$:
+
+```{r}
+sum((x - mean(x))^2)/length(x)
+```
+
+------------------------------------------------------------------------
+
+## Variance
+
+### Good things about variance:
+
+-   It's additive.
+    -   Given two variables X and Y, if I create $Z = X + Y$ then $Var(Z) = Var(X) + Var(Y)$
+-   It can be calculated using expected values.
+    -   $\sigma^2 = E(X^2) - (E(X))^2$
+-   Represents all values in a dataset
+
+------------------------------------------------------------------------
+
+## Variance
+
+### Bad things about variance:
+
+-   What the heck does it mean?
+
+------------------------------------------------------------------------
+
+**Standard deviation** $\sigma$ is the square root of the variance.
+
+```{r}
+sqrt(sum(deviation^2)/length(deviation))
+```
+
+------------------------------------------------------------------------
+
+```{r, warning = FALSE, message = FALSE}
+#| code-fold: true
+#| 
+
+world %>% ggplot(aes(x = Happiness)) + 
+  geom_histogram(fill = "gray") +
+  geom_vline(aes(xintercept = mean(Happiness))) +
+  geom_vline(aes(xintercept = median(Happiness))) + 
+  geom_label(aes(x = mean(Happiness), y = maxFreq(Happiness)), 
+             label = "mean") +
+  geom_label(aes(x = median(Happiness), y = maxFreq(Happiness)*2), 
+             label = "median") +
+  labs(x = "Happiness", y = "Frequency") +
+  theme_bw()
+```
+
+In a normal distribution, the mean, median, and mode are all relatively equal.
+
+------------------------------------------------------------------------
+
+```{r, warning = FALSE, message = FALSE}
+#| code-fold: true
+#| 
+
+world %>% ggplot(aes(x = Corruption)) + 
+  geom_histogram(fill = "gray") +
+  geom_vline(aes(xintercept = mean(Corruption, na.rm=T))) +
+  geom_vline(aes(xintercept = median(Corruption, na.rm=T))) + 
+  geom_label(aes(x = mean(Corruption, na.rm=T), y = maxFreq(Corruption)), label = "mean") +
+  geom_label(aes(x = median(Corruption, na.rm=T), y = maxFreq(Corruption)*2), label = "median") +
+  labs(x = "Happiness", y = "Frequency") +
+  theme_bw()
+```
+
+In a skewed distribution, both the mean and median get pulled away from the mode. The mean is pulled further.
+
+------------------------------------------------------------------------
+
+## Skew and Kurtosis
+
+Moments 3 and 4 of a distribution are **skew** and **kurtosis**.
+
+::: nonincremental
+-   Skewness = asymmetry
+
+-   Kurtosis = pointyness.
+:::
+
+Most inferential statistics assume distributions are not skewed and are mesokurtic.
+
+::: notes
+-   platykurtic: too flat, negative kurtosis
+-   leptokurtic: too pointy, positive kurtosis
+:::
+
+------------------------------------------------------------------------
+
+```{r, warning = FALSE, message=FALSE}
+#| code-fold: true
+#| 
+
+world %>% ggplot(aes(Corruption)) + geom_histogram() + ggtitle("Negative skew") + theme_bw()
+```
+
+------------------------------------------------------------------------
+
+## Moments of a distribution
+
+Where do the names come from?
+
+::: columns
+::: {.column width="50%"}
+::: nonincremental
+::: {style="font-size: .65em"}
+1.  First moment: Mean $$\mu = \frac{\Sigma(x_i)}{N}$$
+2.  Second moment: Variance $$\sigma^2 = \frac{\Sigma(X_i-\mu)^2}{N}$$
+:::
+:::
+:::
+
+::: {.column width="50%"}
+::: nonincremental
+::: {style="font-size: .65em"}
+3.  Third moment: Skew $$skewness(X) = \frac{1}{N\sigma^3}\Sigma(X_i-\mu)^3$$
+4.  Fourth moment: Kurtosis $$kurtosis(X) = \frac{1}{N\sigma^4}\Sigma(X_i-\mu)^4-3$$
+:::
+:::
+:::
+:::
+
+::: notes
+If you're calculating sample statistics for skewness and kurtosis, replace the $\sigma$ with $s$ and $\mu$ with $\bar{X}$.
+:::
+
+------------------------------------------------------------------------
+
+## problems
+
+```{r describe}
+describe(world) # psych package
+```
+
+How do we know if there is a problem and what should we do?
+
+::: notes
+Draw attention to corruption - mean and median are very different - skew and kurtosis are large (\|value\| \> 1)
+:::
+
+------------------------------------------------------------------------
+
+There are several approaches to detect and deal with non-normality:
+
+-   Overall tests of normality (e.g., Kolmogorov-Smirnov, Shapiro-Wilk tests)
+-   Tests of extremity for a particular moment
+    -   $$SE_{skew} =\sqrt{\frac{6n(n-1)}{(n-1)(n+2)(n+3)}}$$
+-   Determine the impact of the problem on inferences. How does it affect your data?
+-   Use procedures that are immune to the problem.
+
+------------------------------------------------------------------------
+
+The mean is more affected than the median by extreme values. If the data are severely skewed or there are extreme outliers, inferential statistics might be affected. There are several remedies:
+
+-   Transform the data
+
+-   Exclude the outliers
+
+-   Use a trimmed mean (e.g., eliminate upper and lower 10%; "robust statistics")
+
+-   Use the median (not susceptible to extreme values)
+
+What are the pros and cons of these approaches? What justifies their use?
+
+------------------------------------------------------------------------
+
+## Other measures of variability
+
+**Range** -- the difference between the maximum data point and the smallest
+
+```{r}
+min(world$Happiness)
+max(world$Happiness)
+range(world$Happiness)
+#get all these and more!
+describe(world$Happiness)
+```
+
+------------------------------------------------------------------------
+
+## Other measures of variability
+
+**Interquartile range (IQR)** -- the middle 50%
+
+```{r}
+median(world$Corruption, na.rm = T)
+quantile(world$Corruption, probs = .50, na.rm = T)
+quantile(world$Corruption, probs = c(.25, .75), na.rm = T)
+IQR(world$Corruption, na.rm = T)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+#| code-fold: true
+#| 
+
+world %>% ggplot(aes(x = Corruption)) + 
+  geom_histogram(fill = "gray") +
+  geom_vline(aes(xintercept = median(Corruption, na.rm=T))) + 
+  geom_label(aes(x = median(Corruption, na.rm=T), 
+                 y = maxFreq(Corruption)*2), 
+             label = "median") +
+  geom_vline(aes(xintercept = quantile(Corruption, 
+                                       probs = .25,
+                                       na.rm=T)),
+             color = "blue") + 
+  geom_vline(aes(xintercept = quantile(Corruption, 
+                                       probs = .75,
+                                       na.rm=T)),
+             color = "blue") + 
+  geom_label(aes(x = quantile(Corruption, 
+                              probs = .25, 
+                              na.rm=T), 
+                 y = maxFreq(Corruption)*3, 
+             label = "lower IQR"),
+             color = "blue") +
+  geom_label(aes(x = quantile(Corruption, 
+                              probs = .75, 
+                              na.rm=T), 
+                 y = maxFreq(Corruption)*4, 
+             label = "upper IQR"),
+             color = "blue") +
+  labs(y = "Count") +
+  theme_bw()
+```
+
+# Bias and efficiency
+
+------------------------------------------------------------------------
+
+## Population versus sample
+
+For those following along at home:
+
+```{r}
+sum((x - mean(x))^2)/length(x)
+var(x)
+```
+
+------------------------------------------------------------------------
+
+## Population versus sample
+
+-   The value that represents the entire population is called a **parameter**.
+    -   We collect samples to estimate the properties of populations; the statistic that represents a sample is called a **statistic**.
+    -   Population parameters are represented with Greek letters ( $\mu$ , $\sigma$).
+    -   Sample statistics are represented with Latin letters ( $M$ , $\bar{X}$ , $s$).
+
+------------------------------------------------------------------------
+
+## Bias and efficiency
+
+-   In deciding about different ways to estimate a parameter (e.g., central tendency), it is important to consider bias and efficiency (and sometimes consistency).
+
+-   **Bias**: An estimator is biased if its expected value and the true value of the parameter are different.
+
+-   **Efficiency**: Of two alternative estimators, the more efficient one will estimate the parameter with less error for the same sample size.
+
+------------------------------------------------------------------------
+
+## Bias and efficiency
+
+-   Robust statistics sacrifice efficiency to control possible bias.
+
+-   Variance (and standard deviation) are *biased* estimators when applied to samples.
+
+    -   Using the formulas we've described, these statistics will underestimate variability in the population.
+
+------------------------------------------------------------------------
+
+## Population versus sample
+
+::: columns
+::: {.column width="50%"}
+### Variance
+
+*Population* $$\sigma^2 = \frac{\Sigma(X_i-\mu)^2}{N}$$
+
+*Sample* $$s^2 = \hat{\sigma}^2 = \frac{\Sigma(X_i-\bar{X})^2}{N-1}$$
+:::
+
+::: {.column width="50%"}
+### Standard Deviation
+
+*Population* $$\sigma = \sqrt{\frac{\Sigma(X_i-\mu)^2}{N}}$$
+
+*Sample* $$s = \hat{\sigma} = \sqrt{\frac{\Sigma(X_i-\bar{X})^2}{N-1}}$$
+:::
+:::
+
+------------------------------------------------------------------------
+
+```{r simulate bias, warning = FALSE, message = FALSE, fig.width=15, fig.height=10}
+#| code-fold: true
+#| code-overflow: wrap
+
+
+# this is the code that simulates the bias of the variance estimator
+
+# in this simulation, we draw from a known population distribution with 
+# standard deviation 10.
+# for each sample, we calculate the variance using both the population 
+# formula (dividing by N) and the sample formula (dividing by N-1)
+
+# we repeat this process 10,000 times for each sample size
+
+# for each sample size, we calculate the average estimate of the variance 
+# using each formula
+
+# this is compared to 100, the true known population variance
+
+set.seed(100917) #so every time I run this, I gets same random draws
+
+# custom function to estimate variance using population formula
+sample_var = function(x){
+  mx = mean(x, na.rm=T)
+  deviations = x-mx
+  sq_dev = deviations^2
+  ss = sum(sq_dev)
+  nx = length(!is.na(x)) #how many not missing
+  sample_var = ss/nx
+}
+#number of samples
+draws = 10000
+#which sample sizes to test
+sample_sizes = seq(from = 5, to = 100, by = 5) # creates c(5, 10, 15, 20, ..., 90, 95, 100)
+#data frame to store simulations
+var_estimates = data.frame(size = sample_sizes, sample = NA, estimate = NA)
+
+for(i in sample_sizes){ # loop through sample sizes. In each loop, i takes on the next value in the sample_sizes vector
+  sample_est = numeric(length = draws) #create empty vector
+  estimate = numeric(length = draws) # create empty vector
+  for(j in 1:draws){ # loop through draws. In each loop, j takes on new integer
+    sample = rnorm(n = i, mean = 1000, sd = 10) # randomly draw sample from pop with variance 100
+    sample_est[j] = sample_var(sample) # calculate variance using population formula
+    estimate[j] = var(sample) # calculate variance using sample formula
+  }
+  row = which(var_estimates$size == i) #which row in data frame does this belong to?
+  var_estimates$sample[row] = mean(sample_est) # average of variance estimates (using pop) across draws
+  var_estimates$estimate[row] = mean(estimate) # average of variances (using sample) across draws
+}
+
+var_estimates %>%
+  mutate(population = 100) %>% #add population variable
+  pivot_longer(cols = c(sample, estimate, population)) %>% # long-form
+  mutate(name = factor(name, #lovely labels
+                      levels = c("population","sample","estimate"),
+                      labels = c("Population Variance",
+                                 "Sample Variance", 
+                                 "Sample Estimate of Population Variance"))) %>% 
+  ggplot(aes(x = size, y = value)) + # plot, define x and y varibles
+  geom_line(aes(color = name), size = 3) + # draw line from each point
+  scale_x_continuous("Sample Size", breaks = sample_sizes) + # label x axis
+  scale_color_discrete("")+ # no label for color legend
+  geom_point() + # add points
+  theme_bw(base_size = 25) # nice theme, big font
+```
+
+# Standardized scores
+
+------------------------------------------------------------------------
+
+## Standardized scores (z-scores)
+
+$$ z = \frac{x_i - M}{s} $$
+
+Scores interpreted as distance from the mean, in standard deviations.
+
+### Properties of z-scores
+
+::: columns
+::: {.column width="50%"}
+-   $\Large \Sigma z = 0$
+-   $\Large \Sigma z^2 = N$
+:::
+
+::: {.column width="50%"}
+-   $\Large s_z = \frac{\Sigma z^2}{N}$
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Standardized scores (z-scores)
+
+$$ z = \frac{x_i - M}{s} $$ **Why is this useful?**
+
+-   Compare across scales and unit of measures
+
+-   More easily identify extreme data
+
+::: notes
+Note for the standard deviation property
+
+$$s_z = \frac{\Sigma z^2}{n} = \frac{n}{n} = 1$$
+:::
+
+------------------------------------------------------------------------
+
+## Which variable has outliers?
+
+```{r, warning=FALSE, message = FALSE}
+#| code-fold: true
+
+psych::describe(world, fast =T)
+```
+
+------------------------------------------------------------------------
+
+## Which variable has outliers?
+
+```{r,warning=FALSE, message = FALSE}
+#| code-fold: true
+
+world %>%
+  mutate_if(is.numeric, scale) %>%
+  psych::describe(., fast =T)
+```
+
+------------------------------------------------------------------------
+
+## Next time...
+
+describing relationships
