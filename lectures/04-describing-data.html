@@ -1109,19 +1109,17 @@ $ Corruption &lt;dbl&gt; 0.8847930, 0.8509062, 0.9014622, 0.3565544, 0.5574796, 
 <section id="problems" class="slide level2">
 <h2>problems</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">describe</span>(world) <span class="co"># psych package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">describe</span>(world[,<span class="sc">-</span><span class="dv">1</span>]) <span class="co"># psych package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           vars   n  mean    sd median trimmed   mad   min    max  range  skew
-Country*      1 136 68.50 39.40  68.50   68.50 50.41  1.00 136.00 135.00  0.00
-Happiness     2 136  5.43  1.11   5.42    5.44  1.20  2.70   7.60   4.90 -0.07
-GDP           3 121  9.22  1.16   9.45    9.28  1.20  6.61  11.43   4.82 -0.43
-Support       4 135  0.80  0.12   0.83    0.81  0.12  0.43   0.99   0.55 -0.88
-Life          5 135 63.12  7.46  64.64   63.73  7.35 43.74  76.04  32.30 -0.67
-Freedom       6 132  0.75  0.13   0.78    0.76  0.16  0.40   0.98   0.58 -0.45
-Generosity    7 120  0.00  0.16  -0.03   -0.01  0.15 -0.28   0.46   0.74  0.59
-Corruption    8 125  0.73  0.20   0.81    0.77  0.12  0.09   0.96   0.87 -1.48
+<pre><code>           vars   n  mean   sd median trimmed  mad   min   max range  skew
+Happiness     1 136  5.43 1.11   5.42    5.44 1.20  2.70  7.60  4.90 -0.07
+GDP           2 121  9.22 1.16   9.45    9.28 1.20  6.61 11.43  4.82 -0.43
+Support       3 135  0.80 0.12   0.83    0.81 0.12  0.43  0.99  0.55 -0.88
+Life          4 135 63.12 7.46  64.64   63.73 7.35 43.74 76.04 32.30 -0.67
+Freedom       5 132  0.75 0.13   0.78    0.76 0.16  0.40  0.98  0.58 -0.45
+Generosity    6 120  0.00 0.16  -0.03   -0.01 0.15 -0.28  0.46  0.74  0.59
+Corruption    7 125  0.73 0.20   0.81    0.77 0.12  0.09  0.96  0.87 -1.48
            kurtosis   se
-Country*      -1.23 3.38
 Happiness     -0.69 0.10
 GDP           -0.78 0.11
 Support        0.11 0.01

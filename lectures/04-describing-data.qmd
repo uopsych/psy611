@@ -390,7 +390,7 @@ If you're calculating sample statistics for skewness and kurtosis, replace the $
 ## problems
 
 ```{r describe}
-describe(world) # psych package
+describe(world[,-1]) # psych package
 ```
 
 How do we know if there is a problem and what should we do?
