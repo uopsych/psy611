@@ -1,0 +1,587 @@
+---
+title: "Lab 2: R Basics and Descriptives"
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+editor_options: 
+  chunk_output_type: console
+---
+
+You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-2.Rmd). 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(error = TRUE)
+
+# suppress scientific notation
+options(scipen = 999)
+
+# load libraries
+library(tidyverse)
+library(here)
+library(rio)
+library(psych)
+```
+
+
+# Purpose
+
+The purpose of today's lab is to introduce you to some simple tools that will allow you to calculate and visualize **descriptive statistics** in R. This will not be a deep dive into the theoretical meaning behind descriptives, but rather a guide to some practical steps toward getting the most basic summary information out of a given dataset. Along the way, we will implement some of the skills we learned in [last week's lab](https://uopsych.github.io/psy611/labs/lab-1.html){target="_blank"}, such as creating variables, working with data frames, installing packages, and learning how to use new functions. 
+
+Today's lab will cover:
+
+1. [Visualizing Distributions](#dist)
+2. [Basic Descriptives](#basic)
+3. [Summarizing a dataset](#summarize)
+4. [Bivariate Descriptives](#bivar)
+4. [In-Line R Code](#inline)
+
+***
+# Recap: R Project
+
+Advantages of organizing R scripts/markdowns with projects: 
+
+1. Having separate R environment for each data analysis project, so your analysis and variables won't interfere with each other. 
+
+2. Organize scripts, inputs and outputs with relative paths, so transferring project folder won't affect file locations. 
+
+## Directory: Where's my file? 
+
+A directory refers a file path (location). A **working directory** in R is the default file path where R read and save file. You can check the current working directory with `getwd()`
+
+```{r}
+# Print my current working directory
+getwd()
+```
+
+Because I'm using a Mac, sub-folders are separated by `/`. If you use a PC, sub-folders are separated by `\`. 
+
+**The working directory of a R project is where the `.Rproj` file locates.** 
+
+![the current working directory](`r here::here("labs", "resources", "lab2","wd_dir.png")` )
+
+You can access the sub folders inside the working directory using relative path: it starts with a `.`, representing the current location (the working directory). Then it follows by a `/{name of the sub-folder}` (mac) or `\{{name of the sub-folder}}` (PC). 
+
+```{r error = FALSE}
+# examples of using relative file directory
+df <- import("./labs/resources/lab2/world_happiness_2015.csv")
+```
+
+or you can use function `here` to locate the directory of a file by adding names of the sub-folders
+
+```{r}
+# examples of using here function
+df <- import(here("labs", "resources", "lab2", "world_happiness_2015.csv"))
+```
+
+[Read more about R project & working directories](https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner%27s-guide/)
+
+
+# Getting Started
+
+We'll use the same 2015 World Happiness Report dataset from lecture throughout today's lab.
+
+1. Create a R project
+
+2. Download the data file [here](https://github.com/uopsych/psy611/blob/master/labs/resources/lab2/world_happiness_2015.csv) (right click the file -> Save As)
+
+3. move the `lab-2.Rmd` document and the `world_happiness_2015.csv` file to the appropriate directory within your R project. 
+
+4. Go ahead and load `{rio}`, `{here}` `{psych}`, as we are going to need functions from these packages throughout. 
+
+```{r eval = FALSE}
+# load libraries (install the libraries if not previously installed)
+
+if (!require(here)) {
+  install.packages('rio')
+}
+
+if (!require(here)) {
+  install.packages('psych')
+}
+
+if (!require(here)) {
+  install.packages('here')
+}
+```
+
+
+4. Import the World Happiness data using the `rio` package and save it to an object called `world_happiness_df`. You can use the `import` function along with the `here` function.  Supplement: [R script style guide](http://adv-r.had.co.nz/Style.html)
+
+```{r }
+# load data
+
+```
+
+Use the `str()` function to see the structure of the dataset. This tells us we have a data frame with 136 observations of 8 different variables: `Country`, `Happiness`, `GDP`, `Support`, `Life`, `Freedom`, `Generosity` and `Corruption`. 
+
+```{r}
+# check data structure
+
+```
+
+**Things to check:**
+
+1. The number of observation and variable
+
+2. The class of the variables
+
+3. Untidy variable names (including space, capitalization inconsistency, etc.)
+
+4. The present of `NA`'s (May not be obvious at this step)
+
+You can also look at the first few rows of the data frame using `head()`. 
+
+```{r}
+# check the first few rows of the dataset
+
+```
+
+Notice that there are some `NA`'s, indicating that there is missing data. This will become important later.
+
+***
+
+**Question: ** What does it indicate when the class of an interval variable is `chr` ? 
+
+***
+
+# Visualizing Distributions {#dist}
+
+Recall from lecture that a **distribution** often refers to a description of the (relative) number of times a given variable will take each of its unique values.
+
+## Histogram
+
+One common way of visualizing distributions is using a **histogram**, which plots the frequencies of different values for a given variable.
+
+For example, let's take a look at a distribution of the `Happiness` variable. We do this using the `hist()` function. (Remember, you can check out the help documentation using `?hist`).
+
+**Things to check:**
+
+1. Usage: 
+  + Required syntax and parameters
+  + The default values for parameters
+  
+2. Arguments: 
+  + The class of `x` (inputs)
+  + Options for parameters
+  
+3. Value: 
+  + The class of the outputs
+  + The components of outputs (for output extraction)
+  
+4. In a hurry? Read the examples
+
+```{r}
+# create a histogram 
+
+```
+
+You can also change the number of bins (i.e. bars) in your histogram using the `breaks` argument. Try 5, 10, and 20 breaks. What do you notice as the number of breaks increases? 
+
+```{r}
+# create a histogram with a different number of bins
+
+```
+
+***
+
+**Question: ** What else do you want to adjust in the figure? 
+
+***
+
+## Box Plot
+
+We can also visualize distributions using a **boxplot**, which gives us different information. For a short guide on how to read boxplots, see [here](https://flowingdata.com/2008/02/15/how-to-read-and-use-a-box-and-whisker-plot/){target="_blank"} or refer to [this section](https://learningstatisticswithr-bookdown.netlify.com/graphics.html#boxplots){target="_blank"} of your textbook.
+
+```{r}
+# create a boxplot for the Happiness variable
+
+```
+
+Get a boxplot for the Corruption variable below. What do you notice?
+
+```{r}
+# create a boxplot for the Corruption variable
+
+```
+
+You can use the `boxplot.stats` function to identify specific outliers. We're specifically interested in the $out component of the output.
+
+```{r}
+# Identify the outliers of Corruption 
+
+```
+
+***
+
+**Challenge: ** Can you create a new dataset without the outliers? 
+
+***
+
+## Looking ahead...
+
+So far we have been plotting in base R. However, the [ggplot2 package](https://www.rdocumentation.org/packages/ggplot2/versions/3.2.1){target="_blank"} is generally a much better tool for plotting. For now we'll stick with base plotting to keep things simple, but in a future class you will learn how to use `ggplot` to make better-looking plots, such as this:
+
+```{r echo = FALSE}
+ggplot(world_happiness_df, aes(x = Happiness)) +
+  geom_histogram(fill = "darkorange",
+                 color = "white",
+                 alpha = 0.7,
+                 bins = 30) + 
+  labs(x = "Happiness",
+       y = "Frequency",
+       title = "Histogram of Happiness Scores",
+       caption = "Source: 2015 World Happiness Report") +
+  theme_minimal(base_size = 13) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+Ok, so now that we know how to visualize a basic distribution, let's think about how we commonly *characterize* distributions with descriptive statistics...
+
+***
+
+# Basic Descriptives {#basic}
+
+## Measures of Central Tendency
+
+For a given set of observations, measures of central tendency allow us to get the "gist" of the data. They tell us about where the "average" or the "mid-point" of the data lies. Let's take a really simple example first. We'll use a vector of integers as our dataset. 
+
+```{r}
+
+```
+
+### Mean
+
+A quick way to find the mean is to use the aptly named `mean()` function from base R. Use this function on the simple_vector we just created. 
+
+```{r}
+
+```
+
+What happens if we try to calculate the mean when there are missing values in our data? Let's see what happens when we add a couple `NA`'s to our simple vector and calculate the mean.
+
+```{r}
+# add NA's
+
+```
+
+Try getting the mean again for this new vector, simple_vector_missing. What happens?
+
+```{r}
+
+```
+
+
+
+...It gives us an `NA`! The reason for this is that the mean is calculated by using every value for a given variable, so if you don't remove (or impute) the missing values before getting the mean, it won't work. 
+
+Use the mean function again, but add the additional argument: `na.rm = TRUE`.
+
+```{r}
+
+```
+
+
+### Median
+
+The median is the middle value of a set of observations: 50% of the data points fall below the median, and 50% fall above. 
+
+To find the median, we can use the `median()` function. Use it on simple_vector.
+
+```{r}
+
+```
+
+### Mode
+
+Oddly enough, the core packages in R do not contain a function to find the mode. In the case of our very simple dataset, it is easy to determine that the mode (i.e. the most common value) is `2`. Your first [minihack exercise](#minihack1) will be to find the mode using the R package that accompanies your textbook.
+
+## Measures of Variability
+
+### Range
+
+The range gives us the distance between the smallest and largest value in a dataset. You can find the range using the `range()` function, which will output the minimum and maximum values. Find the range of the simple_vector.
+
+```{r}
+
+```
+
+
+### Variance and standard deviation
+
+To find the variance and standard deviation, we use `var()` and `sd()`, respectively. Find the variance and standard deviation of the simple_vector.
+
+```{r}
+# variance
+
+
+# standard deviation
+
+```
+
+**Note: ** As it pertains to missing data, the same rule described above for the `mean()` function also applies to these functions (namely, that you need to add the argument `na.rm = TRUE` when there is missing data).
+
+
+## Outliers
+
+Outliers are extreme values in the data. They don't follow the same general pattern as all the other data. One easy way to detect outliers is to visually inspect a distribution for values that stand out. For example, if we add an extreme value to our simple vector, it is easy to see that it is an outlier when we look at the boxplot.
+
+```{r}
+# add extreme value (25)
+
+
+# visualize outlier with boxplot 
+
+
+# identify specific outliers
+
+```
+ 
+
+### z-scores
+
+Another way to identify outliers is to **standardize** the scores in our dataset, i.e. to convert them to z-scores. To do this, we take each score's distance from the mean and divide it by the standard deviation: 
+
+$$ z = \frac{x_i - M}{s} $$
+
+This tells us, for each score, how many standard deviations it is away from the mean. Some people use the rule of thumb that if a score is above or below 3 standard deviations from the mean, it should be considered an outlier. 
+
+To standardize scores in our dataset, use the `scale()` function on the simple_vector_outlier. 
+
+```{r}
+# transform a the vector 'simple_vector_outlier' into z-scores
+
+```
+
+What do you notice about the output? Is there anything you want to change about the output? 
+
+```{r}
+# transform the output of the scale function into a vector
+
+```
+
+
+Based on this output, how many standard deviations above the mean is our extreme value, `25`? Should it be considered an outlier?
+
+*** 
+
+
+# Summarizing data {#summarize}
+
+So far we have been calculating various descriptive statistics (somewhat painstakingly) using an assortment of different functions. So what if we have a dataset with a bunch of variables we want descriptive statistics for? Surely we don't want to calculate descriptives for each variable by hand...
+
+Fortunately for us, there is a function called `describe()` from the `{psych}` package, which we can use to quickly summarize a whole set of variables in a dataset. 
+
+Let's look back at our `world_happiness` dataset...
+
+## `psych::describe()`
+
+This function automatically calculates all of the descriptives we reviewed above (and more!). Use the `describe` function from the **psych** package on the entire world_happiness dataset. 
+
+**Notes: ** If you load the a library up front, you can directly call any function from it. Instead, you can call a function by `library_name::function_name` without loading the entire library.  
+
+```{r}
+# generate descriptives of the dataset
+
+```
+
+NOTE: `Country` is not `numeric`, it is a **categorical** variable of type `character`. By default, the `describe()` function forces non-numeric variables to be numeric and attempts to calculate descriptives for them. These variables are marked with an asterisk (`*`). In this case, it doesn't make sense to calculate descriptive statistics for `Country`, so we get a warning message and a bunch of `NaN`'s and `NA`'s for this variable. 
+
+A better approach would be to remove non-numeric variables before you attempt to run numerical calculations on your dataset. You will do just that in [Minihack #4](#minihack4). 
+
+
+If we want to focus on a particular variable, we can calculate descriptives for that variable only. Again, use the `describe` function from the **psych** package, but this time get descriptives just for the Happiness variable.
+
+```{r}
+# generate descriptives of the Happiness variable 
+
+```
+
+**Note: ** `psych::describe()` also gives us skew and kurtosis. Skewness more than +1 or -1 are typically considered highly skewed. Kurotsis values near zero indicate normality. 
+
+***
+
+# Bivariate Descriptives {#bivar}
+
+Bivariate descriptives pertain to the relationship between two variables. 
+
+## Correlation
+
+### `cor()` function
+
+To find the strength of the association between two variables, we can use the `cor()` function from the `{psych}` package. 
+
+For example, in our `world_happiness` dataset, we might want to know the strength of the relationship between a country's `Happiness` and average level of social support, i.e. `Support`. 
+
+```{r}
+# calculate the correlation between Happiness & Support
+
+```
+
+What's the outcome? How can we correct that? 
+
+```{r}
+# calculate the correlation between Happiness & Support
+
+```
+
+Not surprisingly, we see that there is a strong positive association between happiness and social support.
+
+**Note: ** the use of `use = "pairwise.complete.obs"`. Because there is missing data in these variables, this argument is used to tell R to only use observations (i.e. rows in the data frame) for which there is no missing data for either variable.
+
+### Scatterplots
+
+If we want to see this relationship graphically, we can create a *scatterplot*. 
+
+```{r}
+# create a scatterplot 
+
+```
+
+
+### `pairs.panels()` function
+
+If we have a dataset with a reasonably small number of variables, we can use `pairs.panels()` (also from the `{psych}` package) to generate a matrix that contains scatterplots between all of the variables below the diagonal and Pearson correlations between all of the variables above the diagonal. 
+
+```{r}
+# create a bivariate panel 
+
+```
+
+Again, note that we can't interpret the results for `Country` because it is a non-numeric character variable.
+
+## Covariance
+
+Lastly, if we want to find the covariance between two variables, we use the `cov()` function.
+
+```{r}
+
+# calculate the covariance between Happiness & Support
+
+
+```
+
+NOTE: You can also generate a covariance matrix for a whole dataframe by passing a dataframe to `cov()` instead of only two specific variables. The same goes for generating a correlation matrix using `cor()`.
+
+***
+
+**Question: ** Can you generate a correlation matrix? What does the error message mean? How can you correct it? 
+
+***
+
+# In-Line R code {#inline}
+
+We've seen how RMarkdown is a powerful way to create documents that combine code, output, and explanations/comments. 
+
+Rmarkdown text can be combined with code to embed the output of functions into one's written explanations. Here's an exmaple:
+
+**To embed your r code within your text, use the following formatting:**
+
+
+```{r echo = FALSE}
+cat("Write whatever you want, then `r #insert code here` then write some more.")
+```
+
+
+Let's try this out. Here is a vector of values. We will store the mean of the vector in an object called my_mean and the standard deviation in an object called my_sd. Use the formatting above to report the mean and standard deviation of the vector in a sentence after this code chunk. 
+
+```{r}
+my_vector <- c(5,6,14,11,2,1,3,2,8)
+my_mean <- mean(my_vector)
+my_sd <- sd(my_vector)
+```
+
+-- write your sentence here -- 
+
+
+
+
+
+***
+
+# Minihacks {#minihacks}
+
+
+## Minihack 1: Find the mode {#minihack1}
+
+1. Install and load the `{lsr}` package, the companion R package to your textbook, [Learning Statistics with R](https://learningstatisticswithr-bookdown.netlify.com/){target="_blank"}.
+
+2. Check out the help documentation for the function `modeOf()`. 
+```{r}
+
+```
+
+
+3. Use `modeOf()` to find the mode of `simple_vector`. Make sure that the answer you get is `2`. Save your result to an object called `mode`. 
+
+```{r eval=FALSE}
+simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
+```
+
+4. Use the function `maxFreq` to find the frequency of the modal value (i.e. how many time it occurs). Save your result to an object called `modal_freq`.
+
+
+5. Report the mode and frequency of the mode using r code embedded within your text.
+
+
+
+***
+
+## Minihack 2: Outliers
+
+1. Import the corruption_standardized.csv dataset using the import function from the rio package and this url: https://github.com/uopsych/psy611/raw/master/labs/resources/lab2/corruption_standardized.csv. Save it as an object called `corruption_std`. This contains a reduced form of the World Happiness dataset with three variables:
+
+-`Country`
+<br /> 
+-`Corruption`
+<br /> 
+-`Corruption_scaled` (a standardized, i.e. z-scored, version of the `Corruption` variable)
+
+2. Create a histogram of `Corruption`. What do you notice about the shape of this distribution? How would you describe the skewness?
+
+
+3. View `corruption_std`. Based on the z-scores (i.e. `Corruption_scaled`), which countries would be considered outliers on the `Corruption` variable?
+
+4. After identifying which countries are outliers, use what you learned in last week's lab about [indexing data frames](https://uopsych.github.io/psy611/labs/lab-1.html#data_frames){target="_blank"} to remove these rows from the data frame. 
+
+-Hint #1: you can use the minus sign (`-`) for de-selecting.
+<br /> 
+-Hint #2: pay attention to rows `124` and `125`
+
+***
+
+## Minihack 3: Descriptive plots 
+
+For this minihack, we're going to work with a slightly different version of the `world_happiness` data. The dataset can be imported from the following url: https://github.com/uopsych/psy611/raw/master/labs/resources/lab2/world_happiness_2015_sim.csv. This version has two new variables:
+
+-`War` represents whether or not a country was an active participant in WWII or was invested in by the US or Soviet Union just after WWII
+
+-`Service` represents the proportion of the population that works in the service industry. ***Note: this variable has been simulated and is completely made up!***  
+
+1. Import the new version of the data and save it to an object called `world_happiness_sim`.
+
+2. Create a histogram of the `Service` variable. Set the number of bins to `30`. What do you notice about the shape of this distribution?
+
+3. Look up the help documentation for `psych::describeBy()`. Use this function to get descriptive statistics for the `Service` variable for countries involved/not involved in WWII. (That is use `War` as your grouping variable). What are the means and standard deviations for the two groups? 
+
+4. Based on what you observe about these group means, how might this explain the shape of the distribution of the `Service` variable?
+
+***
+
+## Minihack 4: Correlations {#minihack4}
+
+For this minihack, we're going to use the `cor()` function from `{psych}` to create a correlation matrix of the entire `world_happiness` dataset. Be sure to use the original `world_happiness` data frame without the added variables from Minihack #3.
+
+1. First remove the `Country` variable because this variable is not numeric and will not yield meaningful correlations with the other variables in the dataset. Save the resulting dataframe to a new object called `world_happiness_num`.
+
+
+2. Use `cor()` to generate a correlation matrix for all the variables in `world_happiness_num`. Use listwise deletion by specifying `use = "complete.obs"`. 
+
+3. What is the correlation between `Freedom` and `Happiness`? Between `Freedom` and `Corruption`? Do these correlations make intuitive sense?
+
+4. Use bracket notation to extract the relationship between `GDP` and `happiness` using each of these methods. Report the result using in-line r code.
+
