@@ -15,6 +15,8 @@ navbar:
         href: "lectures/03-measurement.html"
       - text: "4-Describing Data I"
         href: "lectures/04-describing-data.html"
+      - text: "5-Describing Data II"
+        href: "lectures/05-describing-data.html"
     - text: Labs
       menu:
       - text: "1 - Introduction to R"
