@@ -20,7 +20,7 @@ navbar:
       - text: "1 - Introduction to R"
         href: "labs/lab-1.html"
       - text: "2 - R Basics and Descriptives"
-        href: "labs/lab-2_student.html"
+        href: "labs/lab-2_instructor.html"
     - text: Homework
       href: homework.html
     - text: Useful Material
