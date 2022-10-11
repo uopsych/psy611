@@ -512,22 +512,33 @@ The mean of my_vector is `r my_mean`.
 
 2. Check out the help documentation for the function `modeOf()`. 
 ```{r}
+#install.packages("lsr")
+library(lsr)
 
+?modeOf
+?maxFreq
 ```
 
 
 3. Use `modeOf()` to find the mode of `simple_vector`. Make sure that the answer you get is `2`. Save your result to an object called `mode`. 
 
-```{r eval=FALSE}
+```{r}
 simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
+
+my_mode <- modeOf(simple_vector)
 ```
 
 4. Use the function `maxFreq` to find the frequency of the modal value (i.e. how many time it occurs). Save your result to an object called `modal_freq`.
 
+```{r}
+modal_freq <- maxFreq(simple_vector)
+```
 
 5. Report the mode and frequency of the mode using r code embedded within your text.
 
+ and its frequency is `r modal_freq`. 
 
+**Notes: ** Because the `mode` is also a functional name in r, usinging it as a variable name can cause trouble some time: e.g. `Error: The inline value cannot be coerced to character: mode`. Giving the variable another name, such as `my_mode` will solve this issue. 
 
 ***
 
@@ -541,16 +552,39 @@ simple_vector <- c(1, 1, 1, 2, 2, 2, 2, 2, 3, 5, 5, 6, 7)
 <br /> 
 -`Corruption_scaled` (a standardized, i.e. z-scored, version of the `Corruption` variable)
 
+```{r}
+corruption_std <- import('https://github.com/uopsych/psy611/raw/master/labs/resources/lab2/corruption_standardized.csv')
+```
+
+
 2. Create a histogram of `Corruption`. What do you notice about the shape of this distribution? How would you describe the skewness?
 
+```{r}
+hist(x = corruption_std$Corruption, main = "Histogram of Corruption Scores", xlab = "Corruption")
+```
+
+Corrumption is negatively skewed. 
 
 3. View `corruption_std`. Based on the z-scores (i.e. `Corruption_scaled`), which countries would be considered outliers on the `Corruption` variable?
+
+```{r}
+# extract the indices of scaled corruption whose absolute value > 3
+outlier_idx <- which(abs(corruption_std$Corruption_scaled) > 3)
+
+# extract the country name using the outlier indices
+corruption_std$Country[outlier_idx]
+```
+
 
 4. After identifying which countries are outliers, use what you learned in last week's lab about [indexing data frames](https://uopsych.github.io/psy611/labs/lab-1.html#data_frames){target="_blank"} to remove these rows from the data frame. 
 
 -Hint #1: you can use the minus sign (`-`) for de-selecting.
 <br /> 
 -Hint #2: pay attention to rows `124` and `125`
+
+```{r}
+corruption_std_clean <- corruption_std[-outlier_idx,]
+```
 
 ***
 
@@ -564,11 +598,32 @@ For this minihack, we're going to work with a slightly different version of the 
 
 1. Import the new version of the data and save it to an object called `world_happiness_sim`.
 
+```{r}
+world_happiness_sim <- import('https://github.com/uopsych/psy611/raw/master/labs/resources/lab2/world_happiness_2015_sim.csv')
+```
+
+
 2. Create a histogram of the `Service` variable. Set the number of bins to `30`. What do you notice about the shape of this distribution?
+
+```{r}
+hist(x = world_happiness_sim$Service, main = "Histogram of Service Scores", xlab = "Service", breaks = 30)
+```
+
+The `Service` variable has a bimodal distribution. 
 
 3. Look up the help documentation for `psych::describeBy()`. Use this function to get descriptive statistics for the `Service` variable for countries involved/not involved in WWII. (That is use `War` as your grouping variable). What are the means and standard deviations for the two groups? 
 
+```{r}
+(service_by_war <- psych::describeBy(world_happiness_sim$Service, group = world_happiness_sim$War))
+```
+
+The means and standard deviations for the countries that involved in WWII are: `r service_by_war$WWII$mean` and `r service_by_war$WWII$sd`.
+  
+The means and standard deviations for the countries that weren't involved in WWII are: `r service_by_war$NotWWII$mean` and `r service_by_war$NotWWII$sd`.
+
 4. Based on what you observe about these group means, how might this explain the shape of the distribution of the `Service` variable?
+
+The proportion of the population that works in the service industry had different yet overlapping distribution among countries that were involved in WWII and those were not. 
 
 ***
 
@@ -578,10 +633,26 @@ For this minihack, we're going to use the `cor()` function from `{psych}` to cre
 
 1. First remove the `Country` variable because this variable is not numeric and will not yield meaningful correlations with the other variables in the dataset. Save the resulting dataframe to a new object called `world_happiness_num`.
 
+```{r}
+# use the within function to remove columns by names 
+world_happiness_num <- within(world_happiness_df, rm(Country))
+
+# or use the subset function to remove columns by names
+world_happiness_num <- subset(world_happiness_df, select = -Country)
+```
+
 
 2. Use `cor()` to generate a correlation matrix for all the variables in `world_happiness_num`. Use listwise deletion by specifying `use = "complete.obs"`. 
 
+```{r}
+(cor_mx <- cor(world_happiness_num, use = "complete.obs"))
+```
+
+
 3. What is the correlation between `Freedom` and `Happiness`? Between `Freedom` and `Corruption`? Do these correlations make intuitive sense?
 
-4. Use bracket notation to extract the relationship between `GDP` and `happiness` using each of these methods. Report the result using in-line r code.
+The correlation between `Freedom` and `Happiness` is `r cor_mx[1,5]`, and the correlation between `Freedom` and `Corruption` is `r cor_mx[7, 5]`. 
+
+
+4. Use bracket notation to extract the relationship between `GDP` and `happiness`. Report the result using in-line r code.
 
