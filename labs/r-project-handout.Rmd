@@ -1,0 +1,44 @@
+---
+title: "R Project Handouts"
+author: "Bernice Cheung"
+date: '2022-10-11'
+output: html_document
+---
+
+# Use R Project to Organize Your Scripts and Data
+
+1. Create a R Project using R Studio  
+![](`r here::here("labs", "resources", "lab1", "new_project", "new_project.png")` "Create new project"){width=50% height=50%}
+
+2. Create sub-folders inside your R project directory (either using R Studio or in Finder/Computer)
+3. Move your data file to the corresponding sub-folder **outside of R studio**
+4. Go back to R Studio (double click the R project). Create a new R markdown file and save it inside the corresponding sub-folder  
+Example of a R project structure:  
+![Example of a R project structure](`r here::here("labs", "resources", "lab2", "RPROJECT_2000dpi.png")`){width=50% height=50%}
+
+5. load the libraries for importing data
+
+```{r warning=FALSE}
+library(rio)
+library(here)
+```
+
+5. Use the `here` function to specify the location of the data file inside the `import` function. The `here` function always starts with the folder where your R project locates. Enter the name of the sub-folder (can be multiple lyers of sub-folders) to specify the location, then enter the file name. 
+
+```{r eval=FALSE}
+df <- import(here('data', 'wave1', 'data.csv'))
+```
+![](`r here::here("labs", "resources", "lab2", "file_dir.png")` "Data Directory"){width=50% height=50%}
+Check more information about R project [here]((https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner%27s-guide/))
+
+
+# Common Error Messages
+
+`Couldn't find the file`: 
+
+1. check if your R project is open in R Studio (**Always open your r script by double clicking the R project**)
+![](`r here::here("labs", "resources", "lab2", "r_project.png")` "Data Directory"){width=50% height=50%}
+
+2. check if the file is inside the sub-folder you specify in `here`. 
+3. check the file name and the file extension name. 
+
