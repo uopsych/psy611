@@ -25,6 +25,8 @@ navbar:
         href: "labs/lab-1.html"
       - text: "2 - R Basics and Descriptives"
         href: "labs/lab-2_instructor.html"
+      - text: "3 - Functional Programming"
+        href: "labs/lab-3_student.html"
     - text: Homework
       href: homework.html
     - text: Useful Material

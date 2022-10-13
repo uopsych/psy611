@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
 <meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
@@ -14,22 +15,12 @@
 
 <title>Psy 611: Data Analysis I</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -39,16 +30,12 @@
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
 <style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -61,8 +48,32 @@ if (window.hljs) {
 
 
 
-
-
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 
 
@@ -72,6 +83,10 @@ if (window.hljs) {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -88,16 +103,40 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
-details > summary > p:only-child {
-  display: inline;
-}
-pre code {
-  padding: 0;
-}
 </style>
 
 
 <style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
 .dropdown-submenu {
   position: relative;
 }
@@ -125,7 +164,7 @@ pre code {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
+  border-left-color: #ffffff;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -137,7 +176,7 @@ pre code {
 }
 </style>
 
-<script type="text/javascript">
+<script>
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -147,28 +186,11 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
+  // mark it active
+  menuAnchor.parent().addClass('active');
 
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
 });
 </script>
 
@@ -180,6 +202,7 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
+  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -215,7 +238,6 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
-  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -244,12 +266,6 @@ $(document).ready(function () {
 }
 }
 
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
 
 .toc-content {
   padding-left: 30px;
@@ -305,7 +321,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
+<div class="row-fluid">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -319,7 +335,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -332,7 +348,7 @@ div.tocify {
   <a href="schedule.html">Syllabus</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Lectures
      
     <span class="caret"></span>
@@ -359,7 +375,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Labs
      
     <span class="caret"></span>
@@ -370,6 +386,9 @@ div.tocify {
     </li>
     <li>
       <a href="labs/lab-2_instructor.html">2 - R Basics and Descriptives</a>
+    </li>
+    <li>
+      <a href="labs/lab-3_student.html">3 - Functional Programming</a>
     </li>
   </ul>
 </li>
@@ -385,7 +404,7 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Previous Years
      
     <span class="caret"></span>
@@ -413,7 +432,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div class="fluid-row" id="header">
 
 
 
@@ -426,112 +445,56 @@ div.tocify {
 
 <div id="overview" class="section level1">
 <h1>Overview</h1>
-<p>This course is the first in a 3-term sequence of classes designed to
-provide a thorough grounding in statistical concepts, methods, and
-applications of relevance to psychological science and related sciences.
-The aim of the course is to help students develop skills in the analysis
-and interpretation of real psychological data. Our focus will be both
-conceptual and mathematical – that is, understanding the underlying
-mathematical principals of statistics enhances ones’ ability to
-interpret and think critically about the use of statistics. Students
-will also learn the basics of the R language and use this program to
-wrangle, visualize, summarize, and test hypotheses with data.</p>
+<p>This course is the first in a 3-term sequence of classes designed to provide a thorough grounding in statistical concepts, methods, and applications of relevance to psychological science and related sciences. The aim of the course is to help students develop skills in the analysis and interpretation of real psychological data. Our focus will be both conceptual and mathematical – that is, understanding the underlying mathematical principals of statistics enhances ones’ ability to interpret and think critically about the use of statistics. Students will also learn the basics of the R language and use this program to wrangle, visualize, summarize, and test hypotheses with data.</p>
 <div id="meeting-times-and-locations" class="section level2">
 <h2>Meeting times and locations</h2>
-<p><strong>Lecture:</strong> Tuesdays and Thursdays, 10:00 - 11:20am, <a
-href="https://map.uoregon.edu/">107 ESL</a></p>
-<p><strong>Lab (Section 15486):</strong> Fridays, 9:00 - 10:20 am,
-Straub 006</p>
-<p><strong>Lab (Section 15487):</strong> Fridays,10:30 - 11:50 am,
-Straub 006</p>
+<p><strong>Lecture:</strong> Tuesdays and Thursdays, 10:00 - 11:20am, <a href="https://map.uoregon.edu/">107 ESL</a></p>
+<p><strong>Lab (Section 15486):</strong> Fridays, 9:00 - 10:20 am, Straub 006</p>
+<p><strong>Lab (Section 15487):</strong> Fridays,10:30 - 11:50 am, Straub 006</p>
 <!-- , 10:00-11:20am, [Zoom](https://uoregon.zoom.us/j/97605175179?pwd=MVFoN2VudVM4a2Y5OXFvaklTRS85Zz09) -->
-<p>This class is officially offered in-person. I will give live lectures
-in Lawrence 222 and you are welcome to attend in person. At the same
-time, my goal is to make it safe and easy for students to access this
-course in whatever format they are comfortable. Therefore, all lectures
-will be recorded for later viewing. In-person attendance in lecture is
-not required. Feel free to stay at home if you prefer. And
-<strong>absolutely do not attend class in-person if you feel
-unwell</strong>. If you have COVID symptoms or have been in close
-contact with someone with known COVID, quarantine and call the UO Health
-Center at 541-346-2770.</p>
-<p>For Zoom best practices and tips, see this <a
-href="readings/PSY%20611%20Zoom%20Cheat%20Sheet.pdf">cheat
-sheet</a>.</p>
+<p>This class is officially offered in-person. I will give live lectures in Lawrence 222 and you are welcome to attend in person. At the same time, my goal is to make it safe and easy for students to access this course in whatever format they are comfortable. Therefore, all lectures will be recorded for later viewing. In-person attendance in lecture is not required. Feel free to stay at home if you prefer. And <strong>absolutely do not attend class in-person if you feel unwell</strong>. If you have COVID symptoms or have been in close contact with someone with known COVID, quarantine and call the UO Health Center at 541-346-2770.</p>
+<p>For Zoom best practices and tips, see this <a href="readings/PSY%20611%20Zoom%20Cheat%20Sheet.pdf">cheat sheet</a>.</p>
 </div>
 <div id="instructors" class="section level2">
 <h2>Instructors</h2>
-<p><strong>Sara Weston</strong> – <a
-href="mailto:sweston2@uoregon.edu">sweston2@uoregon.edu</a> Office
-Hours: <a href="https://calendly.com/sara-weston/weston-office-hours">By
-appointment</a></p>
-<p><strong>Bernice Cheung</strong> – <a
-href="mailto:kcheung3@uoregon.edu">kcheung3@uoregon.edu</a> Office
-Hours: <a href="https://calendly.com/bernicecheung">By
-appointment</a></p>
-<p><strong>Max Drascher</strong> – <a
-href="mailto:mdrasche@uoregon.edu">mdrasche@uoregon.edu</a> Office
-Hours: Thursdays 12-2pm, Straub 419</p>
+<p><strong>Sara Weston</strong> – <a href="mailto:sweston2@uoregon.edu">sweston2@uoregon.edu</a> Office Hours: <a href="https://calendly.com/sara-weston/weston-office-hours">By appointment</a></p>
+<p><strong>Bernice Cheung</strong> – <a href="mailto:kcheung3@uoregon.edu">kcheung3@uoregon.edu</a> Office Hours: <a href="https://calendly.com/bernicecheung">By appointment</a></p>
+<p><strong>Max Drascher</strong> – <a href="mailto:mdrasche@uoregon.edu">mdrasche@uoregon.edu</a> Office Hours: Thursdays 12-2pm, Straub 419</p>
 </div>
 </div>
 <div id="materials" class="section level1">
 <h1>Materials</h1>
 <div id="textbook" class="section level2">
 <h2>Textbook</h2>
-<p>We will primarily be referring to chapters in <a
-href="https://learningstatisticswithr-bookdown.netlify.com/index.html"><em>Learning
-Statistics with R</em></a> by Danielle Navarro. This textbook is
-available for free online. You may choose to purchase a paper copy if
-you wish, but it is not required. Additional readings assignments will
-be posted here.</p>
+<p>We will primarily be referring to chapters in <a href="https://learningstatisticswithr-bookdown.netlify.com/index.html"><em>Learning Statistics with R</em></a> by Danielle Navarro. This textbook is available for free online. You may choose to purchase a paper copy if you wish, but it is not required. Additional readings assignments will be posted here.</p>
 </div>
 <div id="r-and-rstudio" class="section level2">
 <h2>R and RStudio</h2>
-<p>Students must have the latest version of R, which can be downloaded
-<a href="https://ftp.osuosl.org/pub/cran/">here</a>. It is strongly
-recommended that students also download the RStudio GUI, available <a
-href="https://www.rstudio.com/products/rstudio/download/#download">here</a>.
-Both softwares are free.</p>
+<p>Students must have the latest version of R, which can be downloaded <a href="https://ftp.osuosl.org/pub/cran/">here</a>. It is strongly recommended that students also download the RStudio GUI, available <a href="https://www.rstudio.com/products/rstudio/download/#download">here</a>. Both softwares are free.</p>
 </div>
 <div id="resources-for-r-and-rstudio" class="section level2">
 <h2>Resources for R and RStudio</h2>
-<p>While we will be covering the use of R and RStudio extensively in
-both lecture and lab, one of the key skills required to use R is the
-ability to find answers on the Internet. The R commmunity (sometimes
-referred to as the useR community) tends to be friendly and helpful and
-enjoys solving R-related problems in their spare time. For that reason,
-many common questions or problems have been posted to spaces online and
-answered by smart people. Finding and deciphering those answers is the
-key skill you should seek to hone this year. It’s much more important
-than remembering function names.</p>
-<p>Here are some sites where you can find the answers to many R
-questions and learn new tricks:</p>
+<p>While we will be covering the use of R and RStudio extensively in both lecture and lab, one of the key skills required to use R is the ability to find answers on the Internet. The R commmunity (sometimes referred to as the useR community) tends to be friendly and helpful and enjoys solving R-related problems in their spare time. For that reason, many common questions or problems have been posted to spaces online and answered by smart people. Finding and deciphering those answers is the key skill you should seek to hone this year. It’s much more important than remembering function names.</p>
+<p>Here are some sites where you can find the answers to many R questions and learn new tricks:</p>
 <div id="for-learning-the-basics" class="section level3">
 <h3>For learning the basics</h3>
 <ul>
-<li><a href="https://bookdown.org/ndphillips/YaRrr/"><em>YaRrr, the
-Pirate’s Guide to R</em></a> by Nathaniel Phillips</li>
-<li><a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> by
-Hadley Wickham</li>
-<li><a href="http://www.cookbook-r.com/"><em>R Cookbook</em></a> by
-Winston Chang</li>
-<li><a href="http://www-bcf.usc.edu/~gareth/ISL"><em>An Introduction to
-Statistical Learning</em></a> by Gareth James, Daniela Witten, Trevor
-Hastie and Robert Tibshirani</li>
+<li><a href="https://bookdown.org/ndphillips/YaRrr/"><em>YaRrr, the Pirate’s Guide to R</em></a> by Nathaniel Phillips</li>
+<li><a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> by Hadley Wickham</li>
+<li><a href="http://www.cookbook-r.com/"><em>R Cookbook</em></a> by Winston Chang</li>
+<li><a href="http://www-bcf.usc.edu/~gareth/ISL"><em>An Introduction to Statistical Learning</em></a> by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani</li>
 </ul>
 </div>
 <div id="for-plotting" class="section level3">
 <h3>For plotting</h3>
 <ul>
-<li>The <a href="http://www.cookbook-r.com/Graphs/">Graphs chapter of
-<em>R Cookbook</em></a> by Winston Chang</li>
+<li>The <a href="http://www.cookbook-r.com/Graphs/">Graphs chapter of <em>R Cookbook</em></a> by Winston Chang</li>
 </ul>
 </div>
 <div id="quick-resources" class="section level3">
 <h3>Quick resources</h3>
 <ul>
-<li><a href="https://www.rstudio.com/resources/cheatsheets">Cheat
-Sheets</a></li>
+<li><a href="https://www.rstudio.com/resources/cheatsheets">Cheat Sheets</a></li>
 <li><a href="https://www.statmethods.net">Quick-R</a></li>
 </ul>
 </div>
@@ -557,7 +520,7 @@ Sheets</a></li>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -575,7 +538,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+    $(this).parent().toggleClass('nav-tabs-open')
   });
 });
 </script>
@@ -584,9 +547,6 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
@@ -599,7 +559,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
