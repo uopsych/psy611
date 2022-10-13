@@ -1,6 +1,7 @@
-* update to quarto?
-
 * during week 1 of lecture, tell students to download and install R and RStudio and make sure they can open both on their machines at home _before lab_ 
+
+* 1-intro.html
+  * tell students to expect more content in the lab than is actually covered, especially first few weeks
 
 * lab-1.html
   * take out section on installing R and RStudio, move to separate page on website and Canvas
@@ -11,6 +12,15 @@
 
 * 3-measurement.html
   * add figure of X-A-Y-B to the example of 4 types
+  
+* lab-2.html
+  * make data accessible via url (let's save downloading and loading files the normal way for after HW1)
+  
+* 4-describing.html
+  * image of kurtosis
+
+* 5-describing.html
+   * take out height-forearm example
   
 * 6-probability.html
   * demo today good (something similar for sampling error)
