@@ -167,12 +167,15 @@ $$\large \text{not A} = P(\neg A) = 1-P(A)$$
 $$\large \text{A or B} = P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
 
 $$\large \text{A and B }= P (A \cap B) = P(A|B)P(B)$$
+------------------------------------------------------------------------
 
-If the outcomes are independent (a common assumption), then:
+If the outcomes are mutually exclusive, then:
 
 $$\large \text{A or B} = P(A \cup B) = P(A) + P(B)$$
+If the outcomes are independent (a common assumption), then:
 
 $$\large \text{A and B }= P (A \cap B) = P(A)P(B)$$
+Can outcomes be both mutually exclusive and independent?
 
 ::: notes
 $\large \neg$ is the complement of A
