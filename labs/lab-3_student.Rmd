@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE)
 options(scipen = 999)
 ```
 
-You can download the .Rmd file [here](labs/lab-3_student.Rmd).
+You can download the .Rmd file [here](lab-3_student.Rmd).
 
 
 # Purpose
