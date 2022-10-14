@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE)
 options(scipen = 999)
 ```
 
-You can download the .Rmd file [here](lab-3_student.Rmd).
+You can download the .Rmd file [here](labs/lab-3_student.Rmd).
 
 
 # Purpose
@@ -288,7 +288,7 @@ x <- c(5, 9, 8, 10, 14, 18, NA, 19, 24, 35, NA)
 ```
 - Does the function work? Why?
 - Try fixing the bug in this function. Modify the functions so that it ignores NAs, and computes z-scores for all other values in the vector. *Hint* - Look up `?mean` and `?sd`, use the `na.rm` argument. 
-- **BONUS**: add an additonal formal, `na.rm` which handles NAs in an appropriate way if set to `TRUE` and gives an error message if set to `FALSE` and there are NAs present. Make sure to test that your functin handles vectors with no NAs the same regardless of what `na.rm` is set to. Also, make sure to set a default value for `na.rm`.
+- **BONUS**: add an additonal formal, `na.rm` which handles NAs in an appropriate way if set to `TRUE` and gives an error message if set to `FALSE` and there are NAs present. Make sure to test that your function handles vectors with no NAs the same regardless of what `na.rm` is set to. Also, make sure to set a default value for `na.rm`.
 
 
 ```{r eval=FALSE}
