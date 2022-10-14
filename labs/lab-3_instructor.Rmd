@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE)
 options(scipen = 999)
 ```
 
-You can download the .Rmd file [here](lab-3_student.Rmd).
+You can download the .Rmd file [here](lab-3_instructor.Rmd).
 
 
 # Purpose
@@ -102,12 +102,13 @@ x <- c(5, 9, 8, 10, 14, 18, 19, 24, 35)
 In the formula above you need to compute *mean* and *sd* in order to compute the *z-score*. Let's compute the *mean* and *sd* of the vector *x*. I will save the values in objects *m* and *s*
 
 ```{r eval=FALSE}
-#Your code here
+m <- mean(x)
+s <- sd(x)
 ```
 
 Now, you can compute the *z-scores*
 ```{r eval=FALSE}
-#Your code here
+z <- ((x - m)/s)
 ```
 
 At this point you can see that you have all the elements you need to build a function for computing z-scores.  
@@ -115,15 +116,26 @@ At this point you can see that you have all the elements you need to build a fun
 **Step** **3** - Wrap the objects in a function
 At this stage you create the function object and name the function object. 
 ```{r eval=FALSE}
-#Your code here
+z_scores <- function(x){
+                 m <- mean(x)
+                 s <- sd(x)
+                 z <- ((x - m)/s)
+}
 
-
+z_scores(x)
 ```
 
 **Step** **4** - Decide how you want to output the data.
 
 ```{r eval=FALSE}
-#Your code here
+z_scores <- function(x){
+                 m = mean(x)
+                 s = sd(x)
+                 z = ((x - m)/s)
+               return(z)
+}
+
+z_scores(x)
 ```
 You have a working function! 
 
@@ -131,7 +143,14 @@ You have a working function!
 Does the function give you the values you expect? Does the function handle all forms of input you are planning on giving it?
 
 ```{r eval=FALSE}
-#Your code here
+#Are these the values you expect?
+z_scores(x)
+#does it handle single values?
+z_scores(2)
+#does it handle NAs?
+z_scores(c(1,4,5,NA))
+#does it handle character vectors?
+z_scores(c('cat', 'dog'))
 
 ```
 
@@ -141,14 +160,11 @@ Here is one way to handle non-numeric vectors:
 ```{r eval=FALSE}
 z_scores <- function(x){
   
-  if(!is.numeric(x)) {stop("x is not numeric")} 
-  else {
-    m = mean(x)
-    s = sd(x)
-    z = ((x - m)/s)
-   return(z)
-  }
-  
+    if(!is.numeric(x)) {stop("x is not numeric")}
+                 m = mean(x)
+                 s = sd(x)
+                 z = ((x - m)/s)
+               return(z)
 }
 
 #With numeric vector
@@ -223,7 +239,16 @@ there is on this topic, you are encouraged to explore beyond this lab.
 Create a function that multiplies 2 numbers together and divides by a 3rd number (if supplied).
 
 ```{r eval=FALSE}
-#Your code here
+
+test_function <- function(x, y, z=1) {
+  x * y / z
+}
+
+#test
+test_function(3, 5, 4)
+test_function(3, 5)
+test_function(3, 5, 0)
+
 
 ```
 
@@ -247,7 +272,12 @@ mean_ci <- function(x, alpha) {
 - What is the environment of this function?
 
 ```{r include=TRUE, eval=FALSE}
-#Your code here
+#formals
+formals(mean_ci)
+#body
+body(mean_ci)
+#environment
+environment(mean_ci)
 ```
 
 ## Minihack 2: Write a function (guided)
@@ -266,7 +296,26 @@ $$\mu = \frac{\Sigma_{i=1}^N(x_i)}{N}$$
   *  Check if it matches the output from the `mean` function in base R.   
 
 ```{r eval=FALSE}
-#Your code here
+my_mean <- function(random_var) {
+  #Input: 
+  #random_var: a vector of numeric values
+  #Output:
+  #mean
+  #sum of values
+  col_sum <- sum(random_var)
+  #number of values in vector
+  col_length <- length(random_var)
+  #calculate mean
+  m <- col_sum/col_length
+  #return mean
+  m
+}
+#create vector to test with
+random_var <- c(1:10)
+#test
+my_mean(random_var)
+mean(random_var)
+
 ```
 
 
@@ -275,7 +324,16 @@ $$\mu = \frac{\Sigma_{i=1}^N(x_i)}{N}$$
 Sara mentioned $sum$ $of$ $squares$ $(SS)$ in the [class](https://uopsych.github.io/psy611/lectures/04-describing-data.html#/sums-of-squares) last week. Write a function to compute $(SS)$. Build a random vector and test the function. 
 
 ```{r eval=FALSE}
-#Your code here
+library(tidyverse)
+SS <- function(x) {
+  #takes numeric vector, and returns sum of squares
+  (x - mean(x))**2 %>% #get deviations and square
+    sum() #get sum of squared deviations
+}
+#test 
+potato_weights <- rnorm(10, 1, 1)
+ 
+SS(potato_weights)
 ```
 
 ## Minihack 4: Debugging
@@ -283,8 +341,7 @@ Use the `z_scores()` function that we built above for this mini hack. Compute z-
 
 ```{r eval=FALSE}
 x <- c(5, 9, 8, 10, 14, 18, NA, 19, 24, 35, NA)
-
-#Your code here
+z_scores(x)
 ```
 - Does the function work? Why?
 - Try fixing the bug in this function. Modify the functions so that it ignores NAs, and computes z-scores for all other values in the vector. *Hint* - Look up `?mean` and `?sd`, use the `na.rm` argument. 
@@ -292,8 +349,16 @@ x <- c(5, 9, 8, 10, 14, 18, NA, 19, 24, 35, NA)
 
 
 ```{r eval=FALSE}
-#Your code here
+z_scores <- function(x){
+                 m = mean(x, na.rm = T)
+                 s = sd(x, na.rm = T)
+                 z = ((x - m)/s)
+               return(z)
+}
+#test function
+z_scores(x)
 ```
+
 
 
 ## Minihack 5: Reading code and lexical scoping (not covered)

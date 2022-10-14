@@ -1525,7 +1525,7 @@ div.tocify {
 </div>
 
 
-<p>You can download the .Rmd file <a href="lab-3_student.Rmd">here</a>.</p>
+<p>You can download the .Rmd file <a href="lab-3_instructor.Rmd">here</a>.</p>
 <div id="purpose" class="section level1">
 <h1>Purpose</h1>
 <p>In today’s lab we will focus on understanding and building functions. Functions are a fundamental part of data analysis in R. They help with carrying out coding operations in a swift and precise manner. They help to make workflows more dynamic and customized. Once you know how to build your own functions, coding in R becomes easier and you save a lot of time when analyzing data! It’s one of those skills which demands tall investments and needs time to grow. However once you reach a certain level of growth the yields are sizable and worth all the investment.</p>
@@ -1580,28 +1580,46 @@ my_func(x, 2) </code></pre>
 <pre class="r"><code>x &lt;- c(5, 9, 8, 10, 14, 18, 19, 24, 35)</code></pre>
 <p><strong>Step</strong> <strong>2</strong> - compute values needed<br />
 In the formula above you need to compute <em>mean</em> and <em>sd</em> in order to compute the <em>z-score</em>. Let’s compute the <em>mean</em> and <em>sd</em> of the vector <em>x</em>. I will save the values in objects <em>m</em> and <em>s</em></p>
-<pre class="r"><code>#Your code here</code></pre>
+<pre class="r"><code>m &lt;- mean(x)
+s &lt;- sd(x)</code></pre>
 <p>Now, you can compute the <em>z-scores</em></p>
-<pre class="r"><code>#Your code here</code></pre>
+<pre class="r"><code>z &lt;- ((x - m)/s)</code></pre>
 <p>At this point you can see that you have all the elements you need to build a function for computing z-scores.</p>
 <p><strong>Step</strong> <strong>3</strong> - Wrap the objects in a function At this stage you create the function object and name the function object.</p>
-<pre class="r"><code>#Your code here</code></pre>
+<pre class="r"><code>z_scores &lt;- function(x){
+                 m &lt;- mean(x)
+                 s &lt;- sd(x)
+                 z &lt;- ((x - m)/s)
+}
+
+z_scores(x)</code></pre>
 <p><strong>Step</strong> <strong>4</strong> - Decide how you want to output the data.</p>
-<pre class="r"><code>#Your code here</code></pre>
+<pre class="r"><code>z_scores &lt;- function(x){
+                 m = mean(x)
+                 s = sd(x)
+                 z = ((x - m)/s)
+               return(z)
+}
+
+z_scores(x)</code></pre>
 <p>You have a working function!</p>
 <p><strong>Step</strong> <strong>5</strong> - Testing/Debugging Does the function give you the values you expect? Does the function handle all forms of input you are planning on giving it?</p>
-<pre class="r"><code>#Your code here</code></pre>
+<pre class="r"><code>#Are these the values you expect?
+z_scores(x)
+#does it handle single values?
+z_scores(2)
+#does it handle NAs?
+z_scores(c(1,4,5,NA))
+#does it handle character vectors?
+z_scores(c('cat', 'dog'))</code></pre>
 <p>Here is one way to handle non-numeric vectors:</p>
 <pre class="r"><code>z_scores &lt;- function(x){
   
-  if(!is.numeric(x)) {stop(&quot;x is not numeric&quot;)} 
-  else {
-    m = mean(x)
-    s = sd(x)
-    z = ((x - m)/s)
-   return(z)
-  }
-  
+    if(!is.numeric(x)) {stop(&quot;x is not numeric&quot;)}
+                 m = mean(x)
+                 s = sd(x)
+                 z = ((x - m)/s)
+               return(z)
 }
 
 #With numeric vector
@@ -1669,7 +1687,14 @@ Here are some suggestions to get you started on how to think about writing funct
 <div id="lets-practice-one-more-example" class="section level1">
 <h1>Let’s practice one more example</h1>
 <p>Create a function that multiplies 2 numbers together and divides by a 3rd number (if supplied).</p>
-<pre class="r"><code>#Your code here</code></pre>
+<pre class="r"><code>test_function &lt;- function(x, y, z=1) {
+  x * y / z
+}
+
+#test
+test_function(3, 5, 4)
+test_function(3, 5)
+test_function(3, 5, 0)</code></pre>
 <hr />
 </div>
 <div id="minihacks" class="section level1">
@@ -1686,7 +1711,12 @@ Here are some suggestions to get you started on how to think about writing funct
 <li>What is the body of this function?</li>
 <li>What is the environment of this function?</li>
 </ul>
-<pre class="r"><code>#Your code here</code></pre>
+<pre class="r"><code>#formals
+formals(mean_ci)
+#body
+body(mean_ci)
+#environment
+environment(mean_ci)</code></pre>
 </div>
 <div id="minihack-2-write-a-function-guided" class="section level2">
 <h2>Minihack 2: Write a function (guided)</h2>
@@ -1708,25 +1738,58 @@ Here are some suggestions to get you started on how to think about writing funct
 </li>
 <li>Check if it matches the output from the <code>mean</code> function in base R.</li>
 </ul>
-<pre class="r"><code>#Your code here</code></pre>
+<pre class="r"><code>my_mean &lt;- function(random_var) {
+  #Input: 
+  #random_var: a vector of numeric values
+  #Output:
+  #mean
+  #sum of values
+  col_sum &lt;- sum(random_var)
+  #number of values in vector
+  col_length &lt;- length(random_var)
+  #calculate mean
+  m &lt;- col_sum/col_length
+  #return mean
+  m
+}
+#create vector to test with
+random_var &lt;- c(1:10)
+#test
+my_mean(random_var)
+mean(random_var)</code></pre>
 </div>
 <div id="minihack-3-write-a-function-hands-off" class="section level2">
 <h2>Minihack 3: Write a function (hands off)</h2>
 <p>Sara mentioned <span class="math inline">\(sum\)</span> <span class="math inline">\(of\)</span> <span class="math inline">\(squares\)</span> <span class="math inline">\((SS)\)</span> in the <a href="https://uopsych.github.io/psy611/lectures/04-describing-data.html#/sums-of-squares">class</a> last week. Write a function to compute <span class="math inline">\((SS)\)</span>. Build a random vector and test the function.</p>
-<pre class="r"><code>#Your code here</code></pre>
+<pre class="r"><code>library(tidyverse)
+SS &lt;- function(x) {
+  #takes numeric vector, and returns sum of squares
+  (x - mean(x))**2 %&gt;% #get deviations and square
+    sum() #get sum of squared deviations
+}
+#test 
+potato_weights &lt;- rnorm(10, 1, 1)
+ 
+SS(potato_weights)</code></pre>
 </div>
 <div id="minihack-4-debugging" class="section level2">
 <h2>Minihack 4: Debugging</h2>
 <p>Use the <code>z_scores()</code> function that we built above for this mini hack. Compute z-scores of the following vector.</p>
 <pre class="r"><code>x &lt;- c(5, 9, 8, 10, 14, 18, NA, 19, 24, 35, NA)
-
-#Your code here</code></pre>
+z_scores(x)</code></pre>
 <ul>
 <li>Does the function work? Why?</li>
 <li>Try fixing the bug in this function. Modify the functions so that it ignores NAs, and computes z-scores for all other values in the vector. <em>Hint</em> - Look up <code>?mean</code> and <code>?sd</code>, use the <code>na.rm</code> argument.</li>
 <li><strong>BONUS</strong>: add an additonal formal, <code>na.rm</code> which handles NAs in an appropriate way if set to <code>TRUE</code> and gives an error message if set to <code>FALSE</code> and there are NAs present. Make sure to test that your function handles vectors with no NAs the same regardless of what <code>na.rm</code> is set to. Also, make sure to set a default value for <code>na.rm</code>.</li>
 </ul>
-<pre class="r"><code>#Your code here</code></pre>
+<pre class="r"><code>z_scores &lt;- function(x){
+                 m = mean(x, na.rm = T)
+                 s = sd(x, na.rm = T)
+                 z = ((x - m)/s)
+               return(z)
+}
+#test function
+z_scores(x)</code></pre>
 </div>
 <div id="minihack-5-reading-code-and-lexical-scoping-not-covered" class="section level2">
 <h2>Minihack 5: Reading code and lexical scoping (not covered)</h2>
