@@ -19,6 +19,8 @@ navbar:
         href: "lectures/05-describing-data.html"
       - text: "6-Probability"
         href: "lectures/06-probability.html"
+      - text: "7-Binomial Distributions"
+        href: "lectures/07-binomial.html"
     - text: Labs
       menu:
       - text: "1 - Introduction to R"
