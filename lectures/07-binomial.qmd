@@ -369,8 +369,6 @@ In probability and statistics, if the assumptions are wrong then inferences base
 
 ------------------------------------------------------------------------
 
-> All models are wrong, but some models are useful. (G.E.P. Box)
-
 We might have viable alternative models:
 
 -   **Geometric distribution:** Used if we are interested in the number of trials required for one "success" to occur
@@ -378,17 +376,13 @@ We might have viable alternative models:
 
 ------------------------------------------------------------------------
 
-> All models are wrong, but some models are useful. (G.E.P. Box)
 
 We might have viable alternative models:
 
--   **Negative binomial distribution:** Used if we are interested in the number of successes in a series of repeated trials until a specified number of failures are seen
-    -   "What is the probability that a baseball player will get his 2nd hit on his 4th at-bat?"
+-   **Negative binomial distribution:** Used if we are interested in the number of trials required for a specific number of "successes" to occur
     -   "A child won't return from trick or treating until they get 5 full-size candy bars. What is the probability that they will have to visit 34 homes to get this?"
 
 ------------------------------------------------------------------------
-
-> All models are wrong, but some models are useful. (G.E.P. Box)
 
 We might have viable alternative models:
 
