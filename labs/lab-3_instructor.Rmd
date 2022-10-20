@@ -16,6 +16,12 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r, echo = F, eval = F}
+# hey future GE -- you can take out the stuff about environments!
+# change the name to writing functions?
+```
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 

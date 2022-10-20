@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="08-normal_files/libs/clipboard/clipboard.min.js"></script>
+<script src="08-normal_files/libs/quarto-html/tabby.min.js"></script>
+<script src="08-normal_files/libs/quarto-html/popper.min.js"></script>
+<script src="08-normal_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="08-normal_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="08-normal_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="08-normal_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.0.38">
+
+  <title>Normal Distributions</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="08-normal_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="08-normal_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="08-normal_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="08-normal_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="08-normal_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="08-normal_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="08-normal_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-captioned.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-captioned) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-captioned .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-captioned .callout-caption  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-captioned.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-captioned.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-caption {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-caption {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-caption {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-captioned .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-captioned .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-captioned) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-caption {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-caption {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-caption {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-caption {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-caption {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="center">
+  <h1 class="title">Normal Distributions</h1>
+</section>
+
+<section id="last-time" class="slide level2">
+<h2>Last time…</h2>
+<p>the binomial distribution</p>
+<p>Four assumptions?</p>
+<ul>
+<li class="fragment">Two elementary events per trial</li>
+<li class="fragment">The probability for success is the same on each trial</li>
+<li class="fragment">Trials are independent of one another</li>
+<li class="fragment">The number of trials is known and fixed</li>
+</ul>
+<p>Probability mass function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># make it pretty</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>colors <span class="ot">=</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">4</span>, <span class="st">"Set2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="today" class="slide level2">
+<h2>Today…</h2>
+<div>
+<ul>
+<li>The normal distribution</li>
+<li>Why the normal is so important</li>
+<li><span class="math inline">\(t\)</span>, <span class="math inline">\(F\)</span>, and <span class="math inline">\(\chi^2\)</span> distributions (briefly, for now)</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<p>The <strong>normal distribution</strong> (“bell curve” or “Gaussian distribution”) is a two-parameter distribution defined by the mean ( <span class="math inline">\(\mu\)</span> ) and standard deviation ( <span class="math inline">\(\sigma\)</span> ) and having the following probability density function:</p>
+<p><span class="math display">\[p(X|\mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma}}exp[-\frac{(X-\mu)^2}{2\sigma^2}]\]</span></p>
+<p><span class="math display">\[X\sim N(\mu,\sigma)\]</span></p>
+<aside class="notes">
+<p>Note p not P</p>
+<p>Also note function of <em>z</em>-scores</p>
+<p>pull out 2, pull out 1/2</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="expected-value">Expected value</h3>
+<p>The expected value of the normal distribution is quite easy.</p>
+<p><span class="math display">\[E(X) = \mu\]</span></p>
+<p><span class="math display">\[Var(X) = \sigma^2\]</span></p>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><span style="font-size:30px;">The <strong>probability density function</strong> gives the height of the curve at a particular value for X.</span></p>
+<p><span style="font-size:30px;">Although these values communicate information about probability or likelihood, they are not probabilities.</span></p>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x)) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Variable X"</span>) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Density"</span>)<span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">ggtitle</span>(<span class="st">"The normal curve"</span>) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="08-normal_files/figure-revealjs/normal-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x)) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Variable X"</span>) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Density"</span>)<span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">ggtitle</span>(<span class="st">"The normal curve"</span>) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img data-src="08-normal_files/figure-revealjs/unnamed-chunk-2-1.png" width="960"></p>
+</div>
+</div>
+<p><span class="math display">\[\small p(X|\mu, \sigma) = \\ \frac{1}{\sqrt{2\pi\sigma}}exp[-\frac{(X-\mu)^2}{2\sigma^2}]\]</span></p>
+<p>Probability <strong>Density</strong></p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">data.frame</span>(<span class="at">num =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">p =</span> <span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>num, <span class="at">y=</span>p)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="st">"Number of sixes (X) in five rolls (N)"</span>, <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>)) <span class="sc">+</span><span class="fu">scale_y_continuous</span>(<span class="st">"Probability"</span>)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Binomial Probability Distribution"</span>)<span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img data-src="08-normal_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
+</div>
+</div>
+<p><span class="math display">\[\small P(X|\theta,N) = \\\frac{N!}{X!(N-X)!}\theta^X(1-\theta)^{N-X}\]</span></p>
+<p>Probability <strong>Mass</strong></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Both the normal distribution and the binomial distribution follow the Law of Total Probability, but in different ways.</p>
+<p>In the <em>binomial distribution</em>, each outcome in the sample space has a probability and these probabilities sum to 1.</p>
+<p>In the <em>normal distribution</em>, there are an infinite number of values, each having a probability of 0, but the probability that some value will occur is 1. The area under the curve is 1.</p>
+<p>The density values are derived to insure that the area under the density curve is 1. They have no inherent meaning beyond that.</p>
+</section>
+<section class="slide level2">
+
+<p>Density is mass per volume. In this context (curve in two dimensions) density is mass per area. The total density in the normal curve is 1.</p>
+<p>The density for a part of the curve (a smaller area) will necessarily be less than 1.</p>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><span style="font-size:30px;">The area under the curve that lies between the mean (here 0) and a value of 1 is the probability of a score between 0 and 1.</span></p>
+<p><span style="font-size:30px;">As we shrink that area by moving X closer to the mean, that probability interpretation holds.</span></p>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x)) <span class="sc">+</span> </span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x) , </span>
+<span id="cb5-4"><a href="#cb5-4"></a>                <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb5-5"><a href="#cb5-5"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">fill =</span> colors[<span class="dv">1</span>]) <span class="sc">+</span> </span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Variable X"</span>) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="st">"Density"</span>)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"The normal curve"</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img data-src="08-normal_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><span style="font-size:30px;">As our interval shrinks closer and closer to 0, our area (probability) shrinks as well.</span></p>
+<p><span style="font-size:30px;">It can get vanishingly close to 0—essentially a point rather than an area.</span></p>
+<p><span style="font-size:30px;">The probability of that “point” is 0.</span></p>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">pnorm</span>(x)<span class="sc">-</span>.<span class="dv">5</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>)<span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Z"</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Density"</span>, <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,.<span class="dv">4</span>)) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">ggtitle</span>(<span class="st">"Area under the normal curve between Z and 0"</span>) <span class="sc">+</span> </span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img data-src="08-normal_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><span style="font-size:30px;">We can keep shrinking the distance between Z and 0, never reaching 0, and still calculate an area.</span></p>
+<p><span style="font-size:30px;">It will be very, very small. </span></p>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, .<span class="dv">001</span>, <span class="at">by =</span>.<span class="dv">00005</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">pnorm</span>(x)<span class="sc">-</span>.<span class="dv">5</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>)<span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Z"</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Density"</span>) <span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Area under the normal curve between Z and 0"</span>)<span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img data-src="08-normal_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>It does not make sense to talk about the probability of a point for a continuous variable, but it does make sense to talk about the probability that a score will fall between two points or the probability that a score will fall above or below a point.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="characteristics-of-the-normal-distribution">Characteristics of the normal distribution</h3>
+<ul>
+<li class="fragment"><p>The mean and standard deviation are independent</p></li>
+<li class="fragment"><p>The distribution is unimodal and symmetrical.</p></li>
+<li class="fragment"><p>For two normal distributions, the area under the curve between corresponding locations in standard deviation units is the same regardless of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
+<ul>
+<li class="fragment">For example, 68.3% of the area under a normal curve falls between 1 <span class="math inline">\(\sigma\)</span> below the mean and 1 <span class="math inline">\(\sigma\)</span> above mean—for every normal curve. This general characteristic is called the <strong>Empirical Rule</strong>.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> .<span class="dv">2</span>), <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="sc">-</span><span class="fl">1.25</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Variable X"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">ggtitle</span>(<span class="st">"Normal Curves"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="08-normal_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>All of these distributions are normal and have an equivalent area (proportion) that falls between a standard deviation below and above their respective means.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>p1 <span class="ot">=</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>) , </span>
+<span id="cb9-3"><a href="#cb9-3"></a>                <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0-2</span>, <span class="dv">0</span><span class="sc">+</span><span class="dv">2</span>),</span>
+<span id="cb9-4"><a href="#cb9-4"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">fill =</span> colors[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Variable X"</span>) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Density"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">2</span>))<span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="fu">ggtitle</span>(<span class="st">"Area under the normal curve"</span>) <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">25</span>), </span>
+<span id="cb9-11"><a href="#cb9-11"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>))</span>
+<span id="cb9-12"><a href="#cb9-12"></a></span>
+<span id="cb9-13"><a href="#cb9-13"></a>p2 <span class="ot">=</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> .<span class="dv">2</span>) , </span>
+<span id="cb9-15"><a href="#cb9-15"></a>                <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">2</span><span class="fl">-.2</span>, <span class="dv">2</span><span class="fl">+.2</span>),</span>
+<span id="cb9-16"><a href="#cb9-16"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">fill =</span> colors[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> .<span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Variable X"</span>) <span class="sc">+</span></span>
+<span id="cb9-20"><a href="#cb9-20"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Density"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">2</span>))<span class="sc">+</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a>  <span class="fu">ggtitle</span>(<span class="st">"Area under the normal curve"</span>)<span class="sc">+</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">25</span>), </span>
+<span id="cb9-23"><a href="#cb9-23"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>))</span>
+<span id="cb9-24"><a href="#cb9-24"></a></span>
+<span id="cb9-25"><a href="#cb9-25"></a>p3 <span class="ot">=</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb9-26"><a href="#cb9-26"></a><span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="sc">-</span><span class="fl">1.25</span>, <span class="at">sd =</span> <span class="dv">1</span>) , </span>
+<span id="cb9-27"><a href="#cb9-27"></a>                <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.25</span><span class="dv">-1</span>, <span class="sc">-</span><span class="fl">1.25</span><span class="sc">+</span><span class="dv">1</span>),</span>
+<span id="cb9-28"><a href="#cb9-28"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">fill =</span> colors[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb9-29"><a href="#cb9-29"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="sc">-</span><span class="fl">1.25</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb9-30"><a href="#cb9-30"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb9-31"><a href="#cb9-31"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Variable X"</span>) <span class="sc">+</span></span>
+<span id="cb9-32"><a href="#cb9-32"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Density"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">2</span>))<span class="sc">+</span></span>
+<span id="cb9-33"><a href="#cb9-33"></a>  <span class="fu">ggtitle</span>(<span class="st">"Area under the normal curve"</span>)<span class="sc">+</span></span>
+<span id="cb9-34"><a href="#cb9-34"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">25</span>), </span>
+<span id="cb9-35"><a href="#cb9-35"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>))</span>
+<span id="cb9-36"><a href="#cb9-36"></a></span>
+<span id="cb9-37"><a href="#cb9-37"></a><span class="fu">ggarrange</span>(p1, p2, p3, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="08-normal_files/figure-revealjs/unnamed-chunk-8-1.png" width="1248" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>Approximately 68% of the data in a normal distribution will be within one standard deviation of the mean.</p>
+<ul>
+<li class="fragment">About 95% of the data will be within two standard deviations of the mean.<br>
+</li>
+<li class="fragment">About 99.7% of the data will be within three standard deviations of the mean.</li>
+</ul>
+<p>In other words, nearly all of the data will fall within 3 standard deviations of the mean in a normal distribution.</p>
+<p>These benchmarks are convenient for determining if a score (and later, a mean) is rare or unusual in the context of a particular distribution.</p>
+</section>
+<section id="standard-normal-distribution" class="slide level2">
+<h2>Standard normal distribution</h2>
+<p><span style="font-size:35px;">The normal distribution with <span class="math inline">\(\mu\)</span>=0 and <span class="math inline">\(\sigma\)</span>=1 is called standard normal.</span></p>
+<p><span style="font-size:35px;">Variables with quite different means and standard deviations can be standardized so that they can be compared in the same metric (standard deviation units). This allows statements such as “relative to the mean, I am more conscientious (e.g., <span class="math inline">\(Z=2\)</span>) than I am extraverted (e.g., <span class="math inline">\(Z=1\)</span>).”</span></p>
+<p><span style="font-size:35px;">I could not say, however, that I am twice as conscientious as I am extraverted.</span></p>
+<p><span style="font-size:35px;">All continuous distributions can be standardized, but if they are not normal to begin with, standardization will not make them so. <em>Standardization does not alter distribution shape.</em></span></p>
+<aside class="notes">
+<p>Why?</p>
+<div>
+<ul>
+<li>not ratio scales, no set amount to compare</li>
+<li>not the same units – what I’m twice as heavy as I am tall?</li>
+<li><em>z</em>-score is comparison to other people</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="standard-normal-distribution-1">Standard normal distribution</h3>
+<p>There is only one (1) standard normal distribution.</p>
+<p><strong>How is this useful?</strong></p>
+<ul>
+<li class="fragment"><p><span style="font-size:35px;">Given any score, we can calculate the probability of getting a value greater than that <em>z</em>-score. <em>(Or less than that <em>z</em>-score.)</em></span></p></li>
+<li class="fragment"><p><span style="font-size:35px;">Given any two <em>z</em>-scores, we can calculate the probability of getting a value between these scores. <em>(Or outside those <em>z</em>-scores)</em></span></p></li>
+<li class="fragment"><p><span style="font-size:35px;">Given a probability <span class="math inline">\(p\)</span>, we can identify the <em>z</em>-score at which the proportion of scores below <em>(or above)</em> <span class="math inline">\(p\)</span> falls. </span></p></li>
+<li class="fragment"><p><span style="font-size:35px;">Given a probability <span class="math inline">\(p\)</span>, we can identify the <em>z</em>-score at which the proportion of scores that fall above <span class="math inline">\(-Z\)</span> and below <span class="math inline">\(Z\)</span> is equal to <span class="math inline">\(p\)</span>.</span></p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="example">Example</h3>
+<p>What’s the probability of getting a <em>z</em>-score smaller than 1.2?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">pnorm</span>(<span class="fl">1.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8849303</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x) , </span>
+<span id="cb12-3"><a href="#cb12-3"></a>                <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="fl">1.2</span>),</span>
+<span id="cb12-4"><a href="#cb12-4"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">fill =</span> colors[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x)) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"z-score"</span>) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Density"</span>)<span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a>  <span class="fu">theme_pubr</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="08-normal_files/figure-revealjs/unnamed-chunk-10-1.png" width="1440" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="example-1">Example</h3>
+<p>What’s the probability of getting a score smaller than 68 when the mean of the distribution is 72 and the variance is 8?</p>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Do this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>(<span class="at">z =</span> (<span class="dv">68-72</span>)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.414214</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">pnorm</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0786496</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Or this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">68</span>, </span>
+<span id="cb17-2"><a href="#cb17-2"></a>      <span class="at">mean =</span> <span class="dv">72</span>, </span>
+<span id="cb17-3"><a href="#cb17-3"></a>      <span class="at">sd =</span> <span class="fu">sqrt</span>(<span class="dv">8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0786496</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">62</span>, <span class="dv">81</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> <span class="dv">72</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(<span class="dv">8</span>)) , </span>
+<span id="cb19-3"><a href="#cb19-3"></a>                <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">62</span>, <span class="dv">68</span>),</span>
+<span id="cb19-4"><a href="#cb19-4"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">fill =</span> colors[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> <span class="dv">72</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(<span class="dv">8</span>))) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"z-score"</span>) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Density"</span>)<span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9"></a>  <span class="fu">theme_pubr</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="08-normal_files/figure-revealjs/unnamed-chunk-13-1.png" width="1440" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>In a distribution with mean 32 and standard deviation 4, what score corresponds to the 80th percentile?</p>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Do this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>(<span class="at">z =</span> <span class="fu">qnorm</span>(.<span class="dv">80</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8416212</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="dv">32</span> <span class="sc">+</span> (<span class="dv">4</span><span class="sc">*</span>z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 35.36648</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Or this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">qnorm</span>(.<span class="dv">80</span>,</span>
+<span id="cb24-2"><a href="#cb24-2"></a>      <span class="at">m =</span> <span class="dv">32</span>, </span>
+<span id="cb24-3"><a href="#cb24-3"></a>      <span class="at">sd =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 35.36648</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>What’s the likelihood of a score falling between X = 2 and x = 7 when the mean = 3 and the standard deviation is 2?</p>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Do this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>(<span class="at">z2 =</span> (<span class="dv">2-3</span>)<span class="sc">/</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>(<span class="at">z7 =</span> (<span class="dv">7-3</span>)<span class="sc">/</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>(<span class="at">belowz2 =</span> <span class="fu">pnorm</span>(<span class="sc">-</span>.<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3085375</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>(<span class="at">belowz7 =</span> <span class="fu">pnorm</span>(<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9772499</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>belowz7<span class="sc">-</span>belowz2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6687123</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Or this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>(<span class="at">below2 =</span> <span class="fu">pnorm</span>(<span class="dv">2</span>, <span class="at">m =</span> <span class="dv">3</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3085375</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>(<span class="at">below7 =</span> <span class="fu">pnorm</span>(<span class="dv">7</span>, <span class="at">m =</span> <span class="dv">3</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9772499</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>below7<span class="sc">-</span>below2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6687123</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="sampling-distributions-are-normal">Sampling distributions are normal</h3>
+<p>One of the most important discoveries in statistics is that the sampling distributions of many statistics are approximately normal even when the sample (and population) distributions are not.</p>
+<p>The <strong>sampling distribution</strong> of a statistic is the probability distribution that specifies probabilities for the possible values that the statistic can take.</p>
+<ul>
+<li class="fragment">For example, the mean of a random sample will not precisely equal the population mean. But, how far off will it be? And what distribution shape will these possible sample mean values have?</li>
+</ul>
+<p>The error represented by how far off a sample mean is from the population mean is called <strong>sampling error</strong>.</p>
+<aside class="notes">
+<p>DRAW SAMPLING DISTRIBUTION</p>
+<p>Show mean, show how more likely close to values of mean draw bar to represent sampling error</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="central-limit-theorem">Central limit theorem</h3>
+<p>According to the <strong>central limit theorem</strong>, as sample size increases, the sampling distribution of the mean approaches normality, even when the data upon which the mean is based are not normally distributed.</p>
+<p>The sample size necessary to be “approximately normal” depends on the nature of the underlying data. The less normal it is, the larger the sample size necessary in order for the sampling distribution of the means to become normal.</p>
+<p>“Around sample size of 30” is a common rule of thumb.</p>
+<p><span style="font-size:30px;">- Note, however, that this rule of thumb is sufficiently only to assume that the sampling distribution is normal. This makes no assumptions about statistical power.</span></p>
+<aside class="notes">
+<p>Regardless of the CLT, if the data are skewed, we might wonder if the mean is the best estimator to use here.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<p>The standard deviation of the sampling distribution of the means is called the <strong>standard error of the mean</strong>. It is directly related to the variability of the underlying data:</p>
+<p><span class="math display">\[\sigma_{mean} = \frac{\sigma_X}{\sqrt{N}}\]</span></p>
+<p>The same benchmarks for “rarity” that exist for normally distributed data also exist for normally distributed means. This is the basis for much statistical inference.</p>
+<p>What if we don’t know <span class="math inline">\(\mu\)</span> or <span class="math inline">\(\sigma\)</span>? What if we want to understand the sampling behavior of the variance rather than the means?</p>
+</section>
+<section class="slide level2">
+
+<p>If we can assume the data are normally distributed, then other distributions can be used to address these additional questions.</p>
+<p>The <span class="math inline">\(t\)</span> distribution, like the normal, is unimodal and symmetrical. It has a single parameter, <span class="math inline">\(\nu\)</span>, called the degrees of freedom (related to the sample size, <span class="math inline">\(N\)</span>).</p>
+<p>If a sample of size, <span class="math inline">\(N\)</span>, comes from a normal distribution with unknown <span class="math inline">\(\sigma\)</span>, then the data will follow a <span class="math inline">\(t\)</span> distribution.</p>
+<p>The sampling distribution of the mean will also follow a <span class="math inline">\(t\)</span> distribution.</p>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><span style="font-size:26px;">The <span class="math inline">\(t\)</span> distribution is used when data are normally distributed but we do not know the population mean or standard deviation. </span></p>
+<p><span style="font-size:26px;">This must be estimated from the sample and the added uncertainty produces a distribution with heavier tails. As sample size increases, the <span class="math inline">\(t\)</span> distribution converges on the normal distribution.</span></p>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x), </span>
+<span id="cb42-3"><a href="#cb42-3"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"Normal"</span>, <span class="at">linetype =</span> <span class="st">"Normal"</span>)) <span class="sc">+</span></span>
+<span id="cb42-4"><a href="#cb42-4"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">1</span>), </span>
+<span id="cb42-5"><a href="#cb42-5"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"t(1)"</span>, <span class="at">linetype =</span> <span class="st">"t(1)"</span>)) <span class="sc">+</span></span>
+<span id="cb42-6"><a href="#cb42-6"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">5</span>), </span>
+<span id="cb42-7"><a href="#cb42-7"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"t(5)"</span>, <span class="at">linetype =</span> <span class="st">"t(5)"</span>)) <span class="sc">+</span></span>
+<span id="cb42-8"><a href="#cb42-8"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">25</span>), </span>
+<span id="cb42-9"><a href="#cb42-9"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"t(25)"</span>, <span class="at">linetype =</span> <span class="st">"t(25)"</span>)) <span class="sc">+</span></span>
+<span id="cb42-10"><a href="#cb42-10"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">100</span>), </span>
+<span id="cb42-11"><a href="#cb42-11"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"t(100)"</span>, <span class="at">linetype =</span> <span class="st">"t(100)"</span>)) <span class="sc">+</span> </span>
+<span id="cb42-12"><a href="#cb42-12"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Variable X"</span>) <span class="sc">+</span></span>
+<span id="cb42-13"><a href="#cb42-13"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb42-14"><a href="#cb42-14"></a>  <span class="fu">scale_color_manual</span>(<span class="st">""</span>, </span>
+<span id="cb42-15"><a href="#cb42-15"></a>                     <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"black"</span>, <span class="st">"black"</span>, <span class="st">"blue"</span>, <span class="st">"blue"</span>)) <span class="sc">+</span></span>
+<span id="cb42-16"><a href="#cb42-16"></a>  <span class="fu">scale_linetype_manual</span>(<span class="st">""</span>, </span>
+<span id="cb42-17"><a href="#cb42-17"></a>                        <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"solid"</span>, <span class="st">"solid"</span>, <span class="st">"dashed"</span>, <span class="st">"solid"</span>, <span class="st">"dashed"</span>)) <span class="sc">+</span></span>
+<span id="cb42-18"><a href="#cb42-18"></a>  <span class="fu">ggtitle</span>(<span class="st">"The Normal and t Distributions"</span>) <span class="sc">+</span></span>
+<span id="cb42-19"><a href="#cb42-19"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>),<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img data-src="08-normal_files/figure-revealjs/unnamed-chunk-18-1.png" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Just like with the standard normal (Z) distribution, there are 1-1 relationships between probability and “<span class="math inline">\(t\)</span>-scores”.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<p><span style="font-size:30px;">Sometimes our interest will be in variability rather than means. We can make use of the <span class="math inline">\(\chi^2\)</span> distribution here. It has a single parameter, <span class="math inline">\(\nu\)</span>, related to the sample size, <span class="math inline">\(N\)</span>. There is an important relationship between the normal distribution and the <span class="math inline">\(\chi^2\)</span> distribution:</span></p>
+<p><span class="math display">\[\text{If } Z \sim N(0,1), \\\text{then }Z^2 \sim \chi^2_1 \\\text{ and } \sum_{i=1}^{N}Z^2 \sim \chi^2_N\]</span></p>
+<p><span style="font-size:30px;">In other words, the sum of squared standard normal variables will have a <span class="math inline">\(\chi^2\)</span> distribution. Therefore, we can also assume that variance is <span class="math inline">\(\chi^2\)</span> distributed. </span></p>
+</section>
+<section class="slide level2">
+
+<p><span style="font-size:30px;">Another common question is related to comparing multiple variances. Suppose we conduct an experiment that has four different conditions. We expect that the means for these conditions will be different, but how can we know if they are different enough to claim that it is due to our experiment and not just random variability?</span></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Condition 1</th>
+<th style="text-align: center;">Condition 2</th>
+<th style="text-align: center;">Condition 3</th>
+<th style="text-align: center;">Condition 4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(M_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(M_2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(M_3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(M_4\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(SD_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(SD_2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(SD_3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(SD_4\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><span style="font-size:30px;">One approach to this question would start by taking the variability of the means, that is, variability between conditions:</span></p>
+<p><span class="math display">\[\large s^2_{\text{between}}\]</span></p>
+</section>
+<section class="slide level2">
+
+<p><span class="math display">\[\Large s^2_{\text{between}}\]</span></p>
+<p><span style="font-size:30px;">This variability will include any that was produced by the experimental conditions as well as any random variability. We have no way of separating those two parts. How can we know if the experiment-induced part is “big enough” to claim that the experiment “worked?”</span></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Condition 1</th>
+<th style="text-align: center;">Condition 2</th>
+<th style="text-align: center;">Condition 3</th>
+<th style="text-align: center;">Condition 4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(M_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(M_2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(M_3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(M_4\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(SD_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(SD_2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(SD_3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(SD_4\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><span style="font-size:30px;">We could compare it to the variability of the individual scores within the conditions:</span></p>
+<p><span class="math display">\[\large s^2_{\text{within}}\]</span></p>
+</section>
+<section class="slide level2">
+
+<p>Within each group, everyone is exposed to the same experimental conditions and so the only source of variability is random variability.</p>
+<p>The two variances are in different metrics (means versus scores), but that can be taken care of by the following relation:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math display">\[\sigma_{\text{mean}} = \frac{\sigma_X}{\sqrt{N}}\]</span></p>
+</div><div class="column" style="width:50%;">
+<p><span class="math display">\[s^2_{\text{means}} = \frac{s^2_{\text{scores}}}{N}\]</span></p>
+<p><span class="math display">\[Ns^2_{\text{means}} = s^2_{\text{scores}}\]</span></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>In other words, if the null hypothesis (no mean differences) is true, then both of these variance estimates are estimates of random error. If their ratio departs enough from 1.00, then I can claim there is something extra in the between source—the contribution due to the experimental conditions.</p>
+<p>The ratio <span class="math inline">\(F\)</span> is distributed:</p>
+<p><span class="math display">\[F \approx \frac{Ns^2_{\text{between}}}{s^2_{\text{within}}}\]</span></p>
+</section>
+<section class="slide level2">
+
+<p>Each variance estimate in the ratio is <span class="math inline">\(\chi^2\)</span> distributed, if the data are normally distributed. The ratio of two <span class="math inline">\(\chi^2\)</span> distributed variables is <span class="math inline">\(F\)</span> distributed. Eventually we will need to make this more precise (adjust by degrees of freedom), but this is close enough for now.</p>
+<p><span class="math display">\[F_{\nu_1\nu_2} = \frac{\frac{\chi^2_{\nu_1}}{\nu_1}}{\frac{\chi^2_{\nu_2}}{\nu_2}}\]</span></p>
+</section>
+<section class="slide level2">
+
+<p>The <span class="math inline">\(t\)</span>, <span class="math inline">\(\chi^2\)</span>, and <span class="math inline">\(F\)</span> distributions all depend on the normal distribution assumption. The normal distribution is the “parent” population.</p>
+<p>As sample size increases, <span class="math inline">\(t\)</span> and <span class="math inline">\(\chi^2\)</span> converge on the normal. <span class="math inline">\(F\)</span> converges on :</p>
+<p><span class="math display">\[\frac{\chi^2_{\nu_1}}{\nu_1}\]</span></p>
+<p>with the numerator depending on the normal.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="but-keep-in-mind">But keep in mind</h3>
+<p>These probability distributions have a key assumption:</p>
+<div>
+<ul>
+<li>the sample is a random selection from the population</li>
+</ul>
+</div>
+<p>If the sample is not a random selection, the rules of probability don’t apply.</p>
+<p>Hmmm, it may make some sense to talk about methods of random sampling and how the concept of samples informs the theory behind inferential statistics…</p>
+</section>
+<section id="next-time" class="slide level2">
+<h2>Next time…</h2>
+<p>sampling!</p>
+<p>Don’t forget to complete Journal 4 and submit your homework by 9am tomorrow!</p>
+<div class="footer footer-default">
+
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="08-normal_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="08-normal_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="08-normal_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="08-normal_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="08-normal_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="08-normal_files/libs/revealjs/plugin/multiplex/socket.io.js"></script>
+  <script src="08-normal_files/libs/revealjs/plugin/multiplex/multiplex.js"></script>
+  <script src="08-normal_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="08-normal_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="08-normal_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="08-normal_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="08-normal_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'multiplex': {"secret":"1666197824713503523","id":"ed0dc042a4015d63","url":"https://reveal-multiplex.glitch.me/"},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        target: function(trigger) {
+          return trigger.previousElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        setTimeout(function() {
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto-reveal',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          let href = ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+        tippyHover(ref, function() {
+          var popup = window.document.createElement('div');
+          cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    });
+    </script>
+    
+
+</body></html>
