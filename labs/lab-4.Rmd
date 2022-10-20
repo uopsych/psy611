@@ -1,0 +1,392 @@
+---
+title: "Lab 4: Probability Distributions"
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+editor_options: 
+  chunk_output_type: console
+---
+
+You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-4.Rmd).
+
+```{r setup, include = FALSE}
+# set chunk options
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+# suppress scientific notation
+options(scipen = 999)
+
+# load packages
+library(tidyverse)
+library(psych)
+```
+
+# Purpose
+
+The purpose of today's lab is to introduce tools for sampling from and calculating statistics for different types of distributions in R. The content of the lab will be split into two sections. The first section will focus on [binomial distributions](#binomial) and the second section will focus on [normal distributions](#normal). The [Minihacks](#minihacks) will test your knowledge of both types of distributions, as well as some distributions that are not discussed in the lab but are nonetheless important.
+
+To quickly navigate to the desired section, click one of the following links:
+
+1. [Binomial Distributions](#binomial)
+1. [Normal Distributions](#normal)
+1. [Minihacks](#minihacks)
+
+***
+
+# Binomial Distributions {#binomial}
+
+The binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when 
+* (1) the outcome on every trial is binary (e.g., a coin landed on a `heads` or a `tails`; a dice was either a `6` or `not a 6`) 
+* (2) the probability of the outcome on every trial is the same (e.g., the probability of getting a `heads` on flip `1` is the same as the probability of getting a `heads` on flip `100`).
+* (3) the outcomes are independent of each other
+
+Imagine you are flipping a coin. If it is a fair coin, you would expect a 50% chance of the coin landing on heads and a 50% chance of the coin landing on tails. However, every heads is not always paired with a tails. Sometimes there is a run of heads and sometimes there is a run of tails. Still, we would probably expect that, overall, there would be the same number of heads as tails. In other words, we would expect that if we flipped a single coin 100 times, the most likely outcome would be 50 heads and 50 tails.
+
+```{r, echo = FALSE}
+# create probability curve
+data <- seq(1, 100, 1)
+
+heads <- dbinom(data, size = 100, prob = 1/2)
+
+plot(heads, type = 'h',
+     main = "Binomial Distribution (n = 100, p = 0.5)",
+     ylab = "Probability",
+     xlab = "# of Heads",
+     lwd = 3)
+```
+
+## rbinom
+
+If we want to randomly sample trials from a binomial distribution, we can use the `rbinom()` function in R. The function takes three arguments. The first argument (`n`) is the number of trials to sample. If we wanted to flip `2` coins `10` times, we would include the argument `n = 10`. The second argument (`size`) is the number of events associated with each trial. If we are flipping `2` coins, we would include `size = 2`. The third argument (`prob`) is the probability of success on a given trial. If we consider a `heads` a success and everything else a failure, we would include the argument `prob = 1/2`. Putting all of that together, we get `rbinom(n = 10, size = 2, prob = 1/2)`.
+
+```{r, include = FALSE}
+set.seed(3)
+```
+
+```{r}
+rbinom(n = 10, size = 2, prob = 1/2) 
+# n = 10 (number of trials)
+# size = 2 (number of events on each trial)
+# prob = 1/2 (probability of a success on each trial)
+```
+
+
+*How would we change this if we were flipping `3` coins `10` times?*
+
+```{r}
+# your code here
+```
+
+*What about rolling `5` `6`-sided dice `10` times where getting a `6` is considered a successful outcome?*
+
+```{r}
+# your code here
+```
+
+*What about pulling an `Ace` out of `1` deck of cards `100` times?*
+
+```{r}
+# your code here
+```
+
+## dbinom
+
+The function `dbinom()` gives us the probability of getting any one result. It takes four arguments, but we will only concern ourselves with the first three: (1) `x` - the number of successful outcomes expected, (2) `size` - the number of events, and (3) `prob` - the probability of success on a given event. 
+
+To get the probability of getting `1` `heads` by flipping `2` coins, we could run the following code.
+
+```{r}
+dbinom(x = 1, size = 2, prob = .5)
+```
+
+There is a `.50` probability of getting `1` `heads` when you flip `2` coins. We can investigate why this is the case by looking at the probability of every outcome. 
+
+```{r}
+# HT + TH
+(.5 * .5) + (.5 * .5)
+```
+
+*What's the probability of getting `1` head when you flip `3` coins?*
+```{r}
+# your code here
+```
+
+*What's the probability of drawing `2` `aces` out of `1` deck of cards (with replacement) when drawing twice?*
+```{r}
+# your code here
+```
+
+*What's the probability of drawing `0` Aces out of a deck of cards twice (with replacement)?*
+```{r}
+# your code here
+```
+
+## pbinom
+
+If we want to calculate the cumulative probability of getting a certain result (i.e., the probability of getting a result equal to or less than what we expect), we would use the function `pbinom()`. Cumulative probability may not sound important, but it is when you consider that a p-value is the probability of getting a result equal to or more extreme than that observed in the sample. The function `pbinom()` takes essentially the same arguments as `dbinom()`, but instead of the first argument being called `x` it is called `q`.
+
+Returning to the example from above, if we wanted to get the probability of getting `1 or less` `heads` when we flip `2` coins, we would use `pbinom(q = 1, size = 2, prob = 1/2)`.
+
+```{r}
+pbinom(q = 1, size = 2, prob = 1/2)
+```
+
+The result is `.75`. Again, this makes sense if we look at the probability of every outcome.
+
+```{r}
+# HT + TH + TT
+(.5 * .5) + (.5 * .5) + (.5 * .5)
+```
+
+*What's the probability of getting `1 or less` `heads` when flipping `10` coins?*
+
+```{r}
+# your code here
+```
+
+*What's the probability of getting `1 or less` `6`s when  rolling `1` dice?*
+
+```{r}
+# your code here
+```
+
+The function `pbinom()` can also take the argument `lower.tail` (defaults to `TRUE`). The argument `lower.tail` is what specifies what side of the probability distribution we should be testing from. In practical terms, it is what decided that we wanted `1 or less` heads rather than `greather than 1` `heads`.
+
+For instance, if we wanted to test the probability of getting `greater than 1` `heads` when flipping `2` coins, we would specify `lower.tail = FALSE`.
+
+```{r}
+pbinom(q = 1, size = 2, prob = 1/2, lower.tail = FALSE)
+```
+
+*What's the probability of getting `greater than 3` `6`s when  rolling `9` dice?*
+
+```{r}
+# your code here
+pbinom(q = 3, size = 9, prob = 1/6, lower.tail = FALSE)
+```
+
+## qbinom
+
+The function `qbinom()` essentially does the opposite of `pbinom`. Instead of taking an outcome (`q`) and returning the cumulative probability, it returns the value that corresponds to the cumulative probability (`p`).
+
+For instance if we wanted the value for which there is `100`% probability of getting that `value or less` on `10` coin flips, we would enter `qbinom(p = 1.00, size = 10, prob = 1/2)`.
+
+```{r}
+qbinom(p = 1.00, size = 10, prob = 1/2)
+```
+
+Unsurprisingly, `10 or less` `heads` has a 100% chance of occurring when you flip `10` coins.
+
+*With `100` coin flips, what is the number of `heads` (or less) that has a `.50` probability of occurring?*
+```{r}
+# your code here
+```
+
+*With `100` coin flips, what is the number of `heads` (or less) that has a `.25` probability of occurring?*
+```{r}
+# your code here
+```
+
+*With `100` coin flips, what is the number of `heads` (or greater) that has a `.25` probability of occurring?*
+```{r}
+# your code here
+```
+
+# Normal Distributions {#normal}
+
+Recall from class that a `normal distribution` is a continuous probability distribution that is defined by a mean ($\mu$) and a standard deviation ($\sigma$). Whereas the binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when the outcome of every trial is binary, the normal distribution describes the theoretical probability of obtaining a certain outcome from a continuous distribution that has a certain mean ($\mu$) and standard deviation ($\sigma$).
+
+## rnorm
+
+In order to randomly sample observations from a normal distribution, we use the function `rnorm()`. Similar to `rbinom()`, `rnorm()` takes three arguments: (1) `n` - the number of observations to sample from the normal distribution, (2) `mean` - the mean of the normal distribution, and (3) `sd` - the standard deviation of the normal distribution. 
+
+Below we sample `5` values from a normal distribution with a `mean` of `0` and a `sd` of `1`.
+
+```{r, include = FALSE}
+set.seed(2)
+```
+
+```{r}
+x <- rnorm(n = 5, mean = 0, sd = 1)
+x
+```
+
+Calculating the `mean()` and `sd()` of our `5` numbers can serve as a bit of a sanity check. 
+
+```{r}
+mean(x)
+sd(x)
+
+```
+
+With only 5 samples drawn, the distribution may not look normal, but with a sufficiently large sample size, it will start to resemble the true distribution.
+
+*How would you sample `10` observations from a normal distribution with a mean of `100` and a standard deviation of `10`?*
+
+```{r}
+# your code here
+```
+
+*Are the descriptives for this sample what we would expect?*
+```{r}
+# your code here
+```
+
+## dnorm
+
+The normal distribution counterpart of `dbinom()` is `dnorm()`. Similar to `rnorm()`, it takes a mean (`mean`) and a standard deviation (`sd`), but instead of an argument for the number of observations you want to sample (`n`) you provide it a value (`x`). The reason `dnorm()` exists is to calculate the height of the probability curve for any one value.
+
+For example, if we enter the value `0` with a mean of `0` and a standard deviation `1`, we get `0.3989423`
+```{r}
+dnorm(x = -1:1, mean = 0, sd = 1)
+```
+
+
+Likewise, if we calculate the height of the probability plot at an `x` value of `1`, we see the result `0.2419707.`
+
+```{r}
+dnorm(x = 1, mean = 0, sd = 1)
+```
+
+
+*What would be the height of the probability line at a value of -1 when the `mean` is `0` and the `sd` is `1`?*
+
+```{r}
+# your code here
+```
+
+***
+
+## pnorm
+
+Like `pbinom()`, `pnorm()` tells you the probability of getting a certain value (or less) in a given normal distribution. Once again, you can set the mean and standard deviation of the distribution using `mean` and `sd`. Instead of taking its value using the `x` argument, it takes its argument using the `q` argument. 
+
+If we wanted to calculate the probability of getting a value below 0 from a normal distribution with a mean of 0 and sd of 1, we would use: 
+
+```{r}
+pnorm(q = 0, mean = 0, sd = 1)
+```
+
+
+So, what's the probability of getting `40 or less` when the mean is `50` and the standard deviation is `10`?
+
+
+```{r}
+pnorm(q = 40, mean = 50, sd = 10)
+```
+
+Looks like the probability of getting a value of `40 or less` is slightly less than `.16`. 
+
+We can also work through this mathematically. We expect that 68% of values on a normal distribution will fall between plus or minus one standard deviation. In our example, `40` is one standard deviation below the mean. As such, the probability of getting `40` or a value less than `40` would be $\frac{1 - 0.68}{2} = \frac{.32}{2} = .16$.
+
+*What's the probability of getting a value of `60 or less`, when the mean of the distribution is `30` and the standard deviation is `15?`*
+```{r}
+# your code here
+```
+
+*What's the probability of getting a value greater than `-5` when the mean is `0` and the sd is `5`?*
+```{r}
+# your code here
+```
+
+## qnorm 
+
+Finally, we can use `qnorm()` to get the value that corresponds to a particular cumulative probability. Once again, we can set the mean (`mean`) and standard deviation (`sd`) of the distribution, but we use `p` to set the target probability.
+
+To get the value or less that has a probability of `0.00135` of occurring in a distribution with a mean of `0` and a standard deviation of `1` is calculated using `qnorm(p = .00135, mean = 0, sd = 1)`.
+
+```{r}
+qnorm(p = .00135, mean = 0, sd = 1)
+```
+
+As we can see, the value is just about `-3.00`. This makes sense if we consider that `99.73`% of values in a normal distribution are between three standard deviations below and above the mean; probability of getting `-3.00` would be $\frac{1-.9973}{2} = 0.00135$.
+
+*What value or less is associated with a `.51` cumulative probability in a normal distribution with a mean of `100` and a standard deviation of `10`?*
+
+```{r}
+# your code here
+```
+
+*What value or greater is associated with a `.51` probability in a normal distribution with a mean of `100` and a standard deviation of `10`?*
+
+```{r}
+# your code here
+```
+
+# Minihacks {#minihacks}
+
+You are welcome to work with a partner or in a small group of 2-3 people. Please feel free to ask the lab leader any questions you might have!
+
+## Minihack 1: Binomial Distributions
+
+You are playing Dungeons and Dragons and, to the Dungeon Master's displeasure, you run immediately to the dragon that is meant to be encountered at the end of her carefully-crafted campaign.
+
+1. To defeat the dragon, you must roll `5` `20`-sided dice, and get a `20` on each die. What is the probability of getting this result?
+
+```{r}
+# your code here
+```
+
+2. Your dungeon master decides to take pity on you. She tells you, if you roll greater than `2` (i.e., `3` or more) `20`s she will let you slay the dragon. What is the probability of getting more than `2` `20`s when rolling `5` `20`-sided dice?
+
+```{r}
+# your code here
+```
+
+3. You begin to cry. Between your sobs you tell her you will only roll if the probability is greater than `.10`. She acquiesces. What number of `20`s or greater is associated with a cumulative probability of `.10` when rolling `5` `20`-sided dice?
+
+```{r}
+# your code here
+```
+
+## Minihack 2: Normal Distributions
+
+From data released from the Graduate Coffee Drinkers Association (GCDA), you know coffee consumption is normally distributed among graduate students, with the average student drinking `5` cups of coffee per day and 68% of students drinking between `4` and `6` cups of coffee per day (i.e., the distribution has a standard deviation of `1`).
+
+1. What is the probability that a randomly selected graduate student will drink `2 or less` cups of coffee per day?
+
+```{r}
+# your code here
+```
+
+2. Sample `50` graduate students from the distribution three times. Plot each of these samples as a histogram. Are the histograms identical? Why or why not?
+
+```{r}
+# your code here
+```
+
+3. Ever since finding the data from the GCDA, you have begun to worry about how much coffee you are drinking compared to the average graduate student. Calculate the probability that a graduate student would drink exactly `10` cups of coffee per day.
+
+```{r}
+# your code here
+```
+
+4. Using your large and highly-caffeinated brain, you remember that the probability of any one value in a continuous distribution is `0.00`. Calculate the probability that a graduate student would drink `10 or more` cups of coffee a day.
+
+```{r}
+# your code here
+```
+
+## Minihack 3: Other Distributions to Extend your Knowledge
+
+1. A magician accosts you in the street, and demands you think of a number between `1` and `100`. You think of `37` and the magician guesses `37`. Assuming the choice of numbers follows a uniform distribution, what is the probability that the magician guessed your number at random? Use `dunif()` to prove your intuition is correct.
+
+```{r}
+# your code here
+```
+
+2. Shortly after your run in with the magician, an advocate of null hypothesis testing approaches you and demands that you calculate the probability of getting a $\chi^2$-value of greater than `3.00` with `10` degrees of freedom. Use `pchisq()` to calculate the probability.
+
+```{r}
+# your code here
+```
+
+3. Seeing that their test statistic was non-significant, the null hypothesis tester becomes irate and demands you calculate the probability of getting `3.00 or greater` with `10` degrees of freedom from a t-distribution. Google (or use your intuition) to determine how to calculate a cumulative probability from a t-distribution.
+
+```{r}
+# your code here
+```
