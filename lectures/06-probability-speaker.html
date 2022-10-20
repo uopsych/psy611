@@ -561,29 +561,75 @@
 </section>
 <section id="rules-of-probabilities" class="slide level2">
 <h2>Rules of probabilities</h2>
-<p><span class="math display">\[\large \text{not A} = P(\neg A) = 1-P(A)\]</span></p>
-<p>Simple experiment: draw a card from a standard 52 card deck.</p>
-<p>What is the probability of not drawing a heart?</p>
+<p><span class="math display">\[ \text{not A} = P(\neg A) = 1-P(A)\]</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Simple experiment: draw a marble from this jar.</p>
+<p>What is the probability of drawing a blue marble?</p>
+<ul>
+<li class="fragment">p(blue) = .6</li>
+</ul>
+<p>What is the probability of not drawing a blue marble?</p>
+<ul>
+<li class="fragment">p(not blue) = 1-p(blue) = 1-.6 = .4</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img src="images/jar.jpg" width="300"></p>
+</div>
+</div>
 </section>
 <section id="rules-of-probabilities-1" class="slide level2">
 <h2>Rules of probabilities</h2>
-<p><span class="math display">\[\large P(A|B)\]</span></p>
-<p>Simple experiment: draw a card from a standard 52 card deck.</p>
-<p>What is the probability of an Ace given that I drew a face card?</p>
+<p><span class="math display">\[ P(A|B)\]</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Simple experiment: draw a marble from this jar.</p>
+<p>What is the probability of drawing a blue marble given that I drew a small marble?</p>
+<ul>
+<li class="fragment">p(blue|small) = 1/4 = .25</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img src="images/jar.jpg" width="300"></p>
+</div>
+</div>
 </section>
 <section id="rules-of-probabilities-2" class="slide level2">
 <h2>Rules of probabilities</h2>
-</section>
-<section id="large-texta-and-b-p-a-cap-b-pabpb" class="slide level2">
-<h2><span class="math display">\[\large \text{A and B}= P (A \cap B) = P(A|B)P(B)\]</span></h2>
-<p>Simple experiment: draw two cards from a standard 52 card deck.</p>
-<p>What is the probability the first card is a diamond and the second card is red?</p>
+<p><span class="math display">\[ \text{A and B}= P (A \cap B) = P(A|B)P(B)\]</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span style="font-size:30px;">Simple experiment: draw a marble from this jar.</span></p>
+<p><span style="font-size:30px;">What is the probability of drawing a blue and small marble?</span></p>
+<ul>
+<li class="fragment"><span class="math display">\[\begin{aligned}
+  &amp; p(blue \cap small) \\
+=  &amp; p(blue|small)p(small) \\
+=  &amp; (1/4)(4/10) = .1
+\end{aligned}\]</span></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img src="images/jar.jpg" width="300"></p>
+</div>
+</div>
 </section>
 <section id="rules-of-probabilities-3" class="slide level2">
 <h2>Rules of probabilities</h2>
-<p><span class="math display">\[\large \text{A or B} = P(A \cup B) = P(A) + P(B) - P(A \cap B)\]</span></p>
-<p>Simple experiment: draw two cards from a standard 52 card deck.</p>
-<p>What is the probability the first card is a diamond or the second card is red?</p>
+<p><span class="math display">\[ \text{A or B} = P(A \cup B) = P(A) + P(B) - P(A \cap B)\]</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Simple experiment: draw a marble from this jar.</p>
+<p>What is the probability of drawing a blue or small marble?</p>
+<ul>
+<li class="fragment"><span class="math display">\[\begin{aligned}
+&amp; p(blue \cup small) \\
+= &amp;p(blue) + p(small) - p(blue|small)p(small) \\
+= &amp; .6 + .4 - .1 = .9 \\
+\end{aligned}\]</span></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img src="images/jar.jpg" width="300"></p>
+</div>
+</div>
 </section>
 <section class="slide level2">
 

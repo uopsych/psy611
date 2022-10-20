@@ -162,50 +162,110 @@ Once we know the parameters, we know everything we need to construct the sample 
 
 ## Rules of probabilities
 
-$$\large \text{not A} = P(\neg A) = 1-P(A)$$
+$$ \text{not A} = P(\neg A) = 1-P(A)$$
 
-Simple experiment: draw a card from a standard 52 card deck.
+::: columns
+::: {.column width="50%"}
+Simple experiment: draw a marble from this jar.
 
-What is the probability of not drawing a heart? 
+What is the probability of drawing a blue marble?
 
-------------------------------------------------------------------------
+-   p(blue) = .6
 
-## Rules of probabilities
+What is the probability of not drawing a blue marble?
 
-$$\large P(A|B)$$
-Simple experiment: draw a card from a standard 52 card deck.
+-   p(not blue) = 1-p(blue) = 1-.6 = .4
 
-What is the probability of an Ace given that I drew a face card? 
+:::
 
-------------------------------------------------------------------------
-
-## Rules of probabilities
-
-## $$\large \text{A and B}= P (A \cap B) = P(A|B)P(B)$$
-
-Simple experiment: draw two cards from a standard 52 card deck.
-
-What is the probability the first card is a diamond and the second card is red? 
-
+::: {.column width="50%"}
+<img src="images/jar.jpg" width="300"/>
+:::
+:::
 
 ------------------------------------------------------------------------
 
 ## Rules of probabilities
 
-$$\large \text{A or B} = P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
-Simple experiment: draw two cards from a standard 52 card deck.
+$$ P(A|B)$$ 
 
-What is the probability the first card is a diamond or the second card is red? 
+::: columns
+::: {.column width="50%"}
+Simple experiment: draw a marble from this jar.
 
+What is the probability of drawing a blue marble given that I drew a small marble?
+
+-   p(blue|small) = 1/4 = .25
+
+
+:::
+
+::: {.column width="50%"}
+<img src="images/jar.jpg" width="300"/>
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Rules of probabilities
+
+$$ \text{A and B}= P (A \cap B) = P(A|B)P(B)$$
+
+::: columns
+::: {.column width="50%"}
+<span style="font-size:30px;">Simple experiment: draw a marble from this jar.</span>
+
+<span style="font-size:30px;">What is the probability of drawing a blue and small marble?</span>
+
+- \begin{aligned}
+    & p(blue \cap small) \\
+  =  & p(blue|small)p(small) \\
+  =  & (1/4)(4/10) = .1
+  \end{aligned}
+
+:::
+
+::: {.column width="50%"}
+<img src="images/jar.jpg" width="300"/>
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Rules of probabilities
+
+$$ \text{A or B} = P(A \cup B) = P(A) + P(B) - P(A \cap B)$$ 
+
+::: columns
+::: {.column width="50%"}
+Simple experiment: draw a marble from this jar.
+
+What is the probability of drawing a blue or small marble?
+
+-   \begin{aligned}
+& p(blue \cup small) \\
+= &p(blue) + p(small) - p(blue|small)p(small) \\
+= & .6 + .4 - .1 = .9 \\
+\end{aligned}
+
+
+:::
+
+::: {.column width="50%"}
+
+<img src="images/jar.jpg" width="300"/>
+
+:::
+:::
 ------------------------------------------------------------------------
 
 If the outcomes are mutually exclusive, then:
 
-$$\large \text{A or B} = P(A \cup B) = P(A) + P(B)$$ 
+$$\large \text{A or B} = P(A \cup B) = P(A) + P(B)$$
 
 If the outcomes are independent (a common assumption), then:
 
-$$\large \text{A and B }= P (A \cap B) = P(A)P(B)$$ 
+$$\large \text{A and B }= P (A \cap B) = P(A)P(B)$$
 
 Can outcomes be both mutually exclusive and independent?
 
