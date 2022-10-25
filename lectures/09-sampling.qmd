@@ -19,8 +19,6 @@ editor: visual
 * The console doesn't come with you
 * knit early and often
 
-* `#` for commenting code, type outside your chunks for responses
-
 * Homework is for learning, not for testing
 
 * Work together
