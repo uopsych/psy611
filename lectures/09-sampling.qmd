@@ -1,0 +1,813 @@
+---
+title: "Sampling"
+format: 
+  revealjs:
+    multiplex: true
+    slide-number: true
+    incremental: true
+    touch: true
+    code-overflow: wrap
+execute: 
+  echo: true
+editor: visual
+---
+
+
+## Lessons from HW1
+
+* Getting data into R is surprisingly hard
+* The console doesn't come with you
+* knit early and often
+
+* `#` for commenting code, type outside your chunks for responses
+
+* Homework is for learning, not for testing
+
+* Work together
+
+```{r}
+library(tidyverse) #plotting
+library(ggforce) # for plotting circles
+library(ggpubr) #prettier figures
+```
+
+
+------------------------------------------------------------------------
+
+## Last time...
+
+::: columns
+::: {.column width="50%"}
+
+Normal distributions!
+
+::: 
+::: {.column width="50%"}
+
+Why is the normal distribution useful?
+
+::: 
+::: 
+
+::: columns
+::: {.column width="50%"}
+
+* Follows a specific shape
+* Defined by 2 parameters
+
+::: 
+::: {.column width="50%"}
+
+* Area under the curve = 1
+* Law of Total Probability
+* How likely is any range of values?
+
+::: 
+::: 
+
+Cool, but can we assume our statistics follow a normal distribution?
+Today... sampling!
+
+------------------------------------------------------------------------
+
+To this point, we have assumed that features of the population -- the parameters -- are known.  That is rarely the case.
+
+The major goal that we have in statistical inference is to make confident claims about the population based on a small representation of it, the sample.
+
+Our confidence in the sample as a representation of the population relies on sampling theory.
+
+------------------------------------------------------------------------
+
+## Terms
+
+**Sample**: The particular units from a population on which measures are collected (the data).
+
+**Population**: The complete set of units (e.g., people, countries, etc.) from which a sample is selected.  
+
+**Sampling method**: The procedure used to create a sample.
+
+------------------------------------------------------------------------
+
+Ideally we would like to believe that there is nothing special about a sample.  Any other sample from the same population should be *interchangeable* with the one we have in hand. Any sample should be able to “stand for” or be a good proxy for the population.
+
+- Interchangeable or **representative** samples allow us to make confident claims about the population. 
+
+- Samples are **representative** to the extent the population is clearly defined and the sample is selected using an appropriate sampling method.
+
+------------------------------------------------------------------------
+
+**Probability sampling methods** maintain a defensible link between a sample and population.  This link is based on statistical theory and rules of probability.
+
+**Nonprobability sampling methods** provide only a weak link between a sample and population.  This link is based on appeals to common sense and reason. Maybe only blind faith.
+
+Despite the clear distinction, it is not unusual for researchers to use a nonprobability sampling method and then draw inferences in a way that implies a strong link from the sample to some population.  
+
+------------------------------------------------------------------------
+
+Probability sampling methods have the following simple features:
+
+- Define the population so that all population units can be identified (i.e., become candidates for selection).
+
+- Select a sample from among those units using a random selection method. 
+
+------------------------------------------------------------------------
+
+Common random sampling methods:
+
+- **Simple** random sampling: Each of the units in the population has an equal chance of being selected.
+
+- **Stratified** random sampling: Identify nonoverlapping strata and carry out simple random sampling within each strata. 
+
+- **Cluster** random sampling: Divide the population into nonoverlapping clusters. Randomly select clusters and use all of the units within the selected clusters.
+
+- **Multistage** random sampling: A combination of the other random sampling methods (stratified random sampling within clusters).
+
+::: notes
+
+In stratified random sampling, the sample sizes within strata can be defined to maintain proportionality or not.
+
+Additional concern: with replacement or without replacement
+
+:::
+
+------------------------------------------------------------------------
+
+### Simple random sampling
+
+```{r, message = F, warning = F, echo = F}
+
+set.seed(102919)
+
+n = 100 # how many circles
+r = .02 # radius of circles
+x = rep(0, n) # vectors to hold coordinates of the centers of circles
+y = rep(0, n)
+
+x[1] = runif(1) #random x for the first circle
+y[1] = runif(1) # random y for the first circle
+
+for(i in 2:n){ # for the rest of the circles
+  overlap = 1 #set overlap to something that has a length greater than 0 (lots of stuff will work here)
+  while(length(overlap > 0)){ # so long as overlap remains an object with nonzero length
+    new.x = runif(1) # get a random x
+    new.y = runif(1) # get a random y
+    distance = sqrt((x[1:i-1] - new.x)^2 + (y[1:i-1] - new.y)^2) # calculate euclidean distance from all the points estimated before this one
+    overlap = which(distance <= r*2) # how many of these circles have centers that are less than twice the length of the radius away from another center (i.e, how many existing circles will this one overlap with)
+  }
+  #once the number of overlaps is 0
+  x[i] = new.x  # assign value of x to vector
+  y[i] = new.y  # assign value of y to vector
+}
+
+#dataframe
+circles = data.frame(x = x, y = y, r = r)
+```
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">In **simple random sampling**, each object would have an equal probability of being selected (1/100). For simple random sampling, any object characteristics (e.g., color) are irrelevant.</span>
+
+::: 
+::: {.column width="70%"}
+
+```{r, message = F, warning = F, echo = F, fig.height=6.5, fig.width = 6.5}
+
+circles %>%
+  ggplot() +
+  geom_circle(aes(x0 = x, y0 = y, r = r)) +
+  theme_no_axes() + theme(panel.border = element_blank())
+```
+
+::: 
+::: 
+
+
+------------------------------------------------------------------------
+
+### Stratified random sampling
+
+```{r, message = F, warning = F, echo = F, fig.height=6.5, fig.width = 6.5}
+
+color_circles  = circles %>%
+  mutate(color = case_when(
+    x < .5  & y > .3 ~ "1",
+    x < .5 & y <= .3 ~ "2",
+    x >= .5 & y > .7 ~ "3",
+    x >= .5 & y <= .7 & y > .1 ~ "4",
+    x >= .5 & y <= .1 ~ "5"))
+
+tab_color = table(color_circles$color)
+
+```
+
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">In **stratified random sampling**, the objects are first categorized into strata (e.g., color) and random sampling occurs within strata. The probability of being selected depends on the size of the strata (1/`r tab_color["1"]` in the red strata; 1/`r tab_color["5"]` in the purple strata).</span>
+
+::: 
+::: {.column width="70%"}
+
+```{r, message = F, warning = F, echo = F, fig.height=6.5, fig.width = 6.5}
+
+color_circles %>%
+  ggplot() +
+  geom_circle(aes(x0 = x, y0 = y, r = r, fill = color)) +
+  guides(fill = "none") +
+  theme_no_axes() + theme(panel.border = element_blank())
+```
+
+::: 
+::: 
+
+
+------------------------------------------------------------------------
+
+### Cluster Random Sampling
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">In **cluster random sampling**, clusters of units are selected at random and then all of the units within the chosen clusters are part of the sample. The probability of a particular unit being sampled is a function of the number of clusters.</span>
+
+::: 
+::: {.column width="70%"}
+
+```{r, message = F, warning = F, echo = F, fig.height=6.5, fig.width = 6.5}
+
+set.seed(1029191)
+
+n = 100 # how many circles
+r = .02 # radius of circles
+x = rep(0, n) # vectors to hold coordinates of the centers of circles
+y = rep(0, n)
+
+x[1] = runif(1) #random x for the first circle
+y[1] = runif(1) # random y for the first circle
+
+for(i in 2:n){ # for the rest of the circles
+  overlap = 1 #set overlap to something that has a length greater than 0 (lots of stuff will work here)
+  while(length(overlap > 0)){ # so long as overlap remains an object with nonzero length
+    new.x = runif(1) # get a random x
+    new.y = runif(1) # get a random y
+    distance = sqrt((x[1:i-1] - new.x)^2 + (y[1:i-1] - new.y)^2) # calculate euclidean distance from all the points estimated before this one
+    overlap = which(distance <= r*2) # how many of these circles have centers that are less than twice the length of the radius away from another center (i.e, how many existing circles will this one overlap with)
+  }
+  #once the number of overlaps is 0
+  x[i] = new.x  # assign value of x to vector
+  y[i] = new.y  # assign value of y to vector
+}
+
+#dataframe
+new_circles = data.frame(x = x, y = y, r = r)
+new_circles$color = c(rep("1", tab_color["1"]),
+                     rep("2", tab_color["2"]),
+                     rep("3", tab_color["3"]),
+                     rep("4", tab_color["4"]),
+                     rep("5", tab_color["5"]))
+
+#create random clusters
+clust.x = runif(n = 6)
+clust.y = runif(n = 6)
+
+#use distance from clusters to find closest cluster
+closest.cluster = function(x, y){
+  dist = sqrt((x-clust.x)^2 + (y-clust.y)^2)
+  cluster = which(dist == min(dist)) 
+  return(cluster)
+}
+
+new_circles = new_circles %>%
+  mutate(cluster = map2_chr(x,y, closest.cluster)) 
+
+hulls = new_circles %>%
+  group_by(cluster) %>%
+  nest() %>%
+  mutate(hull = map(data, chull)) %>%
+  mutate(data = map2(data, hull, function(x,y) x[y,])) %>%
+  select(-hull) %>%
+  unnest(cols = c(data))
+
+new_circles %>%
+  ggplot() +
+  geom_polygon(aes(x = x, y = y, fill = cluster), data = hulls, alpha = .3)+
+  geom_circle(aes(x0 = x, y0 = y, r = r, fill = color)) +
+  guides(fill = "none") +
+  theme_no_axes() + theme(panel.border = element_blank())
+
+```
+
+::: 
+::: 
+
+
+------------------------------------------------------------------------
+
+No matter what probability method we use, we know the probability that a unit from the population will be selected. This allows us to determine the **sampling error** so that we can know how well the sample represents the population.
+
+Any sample will be off the mark in how well it captures the important features of the population. With probability sampling methods we can estimate how far off the mark we are likely to be.  
+
+::: notes
+
+The sampling error is the difference between a sample statistic used to estimate a population parameter and the actual but unknown value of the parameter
+
+:::
+
+------------------------------------------------------------------------
+
+## Nonprobability sampling methods
+
+::: columns
+::: {.column width="50%"}
+
+**Nonprobability sampling methods** select the sample on some basis other than a random process. As a consequence, how well the sample represents the population can be difficult to know and the argument depends on common sense and appeals to reason. These methods include:
+
+::: 
+::: {.column width="50%"}
+
+- Convenience sampling
+- Purposive sampling
+- Modal instance sampling 
+- Expert sampling
+- Quota sampling
+- Heterogeneity sampling
+- Snowball sampling
+
+::: 
+::: 
+
+
+::: notes
+
+Purposive -- selection based on chracteristics (e.g., trying to maximize heterogeneity, experts). *Example: Terman study*
+
+Modal -- most typical members. *Example: typical voters*
+
+snowball -- members of the study help you recruit additional members. (pyramid scheme sampling?). Useful for hard to reach populations (sex workers, members of support groups)
+
+:::
+
+------------------------------------------------------------------------
+
+The strength of probability sampling methods is that the representativeness of a sample can be known with precision.  Probability sampling methods, however, are often quite costly.  
+
+Under what circumstances are we safe in generalizing from a sample to a population if a nonprobability method was used (e.g., convenience sampling)?  We need to give this careful consideration because statistical inference, strictly speaking, assumes random sampling from a clearly defined population.
+
+How is random sampling different from random assignment? In what sense are they alike (besides the “random” part)?
+
+------------------------------------------------------------------------
+
+We use features of the sample (*statistics*) to inform us about features of the population (*parameters*).  The quality of this information goes up as sample size goes up -- **the Law of Large Numbers**.  The quality of this information is easier to defend with random samples.
+
+All sample statistics are wrong (they do not match the population parameters exactly) but they become more useful (better matches) as sample size increases. 
+
+An important practical question is “how big does the sample need to be?” Stated another way, “for a given sample size, how precise is a sample statistic as a representation of the population?”
+
+The sampling distribution provides the answers.
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+
+*Population distribution*
+
+The parameters of this distribution are unknown. We use the sample to inform us about the likely characteristics of the population.
+
+::: 
+::: {.column width="70%"}
+
+
+```{r,  warning = F, message = F}
+#| code-fold: true
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x), geom = "area") +
+  scale_x_continuous("Variable X") +
+  scale_y_continuous("Density") +
+  labs(title = expression(Population~mu*"=0"~sigma~"=1"))+
+  theme(text = element_text(size = 20))
+
+```
+
+::: 
+::: 
+
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+
+
+*Samples from the population.*
+
+
+<span style="font-size:30px;">Each sample distribution will resemble the population. That resemblance will be better as sample size increases: The Law of Large Numbers.</span>
+
+<span style="font-size:30px;">Statistics (e.g., mean) can be calculated for any sample.</span>
+
+::: 
+::: {.column width="70%"}
+
+```{r, warning=F, message=F, fig.height = 6.5}
+#| code-fold: true
+library(ggpubr) #for multiple plots
+sample_size = 30
+set.seed(101919)
+for(i in 1:4){
+  sample = rnorm(n = sample_size)
+  m = round(mean(sample),3)
+  s = round(sd(sample),2)
+  p = data.frame(x = sample) %>%
+    ggplot(aes(x = x)) +
+    geom_histogram(color = "white") +
+    geom_vline(aes(xintercept = m), color = "purple", size = 2, alpha = .5)+
+    scale_x_continuous(limits = c(-4,4)) +
+    scale_y_continuous("", breaks = NULL) +
+    labs(title = as.expression(bquote("Sample"~.(i)~", m ="~.(m)~", sd ="~.(s))))
+  assign(paste0("p",i), p) +
+    theme(text = element_text(size = 20))
+}
+
+ggarrange(p1,p2,p3,p4, ncol =2, nrow = 2)
+```
+
+::: 
+::: 
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">The statistics from a large number of samples also have a distribution: the **sampling distribution**. </span>
+
+
+<span style="font-size:30px;">By the **Central Limit Theorem**, this distribution will be normal as sample size increases.</span>
+::: 
+::: {.column width="70%"}
+
+```{r sampling, warning = F, message = F}
+#| code-fold: true
+reps = 5000
+means = rep(0, reps)
+se = 1/sqrt(sample_size)
+set.seed(101919)
+for(i in 1:reps){
+  means[i] = mean(rnorm(n = sample_size))
+}
+data.frame(mean = means) %>%
+  ggplot(aes(x = mean)) + 
+  geom_histogram(aes(y = ..density..), 
+                 fill = "purple", 
+                 color = "white") +  
+  stat_function(fun = function(x) dnorm(x, mean = 0, sd = se), inherit.aes = F, size = 1.5) 
+```
+
+::: 
+:::
+
+
+<span style="font-size:30px;">This distribution has a standard deviation, called the **standard error of the mean**. *Its mean converges on $\mu$.*</span>
+
+
+::: notes
+
+Sampling distributions can be constructed around any statistic -- ranges, standard deviations, difference scores. The standard errors of those distributions are also standard errors. (E.g., the standard error of the difference.)
+
+:::
+
+------------------------------------------------------------------------
+
+[The most exciting Excel spreadsheet ever](../demo/Sampling Demo.xlsm)
+
+Made by Geoff Cumming
+
+* Be sure to enable macros. 
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">We don’t actually have to take a large number of random samples to construct the sampling distribution.  It is a theoretical result of the Central Limit Theorem. We just need an estimate of the population parameter, $s$, which we can get from the sample. </span>
+
+::: 
+::: {.column width="70%"}
+
+
+```{r ref.label="sampling", message = F, warning = F}
+#| code-fold: true
+
+```
+
+::: 
+::: 
+
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">We don’t actually have to take a large number of random samples to construct the sampling distribution.  It is a theoretical result of the Central Limit Theorem. We just need an estimate of the population parameter, $s$, which we can get from the sample. </span>
+
+::: 
+::: {.column width="70%"}
+
+
+```{r, message = F, warning = F}
+#| code-fold: true
+ggplot(data.frame(x = seq(min(means), max(means), by = .05)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x, mean = 0, sd = se), size = 1.5) 
+```
+
+::: 
+::: 
+
+
+------------------------------------------------------------------------
+
+The sampling distribution of means can be used to make probabilistic statements about means in the same way that the standard normal distribution is used to make probabilistic statements about scores.
+
+For example, we can determine the range within which the population mean is likely to be with a particular level of confidence.
+
+Or, we can propose different values for the population mean and ask how typical or rare the sample mean would be if that population value were true.  We can then compare the plausibility of different such “models” of the population.
+
+------------------------------------------------------------------------
+
+The key is that we have a sampling distribution of the mean with a standard deviation **(the SEM)** that is linked to the population:
+
+$$SEM = \sigma_M = \frac{\sigma}{\sqrt{N}}$$
+
+We do not know $\sigma$ but we can estimate it based on the sample statistic:
+
+$$\hat{\sigma} = s = \sqrt{\frac{1}{N-1}\sum_{i=1}^N(X-\bar{X})^2}$$
+
+
+------------------------------------------------------------------------
+
+$$\hat{\sigma} = s = \sqrt{\frac{1}{N-1}\sum_{i=1}^N(X-\bar{X})^2}$$
+
+This is the sample estimate of the population standard deviation.  This is an unbiased estimate of $\sigma$ and relies on the sample mean, which is an unbiased estimate of $\mu$.
+
+$$SEM = \sigma_M = \frac{\hat{\sigma}}{\sqrt{N}} = \frac{\text{Estimate of pop SD}}{\sqrt{N}}$$
+(Most methods of calculating standard deviation assume you're estimating the population $\sigma$ from a sample and correct for bias.)
+
+------------------------------------------------------------------------
+
+The sampling distribution of the mean has variability, represented by the SEM, reflecting uncertainty in the sample mean as an estimate of the population mean.
+
+The assumption of normality allows us to construct an interval within which we have good reason to believe a sample mean will fall if it comes from a particular population:
+
+$$\mu - (1.96\times SEM) \leq \bar{X} \leq \mu + (1.96\times SEM) $$
+
+We can reorganize this to allow statements about the population mean, which is usually not known:
+
+$$\bar{X} - (1.96\times SEM) \leq \mu \leq \bar{X} + (1.96\times SEM) $$
+
+------------------------------------------------------------------------
+
+$$\bar{X} - (1.96\times SEM) \leq \mu \leq \bar{X} + (1.96\times SEM) $$
+
+This is referred to as a **95% confidence interval (CI)**.  Note the assumption of normality, which should hold by the Central Limit Theorem, if N is sufficiently large.
+
+The 95% CI is sometimes represented as:
+
+$$CI_{95} = \bar{X} \pm [1.96\frac{\hat{\sigma}}{\sqrt{N}}]$$
+
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">What if N is not “sufficiently large?”  The normal distribution assumes we know the population mean and standard deviation. But we don’t. We only know the sample mean and standard deviation, and those have some uncertainty about them. </span>
+
+::: 
+::: {.column width="70%"}
+
+```{r,  fig.width = 7}
+#| code-fold: true
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x), 
+                aes(color = "Normal", linetype = "Normal")) +
+  stat_function(fun = function(x) dt(x, df = 1), 
+                aes(color = "t(1)", linetype = "t(1)")) +
+  stat_function(fun = function(x) dt(x, df = 5), 
+                aes(color = "t(5)", linetype = "t(5)")) +
+  stat_function(fun = function(x) dt(x, df = 25), 
+                aes(color = "t(25)", linetype = "t(25)")) +
+  stat_function(fun = function(x) dt(x, df = 100), 
+                aes(color = "t(100)", linetype = "t(100)")) + 
+  scale_x_continuous("Variable X") +
+  scale_y_continuous("Density") +
+  scale_color_manual("", 
+                     values = c("red", "black", "black", "blue", "blue")) +
+  scale_linetype_manual("", 
+                        values = c("solid", "solid", "dashed", "solid", "dashed")) +
+  ggtitle("The Normal and t Distributions") +
+  theme(text = element_text(size=20),legend.position = "bottom")
+```
+
+::: 
+::: 
+
+
+
+------------------------------------------------------------------------
+
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">That uncertainty is reduced with large samples, so that the normal is “close enough.”  In small samples, the t distribution provides a better approximation.</span>
+
+::: 
+::: {.column width="70%"}
+
+```{r,  fig.width = 7}
+#| code-fold: true
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x), 
+                aes(color = "Normal", linetype = "Normal")) +
+  stat_function(fun = function(x) dt(x, df = 1), 
+                aes(color = "t(1)", linetype = "t(1)")) +
+  stat_function(fun = function(x) dt(x, df = 5), 
+                aes(color = "t(5)", linetype = "t(5)")) +
+  stat_function(fun = function(x) dt(x, df = 25), 
+                aes(color = "t(25)", linetype = "t(25)")) +
+  stat_function(fun = function(x) dt(x, df = 100), 
+                aes(color = "t(100)", linetype = "t(100)")) + 
+  scale_x_continuous("Variable X") +
+  scale_y_continuous("Density") +
+  scale_color_manual("", 
+                     values = c("red", "black", "black", "blue", "blue")) +
+  scale_linetype_manual("", 
+                        values = c("solid", "solid", "dashed", "solid", "dashed")) +
+  ggtitle("The Normal and t Distributions") +
+  theme(text = element_text(size=20),legend.position = "bottom")
+```
+
+::: 
+::: 
+
+
+
+------------------------------------------------------------------------
+
+<span style="font-size:30px;">For small samples, we need to use the t distribution with its fatter tails. This produces wider confidence intervals—the penalty we have to pay for our ignorance about the population. <br> The form of the confidence interval remains the same. We simply substitute a corresponding value from the t distribution (using df = $N -1$).</span>
+
+
+$$CI_{95} = \bar{X} \pm [1.96\frac{\hat{\sigma}}{\sqrt{N}}]$$
+
+$$CI_{95} = \bar{X} \pm [Z_{.975}\frac{\hat{\sigma}}{\sqrt{N}}]$$
+
+$$CI_{95} = \bar{X} \pm [t_{.975, df = N-1}\frac{\hat{\sigma}}{\sqrt{N}}]$$
+
+------------------------------------------------------------------------
+
+The meaning of the confidence interval can be a bit confusing and arises from the peculiar language forced on us by the frequentist viewpoint.
+
+The CI DOES NOT mean “there is a 95% probability that the true mean lies inside the confidence interval.”
+
+It means that if we carried out random sampling from the population a large number of times, and calculated the 95% confidence interval each time, then 95% of those intervals can be expected to contain the population mean. (Ugh, maybe those smug Bayesians are on to something.)
+
+------------------------------------------------------------------------
+
+Maybe less tortured: We have good reason to believe the true mean lies in this interval because 95% of the time such intervals contain the true mean.
+
+  - And even that interpretation is problematic, because it assumes our estimate of the standard deviation is error-free.
+  
+::: notes
+
+As Hays (1988) notes, the confidence limits based on the sample estimate of the population standard deviation are approximately correct, especially as sample size increases. They are approximately correct because there is uncertainty in the calculation of the SEM based on the sample estimate of the standard deviation.
+
+:::
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+
+*Simulation*
+
+<span style="font-size:30px;">At each sample size, draw 5000 samples from known population ( $\mu = 0$ , $\sigma = 1$ ). 
+<br> 
+Calculate CI for each sample using $s$ and record whether or not 0 was in that interval.
+<br>
+Calculate CI using for each sample using $\sigma$.</span>
+
+::: 
+::: {.column width="70%"}
+
+```{r,  message = F, fig.height = 6.5}
+#| code-fold: true
+reps = 5000
+
+sizes = seq(5,200,5)
+
+prop = rep(0, length(sizes))
+prop_sig  = rep(0, length(sizes))
+
+set.seed(101919)
+
+for(n in 1:length(sizes)){
+  sample_size = sizes[n]
+  correct = vector(length = reps)
+  correct_sig = vector(length = reps)
+  for(i in 1:reps){
+    sample = rnorm(sample_size)
+    m = mean(sample)
+    s = sd(sample)
+    sm = s/sqrt(sample_size)
+    lb = m-(1.96*sm)
+    ub = m+(1.96*sm)
+    missed = lb > 0 | ub < 0
+  correct[i] = !missed
+  
+    sigma = 1
+    sm_sig = sigma/sqrt(sample_size)
+    lb_sig = m-(1.96*sm_sig)
+    ub_sig = m+(1.96*sm_sig)
+    missed_sig = lb_sig > 0 | ub_sig < 0
+  correct_sig[i] = !missed_sig
+  }
+  prop[n] = sum(correct)/reps
+  prop_sig[n] = sum(correct_sig)/reps
+
+}
+
+data.frame(n = sizes, p = prop, ps = prop_sig) %>%
+  gather("estimate", "value", -n) %>%
+  mutate(estimate = ifelse(estimate == "p", "Estimate of sigma", "Sigma")) %>%
+  ggplot(aes(x = n, y = value, color = estimate)) +
+  geom_smooth( se = F) +
+  geom_hline(aes(yintercept = .95), color = "black") +
+  scale_color_discrete("How do you calculate SEM?") +
+  labs(x = "Sample size", y = "Proportion of CIs that contain the population mean") +
+  theme(text = element_text(size = 25), legend.position = "bottom")
+
+```
+
+::: 
+::: 
+
+
+------------------------------------------------------------------------
+
+In the past, my classroom exams (aggregating over many classes) have a mean of 90 and a standard deviation of 8.
+
+My next class will have 100 students. What range of exam means would be plausible if this class is similar to past classes (comes from the same population)?
+
+
+```{r}
+M = 90
+SD = 8
+N = 100
+
+sem = SD/sqrt(N)
+
+ci_lb_z = M - sem * qnorm(p = .975)
+ci_ub_z = M + sem * qnorm(p = .975)
+print(c(ci_lb_z, ci_ub_z))
+
+
+ci_lb_z = M - sem * qt(p = .975, df = N-1)
+ci_ub_z = M + sem * qt(p = .975, df = N-1)
+print(c(ci_lb_z, ci_ub_z))
+```
+
+------------------------------------------------------------------------
+
+I give a classroom exam that produces a mean of 83.4 and a standard deviation of 10.6. A total of 26 students took the exam.
+
+What is the 95% confidence interval around the mean?
+
+What kinds of population inferences can I draw?
+
+```{r}
+M = 83.4
+SD = 10.6
+N = 26
+
+sem = SD/sqrt(N)
+
+ci_lb_z = M - sem * qnorm(p = .975)
+ci_ub_z = M + sem * qnorm(p = .975)
+print(c(ci_lb_z, ci_ub_z))
+
+
+ci_lb_z = M - sem * qt(p = .975, df = N-1)
+ci_ub_z = M + sem * qt(p = .975, df = N-1)
+print(c(ci_lb_z, ci_ub_z))
+```
+
+------------------------------------------------------------------------
+
+## Next time...
+
+Null Hypothesis Significance Testing
+
