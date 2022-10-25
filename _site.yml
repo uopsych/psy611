@@ -34,7 +34,7 @@ navbar:
       - text: "3 - Functional Programming"
         href: "labs/lab-3_instructor.html"
       - text: "4 - Probability Distributions"
-        href: "labs/lab-4.html"
+        href: "labs/lab-4_instructor.html"
     - text: Homework
       href: homework.html
     - text: Useful Material
