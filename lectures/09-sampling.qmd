@@ -421,7 +421,8 @@ for(i in 1:4){
   p = data.frame(x = sample) %>%
     ggplot(aes(x = x)) +
     geom_histogram(color = "white") +
-    geom_vline(aes(xintercept = m), color = "purple", size = 2, alpha = .5)+
+    geom_vline(aes(xintercept = mean(x)), 
+               color = "purple", size = 2, alpha = .5)+
     scale_x_continuous(limits = c(-4,4)) +
     scale_y_continuous("", breaks = NULL) +
     labs(title = as.expression(bquote("Sample"~.(i)~", m ="~.(m)~", sd ="~.(s))))

@@ -12,6 +12,10 @@ execute:
 editor: visual
 ---
 
+```{r, echo = F, eval = F}
+# add figures representing chi-square and F distribution
+```
+
 
 ## Last time...
 
@@ -610,6 +614,12 @@ Just like with the standard normal (Z) distribution, there are 1-1 relationships
 $$\text{If } Z \sim N(0,1), \\\text{then }Z^2 \sim \chi^2_1 \\\text{ and } \sum_{i=1}^{N}Z^2 \sim \chi^2_N$$
 
 <span style="font-size:30px;">In other words, the sum of squared standard normal variables will have a $\chi^2$ distribution. Therefore, we can also assume that variance is $\chi^2$ distributed. </span>
+
+::: notes
+
+Tell students here that we're just previewing and over-viewing future topics -- don't worry about knowing this.
+
+:::
 
 
 ------------------------------------------------------------------------

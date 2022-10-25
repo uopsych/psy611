@@ -643,15 +643,16 @@
 <span id="cb3-8"><a href="#cb3-8"></a>  p <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">x =</span> sample) <span class="sc">%&gt;%</span></span>
 <span id="cb3-9"><a href="#cb3-9"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
 <span id="cb3-10"><a href="#cb3-10"></a>    <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a>    <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> m), <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> .<span class="dv">5</span>)<span class="sc">+</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>)) <span class="sc">+</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a>    <span class="fu">scale_y_continuous</span>(<span class="st">""</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">as.expression</span>(<span class="fu">bquote</span>(<span class="st">"Sample"</span><span class="sc">~</span>.(i)<span class="sc">~</span><span class="st">", m ="</span><span class="sc">~</span>.(m)<span class="sc">~</span><span class="st">", sd ="</span><span class="sc">~</span>.(s))))</span>
-<span id="cb3-15"><a href="#cb3-15"></a>  <span class="fu">assign</span>(<span class="fu">paste0</span>(<span class="st">"p"</span>,i), p) <span class="sc">+</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a>    <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span>
-<span id="cb3-17"><a href="#cb3-17"></a>}</span>
-<span id="cb3-18"><a href="#cb3-18"></a></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="fu">ggarrange</span>(p1,p2,p3,p4, <span class="at">ncol =</span><span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-11"><a href="#cb3-11"></a>    <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(x)), </span>
+<span id="cb3-12"><a href="#cb3-12"></a>               <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> .<span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>)) <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>    <span class="fu">scale_y_continuous</span>(<span class="st">""</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">as.expression</span>(<span class="fu">bquote</span>(<span class="st">"Sample"</span><span class="sc">~</span>.(i)<span class="sc">~</span><span class="st">", m ="</span><span class="sc">~</span>.(m)<span class="sc">~</span><span class="st">", sd ="</span><span class="sc">~</span>.(s))))</span>
+<span id="cb3-16"><a href="#cb3-16"></a>  <span class="fu">assign</span>(<span class="fu">paste0</span>(<span class="st">"p"</span>,i), p) <span class="sc">+</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>    <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span>
+<span id="cb3-18"><a href="#cb3-18"></a>}</span>
+<span id="cb3-19"><a href="#cb3-19"></a></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="fu">ggarrange</span>(p1,p2,p3,p4, <span class="at">ncol =</span><span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img data-src="09-sampling_files/figure-revealjs/unnamed-chunk-8-1.png" width="960"></p>
