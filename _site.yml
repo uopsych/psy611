@@ -37,6 +37,8 @@ navbar:
         href: "labs/lab-3_instructor.html"
       - text: "4 - Probability Distributions"
         href: "labs/lab-4_instructor.html"
+      - text: "5 - Data Wrangling"
+        href: "labs/lab-5.html"
     - text: Homework
       href: homework.html
     - text: Useful Material
