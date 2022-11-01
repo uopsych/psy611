@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="11-nhst_files/libs/clipboard/clipboard.min.js"></script>
+<script src="11-nhst_files/libs/quarto-html/tabby.min.js"></script>
+<script src="11-nhst_files/libs/quarto-html/popper.min.js"></script>
+<script src="11-nhst_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="11-nhst_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="11-nhst_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="11-nhst_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.0.38">
+
+  <title>More NHST</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="11-nhst_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="11-nhst_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="11-nhst_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="11-nhst_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="11-nhst_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="11-nhst_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="11-nhst_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-captioned.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-captioned) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-captioned .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-captioned .callout-caption  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-captioned.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-captioned.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-caption {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-caption {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-caption {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-captioned .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-captioned .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-captioned) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-caption {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-caption {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-caption {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-caption {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-caption {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="center">
+  <h1 class="title">More NHST</h1>
+</section>
+
+<section id="annoucements" class="slide level2">
+<h2>Annoucements</h2>
+<div>
+<ul>
+<li>HW #2 due next Friday</li>
+<li>No lab next Friday (Vetern’s Day)</li>
+<li>Next Thursday (Nov 10) lecture will be recorded
+<ul>
+<li>Tuesday (Nov 8) at 5:30 pm</li>
+</ul></li>
+</ul>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(gganimate)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(pwr)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(transformr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="review-of-key-points" class="slide level2">
+<h2>Review of key Points</h2>
+<ul>
+<li class="fragment"><p>The null hypothesis ( <span class="math inline">\(H_0\)</span> ) is a claim about the particular value that a population parameter takes.</p></li>
+<li class="fragment"><p>The alternative hypothesis ( <span class="math inline">\(H_1\)</span> ) states an alternative range of values for the population parameter.</p></li>
+<li class="fragment"><p>We test the null hypothesis by determining if we have sufficient evidence that contradicts or nullifies it.</p></li>
+<li class="fragment"><p>We reject the null hypothesis if the data in hand are rare, unusual, or atypical if the null were true. The alternative hypothesis gains support when the null is rejected, but <span class="math inline">\(H_1\)</span> is not proven.</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="review-example">Review example</h3>
+<p>Healthy adults send an average of 32 text messages a day <span class="math inline">\((\sigma = 7.3)\)</span>. I recruit a sample of 16 adults with diagnoses of Generalized Anxiety Disorder. In my sample, the average number of texts sent per day is 33.2. <em>Does my sample of adults with GAD come from the same population as healthy adults?</em></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Define hypotheses</strong></p>
+<ul>
+<li class="fragment"><span class="math inline">\(H_0: \mu_{GAD} = 32\)</span></li>
+<li class="fragment"><span class="math inline">\(H_0: \mu_{GAD} \neq 32\)</span></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Choose alpha</strong></p>
+<ul>
+<li class="fragment"><span class="math inline">\(\alpha = .05\)</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="review-example-1">Review example</h3>
+<p><strong>Collect data.</strong></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Define your sampling distribution using your null hypothesis</strong></p>
+<ul>
+<li class="fragment"><span class="math inline">\(\mu_M = \mu_0 = 32\)</span></li>
+<li class="fragment"><span class="math inline">\(\sigma_M = \frac{\sigma}{\sqrt{N}} = \frac{7.3}{\sqrt{16}} = 1.825\)</span></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Calculate the probability of your data or more extreme under the null.</strong></p>
+<ul>
+<li class="fragment"><span class="math inline">\(Z_{statistic} = \frac{\bar{X} - \mu_0}{\sigma_M} = \frac{33.2 - 32}{1.825} = 0.658\)</span></li>
+<li class="fragment"><span class="math inline">\(p(Z &gt;= 0.658) = 0.255\)</span></li>
+<li class="fragment"><span class="math inline">\(p = 0.511\)</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Compare your probability ( <span class="math inline">\(p\)</span>-value) to your <span class="math inline">\(\alpha\)</span> level and decide whether your data are “statistically significant” (reject the null) or not (retain the null).</p>
+<p>Our <span class="math inline">\(p\)</span>-value is larger than our <span class="math inline">\(\alpha\)</span> level, so we retain the null.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="review">Review</h3>
+<p>If we do not reject <span class="math inline">\(H_0\)</span>, that does not mean that we accept it. We have simply failed to reject it. It lives to fight another day.</p>
+<p>A <em>Z</em>-statistic summarizes how unusual the sample estimate of a mean compared to the value of the mean as specified by the null hypothesis.</p>
+<p>More broadly, we refer to the <strong>test statistic</strong> as the statistic that summarizes how unusual the sample estimate of a parameter is from the point value specified by the null hypothesis.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="review-1">Review</h3>
+<p>The test statistic is derived from a probability distribution that represents the likelihood of any sample estimated given that the null hypothesis is true.</p>
+<p>We choose the probability assumption based on assumptions we are willing to make about the data. The <strong>sampling distribution</strong> of the test statistic tells us what counts as rare or unusual.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="review-2">Review</h3>
+<p>We summarize the probability of the sample data (or even more extreme data), assuming the null is true, by the <strong><span class="math inline">\(p\)</span>-value</strong> (signified by <span class="math inline">\(p\)</span>). This value is the proportion of the sampling distribution of the test statistic that is as extreme, or more extreme, as the test statistic value.</p>
+<p>If <span class="math inline">\(p\)</span> is small, the observed data are unusual <em>if the null hypothesis is true</em>.</p>
+<p>If <span class="math inline">\(p\)</span> is sufficiently small ( <span class="math inline">\(p &lt; .05\)</span> ), we may choose to reject the null hypothesis as a description of the data.</p>
+</section>
+<section id="p-values" class="slide level2">
+<h2><span class="math inline">\(p\)</span>-values</h2>
+<p>Fisher established (rather arbitrarily) the sanctity of the .05 and .01 significance levels during his work in agriculture, including work on the effectiveness of fertilizer. A common source of fertilizer is cow manure. Male cattle are called bulls.</p>
+<p>A common misinterpretation of the <span class="math inline">\(p\)</span>-value ( <span class="math inline">\(\alpha\)</span> ) is that it is the probability of the null hypothesis being wrong.</p>
+<p>Another common misunderstanding is that <span class="math inline">\(1-\alpha\)</span> is the probability that results will replicate.</p>
+</section>
+<section class="slide level2">
+
+<p>In most research, the probability that the null hypothesis is true is very small.</p>
+<p>If the null hypothesis is false, then the only mistake to be made is a failure to detect a real effect.</p>
+<p>We collect a sample and compare this to a null hypothesis: <span class="math inline">\(H_0: \mu_0 = 100\)</span>. Holding our sample mean <span class="math inline">\((\bar{X} = 105)\)</span> constant, how does our <span class="math inline">\(p\)</span>-value change as our sample size gets larger?</p>
+</section>
+<section class="slide level2">
+
+<p>We collect a sample and compare this to a null hypothesis: <span class="math inline">\(H_0: \mu_0 = 100\)</span>. Holding our sample mean <span class="math inline">\((\bar{X} = 105)\)</span> constant, how does our <span class="math inline">\(p\)</span>-value change as our sample size gets larger?</p>
+<div class="cell" data-hash="11-nhst_cache/revealjs/unnamed-chunk-2_ec8f6d8e273582672d1dbb9f27e40e2b">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="at">m =</span> <span class="dv">100</span>, </span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="at">s =</span> <span class="dv">15</span>, </span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="at">n =</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">150</span>, <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="at">X =</span> <span class="fu">map</span>(n, <span class="sc">~</span><span class="fu">c</span>(<span class="dv">85</span><span class="sc">:</span><span class="dv">115</span>)),</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="at">density =</span> <span class="fu">map</span>(n, <span class="sc">~</span><span class="fu">dnorm</span>(<span class="at">x =</span> <span class="dv">85</span><span class="sc">:</span><span class="dv">115</span>, <span class="at">m =</span> <span class="dv">100</span>, <span class="at">s =</span> <span class="dv">15</span><span class="sc">/</span><span class="fu">sqrt</span>(.x))),</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="at">pvalue =</span> <span class="fu">map</span>(n, <span class="sc">~</span><span class="fu">pnorm</span>(<span class="dv">5</span><span class="sc">/</span>(<span class="dv">15</span><span class="sc">/</span><span class="fu">sqrt</span>(.x)), <span class="at">lower.tail =</span> F)<span class="sc">*</span><span class="dv">2</span>),</span>
+<span id="cb2-9"><a href="#cb2-9"></a>    <span class="at">pvalue =</span> <span class="fu">map_chr</span>(pvalue, papaja<span class="sc">::</span>printp)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> <span class="fu">c</span>(X, density)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>X, <span class="at">y=</span>density, <span class="at">frame=</span>n)) <span class="sc">+</span> </span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="dv">105</span>), <span class="at">color =</span> <span class="st">"purple"</span>) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">107</span>, <span class="at">y =</span> .<span class="dv">2</span>, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"p:"</span>, pvalue)), <span class="at">hjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"X"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16"></a>       <span class="at">y =</span> <span class="st">"density"</span>,</span>
+<span id="cb2-17"><a href="#cb2-17"></a>       <span class="at">title =</span> <span class="st">"N = {closest_state}"</span>) <span class="sc">+</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>  <span class="fu">transition_states</span>(n,</span>
+<span id="cb2-19"><a href="#cb2-19"></a>                    <span class="at">transition_length =</span> <span class="dv">10</span>,</span>
+<span id="cb2-20"><a href="#cb2-20"></a>                    <span class="at">state_length =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>  <span class="fu">theme_pubr</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-2-1.gif" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>If the null hypothesis is false, then the significance test is akin to a test of whether the sample size was large enough.</p>
+<p>Because Null Hypothesis Significance Testing (NHST) is beginning to seem like a bit of a sham, some have suggested we start calling it Statistical Hypothesis Inference Testing.</p>
+</section>
+<section id="errors" class="slide level2">
+<h2>Errors</h2>
+<p>In hypothesis testing, we can make two kinds of errors.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: center;">Reject <span class="math inline">\(H_0\)</span></th>
+<th style="text-align: center;">Do not reject</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\(H_0\)</span> True</td>
+<td style="text-align: center;">Type I Error</td>
+<td style="text-align: center;">Correct decision</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\(H_0\)</span> False</td>
+<td style="text-align: center;">Correct decision</td>
+<td style="text-align: center;">Type II Error</td>
+</tr>
+</tbody>
+</table>
+<p>Falsely rejecting the null hypothesis is a <strong>Type I error</strong>. Traditionally, this has been viewed as particularly important to control at a low level (akin to avoiding false conviction of an innocent defendant).</p>
+</section>
+<section id="errors-1" class="slide level2">
+<h2>Errors</h2>
+<p>In hypothesis testing, we can make two kinds of errors.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: center;">Reject <span class="math inline">\(H_0\)</span></th>
+<th style="text-align: center;">Do not reject</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\(H_0\)</span> True</td>
+<td style="text-align: center;">Type I Error</td>
+<td style="text-align: center;">Correct decision</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\(H_0\)</span> False</td>
+<td style="text-align: center;">Correct decision</td>
+<td style="text-align: center;">Type II Error</td>
+</tr>
+</tbody>
+</table>
+<p>Failing to reject the null hypothesis when it is false is a <strong>Type II error</strong>. This is sometimes viewed as a failure in signal detection.</p>
+</section>
+<section id="errors-2" class="slide level2">
+<h2>Errors</h2>
+<p>In hypothesis testing, we can make two kinds of errors.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: center;">Reject <span class="math inline">\(H_0\)</span></th>
+<th style="text-align: center;">Do not reject</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\(H_0\)</span> True</td>
+<td style="text-align: center;">Type I Error</td>
+<td style="text-align: center;">Correct decision</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\(H_0\)</span> False</td>
+<td style="text-align: center;">Correct decision</td>
+<td style="text-align: center;">Type II Error</td>
+</tr>
+</tbody>
+</table>
+<p>Null hypothesis testing is designed to make it easy to control Type I errors. We set a minimum proportion of such errors that we would be willing to tolerate in the long run. This is the significance level ( <span class="math inline">\(\alpha\)</span> ). By tradition this is no greater than .05.</p>
+</section>
+<section id="errors-3" class="slide level2">
+<h2>Errors</h2>
+<p>In hypothesis testing, we can make two kinds of errors.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: center;">Reject <span class="math inline">\(H_0\)</span></th>
+<th style="text-align: center;">Do not reject</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\(H_0\)</span> True</td>
+<td style="text-align: center;">Type I Error</td>
+<td style="text-align: center;">Correct decision</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\(H_0\)</span> False</td>
+<td style="text-align: center;">Correct decision</td>
+<td style="text-align: center;">Type II Error</td>
+</tr>
+</tbody>
+</table>
+<p>Controlling Type II errors is more challenging because it depends on several factors. But, we usually DO want to control these errors. Some argue that the null hypothesis is usually false, so the only error we can make is a Type II error – a failure to detect a signal that is present. <strong>Power</strong> is the probability of correctly rejecting a false null hypothesis.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="some-greek-letters">Some Greek letters</h3>
+<p><span class="math inline">\(\alpha\)</span> : The rate at which we make Type I errors, which is the same <span class="math inline">\(\alpha\)</span> as the cut-off for <span class="math inline">\(p\)</span> -values.</p>
+<p><span class="math inline">\(\beta\)</span> : The rate at which we make Type II errors.</p>
+<p><span class="math inline">\(1-\beta\)</span> : statistical power.</p>
+<p>Note that all these probability statements are being made in the frequentist sense – in the long run, we expect to make Type I errors <span class="math inline">\(\alpha\)</span> proportion of the time and Type II errors <span class="math inline">\(\beta\)</span> proportion of the time.</p>
+</section>
+<section class="slide level2">
+
+<p>Controlling Type II errors is the goal of power analysis and must contend with four quantities that are interrelated:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li class="fragment">Sample size</li>
+<li class="fragment">Effect size</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li class="fragment">Significance level ( <span class="math inline">\(\alpha\)</span> )</li>
+<li class="fragment">Power</li>
+</ul>
+</div>
+</div>
+<p>When any three are known, the remaining one can be determined. Usually this translates into determining the power present in a research design (<strong>post-hoc power analysis</strong> ), or, determining the sample size necessary to achieve a desired level of power.</p>
+<p>We must specify a specific value for the alternative hypothesis to estimate and control Type II errors.</p>
+</section>
+<section class="slide level2">
+
+<p>Suppose we have a measure of social sensitivity that we have administered to a random sample of 25 psychology students. This measure has a population mean ( <span class="math inline">\(\mu\)</span> ) of 100 and a standard deviation ( <span class="math inline">\(\sigma\)</span> ) of 20. We suspect that psychology students are more sensitive to others than is typical and want to know if their mean, which is 110, is sufficient evidence to reject the null hypothesis that they are no more sensitive than the rest of the population.</p>
+<p>We would also like to know how likely it is that we could make a mistake by concluding that psychology students are not different when they really are: A Type II error.</p>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><span style="font-size:30px;">We begin by defining the location in the null hypothesis distribution beyond which empirical results would be considered sufficiently unusual to lead us to reject the null hypothesis. We control these mistakes (Type I errors) at the chosen level of significance ( <span class="math inline">\(\alpha = .05\)</span> ). </span></p>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>mu <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>xbar <span class="ot">=</span> <span class="dv">110</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>s <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>n <span class="ot">=</span> <span class="dv">25</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>sem <span class="ot">=</span> s<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>cv <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="at">mean =</span> mu, <span class="at">sd =</span> sem, <span class="at">p =</span> .<span class="dv">025</span>, <span class="at">lower.tail =</span> F)</span>
+<span id="cb3-7"><a href="#cb3-7"></a>cv2 <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="at">mean =</span> mu, <span class="at">sd =</span> sem, <span class="at">p =</span> .<span class="dv">025</span>, <span class="at">lower.tail =</span> T)</span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">130</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mu, <span class="at">sd =</span> sem)) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mu, <span class="at">sd =</span> sem),</span>
+<span id="cb3-12"><a href="#cb3-12"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(cv, <span class="dv">130</span>), <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> cv), <span class="at">color =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mu, <span class="at">sd =</span> sem),</span>
+<span id="cb3-15"><a href="#cb3-15"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(cv2, <span class="dv">70</span>), <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> mu))<span class="sc">+</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Means"</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">70</span>,<span class="dv">130</span>,<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>)<span class="sc">+</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>  <span class="fu">theme_pubr</span>() <span class="sc">+</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img data-src="11-nhst_files/figure-revealjs/student%20null-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>How do we figure out where this region is?</p>
+<p>Start with our <span class="math inline">\(\alpha\)</span> level (.05)</p>
+<p>Given our distribution parameters, what Z-value corresponds to .05 above that line</p>
+<p>mu = 100 x = 110 s = 20 n = 25 sem = 4 z = 1.96</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math display">\[\small \text{Critical Value} \\= \mu_0 + Z_{.975}\frac{\sigma}{\sqrt{N}}\\= 100 + 1.96\frac{20}{\sqrt{25}} \\= 107.84\]</span></p>
+<p><span style="font-size:30px;">What if the null hypothesis is false? How likely are we to correctly reject the null hypothesis in the long run?</span></p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>mu <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>xbar <span class="ot">=</span> <span class="dv">110</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>s <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>n <span class="ot">=</span> <span class="dv">25</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>sem <span class="ot">=</span> s<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>cv <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="at">mean =</span> mu, <span class="at">sd =</span> sem, <span class="at">p =</span> .<span class="dv">025</span>, <span class="at">lower.tail =</span> F)</span>
+<span id="cb4-7"><a href="#cb4-7"></a>cv2 <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="at">mean =</span> mu, <span class="at">sd =</span> sem, <span class="at">p =</span> .<span class="dv">025</span>, <span class="at">lower.tail =</span> T)</span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">130</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mu, <span class="at">sd =</span> sem)) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mu, <span class="at">sd =</span> sem),</span>
+<span id="cb4-12"><a href="#cb4-12"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(cv, <span class="dv">130</span>), <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> cv), <span class="at">color =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mu, <span class="at">sd =</span> sem),</span>
+<span id="cb4-15"><a href="#cb4-15"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(cv2, <span class="dv">70</span>), <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> mu))<span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Means"</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">70</span>,<span class="dv">130</span>,<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>)<span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a>  <span class="fu">theme_pubr</span>() <span class="sc">+</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">140</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu, <span class="at">sd =</span> sem), </span>
+<span id="cb5-4"><a href="#cb5-4"></a>                 <span class="at">geom =</span> <span class="st">"line"</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"Type I error"</span>), <span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu, <span class="at">sd =</span> sem), </span>
+<span id="cb5-6"><a href="#cb5-6"></a>                 <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(cv, <span class="dv">140</span>),</span>
+<span id="cb5-7"><a href="#cb5-7"></a>                <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"Type I error"</span>), <span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu, <span class="at">sd =</span> sem), </span>
+<span id="cb5-9"><a href="#cb5-9"></a>                 <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">70</span>, cv2),</span>
+<span id="cb5-10"><a href="#cb5-10"></a>                <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> cv, <span class="at">color =</span> <span class="st">"Critical Value"</span>)) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">70</span>,<span class="dv">140</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">140</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean"</span>, <span class="at">y =</span> <span class="st">"density"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>)<span class="sc">+</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a>  <span class="fu">theme_pubr</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">140</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu, <span class="at">sd =</span> sem),</span>
+<span id="cb6-4"><a href="#cb6-4"></a>                 <span class="at">geom =</span> <span class="st">"line"</span>, <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> cv, <span class="at">color =</span> <span class="st">"Critical Value"</span>)) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">70</span>,<span class="dv">140</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">140</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean"</span>, <span class="at">y =</span> <span class="st">"density"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>)<span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>  <span class="fu">theme_pubr</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">140</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu, <span class="at">sd =</span> sem),</span>
+<span id="cb7-4"><a href="#cb7-4"></a>                 <span class="at">geom =</span> <span class="st">"line"</span>, <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> xbar, <span class="at">sd =</span> sem),</span>
+<span id="cb7-6"><a href="#cb7-6"></a>                 <span class="at">geom =</span> <span class="st">"line"</span>) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> cv, <span class="at">color =</span> <span class="st">"Critical Value"</span>)) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">70</span>,<span class="dv">140</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">140</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean"</span>, <span class="at">y =</span> <span class="st">"density"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>)<span class="sc">+</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>  <span class="fu">theme_pubr</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">140</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu, <span class="at">sd =</span> sem),</span>
+<span id="cb8-4"><a href="#cb8-4"></a>                 <span class="at">geom =</span> <span class="st">"line"</span>, <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> xbar, <span class="at">sd =</span> sem),</span>
+<span id="cb8-6"><a href="#cb8-6"></a>                 <span class="at">geom =</span> <span class="st">"line"</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"Power"</span>), <span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> xbar, <span class="at">sd =</span> sem),</span>
+<span id="cb8-8"><a href="#cb8-8"></a>                 <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(cv, <span class="dv">140</span>),</span>
+<span id="cb8-9"><a href="#cb8-9"></a>                <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>  <span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"Type II error"</span>), <span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">mean =</span> xbar, <span class="at">sd =</span> sem),</span>
+<span id="cb8-11"><a href="#cb8-11"></a>                 <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">70</span>, cv),</span>
+<span id="cb8-12"><a href="#cb8-12"></a>                <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> cv, <span class="at">color =</span> <span class="st">"Critical Value"</span>)) <span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">70</span>,<span class="dv">140</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">140</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean"</span>, <span class="at">y =</span> <span class="st">"density"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>)<span class="sc">+</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a>  <span class="fu">theme_pubr</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+
+</div>
+<p><span style="font-size:30px;">To determine the probability of a Type II error, we must specify a value for the alternative hypothesis. We will use the sample mean of 110.<br><br>In the long run, if psychology samples have a mean of 110 ( <span class="math inline">\(\sigma = 20\)</span>, <span class="math inline">\(N = 25\)</span> ), we will correctly reject the null with probability of 0.71 (power). We will incorrectly fail to reject the null with probability of 0.29 ( <span class="math inline">\(\beta\)</span> ).</span></p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="11-nhst_files/figure-revealjs/student%20null%20and%20alt-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
+</div>
+</div>
+<p><span style="font-size:30px;">Once the critical value and alternative value is established, we can determine the location of the critical value in the alternative distribution.</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.540036</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="math display">\[Z_1 = \frac{CV_0 - \mu_1}{\frac{\sigma}{\sqrt{N}}}\]</span></p>
+<p><span class="math display">\[Z_1 = \frac{107.84 - 110}{\frac{20}{\sqrt{25}}} = -0.54\]</span></p>
+<p><span style="font-size:30px;">The proportion of the alternative distribution that falls below that point is the probability of a Type II error (.29); power is then .71.</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">pnorm</span>(<span class="sc">-</span>.<span class="dv">54</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2945985</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>The choice of 110 as the mean of <span class="math inline">\(H_1\)</span> is completely arbitrary. What if we believe that the alternative mean is 115? This larger signal should be easier to detect.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-13-1.png" width="672"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+
+</div>
+<p><span class="math display">\[Z_1 = \frac{107.84 - 115}{\frac{20}{\sqrt{25}}} = -1.79\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">1.79</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.963273</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>What if instead we increase the sample size? This will reduce variability in the sampling distribution, making the difference between the null and alternative distributions easier to see. (New <span class="math inline">\(N\)</span> is 50.)</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-17-1.png" width="672"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+
+</div>
+<p><span class="math inline">\(\text{CV} = 100 + 1.96\frac{20}{\sqrt{50}} = 105.54\)</span></p>
+<p><span class="math display">\[Z_1 = \frac{105.54 - 110}{\frac{20}{\sqrt{50}}} = -1.58\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">1.57</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9417924</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>What if we decrease the significance level to .01?<br>
+<br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-21-1.png" width="672"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>That will move the critical value:</p>
+<div class="cell">
+
+</div>
+<p><span class="math inline">\(\text{CV} = 100 + 2.58\frac{20}{\sqrt{25}} = 110.3\)</span></p>
+<p><span class="math display">\[Z_1 = \frac{110.3 - 110}{\frac{20}{\sqrt{25}}} = 0.08\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(.<span class="dv">08</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4681186</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Oops, we’ve been ignoring the other tail. So far it hasn’t mattered (the area has been so small) but it makes a difference when <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> overlap significantly.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-25-1.png" width="672"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="math display">\[Z_1 = \frac{107.84 - 102}{\frac{20}{\sqrt{25}}} = 1.46\]</span></p>
+<p><span class="math display">\[Z_2 = \frac{92.16 - 102}{\frac{20}{\sqrt{25}}} = -2.46\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="fl">1.46</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.07214504</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">2.46</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.006946851</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>More generally we can determine the relationship between effect size and power for a constant <span class="math inline">\(\alpha\)</span> (.05) and sample size ( <span class="math inline">\(N = 20\)</span> ).</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>pwr_fun <span class="ot">=</span> <span class="cf">function</span>(m1, m2, alpha, n, sd){</span>
+<span id="cb22-2"><a href="#cb22-2"></a>  sem <span class="ot">=</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb22-3"><a href="#cb22-3"></a>  cv <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="at">p =</span> <span class="dv">1</span><span class="sc">-</span>(alpha<span class="sc">/</span><span class="dv">2</span>), <span class="at">mean =</span> m1, <span class="at">sd =</span> sem)</span>
+<span id="cb22-4"><a href="#cb22-4"></a>  z_1 <span class="ot">=</span> (cv<span class="sc">-</span>m2)<span class="sc">/</span>sem</span>
+<span id="cb22-5"><a href="#cb22-5"></a>  power <span class="ot">=</span> <span class="fu">pnorm</span>(<span class="at">q =</span> z_1, <span class="at">lower.tail =</span> F)</span>
+<span id="cb22-6"><a href="#cb22-6"></a>  <span class="fu">return</span>(power)</span>
+<span id="cb22-7"><a href="#cb22-7"></a>}</span>
+<span id="cb22-8"><a href="#cb22-8"></a></span>
+<span id="cb22-9"><a href="#cb22-9"></a>size <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">100</span>, <span class="dv">120</span>, <span class="dv">1</span>)</span>
+<span id="cb22-10"><a href="#cb22-10"></a></span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="fu">data.frame</span>(<span class="at">effect =</span> size, <span class="at">power =</span> <span class="fu">sapply</span>(size, <span class="cf">function</span>(x) <span class="fu">pwr_fun</span>(<span class="at">m1 =</span> <span class="dv">100</span>, <span class="at">m2 =</span> x, <span class="at">alpha =</span> .<span class="dv">05</span>, <span class="at">n =</span> <span class="dv">20</span>, <span class="at">sd =</span> <span class="dv">20</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb22-12"><a href="#cb22-12"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> effect, <span class="at">y =</span> power)) <span class="sc">+</span></span>
+<span id="cb22-13"><a href="#cb22-13"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb22-14"><a href="#cb22-14"></a>  <span class="fu">scale_x_continuous</span>(<span class="fu">expression</span>(H[<span class="dv">1</span>]<span class="sc">~</span>Mean)) <span class="sc">+</span></span>
+<span id="cb22-15"><a href="#cb22-15"></a>  <span class="fu">ggtitle</span>(<span class="st">"Power to detect significant effect by mean"</span>) <span class="sc">+</span></span>
+<span id="cb22-16"><a href="#cb22-16"></a>  <span class="fu">theme_pubr</span>() <span class="sc">+</span></span>
+<span id="cb22-17"><a href="#cb22-17"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-27-1.png" width="1440" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>Likewise, we can display the relationship between sample size and power for a constant <span class="math inline">\(\alpha\)</span> and effect size.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>size <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">200</span>,<span class="dv">5</span>)</span>
+<span id="cb23-2"><a href="#cb23-2"></a></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="fu">data.frame</span>(<span class="at">size =</span> size, <span class="at">power =</span> <span class="fu">sapply</span>(size, <span class="cf">function</span>(x) <span class="fu">pwr_fun</span>(<span class="at">m1 =</span> <span class="dv">100</span>, <span class="at">m2 =</span> <span class="dv">110</span>, <span class="at">alpha =</span> .<span class="dv">05</span>, <span class="at">n =</span> x, <span class="at">sd =</span> <span class="dv">20</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> size, <span class="at">y =</span> power)) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Sample Size"</span>) <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a>  <span class="fu">ggtitle</span>(<span class="st">"Power to detect significant effect by sample size"</span>) <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a>  <span class="fu">theme_pubr</span>() <span class="sc">+</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-28-1.png" width="1440" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>Power changes as a function of significance level for a constant effect size and sample size.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>size <span class="ot">=</span> <span class="fu">seq</span>(.<span class="dv">01</span>,.<span class="dv">20</span>,.<span class="dv">01</span>)</span>
+<span id="cb24-2"><a href="#cb24-2"></a></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="fu">data.frame</span>(<span class="at">alpha =</span> size, </span>
+<span id="cb24-4"><a href="#cb24-4"></a>           <span class="at">power =</span> <span class="fu">sapply</span>(size, <span class="cf">function</span>(x) <span class="fu">pwr_fun</span>(<span class="at">m1 =</span> <span class="dv">100</span>, </span>
+<span id="cb24-5"><a href="#cb24-5"></a>                                                    <span class="at">m2 =</span> <span class="dv">110</span>, </span>
+<span id="cb24-6"><a href="#cb24-6"></a>                                                    <span class="at">alpha =</span> x, </span>
+<span id="cb24-7"><a href="#cb24-7"></a>                                                    <span class="at">n =</span> <span class="dv">20</span>, </span>
+<span id="cb24-8"><a href="#cb24-8"></a>                                                    <span class="at">sd =</span> <span class="dv">20</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> alpha, <span class="at">y =</span> power)) <span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a>  <span class="fu">scale_x_continuous</span>(<span class="fu">expression</span>(alpha)) <span class="sc">+</span></span>
+<span id="cb24-12"><a href="#cb24-12"></a>  <span class="fu">ggtitle</span>(<span class="st">"Power to detect significant effect by alpha"</span>) <span class="sc">+</span></span>
+<span id="cb24-13"><a href="#cb24-13"></a>  <span class="fu">theme_pubr</span>() <span class="sc">+</span></span>
+<span id="cb24-14"><a href="#cb24-14"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-29-1.png" width="1440" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>For a one-tailed test, we put the entire rejection area into a single tail. If <span class="math inline">\(\alpha = .05\)</span>, then one tail contains .05 and critical values will be either 1.64 or -1.64 standard errors away from the null mean.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>mu <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>x <span class="ot">=</span> <span class="dv">110</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a>s <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a>n <span class="ot">=</span> <span class="dv">25</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>sem <span class="ot">=</span> s<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb25-6"><a href="#cb25-6"></a>cv_sngle <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="at">mean =</span> mu, <span class="at">sd =</span> sem, <span class="at">p =</span> .<span class="dv">05</span>, <span class="at">lower.tail =</span> F)</span>
+<span id="cb25-7"><a href="#cb25-7"></a></span>
+<span id="cb25-8"><a href="#cb25-8"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">130</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mu, <span class="at">sd =</span> sem)) <span class="sc">+</span></span>
+<span id="cb25-10"><a href="#cb25-10"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mu, <span class="at">sd =</span> sem),</span>
+<span id="cb25-11"><a href="#cb25-11"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(cv_sngle, <span class="dv">130</span>), <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb25-12"><a href="#cb25-12"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> cv_sngle), <span class="at">color =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb25-13"><a href="#cb25-13"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> mu))<span class="sc">+</span></span>
+<span id="cb25-14"><a href="#cb25-14"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb25-15"><a href="#cb25-15"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Means"</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">70</span>,<span class="dv">130</span>,<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb25-16"><a href="#cb25-16"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb25-17"><a href="#cb25-17"></a>  <span class="fu">theme_pubr</span>() <span class="sc">+</span></span>
+<span id="cb25-18"><a href="#cb25-18"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-30-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>A two-tailed test is less powerful (more conservative) than a one-tailed test for the same sample size.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>pwr1_fun <span class="ot">=</span> <span class="cf">function</span>(m1, m2, alpha, n, sd){</span>
+<span id="cb26-2"><a href="#cb26-2"></a>  sem <span class="ot">=</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb26-3"><a href="#cb26-3"></a>  cv <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="at">p =</span> <span class="dv">1</span><span class="sc">-</span>(alpha), <span class="at">mean =</span> m1, <span class="at">sd =</span> sem)</span>
+<span id="cb26-4"><a href="#cb26-4"></a>  z_1 <span class="ot">=</span> (cv<span class="sc">-</span>m2)<span class="sc">/</span>sem</span>
+<span id="cb26-5"><a href="#cb26-5"></a>  power <span class="ot">=</span> <span class="fu">pnorm</span>(<span class="at">q =</span> z_1, <span class="at">lower.tail =</span> F)</span>
+<span id="cb26-6"><a href="#cb26-6"></a>  <span class="fu">return</span>(power)</span>
+<span id="cb26-7"><a href="#cb26-7"></a>}</span>
+<span id="cb26-8"><a href="#cb26-8"></a>pwr2_fun <span class="ot">=</span> <span class="cf">function</span>(m1, m2, alpha, n, sd){</span>
+<span id="cb26-9"><a href="#cb26-9"></a>  sem <span class="ot">=</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb26-10"><a href="#cb26-10"></a>  cv_1 <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="at">p =</span> <span class="dv">1</span><span class="sc">-</span>(alpha<span class="sc">/</span><span class="dv">2</span>), <span class="at">mean =</span> m1, <span class="at">sd =</span> sem)</span>
+<span id="cb26-11"><a href="#cb26-11"></a>  cv_2 <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="at">p =</span> (alpha<span class="sc">/</span><span class="dv">2</span>), <span class="at">mean =</span> m1, <span class="at">sd =</span> sem)</span>
+<span id="cb26-12"><a href="#cb26-12"></a>  z_1 <span class="ot">=</span> (cv_1<span class="sc">-</span>m2)<span class="sc">/</span>sem</span>
+<span id="cb26-13"><a href="#cb26-13"></a>  z_2 <span class="ot">=</span> (cv_2<span class="sc">-</span>m2)<span class="sc">/</span>sem</span>
+<span id="cb26-14"><a href="#cb26-14"></a>  power <span class="ot">=</span> <span class="fu">pnorm</span>(<span class="at">q =</span> z_1, <span class="at">lower.tail =</span> F) <span class="sc">+</span> <span class="fu">pnorm</span>(<span class="at">q =</span> z_2, <span class="at">lower.tail =</span> T)</span>
+<span id="cb26-15"><a href="#cb26-15"></a>  <span class="fu">return</span>(power)</span>
+<span id="cb26-16"><a href="#cb26-16"></a>}</span>
+<span id="cb26-17"><a href="#cb26-17"></a></span>
+<span id="cb26-18"><a href="#cb26-18"></a>size <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">100</span>,<span class="dv">5</span>)</span>
+<span id="cb26-19"><a href="#cb26-19"></a></span>
+<span id="cb26-20"><a href="#cb26-20"></a><span class="fu">data.frame</span>(<span class="at">effect =</span> size, </span>
+<span id="cb26-21"><a href="#cb26-21"></a>           <span class="at">power_1 =</span> <span class="fu">sapply</span>(size, <span class="cf">function</span>(x) <span class="fu">pwr1_fun</span>(<span class="at">m1 =</span> <span class="dv">100</span>, <span class="at">m2 =</span> <span class="dv">110</span>, <span class="at">alpha =</span> .<span class="dv">05</span>, <span class="at">n =</span> x, <span class="at">sd =</span> <span class="dv">20</span>)),</span>
+<span id="cb26-22"><a href="#cb26-22"></a>           <span class="at">power_2 =</span> <span class="fu">sapply</span>(size, <span class="cf">function</span>(x) <span class="fu">pwr2_fun</span>(<span class="at">m1 =</span> <span class="dv">100</span>, <span class="at">m2 =</span> <span class="dv">110</span>, <span class="at">alpha =</span> .<span class="dv">05</span>, <span class="at">n =</span> x, <span class="at">sd =</span> <span class="dv">20</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb26-23"><a href="#cb26-23"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> effect)) <span class="sc">+</span></span>
+<span id="cb26-24"><a href="#cb26-24"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> power_1, <span class="at">color =</span> <span class="st">"one-tail"</span>), <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb26-25"><a href="#cb26-25"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> power_2, <span class="at">color =</span> <span class="st">"two-tail"</span>), <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb26-26"><a href="#cb26-26"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Sample Size"</span>) <span class="sc">+</span></span>
+<span id="cb26-27"><a href="#cb26-27"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"power"</span>)<span class="sc">+</span></span>
+<span id="cb26-28"><a href="#cb26-28"></a>  <span class="fu">ggtitle</span>(<span class="st">"Power to detect significant effect by mean"</span>) <span class="sc">+</span></span>
+<span id="cb26-29"><a href="#cb26-29"></a>  <span class="fu">theme_pubr</span>() <span class="sc">+</span></span>
+<span id="cb26-30"><a href="#cb26-30"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-31-1.png" width="768" class="r-stretch"></section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>means <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">means =</span> <span class="fu">seq</span>(<span class="dv">101</span>, <span class="dv">115</span>, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">mutate</span>(<span class="at">d =</span> <span class="fu">abs</span>(means<span class="dv">-100</span>)<span class="sc">/</span><span class="dv">20</span>) </span>
+<span id="cb27-3"><a href="#cb27-3"></a>means<span class="sc">$</span>power_1 <span class="ot">=</span> <span class="fu">sapply</span>(means<span class="sc">$</span>d, <span class="cf">function</span>(x) <span class="fu">pwr.norm.test</span>(<span class="at">d =</span> x, <span class="at">sig.level =</span> .<span class="dv">05</span>, <span class="at">power =</span> .<span class="dv">80</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>)<span class="sc">$</span>n)</span>
+<span id="cb27-4"><a href="#cb27-4"></a>means<span class="sc">$</span>power_2 <span class="ot">=</span> <span class="fu">sapply</span>(means<span class="sc">$</span>d, <span class="cf">function</span>(x) <span class="fu">pwr.norm.test</span>(<span class="at">d =</span> x, <span class="at">sig.level =</span> .<span class="dv">05</span>, <span class="at">power =</span> .<span class="dv">80</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)<span class="sc">$</span>n)</span>
+<span id="cb27-5"><a href="#cb27-5"></a></span>
+<span id="cb27-6"><a href="#cb27-6"></a>means <span class="sc">%&gt;%</span></span>
+<span id="cb27-7"><a href="#cb27-7"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> means)) <span class="sc">+</span></span>
+<span id="cb27-8"><a href="#cb27-8"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>power_1, <span class="at">color =</span> <span class="st">"one-tailed"</span>), <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb27-9"><a href="#cb27-9"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>power_2, <span class="at">color =</span> <span class="st">"two-tailed"</span>), <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb27-10"><a href="#cb27-10"></a>  <span class="fu">scale_x_continuous</span>(<span class="fu">expression</span>(H[<span class="dv">1</span>]<span class="sc">~</span>Mean))<span class="sc">+</span></span>
+<span id="cb27-11"><a href="#cb27-11"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Sample size needed"</span>) <span class="sc">+</span></span>
+<span id="cb27-12"><a href="#cb27-12"></a>  <span class="fu">theme_pubr</span>() <span class="sc">+</span></span>
+<span id="cb27-13"><a href="#cb27-13"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-32-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="how-can-power-be-increased">How can power be increased?</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co">#| </span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">130</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mu, <span class="at">sd =</span> sem)) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a>  </span>
+<span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mean, <span class="at">sd =</span> sem),</span>
+<span id="cb28-6"><a href="#cb28-6"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(cv, <span class="dv">130</span>), </span>
+<span id="cb28-7"><a href="#cb28-7"></a>                <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"Power"</span>), <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mean, <span class="at">sd =</span> sem),</span>
+<span id="cb28-9"><a href="#cb28-9"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">70</span>, cv2), </span>
+<span id="cb28-10"><a href="#cb28-10"></a>                <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"Power"</span>), <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb28-11"><a href="#cb28-11"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mean, <span class="at">sd =</span> sem),</span>
+<span id="cb28-12"><a href="#cb28-12"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(cv2, cv), </span>
+<span id="cb28-13"><a href="#cb28-13"></a>                <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"Type II Error"</span>), <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb28-14"><a href="#cb28-14"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mu, <span class="at">sd =</span> sem),</span>
+<span id="cb28-15"><a href="#cb28-15"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(cv, <span class="dv">130</span>), </span>
+<span id="cb28-16"><a href="#cb28-16"></a>                <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"Type I Error"</span>), <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb28-17"><a href="#cb28-17"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mu, <span class="at">sd =</span> sem),</span>
+<span id="cb28-18"><a href="#cb28-18"></a>                <span class="at">geom =</span> <span class="st">"area"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(cv2, <span class="dv">70</span>), </span>
+<span id="cb28-19"><a href="#cb28-19"></a>                <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"Type I Error"</span>), <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb28-20"><a href="#cb28-20"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="at">m =</span> mean, <span class="at">sd =</span> sem)) <span class="sc">+</span></span>
+<span id="cb28-21"><a href="#cb28-21"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> cv), <span class="at">color =</span> <span class="st">"purple"</span>)<span class="sc">+</span></span>
+<span id="cb28-22"><a href="#cb28-22"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">x =</span> mu, <span class="at">y =</span> .<span class="dv">095</span>, <span class="at">label =</span> <span class="st">"H0"</span>)) <span class="sc">+</span></span>
+<span id="cb28-23"><a href="#cb28-23"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean, <span class="at">y =</span> .<span class="dv">095</span>, <span class="at">label =</span> <span class="st">"H1"</span>)) <span class="sc">+</span></span>
+<span id="cb28-24"><a href="#cb28-24"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">x =</span> cv, <span class="at">y =</span> .<span class="dv">1</span>, <span class="at">label =</span> <span class="st">"CV"</span>), <span class="at">color =</span> <span class="st">"purple"</span>) <span class="sc">+</span></span>
+<span id="cb28-25"><a href="#cb28-25"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb28-26"><a href="#cb28-26"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Means"</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">70</span>,<span class="dv">130</span>,<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb28-27"><a href="#cb28-27"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span> </span>
+<span id="cb28-28"><a href="#cb28-28"></a>  <span class="fu">theme_pubr</span>() <span class="sc">+</span></span>
+<span id="cb28-29"><a href="#cb28-29"></a>  <span class="fu">theme</span>( <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),</span>
+<span id="cb28-30"><a href="#cb28-30"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img data-src="11-nhst_files/figure-revealjs/unnamed-chunk-33-1.png" width="960"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="math display">\[Z_1 = \frac{CV_0 - \mu_1}{\frac{\sigma}{\sqrt{N}}}\]</span></p>
+<div>
+<ul>
+<li>increase <span class="math inline">\(\mu_1\)</span></li>
+<li>decrease <span class="math inline">\(CV_0\)</span></li>
+<li>increase <span class="math inline">\(N\)</span></li>
+<li>reduce <span class="math inline">\(\sigma\)</span></li>
+</ul>
+</div>
+</div>
+</div>
+<p><span style="font-size:30px;">I strongly recommend playing around with different configurations of <span class="math inline">\(N\)</span>, <span class="math inline">\(\alpha\)</span> and the difference in means ( <span class="math inline">\(d\)</span> ) in this <a href="https://rpsychologist.com/d3/NHST/">online demo</a>.</span></p>
+</section>
+<section id="next-time" class="slide level2">
+<h2>Next time…</h2>
+<p>critiques of NHST</p>
+<div class="footer footer-default">
+
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="11-nhst_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="11-nhst_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="11-nhst_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="11-nhst_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="11-nhst_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="11-nhst_files/libs/revealjs/plugin/multiplex/socket.io.js"></script>
+  <script src="11-nhst_files/libs/revealjs/plugin/multiplex/multiplex.js"></script>
+  <script src="11-nhst_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="11-nhst_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="11-nhst_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="11-nhst_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="11-nhst_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'multiplex': {"secret":"16670665488314972188","id":"5b2d280ca9f01567","url":"https://reveal-multiplex.glitch.me/"},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        target: function(trigger) {
+          return trigger.previousElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        setTimeout(function() {
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto-reveal',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          let href = ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+        tippyHover(ref, function() {
+          var popup = window.document.createElement('div');
+          cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    });
+    </script>
+    
+
+</body></html>
