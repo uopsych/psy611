@@ -118,7 +118,7 @@ A _Z_-statistic summarizes how unusual the sample estimate of a mean compared to
   
 The test statistic is derived from a probability distribution that represents the likelihood of any sample estimated given that the null hypothesis is true.
 
-We choose the probability assumption based on assumptions we are willing to make about the data. The **sampling distribution** of the test statistic tells us what counts as rare or unusual.
+We choose the probability distribution based on assumptions we are willing to make about the data. The **sampling distribution** of the test statistic tells us what counts as rare or unusual.
 
 ------------------------------------------------------------------------
 
@@ -542,7 +542,7 @@ $$Z_1 = \frac{`r round(cv,2)` - `r xbar`}{\frac{`r s`}{\sqrt{`r n`}}} = `r round
 
 <span style="font-size:30px;">The proportion of the alternative distribution that falls below that point is the probability of a Type II error (.29); power is then .71.</span>
 
-```{r CHANGE ME}
+```{r}
 pnorm(-.54)
 ```
 

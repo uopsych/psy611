@@ -13,7 +13,15 @@ output:
     toc_depth: '3'
 ---
 
+
+```{r, eval = F, echo = F}
+## notes for future instructors
+# add mini-hacks that cover earlier material
+
+```
+
 ```{r setup, include=FALSE}
+
 knitr::opts_chunk$set(echo = TRUE, rows.print = 5)
 
 # suppress scientific notation
