@@ -26,6 +26,7 @@ library(rio) # for importing data
 # install.packages("yarrr")
 #library(yarrr) # import pirates and movies datasets
 library(psych)
+library(mosaicData)
 ```
 
 
@@ -163,9 +164,18 @@ ggplot(CPS85_clean, aes(x = sector,fill = sex)) +
 ```
 
 ### Segmented bar chart
+
 ```{r}
 ggplot(CPS85_clean, aes(x = sector,fill = sex)) +
   geom_bar(position = "fill")
+```
+
+Do you find anything wrong with this figure? 
+
+```{r}
+ggplot(CPS85_clean, aes(x = sector,fill = sex)) +
+  geom_bar(position = "fill") + 
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1L)) +   labs(y = "Percentage")
 ```
 
 ## Bivariate: Categorical & Continuous
