@@ -1,0 +1,883 @@
+---
+title: "Null Hypothesis Significance Testing"
+format: 
+  revealjs:
+    multiplex: true
+    slide-number: true
+    incremental: true
+    touch: true
+    code-overflow: wrap
+execute: 
+  echo: true
+editor: visual
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+```
+
+## Last time...
+
+Sampling!
+
+:::nonincremental
+- Importance of random samples
+- Sampling distributions
+- Inferring population mean from sample mean
+- Confidence intervals (let's finish this up)
+:::
+
+------------------------------------------------------------------------
+
+$$\bar{X} - (1.96\times SEM) \leq \mu \leq \bar{X} + (1.96\times SEM) $$
+
+This is referred to as the **95% confidence interval (CI)**.  Note the assumption of normality, which should hold by the Central Limit Theorem, if $N$ is sufficiently large.
+
+The 95% CI is sometimes represented as:
+
+$$CI_{95} = \bar{X} \pm [1.96\frac{\hat{\sigma}}{\sqrt{N}}]$$
+
+Where does 1.96 come from?
+
+------------------------------------------------------------------------
+
+
+```{r}
+#| code-fold: true
+#| 
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x)) +
+  stat_function(fun = function(x) dnorm(x),
+                xlim = c(-1.96, 1.96), geom = "area", fill = "purple", alpha = .3) +
+  geom_vline(aes(xintercept = 1.96), color = "purple")+
+  geom_vline(aes(xintercept = -1.96), color = "purple") +
+  geom_label(aes(x = 1.96, y = .3, label = "1.96"))+
+  geom_label(aes(x = -1.96, y = .3, label = "-1.96"))
+```
+
+------------------------------------------------------------------------
+
+What if you didn't know the value?
+
+```{r}
+#| code-fold: true
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x)) +
+  stat_function(fun = function(x) dnorm(x),
+                xlim = c(-1.96, 1.96), geom = "area", fill = "purple", alpha = .3) +
+  geom_vline(aes(xintercept = 1.96), color = "purple")+
+  geom_vline(aes(xintercept = -1.96), color = "purple") +
+  geom_label(aes(x = 1.96, y = .3, label = "?"))+
+  geom_label(aes(x = -1.96, y = .3, label = "?"))
+```
+
+------------------------------------------------------------------------
+
+What if you didn't know the value?
+
+```{r}
+#| code-fold: true
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x)) +
+  stat_function(fun = function(x) dnorm(x),
+                xlim = c(-1.96, 1.96), geom = "area", fill = "purple", alpha = .3) +
+  stat_function(fun = function(x) dnorm(x),
+                xlim = c(-4, -1.96), geom = "area", fill = "green", alpha = .3) +
+  stat_function(fun = function(x) dnorm(x),
+                xlim = c(4, 1.96), geom = "area", fill = "green", alpha = .3) +
+  geom_vline(aes(xintercept = 1.96), color = "purple")+
+  geom_vline(aes(xintercept = -1.96), color = "purple") +
+  geom_label(aes(x = 1.96, y = .3, label = "?"))+
+  geom_label(aes(x = -1.96, y = .3, label = "?"))
+```
+
+------------------------------------------------------------------------
+
+What if you didn't know the value?
+
+```{r, fig.height=6}
+#| code-fold: true
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x)) +
+  stat_function(fun = function(x) dnorm(x),
+                xlim = c(-4, 1.96), geom = "area", fill = "purple", alpha = .3) +
+  geom_vline(aes(xintercept = 1.96), color = "purple")+
+  geom_label(aes(x = 1.96, y = .3, label = "?"))
+```
+
+```{r}
+qnorm(.975)
+```
+
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;line-height: .5em">The normal distribution assumes we know the population mean and standard deviation. But we don’t. We only know the sample mean and standard deviation, and those have some uncertainty about them. </span>
+
+::: 
+::: {.column width="70%"}
+
+```{r, fig.width = 7}
+#| code-fold: true
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x), 
+                aes(color = "Normal", linetype = "Normal")) +
+  stat_function(fun = function(x) dt(x, df = 1), 
+                aes(color = "t(1)", linetype = "t(1)")) +
+  stat_function(fun = function(x) dt(x, df = 5), 
+                aes(color = "t(5)", linetype = "t(5)")) +
+  stat_function(fun = function(x) dt(x, df = 25), 
+                aes(color = "t(25)", linetype = "t(25)")) +
+  stat_function(fun = function(x) dt(x, df = 100), 
+                aes(color = "t(100)", linetype = "t(100)")) + 
+  scale_x_continuous("Variable X") +
+  scale_y_continuous("Density") +
+  scale_color_manual("", 
+                     values = c("red", "black", "black", "blue", "blue")) +
+  scale_linetype_manual("", 
+                        values = c("solid", "solid", "dashed", "solid", "dashed")) +
+  ggtitle("The Normal and t Distributions") +
+  theme(text = element_text(size=20),legend.position = "bottom")
+```
+
+::: 
+::: 
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">That uncertainty is reduced with large samples, so that the normal is “close enough.”  In small samples, the $t$ distribution provides a better approximation.</span>
+
+::: 
+::: {.column width="70%"}
+
+```{r, fig.width = 7}
+#| code-fold: true
+ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
+  stat_function(fun = function(x) dnorm(x), 
+                aes(color = "Normal", linetype = "Normal")) +
+  stat_function(fun = function(x) dt(x, df = 1), 
+                aes(color = "t(1)", linetype = "t(1)")) +
+  stat_function(fun = function(x) dt(x, df = 5), 
+                aes(color = "t(5)", linetype = "t(5)")) +
+  stat_function(fun = function(x) dt(x, df = 25), 
+                aes(color = "t(25)", linetype = "t(25)")) +
+  stat_function(fun = function(x) dt(x, df = 100), 
+                aes(color = "t(100)", linetype = "t(100)")) + 
+  scale_x_continuous("Variable X") +
+  scale_y_continuous("Density") +
+  scale_color_manual("", 
+                     values = c("red", "black", "black", "blue", "blue")) +
+  scale_linetype_manual("", 
+                        values = c("solid", "solid", "dashed", "solid", "dashed")) +
+  ggtitle("The Normal and t Distributions") +
+  theme(text = element_text(size=20),legend.position = "bottom")
+```
+
+::: 
+::: 
+
+------------------------------------------------------------------------
+
+<span style="font-size:30px;">For small samples, we need to use the t distribution with its fatter tails. This produces wider confidence intervals—the penalty we have to pay for our ignorance about the population.<br>The form of the confidence interval remains the same. We simply substitute a corresponding value from the t distribution (using df = $N -1$).</span>
+
+
+$$CI_{95} = \bar{X} \pm [1.96\frac{\hat{\sigma}}{\sqrt{N}}]$$
+
+$$CI_{95} = \bar{X} \pm [Z_{.975}\frac{\hat{\sigma}}{\sqrt{N}}]$$
+
+$$CI_{95} = \bar{X} \pm [t_{.975, df = N-1}\frac{\hat{\sigma}}{\sqrt{N}}]$$
+
+------------------------------------------------------------------------
+
+The meaning of the confidence interval can be a bit confusing and arises from the peculiar language forced on us by the frequentist viewpoint.
+
+The CI DOES NOT mean “there is a 95% probability that the true mean lies inside the confidence interval.”
+
+It means that if we carried out random sampling from the population a large number of times, and calculated the 95% confidence interval each time, then 95% of those intervals can be expected to contain the population mean. (Ugh, maybe those smug Bayesians are on to something.)
+
+------------------------------------------------------------------------
+
+
+Maybe less tortured: We have good reason to believe the true mean lies in this interval because 95% of the time such intervals contain the true mean.
+
+  - And even that interpretation is problematic, because it assumes our estimate of the standard deviation is error-free.
+  
+::: notes
+
+As Hays (1988) notes, the confidence limits based on the sample estimate of the population standard deviation are approximately correct, especially as sample size increases. They are approximately correct because there is uncertainty in the calculation of the SEM based on the sample estimate of the standard deviation.
+
+:::
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">At each sample size, draw 5000 samples from known population ( $\mu = 0$ , $\sigma = 1$ ).<br>Calculate CI for each sample using $s$ and record whether or not 0 was in that interval.<br>Calculate CI using for each sample using $\sigma$.</span>
+
+::: 
+::: {.column width="70%"}
+
+```{r, message = F}
+#| code-fold: true
+reps = 5000
+
+sizes = seq(5,200,5)
+
+prop = rep(0, length(sizes))
+prop_sig  = rep(0, length(sizes))
+
+set.seed(101919)
+
+for(n in 1:length(sizes)){
+  sample_size = sizes[n]
+  correct = vector(length = reps)
+  correct_sig = vector(length = reps)
+  for(i in 1:reps){
+    sample = rnorm(sample_size)
+    m = mean(sample)
+    s = sd(sample)
+    sm = s/sqrt(sample_size)
+    lb = m-(1.96*sm)
+    ub = m+(1.96*sm)
+    missed = lb > 0 | ub < 0
+  correct[i] = !missed
+  
+    sigma = 1
+    sm_sig = sigma/sqrt(sample_size)
+    lb_sig = m-(1.96*sm_sig)
+    ub_sig = m+(1.96*sm_sig)
+    missed_sig = lb_sig > 0 | ub_sig < 0
+  correct_sig[i] = !missed_sig
+  }
+  prop[n] = sum(correct)/reps
+  prop_sig[n] = sum(correct_sig)/reps
+
+}
+
+data.frame(n = sizes, p = prop, ps = prop_sig) %>%
+  gather("estimate", "value", -n) %>%
+  mutate(estimate = ifelse(estimate == "p", "Estimate of sigma", "Sigma")) %>%
+  ggplot(aes(x = n, y = value, color = estimate)) +
+  geom_smooth( se = F) +
+  geom_hline(aes(yintercept = .95), color = "black") +
+  scale_color_discrete("How do you calculate SEM?") +
+  labs(x = "Sample size", y = "Proportion of CIs that contain the population mean") +
+  theme(text = element_text(size = 18), legend.position = "bottom")
+
+```
+
+::: 
+::: 
+
+------------------------------------------------------------------------
+
+In the past, my classroom exams (aggregating over many classes) have a mean of 90 and a standard deviation of 8.
+
+My next class will have 100 students. What range of exam means would be plausible if this class is similar to past classes (comes from the same population)?
+
+
+```{r}
+M = 90; SD = 8; N = 100
+sem = SD/sqrt(N)
+
+ci_lb_z = M - sem * qnorm(p = .975)
+ci_ub_z = M + sem * qnorm(p = .975)
+c(ci_lb_z, ci_ub_z)
+
+
+ci_lb_z = M - sem * qt(p = .975, df = N-1)
+ci_ub_z = M + sem * qt(p = .975, df = N-1)
+c(ci_lb_z, ci_ub_z)
+```
+
+------------------------------------------------------------------------
+
+I give a classroom exam that produces a mean of 83.4 and a standard deviation of 10.6. A total of 26 students took the exam.
+
+What is the 95% confidence interval around the mean?
+
+What kinds of population inferences can I draw?
+
+```{r}
+M = 83.4; SD = 10.6; N = 26
+sem = SD/sqrt(N)
+
+ci_lb_z = M - sem * qnorm(p = .975)
+ci_ub_z = M + sem * qnorm(p = .975)
+c(ci_lb_z, ci_ub_z)
+
+
+ci_lb_z = M - sem * qt(p = .975, df = N-1)
+ci_ub_z = M + sem * qt(p = .975, df = N-1)
+c(ci_lb_z, ci_ub_z)
+```
+
+------------------------------------------------------------------------
+
+
+# Hypothesis
+
+What is a hypothesis?
+
+In statistics, a **hypothesis** is a statement about the population. It is usually a prediction that a parameter describing some characteristic of a variable takes a particular numerical value, or falls into a certain range of values. 
+
+------------------------------------------------------------------------
+
+
+## Hypothesis
+
+For example, dogs are characterized by their ability to read humans' social cues, but it is (was) unknown whether that skill is biologically prepared. I might hypothesize that when a human points to a hidden treat, puppies do not understand that social cue and their performance on a related task is at-chance. We would call this a **research hypothesis.**
+
+This could be represented numerically as, as a **statistical hypothesis**:
+
+$$\text{Proportion}_{\text{Correct Performance}} = .50$$
+
+------------------------------------------------------------------------
+
+## The null hypothesis
+
+In Null Hypothesis Significance Testing, we... test a null hypothesis. 
+
+A **null hypothesis** ( $H_0$ ) is a statement of no effect. The *research hypothesis* states that there is no relationship between X and Y, or our intervention has no effect on the outcome. 
+
+- The *statistical hypothesis* is either that the population parameter is a single value, like 0, or that a range, like 0 or smaller. 
+
+------------------------------------------------------------------------
+
+## The alternative hypothesis
+
+According to probability theory, our sample space must cover all possible elementary events. Therefore, we create an **alternative hypothesis** ( $H_1$ ) that is every possible event not represented by our null hypothesis. 
+
+::: columns
+::: {.column width="50%"}
+
+$$H_0: \mu = 4$$
+$$H_1: \mu \neq 4$$
+
+::: 
+::: {.column width="50%"}
+
+
+$$H_0: \mu \leq -7$$
+$$H_1: \mu > -7$$
+
+::: 
+::: 
+
+
+------------------------------------------------------------------------
+
+## The tortured logic of NHST
+
+We create two hypotheses, $H_0$ and $H_1$. Usually, we care about $H_1$, not $H_0$. In fact, what we really want to know is how likely $H_1$, given our data. 
+
+$$P(H_1|D)$$
+Instead, we're going to test our null hypothesis. Well, not really. We're going to assume our null hypothesis is true, and test how likely we would be to get these data. 
+
+$$P(D|H_0)$$
+
+------------------------------------------------------------------------
+
+## Example #1
+
+Consider the example of puppies' abilities to read human social cues. 
+
+Let $\Pi$ be the probability the puppy chooses the correct cup. 
+
+In a task with two choices, an at-chance performance is $\Pi = .5$. This can be the null hypothesis because if this is true, than puppies would make the correct choice as often as they would make an incorrect choice.
+
+Note that the null hypothesis changes depending on the situation and research question. 
+  
+------------------------------------------------------------------------
+
+## Example #1
+
+As a dog-lover, you’re skeptical that reading human social cues is purely learned, and you have an alternative hypothesis that puppies will perform well over chance, thus having a probability of success on any given task greater than .5.
+
+$$H_0: \Pi = .5$$
+$$H_1: \Pi \neq .5$$
+------------------------------------------------------------------------
+
+## Example #1
+
+To test the null hypothesis, you a single puppy and test them 12 times on a pointing task. The puppy makes the correct choice 10 times.
+
+The question you're going to ask is:
+
+::: nonincremental
+
+  - "How likely is it that the puppy is successful 10 times out of 12, if the probability of success is .5?"
+  
+:::
+  
+This is the essence of NHST.
+
+You can already test this using what you know about the binomial distribution.
+
+------------------------------------------------------------------------
+
+```{r}
+dbinom(10, size = 12, prob = .5)
+```
+
+```{r, warning = F, message = F}
+#| code-fold: true
+
+trial = 0:12
+data.frame(trial = trial, d = dbinom(trial, size = 12, prob = .5), 
+           color = ifelse(trial == 10, "1", "2")) %>%
+  ggplot(aes(x = trial, y = d, fill = color)) +
+  geom_bar(stat = "identity") + 
+  guides(fill = "none")+
+  scale_x_continuous("Number of puppy successes", breaks = c(0:12))+
+  scale_y_continuous("Probability of X successes") +
+  theme(text = element_text(size = 20))
+  
+```
+
+  
+------------------------------------------------------------------------
+
+## Complications with the binomial
+
+The likelihood of the puppy being successful 10 times out of 12 *if the true probability of success is .5* is `r round(dbinom(10,12,.5),2)`. That's pretty low! That's so low that we might begin to suspect that the true probability is not .5. 
+
+But there's a problem with this example. [The real study](https://doi.org/10.1016/j.anbehav.2020.05.019) used a sample of many puppies (>300), and the average number of correct trials per puppy was about 8.33. But the binomial won't allow us to calculate the probability of fractional successes!
+
+What we really want is not to assess 10 out of 12 times, but a proportion, like .694. How many different proportions could result puppy to puppy?
+
+------------------------------------------------------------------------
+
+## Our statistic is usually continuous
+
+When we estimate a statistic for our sample -- like the proportion of puppy success, or the average IQ score, or the relationship between age in months and second attending to a new object -- that statistic is nearly always continuous. So we have to assess the probability of that statistic using a probability distribution for continuous variables, like the normal distribution. (Or _t_, or _F_, or $\chi^2$ ).
+
+What is the probability of any value in a continuous distribution?
+
+------------------------------------------------------------------------
+
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">Instead of calculating the probability of our statistic, we calculate the probability of our statistic *or more extreme* under the null.<br><br>The probability of success on 10 trials out of 12 or more extreme is `r round((1-pbinom(10,12,.5))*2,2)`.</span>
+
+::: 
+::: {.column width="70%"}
+
+```{r sampling_binom, warning = F, message = F}
+#| code-fold: true
+data.frame(trials = trial, d = dbinom(trial, size = 12, prob = .5), 
+           color = ifelse(trial %in% c(0,1,2, 10,11,12), "1", "2")) %>%
+  ggplot(aes(x = trials, y = d, fill = color)) +
+  geom_bar(stat = "identity") + 
+  guides(fill = "none")+
+  scale_x_continuous("Number of successes", breaks = c(0:12))+
+  scale_y_continuous("Probability of X successes") +
+  theme(text = element_text(size = 20))
+```
+
+::: 
+::: 
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">As we have more trials...</span>
+
+::: 
+::: {.column width="70%"}
+
+```{r , warning = F, message = F}
+#| code-fold: true
+data.frame(trials = 0:24, 
+           d = dbinom(0:24, size = 24, prob = .5), 
+           color = ifelse(0:24 %in% c(0:4, 20:24), "1", "2")) %>%
+  ggplot(aes(x = trials, y = d, fill = color)) +
+  geom_bar(stat = "identity") + 
+  guides(fill = "none")+
+  scale_x_continuous("Number of trials hired", breaks = c(0:24))+
+  scale_y_continuous("Probability of X trials hired") +
+  theme(text = element_text(size = 20))
+```
+
+::: 
+::: 
+
+------------------------------------------------------------------------
+
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">... and more trials...</span>
+
+::: 
+::: {.column width="70%"}
+
+```{r , warning = F, message = F}
+#| code-fold: true
+data.frame(trials = 0:36, 
+           d = dbinom(0:36, size = 36, prob = .5), 
+           color = ifelse(0:36 %in% c(0:6, 30:36), "1", "2")) %>%
+  ggplot(aes(x = trials, y = d, fill = color)) +
+  geom_bar(stat = "identity") + 
+  guides(fill = "none")+
+  scale_x_continuous("Number of trials hired", breaks = c(0:36))+
+  scale_y_continuous("Probability of X trials hired") +
+  theme(text = element_text(size = 20))
+```
+
+::: 
+::: 
+
+------------------------------------------------------------------------
+
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">If our measure was continuous, it would look something like this.</span>
+
+::: 
+::: {.column width="70%"}
+
+```{r, warning = F, message = F}
+#| code-fold: true
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+
+colors = gg_color_hue(2)
+
+data.frame(x = seq(-4,4)) %>%
+  ggplot(aes(x=x)) +
+  stat_function(fun = function(x) dnorm(x), geom = "area", fill = colors[2])+
+  stat_function(fun = function(x) dnorm(x), xlim = c(-4, -2.32), geom = "area", fill = colors[1])+
+  stat_function(fun = function(x) dnorm(x), xlim = c(2.32, 4), geom = "area", fill = colors[1])+
+  geom_hline(aes(yintercept = 0)) +
+  scale_x_continuous(breaks = NULL)+
+  labs(x = "successes",
+       y = "Probability of X successes") +
+  theme(text = element_text(size = 20))
+```
+
+::: 
+::: 
+
+------------------------------------------------------------------------
+
+## Quick recap
+
+For any NHST test, we:
+
+1. Identify the null hypothesis ( $H_0$ ), which is usually the opposite of what we think to be true.
+
+2. Collect data.
+
+3. Determine how likely we are to get these data or more extreme if the null is true. 
+
+------------------------------------------------------------------------
+
+What's missing?
+
+4. How do we determine what the distribution looks like if the null hypothesis is true?
+
+5. How unlikely do the data have to be to "reject" the null?
+
+------------------------------------------------------------------------
+
+## Enter sampling distributions
+
+::: columns
+::: {.column width="50%"}
+
+```{r ref.label = "sampling_binom", warning = F, message = F}
+#| code-fold: true
+```
+
+::: 
+::: {.column width="50%"}
+
+When we were analyzing the puppy problem, we built the distribution under the null using the binomial.
+
+This is our **sampling distribution.** 
+
+What do we need to know to build a sampling distribution based on the binomial?
+
+::: 
+::: 
+
+
+------------------------------------------------------------------------
+
+But as we said before, we're not really going to use the binomial much to make inferences about statistics, because the vast majority of our statistics are continuous, not discrete. Instead, we'll use other distributions to create our sampling distributions. Sometimes $t$ , or $F$ , or $\chi^2$ . 
+
+For now, we'll work through an example using the standard normal distribution. 
+
+------------------------------------------------------------------------
+
+## Example #2 
+
+Bray and colleagues (2020) test a sample of 10* puppies on multiple cognitive tasks, including their ability to correctly find a treat hidden under one of two cups based on human pointing. The average success rate was 69.41% (SD = 18.88). 
+
+How do you generate the sampling distribution around the null?
+
+::: notes
+
+Null: distribution of successes -- you know this population, trying to see if ratings of female applicants come from the same distribution of scores
+
+:::
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">The mean of the sampling distribution = the mean of the null hypothesis<br><br>The standard deviation of the sampling distribution:</span>
+
+$$\small SEM = 
+\frac{\sigma}{\sqrt{N}}$$
+
+::: 
+::: {.column width="70%"}
+
+
+```{r}
+#| code-fold: true
+data.frame(x = seq(0,100)) %>%
+  ggplot(aes(x=x)) +
+  stat_function(fun = function(x) dnorm(x, mean = 50, sd = 18.88/sqrt(10)), 
+                geom = "area", fill = "purple", alpha = .5) +
+  stat_function(fun = function(x) dnorm(x, mean = 50, sd = 18.88/sqrt(5)), 
+                geom = "area", fill = "red", alpha = .5) +
+  stat_function(fun = function(x) dnorm(x, mean = 50, sd = 18.88/sqrt(2)), 
+                geom = "area", fill = "blue", alpha = .5) +
+      labs(title = as.expression(bquote("Population"~mu~"=50"~sigma~"=5.97")),
+           x = "Average proportion of successes",
+           y = NULL)  +
+  theme(text = element_text(size = 20))
+```
+
+::: 
+::: 
+
+::: notes
+
+What must we assume in order to use the SEM?
+
+Random sampling
+
+:::
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+
+<span style="font-size:30px;">The mean of the sampling distribution = the mean of the null hypothesis<br><br>The standard deviation of the sampling distribution:</span>
+
+$$\small SEM = \frac{\sigma}{\sqrt{N}}$$
+
+::: 
+::: {.column width="70%"}
+
+```{r }
+#| code-fold: true
+
+sem = 18.88/sqrt(10)
+data.frame(x = seq(0,100)) %>%
+  ggplot(aes(x=x)) +
+  stat_function(fun = function(x) dnorm(x, mean = 50, sd = sem), 
+                geom = "area", alpha = .75) +
+      labs(title = as.expression(bquote("Population"~mu~"=50"~sigma~"=5.97")),
+           x = "Average proportion of successes",
+           y = NULL)  +
+  theme(text = element_text(size = 20))
+```
+
+::: 
+::: 
+
+::: notes
+
+Calculate SEM on board.
+
+$sqrt(10) = `r sqrt(10)`$
+
+:::
+
+
+------------------------------------------------------------------------
+
+All well and good. 
+
+Note that we didn't have access to the population standard deviation -- we had to make use of the sample standard deviation instead:
+
+$$SEM = \frac{\hat{\sigma}}{\sqrt{N}} = \frac{s}{\sqrt{N}}$$
+
+So long as your estimate of the standard deviation is already corrected for bias (you've divided by $N-1$ ), then you can swap in your sample SD.
+
+
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="50%"}
+
+```{r sampling, warning= F}
+#| code-fold: true
+data.frame(x = seq(0,100)) %>%
+  ggplot(aes(x=x)) +
+  stat_function(fun = function(x) dnorm(x, mean = 50, sd = 18.88/sqrt(10)), 
+                geom = "area") +
+  stat_function(fun = function(x) dnorm(x, mean = 50, sd = 18.88/sqrt(10)), 
+                geom = "area", xlim = c(0, 35.81), fill = colors[1]) +
+  stat_function(fun = function(x) dnorm(x, mean = 50, sd = 18.88/sqrt(10)), 
+                geom = "area", xlim = c(64.19, 100), fill = colors[1]) +
+  geom_vline(aes(xintercept = 64.19), color = "purple") +
+      labs(title = as.expression(bquote("Population"~mu~"=50"~sigma~"=5.97")),
+           x = "Average proportion of successes",
+           y = NULL)  +
+  theme(text = element_text(size = 20))
+```
+
+::: 
+::: {.column width="50%"}
+
+
+```{r, fig.height = 7}
+#| code-fold: true
+M = 50
+s = 18.88
+N = 10
+X = 69.41
+
+sem = s/sqrt(N)
+
+z = (X-M)/sem
+```
+
+
+<span style="font-size:30px;">We have a normal distribution for which we know the mean (M), the standard deviation (SEM), and a score of interest ( $\bar{X}$ ).<br><br>We can use this information to calculate a Z-score; in the context of comparing one mean to a sampling distribution of means, we call this a **Z-statistic**.</span>
+
+::: 
+::: 
+
+
+$$Z = \frac{\bar{X}- M}{SEM} = \frac{69.41-50}{5.97} = `r round(z, 2)`$$
+
+------------------------------------------------------------------------
+
+$$Z = \frac{\bar{X}- M}{SEM} = \frac{69.41-50}{5.97} = `r round(z, 2)`$$
+
+
+And here's where we use the properties of the Standard Normal Distribution to calculate probabilities, specifically the probability of getting a score this far away from $\mu$ or more extreme:
+
+```{r, echo=c(1,2)}
+pnorm(-3.25) + pnorm(3.25, lower.tail = F)
+pnorm(-3.25)*2
+p = pnorm(-3.25)*2
+
+```
+
+The probability that the average puppy's success rate would be at least `r abs(M-X)` percentage points away from at-chance (50/%) `r round(p, 3)`.
+
+------------------------------------------------------------------------
+
+The probability that the average puppy's success rate would be at least `r abs(M-X)` percentage points away from at-chance (50/%) `r round(p, 3)`.
+
+`r round(p, 3)` is our p-value. 
+
+What does this mean?
+
+------------------------------------------------------------------------
+
+### A p-value DOES NOT:
+
+- Tell you that the probability that the null hypothesis is true. 
+
+- Prove that the alternative hypothesis is true. 
+    
+- Tell you anything about the size or magnitude of any observed difference in your data. 
+    
+------------------------------------------------------------------------
+
+### p-values
+
+$$p = `r round(p, 3)`$$ 
+
+    
+Is that a really low probability?
+
+Before you test your hypotheses -- ideally, even before you collect the data -- you have to determine how low is too low. 
+
+Researchers set an alpha ( $\alpha$ ) level that is the probability at which you declare your result to be "statistically significant." How do we determine this?
+
+------------------------------------------------------------------------
+
+### p-values and error 
+
+
+Consider what the p-value means. In a world where the null ( $H_0$ ) is true, then by chance, we'll get statistics in the extreme. Specifically, we'll get them $\alpha$ proportion of the time. So $\alpha$ is our tolerance for False Positives or incorrectly rejecting the null.
+
+------------------------------------------------------------------------
+
+### alpha
+
+Historically, psychologists have chosen to set their $\alpha$ level at .05, meaning any p-value less than .05 is considered "statistically significant" or the null is rejected. 
+
+This means that, among the times we examine a relationship that is truly null, we will reject the null 1 in 20 times. 
+
+Some have argued that this is not conservative enough and we should use $\alpha < .005$ ([Benjamin et al., 2018](../readings/Benjamin_etal_2018.pdf)).
+
+
+------------------------------------------------------------------------
+
+## NHST Steps
+
+::: columns
+::: {.column width="50%"}
+
+1. Define $H_0$ and $H_1$. 
+
+2. Choose your $\alpha$ level. 
+
+3. Collect data.
+
+4. Define your sampling distribution using your null hypothesis and either the knowns about the population or estimates of the population from your sample.
+
+::: 
+::: {.column width="50%"}
+
+
+5. Calculate the probability of your data or more extreme under the null. 
+
+6. Compare your probability (p-value) to your $\alpha$ level and decide whether your data are "statistically significant" (reject the null) or not (retain the null).
+
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Next time...
+
+<span style="font-size:30px;">more NHST</span>
+
+
+```{r, out.width='60%', echo = F}
+knitr::include_graphics("images/halloween.jpeg")
+```
+
+
+

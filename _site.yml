@@ -25,6 +25,10 @@ navbar:
         href: "lectures/08-normal.html"
       - text: "9-Sampling"
         href: "lectures/09-sampling.html"
+      - text: "10-NHST I"
+        href: "lectures/10-nhst.html"
+      - text: "11/12-NHST II"
+        href: "lectures/11-nhst.html"
     - text: Labs
       menu:
       - text: "1 - Introduction to R"
@@ -35,6 +39,8 @@ navbar:
         href: "labs/lab-3_instructor.html"
       - text: "4 - Probability Distributions"
         href: "labs/lab-4_instructor.html"
+      - text: "5 - Data Wrangling"
+        href: "labs/lab-5_instructor.html"
     - text: Homework
       href: homework.html
     - text: Useful Material

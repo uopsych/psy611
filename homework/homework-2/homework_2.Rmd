@@ -78,8 +78,6 @@ Robert Downey Jr. has been on tour recently bragging that his presence alone bro
 
 * Do the movies featuring Iron Man (the character played by RDJ) make more money on average than movies that do not feature Iron Man?
 
-* Maybe this is an artifact, driven by the fact that later Marvel movies made more money than earlier ones. If Iron Man appears in more movies per year over time, this would suggest there's a third variable (time) that accounts for this relationship. Create a figure that answers the question: does Iron Man appear in more movies over time? Interpret this figure: Could this explain why RDJ's movies made more?
-
 * RDJ charges a lot of money for his acting services. Maybe we're less interested in the gross and more interested in the profit. Do the movies with Iron Man profit more than movies that don't? Create a figure to represent this, including the mean and 95% confidence intervals around the outcome(s). (Note that budget is reported in millions of dollars and gross is reported in dollars.) Interpret this graph: do movies with Iron Man have greater profit?
 
 ### Question 2
