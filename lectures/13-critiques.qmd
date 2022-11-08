@@ -15,10 +15,10 @@ editor: visual
 
 ## Annoucements
 
-- - HW #2 due next Friday
-- No lab next Friday (Veteran's Day)
-- Next Thursday (Nov 10) lecture will be pre-recorded
-  - Tuesday (Nov 8) at 5:30 pm
+- - HW #2 due Friday
+- No lab Friday (Veteran's Day)
+- Thursday (Nov 10) lecture will be pre-recorded
+  - Tonight at 5:30 pm
 
 
 ```{r, include = F}
@@ -122,6 +122,52 @@ pnorm(q = 1.3125, lower.tail = F)*2
 
 ------------------------------------------------------------------------
 
+## Recap
+
+::: columns
+::: {.column width="40%"}
+
+
+You can test the hypothesis by comparing the sample mean $(\bar{X})$ to the mean under the null hypothesis $(\mu_0)$.
+
+Alternatively, you can compare the the mean under the null hypothesis $(\mu_0)$ to the the sample mean $(\bar{X})$.
+
+::: 
+::: {.column width="60%"}
+
+```{r}
+#| code-fold: true
+mu = 17.7; sigma = 3.2; n = 9; xbar = 19.1
+
+sem = sigma/sqrt(n)
+
+cv_pos = xbar + 1.96*sem
+cv_neg = xbar - 1.96*sem
+
+zstat = (xbar-mu)/sem
+lower_bound = mu-3*sem
+upper_bound = xbar+3*sem
+
+data.frame(M = c(lower_bound:upper_bound)) %>%
+  ggplot(aes(x = M)) +
+  stat_function(fun = function(x) dnorm(x, mean = xbar, sd = sem), 
+                 geom = "line") +
+  stat_function(fun = function(x) dnorm(x, mean = xbar, sd = sem), 
+                 geom = "area", fill = "purple", xlim = c(cv_pos, upper_bound)) +
+  stat_function(fun = function(x) dnorm(x, mean = xbar, sd = sem), 
+                 geom = "area", fill = "purple", xlim = c(lower_bound, cv_neg)) +
+  geom_vline(aes(xintercept = mu), color = "red", linetype = "dashed") +
+  scale_x_continuous(breaks = round(c(lower_bound:upper_bound))) + 
+  labs(x = "Mean", y = "density", title = "Sampling distribution around sample mean")+
+  theme_pubr()
+```
+
+::: 
+::: 
+
+
+------------------------------------------------------------------------
+
 ## Recap: Errors
 
 What kind of error could we have just made?
@@ -138,6 +184,18 @@ Type II error (false negative) depends on making a guess about the effect size. 
 
 ```{r}
 #| code-fold: true
+
+mu = 17.7; sigma = 3.2; n = 9; xbar = 19.1
+
+sem = sigma/sqrt(n)
+
+cv_pos = mu + 1.96*sem
+cv_neg = mu - 1.96*sem
+
+zstat = (xbar-mu)/sem
+lower_bound = mu-3*sem
+upper_bound = mu+3*sem
+
 data.frame(M = c(lower_bound:(upper_bound+5))) %>%
   ggplot(aes(x = M)) +
   stat_function(fun = function(x) dnorm(x, mean = mu, sd = sem), 
@@ -265,6 +323,7 @@ $$Z_1 = \frac{CV_0 - \mu_1}{\frac{\sigma}{\sqrt{N}}}$$
     - <span style="font-size:30px;">Complicating these choices, effect sizes come in a variety of metrics.</span>
     
 ------------------------------------------------------------------------
+
 ### Prevalence of false positives
 
 Consider where $\alpha$, $\beta$ and power fall in this grid. 
@@ -276,6 +335,7 @@ Consider where $\alpha$, $\beta$ and power fall in this grid.
 | $H_0$ False | Correct decision |   Type II Error  |
 
 ------------------------------------------------------------------------
+
 ### Prevalence of false positives
 
 Consider where $\alpha$, $\beta$ and power fall in this grid. 
@@ -289,6 +349,7 @@ Consider where $\alpha$, $\beta$ and power fall in this grid.
 What is the sum of these cells?
 
 ------------------------------------------------------------------------
+
 ### Prevalence of false positives
 
 Figuring out how common Type I and Type II errors are in a literature requires an additional piece of information:

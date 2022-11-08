@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="14-open_files/libs/clipboard/clipboard.min.js"></script>
+<script src="14-open_files/libs/quarto-html/tabby.min.js"></script>
+<script src="14-open_files/libs/quarto-html/popper.min.js"></script>
+<script src="14-open_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="14-open_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="14-open_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="14-open_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.0.38">
+
+  <title>Open Science</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="14-open_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="14-open_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="14-open_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="14-open_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="14-open_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="14-open_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="14-open_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-captioned.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-captioned) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-captioned .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-captioned .callout-caption  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-captioned.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-captioned.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-caption {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-caption {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-caption {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-captioned .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-captioned .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-captioned) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-caption {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-caption {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-caption {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-caption {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-caption {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="center">
+  <h1 class="title">Open Science</h1>
+</section>
+
+<section id="last-time" class="slide level2">
+<h2>Last time…</h2>
+<div>
+<p>Critiques of NHST</p>
+<ul>
+<li><p>Misinterpretation of p-values</p>
+<ul>
+<li><span class="math inline">\(p\)</span> is the <span class="math inline">\(p(D|H_{0})\)</span> not <span class="math inline">\(p(H_0|D)\)</span></li>
+</ul></li>
+<li><p>Promotes binary thinking</p></li>
+<li><p>Easily gamed in the pursuit of incentives</p>
+<ul>
+<li>Recall Goodhart’s Law</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="p-curve" class="slide level2">
+<h2><em>p</em>-curve</h2>
+<p><em>p</em>-curve made it clear that if our null hypotheses were indeed false, we would most often see very small <em>p</em>-values.</p>
+<p>Importantly, this also signalled that literatures (or papers) that contained lots of p-values between .01 and .05 were relatively unlikely, unless there were some fishing expeditions going on.</p>
+</section>
+<section class="slide level2">
+
+<p>The publication of “False Positive Psychology” and the p-curve paper, following the claim by <a href="../readings/Ioannidis_2005.pdf">Ioannidis (2005)</a> that as many as half of published findings are false prompted researchers to take a second look at the “knowns” in our literatures.</p>
+<p>If we can demonstrate these “known” effects, then we’re ok. Our effects are most likely true.</p>
+<p>And if that had happened, we probably wouldn’t have two lectures in this class dedicated to problems with NHST and how to address them.</p>
+</section>
+<section id="a-quick-digression" class="slide level2">
+<h2>A quick digression…</h2>
+<p><img data-src="images/replication.png"> .small[<a href="https://psyarxiv.com/2fn5x/">Condon, Graham, Mroczek, 2018</a>]</p>
+</section>
+<section class="slide level2">
+
+<p>The inability to replicate published research has been viewed as especially troubling.</p>
+<ul>
+<li class="fragment">This has been a long-standing concern, but the poster child is undoubtedly <a href="../readings/OSC_2015.pdf">“Estimating the reproducibility of psychological science”</a> by the Open Science Collaboration (Science, 2015, 349, 943).</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>Only 36% of the studies were replicated, despite high power and claimed fidelity of the methods.</p>
+
+<img data-src="images/replicability.png" class="r-stretch"></section>
+<section class="slide level2">
+
+
+<img data-src="images/replicability2.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="why-is-it-so-hard-to-replicate">Why is it so hard to replicate?</h3>
+<ul>
+<li class="fragment">Poor understanding of context necessary to produce most effects
+<ul>
+<li class="fragment">We do not recognize the boundary conditions of effects especially when the limiting conditions are kept constant</li>
+</ul></li>
+<li class="fragment">Incomplete communication of the necessary conditions
+<ul>
+<li class="fragment">Akin to reading just the first few ingredients for a recipe and then trying to duplicate the dish.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="why-is-it-so-hard-to-replicate-1">Why is it so hard to replicate?</h3>
+<p>Sparse communication fosters belief by others that effects are simpler and easier to produce than they really are.</p>
+<p>The reality is that key elements have been left out:</p>
+<ul>
+<li class="fragment"><p>specific methodological or analytic details</p></li>
+<li class="fragment"><p>and the tests run before and after the ones that were published.</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>Regarding replications, there’s an additional methodological challenge to grapple with.</p>
+<p><strong>Example:</strong></p>
+<ul>
+<li class="fragment"><p>The original study <span class="math inline">\((N = 25)\)</span> found a significant effect, <span class="math inline">\(\bar{X} = 20\)</span> (95% CI [5, 35]).</p></li>
+<li class="fragment"><p>The second study <span class="math inline">\((N = 40)\)</span> does not find a significant effect, <span class="math inline">\(\bar{X} = 10\)</span> (95% CI [-1, 21]).</p></li>
+<li class="fragment"><p>Did the second study replicate the first?</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>There is disagreement about what counts as “replicating the effect.” - Both studies significant? - Significant difference in effect size?</p>
+<p><img data-src="images/anderson_2016_table1.png"> .small[Anderson &amp; Maxwell <a href="../readings/anderson_2016.pdf">(2016)</a>]</p>
+</section>
+<section class="slide level2">
+
+<p>Ultimately, much of the problems, both pre-2011 and since, have stemmed from an over-reliance on <em>p</em>-values (<a href="../readings/anderson_2019.pdf">Anderson, 2019</a>).</p>
+<p>This is a point that bears repeating, early and often:</p>
+<p><strong>Science cannot use a single metric to evaluate the existence or importance of effects and theories.</strong></p>
+<ul>
+<li class="fragment">Detectives don’t make a case on a single clue.</li>
+<li class="fragment">Doctors don’t diagnosis illness using a single symptom.</li>
+<li class="fragment">You shouldn’t rely on a single number either.</li>
+<li class="fragment">Plus, we need to stop relying on single studies.</li>
+</ul>
+</section>
+<section id="what-kind-of-challenges-will-need-to-be-addressed" class="slide level2">
+<h2>What kind of challenges will need to be addressed?</h2>
+<ul>
+<li class="fragment"><p>Institutionalization of CI and ES but not <span class="math inline">\(p\)</span></p></li>
+<li class="fragment"><p>Journals must change their values</p></li>
+<li class="fragment"><p>How do we shift media values? Replication is not “sexy.”</p></li>
+<li class="fragment"><p>How do we shift academic values? What will be the impact on tenure? How do we re-calibrate “productivity?” Citation indices?</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>The inability to replicate much work has been viewed as a singular failure of psychology as a science.</p>
+<ul>
+<li class="fragment">But is that the best way to view it?</li>
+</ul>
+<p>As data, the replication crisis, it is potentially quite informative and suggests some importance features of psychology as a science.</p>
+<p>At a minimum, it tells us we don’t understand a phenomenon as well as we think we do. That is hardly a failure of science, unless we don’t take the next steps to resolve our ignorance.</p>
+</section>
+<section class="slide level2">
+
+<p>Failures to replicate are surprising, even troubling. We think of them as unfortunate occurrences. Bad luck even. But should they be viewed that way?</p>
+<p>Surprises in science have a long history of playing a key role in scientific progress.</p>
+</section>
+<section class="slide level2">
+
+<p>A failure to replicate should be viewed as particularly interesting.</p>
+<blockquote>
+<p>It is time to insist that science does not progress by carefully designed steps called “experiments” each of which has a well-defined beginning and end. Science is a continuous and often disorderly and accidental process. A first principle not formally recognized by scientific methodologists: when you run onto something interesting, drop everything else and study it. –B. F. Skinner (1968) <em>A case history in scientific method</em></p>
+</blockquote>
+</section>
+<section id="today" class="slide level2">
+<h2>Today…</h2>
+<p>The open science movement (re:statistics)</p>
+<ul>
+<li class="fragment">Advancements in programming help researchers identify statistical problems</li>
+<li class="fragment">A push for new metrics in psychology research</li>
+<li class="fragment">Attempts to quantify the state of the field</li>
+<li class="fragment">Development of new research practices to reinvest in old statistics</li>
+<li class="fragment">Development analytic techniques</li>
+</ul>
+<p>First, some history</p>
+</section>
+<section id="open-science-movement" class="slide level2">
+<h2>Open Science Movement</h2>
+<p>Sometimes labelled <strong>“the reform movement”</strong> – (psychological) scientists trying to address problems in the field identified as part of the replication crisis.</p>
+<p>(Note, these are not distinct periods of history, nor are either of them considered over.)</p>
+<p>Within psychology, much of the force behind this movement has been driven by social and personality psychologists.</p>
+<p><strong>Open</strong> because one of the primary problems of the replication crisis was the lack of transparency. Stapel, Bem, everyone did work in private; kept data secret; buried, hid, lost key aspects of research. Opaque was normal.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="dates">Dates</h3>
+<p>2011-2012 – Bem ESP paper, False Positive Psychology paper, Diederik Stapel fraud case, Hauser fraud case, Sanna fraud case, Smeesters fraud case. - an interesting time to start graduate school…</p>
+<p>2013 – Center for Open Science is founded</p>
+<p>2016 – Inagural meeting of the Society for the Improvement of Psychological Science. 100 attendees.</p>
+<ul>
+<li class="fragment">Attendees include four UO Psych members: Grace Binion, Rita Ludwig, David Condon, and Sanjay Srivastava</li>
+</ul>
+</section>
+<section id="we-identify-problems" class="slide level2">
+<h2>1. We identify problems</h2>
+<p>New methods of conducting science on science – often developed to find fraud, but super useful for detecting errors</p>
+<ul>
+<li class="fragment"><p><a href="http://www.prepubmed.org/grim_test/">Granularity-related inconsistency of means (GRIM)</a> test – is the mean mathematically possible given the sample size?</p></li>
+<li class="fragment"><p><a href="https://hackernoon.com/introducing-sprite-and-the-case-of-the-carthorse-child-58683c2bfeb">Sample Parameter Reconstruction via Iterative TEchniques (SPRITE)</a> – given a set of parameters and constraints, <a href="https://steamtraen.shinyapps.io/rsprite/">generate</a> lots of possible samples and examine for common sense.</p></li>
+<li class="fragment"><p><a href="http://statcheck.io/">StatCheck</a> – upload pdfs and word documents to look for inconsistencies (e.g., statistic, df)</p></li>
+</ul>
+</section>
+<section id="we-identify-problems-1" class="slide level2">
+<h2>1. We identify problems</h2>
+<p>Conceptually, psychologists have struggled with the <a href="https://fivethirtyeight.com/features/not-even-scientists-can-easily-explain-p-values/">interpretation of p-values</a>.</p>
+<p>Even worse, we seemed to forget some of the most basic assumptions of our statistical tests.</p>
+<ul>
+<li class="fragment">What must be true about our trials to use a binomial distribution? .small[Remember p-curve?]</li>
+</ul>
+</section>
+<section id="a-push-for-new-metrics-in-psychology-research-2014" class="slide level2">
+<h2>2. A push for “new” metrics in psychology research (2014)</h2>
+<p>Disillusionment with <em>p</em>-values led many to propose radical changes.</p>
+<p>But the field is ruled by researchers who made their name using NHST (and very likely, many of them also used these fishing-methods to build their careers). So a softer approach was more widely favored.</p>
+<p><a href="../readings/Cumming_2014.pdf">Cumming (2014)</a> proposes the “new statistics” which emphasize effect sizes, confidence intervals, and meta-analyses.</p>
+</section>
+<section class="slide level2">
+
+<p>Except…</p>
+<p>Confidence intervals are based on the same underlying probability distributions as our p-values.</p>
+<p>And what’s the problem with meta-analyses?</p>
+</section>
+<section id="attempts-to-quantify-the-state-of-the-field" class="slide level2">
+<h2>3. Attempts to quantify the state of the field</h2>
+<p><a href="https://www.theatlantic.com/science/archive/2015/08/psychology-studies-reliability-reproducability-nosek/402466/">The Reproducibility Project (2015)</a> finds that most findings in psychological science don’t replicate.</p>
+<p>Also, <a href="../readings/Meta-analyses-are-f.pdf">new methods</a> for approaching meta-analyses are studied and popularized. - There is a growing realization that meta-analyses cannot fix the problem – publication bias (and p-hacking) have polluted the waters.</p>
+</section>
+<section id="some-more-drastic-changes" class="slide level2">
+<h2>Some more drastic changes</h2>
+<h3 id="newish-research-practices">4. New(ish) research practices</h3>
+<ul>
+<li class="fragment">New(ish) tools for improving reproducibility</li>
+<li class="fragment">New(ish) tools for reducing the file drawer problem</li>
+<li class="fragment">New(ish) tools for limiting <em>p</em>-hacking</li>
+<li class="fragment">New(ish) tools for limiting publication bias</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="developing-norms-not-new">Developing norms (not new)</h3>
+<ul>
+<li class="fragment"><p>A <em>major</em> challenge to both reproducibility and robust science is how opaque other peoples’ data and analsyes are.</p></li>
+<li class="fragment"><p>Fix by having standards and developing methods for communicating details.</p></li>
+<li class="fragment"><p>Brain Imaging Data Structure (new!) <strong>(<a href="https://bids.neuroimaging.io/">BIDS</a>)</strong></p></li>
+<li class="fragment"><p><a href="https://cran.r-project.org/web/packages/codebook/index.html">codebook</a> R package</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="r-not-new">R (not new)</h3>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li class="fragment"><p>Use of scripts – data analysis is <strong>reproducible</strong></p>
+<ul>
+<li class="fragment">Don’t be your own worst collaborator</li>
+</ul></li>
+<li class="fragment"><p>Software is open-source</p>
+<ul>
+<li class="fragment"><strong>Equity</strong> in terms of who can use the software</li>
+<li class="fragment"><strong>Equity</strong> in terms of who can build the software!</li>
+<li class="fragment">Newest statistical methods available right away</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:40%;">
+<p><img data-src="images/Rconsole.png"></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="rmarkdown-not-that-new">RMarkdown (Not that new)</h3>
+<p>Combination of two languages: <strong>R</strong> and Markdown.</p>
+<p>Markdown is a way of writing without a WYSIWYG editor – instead, little bits of code tell the text editor how to format the document.</p>
+<p>Increased flexibility: Markdown can be used to create - presentations (this one!) - manuscripts - CVs - books - websites</p>
+<p>By combining Markdown with R…</p>
+</section>
+<section class="slide level2">
+
+
+<img data-src="images/rmarkdown.jpg" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="git-not-new">Git (not new)</h3>
+<p><strong>Git</strong> is a version control system. Think Microsoft Track Changes for your code.</p>
+
+<img data-src="images/github.png" class="r-stretch"><ul>
+<li class="fragment">Additionally allows multiple collaborators to contribute code to the same project.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="github-also-not-new">GitHub (also not new)</h3>
+<ul>
+<li class="fragment"><p>GitHub is one site that facilitates the use of Git. (Others exist. But they don’t have OctoCat.)</p></li>
+<li class="fragment"><p>Repositories can be private or public – allow you to share your work with others (reproducible)</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="git-not-new-1">Git (not new)</h3>
+<ul>
+<li class="fragment"><p>GitHub also plays well with the Markdown language, which is what you’re using for your homework assignments.</p>
+<ul>
+<li class="fragment"><p>You can <a href="https://happygitwithr.com">link GitHub repositories to R Projects</a> for near seamless integration.</p></li>
+<li class="fragment"><p>Pair GitHub and R to make websites!</p></li>
+</ul></li>
+</ul>
+<p>(Interested? Have 4 hours to kill? I recommend looking through <a href="https://arm.rbind.io/days/day1/blogdown/">Alison Hill’s workshop on blogdown</a> and the <a href="https://robchavez.github.io/datascience_gallery/html_only/websites.html">tutorial prepared by Dani Cosme and Sam Chavez</a>).</p>
+</section>
+<section class="slide level2">
+
+<h3 id="open-science-framework-osf.io">Open Science Framework (OSF.io)</h3>
+<ul>
+<li class="fragment"><p>Another repository, also includes version control</p>
+<ul>
+<li class="fragment">Reproducibility</li>
+</ul></li>
+<li class="fragment"><p>Doesn’t use code/terminal to update files</p>
+<ul>
+<li class="fragment">Drag and drop, or linked with other repository (Dropbox, Box, Google Drive, etc)</li>
+</ul></li>
+<li class="fragment"><p>Also great for collaborations</p></li>
+<li class="fragment"><p>Easy to navigate</p></li>
+<li class="fragment"><p>Can be paired with applications you (should) already use</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="reducing-file-drawer-psyarxiv">Reducing file drawer: PsyArXiv</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="images/psyarxiv.png"></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li class="fragment"><p>preprint = the pre-copyedited version of your manuscript</p></li>
+<li class="fragment"><p>journals have different policies regarding what you can post. It’s always a good idea to <a href="http://sherpa.ac.uk/romeo/index.php">check</a>.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="preregistration">Preregistration</h3>
+<p>OSF also allows you to preregister a project.</p>
+<p><strong><a href="https://www.theguardian.com/science/blog/2013/jun/05/trust-in-science-study-pre-registration">Preregistration</a></strong> is creating a time-stamped, publicly availble, frozen document of your research plan prior to executing that plan.</p>
+
+<img data-src="images/prereg.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="limit-p-hacking-preregistration">Limit p-hacking: Preregistration</h3>
+<p><strong>Goal: Make it harder to <em>p</em>-hack and HARK</strong></p>
+<ul>
+<li class="fragment">Did the researcher preregister 3 outcome variables and only report one?</li>
+<li class="fragment">Did the research <em>actually</em> believe this correlation would be significant?</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="limit-p-hacking-preregistration-1">Limit p-hacking: Preregistration</h3>
+<p><strong>Goal: distinguish data-driven choices from theory based choices</strong></p>
+<ul>
+<li class="fragment">Was the covariate included because of theory or based on descriptive statistics?</li>
+</ul>
+<p><strong>Goal: correctly identify confirmatory and exploratory research</strong></p>
+<ul>
+<li class="fragment">Exploratory research should be OK!</li>
+<li class="fragment">Protection against editors and reviewers</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="limit-p-hacking-and-publication-bias-registered-reports">Limit p-hacking and publication bias: Registered reports</h3>
+<p><strong>Registered reports (RR)</strong> are a special kind of journal article</p>
+
+<img data-src="images/RR.png" style="width:80.0%" class="r-stretch"><p>image credit: <a href="https://blog.wellcomeopenresearch.org/2018/12/04/rewarding-best-practice-with-registered-reports/">Doropthy Bishop</a></p>
+</section>
+<section id="development-of-newish-analytic-techniques" class="slide level2">
+<h2>5. Development of new(ish) analytic techniques</h2>
+<p>More psychologists have embraced <strong>machine learning methods</strong> - These largely move us away from traditional p-values and decision making becomes predicated on the ability of theoretical models to predict new sets of data. - How accurate does your model need to be for you to accept a relationship?</p>
+<ul>
+<li class="fragment">Most machine learning techniques adjust for over-fitting, or essentially capitalizing on the random error in your sample</li>
+</ul>
+</section>
+<section id="development-of-newish-analytic-techniques-1" class="slide level2">
+<h2>5. Development of new(ish) analytic techniques</h2>
+<p><strong>Sensitivity analyses</strong> and <a href="https://www.psychologicalscience.org/observer/run-all-the-models-dealing-with-data-analytic-flexibility"><strong>multiverse analyses</strong></a> test the robustness of a finding. These often including testing every possible set of covariates or subgroups, to see whether a particular finding is just because of a unique combination of variables and people.</p>
+</section>
+<section id="criticisms" class="slide level2">
+<h2>Criticisms</h2>
+<p>Certainly there are some who argue that open science methods are broadly harmful: stifle creativity, slow down research, incentivize <em>ad hominem</em> attacks and “methodological terrorists”, and encourage data parasites.</p>
+<p>It is worth admitting that, unless incentive structures don’t change, there can be harm done with adoption of these methods. But part of the goal is to change the overall system.</p>
+<p>A more legitimate criticism is that adoption of these methods can fool researchers into believing that all research using these methods is “good” and all research not using them are “bad.”</p>
+<p>An example: <a href="https://psyarxiv.com/x36pz/">“Preregistration is redundant, at best.” (Oct 31, 2019). Szollosi et al.</a></p>
+<p>And it’s worth adding that this kind of work can take longer.</p>
+</section>
+<section id="next-time" class="slide level2">
+<h2>Next time…</h2>
+<p>One-sample tests</p>
+<div class="footer footer-default">
+
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="14-open_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="14-open_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="14-open_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="14-open_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="14-open_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="14-open_files/libs/revealjs/plugin/multiplex/socket.io.js"></script>
+  <script src="14-open_files/libs/revealjs/plugin/multiplex/multiplex.js"></script>
+  <script src="14-open_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="14-open_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="14-open_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="14-open_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="14-open_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'multiplex': {"secret":null,"id":"a4f77272959edc9a","url":"https://reveal-multiplex.glitch.me/"},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        target: function(trigger) {
+          return trigger.previousElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        setTimeout(function() {
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto-reveal',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          let href = ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+        tippyHover(ref, function() {
+          var popup = window.document.createElement('div');
+          cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    });
+    </script>
+    
+
+</body></html>
