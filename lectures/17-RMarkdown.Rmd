@@ -18,7 +18,6 @@ knitr::opts_chunk$set(echo = TRUE)
 # suppress scientific notation
 options(scipen = 999)
 
-library(ggplot2)
 library(tidyverse)
 library(gt)
 library(gtsummary)
@@ -108,7 +107,10 @@ Here is a simple data frame.
 
 ```{r, message = FALSE}
 (table_1 <- gtcars %>% 
-   select(year, hp, mpg_c, mpg_h, msrp))
+   # which variables
+   select(year, hp, mpg_c, mpg_h, msrp) %>% 
+   # this is a big df, so let's just work with the first 10 rows
+   slice_head(n = 10)) 
 ```
 
 ***
@@ -174,9 +176,40 @@ table_1 %>%
 
 ***
 
-## Table 5 (Summary)
+## Table 5
 
-But really, summary statistics would be much preferable to what I have here. Let's combine the `gt` package with the `gtsummary` package for some useful descriptives.
+It would be helpful to include some summary statistics here.
+
+```{r}
+table_1 %>% 
+  gt(
+    caption = "Table 3. An example dataset from the gt package." #add table caption
+  ) %>% 
+  cols_label(
+    year = "Year", 
+    hp = "Horsepower", 
+    mpg_c = "Country", 
+    mpg_h = "Highway",
+    msrp = "MSRP ($)"
+  ) %>% 
+  tab_spanner(
+    label = "Miles Per Gallon",
+    columns = c(mpg_c, mpg_h)
+  ) %>% 
+  summary_rows(
+    columns = everything(), #all the columns
+    fns = list( # which summary statistics
+      Mean = ~mean(.),
+      SD = ~sd(.)
+    )
+  )
+```
+
+***
+
+## Table 6 (Summary statistics)
+
+If I'm writing a manuscript, I don't want to plot the entire table of data. Instead, I only want those summary statistics.Let's combine the `gt` package with the `gtsummary` package for some useful descriptives.
 
 ```{r}
 gtcars %>% 
@@ -190,12 +223,23 @@ gtcars %>%
 
 ***
 
-## Table 6
+## Table 7
+
+And of course, if this is to be ready for publication, I should rename the variables and do some light formatting. Here I'm also testing differences by groups.
 
 ```{r}
-gtcars %>% 
-  select(year, hp, mpg_c, mpg_h, msrp) %>% 
+test = gtcars %>% 
+  select(bdy_style, year, hp, mpg_c, mpg_h, msrp) %>% 
+  # for this example, i want to work with only two groups,
+  # so here i'm collapsing anyting that's not a coupe into
+  # a "not coupe" category
+  mutate(
+    bdy_style = case_when(
+      bdy_style == "coupe" ~ "coupe",
+      TRUE ~ "not coupe"
+     )) %>% 
   tbl_summary(
+    by = bdy_style, #separate summary statistics by group
     label = list(
       year ~ "Year",
       hp ~ "Horsepower",
@@ -206,7 +250,10 @@ gtcars %>%
     statistic = list(
       all_continuous() ~ "{mean} ({sd})"
       )
-    ) 
+    )  %>% 
+  add_n() %>% # add column with total number of non-missing observations
+  add_p() %>% # test for a difference between groups
+  bold_labels() # make it pretty
 ```
 
 ***
@@ -241,19 +288,19 @@ Inline text refers to text that is outside of code chunks. I am currently writin
 Sometimes you may want to code outside of a code chunk. The most common reason for this is to report statistics in your inline text. For example, let's say you are writing a manuscript in R and you need to report the mean and standard deviation for a variable. You can calculate the mean and standard deviation of the variable in the code chunk, then call the answer in the in-line text. This will reduce human transfer errors. 
 
 ```{r}
-#Descriptive stats for diamond price 
+#Descriptive stats for car hp 
 
-range_price_low <- range(diamonds$price)[1]
+range_hp_low <- range(gtcars$hp)[1]
 
-range_price_high <- range(diamonds$price)[2]
+range_hp_high <- range(gtcars$hp)[2]
 
-m_price <- mean(diamonds$price)
+m_hp <- mean(gtcars$hp)
 
-sd_price <- sd(diamonds$price)
+sd_hp <- sd(gtcars$hp)
 
 ```
 
-Now, I can call the variables inline, like this: The price of diamonds ranged from `r range_price_low` to `r range_price_high` (*M* = `r m_price`, *SD* = `r sd_price`). 
+Now, I can call the variables inline, like this: The horsepower of cars ranged from `r range_hp_low` to `r range_hp_high` (*M* = `r m_hp`, *SD* = `r sd_hp`). 
 
 <br />
 
@@ -263,34 +310,48 @@ Now, I can call the variables inline, like this: The price of diamonds ranged fr
 
 You can do more than call a variable outside of the code chunks. For example, here is some code that will make the sentence look a little nicer. However, when you code outside of the code chunks, the code becomes really difficult to read, so I recommend keeping complicated code inside of the code chunks.
 
-The price of diamonds ranged from `r paste0("$", format(as.double(range_price_low), nsmall = 2))` to `r paste0("$", format(as.double(range_price_high), nsmall = 2, big.mark = ","))` (*M* = `r paste0("$", format(m_price, big.mark = ",", nsmall = 2))`, *SD* = `r paste0("$",format(sd_price, big.mark= ","))`). 
+```{r}
+#Descriptive stats for car price 
+
+range_msrp_low <- range(gtcars$msrp)[1]
+
+range_msrp_high <- range(gtcars$msrp)[2]
+
+m_msrp <- mean(gtcars$msrp)
+
+sd_msrp <- sd(gtcars$msrp)
+
+```
+
+
+The msrp of gtcars ranged from `r paste0("$", format(as.double(range_msrp_low), nsmall = 2))` to `r paste0("$", format(as.double(range_msrp_high), nsmall = 2, big.mark = ","))` (*M* = `r paste0("$", format(m_msrp, big.mark = ",", nsmall = 2))`, *SD* = `r paste0("$",format(sd_msrp, big.mark= ","))`). 
 
 Instead of this mess, you want to first create your variables: 
 
 ```{r}
-range_price_low <- range(diamonds$price)[1] %>%
-  as.double() %>% #makes range_price_low a double (rather than an integer)
+range_msrp_low <- range(gtcars$msrp)[1] %>%
+  as.double() %>% #makes range_msrp_low a double (rather than an integer)
   format(nsmall = 2) %>% #format it to two decimal places
   paste0("$", .) #add a dollar sign before the number
 
-range_price_high <- range(diamonds$price)[2] %>% 
+range_msrp_high <- range(gtcars$msrp)[2] %>% 
   as.double() %>% 
   format(nsmall = 2, big.mark = ",") %>% #big.mark adds a comma for large numbers
   paste0("$", .)
 
-m_price <- diamonds$price %>%
+m_msrp <- gtcars$msrp %>%
   mean() %>% 
   format(nsmall = 2, big.mark = ",") %>% 
   paste0("$", .)
 
-sd_price <- diamonds$price %>%
+sd_msrp <- gtcars$msrp %>%
   sd() %>% 
   format(nsmall = 2, big.mark = ",") %>% 
   paste0("$", .)
 
 ```
 
-And then you can print your sentence: The price of diamonds ranged from `r range_price_low` to `r range_price_high` (*M* = `r m_price`, *SD* = `r sd_price`).
+And then you can print your sentence: The msrp of gtcars ranged from `r range_msrp_low` to `r range_msrp_high` (*M* = `r m_msrp`, *SD* = `r sd_msrp`).
 
 <br />
 
@@ -312,7 +373,7 @@ money_format(23948234)
 
 money_format(23)
 
-diamonds$price %>% 
+gtcars$msrp %>% 
   mean() %>% 
   money_format()
 ```
@@ -322,6 +383,7 @@ Your new function will work inline too: `r money_format(32334)`
 ***
 
 # Knitting errors
+
 Knitting errors are particularly frustrating error messages if you thought you were done with your project and the code had worked up to the point of knitting. Plus, the messages can be vague and confusing. Here's our advice:
 
 * Knit early and knit often. If you're working on the homework, it's a good idea to knit at least once after every problem.
@@ -340,12 +402,12 @@ Knitting errors are particularly frustrating error messages if you thought you w
 For today's minihacks, you will be using RMarkdown to create your own html file.
 
 1. Open up a new RMarkdown file and erase everything but the YAML. Edit the YAML in the following ways:
-    + Change the title to "Lab 7 Minihacks."
+    + Change the title to "Lecture 17 Minihacks."
     + Remove the author and date.
     + Under output, add a table of contents, numbered sections, and choose a theme. You should be outputting to an html file.  Some html themes you may want to try are `cerulean`, `journal`, `flatly`, `lumen`, `paper`, and `readable`.
     + Knit the file. You should only see the title. The color and font will depend on which theme you chose.
 
-2. Create a new code chunk and load the following libraries: `tidyverse`, `ggplot2`, `kableExtra`, `rio` and `here`. 
+2. Create a new code chunk and load the following libraries: `tidyverse`, `gt`, `gtsummary`, `rio` and `here`. 
     + Change the default chunk option so that the code is evaluated, but neither the code nor any resulting messages will show up in your report. You can do this all by changing one default option.
     + In the same code chunk, using the `rio` and `here` packages, import the data set [us_contagious_diseases.csv](resources/lab7/us_contagious_diseases.csv) and store it in a data frame called data.
     + Finally, in this code chunk, add the code `options(scipen = 999)`, which will turn off scientific notation 
@@ -360,7 +422,7 @@ data_1 <- data %>%
   summarise(sum_count = sum(count)) 
 
 data_1 %>% 
-  kbl()
+  gt()
 ```
 
 ```{r, eval = FALSE}
@@ -370,7 +432,7 @@ data_2 <- data %>%
   summarise(sum_count = sum(count))
 
 data_2 %>% 
-  kbl()
+  gt()
 ```
 
 ```{r, eval = FALSE}
@@ -380,13 +442,11 @@ data_3 <- data %>%
   select(state, count, population, per_measles) 
 
 data_3 %>% 
-  kbl()
+  gt()
 ```
 
 + Create three subheaders "Table 1", "Table 2", and "Table 3" between the code chunks so that each code chunk is under the respective subheader.
-    - Now, edit the code to make better tables. Using the `kableExtra` package, for each table, add a table title and edit the column names. 
-    - For each table, change the table format to classic with the `kable_classic` function.
-    - For the second and third tables, try using the `kableExtra::scroll_box` function to limit the amount of space it takes up. 
+    - Now, edit the code to make better tables. Using the `gt` package, for each table, add a table title and edit the column names. 
     - For the third table, highlight the Oregon row (row 38).
     - Change the chunk options on the tables so that you can only see the tables (not the code).
     - Knit to make sure that everything shows up how you want it.
