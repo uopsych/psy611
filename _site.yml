@@ -35,6 +35,8 @@ navbar:
         href: "lectures/14-open.html"
       - text: "15-One Sample Tests"
         href: "lectures/15-one_sample.html"
+      - text: "16-Paired-Samples t-Tests"
+        href: "lectures/16-paired_sample.html"
     - text: Labs
       menu:
       - text: "1 - Introduction to R"
