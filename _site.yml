@@ -52,7 +52,7 @@ navbar:
       - text: "6 - Data Visualization"
         href: "labs/lab-6.html"
       - text: "7 - One Sample and Paired Samples t-tests"
-        href: "labs/lab-8.html"
+        href: "labs/lab-8-instructor.html"
 
     - text: Homework
       href: homework.html
