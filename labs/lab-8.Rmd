@@ -21,7 +21,6 @@ options(scipen = 999)
 #load required packages
 library(tidyverse) # includes dplyr and ggplot2 functions
 library(lsr) # includes t-test functions
-library(carData) # includes the Guyer data set
 library(here) # for finding image paths
 library(ggpubr) # for making an error line plot
 library(rio) # for importing data
@@ -32,7 +31,7 @@ You can download the .Rmd file [here](lab-8.Rmd).
 
 Unquote the following install line to install the papaja package, which is used for preparaing APA style reports.
 ```{r}
-# remotes::install_github("crsh/papaja") 
+# install.packages("papaja") 
 library(papaja) # for reporting results
 ```
 
@@ -59,7 +58,9 @@ In our first example, we will be analyzing data from Fox and Guyer's (1978) anon
 Run the following code to load the data into your global environment.
 
 ```{r}
+#install.packages('carData') #if you need to install this package
 # load data 
+library(carData) # includes the Guyer data set
 data <- Guyer
 ```
 
@@ -240,7 +241,6 @@ We will work with both versions of this dataset today.
 
 
 
-## A One-Sample *t*-test
 
 ### The null and alternative hypotheses
 The null hypothesis states that.. 

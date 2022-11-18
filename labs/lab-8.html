@@ -1513,7 +1513,7 @@ div.tocify {
 
 <p>You can download the .Rmd file <a href="lab-8.Rmd">here</a>.</p>
 <p>Unquote the following install line to install the papaja package, which is used for preparaing APA style reports.</p>
-<pre class="r"><code># remotes::install_github(&quot;crsh/papaja&quot;) 
+<pre class="r"><code># install.packages(&quot;papaja&quot;) 
 library(papaja) # for reporting results</code></pre>
 <p>Today’s lab will guide you through the process of conducting a <a href="#one">One-Sample <em>t</em>-test</a> and a <a href="#paired">Paired Samples <em>t</em>-test</a>.</p>
 <p>To quickly navigate to the desired section, click one of the following links:</p>
@@ -1530,7 +1530,9 @@ library(papaja) # for reporting results</code></pre>
 <h2>The Data</h2>
 <p>In our first example, we will be analyzing data from Fox and Guyer’s (1978) anonymity and cooperation study. The data is included in the <code>{carData}</code> package and you can see information about the data set using <code>?Guyer</code>. Twenty groups of four participants each played 30 trials of the the prisoner’s dilemma game. The number of cooperative choices (<code>cooperation</code>) made by each group were scored out of 120 (i.e., cooperative choices made by 4 participants over 30 trials).</p>
 <p>Run the following code to load the data into your global environment.</p>
-<pre class="r"><code># load data 
+<pre class="r"><code>#install.packages('carData') #if you need to install this package
+# load data 
+library(carData) # includes the Guyer data set
 data &lt;- Guyer</code></pre>
 <hr />
 </div>
@@ -1746,8 +1748,6 @@ chico_long &lt;- import(&quot;https://raw.githubusercontent.com/uopsych/psy611/m
 <p><strong>Question:</strong> What is a paired samples t-test?</p>
 <p><strong>Question:</strong> What are our null and alternative hypotheses?</p>
 <p><strong>Question:</strong> What are our assumptions?</p>
-<div id="a-one-sample-t-test-1" class="section level2">
-<h2>A One-Sample <em>t</em>-test</h2>
 <div id="the-null-and-alternative-hypotheses-1" class="section level3">
 <h3>The null and alternative hypotheses</h3>
 <p>The null hypothesis states that..</p>
@@ -1771,7 +1771,6 @@ chico_long &lt;- import(&quot;https://raw.githubusercontent.com/uopsych/psy611/m
 <h3>The Paired Samples t-Statistic</h3>
 <p><span class="math display">\[t = \frac{\bar D}{\hat \sigma_{D} / \sqrt{N}}\]</span></p>
 <p>The t-statistic for the paired samples t-test takes the average difference score (the difference between two pairs of related scores), and divides by the estimated standard error of the sampling distribution.</p>
-</div>
 </div>
 <div id="paired-samples-t-test" class="section level2">
 <h2>Paired Samples t-test</h2>
