@@ -1,0 +1,540 @@
+---
+title: 'Lab 8: One-sample and Paired Samples *t*-tests'
+output:
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+# set chunk options
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+# suppress scientific notation
+options(scipen = 999)
+
+#load required packages
+library(tidyverse) # includes dplyr and ggplot2 functions
+library(lsr) # includes t-test functions
+library(carData) # includes the Guyer data set
+library(here) # for finding image paths
+library(ggpubr) # for making an error line plot
+library(rio) # for importing data
+library(psych) # for descriptives
+```
+
+You can download the .Rmd file [here](lab-8.Rmd).
+
+
+Unquote the following install line to install the papaja package, which is used for preparaing APA style reports.
+```{r}
+# remotes::install_github("crsh/papaja") 
+library(papaja) # for reporting results
+```
+
+
+Today's lab will guide you through the process of conducting a [One-Sample *t*-test](#one) and a [Paired Samples *t*-test](#paired). 
+
+To quickly navigate to the desired section, click one of the following links:
+
+1. [One-Sample *t*-test](#one)
+1. [Paired Samples *t*-test](#paired)
+1. [Minihacks](#minihacks)
+
+As always, there are [minihacks](#minihacks) to test your knowledge.
+
+***
+
+# One-Sample *t*-test {#one}
+
+## The Data
+
+
+In our first example, we will be analyzing data from Fox and Guyer's (1978) anonymity and cooperation study. The data is included in the `{carData}` package and you can see information about the data set using `?Guyer`. Twenty groups of four participants each played 30 trials of the the prisoner's dilemma game. The number of cooperative choices (`cooperation`) made by each group were scored out of 120 (i.e., cooperative choices made by 4 participants over 30 trials). 
+
+Run the following code to load the data into your global environment.
+
+```{r}
+# load data 
+data <- Guyer
+```
+
+***
+
+## What is a One-Sample *t*-test?
+
+A One-Sample *t*-test tests whether an obtained sample mean came from a population with a known mean. Let's consider the cooperation data form `Guyer`. We might be interested in whether people cooperate more or less than 50% of the time. If people cooperate 50% of the time, then out of the 120 trials, we would expect people to have chosen to cooperate 60 times. Let's compare our actual results (our sample mean) to the mean we would expect if our sample was obtained from a population with a mean of 60.
+
+
+**Question:** How does this differ from a Z-test?
+
+
+
+**Question:** What are our null and alternative hypotheses?
+
+
+
+**Question:** What are our assumptions?
+
+
+
+**Question:** What kind of sampling distribution do we have? What does it represent?
+
+
+
+**Question:** How do we calculate our test statistic? What does it represent?
+
+
+
+
+## A One-Sample *t*-test
+
+### The null and alternative hypotheses
+The null hypothesis states that.. 
+
+$$H_{0}: \mu = 60$$
+
+The alternative hypothesis states that..
+
+$$H_{1}: \mu \neq 60$$
+
+
+
+
+### Assumptions
+
+The assumptions include..
+
+1. *Normality*: Assume that the population distribution is normally distributed. 
+2. *Independence*: Assume that the observations are independent of one another.
+
+
+
+
+### Sampling Distribution of Means
+
+For a one-sample t-test, the sampling distribution is a *t* distribution. It represents all the possible sample means we could expect to obtain if we randomly obtained a sample of size *n* from the population that is described by the null hypothesis.
+
+
+
+### The One-Sample t-Statistic
+
+$$t = \frac{\bar X - \mu}{\hat \sigma / \sqrt{N}}$$
+The t-statistic is calculated by calculating the difference between the sample mean and the population mean predicted by the null hypothesis, divided by the estimated standard error. In other words, this statistic tells us how far away our sample mean is from the mean of our sampling distribution (which describes what we expect to find *if the null hypothesis is true*), in standard error units.
+
+Use R to calculate the t-statistic for this example "from scratch":
+```{r}
+#your code here:
+
+t_stat <- (mean(data$cooperation) - 60) / (sd(data$cooperation) / sqrt(length(data$cooperation)))
+t_stat
+
+#p value
+pt(q = abs(t_stat), df = length(data$cooperation)-1, lower.tail = FALSE) * 2
+```
+
+
+
+
+## Conducting the One-Sample t-Test in R
+
+There are two useful functions for conducting a one-sample *t*-test in R. The first, is called `t.test()` and it is automatically loaded as part of the `{stats}` package when you first open R. To run a one-sample *t*-test using `t.test()`, you provide the function the column of the data you are interested in (e.g., `x = data$cooperation`) and the mean value you want to compare the data against (e.g., `mu = 60`). 
+
+```{r}
+t.test(x = data$cooperation, mu = 60)
+```
+
+As part of the output, you are provided the mean of cooperation, the *t*-statistic, the degrees of freedom, the *p*-value, and the 95% confidence interval. The values outputted by `t.test()` should be exactly the same as the values we calculated. Unfortunately, we did not get a measure of the effect size.
+
+
+The `oneSampleTTest()` function from the the `{lsr}` package includes Cohen's *d* automatically, but the downside is that you have to load the package separately.
+
+```{r}
+oneSampleTTest(x = data$cooperation, mu = 60)
+```
+
+As you can see from the output, `oneSampleTTest()` provides you all of the information that `t.test()` did, but it also includes Cohen's *d*. 
+
+
+## Interpretation and Write-Up
+
+You can use the 'apa_print()' function from the papaja package to efficiently write-up your results in apa format.
+
+```{r}
+#First I'll run my t-test again, but this time I'll save it to a variable:
+t_output  <- t.test(x = data$cooperation, mu = 60)
+
+#Let's look at our output options
+apa_print(t_output)
+```
+
+Depending on what object you give to apa_print, it may give you different commonly reported statistics from that test. You can access these with a '$'. Here is an example of how I might report this:
+
+"Average cooperation (`r apa_print(t_output)$estimate`) was significantly less than 60, `r apa_print(t_output)$statistic`.
+
+
+## Visualization
+
+To plot this, we're just plotting one variable. You already know how to do this! Here is one option. I've plotted a boxplot below.
+
+```{r}
+ggplot(data = data, aes(y = cooperation)) +
+  geom_boxplot() +
+  theme_bw() +
+  labs(title = "Average Cooperation Scores",
+       y = "Cooperation")
+```
+
+
+
+Or I might want to plot a histogram. I used the additional geom, 'geom_vline' to plot a line representing the theorized population mean.
+
+```{r}
+ggplot(data = data) +
+  geom_histogram(aes(x = cooperation), fill = "purple", color = "black", alpha = .6, bins = 5) +
+  geom_vline(xintercept = 60, color = "blue", linetype = "dashed") +
+  theme_bw() +
+  labs(title = "Histogram of Cooperation Scores",
+       x = "Cooperation")
+```
+
+
+
+***
+
+# Paired-Sample *t*-test {#paired}
+
+To illustrate how paired-samples *t*-tests work, we are going to walk through [an example from your textbook](https://learningstatisticswithr-bookdown.netlify.com/ttest.html#pairedsamplesttest){target="_blank"}. In this example, the data comes from Dr. Chico's introductory statistics class. Students in the class take two tests over the course of the semester. Dr. Chico gives notoriously difficult exams with the intention of motivating her students to work hard in the class and thus learn as much as possible. Dr. Chico's theory is that the first test will serve as a "wake up call" for her students, such that when they realize how difficult the class actually is they will be motivated to study harder and earn a higher grade on the second test than they got on the first test.
+
+You can load in the data from this example by running the following code:
+
+```{r}
+chico_wide <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/chico_wide.csv")
+
+# long format
+chico_long <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/chico_long.csv")
+```
+
+**Note:** You should now have 2 versions of the same data set loaded into your global environment. The only difference in these versions of the data is their "shape" -- one is "wide" and the other is "long". In the wide form, every row corresponds to a unique *person*; in the long form, every row corresponds to a unique *observation* or *measurement*.
+
+* To get a sense of the differences between these two versions of the data, see below:
+
+```{r}
+chico_wide
+
+chico_long
+```
+
+We will work with both versions of this dataset today.
+
+
+**Question:** What is a paired samples t-test?
+
+
+
+**Question:** What are our null and alternative hypotheses?
+
+
+
+**Question:** What are our assumptions?
+
+
+
+
+## A One-Sample *t*-test
+
+### The null and alternative hypotheses
+The null hypothesis states that.. 
+
+$$H_{0}: \mu_{D} = 0$$
+
+The alternative hypothesis states that..
+
+$$H_{1}: \mu_{D} \neq 0$$
+
+
+
+### Assumptions
+
+The assumptions include..
+
+1. *Normality*: Assume that the population distribution is normally distributed. 
+2. *Independence*: Assume that the participants are independent of one another.
+
+
+
+
+### Sampling Distribution of Mean Difference Scores
+
+For a paired samples t-test, the sampling distribution is a *t* distribution. It represents all the possible mean difference scores we could expect to obtain if we randomly obtained a sample of size *n* from the population that is described by the null hypothesis.
+
+
+
+### The Paired Samples t-Statistic
+
+$$t = \frac{\bar D}{\hat \sigma_{D} / \sqrt{N}}$$
+
+The t-statistic for the paired samples t-test takes the average difference score (the difference between two pairs of related scores), and divides by the estimated standard error of the sampling distribution.
+
+
+
+
+## Paired Samples t-test
+
+### Option 1: One-sample *t*-test of difference scores
+
+One way to conduct a paired samples t-test in R is to use the `t.test()` function we used earlier, but the variable you give as an input is the *difference scores* between two conditions of related scores. 
+
+The example immediately below uses the `t.test()` function in the `{stats}` package to conduct the one-sample *t*-test of the difference scores.
+
+```{r}
+# First, construct a new variable of difference scores 
+chico_wide$diff <- chico_wide$grade_test2 - chico_wide$grade_test1
+
+# Then, pass the difference scores to the t.test function
+t.test(x = chico_wide$diff, mu = 0)
+```
+
+You could also use the `oneSampleTTest()` function from the `{lsr}` package to conduct the one-sample *t*-test of the difference scores.
+
+```{r}
+oneSampleTTest(x = chico_wide$diff, mu = 0)
+```
+
+
+## Option 2: Paired samples *t*-test
+
+You can also conduct a paired samples t-test using the `t.test()` function with the raw scores from two related conditions if you set the argument `paired = TRUE`. The results will be exactly the same as running the one sample *t*-test on the difference scores. 
+
+```{r}
+t.test(x = chico_wide$grade_test1,
+       y = chico_wide$grade_test2,
+       paired = TRUE)
+```
+
+Or you can use the `pairedSamplesTTest()` function from the `{lsr}` package.
+
+```{r}
+pairedSamplesTTest(formula = ~ grade_test2 + grade_test1, # one-sided formula
+                   data = chico_wide) # wide format
+```
+
+
+
+### Long vs. wide format
+
+Note that in the example above, using the `pairedSamplesTTest()` function, we used the wide format data. When using wide data with `pairedSamplesTTest()`, you enter a one-sided formula that contains your two repeated measures conditions (e.g. `~ grade_test2 + gradte_test1`).
+
+The `pairedSamplesTTest()` function can also be used with long data. In this case, you must use a two-sided formula: `outcome ~ group`. You also need to specify the name of the ID variable. Note that the grouping variable must also be a factor. 
+
+```{r}
+# grouping variable (time) must be a factor
+chico_long <- chico_long %>% 
+  mutate(time = as.factor(time), 
+         id = as.factor(id))
+
+pairedSamplesTTest(formula = grade ~ time, # two-sided formula
+                   data = chico_long, # long format
+                   id = "id") # name of the id variable
+```
+
+
+## Interpretation and Write-Up 
+
+```{r}
+#First I'll run my t-test again, but this time I'll save it to a variable:
+pairedtoutput  <- t.test(x = chico_wide$grade_test1,
+                         y = chico_wide$grade_test2,
+                         paired = TRUE)
+
+#Let's look at our output options
+apa_print(pairedtoutput)
+```
+
+* Practice using the output from 'apa_print' to write your results here:
+
+"Performance significantly improve from test 1 to test 2 (`r apa_print(pairedtoutput)$full_result`).
+
+
+## Plotting paired-samples data 
+
+When plotting paired samples data, we want some way to clearly represent the repeated measures structure of the data. One way to do this is to draw a line between each pair of data points. This can be done with the `ggpaired()` function from `{ggpubr}`.
+
+```{r}
+# wide format
+ggpaired(chico_wide, 
+         cond1      = "grade_test1", # first condition
+         cond2      = "grade_test2", # second condition
+         color      = "condition", 
+         line.color = "gray", 
+         line.size  = 0.4)
+```
+
+
+* If you want to make the plot with the long format of the data, you can do the following:
+
+```{r eval=FALSE}
+# long format
+ggpaired(chico_long, 
+         x          = "time", # grouping variable
+         y          = "grade", # outcome variable
+         color      = "time", 
+         line.color = "gray", 
+         line.size  = 0.4)
+```
+
+
+
+
+
+# Minihacks {#minihacks}
+
+## Minihack 1:
+
+You are developing a scale to quantify how delicious a food is. You design it such that 0 is as delicious as cement, 25 is delicious as an olive, and 50 is delicious as a strawberry. You aren't sure exactly where pancakes should fall, but you're interested in whether they differ from the deliciousness of strawberries. You order takeout pancakes from 17 local diners and score each.
+
+Generate the data by running the the following code:
+
+```{r}
+# set seed for reproducibility
+set.seed(42)
+
+# load data
+pancakes <- data.frame("id"      = 1:17,
+                        "Delicious" =  rnorm(17, 55, 10))
+
+```
+
+1. Run an appropriate test based on your research question. 
+
+```{r}
+#Your code here
+pancake_analysis <- t.test(x = pancakes$Delicious, mu = 50)
+pancake_analysis
+
+apa_print(pancake_analysis)
+
+# or
+
+oneSampleTTest(x = pancakes$Delicious, mu = 50)
+
+```
+
+
+
+2. Report and interpret your results by filling in the embedded r code below.
+
+We found that the average deliciousness of pancakes (`r apa_print(pancake_analysis)$estimate`) was significantly higher compared to strawberries, `r apa_print(pancake_analysis)$statistic`. 
+
+
+
+3. Plot a histogram of your data. 
+
+```{r}
+#Your code here
+ggplot(data = pancakes) +
+  geom_histogram(aes(x = Delicious), fill = "light blue", color = "black", alpha = .8, bins = 6) +
+  theme_bw() +
+  geom_vline(xintercept = 50, color = "purple", linetype = "dashed") +
+  labs(title = "Histogram of Deliciousness Scores of Pancakes",
+       x = "Deliciousness")
+```
+
+
+
+
+## Minihack 2: 
+
+A clinical psychologist wants to know whether a new cognitive-behavioral therapy (CBT) program helps alleviate anxiety. He enrolls 12 individuals diagnosed with an anxiety disorder in a 6-week CBT program. Participants are given an Anxiety Scale before they begin and after they complete treatment.  
+
+Import the data by running the following code:
+
+```{r}
+cbt_data <- import("https://raw.githubusercontent.com/uopsych/psy611/master/labs/resources/lab9/data/cbt_data.csv")
+```
+
+
+1. Run a paired-samples *t*-test to determine whether participants' anxiety scores changed from before to after the CBT treatment.
+
+```{r}
+#Your code here
+cbt_data
+  
+paired_t_results <- t.test(x = cbt_data$before,
+       y = cbt_data$after,
+       paired = TRUE)
+
+# or
+  
+pairedSamplesTTest(formula = ~ before + after, # one-sided formula
+                   data = cbt_data)
+```
+
+2. Verify your results using a one sample t-test on difference scores
+
+```{r}
+#Your code here
+cbt_data$diff <- cbt_data$after - cbt_data$before
+
+t.test(x = cbt_data$diff, mu = 0)
+
+apa_print(paired_t_results)
+```
+
+
+3. Report and interpret your results using r code embedded in text.
+
+There was a significant decrease in anxiety scores after CBT compared to before (`r apa_print(paired_t_results)$estimate`), `r apa_print(paired_t_results)$statistic`. 
+
+
+4. Obtain a table of descriptive statistics.
+
+```{r}
+#Your code here
+describe(cbt_data)
+```
+
+
+4. Plot the data using `ggpaired()`. 
+
+```{r}
+#Your code here
+cbt_data
+
+ggpaired(cbt_data, 
+         cond1      = "before", # first condition
+         cond2      = "after", # second condition
+         color      = "condition", 
+         line.color = "gray", 
+         line.size  = 0.4)
+```
+
+
+5. **BONUS:** Recreate this same type of plot without using ggpaired
+
+
+```{r}
+#make into long format
+cbt_data %>%
+  gather(time, anxiety, 2:3)-> cbt_long 
+
+#basic version of plot
+ggplot(cbt_long, aes(x=time, y=anxiety, color=time)) +
+  geom_boxplot() +
+  geom_point() +
+  geom_line(aes(group=id),
+            color='black',
+            alpha=.6)
+```
+
+***
+
+

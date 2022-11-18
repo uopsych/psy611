@@ -14,7 +14,6 @@
 
 <title>Psy 611: Data Analysis I</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -184,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -193,16 +192,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -410,6 +402,9 @@ div.tocify {
     <li>
       <a href="labs/lab-6.html">6 - Data Visualization</a>
     </li>
+    <li>
+      <a href="labs/lab-8.html">7 - One Sample and Paired Samples t-tests</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -465,112 +460,56 @@ div.tocify {
 
 <div id="overview" class="section level1">
 <h1>Overview</h1>
-<p>This course is the first in a 3-term sequence of classes designed to
-provide a thorough grounding in statistical concepts, methods, and
-applications of relevance to psychological science and related sciences.
-The aim of the course is to help students develop skills in the analysis
-and interpretation of real psychological data. Our focus will be both
-conceptual and mathematical – that is, understanding the underlying
-mathematical principals of statistics enhances ones’ ability to
-interpret and think critically about the use of statistics. Students
-will also learn the basics of the R language and use this program to
-wrangle, visualize, summarize, and test hypotheses with data.</p>
+<p>This course is the first in a 3-term sequence of classes designed to provide a thorough grounding in statistical concepts, methods, and applications of relevance to psychological science and related sciences. The aim of the course is to help students develop skills in the analysis and interpretation of real psychological data. Our focus will be both conceptual and mathematical – that is, understanding the underlying mathematical principals of statistics enhances ones’ ability to interpret and think critically about the use of statistics. Students will also learn the basics of the R language and use this program to wrangle, visualize, summarize, and test hypotheses with data.</p>
 <div id="meeting-times-and-locations" class="section level2">
 <h2>Meeting times and locations</h2>
-<p><strong>Lecture:</strong> Tuesdays and Thursdays, 10:00 - 11:20am, <a
-href="https://map.uoregon.edu/">107 ESL</a></p>
-<p><strong>Lab (Section 15486):</strong> Fridays, 9:00 - 10:20 am,
-Straub 006</p>
-<p><strong>Lab (Section 15487):</strong> Fridays,10:30 - 11:50 am,
-Straub 006</p>
+<p><strong>Lecture:</strong> Tuesdays and Thursdays, 10:00 - 11:20am, <a href="https://map.uoregon.edu/">107 ESL</a></p>
+<p><strong>Lab (Section 15486):</strong> Fridays, 9:00 - 10:20 am, Straub 006</p>
+<p><strong>Lab (Section 15487):</strong> Fridays,10:30 - 11:50 am, Straub 006</p>
 <!-- , 10:00-11:20am, [Zoom](https://uoregon.zoom.us/j/97605175179?pwd=MVFoN2VudVM4a2Y5OXFvaklTRS85Zz09) -->
-<p>This class is officially offered in-person. I will give live lectures
-in Lawrence 222 and you are welcome to attend in person. At the same
-time, my goal is to make it safe and easy for students to access this
-course in whatever format they are comfortable. Therefore, all lectures
-will be recorded for later viewing. In-person attendance in lecture is
-not required. Feel free to stay at home if you prefer. And
-<strong>absolutely do not attend class in-person if you feel
-unwell</strong>. If you have COVID symptoms or have been in close
-contact with someone with known COVID, quarantine and call the UO Health
-Center at 541-346-2770.</p>
-<p>For Zoom best practices and tips, see this <a
-href="readings/PSY%20611%20Zoom%20Cheat%20Sheet.pdf">cheat
-sheet</a>.</p>
+<p>This class is officially offered in-person. I will give live lectures in Lawrence 222 and you are welcome to attend in person. At the same time, my goal is to make it safe and easy for students to access this course in whatever format they are comfortable. Therefore, all lectures will be recorded for later viewing. In-person attendance in lecture is not required. Feel free to stay at home if you prefer. And <strong>absolutely do not attend class in-person if you feel unwell</strong>. If you have COVID symptoms or have been in close contact with someone with known COVID, quarantine and call the UO Health Center at 541-346-2770.</p>
+<p>For Zoom best practices and tips, see this <a href="readings/PSY%20611%20Zoom%20Cheat%20Sheet.pdf">cheat sheet</a>.</p>
 </div>
 <div id="instructors" class="section level2">
 <h2>Instructors</h2>
-<p><strong>Sara Weston</strong> – <a
-href="mailto:sweston2@uoregon.edu">sweston2@uoregon.edu</a> Office
-Hours: <a href="https://calendly.com/sara-weston/weston-office-hours">By
-appointment</a></p>
-<p><strong>Bernice Cheung</strong> – <a
-href="mailto:kcheung3@uoregon.edu">kcheung3@uoregon.edu</a> Office
-Hours: <a href="https://calendly.com/bernicecheung">By
-appointment</a></p>
-<p><strong>Max Drascher</strong> – <a
-href="mailto:mdrasche@uoregon.edu">mdrasche@uoregon.edu</a> Office
-Hours: Thursdays 12-2pm, Straub 419</p>
+<p><strong>Sara Weston</strong> – <a href="mailto:sweston2@uoregon.edu">sweston2@uoregon.edu</a> Office Hours: <a href="https://calendly.com/sara-weston/weston-office-hours">By appointment</a></p>
+<p><strong>Bernice Cheung</strong> – <a href="mailto:kcheung3@uoregon.edu">kcheung3@uoregon.edu</a> Office Hours: <a href="https://calendly.com/bernicecheung">By appointment</a></p>
+<p><strong>Max Drascher</strong> – <a href="mailto:mdrasche@uoregon.edu">mdrasche@uoregon.edu</a> Office Hours: Thursdays 12-2pm, Straub 419</p>
 </div>
 </div>
 <div id="materials" class="section level1">
 <h1>Materials</h1>
 <div id="textbook" class="section level2">
 <h2>Textbook</h2>
-<p>We will primarily be referring to chapters in <a
-href="https://learningstatisticswithr-bookdown.netlify.com/index.html"><em>Learning
-Statistics with R</em></a> by Danielle Navarro. This textbook is
-available for free online. You may choose to purchase a paper copy if
-you wish, but it is not required. Additional readings assignments will
-be posted here.</p>
+<p>We will primarily be referring to chapters in <a href="https://learningstatisticswithr-bookdown.netlify.com/index.html"><em>Learning Statistics with R</em></a> by Danielle Navarro. This textbook is available for free online. You may choose to purchase a paper copy if you wish, but it is not required. Additional readings assignments will be posted here.</p>
 </div>
 <div id="r-and-rstudio" class="section level2">
 <h2>R and RStudio</h2>
-<p>Students must have the latest version of R, which can be downloaded
-<a href="https://ftp.osuosl.org/pub/cran/">here</a>. It is strongly
-recommended that students also download the RStudio GUI, available <a
-href="https://www.rstudio.com/products/rstudio/download/#download">here</a>.
-Both softwares are free.</p>
+<p>Students must have the latest version of R, which can be downloaded <a href="https://ftp.osuosl.org/pub/cran/">here</a>. It is strongly recommended that students also download the RStudio GUI, available <a href="https://www.rstudio.com/products/rstudio/download/#download">here</a>. Both softwares are free.</p>
 </div>
 <div id="resources-for-r-and-rstudio" class="section level2">
 <h2>Resources for R and RStudio</h2>
-<p>While we will be covering the use of R and RStudio extensively in
-both lecture and lab, one of the key skills required to use R is the
-ability to find answers on the Internet. The R commmunity (sometimes
-referred to as the useR community) tends to be friendly and helpful and
-enjoys solving R-related problems in their spare time. For that reason,
-many common questions or problems have been posted to spaces online and
-answered by smart people. Finding and deciphering those answers is the
-key skill you should seek to hone this year. It’s much more important
-than remembering function names.</p>
-<p>Here are some sites where you can find the answers to many R
-questions and learn new tricks:</p>
+<p>While we will be covering the use of R and RStudio extensively in both lecture and lab, one of the key skills required to use R is the ability to find answers on the Internet. The R commmunity (sometimes referred to as the useR community) tends to be friendly and helpful and enjoys solving R-related problems in their spare time. For that reason, many common questions or problems have been posted to spaces online and answered by smart people. Finding and deciphering those answers is the key skill you should seek to hone this year. It’s much more important than remembering function names.</p>
+<p>Here are some sites where you can find the answers to many R questions and learn new tricks:</p>
 <div id="for-learning-the-basics" class="section level3">
 <h3>For learning the basics</h3>
 <ul>
-<li><a href="https://bookdown.org/ndphillips/YaRrr/"><em>YaRrr, the
-Pirate’s Guide to R</em></a> by Nathaniel Phillips</li>
-<li><a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> by
-Hadley Wickham</li>
-<li><a href="http://www.cookbook-r.com/"><em>R Cookbook</em></a> by
-Winston Chang</li>
-<li><a href="http://www-bcf.usc.edu/~gareth/ISL"><em>An Introduction to
-Statistical Learning</em></a> by Gareth James, Daniela Witten, Trevor
-Hastie and Robert Tibshirani</li>
+<li><a href="https://bookdown.org/ndphillips/YaRrr/"><em>YaRrr, the Pirate’s Guide to R</em></a> by Nathaniel Phillips</li>
+<li><a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> by Hadley Wickham</li>
+<li><a href="http://www.cookbook-r.com/"><em>R Cookbook</em></a> by Winston Chang</li>
+<li><a href="http://www-bcf.usc.edu/~gareth/ISL"><em>An Introduction to Statistical Learning</em></a> by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani</li>
 </ul>
 </div>
 <div id="for-plotting" class="section level3">
 <h3>For plotting</h3>
 <ul>
-<li>The <a href="http://www.cookbook-r.com/Graphs/">Graphs chapter of
-<em>R Cookbook</em></a> by Winston Chang</li>
+<li>The <a href="http://www.cookbook-r.com/Graphs/">Graphs chapter of <em>R Cookbook</em></a> by Winston Chang</li>
 </ul>
 </div>
 <div id="quick-resources" class="section level3">
 <h3>Quick resources</h3>
 <ul>
-<li><a href="https://www.rstudio.com/resources/cheatsheets">Cheat
-Sheets</a></li>
+<li><a href="https://www.rstudio.com/resources/cheatsheets">Cheat Sheets</a></li>
 <li><a href="https://www.statmethods.net">Quick-R</a></li>
 </ul>
 </div>

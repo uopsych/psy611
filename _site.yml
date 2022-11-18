@@ -51,6 +51,9 @@ navbar:
         href: "labs/lab-5_instructor.html"
       - text: "6 - Data Visualization"
         href: "labs/lab-6.html"
+      - text: "7 - One Sample and Paired Samples t-tests"
+        href: "labs/lab-8.html"
+
     - text: Homework
       href: homework.html
     - text: Useful Material
