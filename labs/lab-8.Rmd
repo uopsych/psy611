@@ -28,6 +28,7 @@ library(rio) # for importing data
 library(psych) # for descriptives
 ```
 
+You can download the .Rmd file [here](lab-8.Rmd).
 
 Unquote the following install line to install the papaja package, which is used for preparaing APA style reports.
 ```{r}
