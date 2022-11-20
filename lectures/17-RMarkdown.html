@@ -1657,13 +1657,18 @@ will be the header of the section
 followed by tab names <code>## tab 1</code>, <code>## tab 2</code>, and
 so on. In this section, we will also be exploring how to make a table
 using the <code>gt</code> and <code>gtsummary</code> packages.</p>
+<p>We’ll show some of the code today, but there’s a lot more on the
+websites for these packages: <a href="https://gt.rstudio.com/">gt.rstudio.com</a> and <a href="https://www.danieldsjoberg.com/gtsummary/">www.danieldsjoberg.com/gtsummary/</a>.</p>
 <p><br /></p>
 <div id="table-1" class="section level2">
 <h2>Table 1</h2>
 <p>Here is a simple data frame.</p>
 <pre class="r"><code>(table_1 &lt;- gtcars %&gt;% 
-   select(year, hp, mpg_c, mpg_h, msrp))</code></pre>
-<pre><code>## # A tibble: 47 × 5
+   # which variables
+   select(year, hp, mpg_c, mpg_h, msrp) %&gt;% 
+   # this is a big df, so let&#39;s just work with the first 10 rows
+   slice_head(n = 10)) </code></pre>
+<pre><code>## # A tibble: 10 × 5
 ##     year    hp mpg_c mpg_h    msrp
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
 ##  1  2017   647    11    18  447000
@@ -1675,8 +1680,7 @@ using the <code>gt</code> and <code>gtsummary</code> packages.</p>
 ##  7  2017   680    12    17  298000
 ##  8  2015   652    11    16  295000
 ##  9  2015   731    11    16  319995
-## 10  2015   949    12    16 1416362
-## # … with 37 more rows</code></pre>
+## 10  2015   949    12    16 1416362</code></pre>
 <hr />
 </div>
 <div id="table-2" class="section level2">
@@ -1685,6 +1689,484 @@ using the <code>gt</code> and <code>gtsummary</code> packages.</p>
 <pre class="r"><code>#Creating a gt table
 table_1 %&gt;% 
   gt()</code></pre>
+<div id="uwmudzkdfa" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#uwmudzkdfa .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#uwmudzkdfa .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#uwmudzkdfa .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#uwmudzkdfa .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#uwmudzkdfa .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#uwmudzkdfa .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uwmudzkdfa .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#uwmudzkdfa .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#uwmudzkdfa .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#uwmudzkdfa .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#uwmudzkdfa .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#uwmudzkdfa .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#uwmudzkdfa .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#uwmudzkdfa .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#uwmudzkdfa .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#uwmudzkdfa .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#uwmudzkdfa .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#uwmudzkdfa .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uwmudzkdfa .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#uwmudzkdfa .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#uwmudzkdfa .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uwmudzkdfa .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#uwmudzkdfa .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#uwmudzkdfa .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uwmudzkdfa .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uwmudzkdfa .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#uwmudzkdfa .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#uwmudzkdfa .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uwmudzkdfa .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#uwmudzkdfa .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uwmudzkdfa .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#uwmudzkdfa .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uwmudzkdfa .gt_left {
+  text-align: left;
+}
+
+#uwmudzkdfa .gt_center {
+  text-align: center;
+}
+
+#uwmudzkdfa .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#uwmudzkdfa .gt_font_normal {
+  font-weight: normal;
+}
+
+#uwmudzkdfa .gt_font_bold {
+  font-weight: bold;
+}
+
+#uwmudzkdfa .gt_font_italic {
+  font-style: italic;
+}
+
+#uwmudzkdfa .gt_super {
+  font-size: 65%;
+}
+
+#uwmudzkdfa .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#uwmudzkdfa .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#uwmudzkdfa .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#uwmudzkdfa .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#uwmudzkdfa .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#uwmudzkdfa .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#uwmudzkdfa .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="year">year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="hp">hp</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="mpg_c">mpg_c</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="mpg_h">mpg_h</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="msrp">msrp</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="year" class="gt_row gt_right">2017</td>
+<td headers="hp" class="gt_row gt_right">647</td>
+<td headers="mpg_c" class="gt_row gt_right">11</td>
+<td headers="mpg_h" class="gt_row gt_right">18</td>
+<td headers="msrp" class="gt_row gt_right">447000</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">597</td>
+<td headers="mpg_c" class="gt_row gt_right">13</td>
+<td headers="mpg_h" class="gt_row gt_right">17</td>
+<td headers="msrp" class="gt_row gt_right">291744</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">562</td>
+<td headers="mpg_c" class="gt_row gt_right">13</td>
+<td headers="mpg_h" class="gt_row gt_right">17</td>
+<td headers="msrp" class="gt_row gt_right">263553</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2014</td>
+<td headers="hp" class="gt_row gt_right">562</td>
+<td headers="mpg_c" class="gt_row gt_right">13</td>
+<td headers="mpg_h" class="gt_row gt_right">17</td>
+<td headers="msrp" class="gt_row gt_right">233509</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2016</td>
+<td headers="hp" class="gt_row gt_right">661</td>
+<td headers="mpg_c" class="gt_row gt_right">15</td>
+<td headers="mpg_h" class="gt_row gt_right">22</td>
+<td headers="msrp" class="gt_row gt_right">245400</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">553</td>
+<td headers="mpg_c" class="gt_row gt_right">16</td>
+<td headers="mpg_h" class="gt_row gt_right">23</td>
+<td headers="msrp" class="gt_row gt_right">198973</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2017</td>
+<td headers="hp" class="gt_row gt_right">680</td>
+<td headers="mpg_c" class="gt_row gt_right">12</td>
+<td headers="mpg_h" class="gt_row gt_right">17</td>
+<td headers="msrp" class="gt_row gt_right">298000</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">652</td>
+<td headers="mpg_c" class="gt_row gt_right">11</td>
+<td headers="mpg_h" class="gt_row gt_right">16</td>
+<td headers="msrp" class="gt_row gt_right">295000</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">731</td>
+<td headers="mpg_c" class="gt_row gt_right">11</td>
+<td headers="mpg_h" class="gt_row gt_right">16</td>
+<td headers="msrp" class="gt_row gt_right">319995</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">949</td>
+<td headers="mpg_c" class="gt_row gt_right">12</td>
+<td headers="mpg_h" class="gt_row gt_right">16</td>
+<td headers="msrp" class="gt_row gt_right">1416362</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
 <p><br /></p>
 <p>This is technically a little better but we can further customize
 it.</p>
@@ -1706,6 +2188,485 @@ easier to read.</p>
     mpg_h = &quot;MPG Highway&quot;,
     msrp = &quot;MSRP ($)&quot;
   )</code></pre>
+<div id="wckuuiogzp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#wckuuiogzp .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wckuuiogzp .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wckuuiogzp .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#wckuuiogzp .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wckuuiogzp .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wckuuiogzp .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wckuuiogzp .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wckuuiogzp .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wckuuiogzp .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wckuuiogzp .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wckuuiogzp .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wckuuiogzp .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wckuuiogzp .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#wckuuiogzp .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wckuuiogzp .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wckuuiogzp .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wckuuiogzp .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wckuuiogzp .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wckuuiogzp .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#wckuuiogzp .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#wckuuiogzp .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wckuuiogzp .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#wckuuiogzp .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#wckuuiogzp .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wckuuiogzp .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wckuuiogzp .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wckuuiogzp .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wckuuiogzp .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wckuuiogzp .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wckuuiogzp .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wckuuiogzp .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wckuuiogzp .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wckuuiogzp .gt_left {
+  text-align: left;
+}
+
+#wckuuiogzp .gt_center {
+  text-align: center;
+}
+
+#wckuuiogzp .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wckuuiogzp .gt_font_normal {
+  font-weight: normal;
+}
+
+#wckuuiogzp .gt_font_bold {
+  font-weight: bold;
+}
+
+#wckuuiogzp .gt_font_italic {
+  font-style: italic;
+}
+
+#wckuuiogzp .gt_super {
+  font-size: 65%;
+}
+
+#wckuuiogzp .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#wckuuiogzp .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#wckuuiogzp .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#wckuuiogzp .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#wckuuiogzp .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#wckuuiogzp .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#wckuuiogzp .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  <caption>Table 1. An example dataset from the gt package.</caption>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Year">Year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Horsepower">Horsepower</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MPG Country">MPG Country</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MPG Highway">MPG Highway</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MSRP ($)">MSRP ($)</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="year" class="gt_row gt_right">2017</td>
+<td headers="hp" class="gt_row gt_right">647</td>
+<td headers="mpg_c" class="gt_row gt_right">11</td>
+<td headers="mpg_h" class="gt_row gt_right">18</td>
+<td headers="msrp" class="gt_row gt_right">447000</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">597</td>
+<td headers="mpg_c" class="gt_row gt_right">13</td>
+<td headers="mpg_h" class="gt_row gt_right">17</td>
+<td headers="msrp" class="gt_row gt_right">291744</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">562</td>
+<td headers="mpg_c" class="gt_row gt_right">13</td>
+<td headers="mpg_h" class="gt_row gt_right">17</td>
+<td headers="msrp" class="gt_row gt_right">263553</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2014</td>
+<td headers="hp" class="gt_row gt_right">562</td>
+<td headers="mpg_c" class="gt_row gt_right">13</td>
+<td headers="mpg_h" class="gt_row gt_right">17</td>
+<td headers="msrp" class="gt_row gt_right">233509</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2016</td>
+<td headers="hp" class="gt_row gt_right">661</td>
+<td headers="mpg_c" class="gt_row gt_right">15</td>
+<td headers="mpg_h" class="gt_row gt_right">22</td>
+<td headers="msrp" class="gt_row gt_right">245400</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">553</td>
+<td headers="mpg_c" class="gt_row gt_right">16</td>
+<td headers="mpg_h" class="gt_row gt_right">23</td>
+<td headers="msrp" class="gt_row gt_right">198973</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2017</td>
+<td headers="hp" class="gt_row gt_right">680</td>
+<td headers="mpg_c" class="gt_row gt_right">12</td>
+<td headers="mpg_h" class="gt_row gt_right">17</td>
+<td headers="msrp" class="gt_row gt_right">298000</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">652</td>
+<td headers="mpg_c" class="gt_row gt_right">11</td>
+<td headers="mpg_h" class="gt_row gt_right">16</td>
+<td headers="msrp" class="gt_row gt_right">295000</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">731</td>
+<td headers="mpg_c" class="gt_row gt_right">11</td>
+<td headers="mpg_h" class="gt_row gt_right">16</td>
+<td headers="msrp" class="gt_row gt_right">319995</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">949</td>
+<td headers="mpg_c" class="gt_row gt_right">12</td>
+<td headers="mpg_h" class="gt_row gt_right">16</td>
+<td headers="msrp" class="gt_row gt_right">1416362</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
 <hr />
 </div>
 <div id="table-4" class="section level2">
@@ -1727,26 +2688,1508 @@ under a single banner.</p>
     label = &quot;Miles Per Gallon&quot;,
     columns = c(mpg_c, mpg_h)
   )</code></pre>
+<div id="ofdtxmvbhv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#ofdtxmvbhv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ofdtxmvbhv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ofdtxmvbhv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ofdtxmvbhv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ofdtxmvbhv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ofdtxmvbhv .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ofdtxmvbhv .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ofdtxmvbhv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ofdtxmvbhv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ofdtxmvbhv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ofdtxmvbhv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ofdtxmvbhv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ofdtxmvbhv .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ofdtxmvbhv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ofdtxmvbhv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ofdtxmvbhv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ofdtxmvbhv .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ofdtxmvbhv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ofdtxmvbhv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ofdtxmvbhv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ofdtxmvbhv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ofdtxmvbhv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ofdtxmvbhv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ofdtxmvbhv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ofdtxmvbhv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ofdtxmvbhv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ofdtxmvbhv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ofdtxmvbhv .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ofdtxmvbhv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ofdtxmvbhv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ofdtxmvbhv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ofdtxmvbhv .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ofdtxmvbhv .gt_left {
+  text-align: left;
+}
+
+#ofdtxmvbhv .gt_center {
+  text-align: center;
+}
+
+#ofdtxmvbhv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ofdtxmvbhv .gt_font_normal {
+  font-weight: normal;
+}
+
+#ofdtxmvbhv .gt_font_bold {
+  font-weight: bold;
+}
+
+#ofdtxmvbhv .gt_font_italic {
+  font-style: italic;
+}
+
+#ofdtxmvbhv .gt_super {
+  font-size: 65%;
+}
+
+#ofdtxmvbhv .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#ofdtxmvbhv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ofdtxmvbhv .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ofdtxmvbhv .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ofdtxmvbhv .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ofdtxmvbhv .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ofdtxmvbhv .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  <caption>Table 2. An example dataset from the gt package.</caption>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" scope="col" id="Year">Year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" scope="col" id="Horsepower">Horsepower</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="Miles Per Gallon">
+        <span class="gt_column_spanner">Miles Per Gallon</span>
+      </th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" scope="col" id="MSRP ($)">MSRP ($)</th>
+    </tr>
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Country">Country</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Highway">Highway</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="year" class="gt_row gt_right">2017</td>
+<td headers="hp" class="gt_row gt_right">647</td>
+<td headers="mpg_c" class="gt_row gt_right">11</td>
+<td headers="mpg_h" class="gt_row gt_right">18</td>
+<td headers="msrp" class="gt_row gt_right">447000</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">597</td>
+<td headers="mpg_c" class="gt_row gt_right">13</td>
+<td headers="mpg_h" class="gt_row gt_right">17</td>
+<td headers="msrp" class="gt_row gt_right">291744</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">562</td>
+<td headers="mpg_c" class="gt_row gt_right">13</td>
+<td headers="mpg_h" class="gt_row gt_right">17</td>
+<td headers="msrp" class="gt_row gt_right">263553</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2014</td>
+<td headers="hp" class="gt_row gt_right">562</td>
+<td headers="mpg_c" class="gt_row gt_right">13</td>
+<td headers="mpg_h" class="gt_row gt_right">17</td>
+<td headers="msrp" class="gt_row gt_right">233509</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2016</td>
+<td headers="hp" class="gt_row gt_right">661</td>
+<td headers="mpg_c" class="gt_row gt_right">15</td>
+<td headers="mpg_h" class="gt_row gt_right">22</td>
+<td headers="msrp" class="gt_row gt_right">245400</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">553</td>
+<td headers="mpg_c" class="gt_row gt_right">16</td>
+<td headers="mpg_h" class="gt_row gt_right">23</td>
+<td headers="msrp" class="gt_row gt_right">198973</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2017</td>
+<td headers="hp" class="gt_row gt_right">680</td>
+<td headers="mpg_c" class="gt_row gt_right">12</td>
+<td headers="mpg_h" class="gt_row gt_right">17</td>
+<td headers="msrp" class="gt_row gt_right">298000</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">652</td>
+<td headers="mpg_c" class="gt_row gt_right">11</td>
+<td headers="mpg_h" class="gt_row gt_right">16</td>
+<td headers="msrp" class="gt_row gt_right">295000</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">731</td>
+<td headers="mpg_c" class="gt_row gt_right">11</td>
+<td headers="mpg_h" class="gt_row gt_right">16</td>
+<td headers="msrp" class="gt_row gt_right">319995</td></tr>
+    <tr><td headers="year" class="gt_row gt_right">2015</td>
+<td headers="hp" class="gt_row gt_right">949</td>
+<td headers="mpg_c" class="gt_row gt_right">12</td>
+<td headers="mpg_h" class="gt_row gt_right">16</td>
+<td headers="msrp" class="gt_row gt_right">1416362</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
 <hr />
 </div>
-<div id="table-5-summary" class="section level2">
-<h2>Table 5 (Summary)</h2>
-<p>But really, summary statistics would be much preferable to what I
-have here. Let’s combine the <code>gt</code> package with the
-<code>gtsummary</code> package for some useful descriptives.</p>
+<div id="table-5" class="section level2">
+<h2>Table 5</h2>
+<p>It would be helpful to include some summary statistics here.</p>
+<pre class="r"><code>table_1 %&gt;% 
+  gt(
+    caption = &quot;Table 3. An example dataset from the gt package.&quot; #add table caption
+  ) %&gt;% 
+  cols_label(
+    year = &quot;Year&quot;, 
+    hp = &quot;Horsepower&quot;, 
+    mpg_c = &quot;Country&quot;, 
+    mpg_h = &quot;Highway&quot;,
+    msrp = &quot;MSRP ($)&quot;
+  ) %&gt;% 
+  tab_spanner(
+    label = &quot;Miles Per Gallon&quot;,
+    columns = c(mpg_c, mpg_h)
+  ) %&gt;% 
+  summary_rows(
+    columns = everything(), #all the columns
+    fns = list( # which summary statistics
+      Mean = ~mean(.),
+      SD = ~sd(.)
+    )
+  )</code></pre>
+<div id="rxnmliwwlq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#rxnmliwwlq .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#rxnmliwwlq .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rxnmliwwlq .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#rxnmliwwlq .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#rxnmliwwlq .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#rxnmliwwlq .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rxnmliwwlq .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rxnmliwwlq .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#rxnmliwwlq .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#rxnmliwwlq .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#rxnmliwwlq .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#rxnmliwwlq .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#rxnmliwwlq .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#rxnmliwwlq .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#rxnmliwwlq .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#rxnmliwwlq .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#rxnmliwwlq .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#rxnmliwwlq .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rxnmliwwlq .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#rxnmliwwlq .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#rxnmliwwlq .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rxnmliwwlq .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#rxnmliwwlq .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#rxnmliwwlq .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rxnmliwwlq .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rxnmliwwlq .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#rxnmliwwlq .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#rxnmliwwlq .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rxnmliwwlq .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rxnmliwwlq .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rxnmliwwlq .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rxnmliwwlq .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rxnmliwwlq .gt_left {
+  text-align: left;
+}
+
+#rxnmliwwlq .gt_center {
+  text-align: center;
+}
+
+#rxnmliwwlq .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#rxnmliwwlq .gt_font_normal {
+  font-weight: normal;
+}
+
+#rxnmliwwlq .gt_font_bold {
+  font-weight: bold;
+}
+
+#rxnmliwwlq .gt_font_italic {
+  font-style: italic;
+}
+
+#rxnmliwwlq .gt_super {
+  font-size: 65%;
+}
+
+#rxnmliwwlq .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#rxnmliwwlq .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#rxnmliwwlq .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#rxnmliwwlq .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#rxnmliwwlq .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#rxnmliwwlq .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#rxnmliwwlq .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  <caption>Table 3. An example dataset from the gt package.</caption>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" scope="col" id="Year">Year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" scope="col" id="Horsepower">Horsepower</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="Miles Per Gallon">
+        <span class="gt_column_spanner">Miles Per Gallon</span>
+      </th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" scope="col" id="MSRP ($)">MSRP ($)</th>
+    </tr>
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Country">Country</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Highway">Highway</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><th id="stub_1_1" scope="row" class="gt_row gt_left gt_stub"></th>
+<td headers="stub_1_1 year" class="gt_row gt_right">2017</td>
+<td headers="stub_1_1 hp" class="gt_row gt_right">647</td>
+<td headers="stub_1_1 mpg_c" class="gt_row gt_right">11</td>
+<td headers="stub_1_1 mpg_h" class="gt_row gt_right">18</td>
+<td headers="stub_1_1 msrp" class="gt_row gt_right">447000</td></tr>
+    <tr><th id="stub_1_2" scope="row" class="gt_row gt_left gt_stub"></th>
+<td headers="stub_1_2 year" class="gt_row gt_right">2015</td>
+<td headers="stub_1_2 hp" class="gt_row gt_right">597</td>
+<td headers="stub_1_2 mpg_c" class="gt_row gt_right">13</td>
+<td headers="stub_1_2 mpg_h" class="gt_row gt_right">17</td>
+<td headers="stub_1_2 msrp" class="gt_row gt_right">291744</td></tr>
+    <tr><th id="stub_1_3" scope="row" class="gt_row gt_left gt_stub"></th>
+<td headers="stub_1_3 year" class="gt_row gt_right">2015</td>
+<td headers="stub_1_3 hp" class="gt_row gt_right">562</td>
+<td headers="stub_1_3 mpg_c" class="gt_row gt_right">13</td>
+<td headers="stub_1_3 mpg_h" class="gt_row gt_right">17</td>
+<td headers="stub_1_3 msrp" class="gt_row gt_right">263553</td></tr>
+    <tr><th id="stub_1_4" scope="row" class="gt_row gt_left gt_stub"></th>
+<td headers="stub_1_4 year" class="gt_row gt_right">2014</td>
+<td headers="stub_1_4 hp" class="gt_row gt_right">562</td>
+<td headers="stub_1_4 mpg_c" class="gt_row gt_right">13</td>
+<td headers="stub_1_4 mpg_h" class="gt_row gt_right">17</td>
+<td headers="stub_1_4 msrp" class="gt_row gt_right">233509</td></tr>
+    <tr><th id="stub_1_5" scope="row" class="gt_row gt_left gt_stub"></th>
+<td headers="stub_1_5 year" class="gt_row gt_right">2016</td>
+<td headers="stub_1_5 hp" class="gt_row gt_right">661</td>
+<td headers="stub_1_5 mpg_c" class="gt_row gt_right">15</td>
+<td headers="stub_1_5 mpg_h" class="gt_row gt_right">22</td>
+<td headers="stub_1_5 msrp" class="gt_row gt_right">245400</td></tr>
+    <tr><th id="stub_1_6" scope="row" class="gt_row gt_left gt_stub"></th>
+<td headers="stub_1_6 year" class="gt_row gt_right">2015</td>
+<td headers="stub_1_6 hp" class="gt_row gt_right">553</td>
+<td headers="stub_1_6 mpg_c" class="gt_row gt_right">16</td>
+<td headers="stub_1_6 mpg_h" class="gt_row gt_right">23</td>
+<td headers="stub_1_6 msrp" class="gt_row gt_right">198973</td></tr>
+    <tr><th id="stub_1_7" scope="row" class="gt_row gt_left gt_stub"></th>
+<td headers="stub_1_7 year" class="gt_row gt_right">2017</td>
+<td headers="stub_1_7 hp" class="gt_row gt_right">680</td>
+<td headers="stub_1_7 mpg_c" class="gt_row gt_right">12</td>
+<td headers="stub_1_7 mpg_h" class="gt_row gt_right">17</td>
+<td headers="stub_1_7 msrp" class="gt_row gt_right">298000</td></tr>
+    <tr><th id="stub_1_8" scope="row" class="gt_row gt_left gt_stub"></th>
+<td headers="stub_1_8 year" class="gt_row gt_right">2015</td>
+<td headers="stub_1_8 hp" class="gt_row gt_right">652</td>
+<td headers="stub_1_8 mpg_c" class="gt_row gt_right">11</td>
+<td headers="stub_1_8 mpg_h" class="gt_row gt_right">16</td>
+<td headers="stub_1_8 msrp" class="gt_row gt_right">295000</td></tr>
+    <tr><th id="stub_1_9" scope="row" class="gt_row gt_left gt_stub"></th>
+<td headers="stub_1_9 year" class="gt_row gt_right">2015</td>
+<td headers="stub_1_9 hp" class="gt_row gt_right">731</td>
+<td headers="stub_1_9 mpg_c" class="gt_row gt_right">11</td>
+<td headers="stub_1_9 mpg_h" class="gt_row gt_right">16</td>
+<td headers="stub_1_9 msrp" class="gt_row gt_right">319995</td></tr>
+    <tr><th id="stub_1_10" scope="row" class="gt_row gt_left gt_stub"></th>
+<td headers="stub_1_10 year" class="gt_row gt_right">2015</td>
+<td headers="stub_1_10 hp" class="gt_row gt_right">949</td>
+<td headers="stub_1_10 mpg_c" class="gt_row gt_right">12</td>
+<td headers="stub_1_10 mpg_h" class="gt_row gt_right">16</td>
+<td headers="stub_1_10 msrp" class="gt_row gt_right">1416362</td></tr>
+    <tr><th id="grand_summary_stub_1" scope="row" class="gt_row gt_left gt_stub gt_grand_summary_row gt_first_grand_summary_row">Mean</th>
+<td headers="grand_summary_stub_1 year" class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row">2,015.40</td>
+<td headers="grand_summary_stub_1 hp" class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row">659.40</td>
+<td headers="grand_summary_stub_1 mpg_c" class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row">12.70</td>
+<td headers="grand_summary_stub_1 mpg_h" class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row">17.90</td>
+<td headers="grand_summary_stub_1 msrp" class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row">400,953.60</td></tr>
+    <tr><th id="grand_summary_stub_2" scope="row" class="gt_row gt_left gt_stub gt_grand_summary_row gt_last_summary_row">SD</th>
+<td headers="grand_summary_stub_2 year" class="gt_row gt_right gt_grand_summary_row gt_last_summary_row">0.97</td>
+<td headers="grand_summary_stub_2 hp" class="gt_row gt_right gt_grand_summary_row gt_last_summary_row">117.29</td>
+<td headers="grand_summary_stub_2 mpg_c" class="gt_row gt_right gt_grand_summary_row gt_last_summary_row">1.70</td>
+<td headers="grand_summary_stub_2 mpg_h" class="gt_row gt_right gt_grand_summary_row gt_last_summary_row">2.51</td>
+<td headers="grand_summary_stub_2 msrp" class="gt_row gt_right gt_grand_summary_row gt_last_summary_row">362,918.85</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<hr />
+</div>
+<div id="table-6-summary-statistics" class="section level2">
+<h2>Table 6 (Summary statistics)</h2>
+<p>If I’m writing a manuscript, I don’t want to plot the entire table of
+data. Instead, I only want those summary statistics.Let’s combine the
+<code>gt</code> package with the <code>gtsummary</code> package for some
+useful descriptives.</p>
 <pre class="r"><code>gtcars %&gt;% 
   select(year, hp, mpg_c, mpg_h, msrp) %&gt;% 
   tbl_summary(
     statistic = list(
       all_continuous() ~ &quot;{mean} ({sd})&quot;
     ))</code></pre>
+<div id="kulyanfubs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#kulyanfubs .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kulyanfubs .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kulyanfubs .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#kulyanfubs .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kulyanfubs .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kulyanfubs .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kulyanfubs .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kulyanfubs .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kulyanfubs .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kulyanfubs .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kulyanfubs .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kulyanfubs .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kulyanfubs .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#kulyanfubs .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kulyanfubs .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kulyanfubs .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kulyanfubs .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kulyanfubs .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kulyanfubs .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#kulyanfubs .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#kulyanfubs .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kulyanfubs .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#kulyanfubs .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#kulyanfubs .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kulyanfubs .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kulyanfubs .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kulyanfubs .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kulyanfubs .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kulyanfubs .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kulyanfubs .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kulyanfubs .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kulyanfubs .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kulyanfubs .gt_left {
+  text-align: left;
+}
+
+#kulyanfubs .gt_center {
+  text-align: center;
+}
+
+#kulyanfubs .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kulyanfubs .gt_font_normal {
+  font-weight: normal;
+}
+
+#kulyanfubs .gt_font_bold {
+  font-weight: bold;
+}
+
+#kulyanfubs .gt_font_italic {
+  font-style: italic;
+}
+
+#kulyanfubs .gt_super {
+  font-size: 65%;
+}
+
+#kulyanfubs .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#kulyanfubs .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#kulyanfubs .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#kulyanfubs .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#kulyanfubs .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#kulyanfubs .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#kulyanfubs .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Characteristic&lt;/strong&gt;"><strong>Characteristic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;N = 47&lt;/strong&gt;&lt;sup class=&quot;gt_footnote_marks&quot;&gt;1&lt;/sup&gt;"><strong>N = 47</strong><sup class="gt_footnote_marks">1</sup></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="label" class="gt_row gt_left">year</td>
+<td headers="stat_0" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    2014</td>
+<td headers="stat_0" class="gt_row gt_center">2 (4.3%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    2015</td>
+<td headers="stat_0" class="gt_row gt_center">9 (19%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    2016</td>
+<td headers="stat_0" class="gt_row gt_center">27 (57%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    2017</td>
+<td headers="stat_0" class="gt_row gt_center">9 (19%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">hp</td>
+<td headers="stat_0" class="gt_row gt_center">515 (140)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">mpg_c</td>
+<td headers="stat_0" class="gt_row gt_center">15.33 (3.43)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    Unknown</td>
+<td headers="stat_0" class="gt_row gt_center">1</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">mpg_h</td>
+<td headers="stat_0" class="gt_row gt_center">22.2 (3.9)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    Unknown</td>
+<td headers="stat_0" class="gt_row gt_center">1</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">msrp</td>
+<td headers="stat_0" class="gt_row gt_center">193,929 (207,626)</td></tr>
+  </tbody>
+  
+  <tfoot class="gt_footnotes">
+    <tr>
+      <td class="gt_footnote" colspan="2"><sup class="gt_footnote_marks">1</sup> n (%); Mean (SD)</td>
+    </tr>
+  </tfoot>
+</table>
+</div>
 <hr />
 </div>
-<div id="table-6" class="section level2">
-<h2>Table 6</h2>
-<pre class="r"><code>gtcars %&gt;% 
-  select(year, hp, mpg_c, mpg_h, msrp) %&gt;% 
+<div id="table-7" class="section level2">
+<h2>Table 7</h2>
+<p>And of course, if this is to be ready for publication, I should
+rename the variables and do some light formatting. Here I’m also testing
+differences by groups.</p>
+<pre class="r"><code>test = gtcars %&gt;% 
+  select(bdy_style, year, hp, mpg_c, mpg_h, msrp) %&gt;% 
+  # for this example, i want to work with only two groups,
+  # so here i&#39;m collapsing anyting that&#39;s not a coupe into
+  # a &quot;not coupe&quot; category
+  mutate(
+    bdy_style = case_when(
+      bdy_style == &quot;coupe&quot; ~ &quot;coupe&quot;,
+      TRUE ~ &quot;not coupe&quot;
+     )) %&gt;% 
   tbl_summary(
+    by = bdy_style, #separate summary statistics by group
     label = list(
       year ~ &quot;Year&quot;,
       hp ~ &quot;Horsepower&quot;,
@@ -1757,7 +4200,16 @@ have here. Let’s combine the <code>gt</code> package with the
     statistic = list(
       all_continuous() ~ &quot;{mean} ({sd})&quot;
       )
-    ) </code></pre>
+    )  %&gt;% 
+  add_n() %&gt;% # add column with total number of non-missing observations
+  add_p() %&gt;% # test for a difference between groups
+  bold_labels() # make it pretty</code></pre>
+<pre><code>## Warning for variable &#39;hp&#39;:
+## simpleWarning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot compute exact p-value with ties</code></pre>
+<pre><code>## Warning for variable &#39;mpg_c&#39;:
+## simpleWarning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot compute exact p-value with ties</code></pre>
+<pre><code>## Warning for variable &#39;mpg_h&#39;:
+## simpleWarning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot compute exact p-value with ties</code></pre>
 <hr />
 </div>
 <div id="other-packages" class="section level2">
@@ -1776,6 +4228,189 @@ and kableExtra</a></li>
 <li><a href="https://hughjonesd.github.io/huxtable/">huxtable</a></li>
 </ul>
 </div>
+</div>
+<div id="inline-text" class="section level1">
+<h1>Inline text</h1>
+<p>Inline text refers to text that is outside of code chunks. I am
+currently writing in inline text. In order to format the text that you
+write outside of code chunks, you have to abide by Markdown syntax. For
+example, you may want to <strong>bold</strong>, <em>italicize</em>, or
+<del>strikethrough</del> a word. You also may want to insert a list,
+table, headers, link, image, blockquote, or equation. Refer to the
+RMarkdown <a href="https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">cheatsheet</a>
+for how to format in Markdown syntax.</p>
+<center>
+<img src="resources/lab7/syntax.jpg" />
+</center>
+<p><br /></p>
+<p><br /></p>
+<hr />
+<div id="inline-code" class="section level2 tabset tabset-fade tabset-pills">
+<h2 class="tabset tabset-fade tabset-pills">Inline code</h2>
+<div id="inline-code-1" class="section level3">
+<h3>Inline code</h3>
+<p>Sometimes you may want to code outside of a code chunk. The most
+common reason for this is to report statistics in your inline text. For
+example, let’s say you are writing a manuscript in R and you need to
+report the mean and standard deviation for a variable. You can calculate
+the mean and standard deviation of the variable in the code chunk, then
+call the answer in the in-line text. This will reduce human transfer
+errors.</p>
+<pre class="r"><code>#Descriptive stats for car hp 
+
+range_hp_low &lt;- range(gtcars$hp)[1]
+
+range_hp_high &lt;- range(gtcars$hp)[2]
+
+m_hp &lt;- mean(gtcars$hp)
+
+sd_hp &lt;- sd(gtcars$hp)</code></pre>
+<p>Now, I can call the variables inline, like this: The horsepower of
+cars ranged from 259 to 949 (<em>M</em> = 514.9574468, <em>SD</em> =
+139.8205305).</p>
+<p><br /></p>
+<hr />
+</div>
+<div id="advanced-code" class="section level3">
+<h3>Advanced code</h3>
+<p>You can do more than call a variable outside of the code chunks. For
+example, here is some code that will make the sentence look a little
+nicer. However, when you code outside of the code chunks, the code
+becomes really difficult to read, so I recommend keeping complicated
+code inside of the code chunks.</p>
+<pre class="r"><code>#Descriptive stats for car price 
+
+range_msrp_low &lt;- range(gtcars$msrp)[1]
+
+range_msrp_high &lt;- range(gtcars$msrp)[2]
+
+m_msrp &lt;- mean(gtcars$msrp)
+
+sd_msrp &lt;- sd(gtcars$msrp)</code></pre>
+<p>The msrp of gtcars ranged from $53900.00 to $1,416,362.00 (<em>M</em>
+= $193,929.06, <em>SD</em> = $207,626.4).</p>
+<p>Instead of this mess, you want to first create your variables:</p>
+<pre class="r"><code>range_msrp_low &lt;- range(gtcars$msrp)[1] %&gt;%
+  as.double() %&gt;% #makes range_msrp_low a double (rather than an integer)
+  format(nsmall = 2) %&gt;% #format it to two decimal places
+  paste0(&quot;$&quot;, .) #add a dollar sign before the number
+
+range_msrp_high &lt;- range(gtcars$msrp)[2] %&gt;% 
+  as.double() %&gt;% 
+  format(nsmall = 2, big.mark = &quot;,&quot;) %&gt;% #big.mark adds a comma for large numbers
+  paste0(&quot;$&quot;, .)
+
+m_msrp &lt;- gtcars$msrp %&gt;%
+  mean() %&gt;% 
+  format(nsmall = 2, big.mark = &quot;,&quot;) %&gt;% 
+  paste0(&quot;$&quot;, .)
+
+sd_msrp &lt;- gtcars$msrp %&gt;%
+  sd() %&gt;% 
+  format(nsmall = 2, big.mark = &quot;,&quot;) %&gt;% 
+  paste0(&quot;$&quot;, .)</code></pre>
+<p>And then you can print your sentence: The msrp of gtcars ranged from
+$53900.00 to $1,416,362.00 (<em>M</em> = $193,929.06, <em>SD</em> =
+$207,626.38).</p>
+<p><br /></p>
+<hr />
+</div>
+<div id="creating-a-function" class="section level3">
+<h3>Creating a function</h3>
+<pre class="r"><code>#To remove redundancy in your code, you may want to create a function instead
+#Here I&#39;ve created a function with one argument &quot;x&quot; that converts numbers into money formatted numbers
+money_format &lt;- function(x){
+  x %&gt;%
+  as.double() %&gt;% 
+  format(nsmall = 2, big.mark = &quot;,&quot;) %&gt;% 
+  paste0(&quot;$&quot;, .)
+}
+
+#testing the function
+money_format(23948234)</code></pre>
+<pre><code>## [1] &quot;$23,948,234.00&quot;</code></pre>
+<pre class="r"><code>money_format(23)</code></pre>
+<pre><code>## [1] &quot;$23.00&quot;</code></pre>
+<pre class="r"><code>gtcars$msrp %&gt;% 
+  mean() %&gt;% 
+  money_format()</code></pre>
+<pre><code>## [1] &quot;$193,929.06&quot;</code></pre>
+<p>Your new function will work inline too: $32,334.00</p>
+<hr />
+</div>
+</div>
+</div>
+<div id="knitting-errors" class="section level1">
+<h1>Knitting errors</h1>
+<p>Knitting errors are particularly frustrating error messages if you
+thought you were done with your project and the code had worked up to
+the point of knitting. Plus, the messages can be vague and confusing.
+Here’s our advice:</p>
+<ul>
+<li><p>Knit early and knit often. If you’re working on the homework,
+it’s a good idea to knit at least once after every problem.</p></li>
+<li><p>When you get an error, you first want to try to locate where the
+error is. If you think you found it, you can comment out the entire code
+chunk by highlighting the code and typing <code>Ctrl + Shift + C</code>
+(or <code>Cmd + Shift + C</code> on a Mac), or you can change the code
+chunk options to <code>error = TRUE</code>. You should be able to knit
+now if the error message is coming from the code chunk that you just
+disabled. Otherwise, disable more code chunks, one at a time until it
+knits.</p></li>
+<li><p>Once you’ve established where the error is, you may still not
+understand why the code isn’t working. The most common reasons are…</p>
+<ul>
+<li>Your data set wasn’t imported properly.</li>
+<li>You haven’t loaded the proper libraries and you need to add at least
+one <code>library()</code> command.</li>
+<li>You are referring to a variable that hasn’t been assigned yet. It
+probably worked before because it was assigned in your global
+environment, but it needs to be assigned before the line of code in
+order for it to knit.</li>
+</ul></li>
+</ul>
+<hr />
+</div>
+<div id="minihacks" class="section level1">
+<h1>Minihacks</h1>
+<p>For today’s minihacks, you will be using RMarkdown to create your own
+html file.</p>
+<ol style="list-style-type: decimal">
+<li>Open up a new RMarkdown file and erase everything but the YAML. Edit
+the YAML in the following ways:
+<ul>
+<li>Change the title to “Lecture 17 Minihacks.”</li>
+<li>Remove the author and date.</li>
+<li>Under output, add a table of contents, numbered sections, and choose
+a theme. You should be outputting to an html file. Some html themes you
+may want to try are <code>cerulean</code>, <code>journal</code>,
+<code>flatly</code>, <code>lumen</code>, <code>paper</code>, and
+<code>readable</code>.</li>
+<li>Knit the file. You should only see the title. The color and font
+will depend on which theme you chose.</li>
+</ul></li>
+<li>Create a new code chunk and load the following libraries:
+<code>tidyverse</code>, <code>gt</code>, <code>gtsummary</code>,
+<code>rio</code> and <code>here</code>.
+<ul>
+<li>Change the default chunk option so that the code is evaluated, but
+neither the code nor any resulting messages will show up in your report.
+You can do this all by changing one default option.</li>
+<li>In the same code chunk, using the <code>rio</code> and
+<code>here</code> packages, import the data set <a href="resources/lab7/us_contagious_diseases.csv">us_contagious_diseases.csv</a>
+and store it in a data frame called data.</li>
+<li>Finally, in this code chunk, add the code
+<code>options(scipen = 999)</code>, which will turn off scientific
+notation</li>
+</ul></li>
+<li>The <code>us_contagious_diseases</code> data set has the yearly
+counts for seven contagious diseases for the years 1928 - 2011. Use
+these data to create the following tables:
+<ul>
+<li>A table showing the first 8 rows of the data frame. Be sure to
+format the column names.</li>
+</ul></li>
+</ol>
 </div>
 
 
