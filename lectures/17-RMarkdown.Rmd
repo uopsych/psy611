@@ -17,13 +17,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # suppress scientific notation
 options(scipen = 999)
-
-library(tidyverse)
-library(gt)
-library(gtsummary)
 ```
 
-You can download an RMarkdown file of today's lecture/lab [here](lab-7.Rmd).
+This document contains all the information shared in lecture (Nov 22, 2022). However, the format of the lecture differs from previous lectures and labs. If you were not able to join the lecture in person or live on Zoom, I strongly recommend watching the video. The document here is meant to serve as a summary sheet/reference, but not as the formal teaching tool. 
+
 
 # Purpose
 
@@ -32,6 +29,15 @@ The purpose of today's lecture/lab is to get more familiar with RMarkdown. RMark
 Here are two resources about RMarkdown that I recommend bookmarking: this [cheatsheet](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) and this [book](https://bookdown.org/yihui/rmarkdown/).
 
 <br />
+
+You'll need the following packages for this lecture. If you don't have them installed, be sure to do that before loading them:
+
+```{r, message = F, results = 'hide'}
+library(tidyverse)
+library(gt)
+library(gtsummary)
+```
+
 
 ***
 
@@ -420,7 +426,7 @@ For today's minihacks, you will be using RMarkdown to create your own html file.
 
 2. Create a new code chunk and load the following libraries: `tidyverse`, `gt`, `gtsummary`, `rio` and `here`. 
     + Change the default chunk option so that the code is evaluated, but neither the code nor any resulting messages will show up in your report. You can do this all by changing one default option.
-    + In the same code chunk, using the `rio` and `here` packages, import the data set [us_contagious_diseases.csv](resources/lab7/us_contagious_diseases.csv) and store it in a data frame called data.
+    + In the same code chunk, using the `rio` and `here` packages, import the data set [us_contagious_diseases.csv](../labs/resources/lab7/us_contagious_diseases.csv) and store it in a data frame called data.
     + Finally, in this code chunk, add the code `options(scipen = 999)`, which will turn off scientific notation 
     
 
