@@ -1,0 +1,560 @@
+---
+title: "Independent-samples _t_-tests"
+format: 
+  revealjs:
+    multiplex: true
+    slide-number: true
+    incremental: true
+    touch: true
+    code-overflow: wrap
+execute: 
+  echo: true
+editor: visual
+---
+
+# Annoucements
+
+-   Homework 3 is on the website. Enjoy!
+  - Due next Wednesday (9 am)
+
+-   I will start grading homework 3 early.
+
+```{r setup}
+library(tidyverse)
+library(here)
+library(knitr)
+library(kableExtra)
+library(ggpubr)
+```
+
+------------------------------------------------------------------------
+
+## Last time
+
+-   paired samples *t*-tests
+
+------------------------------------------------------------------------
+
+## Example
+
+::: columns
+::: {.column width="70%"}
+You have good reason to believe that dogs are smarter than cats. You design a study in which you recruit dogs and cats from households that have one of each and conduct a series of IQ tests to measure each animal's intelligence on a scale from 1 (not so smart) to 5 (genius).
+:::
+
+::: {.column width="30%"}
+| Cat | Dog |
+|:---:|:---:|
+|  2  |  1  |
+|  5  |  4  |
+|  3  |  3  |
+|  1  |  3  |
+|  2  |  5  |
+:::
+:::
+
+------------------------------------------------------------------------
+
+```{r}
+pets = data.frame(cat = c(2,5,3,1,2), 
+                  dog = c(1,4,3,3,5))
+
+pets$difference = pets$cat-pets$dog
+
+psych::describe(pets, fast = T)
+```
+
+$$ \frac{\hat{\sigma}_\Delta}{\sqrt{N}} = \frac{1.82}{\sqrt{5}} = 0.81$$
+
+## $$ t = \frac{\bar{\Delta}}{\frac{\hat{\sigma}_\Delta}{\sqrt{N}}} = \frac{-0.60}{0.81} = -0.74$$
+
+```{r}
+#| code-fold: true
+#| 
+stat = mean(pets$difference)/(sd(pets$difference)/sqrt(5))
+df = 4
+cv_t = qt(df = df, p = .975)
+t_x = seq(-3.75, 3.75)
+data.frame(t_x) %>%
+  ggplot(aes(x=t_x)) +
+  stat_function(fun = function(x) dt(x, df), geom = "line") +
+  stat_function(fun = function(x) dt(x, df), geom = "area", 
+                xlim = c(cv_t, 3.75), fill = "purple") +
+  stat_function(fun = function(x) dt(x, df), geom = "area", 
+                xlim = c(-3.75, -1*cv_t), fill = "purple") +
+  geom_vline(aes(xintercept = stat), color = "red", linetype = 2, size = 2)+
+  labs(title = "Sampling distribution \n(in t)", y = "density", x = "t")+
+  theme_bw(base_size = 20)
+```
+
+------------------------------------------------------------------------
+
+We can also calculate the area at least as far away from the null as our test statistic.
+
+```{r}
+stat = mean(pets$difference)/(sd(pets$difference)/sqrt(5))
+pt(abs(stat), df = 5-1, lower.tail = F)
+pt(abs(stat), df = 5-1, lower.tail = F)*2
+```
+
+Using the `t.test` function:
+
+```{r}
+t.test(pets$cat, pets$dog, paired = T)
+```
+
+------------------------------------------------------------------------
+
+## Today
+
+-   Two independent means
+
+------------------------------------------------------------------------
+
+## Independent samples *t*-test
+
+The independent samples *t*-test is appropriate when the means from two independent samples are compared.
+
+$$H_0: \mu_1 = \mu_2$$ $$H_1: \mu_1 \neq \mu_2$$
+
+Test statistic is (roughly) defined by
+
+$$t = \frac{\bar{X}_1 - \bar{X}_2}{SE}$$
+
+------------------------------------------------------------------------
+
+The standard error of the mean difference can be estimated in two different ways. If the variances for the two groups are the same, then pooling them provides the most powerful solution, known as Student's t-test.
+
+Otherwise, a separate-variances estimate is used, resulting in Welch's t-test.
+
+------------------------------------------------------------------------
+
+More formally, the numerator of the t-statistic is the following:
+
+$$t = \frac{(\bar{X}_1 - \bar{X}_2)-(\mu_1 - \mu_2)}{SE}$$ In other words, is the difference between the sample means different from the hypothesized difference in the population means?
+
+-   $\bar{X}_1 - \bar{X}_2$ = our observed difference in (independent) means
+-   $\mu_1 - \mu_2$ = the (null) hypothesized difference in (independent) means
+
+------------------------------------------------------------------------
+
+In this sense, the independent samples t-test is similar to a one-sample test of differences.
+
+::: columns
+::: {.column width="50%"}
+$$H_0: \mu_1 - \mu_2 = 0$$
+:::
+
+::: {.column width="50%"}
+$$H_1: \mu_1 - \mu_2 \neq 0$$
+:::
+:::
+
+------------------------------------------------------------------------
+
+Calculating the demoninator of this test is not straightfoward. If we think of our test as a one-sample test of our difference score, then we need our standard error to be that of difference in means, not means themselves, just like in the paired samples *t*-test.
+
+$\text{SE (difference in means)} = \sigma_D$
+
+To take our standard error of the mean calculation and adjust it to reflect a difference in means, we make a small adjustment:
+
+$$\sigma_D = \hat{\sigma}_p\sqrt{\frac{1}{N_1} + \frac{1}{N_2}}$$
+
+------------------------------------------------------------------------
+
+A key assumption of the independent samples t-test is **homogeneity of variance,** meaning that even if these samples come from different populations, those populations differ only in terms of their mean, not in terms of their variance.
+
+The benefit of making this assumption is that we can calculate a single estimate of variance and simply adjust the units (as in the previous slide).
+
+If the variance in both samples is exactly the same, then we can plug $\hat{\sigma}$ in for $\sigma_p$ and be done.
+
+------------------------------------------------------------------------
+
+### Pooled variance
+
+Rarely do we find that the variance estimates are *exactly* the same, in which case, we need to combine the two estimates to get a single variance number. This is called the **pooled variance**.
+
+$${\hat{\sigma}^2_p = \frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}}$$
+
+[The bottom part, $N_1+N_2-2$ is the degrees of freedom for an independent sample *t*-test. The total number of quantities ( $N_1+N_2$ total scores) minus the number of constraints (2 means).]{style="font-size:30px;"}
+
+[Each variance is weighted based on its sample's contribution to degrees of freedom.]{style="font-size:30px;"}
+
+------------------------------------------------------------------------
+
+So our final calculation for the standard error of the difference of independent means is
+
+$${\hat{\sigma}_D = \sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}$$
+
+**Recap**
+
+The first part of this equation pools the two variance estimates by weighting each one based on sample size.
+
+The second part changes the units from scores to differences in means. \* Recall that in hypothesis testing, we're not interested in the likelihood of scores, but the likelihood of statistics.
+
+------------------------------------------------------------------------
+
+<span style="font-size:30px;">At this point, the procedure of hypothesis testing goes back to normal.We have our sampling distribution under the null hypothesis, which is a *t* distribution defined by</span>
+
+$$\mu = 0 \\$$
+$$\sigma_D = \sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}$$
+$$df = N_1 + N_2 - 2$$
+
+<span style="font-size:30px;">In this case, we're using $\sigma_D$ the same way we use $\sigma_M$, we just change the notation to reflect our interest in a difference in means, rather than the mean itself.</span>
+
+------------------------------------------------------------------------
+
+We calculate our test statistic
+
+$$t = \frac{\bar{X}_1-\bar{X}_2}{\sigma_D}$$
+
+and then find the probability of this test statistic or more extreme under the null.
+
+------------------------------------------------------------------------
+
+## Example
+
+We turn again to the Census at School data. One question that students were asked was to report how many hours per week they spent time with friends. We might be interested to know whether adolescent girls spend more time with friends than adolescent boys.
+
+```{r, echo = 4:5, message = F, warning = F}
+school = read_csv(here("data/census_at_school.csv"))
+school$friends = school$Hanging_Out_With_Friends_Hours
+school = filter(school, !is.na(Gender))
+table(school$Gender)
+psych:: describe(school$Hanging_Out_With_Friends_Hours)
+```
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="50%"}
+```{r, message = F, warning = F}
+school %>%
+  ggplot(aes(x = friends)) + 
+   geom_density(color = "red", size = 2, fill = "red", alpha = .3) + 
+  geom_histogram(aes(y = ..density..), bins = 50) + 
+ labs(x = "Hours per week", title = "Full sample") + theme_minimal(base_size = 20)
+```
+:::
+
+::: {.column width="50%"}
+```{r, message = F, warning = F}
+school %>%
+  filter(friends < 168) %>%
+  ggplot(aes(x = friends)) + 
+  geom_density(color = "red", size = 2, fill = "red", alpha = .3) + 
+  geom_histogram(aes(y = ..density..), bins = 50) + 
+  labs(x = "Hours per week", title = "Mathematically possible") + theme_minimal(base_size = 20)
+```
+:::
+:::
+
+------------------------------------------------------------------------
+
+Maybe I'll exclude participants who report impossible numbers.
+
+```{r}
+school_new = filter(school, friends < 168)
+psych::describeBy(school_new$friends, group = school_new$Gender)
+```
+
+```{r, echo = F}
+stats = psych::describeBy(school_new$friends, group = school_new$Gender)
+```
+
+::: columns
+::: {.column width="50%"}
+
+$$\bar{X}_1 = `r round(stats$Female[1, "mean"],2)` $$
+$$\hat{\sigma}_1 = `r round(stats$Female[1, "sd"],2)` $$
+$$N_1 = `r round(stats$Female[1, "n"])` $$
+
+:::
+
+::: {.column width="50%"}
+
+$$\bar{X}_2 = `r round(stats$Male[1, "mean"],2)` $$
+$$\hat{\sigma}_2 = `r round(stats$Male[1, "sd"],2)` $$
+$$N_2 = `r round(stats$Male[1, "n"])` $$
+
+:::
+:::
+
+------------------------------------------------------------------------
+
+```{r, echo = F}
+x1 = stats$Female[1, "mean"]
+s1 = stats$Female[1, "sd"]
+n1 = stats$Female[1, "n"]
+
+x2 = stats$Male[1, "mean"]
+s2 = stats$Male[1, "sd"]
+n2 = stats$Male[1, "n"]
+
+rx1 = round(x1, 2)
+rs1 = round(s1, 2)
+rn1 = round(n1, 2)
+rx2 = round(x2, 2)
+rs2 = round(s2, 2)
+rn2 = round(n2, 2)
+
+s=sqrt(((n1-1)*s1^2+(n2-1)*s2^2)/(n1+n2-2))
+
+s_d = s*sqrt((1/n1) + (1/n2))
+
+df = n1+n2-2
+```
+
+Next we build the sampling distribution under the null hypotheses.
+
+$$\mu = 0$$
+$$\sigma_D = \sqrt{\frac{(`r rn1`-1){`r rs1`}^2 + (`r rn2`-1){`r rs2`}^2}{`r rn1`+`r rn2`-2}} \sqrt{\frac{1}{`r rn1`} + \frac{1}{`r rn2`}}$$
+$$= `r round(s,2)`\sqrt{\frac{1}{`r rn1`} + \frac{1}{`r rn2`}} = `r round(s_d,2)` $$
+ 
+$$df = `r n1+n2-2`$$
+
+------------------------------------------------------------------------
+
+```{r}
+(cv = qt(p = .975, df = 203))
+```
+
+```{r}
+#| code-fold: true
+x = c(-5:5)
+
+data.frame(x) %>%
+  ggplot(aes(x=x)) +
+  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
+                xlim = c(cv, 5), fill = "purple") +
+  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
+                xlim = c(-5, cv*-1), fill = "purple") +
+  stat_function(fun= function(x) dt(x, df = df), geom = "line") +
+  labs(x = "Difference in means", y = "density") +
+  theme_light(base_size = 20)
+
+```
+
+------------------------------------------------------------------------
+
+:::: {.columns}
+
+::: {.column width="30%"}
+We calculate our test statistic and compare that to our critical value.
+
+:::
+
+::: {.column width="70%"}
+```{r}
+(t = (x1-x2)/s_d)
+```
+
+```{r}
+#| code-fold: true
+#| 
+data.frame(x) %>%
+  ggplot(aes(x=x)) +
+  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
+                xlim = c(cv, 5), fill = "purple") +
+  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
+                xlim = c(-5, cv*-1), fill = "purple") +
+  stat_function(fun= function(x) dt(x, df = df), geom = "line") +
+  geom_vline(aes(xintercept = t), color = "black")+
+  labs(x = "Difference in means", y = "density") +
+  theme_light(base_size = 20)
+
+```
+
+:::
+::::
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column width="30%"}
+We can also calculate the probability of this test statistic or more extreme under the null.
+:::
+
+::: {.column width="70%"}
+```{r}
+pt(t, df = df, lower.tail = F)*2
+```
+
+```{r}
+#| code-fold: true
+
+data.frame(x) %>%
+  ggplot(aes(x=x)) +
+  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
+                xlim = c(cv, 5), fill = "purple",alpha = .5) +
+  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
+                xlim = c(-5, cv*-1), fill = "purple",alpha = .5) +
+  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
+                xlim = c(t, 5), fill = "red",alpha = .7) +
+  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
+                xlim = c(-5, t*-1), fill = "red",alpha = .7) +
+  stat_function(fun= function(x) dt(x, df = df), geom = "line") +
+  geom_vline(aes(xintercept = t), color = "black")+
+  labs(x = "Difference in means", y = "density") +
+  theme_light(base_size = 20)
+
+```
+:::
+:::
+
+------------------------------------------------------------------------
+
+Alternatively, we can skip calculating statistics by hand, and use an R function.
+
+```{r}
+t.test(friends~Gender, data = school_new, var.equal = T)
+```
+
+------------------------------------------------------------------------
+
+## Confidence intervals
+
+**Confidence intervals** are used to communicate the precision in our how well our statistic estimates the parameter. As a reminder, they are grounded in frequenst probability: if we repeated our experiment many times, we would expect that 95% of the time, our 95% confidence interval would capture the true population parameter.
+
+In an independent sample's t-test, you have calculated three different statistics, and so you can construct three different confidence intervals.
+
+------------------------------------------------------------------------
+
+### CI around the difference in means
+
+The most interpretable statistic is the difference in means -- this is the statistic you are testing using NHST.
+
+$$CI_{\text{Difference}} = (\bar{X}_1 - \bar{X}_2) \pm \sigma_D(CV)$$
+
+::: columns
+::: {.column width="50%"}
+Your critical value (CV) is determined by your degrees of freedom and alpha.
+
+In our example, we used $\alpha = .05$ and our df = $122+83-2 = 203$.
+
+```{r}
+qt(p = .975, df = 203)
+```
+:::
+
+::: {.column width="50%"}
+$$CI_{\text{Difference}} = \\(18.31 -12.34) \pm 2.76(1.97)$$ $$[0.53, 11.41]$$
+:::
+:::
+
+------------------------------------------------------------------------
+
+### Confidence intervals around estimates of the mean
+
+In addition to calculating precision of the estimate in difference in means, you may also want to calculate the precision of the mean estimates themselves.
+
+In this case, you should use the standard deviation of the group sample as your estimate of population sd, instead of merging them.
+
+$$CI_{\text{Mean}} = {X} \pm \sigma_M(CV)$$
+$$= {X} \pm \frac{\hat{\sigma}}{\sqrt{N}}(CV)$$
+
+------------------------------------------------------------------------
+
+$$= {X} \pm \frac{\hat{\sigma}}{\sqrt{N}}(CV)$$
+
+::: columns
+::: {.column width="50%"}
+**Females**
+
+```{r}
+sd(school_new$friends[school_new$Gender == "Female"], na.rm=T)
+qt(.975, df = 122-1)
+```
+
+$$18.31 \pm \frac{21.44}{\sqrt{122}}(1.98)$$ $$[14.47, 22.15]$$
+:::
+
+::: {.column width="50%"}
+**Males**
+
+```{r}
+sd(school_new$friends[school_new$Gender == "Male"], na.rm=T)
+qt(.975, df = 83-1)
+```
+
+$$12.34 \pm \frac{15.91}{\sqrt{83}}(1.99)$$ $$[8.87, 15.81]$$
+:::
+:::
+
+------------------------------------------------------------------------
+
+```{r}
+ggerrorplot(school_new, x = "Gender", y = "friends", 
+            desc_stat = "mean_ci", color = "Gender", 
+            ylab = "Hours spent with friends (per week)")
+```
+
+------------------------------------------------------------------------
+
+```{r }
+ggerrorplot(school_new, x = "Gender", y = "friends", 
+            desc_stat = "mean_ci", color = "Gender", 
+            ylim=range(school_new$friends, na.rm=T),
+            ylab = "Hours spent with friends (per week)")
+```
+
+------------------------------------------------------------------------
+
+Plots of confidence intervals can contain information on statistical significance, although, as with everything grounded in frequentist probability, there are strict limits to what you can and cannot conclude.
+
+For example, if a 95% confidence interval contains a value X, then the statistic the confidence interval describs is **not statistically significantly different from X.**
+
+------------------------------------------------------------------------
+
+```{r message = F, warning = F}
+#| code-fold: true
+ggerrorplot(school_new, x = "Gender", y = "friends", 
+            desc_stat = "mean_ci", color = "Gender", 
+            ylab = "Hours spent with friends (per week)") +
+  geom_hline(aes(yintercept = 10), linetype = "dashed")
+```
+
+------------------------------------------------------------------------
+
+Similarly, when comparing two means, if the confidence interval one of mean contains the second mean, the two means are **not statistically significantly** different.
+
+If the confidence intervals around those means do not overlap, then the two means **are significantly different.**
+
+But, if the confidence intervals do overlap but do not contain the other means, the significance of the comparison test is indeterminate.
+
+Lastly, it's important to note that *a difference in significance is not the same as a significant difference.* This can seem obvious in a two-groups *t*-test, but it will come up in sneaky ways in the future.
+
+------------------------------------------------------------------------
+
+### What is a test statistic?
+
+::: columns
+::: {.column width="50%"}
+$$Z = \frac{\bar{X}-\mu}{\sigma_M}$$
+
+$$t = \frac{\bar{X}-\mu}{\frac{s}{\sqrt{N}}}$$
+
+$$\chi^2 = \sum{\frac{(O_i-E_i)^2}{E_i}}$$
+:::
+
+::: {.column width="50%"}
+$$t = \frac{(\bar{X}_1 - \bar{X}_2)-(\mu_1 - \mu_2)}{\sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}$$
+
+$$t = \frac{\bar{\Delta}-\mu_0}{\sqrt{\frac{\hat{\sigma_{\Delta}}}{N}}}$$
+
+:::
+:::
+
+------------------------------------------------------------------------
+
+
+All test statistics measure
+
+$$\frac{\text{Signal}}{\text{Noise}}$$
+
+------------------------------------------------------------------------
+
+## Next time
+
+-   Assumptions
+-   Effect sizes
