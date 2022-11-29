@@ -389,9 +389,10 @@
 <section id="annoucements" class="title-slide slide level1 center">
 <h1>Annoucements</h1>
 <ul>
-<li class="fragment"><p>Homework 3 is on the website. Enjoy!</p></li>
-<li class="fragment"><p>Due next Wednesday (9 am)</p></li>
-<li class="fragment"><p>I will start grading homework 3 early.</p></li>
+<li class="fragment">Quiz 9 is Thursday</li>
+<li class="fragment">Homework 3 is on the website. Enjoy!</li>
+<li class="fragment">Due next Wednesday (9 am)</li>
+<li class="fragment">I may start grading homework 3 early.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -464,8 +465,9 @@ difference    3 5 -0.6 1.82  -3   1     4 0.81</code></pre>
 </div>
 <p><span class="math display">\[ \frac{\hat{\sigma}_\Delta}{\sqrt{N}} = \frac{1.82}{\sqrt{5}} = 0.81\]</span></p>
 </section>
-<section id="t-fracbardeltafrachatsigma_deltasqrtn-frac-0.600.81--0.74" class="slide level2">
-<h2><span class="math display">\[ t = \frac{\bar{\Delta}}{\frac{\hat{\sigma}_\Delta}{\sqrt{N}}} = \frac{-0.60}{0.81} = -0.74\]</span></h2>
+<section class="slide level2">
+
+<p><span class="math display">\[ t = \frac{\bar{\Delta}}{\frac{\hat{\sigma}_\Delta}{\sqrt{N}}} = \frac{-0.60}{0.81} = -0.74\]</span></p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -482,7 +484,7 @@ difference    3 5 -0.6 1.82  -3   1     4 0.81</code></pre>
 <span id="cb4-11"><a href="#cb4-11"></a>                <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.75</span>, <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>cv_t), <span class="at">fill =</span> <span class="st">"purple"</span>) <span class="sc">+</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> stat), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">size =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
 <span id="cb4-13"><a href="#cb4-13"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Sampling distribution </span><span class="sc">\n</span><span class="st">(in t)"</span>, <span class="at">y =</span> <span class="st">"density"</span>, <span class="at">x =</span> <span class="st">"t"</span>)<span class="sc">+</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-14"><a href="#cb4-14"></a>  <span class="fu">theme_pubr</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -574,14 +576,14 @@ mean difference
 
 <h3 id="pooled-variance">Pooled variance</h3>
 <p>Rarely do we find that the variance estimates are <em>exactly</em> the same, in which case, we need to combine the two estimates to get a single variance number. This is called the <strong>pooled variance</strong>.</p>
-<p><span class="math display">\[{\hat{\sigma}^2_p = \frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}}\]</span></p>
+<p><span class="math display">\[{\hat{\sigma^2_p} = \frac{(N_1-1)\hat{\sigma^2_1} + (N_2-1)\hat{\sigma^2_2}}{N_1+N_2-2}}\]</span></p>
 <p><span style="font-size:30px;">The bottom part, <span class="math inline">\(N_1+N_2-2\)</span> is the degrees of freedom for an independent sample <em>t</em>-test. The total number of quantities ( <span class="math inline">\(N_1+N_2\)</span> total scores) minus the number of constraints (2 means).</span></p>
 <p><span style="font-size:30px;">Each variance is weighted based on its sample’s contribution to degrees of freedom.</span></p>
 </section>
 <section class="slide level2">
 
 <p>So our final calculation for the standard error of the difference of independent means is</p>
-<p><span class="math display">\[{\hat{\sigma}_D = \sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}\]</span></p>
+<p><span class="math display">\[\sigma_D = \sqrt{\frac{(N_1-1)\hat{\sigma^2_1} + (N_2-1)\hat{\sigma^2_2}}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}\]</span></p>
 <p><strong>Recap</strong></p>
 <p>The first part of this equation pools the two variance estimates by weighting each one based on sample size.</p>
 <p>The second part changes the units from scores to differences in means. * Recall that in hypothesis testing, we’re not interested in the likelihood of scores, but the likelihood of statistics.</p>
@@ -590,7 +592,7 @@ mean difference
 
 <p><span style="font-size:30px;">At this point, the procedure of hypothesis testing goes back to normal.We have our sampling distribution under the null hypothesis, which is a <em>t</em> distribution defined by</span></p>
 <p><span class="math display">\[\mu = 0 \\\]</span></p>
-<p><span class="math display">\[\sigma_D = \sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}\]</span></p>
+<p><span class="math display">\[\sigma_D = \sqrt{\frac{(N_1-1)\hat{\sigma^2_1} + (N_2-1)\hat{\sigma^2_2}}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}\]</span></p>
 <p><span class="math display">\[df = N_1 + N_2 - 2\]</span></p>
 <p><span style="font-size:30px;">In this case, we’re using <span class="math inline">\(\sigma_D\)</span> the same way we use <span class="math inline">\(\sigma_M\)</span>, we just change the notation to reflect our interest in a difference in means, rather than the mean itself.</span></p>
 </section>
@@ -818,8 +820,8 @@ mean in group Female   mean in group Male
 <p><span class="math display">\[CI_{\text{Difference}} = (\bar{X}_1 - \bar{X}_2) \pm \sigma_D(CV)\]</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p>Your critical value (CV) is determined by your degrees of freedom and alpha.</p>
-<p>In our example, we used <span class="math inline">\(\alpha = .05\)</span> and our df = <span class="math inline">\(122+83-2 = 203\)</span>.</p>
+<p><span style="font-size:30px;">Your critical value (CV) is determined by your degrees of freedom and alpha.</span></p>
+<p><span style="font-size:30px;">In our example, we used <span class="math inline">\(\alpha = .05\)</span> and our df = <span class="math inline">\(122+83-2 = 203\)</span>.</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">qt</span>(<span class="at">p =</span> .<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">203</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -925,7 +927,7 @@ mean in group Female   mean in group Male
 <p><span class="math display">\[t = \frac{\bar{X}-\mu}{\frac{s}{\sqrt{N}}}\]</span></p>
 <p><span class="math display">\[\chi^2 = \sum{\frac{(O_i-E_i)^2}{E_i}}\]</span></p>
 </div><div class="column" style="width:50%;">
-<p><span class="math display">\[t = \frac{(\bar{X}_1 - \bar{X}_2)-(\mu_1 - \mu_2)}{\sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}\]</span></p>
+<p><span class="math display">\[t = \frac{(\bar{X}_1 - \bar{X}_2)-(\mu_1 - \mu_2)}{\sqrt{\frac{(N_1-1)\hat{\sigma^2_1} + (N_2-1)\hat{\sigma^2_2}}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}\]</span></p>
 <p><span class="math display">\[t = \frac{\bar{\Delta}-\mu_0}{\sqrt{\frac{\hat{\sigma_{\Delta}}}{N}}}\]</span></p>
 </div>
 </div>

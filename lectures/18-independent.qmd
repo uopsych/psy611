@@ -14,10 +14,10 @@ editor: visual
 
 # Annoucements
 
+-   Quiz 9 is Thursday
 -   Homework 3 is on the website. Enjoy!
   - Due next Wednesday (9 am)
-
--   I will start grading homework 3 early.
+  - I may start grading homework 3 early.
 
 ```{r setup}
 library(tidyverse)
@@ -65,8 +65,9 @@ psych::describe(pets, fast = T)
 ```
 
 $$ \frac{\hat{\sigma}_\Delta}{\sqrt{N}} = \frac{1.82}{\sqrt{5}} = 0.81$$
+------------------------------------------------------------------------
 
-## $$ t = \frac{\bar{\Delta}}{\frac{\hat{\sigma}_\Delta}{\sqrt{N}}} = \frac{-0.60}{0.81} = -0.74$$
+$$ t = \frac{\bar{\Delta}}{\frac{\hat{\sigma}_\Delta}{\sqrt{N}}} = \frac{-0.60}{0.81} = -0.74$$
 
 ```{r}
 #| code-fold: true
@@ -84,8 +85,9 @@ data.frame(t_x) %>%
                 xlim = c(-3.75, -1*cv_t), fill = "purple") +
   geom_vline(aes(xintercept = stat), color = "red", linetype = 2, size = 2)+
   labs(title = "Sampling distribution \n(in t)", y = "density", x = "t")+
-  theme_bw(base_size = 20)
+  theme_pubr(base_size = 20)
 ```
+
 
 ------------------------------------------------------------------------
 
@@ -174,7 +176,7 @@ If the variance in both samples is exactly the same, then we can plug $\hat{\sig
 
 Rarely do we find that the variance estimates are *exactly* the same, in which case, we need to combine the two estimates to get a single variance number. This is called the **pooled variance**.
 
-$${\hat{\sigma}^2_p = \frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}}$$
+$${\hat{\sigma^2_p} = \frac{(N_1-1)\hat{\sigma^2_1} + (N_2-1)\hat{\sigma^2_2}}{N_1+N_2-2}}$$
 
 [The bottom part, $N_1+N_2-2$ is the degrees of freedom for an independent sample *t*-test. The total number of quantities ( $N_1+N_2$ total scores) minus the number of constraints (2 means).]{style="font-size:30px;"}
 
@@ -184,7 +186,7 @@ $${\hat{\sigma}^2_p = \frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N
 
 So our final calculation for the standard error of the difference of independent means is
 
-$${\hat{\sigma}_D = \sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}$$
+$$\sigma_D = \sqrt{\frac{(N_1-1)\hat{\sigma^2_1} + (N_2-1)\hat{\sigma^2_2}}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}$$
 
 **Recap**
 
@@ -197,7 +199,7 @@ The second part changes the units from scores to differences in means. \* Recall
 <span style="font-size:30px;">At this point, the procedure of hypothesis testing goes back to normal.We have our sampling distribution under the null hypothesis, which is a *t* distribution defined by</span>
 
 $$\mu = 0 \\$$
-$$\sigma_D = \sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}$$
+$$\sigma_D = \sqrt{\frac{(N_1-1)\hat{\sigma^2_1} + (N_2-1)\hat{\sigma^2_2}}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}$$
 $$df = N_1 + N_2 - 2$$
 
 <span style="font-size:30px;">In this case, we're using $\sigma_D$ the same way we use $\sigma_M$, we just change the notation to reflect our interest in a difference in means, rather than the mean itself.</span>
@@ -428,9 +430,9 @@ $$CI_{\text{Difference}} = (\bar{X}_1 - \bar{X}_2) \pm \sigma_D(CV)$$
 
 ::: columns
 ::: {.column width="50%"}
-Your critical value (CV) is determined by your degrees of freedom and alpha.
+<span style="font-size:30px;">Your critical value (CV) is determined by your degrees of freedom and alpha.</span>
 
-In our example, we used $\alpha = .05$ and our df = $122+83-2 = 203$.
+<span style="font-size:30px;">In our example, we used $\alpha = .05$ and our df = $122+83-2 = 203$.</span>
 
 ```{r}
 qt(p = .975, df = 203)
@@ -538,7 +540,7 @@ $$\chi^2 = \sum{\frac{(O_i-E_i)^2}{E_i}}$$
 :::
 
 ::: {.column width="50%"}
-$$t = \frac{(\bar{X}_1 - \bar{X}_2)-(\mu_1 - \mu_2)}{\sqrt{\frac{(N_1-1)\hat{\sigma}^2_1 + (N_2-1)\hat{\sigma}^2_2}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}$$
+$$t = \frac{(\bar{X}_1 - \bar{X}_2)-(\mu_1 - \mu_2)}{\sqrt{\frac{(N_1-1)\hat{\sigma^2_1} + (N_2-1)\hat{\sigma^2_2}}{N_1+N_2-2}} \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}}$$
 
 $$t = \frac{\bar{\Delta}-\mu_0}{\sqrt{\frac{\hat{\sigma_{\Delta}}}{N}}}$$
 

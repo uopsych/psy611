@@ -1,0 +1,657 @@
+---
+title: "Assumptions and Effect Sizes"
+format: 
+  revealjs:
+    multiplex: true
+    slide-number: true
+    incremental: true
+    touch: true
+    code-overflow: wrap
+execute: 
+  echo: true
+editor: visual
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+gulls = read.delim(here("data/gulls/pairs.txt"))
+```
+
+
+
+## Last time
+:::: {.columns}
+
+::: {.column width="65%"}
+* Introduction to independent samples *t*-tests
+
+  * Standard error of the **difference of means**
+  
+  * Pooled variance, $\hat{\sigma}_P$
+  
+  * Confidence intervals around the difference in means
+  
+  * Confidence intervals around different means
+:::
+
+::: {.column width="35%"}
+
+```{r}
+library(tidyverse)
+library(here)
+library(knitr)
+library(kableExtra)
+library(ggpubr)
+```
+:::
+
+::::
+
+
+------------------------------------------------------------------------
+
+## Review of independent samples *t*-tests
+
+It's generally argued that Republicans have an age problem -- but are they substantially older than Democrats? 
+
+In 2014 (midterm election before the most recent presidential election), [*Five Thirty Eight* did an analysis](https://fivethirtyeight.com/features/both-republicans-and-democrats-have-an-age-problem/) of the ages of elected members of Congress. They've provided their data, so we can run analyses on our own.
+
+```{r, echo = FALSE, message = F}
+
+library(fivethirtyeight)
+library(tidyverse)
+
+```
+------------------------------------------------------------------------
+
+```{r}
+congress = congress_age %>%
+  filter(congress == 113) %>% # just the most recent
+  filter(party %in% c("R", "D")) # remove independents
+```
+
+```{r}
+#| code-fold: true
+congress %>% ggplot(aes(x = age)) + geom_histogram(bins = 50, color = "white") + labs(x = "Age in years", y = "Frequency", title = "Age Distribution of Congressional \nMembers in 113th Congress", caption = "This is pretty normal.") + theme_bw(base_size = 20)
+```
+------------------------------------------------------------------------
+
+```{r}
+#| code-fold: true
+congress %>% ggplot(aes(x = age, fill = party)) + geom_histogram(bins = 50, color = "white", position = "dodge") + labs(x = "Age in years", y = "Frequency", title = "Age Distribution of Congressional \nMembers in 113th Congress", caption = "This is pretty normal.") + scale_fill_manual(values = c("blue", "red")) + theme_bw(base_size = 20)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+psych::describeBy(congress$age, group = congress$party, fast = T)
+```
+
+
+```{r, echo = F}
+stats = psych::describeBy(congress$age, group = congress$party)
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+$$ \bar{X}_1 = `r round(stats$D[1, "mean"],2)` $$
+$$ \hat{\sigma}_1 = `r round(stats$D[1, "sd"],2)` $$
+$$ N_1 = `r round(stats$D[1, "n"])` $$
+
+:::
+
+::: {.column width="50%"}
+
+$$ \bar{X}_2 = `r round(stats$R[1, "mean"],2)` $$
+$$ \hat{\sigma}_2 = `r round(stats$R[1, "sd"],2)` $$
+$$ N_2 = `r round(stats$R[1, "n"])` $$
+
+:::
+
+::::
+
+
+
+------------------------------------------------------------------------
+
+```{r, echo = F}
+x1 = stats$D[1, "mean"]
+s1 = stats$D[1, "sd"]
+n1 = stats$D[1, "n"]
+
+x2 = stats$R[1, "mean"]
+s2 = stats$R[1, "sd"]
+n2 = stats$R[1, "n"]
+
+rx1 = round(x1, 2)
+rs1 = round(s1, 2)
+rn1 = round(n1, 2)
+rx2 = round(x2, 2)
+rs2 = round(s2, 2)
+rn2 = round(n2, 2)
+
+s=sqrt(((n1-1)*s1^2+(n2-1)*s2^2)/(n1+n2-2))
+
+s_d = s*sqrt((1/n1) + (1/n2))
+
+df = n1+n2-2
+```
+
+
+Next we build the sampling distribution under the null hypotheses.
+
+$$ \mu = 0 \\$$
+ $$\sigma_D = \sqrt{\frac{(`r rn1`-1){`r rs1`}^2 + (`r rn2`-1){`r rs2`}^2}{`r rn1`+`r rn2`-2}} \sqrt{\frac{1}{`r rn1`} + \frac{1}{`r rn2`}}$$
+ $$= `r round(s,2)`\sqrt{\frac{1}{`r rn1`} + \frac{1}{`r rn2`}} = `r round(s_d,2)`$$
+ $$df = `r n1+n2-2`$$
+------------------------------------------------------------------------
+
+```{r}
+(cv = qt(p = .975, df = 540))
+(t = (x1-x2)/s_d)
+```
+```{r,fig.height = 6, fig.width = 8}
+#| code-fold: true
+#| 
+x = c(-5:5)
+
+data.frame(x) %>%
+  ggplot(aes(x=x)) +
+  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
+                xlim = c(cv, 5), fill = "purple") +
+  stat_function(fun= function(x) dt(x, df = df), geom = "area", 
+                xlim = c(-5, cv*-1), fill = "purple") +
+  stat_function(fun= function(x) dt(x, df = df), geom = "line") +
+  geom_vline(aes(xintercept = t), color = "black")+
+  labs(x = "Difference in means", y = "density") +
+  theme_light(base_size = 20)
+
+```
+
+------------------------------------------------------------------------
+
+```{r, fig.height = 6, fig.width = 8}
+#| code-fold: true
+ggerrorplot(congress, x = "party", y = "age", 
+            desc_stat = "mean_ci", 
+            xlab = "Party", ylab = "Average Age", 
+            color = "party", palette = c("red", "blue"))
+```
+
+------------------------------------------------------------------------
+
+```{r}
+#| code-fold: true
+ggboxplot(congress, x = "party", y = "age",
+           xlab = "Party", ylab = "Average Age", 
+            color = "party", 
+            palette = c("red", "blue"))+
+  stat_compare_means(comparisons =list(c("R", "D")))
+```
+
+
+
+------------------------------------------------------------------------
+
+## Effect sizes
+
+Cohen suggested one of the most common effect size estimates—the standardized mean difference—useful when comparing a group mean to a population mean or two group means to each other. This is referred to as **Cohen's d**. 
+
+$$\delta = \frac{\mu_1 - \mu_0}{\sigma} \approx d = \frac{\bar{X}_1-\bar{X}_2}{\hat{\sigma}_p}$$
+
+Cohen’s d is in the standard deviation (Z) metric.
+
+
+What happens to Cohen's d as sample size gets larger?
+
+
+
+------------------------------------------------------------------------
+
+Let's go back to our politics example:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Democrats**
+
+$$\small \bar{X}_1 = `r round(stats$D[1, "mean"],2)` $$
+$$\small \hat{\sigma}_1 = `r round(stats$D[1, "sd"],2)` $$
+$$\small N_1 = `r round(stats$D[1, "n"])` $$
+
+:::
+
+::: {.column width="50%"}
+**Republicans**
+$$\small \bar{X}_2 = `r round(stats$R[1, "mean"],2)` $$
+$$\small \hat{\sigma}_2 = `r round(stats$R[1, "sd"],2)` $$
+$$\small N_2 = `r round(stats$R[1, "n"])` $$
+
+:::
+
+::::
+
+------------------------------------------------------------------------
+
+Let's go back to our politics example:
+
+$$\hat{\sigma}_p = \sqrt{\frac{(`r rn1`-1){`r rs1`}^2 + (`r rn2`-1){`r rs2`}^2}{`r rn1`+`r rn2`-2}} = `r round(s,2)`$$
+ 
+```{r, echo = F}
+d = (x1-x2)/s
+```
+ 
+ 
+$$d = \frac{`r round(x1,2)`-`r round(x2,2)`}{`r round(s,2)`} = `r round(d,2)`$$
+
+How do we interpret this? Is this a large effect?
+
+------------------------------------------------------------------------
+
+Cohen[^1] suggests the following guidelines for interpreting the size of d:
+
+::: nonincremental
+- 	.2 = Small
+- 	.5 = Medium
+- 	.8 = Large	
+:::
+
+An aside, to calculate Cohen's D for a one-sample *t*-test: 
+$$d = \frac{\bar{X}-\mu}{\hat{\sigma}}$$
+
+
+[^1]: Cohen, J. (1988), Statistical power analysis for the behavioral sciences (2nd Ed.). Hillsdale: Lawrence Erlbaum.
+
+------------------------------------------------------------------------
+
+## Cohen's D (Paired-samples _t_)
+
+```{r, echo = F}
+difference = gulls$At - gulls$Away
+m_delta = mean(difference)
+s_delta = sd(difference)
+```
+
+
+Recall our gull example from the paired-samples _t_-test lecture. The average difference in seconds was $`r papaja::printnum(m_delta)` (SD = `r papaja::printnum(s_delta)`)$.
+
+```{r}
+t.test(gulls$At, gulls$Away, paired = T)
+```
+
+------------------------------------------------------------------------
+
+
+Calculating a standardized effect size for a paired samples t-test (and research design that includes nesting or dependency) is slightly complicated, because there are two levels at which you can describe results. 
+
+The first level is the **within-subject** (or within-pair, or within-gull) level, and this communicates effect size in the unit of differences (of units).
+
+$$d = \frac{\bar{\Delta}}{\hat{\sigma_\Delta}} = \frac{`r round(m_delta,2)`}{`r round(s_delta,2)`} = `r round(m_delta/s_delta,2)`$$
+
+
+The interpretation is that, on average, variability within a single gull is about .72 standard deviations of differences of seconds.
+
+------------------------------------------------------------------------
+
+### Cohen's D (Paired-samples _t_)
+
+```{r} 
+lsr::cohensD(x = gulls$At, y = gulls$Away, method = "paired")
+```
+
+
+The second level is the **between-conditions** variance, which is in the units of your original outcome and communicates how the means of the two conditions differ.
+
+For that, you can use the Cohen's d calculated for independent samples *t*-tests.
+
+```{r}
+lsr::cohensD(x = gulls$At, y = gulls$Away, method = "pooled")
+```
+
+------------------------------------------------------------------------
+
+**Which one should you use?**
+
+The first thing to recognize is that, unlike hypothesis testing, there are no standards for effect sizes. When Cohen developed his formula in 1988, he never bothered to precisely define $\large \sigma$. Interpretations have varied, but no single method for within-subjects designs has been identified. 
+
+Most often, textbooks will argue for the within-pairs version, because this mirrors the hypothesis test. 
+
+------------------------------------------------------------------------
+
+**Which one should you use?**
+
+Some[^1] argue the between-conditions version is actually better because the paired-design is used to reduce noise by adjusting our calculation of the standard error. But that shouldn't make our effect bigger, just easier to detect. The other argument is that using the same formula (the between-conditions version) allows us to compare effect sizes across many different designs, which are all trying to capture the same effect.
+
+[^1]: Westfall, J. (2016). [Five different "Cohen's d" statistics for within-subject designs](http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/)
+
+------------------------------------------------------------------------
+
+### Cohen's D from *t*
+
+This can be calculating from *t*-statistics, allowing you to calculate standardized effect sizes from manuscripts even when the authors did not provide them. 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**One sample or within-subjects for paired**
+
+$$\large d = \frac{t}{\sqrt{N-1}}$$
+
+:::
+
+::: {.column width="50%"}
+
+**Independent sample**
+
+$$\large d = \frac{2t}{\sqrt{N_1+N_2-1}}$$
+:::
+
+::::
+
+
+------------------------------------------------------------------------
+
+Finally, when you have meaningful units, also express the effect size in terms of those units. This is the most interpretable effect size available to you.
+
+```{r, echo = F}
+ages = congress %>% 
+  group_by(party) %>% 
+  summarise(age = mean(age))
+```
+
+Democrats are, on average, `r round(ages$age[1] - ages$age[2], 2)` years older than Republicans.
+
+Gulls take, on average, `r round(mean(gulls$At) - mean(gulls$Away),2)` seconds longer to approach chips when people stare at them than when people are looking away.
+
+
+------------------------------------------------------------------------
+
+## Assumptions: When can you not use Student's *t*-test?
+
+Recall the three assumptions of Student's *t*-test:
+
+* Independence
+* Normality
+* Homogeneity of variance
+
+------------------------------------------------------------------------
+
+## Assumptions: When can you not use Student's *t*-test?
+
+There are no good statistical tests to determine whether you've violated the assumption of independence -- it depends on how you sampled your population. 
+
+
+* Draw phone numbers at random from a phone book?
+* Recruit random sets of fraternal twins?
+* Randomly select houses in a city and interview the person who answers the door?
+
+------------------------------------------------------------------------
+
+### Homogeneity of variance
+
+Homogeneity of variance can be checked with Levene’s procedure.  It tests the null hypothesis that the variances for two or more groups are equal (or within sampling variability of each other): 
+
+$$H_0: \sigma^2_1 = \sigma^2_2$$
+
+Levene's test can be expanded to more than two variances; in this case, the alternative hypothesis is that at least one variance is different from at least one other variance. 
+
+Levene's produces a statistic, *W*, that is *F* distributed with degrees of freedom of $k-1$ and $N-k$.
+
+------------------------------------------------------------------------
+
+```{r, warning = F, message=F}
+library(car)
+leveneTest(age~party, data = congress, center = "mean")
+```
+
+
+Like other tests of significance, Levene’s test gets more powerful as sample size increases. So unless your two variances are *exactly* equal to each other (and if they are, you don't need to do a test), your test will be "significant" with a large enough sample. Part of the analysis has to be an eyeball test -- is this "significant" because they are truly different, or because I have many subjects. 
+
+------------------------------------------------------------------------
+
+### Homogeneity of variance
+
+<span style="font-size:30px;">The homogeneity assumption is often the hardest to justify, empirically or conceptually. If we suspect the means for the two groups could be different (H1), that might extend to their variances as well.</span>
+
+<span style="font-size:30px;">Treatments that alter the means for the groups could also alter the variances for the groups.</span>
+
+<span style="font-size:30px;"> **Welch’s *t*-test** removes the homogeneity requirement, but uses a different calculation for the standard error of the mean difference and the degrees of freedom. One way to think about the Welch test is that it is a penalized *t*-test, with the penalty imposed on the degrees of freedom in relation to violation of variance homogeneity (and differences in sample size).</span>
+
+------------------------------------------------------------------------
+
+### Welch's *t*-test
+
+$$t = \frac{\bar{X}_1-\bar{X_2}}{\sqrt{\frac{\hat{\sigma}^2_1}{N_1}+\frac{\hat{\sigma}^2_2}{N_2}}}$$
+
+So that's a bit different -- the main difference here is the way that we weight sample variances. It's true that larger samples still get more weight, but not as much as in Student's version. Also, we divide variances here by N instead of N-1, making our standard error larger. 
+
+
+
+::: notes
+
+Don't go into the weighting of variances thing -- too confusing
+
+:::
+
+------------------------------------------------------------------------
+
+### Welch's *t*-test
+
+The degrees of freedom are different: 
+
+$$df = \frac{[\frac{\hat{\sigma}^2_1}{N_1}+\frac{\hat{\sigma}^2_2}{N_2}]^2}{\frac{[\frac{\hat{\sigma}^2_1}{N1}]^2}{N_1-1}+\frac{[\frac{\hat{\sigma}^2_2}{N2}]^2}{N_2-1}}$$
+
+These degrees of freedom can be fractional.  As the sample variances converge to equality, these df approach those for Student’s *t*, for equal N.  
+
+------------------------------------------------------------------------
+
+```{r}
+t.test(age~party, data = congress, var.equal = F)
+```
+
+
+------------------------------------------------------------------------
+
+### Normality
+
+Finally, there's the assumption of normality. Specifically, this is the assumption that the population is normal -- if the population is normal, then our sampling distribution is **definitely** normal and we can use a *t*-distribution.
+
+But even if the population is not normal, the CLT lets us assume our sampling distribution is normal because as N approaches infinity, the sampling distributions approaches normality. So we can be **pretty sure** the sampling distribution is normal. 
+
+------------------------------------------------------------------------
+
+### Normality
+
+One thing we can check -- the only distribution we actually have access to -- is the sample distribution. If this is normal, then we might guess that our population distribution is normal, and thus our sampling distribution is normal too. 
+
+Normality can be checked with a formal test: the Shapiro-Wilk test.  The test statistic, W, has an expected value of 1 under the null hypothesis. Departures from normality reduce the size of W.  A statistically significant W is a signal that the sample distribution departs significantly from normal.
+
+------------------------------------------------------------------------
+
+### Normality
+
+But...
+
+  -  With large samples, even trivial departures will be statistically significant.
+  - With large samples, the sampling distribution of the mean(s) will approach normality, unless the data are very non-normally distributed.
+  - Visual inspection of the data can confirm if the latter is a problem.
+  - Visual inspection can also identify outliers that might influence the data.
+
+------------------------------------------------------------------------
+
+```{r}
+shapiro.test(x = congress$age)
+```
+
+```{r, warning = F, message = F, fig.height = 4, fig.width = 9}
+hist(congress$age, col = "purple", border = "white")
+```
+
+------------------------------------------------------------------------
+
+A common non-parametric test that can be used in place of the independent samples *t*-test is the **Wilcoxon sum rank test**.  Here's the calculation:
+
+* Order all the data points by their outcome. 
+* For one of the groups, add up all the ranks. That's your test statistic, *W*.
+* To build the sampling distribution, randomly shuffle the group labels and add up the ranks for your group of interest again. Repeat this process until you've calculated the rank sum for every possible group assignment. 
+
+------------------------------------------------------------------------
+
+
+```{r}
+wilcox.test(age~party, data = congress)
+```
+
+------------------------------------------------------------------------
+
+## Wrap up and a look ahead
+
+------------------------------------------------------------------------
+
+Most statistical methods propose some model, represented by linear combinations, and then tests how likely we would be to see data like ours under that model. 
+
+* <span style="font-size:30px;">one-sample *t*-tests propose that a single value represents all the data</span>
+
+* <span style="font-size:30px;">*t*-tests propose a model that two means differ</span>
+
+* <span style="font-size:30px;"> more complicated models propose that some combination of variables, categorical and continuous, govern the patterns in the data</span>
+
+As we think about where we're going next term, it will be helpful to put some perspective on what we've covered already.
+
+------------------------------------------------------------------------
+
+![](images/wrap-up1.jpeg)
+
+------------------------------------------------------------------------
+
+![](images/wrap-up2.jpeg)
+
+------------------------------------------------------------------------
+
+![](images/wrap-up3.jpeg)
+
+------------------------------------------------------------------------
+
+![](images/wrap-up4.jpeg)
+
+------------------------------------------------------------------------
+
+![](images/wrap-up5.jpeg)
+
+------------------------------------------------------------------------
+
+![](images/wrap-up6.jpeg)
+
+------------------------------------------------------------------------
+
+Because we're using probability theory, we have to assume independence between trials.
+
+::: nonincremental
+* independent rolls of the die
+* independent draws from a deck of cards
+* independent... tests of hypotheses?
+:::
+
+What happens when our tests are not independent of one another?
+
+* What happens if I run multiple tests on one dataset?
+
+------------------------------------------------------------------------
+
+<span style="font-size:30px;">The issue of independence between tests has long been ignored by scientists. It was only when we were confronted with impossible-to believe results (people have ESP) that we started to doubt our methods.</span>
+
+<span style="font-size:30px;">And an explosion of fraud cases made us revisit our incentive structures. Maybe we weren't producing the best science we could...</span>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](images/replicability2.png)
+:::
+
+::: {.column width="50%"}
+<span style="font-size:30px;">Since then (2011), there's been greater push to revisit "known" effects in psychology and related fields, with sobering results. </span>
+
+<span style="font-size:30px;">The good news is that things seem to be changing, rapidly.</span>
+:::
+
+::::
+
+
+
+------------------------------------------------------------------------
+
+Independence isn't the only assumption we have to make to conduct hypothesis tests. 
+
+We also make assumptions about the underlying populations.
+
+![](images/null.png)
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Normality
+:::
+
+::: {.column width="50%"}
+Homogeneity of variance
+:::
+
+::::
+
+Sometimes we fail to meet those assumptions, in which case we may have to change course. 
+
+------------------------------------------------------------------------
+
+How big of a violation of the assumption is too much?
+
+* It depends. 
+
+How do you know your operation X measures your construct A well?
+
+* You don't. 
+
+What should alpha be?
+
+* You tell me. 
+
+
+
+------------------------------------------------------------------------
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Statistics is not a recipe book. It's a tool box. And there are many ways to use your tools.
+
+Your job is to 
+
+1. Understand the tools well enough to know how and when to use them, and
+2. Be able to justify your methods.
+
+:::
+
+::: {.column width="50%"}
+![](images/tools.jpg)
+:::
+
+::::
+
+------------------------------------------------------------------------
+
+## Next time...
+
+PSY 612 in 2022
+
+(But first):
+
+:::nonincremental
+* Quiz 9 now 
+* Journal 10 due Monday night
+* Oral exams next week
+* Homework 3 due Wednesday (9am)
+* All revisions due Friday (5pm)
+:::
