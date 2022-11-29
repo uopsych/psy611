@@ -12,6 +12,13 @@ execute:
 editor: visual
 ---
 
+## Announcements
+
+* Graded Quiz 9 will be returned tomorrow during lab. 
+* Next week, submit quiz corrections via email to Max and Bernice.
+
+------------------------------------------------------------------------
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(here)

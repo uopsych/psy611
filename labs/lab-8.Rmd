@@ -10,6 +10,12 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r, echo = F, eval = F}
+# NOTE FOR FUTURE GE
+# Examples could be updated in this lab.
+```
+
+
 ```{r setup, include = FALSE}
 # set chunk options
 knitr::opts_chunk$set(message = FALSE,
