@@ -1,0 +1,527 @@
+---
+title: "Lab 9: Independent Samples *t*-tests"
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+# set chunk options
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+# suppress scientific notation
+options(scipen = 999)
+
+#load required packages
+library(tidyverse) # includes dplyr and ggplot2 functions
+library(lsr) # includes t-test functions
+library(carData) # includes the Guyer data set
+library(here) # for finding correct path
+library(ggpubr) # for making an error line plot
+library(pwr) # for power calculations
+library(papaja) # for reporting results
+library(car) # to perform Levene's test
+```
+
+
+To quickly navigate to the desired section, click one of the following links:
+
+1. [Data Description](#data)
+2. [Independent Samples *t*-test](#independent)
+3. [Minihacks](#minihacks)
+
+
+
+***
+
+# The Data {#data}
+
+Today we will be analyzing data from Fox and Guyer's (1978) anonymity and cooperation study again. The data is included in the `{carData}` package and you can see information about the data set using `?Guyer`. Twenty groups of four participants each played 30 trials of the the prisoner's dilemma game. The number of cooperative choices (`cooperation`) made by each group were scored out of 120 (i.e., cooperative choices made by 4 participants over 30 trials). The groups either made decisions publicly or privately (`condition`) and groups were either comprised of all women or all men (`sex`).
+
+Run the following code to load the data into your global environment.
+
+```{r}
+# load data 
+data <- Guyer
+
+# take a look at the data
+head(Guyer)
+```
+
+
+
+# Independent Samples *t*-test {#independent}
+
+
+Last time we wanted to compare the mean cooperation level to an experimenter specified level (50% cooperation). 
+
+Now, let's ask a new research question: does whether the decision was made publicly or anonymously have an effect on people's cooperation levels? For this case, we will use an independent samples *t*-test, which is used to compare the means of two independent samples.  
+
+## The null and alternative hypotheses: 
+
+The null hypothesis would be:
+
+$$H_{0}: \mu_1 = \mu_2$$
+
+
+The alternative hypothesis would be: 
+
+$$H_{1}: \mu_1 \neq \mu_2$$ 
+
+
+### Assumptions
+
+The assumptions include..
+
+1. *Normality*: Assume that both population distributions are normally distributed. 
+2. *Independence*: Assume that the observations within and between groups are independent of each other.
+3. *Homogeneity of variance*: Assume that the population standard deviations of both populations are equal. If you violate this assumption, use *Welch's t-test* (which is actually the default in R).
+
+
+
+
+### Sampling Distribution of Differences Between Means
+
+Another way of stating the null hypothesis is that, if the two population means are equal, than the *difference* between the two population means (population mean 1 minus population mean 2) is zero, as shown below:
+
+$$H_{0}: \mu_1 - \mu_2 = 0$$
+
+Remember the sampling distribution of means is used to represent the results we would expect to obtain *if the null hypothesis is true*. 
+
+For an independent samples t-test, the sampling distribution is a *t* distribution that represents all the possible *sample mean differences* we could expect to obtain if we randomly obtained samples from two populations with *equal population means* and calculated the difference between each pair of sample means and plotted those sample mean differences in a distribution.
+
+#### Standard Error for Student's t-test
+
+We'll firrst talk about how to calculate standard error of the sampling distribution if performing a *student's t-test*, which assumes that the population standard deviations are *equal*.
+
+The *standard error of the difference*, aka the standard deviation of the sampling distribution of differences between means, is calculated as:
+
+$$\sigma_{d} = \hat{\sigma_{p}} \sqrt{(\frac{1}{N_{1}} + \frac{1}{N_{2}})}$$
+For student's t-test (which assumes the standard deviations of the two populations are equal), $\hat{\sigma_{p}}$ is the *pooled estimate of the population standard deviation* and is calculated as:
+
+$$\hat{\sigma_{p}} = \sqrt{\frac{{{(N_{1} - 1)\hat{\sigma_{1}^{2}} + (N_{2} - 1)\hat{\sigma_{2}^{2}}}}} {N_{1} + N_{2} - 2}}$$
+
+For an independent samples t-test, the null hypothesis states that the means of the two populations being compared are equal. Another assumption that *student's* version of the independent samples t-test makes is that the *standard deviation of the two populations are equal*. The pooled estimate of the population standard deviation is a *weighted average* of the two samples' estimates of their population standard deviations.
+
+The *degrees of freedom* for student's t-test are *N1 + N2 - 2*.
+
+
+#### Standard Error for Welch's t-test
+
+If you have reason to think that the homogeneity of variances assumption has been violated, you should instead perform *welch's t-test*, which does not make this assumption. The main difference between welch's t-test and student's t-test is in how the *standard error of the difference* is calculated. For welch's t-test, you calculate it as:
+
+$$\sigma_{d} = \sqrt{(\frac{\hat{\sigma_{1}^{2}}}{N_{1}} + \frac{\hat{\sigma_{2}^{2}}}{N_{2}})}$$
+This measure of standard error will be slightly larger than the measure of standard error using student's t-test, and thus this is a more conservative test (because it will produce a smaller t-test).
+
+
+The *degrees of freedom* for welch's t-test are:
+
+![](df_welch_ttest.JPG)
+
+
+### The Independent Samples t-Statistic
+
+The t-statistic for the independent samples t-test is the *difference between our two sample means* divided by the *standard error of the difference*. 
+
+$$t = \frac{\bar X_{1} - \bar X_{2}}{\sigma_{d}}$$
+
+Which will express, in standard error units, how far away our actually obtained sample mean difference is from the mean of our sampling distribution of differences between means (that represents all the sample mean differences we would expect if the null were *true*), which lets us see how *unlikely* our results would be *if the null hypothesis is true*. 
+
+
+
+## Descriptive Statistics
+
+First, let's get descriptive statistics for each condition to see what's going on. We can get the descriptive statistics separately for the two conditions being compared by using the `group_by()` function.
+
+```{r}
+descriptives <- data %>%
+  group_by(condition) %>%
+  summarise(n = n(),
+            mean = mean(cooperation, na.rm = TRUE),
+            sd = sd(cooperation, na.rm = TRUE))
+
+descriptives
+```
+
+
+
+
+## Conducting Independent Samples t-Test in R
+
+### Option 1: t.test()
+
+
+#### Student's t-test
+
+As with the one-sample and paired *t*-tests, we can use the `t.test()` function from the the built-in `{stats}` package to conduct an independent samples *t*-test. 
+
+```{r}
+t.test(cooperation ~ condition, data = data, var.equal = TRUE) # Student's t-test
+```
+
+The syntax being used here is similar to how you will perform regression models in R. Whatever comes on the left of the tilde (`~`) is the dependent variable (in this case, `cooperation`) and whatever comes on the right of the tilde is the independent variable (in this case, `condition`).
+
+Since we specified `var.equal = TRUE` in the `t.test()` function, it calculated a Student's *t*-test. If we had specified `var.equal = FALSE` (the default for both `t.test()` and `independentSamplesTTest()`) we would have calculated a Welch's *t*-test. Unlike Student's *t*-test, Welch's *t*-test does not assume equal variances between groups. To test whether you have violated the homogeneity of variances assumption, you can use *Levene's test*, as shown below. 
+
+
+#### Welch's t-test
+
+Let's first perform Levene's test to see if we have *violated* the homogeneity of variances assumption. A *significant* Levene's test indicates a violation.
+```{r}
+leveneTest(cooperation ~ condition, data = data, center = "mean") 
+```
+
+Have we violated the homogeneity of variances assumption?
+
+
+Now, let's perform Welch's t-test by setting `var.equal = FALSE`.
+```{r}
+t.test(cooperation ~ condition, data = data, var.equal = FALSE) # Welch's t-test
+```
+
+In this case, the t-test was the same for both tests because the homogeneity of variances assumption was not violated.
+
+
+### Option 2: independentSamplesTTest()
+
+We can also use the `independentSamplesTTest` function in the `{lsr}` package to get the output with Cohen's *d* included. 
+
+*Student's t-test* can be used by setting `var.equal = TRUE`.
+```{r}
+independentSamplesTTest(formula   = cooperation ~ condition, 
+                        data      = data, 
+                        var.equal = TRUE)
+```
+
+*Welch's t-test* can be used by setting `var.equal = FALSE`.
+```{r}
+independentSamplesTTest(formula   = cooperation ~ condition, 
+                        data      = data, 
+                        var.equal = FALSE)
+```
+
+
+### Practice
+
+Your turn! What if the research question was 'do cooperation levels vary by sex?'
+
+```{r}
+#Your code here
+```
+
+
+
+## Interpretation and Write-Up
+
+Let's assign the output of the independent samples t-test to an object so we can get APA-style formatted output from it. 
+
+Unfortunately, the `apa_print()` function only works with the `t.test()` output, and not with the `independentSamplesTTest()` output. Thus, there will be a few things missing from the output (i.e., M and SD for each condition, measure of effect size).
+```{r}
+ist_results <- t.test(cooperation ~ condition, data = data, var.equal = TRUE) # Student's t-test
+
+apa_print(ist_results)
+```
+
+
+A proper write-up for our Independent Sample *t*-test would be:
+
+Cooperation in the public condition (*M* = 55.70, *SD* = 14.84) was much greater than cooperation in the anonymous condition (*M* = 40.90, *SD* = 9.42), *t*(18) = 2.66, *p* = .018, 95% CI [3.12, 26.64], *d* = 1.19.
+
+Or, if you want to use the apa_print() output:
+
+Cooperation in the public condition (*M* = 55.70, *SD* = 14.84) was much greater than cooperation in the anonymous condition (*M* = 40.90, *SD* = 9.42), `r apa_print(ist_results)$statistic`, *d* = 1.19.
+
+
+
+## Plotting an Independent Samples *t*-test
+
+We can quickly plot our means and 95% confidence interval using the `ggerrorplot()` function in the `{ggpubr}` package.
+
+```{r}
+# create plot
+ggerrorplot(data, 
+            x         = "condition", 
+            y         = "cooperation", 
+            desc_stat = "mean_ci", 
+            color     = "condition", 
+            ylab      = "Cooperation") +
+  # add results of the t.test
+  stat_compare_means(method = "t.test")
+```
+
+Change the 'desc_stat' parameter if you want to plot a different type of error bar. Make sure to add a caption, so it is clear what you are plotting.
+
+```{r}
+# create plot
+ggerrorplot(data, 
+            x         = "condition", 
+            y         = "cooperation", 
+            desc_stat = "mean_se", #change to standard error
+            color     = "condition", 
+            ylab      = "Cooperation") +
+  # add results of the t.test
+  stat_compare_means(method = "t.test") +
+  #add caption
+  labs(caption = 'Error bars indicate the SEM.')
+```
+
+
+
+### Plotting in ggplot using a stats layer
+
+Before when we used ggplot, we provided the data and canvas we wanted to plot and then added layers of geoms:
+
+```{r}
+ggplot(data, aes(x=condition, y=cooperation)) + #create canvas
+  geom_point() #add geom
+```
+
+Sometimes you also want to plot some sort of transformation of your data. One way to do that is with stats layers. Here we want to plot summary statistics (mean and CI), so we'll use 'stat_summary':
+
+```{r}
+ggplot(data, aes(x = condition, y = cooperation)) + #create canvas
+  stat_summary(fun = mean, #specify a function to run on your data
+               
+        geom="point") + #here is where you specify what geom to use
+  stat_summary(fun.data = mean_ci, #specify a function to run on your data
+        geom="errorbar") #here is where you specify what geom to use
+```
+
+
+
+## Power Calculations
+
+In order to calculate power, one way is to use the 'pwr' package. This package has several similar functions for different statistical tests that follow the same general logic. Today we'll be using 'pwr.t.test'. This function takes a sample size (n), an effect size estimate (d), an alpha level (sig.level), and a power (power). The key thing is to fill in a value for 1 of those 4 things and then leave the 4th one out to calculate it. You can then specify the type of t-test (type), and whether it is a two-sided or directional test (alternative). 
+
+Here I will make a post-hoc power calculation.
+
+### Equal sample sizes
+
+```{r}
+pwr.t.test(n = 10, #sample size (per group)
+           d = 1.19, #Cohen's d
+           sig.level = .05, # alpha level
+           power = NULL, # Set what you want to calculate to NULL or leave out entirely
+           type = 'two.sample', #independent sample t-test
+           alternative = 'two.sided'  #two-tailed test
+     )
+```
+
+If that is a good estimate of effect size, then our power was .711, even with such a small sample size. 
+
+
+In cases where your Ns are unequal, use 'pwr.t2n.test'
+
+### Unequal sample sizes
+
+```{r}
+pwr.t2n.test(n1=10, #n of group 1
+             n2=10, #n of group 2
+              d = 1.19, #Cohen's d
+           sig.level = .05, # alpha level
+           power = NULL, # Set what you want to calculate to NULL or leave out entirely
+           alternative = 'two.sided'  #two-tailed test
+        )
+```
+
+
+### Practice
+
+Your turn! What sample size do we need to replicate this same effect size with a power of .95?
+
+```{r}
+#Your code here
+
+```
+
+One more! What effect size do we need to achieve a power of .9, with 30 participants per group, and an alpha level of .01?
+
+```{r}
+#Your code here
+
+```
+
+
+
+***
+
+# Minihacks {#minihacks}
+
+
+## Minihack 1 Independent Samples t-test: 
+
+An intrepid researcher submits a paper on the difference in coding abilities between Mac and PC users. They argue that PC users are better at coding than Mac users. Coding ability was operationalized with a continuous 'ability' metric. Despite a growing fear that you are becoming Reviewer 2, you acquire their data through GitHub to check their analyses. 
+
+Run the following lines of code to load the data:
+```{r}
+# set seed for reproducability
+set.seed(42)
+
+# load data
+data_os <- data.frame("id"      = 1:1e5,
+                      "os"      = c(rep("pc", 2e4), 
+                                    rep("mac", 8e4)),
+                      "ability" = c(rnorm(2e4, 15, 90),
+                                    rnorm(8e4, 13.9, 30)))
+```
+
+1. Perform an Independent Samples *t*-test on the data (preferably using a built in function).
+
+```{r}
+independentSamplesTTest(ability ~ os, data = data_os, var.equal = TRUE)
+```
+
+2. After running the code, you think that maybe you should have run a Welch's *t*-test instead of a Student's *t*-test. Investigate your chosen function to figure out how to perform a Welch's *t*-test on the data. Do you find a different result? Why or why not?
+
+```{r}
+independentSamplesTTest(ability ~ os, data = data_os, var.equal = FALSE)
+```
+
+3. Let's give the researchers the benefit of the doubt and assume the variances of both groups are equal. Is there a **meaningful** difference between Mac and PC users? Use a statistic to provide support for your answer.
+
+```{r}
+# The Cohen's d is .02. It is a very small effect.
+```
+
+
+4. Plot the data using `ggerrorplot()`. Does this support your answer to question 3?
+
+```{r}
+# create plot
+ggerrorplot(data_os, 
+            x         = "os", 
+            y         = "ability", 
+            desc_stat = "mean_ci", 
+            color     = "os", 
+            ylab      = "Cooperation", 
+            ylim      = c(12, 17)) +
+  # add results of t.test
+  stat_compare_means(method = "t.test")
+```
+
+5. Recreate this plot using ggplot. Change the y-axis to a range that makes sense.
+
+```{r}
+ggplot(data_os, aes(x=os, y=ability)) + #create canvas
+  stat_summary(fun = mean, #specify a function to run on your data
+        geom="point") + #here is where you specify what geom to use
+  stat_summary(fun.data = mean_ci, #specify a function to run on your data
+        geom="errorbar") + #here is where you specify what geom to use 
+  # add results of t.test
+  stat_compare_means(method = "t.test") +
+  coord_cartesian(ylim=c(12,17))
+
+```
+
+
+
+6. Use the Cohen's d to calculate the percentage of overlap between the groups. (See lecture 18) 
+
+```{r}
+(overlap <- 2 * pnorm(-abs(.02)/2))
+```
+
+
+7. Your colleague doesn't care about the comparison between pc and mac users. They are only interested in pc users and whether they differ from an ability level of 14. What should you tell him? What statistical test supports you?
+
+```{r}
+dat_pc <- data_os %>% 
+  filter(os == 'pc')
+t.test(dat_pc$ability, mu=14)
+```
+
+## Minihack 2: POWER
+
+1. Find a GIF that represents power and display it using RMarkdown.
+
+![](https://media.giphy.com/media/3o84sq21TxDH6PyYms/giphy.gif)
+
+
+2. You are planning on running a fourth version of a study comparing how tall plants grow after listening to the Beatles or Mozart when they were seedlings. Previous versions of the study found a Cohen's d of .1, .6, and .2. You want to replicate this study with a pea plant, but don't expect pea plants to differ from other plants. How many plants should I plan on including if I want a power of at least .8?
+
+```{r}
+
+pwr.t.test(d=mean(c(.1,.6,.2)), power=.8)
+
+```
+
+
+3. Whoops! I forgot to mention that this a design where pairs of genetically identical plants are sorted into the two conditions. How many pairs of plants do I need?
+
+```{r}
+
+pwr.t.test(d=mean(c(.1,.6,.2)), power=.8, type ='paired')
+
+```
+
+
+4. Write code to extract the sample size needed (round up) and display it embedded in an explanation.
+
+```{r}
+
+pow_out <- pwr.t.test(d=mean(c(.1,.6,.2)), power=.8, type ='paired')
+
+```
+
+To achieve a power of .8, I would need `r ceiling(pow_out$n)` pairs of plants.
+
+## Minihack 3: Trouble Shooting
+
+My advisor told me that I had multiple errors in my code. She told me the line numbers where the errors are, but she thought it would be a good learning experience for me to try to solve the errors myself. I need your help. Fix the errors in the following chunks of code.
+
+**Error 1:**
+
+I am trying to calculate post-hoc power, but it keeps giving me a strange error message???
+
+```{r, eval=FALSE}
+pwr.t2n.test(n1=30, #n of group 1
+             n2=20, #n of group 2
+              d = .5, #Cohen's d
+           sig.level = .05, # alpha level
+           power = NULL, # Set what you want to calculate to NULL or leave out entirely
+           #type = 'two.sample', #independent sample t-test
+           alternative = 'two.sided'  #two-tailed test
+             
+             )
+```
+
+
+**Error 2:**
+
+I prefer `t.test()` over `independentSamplesTTest()` because I'm an R purist, and I wanted to calculate a Cohen's *d* value using the `t2d()` function in the `{psych}` package. I don't think it is working properly. I have a *t*-statistic of `5.12`and the sample sizes for my two groups are `15` and `22`.
+
+```{r, eval = FALSE}
+# load psych
+library(psych)
+
+# calculate cohen's d
+t2d(t = 5.12, n1 = 15, n2 = 22)
+```
+
+
+**Error 3**
+
+I was trying to plot my data from the first minihack, but I can only see part of my error bars, I want to see all of it.
+
+```{r}
+ggplot(data_os, aes(x=os, y=ability)) + 
+  stat_summary(fun = mean, #specify a function to run on your data
+        geom="bar",  #here is where you specify what geom to use
+        fill='blue') +#create canvas
+  stat_summary(fun.data = mean_ci, #specify a function to run on your data
+        geom="errorbar") + #here is where you specify what geom to use 
+  # stat_summary(fun = mean, #specify a function to run on your data
+  #       geom="bar",  #here is where you specify what geom to use
+  #       fill='blue') +
+  # add results of t.test
+  stat_compare_means(method = "t.test") +
+  coord_cartesian(ylim=c(13,16))
+```
+
+
