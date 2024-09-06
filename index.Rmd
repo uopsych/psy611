@@ -18,10 +18,11 @@ thorough grounding in statistical concepts, methods, and applications of relevan
 ## Meeting times and locations
 
 **Lecture:** Tuesdays and Thursdays, 10:00 - 11:20am, [184 PLC](https://map.uoregon.edu/) 
+
 **Lab (Section 14796):** Fridays,
 9:00 - 10:20 am, Straub 006 
 
-**Lab (Section 14797):** Fridays,10:30 - 11:50 am, Straub 006 
+**Lab (Section 14797):** Fridays, 10:30 - 11:50 am, Straub 006 
 
 
 ## Instructors
