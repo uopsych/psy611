@@ -1,0 +1,36 @@
+---
+title: "Your Document Title"
+output: html_document
+---
+
+# Section Heading
+
+Introductory text...
+
+<!-- Paste your HTML table directly below without any code chunk delimiters -->
+
+<table>
+    <thead>
+        <tr>
+            <th style="width: 5%;">Week</th>
+            <th style="width: 10%;">Date</th>
+            <th style="width: 20%;">Topic</th>
+            <th style="width: 45%;">Readings</th>
+            <th style="width: 10%;">Quiz</th>
+            <th style="width: 10%;">Homework</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>10/01</td>
+            <td>Introduction and overview</td>
+            <td>LSR Ch 1 & 3</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <!-- Add more rows as needed -->
+    </tbody>
+</table>
+
+More markdown content...

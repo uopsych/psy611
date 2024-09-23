@@ -29,9 +29,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -224,69 +221,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -294,16 +228,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -333,57 +257,6 @@ div.tocify {
     <li>
       <a href="lectures/01-intro.html">1-Intro</a>
     </li>
-    <li>
-      <a href="lectures/02-methods.html">2-Methods</a>
-    </li>
-    <li>
-      <a href="lectures/03-measurement.html">3-Measurement</a>
-    </li>
-    <li>
-      <a href="lectures/04-describing-data.html">4-Describing Data I</a>
-    </li>
-    <li>
-      <a href="lectures/05-describing-data.html">5-Describing Data II</a>
-    </li>
-    <li>
-      <a href="lectures/06-probability.html">6-Probability</a>
-    </li>
-    <li>
-      <a href="lectures/07-binomial.html">7-Binomial Distributions</a>
-    </li>
-    <li>
-      <a href="lectures/08-normal.html">8-Normal Distributions</a>
-    </li>
-    <li>
-      <a href="lectures/09-sampling.html">9-Sampling</a>
-    </li>
-    <li>
-      <a href="lectures/10-nhst.html">10-NHST I</a>
-    </li>
-    <li>
-      <a href="lectures/11-nhst.html">11/12-NHST II</a>
-    </li>
-    <li>
-      <a href="lectures/13-critiques.html">13-Critiques of NHST</a>
-    </li>
-    <li>
-      <a href="lectures/14-open.html">14-Open Science</a>
-    </li>
-    <li>
-      <a href="lectures/15-one_sample.html">15-One Sample Tests</a>
-    </li>
-    <li>
-      <a href="lectures/16-paired_sample.html">16-Paired-Samples t-Tests</a>
-    </li>
-    <li>
-      <a href="lectures/17-RMarkdown.html">17-RMarkdown</a>
-    </li>
-    <li>
-      <a href="lectures/18-independent.html">18-Independent Samples t-Tests</a>
-    </li>
-    <li>
-      <a href="lectures/19-assumptions.html">19-Assumptions &amp; Effect Sizes</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -393,30 +266,7 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="labs/lab-1.html">1 - Introduction to R</a>
-    </li>
-    <li>
-      <a href="labs/lab-2_instructor.html">2 - R Basics and Descriptives</a>
-    </li>
-    <li>
-      <a href="labs/lab-3_instructor.html">3 - Functional Programming</a>
-    </li>
-    <li>
-      <a href="labs/lab-4_instructor.html">4 - Probability Distributions</a>
-    </li>
-    <li>
-      <a href="labs/lab-5_instructor.html">5 - Data Wrangling</a>
-    </li>
-    <li>
-      <a href="labs/lab-6.html">6 - Data Visualization</a>
-    </li>
-    <li>
-      <a href="labs/lab-8-instructor.html">7 - One Sample and Paired Samples t-tests</a>
-    </li>
-    <li>
-      <a href="labs/lab-9_ist.html">8 - Independent Samples t-tests</a>
-    </li>
+    <li class="dropdown-header">Coming soon!</li>
   </ul>
 </li>
 <li>
@@ -470,6 +320,26 @@ div.tocify {
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#weekly-schedule" id="toc-weekly-schedule">Weekly
+schedule</a></li>
+<li><a href="#graded-materials" id="toc-graded-materials">Graded
+materials</a>
+<ul>
+<li><a href="#quizzes" id="toc-quizzes">Quizzes</a></li>
+<li><a href="#homework-assignments"
+id="toc-homework-assignments">Homework assignments</a></li>
+<li><a href="#journal-entries" id="toc-journal-entries">Journal
+entries</a></li>
+<li><a href="#oral-exam" id="toc-oral-exam">Oral exam</a></li>
+</ul></li>
+<li><a href="#materials-needed" id="toc-materials-needed">Materials
+needed</a></li>
+<li><a href="#policies" id="toc-policies">Policies</a></li>
+<li><a href="#basic-needs" id="toc-basic-needs">Basic needs</a></li>
+</ul>
+</div>
 
 <div id="weekly-schedule" class="section level1">
 <h1>Weekly schedule</h1>
@@ -483,295 +353,571 @@ places. If this bothers you, or you prefer to work offline, you can
 download a <a href="https://learningstatisticswithr.com/lsr-0.6.pdf">PDF
 version</a> of the book.</p>
 <table>
-<colgroup>
-<col width="1%" />
-<col width="1%" />
-<col width="9%" />
-<col width="80%" />
-<col width="1%" />
-<col width="4%" />
-</colgroup>
 <thead>
 <tr>
-<th>Week</th>
-<th>Date</th>
-<th align="left">Topic</th>
-<th align="left">Readings</th>
-<th>Quiz</th>
-<th>Homework</th>
+<th style="width: 7%;text-align: left;">
+Week
+</th>
+<th style="width: 7%;text-align: left;">
+Date
+</th>
+<th style="width: 25%;text-align: left;">
+Topic
+</th>
+<th style="width: 40%;text-align: left;">
+Readings
+</th>
+<th style="width: 10%;text-align: left;">
+Quiz
+</th>
+<th style="width: 10%;text-align: left;">
+Homework
+</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>10/01</td>
-<td align="left">Introduction and overview</td>
-<td align="left">LSR Ch 1 &amp; 3</td>
-<td></td>
-<td></td>
+<td>
+1
+</td>
+<td>
+10/01
+</td>
+<td>
+Introduction and overview
+</td>
+<td>
+LSR Ch 1 &amp; 3
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>10/03</td>
-<td align="left">Research methods</td>
-<td align="left">LSR CH 2 &amp; 4, <a
-href="readings/Rothman_2013.pdf">Rothman et al. (2013)</a><a href="#fn1"
-class="footnote-ref" id="fnref1"><sup>1</sup></a></td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+10/03
+</td>
+<td>
+Research Methods
+</td>
+<td>
+LSR CH 2 &amp; 4, <a href="readings/Rothman_2013.pdf">Rothman et
+al. (2013)</a><a href="#fn1" class="footnote-ref"
+id="fnref1"><sup>1</sup></a>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>10/04</td>
-<td align="left"><em>Lab: Introduction to R</em></td>
-<td align="left"></td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+10/04
+</td>
+<td>
+<em>Lab: Introduction to R</em>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>2</td>
-<td>10/08</td>
-<td align="left">Latent variables and psychometrics</td>
-<td align="left">Podcast: <a
-href="https://quantitudepod.org/episode-9-grumpy-old-man-village-idiot-argue-about-reliability/">Quantitude,
+<td>
+2
+</td>
+<td>
+10/08
+</td>
+<td>
+Latent variables and psychometrics
+</td>
+<td>
+Podcast:
+<a href="https://quantitudepod.org/episode-9-grumpy-old-man-village-idiot-argue-about-reliability/">Quantitude,
 S1E09 – Grumpy Old Man &amp; Village Idiot Argue About Reliability</a>,
-<a href="readings/bringmann_etal_2022.pdf">Bringmann et al.,
-2022,</a></td>
-<td>Quiz 1</td>
-<td></td>
+<a href="readings/bringmann_etal_2022.pdf">Bringmann et al., 2022</a>
+</td>
+<td>
+Quiz 1
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>10/10</td>
-<td align="left">Describing data</td>
-<td align="left">LSR Ch 5 &amp; 6</td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+10/10
+</td>
+<td>
+Describing data
+</td>
+<td>
+LSR Ch 5 &amp; 6
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>10/11</td>
-<td align="left"><em>Lab: R basics and descriptives</em></td>
-<td align="left"></td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+10/11
+</td>
+<td>
+<em>Lab: R basics and descriptives</em>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>3</td>
-<td>10/15</td>
-<td align="left">Describing data</td>
-<td align="left"><a href="readings/Ozer_Funder_2019.pdf">Ozer &amp;
-Funder (2019)</a></td>
-<td>Quiz 2</td>
-<td></td>
+<td>
+3
+</td>
+<td>
+10/15
+</td>
+<td>
+Describing data
+</td>
+<td>
+<a href="readings/Ozer_Funder_2019.pdf">Ozer &amp; Funder (2019)</a>
+</td>
+<td>
+Quiz 2
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>10/17</td>
-<td align="left">Probability</td>
-<td align="left">LSR Intro to Part IV and Ch 9.1-9.3, <a
-href="readings/Wetzels_etal_2011.pdf">Wetzels et al. (2011)</a></td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+10/17
+</td>
+<td>
+Probability
+</td>
+<td>
+LSR Intro to Part IV and Ch 9.1-9.3,
+<a href="readings/Wetzels_etal_2011.pdf">Wetzels et al. (2011)</a>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>10/18</td>
-<td align="left"><em>Lab: Functional programming</em></td>
-<td align="left"></td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+10/18
+</td>
+<td>
+<em>Lab: Functional programming</em>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>4</td>
-<td>10/22</td>
-<td align="left">Probability</td>
-<td align="left">LSR Ch 9.4</td>
-<td>Quiz 3</td>
-<td></td>
+<td>
+4
+</td>
+<td>
+10/22
+</td>
+<td>
+Probability
+</td>
+<td>
+LSR Ch 9.4
+</td>
+<td>
+Quiz 3
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>10/24</td>
-<td align="left">Probability</td>
-<td align="left">LSR Ch 9.5-9.6</td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+10/24
+</td>
+<td>
+Probability
+</td>
+<td>
+LSR Ch 9.5-9.6
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>10/25</td>
-<td align="left"><em>Lab: Probability distributions</em></td>
-<td align="left"></td>
-<td></td>
-<td>HW 1 Due</td>
+<td>
+</td>
+<td>
+10/25
+</td>
+<td>
+<em>Lab: Probability distributions</em>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+HW 1 Due
+</td>
 </tr>
 <tr>
-<td>5</td>
-<td>10/29</td>
-<td align="left">Sampling</td>
-<td align="left">LSR Ch 10</td>
-<td>Quiz 4</td>
-<td></td>
+<td>
+5
+</td>
+<td>
+10/29
+</td>
+<td>
+Sampling
+</td>
+<td>
+LSR Ch 10
+</td>
+<td>
+Quiz 4
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>10/31</td>
-<td align="left">Hypothesis testing</td>
-<td align="left">LSR Ch 11</td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+10/31
+</td>
+<td>
+Hypothesis testing
+</td>
+<td>
+LSR Ch 11
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>11/01</td>
-<td align="left"><em>Lab: Data wrangling</em></td>
-<td align="left"></td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+11/01
+</td>
+<td>
+<em>Lab: Data wrangling</em>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>6</td>
-<td>11/05</td>
-<td align="left">Hypothesis testing</td>
-<td align="left"><a href="readings/Sainani_2012.pdf">Sainani
-(2012)</a></td>
-<td>Quiz 5</td>
-<td></td>
+<td>
+6
+</td>
+<td>
+11/05
+</td>
+<td>
+Hypothesis testing
+</td>
+<td>
+<a href="readings/Sainani_2012.pdf">Sainani (2012)</a>
+</td>
+<td>
+Quiz 5
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>11/07</td>
-<td align="left">Hypothesis testing</td>
-<td align="left"></td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+11/07
+</td>
+<td>
+Hypothesis testing
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>11/08</td>
-<td align="left"><em>Lab: Graphing with ggplot2</em></td>
-<td align="left"></td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+11/08
+</td>
+<td>
+<em>Lab: Graphing with ggplot2</em>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>7</td>
-<td>11/12</td>
-<td align="left">Critiques of hypothesis testing</td>
-<td align="left"><a href="readings/Simmons_etal_2011.pdf">Simmons et
-al. (2011)</a> <a href="readings/Cumming_2014.pdf">Cumming
-(2014)</a></td>
-<td>Quiz 6</td>
-<td></td>
+<td>
+7
+</td>
+<td>
+11/12
+</td>
+<td>
+Critiques of hypothesis testing
+</td>
+<td>
+<a href="readings/Simmons_etal_2011.pdf">Simmons et al. (2011)</a>,
+<a href="readings/Cumming_2014.pdf">Cumming (2014)</a>
+</td>
+<td>
+Quiz 6
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>11/14</td>
-<td align="left">Open Science and Wrap-up</td>
-<td align="left"><a
-href="https://fivethirtyeight.com/features/science-isnt-broken/">Five
-Thirty Eight</a> <a href="https://datacolada.org/64">Simmons, Nelson,
-&amp; Simonshon, 2016 (blog)</a></td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+11/14
+</td>
+<td>
+Open Science and Wrap-up
+</td>
+<td>
+<a href="https://fivethirtyeight.com/features/science-isnt-broken/">Five
+Thirty Eight</a>, <a href="https://datacolada.org/64">Simmons, Nelson,
+&amp; Simonshon, 2016 (blog)</a>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>11/15</td>
-<td align="left"><em>Lab: No Lab</em></td>
-<td align="left"></td>
-<td></td>
-<td>HW 2 Due</td>
+<td>
+</td>
+<td>
+11/15
+</td>
+<td>
+<em>Lab: No Lab</em>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+HW 2 Due
+</td>
 </tr>
 <tr>
-<td>8</td>
-<td>11/19</td>
-<td align="left">One-sample tests</td>
-<td align="left">LSR Ch 13.1-13.2</td>
-<td>Quiz 7</td>
-<td></td>
+<td>
+8
+</td>
+<td>
+11/19
+</td>
+<td>
+One-sample tests
+</td>
+<td>
+LSR Ch 13.1-13.2
+</td>
+<td>
+Quiz 7
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>11/21</td>
-<td align="left">Comparing two means (paired)</td>
-<td align="left">LSR Ch 13.3-13.11</td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+11/21
+</td>
+<td>
+Comparing two means (paired)
+</td>
+<td>
+LSR Ch 13.3-13.11
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>11/22</td>
-<td align="left"><em>Lab: One- and paired-samples t-tests</em></td>
-<td align="left"></td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+11/22
+</td>
+<td>
+<em>Lab: One- and paired-samples t-tests</em>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>9</td>
-<td>11/26</td>
-<td align="left">Something different: RMarkdown</td>
-<td align="left"></td>
-<td>Quiz 8</td>
-<td></td>
+<td>
+9
+</td>
+<td>
+11/26
+</td>
+<td>
+Something different: RMarkdown
+</td>
+<td>
+</td>
+<td>
+Quiz 8
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>11/28</td>
-<td align="left"><strong>Thanksgiving</strong></td>
-<td align="left"></td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+11/28
+</td>
+<td>
+<strong>Thanksgiving</strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>11/29</td>
-<td align="left"><em>Lab: No Lab</em></td>
-<td align="left"></td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+11/29
+</td>
+<td>
+<strong>Lab: No Lab</strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>10</td>
-<td>12/03</td>
-<td align="left">Comparing two means (independent)</td>
-<td align="left"></td>
-<td></td>
-<td></td>
+<td>
+10
+</td>
+<td>
+12/03
+</td>
+<td>
+Comparing two means (independent)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>12/05</td>
-<td align="left">Effect sizes and assumptions</td>
-<td align="left"></td>
-<td>Quiz 9</td>
-<td></td>
+<td>
+</td>
+<td>
+12/05
+</td>
+<td>
+Effect sizes and assumptions
+</td>
+<td>
+</td>
+<td>
+Quiz 9
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>-</td>
-<td>12/06</td>
-<td align="left"><em>Lab: Independent samples t-tests</em></td>
-<td align="left"></td>
-<td></td>
-<td></td>
+<td>
+</td>
+<td>
+12/06
+</td>
+<td>
+<em>Lab: Independent-samples t-tests</em>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
 </tr>
 <tr>
-<td>Finals</td>
-<td>12/09</td>
-<td align="left"></td>
-<td align="left"></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>-</td>
-<td>12/11</td>
-<td align="left"></td>
-<td align="left"></td>
-<td></td>
-<td>HW 3 Due <a href="#fn2" class="footnote-ref"
-id="fnref2"><sup>2</sup></a> 9am</td>
+<td>
+Finals
+</td>
+<td>
+12/09
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+HW 3 Due<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
+9am
+</td>
 </tr>
 </tbody>
 </table>
@@ -926,7 +1072,7 @@ class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>Final grades are due the following Tuesday, so there are
 limited opportunities to redo this particular assignment for points. I
 will do my best to grade these within 24 hours of receipt so you have a
-chance to retry any missed points. Consider Friday 12/9 at 9am PT the
+chance to retry any missed points. Consider Friday 12/13 at 9am PT the
 last possible time to submit this assignment.<a href="#fnref2"
 class="footnote-back">↩︎</a></p></li>
 </ol>
@@ -934,8 +1080,6 @@ class="footnote-back">↩︎</a></p></li>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -968,35 +1112,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

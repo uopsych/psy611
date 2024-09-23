@@ -9,15 +9,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Fall 2024. Instructor: Sara J. Weston" />
 
 
-<title>Psy 611: Data Analysis I</title>
+<title>Your Document Title</title>
 
 <script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,9 +29,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -225,69 +221,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -295,16 +228,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -393,123 +316,65 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Psy 611: Data Analysis I</h1>
-<h3 class="subtitle">Department of Psychology, University of Oregon</h3>
-<h4 class="author">Fall 2024. Instructor: Sara J. Weston</h4>
+<h1 class="title toc-ignore">Your Document Title</h1>
 
 </div>
 
 
-<div id="overview" class="section level1">
-<h1>Overview</h1>
-<p>This course is the first in a 3-term sequence of classes designed to
-provide a thorough grounding in statistical concepts, methods, and
-applications of relevance to psychological science and related sciences.
-The aim of the course is to help students develop skills in the analysis
-and interpretation of real psychological data. Our focus will be both
-conceptual and mathematical – that is, understanding the underlying
-mathematical principals of statistics enhances ones’ ability to
-interpret and think critically about the use of statistics. Students
-will also learn the basics of the R language and use this program to
-wrangle, visualize, summarize, and test hypotheses with data.</p>
-<div id="meeting-times-and-locations" class="section level2">
-<h2>Meeting times and locations</h2>
-<p><strong>Lecture:</strong> Tuesdays and Thursdays, 10:00 - 11:20am, <a
-href="https://map.uoregon.edu/">184 PLC</a></p>
-<p><strong>Lab (Section 14796):</strong> Fridays, 9:00 - 10:20 am,
-Straub 006</p>
-<p><strong>Lab (Section 14797):</strong> Fridays, 10:30 - 11:50 am,
-Straub 006</p>
-</div>
-<div id="instructors" class="section level2">
-<h2>Instructors</h2>
-<p><strong>Sara Weston</strong> – <a
-href="mailto:sweston2@uoregon.edu">sweston2@uoregon.edu</a> Office
-Hours: Mon/Fri 11am (Straub 325)</p>
-<p><strong>Dominik Graetz</strong> – <a
-href="mailto:dgrtz@uoregon.edu">dgrtz@uoregon.edu</a> Office Hours:
-TBD</p>
-<p><strong>Zach Schroeder</strong> – <a
-href="mailto:zschroe2@uoregon.edu">zschroe2@uoregon.edu</a> Office
-Hours: TBD</p>
-</div>
-</div>
-<div id="materials" class="section level1">
-<h1>Materials</h1>
-<div id="textbook" class="section level2">
-<h2>Textbook</h2>
-<p>We will primarily be referring to chapters in <a
-href="https://learningstatisticswithr-bookdown.netlify.com/index.html"><em>Learning
-Statistics with R</em></a> by Danielle Navarro. This textbook is
-available for free online. You may choose to purchase a paper copy if
-you wish, but it is not required. Additional readings assignments will
-be posted here.</p>
-</div>
-<div id="r-and-rstudio" class="section level2">
-<h2>R and RStudio</h2>
-<p>Students must have the latest version of R, which can be downloaded
-<a href="https://ftp.osuosl.org/pub/cran/">here</a>. It is strongly
-recommended that students also download the RStudio GUI, available <a
-href="https://www.rstudio.com/products/rstudio/download/#download">here</a>.
-Both softwares are free.</p>
-</div>
-<div id="resources-for-r-and-rstudio" class="section level2">
-<h2>Resources for R and RStudio</h2>
-<p>While we will be covering the use of R and RStudio extensively in
-both lecture and lab, one of the key skills required to use R is the
-ability to find answers on the Internet. The R commmunity (sometimes
-referred to as the useR community) tends to be friendly and helpful and
-enjoys solving R-related problems in their spare time. For that reason,
-many common questions or problems have been posted to spaces online and
-answered by smart people. Finding and deciphering those answers is the
-key skill you should seek to hone this year. It’s much more important
-than remembering function names.</p>
-<p>Here are some sites where you can find the answers to many R
-questions and learn new tricks:</p>
-<div id="for-learning-the-basics" class="section level3">
-<h3>For learning the basics</h3>
-<ul>
-<li><a href="https://bookdown.org/ndphillips/YaRrr/"><em>YaRrr, the
-Pirate’s Guide to R</em></a> by Nathaniel Phillips</li>
-<li><a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> by
-Hadley Wickham</li>
-<li><a href="http://www.cookbook-r.com/"><em>R Cookbook</em></a> by
-Winston Chang</li>
-<li><a href="http://www-bcf.usc.edu/~gareth/ISL"><em>An Introduction to
-Statistical Learning</em></a> by Gareth James, Daniela Witten, Trevor
-Hastie and Robert Tibshirani</li>
-</ul>
-</div>
-<div id="for-plotting" class="section level3">
-<h3>For plotting</h3>
-<ul>
-<li>The <a href="http://www.cookbook-r.com/Graphs/">Graphs chapter of
-<em>R Cookbook</em></a> by Winston Chang</li>
-</ul>
-</div>
-<div id="quick-resources" class="section level3">
-<h3>Quick resources</h3>
-<ul>
-<li><a href="https://www.rstudio.com/resources/cheatsheets">Cheat
-Sheets</a></li>
-<li><a href="https://www.statmethods.net">Quick-R</a></li>
-</ul>
-</div>
-<div id="online-forums" class="section level3">
-<h3>Online forums</h3>
-<ul>
-<li><a href="https://stackoverflow.com">Stack Overflow</a><br />
-</li>
-<li><a href="https://stats.stackexchange.com">Cross Validated</a></li>
-</ul>
-</div>
-</div>
+<div id="section-heading" class="section level1">
+<h1>Section Heading</h1>
+<p>Introductory text…</p>
+<!-- Paste your HTML table directly below without any code chunk delimiters -->
+<table>
+<thead>
+<tr>
+<th style="width: 5%;">
+Week
+</th>
+<th style="width: 10%;">
+Date
+</th>
+<th style="width: 20%;">
+Topic
+</th>
+<th style="width: 45%;">
+Readings
+</th>
+<th style="width: 10%;">
+Quiz
+</th>
+<th style="width: 10%;">
+Homework
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+1
+</td>
+<td>
+10/01
+</td>
+<td>
+Introduction and overview
+</td>
+<td>
+LSR Ch 1 &amp; 3
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<!-- Add more rows as needed -->
+</tbody>
+</table>
+<p>More markdown content…</p>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -542,35 +407,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

@@ -10,22 +10,22 @@ output:
 
 Homework assignments will appear here. You'll be able to access the assignment, as well as any data that may be used. Homework assignments will be posted **at least two weeks** before they are due. Submit homework assignments via Canvas by the due date and time. Homework assignments are due prior to the start of the first lab section on the day they are listed. 
 
-### [**Homework 1**](homework/homework_1.html)
+<!-- ### [**Homework 1**](homework/homework_1.html) -->
 
-**Due October 21, 9am**
+<!-- **Due October 21, 9am** -->
 
-- [Download files.](homework/homework-1.zip)
-
-
-### [**Homework 2**](homework/homework_2.html)
-
-**Due November 11, 9am**
-
-- [Download files.](homework/homework-2.zip)
+<!-- - [Download files.](homework/homework-1.zip) -->
 
 
-### [**Homework 3**](homework/homework_3.html)
+<!-- ### [**Homework 2**](homework/homework_2.html) -->
 
-**Due December 7, 9am**
+<!-- **Due November 11, 9am** -->
 
-- [Download files.](homework/homework-3.zip)
+<!-- - [Download files.](homework/homework-2.zip) -->
+
+
+<!-- ### [**Homework 3**](homework/homework_3.html) -->
+
+<!-- **Due December 7, 9am** -->
+
+<!-- - [Download files.](homework/homework-3.zip) -->

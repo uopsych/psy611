@@ -4,7 +4,7 @@ output:
   html_document:
     toc: TRUE
     toc_depth: 2
-    toc_float: TRUE
+    toc_float: FALSE
     theme: cosmo
 ---
 
@@ -12,44 +12,280 @@ output:
 
 LSR readings can be found in the free, online textbook, [*Learning Statistics with R*](https://learningstatisticswithr-bookdown.netlify.com/index.html) by Danielle Navarro. For those interested in taking notes, I recommend the use of the [Hypothes.is](http://Hypothes.is) app to annotate webpages. I will note that the formatting of the book online is wonky in a few places. If this bothers you, or you prefer to work offline, you can download a [PDF version](https://learningstatisticswithr.com/lsr-0.6.pdf) of the book.
 
-| Week   | Date  | Topic                                  | Readings                                                                                                                                                                                                                                                                                                                                                  | Quiz   | Homework          |
-|--------|-------|:---------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|-------------------|
-| 1      | 10/01 | Introduction and overview              | LSR Ch 1 & 3                                                                                                                                                                                                                                                                                                                                              |        |                   |
-| \-     | 10/03 | Research methods                       | LSR CH 2 & 4, [Rothman et al. (2013)](readings/Rothman_2013.pdf)[^1]                                                                                                                                                                                                                                                                                      |        |                   |
-| \-     | 10/04 | *Lab: Introduction to R*               |                                                                                                                                                                                                                                                                                                                                                           |        |                   |
-| 2      | 10/08 | Latent variables and psychometrics     | Podcast: [Quantitude, S1E09 -- Grumpy Old Man & Village Idiot Argue About Reliability](https://quantitudepod.org/episode-9-grumpy-old-man-village-idiot-argue-about-reliability/), [Bringmann et al., 2022,](readings/bringmann_etal_2022.pdf) | Quiz 1 |                   |
-| \-     | 10/10 | Describing data                        | LSR Ch 5 & 6                                                                                                                                                                                                                                                                                                                                              |        |                   |
-| \-     | 10/11 | *Lab: R basics and descriptives*       |                                                                                                                                                                                                                                                                                                                                                           |        |                   |
-| 3      | 10/15 | Describing data                        | [Ozer & Funder (2019)](readings/Ozer_Funder_2019.pdf)                                                                                                                                                                                                                                                                                                     | Quiz 2 |                   |
-| \-     | 10/17 | Probability                            | LSR Intro to Part IV and Ch 9.1-9.3, [Wetzels et al. (2011)](readings/Wetzels_etal_2011.pdf)                                                                                                                                                                                                                                                              |        |                   |
-| \-     | 10/18 | *Lab: Functional programming*          |                                                                                                                                                                                                                                                                                                                                                           |        |                   |
-| 4      | 10/22 | Probability                            | LSR Ch 9.4                                                                                                                                                                                                                                                                                                                                                | Quiz 3 |                   |
-| \-     | 10/24 | Probability                            | LSR Ch 9.5-9.6                                                                                                                                                                                                                                                                                                                                            |        |                   |
-| \-     | 10/25 | *Lab: Probability distributions*       |                                                                                                                                                                                                                                                                                                                                                           |        | HW 1 Due          |
-| 5      | 10/29 | Sampling                               | LSR Ch 10                                                                                                                                                                                                                                                                                                                                                 | Quiz 4 |                   |
-| \-     | 10/31 | Hypothesis testing                     | LSR Ch 11                                                                                                                                                                                                                                                                                                                                                 |        |                   |
-| \-     | 11/01 | *Lab: Data wrangling*                  |                                                                                                                                                                                                                                                                                                                                                           |        |                   |
-| 6      | 11/05 | Hypothesis testing                     | [Sainani (2012)](readings/Sainani_2012.pdf)                                                                                                                                                                                                                                                                                                               | Quiz 5 |                   |
-| \-     | 11/07 | Hypothesis testing                     |                                                                                                                                                                                                                                                                                                                                                           |        |                   |
-| \-     | 11/08 | *Lab: Graphing with ggplot2*           |                                                                                                                                                                                                                                                                                                                                                           |        |                   |
-| 7      | 11/12 | Critiques of hypothesis testing        | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf) [Cumming (2014)](readings/Cumming_2014.pdf)                                                                                                                                                                                                                                                       | Quiz 6 |                   |
-| \-     | 11/14 | Open Science and Wrap-up               | [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/) [Simmons, Nelson, & Simonshon, 2016 (blog)](https://datacolada.org/64)                                                                                                                                                                                                                                                                            |        |                   |
-| \-     | 11/15 | *Lab: No Lab*                          |                                                                                                                                                                                                                                                                                                                                                           |        | HW 2 Due          |
-| 8      | 11/19 | One-sample tests                       | LSR Ch 13.1-13.2                                                                                                                                                                                                                                                                                                                                          | Quiz 7 |                   |
-| \-     | 11/21 | Comparing two means (paired)           | LSR Ch 13.3-13.11                                                                                                                                                                                                                                                                                                                                         |        |                   |
-| \-     | 11/22 | *Lab: One- and paired-samples t-tests* |                                                                                                                                                                                                                                                                                                                                                           |        |                   |
-| 9      | 11/26 | Something different: RMarkdown         |                                                                                                                                                                                                                                                                                                                                                           | Quiz 8 |                   |
-| \-     | 11/28 | **Thanksgiving**                       |                                                                                                                                                                                                                                                                                                                                                           |        |                   |
-| \-     | 11/29 | *Lab: No Lab*                          |                                                                                                                                                                                                                                                                                                                                                           |        |                   |
-| 10     | 12/03 | Comparing two means (independent)      |                                                                                                                                                                                                                                                                                                                                                           |        |                   |
-| \-     | 12/05 | Effect sizes and assumptions           |                                                                                                                                                                                                                                                                                                                                                           | Quiz 9 |                   |
-| \-     | 12/06 | *Lab: Independent samples t-tests*     |                                                                                                                                                                                                                                                                                                                                                           |        |                   |
-| Finals | 12/09 |                                        |                                                                                                                                                                                                                                                                                                                                                           |        |                   |
-| \-     | 12/11 |                                        |                                                                                                                                                                                                                                                                                                                                                           |        | HW 3 Due [^2] 9am |
+
+<table>
+  <thead>
+    <tr>
+    <th style="width: 7%;text-align: left;">Week</th>
+    <th style="width: 7%;text-align: left;">Date</th>
+    <th style="width: 25%;text-align: left;">Topic</th>
+    <th style="width: 40%;text-align: left;">Readings</th>
+    <th style="width: 10%;text-align: left;">Quiz</th>
+    <th style="width: 10%;text-align: left;">Homework</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+      <td>1</td>
+      <td>10/01</td>
+      <td>Introduction and overview</td>
+      <td>LSR Ch 1 & 3</td>
+      <td></td>
+      <td></td>
+    </tr>
+    
+    <tr>
+      <td></td>
+      <td>10/03</td>
+      <td>Research Methods</td>
+      <td>LSR CH 2 & 4, [Rothman et al. (2013)](readings/Rothman_2013.pdf)[^1]</td>
+      <td></td>
+      <td></td>
+    </tr>
+    
+    <tr>
+      <td></td>
+      <td>10/04</td>
+      <td><em>Lab: Introduction to R</em></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    
+    <tr>
+      <td>2</td>
+      <td>10/08</td>
+      <td>Latent variables and psychometrics</td>
+      <td>Podcast: <a href="https://quantitudepod.org/episode-9-grumpy-old-man-village-idiot-argue-about-reliability/">Quantitude, S1E09 -- Grumpy Old Man & Village Idiot Argue About Reliability</a>, <a href="readings/bringmann_etal_2022.pdf">Bringmann et al., 2022</a></td>
+      <td>Quiz 1</td>
+      <td></td>
+    </tr>
+    
+    <tr>
+      <td></td>
+      <td>10/10</td>
+      <td>Describing data</td>
+      <td>LSR Ch 5 & 6</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>10/11</td>
+      <td><em>Lab: R basics and descriptives</em></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>10/15</td>
+      <td>Describing data</td>
+      <td><a href="readings/Ozer_Funder_2019.pdf">Ozer & Funder (2019)</a></td>
+      <td>Quiz 2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>10/17</td>
+      <td>Probability</td>
+      <td>LSR Intro to Part IV and Ch 9.1-9.3, <a href="readings/Wetzels_etal_2011.pdf">Wetzels et al. (2011)</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>10/18</td>
+      <td><em>Lab: Functional programming</em></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>10/22</td>
+      <td>Probability</td>
+      <td>LSR Ch 9.4</td>
+      <td>Quiz 3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>10/24</td>
+      <td>Probability</td>
+      <td>LSR Ch 9.5-9.6</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>10/25</td>
+      <td><em>Lab: Probability distributions</em></td>
+      <td></td>
+      <td></td>
+      <td>HW 1 Due</td>
+    </tr>
+    <tr>
+          <td>5</td>
+      <td>10/29</td>
+      <td>Sampling</td>
+      <td>LSR Ch 10</td>
+      <td>Quiz 4</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>10/31</td>
+      <td>Hypothesis testing</td>
+      <td>LSR Ch 11</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>11/01</td>
+      <td><em>Lab: Data wrangling</em></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>11/05</td>
+      <td>Hypothesis testing</td>
+      <td><a href="readings/Sainani_2012.pdf">Sainani (2012)</a></td>
+      <td>Quiz 5</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>11/07</td>
+      <td>Hypothesis testing</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>11/08</td>
+      <td><em>Lab: Graphing with ggplot2</em></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>11/12</td>
+      <td>Critiques of hypothesis testing</td>
+      <td><a href="readings/Simmons_etal_2011.pdf">Simmons et al. (2011)</a>, <a href="readings/Cumming_2014.pdf">Cumming (2014)</a></td>
+      <td>Quiz 6</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>11/14</td>
+      <td>Open Science and Wrap-up</td>
+      <td><a href="https://fivethirtyeight.com/features/science-isnt-broken/">Five Thirty Eight</a>, <a href="https://datacolada.org/64">Simmons, Nelson, & Simonshon, 2016 (blog)</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>11/15</td>
+      <td><em>Lab: No Lab</em></td>
+      <td></td>
+      <td></td>
+      <td>HW 2 Due</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>11/19</td>
+      <td>One-sample tests</td>
+      <td>LSR Ch 13.1-13.2</td>
+      <td>Quiz 7</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>11/21</td>
+      <td>Comparing two means (paired)</td>
+      <td>LSR Ch 13.3-13.11</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>11/22</td>
+      <td><em>Lab: One- and paired-samples t-tests</em></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>11/26</td>
+      <td>Something different: RMarkdown</td>
+      <td></td>
+      <td>Quiz 8</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>11/28</td>
+      <td><strong>Thanksgiving</strong></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>11/29</td>
+      <td><strong>Lab: No Lab</strong></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>12/03</td>
+      <td>Comparing two means (independent)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>12/05</td>
+      <td>Effect sizes and assumptions</td>
+      <td></td>
+      <td>Quiz 9</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>12/06</td>
+      <td><em>Lab: Independent-samples t-tests</em> </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+     <tr>
+      <td>Finals</td>
+      <td>12/09</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>HW 3 Due[^2] 9am</td>
+    </tr>
+    
+  </tbody>
+</table>
+                            
 
 [^1]: There are several great commentaries on this article that I would encourage you to read. They are: - [Richiardi et al. (2013).](readings/Richiardi_2013.pdf) Representativeness is usually not necessary and often should be avoided. - [Nohr et al. (2013).](readings/Nohr_2013.pdf) Epidemiologists have debated representativeness for more than 40 years---has the time come to move on? - [Elwood (2013).](readings/Elwood_2013.pdf) On representativeness - [Ebrahim et al. (2013).](readings/Ebrahim_2013.pdf) Should we always deliberately be non-representative?
 
-[^2]: Final grades are due the following Tuesday, so there are limited opportunities to redo this particular assignment for points. I will do my best to grade these within 24 hours of receipt so you have a chance to retry any missed points. Consider Friday 12/9 at 9am PT the last possible time to submit this assignment.
+[^2]: Final grades are due the following Tuesday, so there are limited opportunities to redo this particular assignment for points. I will do my best to grade these within 24 hours of receipt so you have a chance to retry any missed points. Consider Friday 12/13 at 9am PT the last possible time to submit this assignment.
 
 **Final:** Oral exam will take place the week of December 9.
 
