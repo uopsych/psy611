@@ -25,7 +25,7 @@ editor: visual
 
 ## Goals of this sequence
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 -   Develop the basic quantitative skills necessary to be a research scientist
     -   Not all the skills you will need (not the only courses you need)
@@ -37,7 +37,7 @@ editor: visual
     -   Building a toolbox, not a cookbook
     -   How can I use this? Under what circumstances? When should I not use this?
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -102,9 +102,8 @@ Goal: don't just do the test, understand what the test does, why you might want 
 
 ## Graduate school vs undergraduate
 
-::: columns
-::: {.column width="50%"}
-
+::::::: columns
+:::: {.column width="50%"}
 **Undergraduate**
 
 ::: incremental
@@ -112,10 +111,9 @@ Goal: don't just do the test, understand what the test does, why you might want 
 -   Receive grade and (maybe) feedback
 -   Move on to next assignment
 :::
+::::
 
-:::
-::: {.column width="50%"}
-
+:::: {.column width="50%"}
 **Graduate**
 
 ::: incremental
@@ -125,8 +123,8 @@ Goal: don't just do the test, understand what the test does, why you might want 
 -   Receive feedback
 -   ... rinse, repeat...
 :::
-:::
-:::
+::::
+:::::::
 
 ------------------------------------------------------------------------
 
@@ -148,9 +146,9 @@ Goal: don't just do the test, understand what the test does, why you might want 
 ------------------------------------------------------------------------
 
 ## Format
-::: columns
-::: {.column width="50%"}
 
+::::::: columns
+:::: {.column width="50%"}
 ::: incremental
 -   Learn
     -   Lectures
@@ -160,16 +158,17 @@ Goal: don't just do the test, understand what the test does, why you might want 
     -   Weekly Quizzes (9 total)
     -   Homework (3 total)
 :::
-:::
-::: {.column width="50%"}
+::::
+
+:::: {.column width="50%"}
 ::: incremental
 -   Demonstrate mastery
     -   Oral exam
 -   Get support
     -   Journals (10 total)
 :::
-:::
-:::
+::::
+:::::::
 
 ::: notes
 There will be some overlap between the readings and lectures, and also between readings and lab. Sometimes there will be overlap between lab and lecture but not always. The goal of this term is to help give you the foundations you need in theory and in tools. We'll put them together more in 612.
@@ -208,15 +207,6 @@ The library also has R consultants (GEs) available during most work hours to hel
 
 ------------------------------------------------------------------------
 
-# COVID
-
--   All class sessions are in person (for now)
--   I have been quadruple vaccinated
--   Balancing safety with learning
--   Lectures recorded
-
-------------------------------------------------------------------------
-
 # Questions?
 
 -   Please read the rest of the syllabus on your own.
@@ -246,8 +236,6 @@ Descriptive -- about the data Inferential -- about the world - assessing risk or
 -   Exploratory
 -   Confirmatory
 
-. . .
-
 ::: center
 Exploratory ---------------------------------------- Confirmatory
 :::
@@ -267,14 +255,11 @@ Really more of a continuum
 -   Experimental
 -   Observational
 
-
-
 Typically we pair some kinds of statistical tests with experimental work and other kinds of tests with observational work. Examples?
 
 ------------------------------------------------------------------------
 
 ## Kinds of research
-
 
 In reality, most statistical tests can be used with most kinds of research. It's not so much the kind of research that matters, but **which statistic helps to answer your question** and **what types of variables do you have?**
 
@@ -342,7 +327,7 @@ Pick one of the following constructs and come up with four ways of measuring it 
 
 ## Scales of measurement
 
-::: columns
+:::::: columns
 ::: {.column width="50%"}
 -   Nominal
 
@@ -353,7 +338,7 @@ Pick one of the following constructs and come up with four ways of measuring it 
 -   Ratio
 :::
 
-::: {.column width="50%"}
+:::: {.column width="50%"}
 **Why does this matter?**
 
 ::: incremental
@@ -363,14 +348,14 @@ Pick one of the following constructs and come up with four ways of measuring it 
 
     -   Example: If Bobby scores 3 and Megan scores 6, can we say Megan scored twice as high as Bobby?
 :::
-:::
-:::
+::::
+::::::
 
 ------------------------------------------------------------------------
 
 ## Scales of measurement
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 -   Nominal
 
@@ -386,7 +371,7 @@ Pick one of the following constructs and come up with four ways of measuring it 
 
 -   "On a scale from 1 to 6, how much does the word *outgoing* describe you?"
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -401,7 +386,7 @@ Two types
 
 ## Scales of measurement
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 -   Nominal
 
@@ -416,7 +401,7 @@ Two types
 -   Categorical
 -   Continuous
 :::
-:::
+:::::
 
 How do these two methods of describing scales match up?
 
