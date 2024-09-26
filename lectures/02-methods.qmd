@@ -17,8 +17,7 @@ editor: visual
 -   Download and install R/Rstudio before lab tomorrow.
 :::
 
- 
-From the library: 
+From the library:
 
 The library also offers free short workshops. This term, we are offering workshops on R, Python, GitHub, using Zotero to manage your citations, and more. Our Friday lunch chats (Coffee + Data && Code) offer a great opportunity to meet folks interested in data and code from across the university.
 
@@ -56,14 +55,14 @@ Our basic goal in science is to make inferences about the causal relations betwe
 
 ------------------------------------------------------------------------
 
-::: columns
+:::::: columns
 ::: {.column width="60%"}
 We can't do that directly, so we rely on proxies for those constructs.
 
 ![](images/intro_operation.jpg)
 :::
 
-::: {.column width="40%"}
+:::: {.column width="40%"}
 In order to infer that A --\> B, we have to make three assumptions:
 
 ::: nonincremental
@@ -71,8 +70,8 @@ In order to infer that A --\> B, we have to make three assumptions:
 -   Y is a good proxy for B
 -   X and Y are causally related
 :::
-:::
-:::
+::::
+::::::
 
 ------------------------------------------------------------------------
 
@@ -153,8 +152,8 @@ confounds = Other explanations are ruled less plausible
 
 ### Threats to internal validity
 
-::: columns
-::: {.column width="50%"}
+::::: columns
+:::: {.column width="50%"}
 ::: nonincremental
 -   ambiguous temporal precedence
 
@@ -172,15 +171,15 @@ confounds = Other explanations are ruled less plausible
 
 -   instrumentation
 :::
-:::
-:::
+::::
+:::::
 
 ------------------------------------------------------------------------
 
 ### Threats to internal validity
 
-::: columns
-::: {.column width="50%"}
+:::::: columns
+:::: {.column width="50%"}
 ::: nonincremental
 -   [**ambiguous temporal precedence**]{style="color: purple;"}
 
@@ -198,7 +197,7 @@ confounds = Other explanations are ruled less plausible
 
 -   instrumentation
 :::
-:::
+::::
 
 ::: {.column width="50%"}
 Temporal precedence can be established in an experiment because treatment precedes outcome.
@@ -207,7 +206,7 @@ But, when treatment is not possible, then logic and common sense can sometimes d
 
 -   prenatal nutrition and cognitive development
 :::
-:::
+::::::
 
 ::: notes
 or depression and cancer
@@ -217,8 +216,8 @@ or depression and cancer
 
 ### Threats to internal validity
 
-::: columns
-::: {.column width="50%"}
+:::::: columns
+:::: {.column width="50%"}
 ::: nonincremental
 -   ambiguous temporal precedence
 
@@ -236,7 +235,7 @@ or depression and cancer
 
 -   instrumentation
 :::
-:::
+::::
 
 ::: {.column width="50%"}
 Any systematic differences between groups that might account for an observed effect.
@@ -245,7 +244,7 @@ example: Test scores of students who visit the Psychology tutoring center vs stu
 
 How to combat this?
 :::
-:::
+::::::
 
 ::: notes
 Combat this with random assignment.
@@ -255,8 +254,8 @@ Combat this with random assignment.
 
 ### Threats to internal validity
 
-::: columns
-::: {.column width="50%"}
+:::::: columns
+:::: {.column width="50%"}
 ::: nonincremental
 -   ambiguous temporal precedence
 
@@ -274,21 +273,21 @@ Combat this with random assignment.
 
 -   instrumentation
 :::
-:::
+::::
 
 ::: {.column width="50%"}
 Even if random assignment is used, participants may drop out of the study, producing unequal groups, a situation that has the same inferential problems as selection.
 
 How could the design be modified and statistics used to help rule out selection and attrition confounds?
 :::
-:::
+::::::
 
 ------------------------------------------------------------------------
 
 ### Threats to internal validity
 
-::: columns
-::: {.column width="50%"}
+:::::: columns
+:::: {.column width="50%"}
 ::: nonincremental
 -   ambiguous temporal precedence
 
@@ -306,20 +305,19 @@ How could the design be modified and statistics used to help rule out selection 
 
 -   instrumentation
 :::
-:::
+::::
 
 ::: {.column width="50%"}
 History refers to any event that occurs between the beginning of treatment and the measurement of outcome that might have produced the observed effect.
-
 :::
-:::
+::::::
 
 ------------------------------------------------------------------------
 
 ### Threats to internal validity
 
-::: columns
-::: {.column width="50%"}
+:::::: columns
+:::: {.column width="50%"}
 ::: nonincremental
 -   ambiguous temporal precedence
 
@@ -337,19 +335,19 @@ History refers to any event that occurs between the beginning of treatment and t
 
 -   instrumentation
 :::
-:::
+::::
 
 ::: {.column width="50%"}
 Ex: A marketing campaign intended to increase beer sales happens to coincide with other events that might have the same effect: a particularly hot period of weather, a long losing streak by the Detroit Tigers, or the Republican National Convention. How would these threats be eliminated?
 :::
-:::
+::::::
 
 ------------------------------------------------------------------------
 
 ### Threats to internal validity
 
-::: columns
-::: {.column width="50%"}
+:::::: columns
+:::: {.column width="50%"}
 ::: nonincremental
 -   ambiguous temporal precedence
 
@@ -367,19 +365,19 @@ Ex: A marketing campaign intended to increase beer sales happens to coincide wit
 
 -   instrumentation
 :::
-:::
+::::
 
 ::: {.column width="50%"}
 Maturation refers to changes in the organism that occur regardless of treatment and that may look like a treatment effect.
 :::
-:::
+::::::
 
 ------------------------------------------------------------------------
 
 ### Threats to internal validity
 
-::: columns
-::: {.column width="50%"}
+:::::: columns
+:::: {.column width="50%"}
 ::: nonincremental
 -   ambiguous temporal precedence
 
@@ -397,19 +395,19 @@ Maturation refers to changes in the organism that occur regardless of treatment 
 
 -   instrumentation
 :::
-:::
+::::
 
 ::: {.column width="50%"}
 Ex: A school-wide educational intervention is predicted to increase achievement test scores. The entire school must get the same curriculum, so a control group in the school is not possible. How can the threat be reduced?
 :::
-:::
+::::::
 
 ------------------------------------------------------------------------
 
 ### Threats to internal validity
 
-::: columns
-::: {.column width="50%"}
+:::::: columns
+:::: {.column width="50%"}
 ::: nonincremental
 -   ambiguous temporal precedence
 
@@ -427,7 +425,7 @@ Ex: A school-wide educational intervention is predicted to increase achievement 
 
 -   instrumentation
 :::
-:::
+::::
 
 ::: {.column width="50%"}
 Regression (to the mean) occurs when participants are selected because of their extreme scores and those scores are unreliable. The scores will regress toward the mean at the second assessment
@@ -436,7 +434,7 @@ Ex: *Sports Illustrated* cover jinx
 
 How might this problem be reduced?
 :::
-:::
+::::::
 
 ::: notes
 Reduce with - random assignment - selection based on multiple measurements
@@ -446,8 +444,8 @@ Reduce with - random assignment - selection based on multiple measurements
 
 ### Threats to internal validity
 
-::: columns
-::: {.column width="50%"}
+:::::: columns
+:::: {.column width="50%"}
 ::: nonincremental
 -   ambiguous temporal precedence
 
@@ -465,7 +463,7 @@ Reduce with - random assignment - selection based on multiple measurements
 
 -   instrumentation
 :::
-:::
+::::
 
 ::: {.column width="50%"}
 Testing refers to the possible change that may occur just because participants have been previously measured. These are often called practice or fatigue effects.
@@ -474,14 +472,14 @@ Ex: Students do better on the first half of test compared to the second. Ex: Stu
 
 Without adding a control group, how might this threat be reduced?
 :::
-:::
+::::::
 
 ------------------------------------------------------------------------
 
 ### Threats to internal validity
 
-::: columns
-::: {.column width="50%"}
+:::::: columns
+:::: {.column width="50%"}
 ::: nonincremental
 -   ambiguous temporal precedence
 
@@ -499,7 +497,7 @@ Without adding a control group, how might this threat be reduced?
 
 -   [**instrumentation**]{style="color: purple;"}
 :::
-:::
+::::
 
 ::: {.column width="50%"}
 Change may occur because the measurement changes over time, perhaps becoming more or less reliable.
@@ -508,7 +506,7 @@ Instrumentation reflects changes in the measurement; testing reflects changes in
 
 "When a measure becomes a target, it ceases to be a good measure." (Goodhart)
 :::
-:::
+::::::
 
 ------------------------------------------------------------------------
 
@@ -560,16 +558,15 @@ However:
 
 -   Now's a great time to pause and reflect on validity in general. Some kinds of validity are essential: statistical conclusion, construct.
 
--   Other types of validity (internal, external) are not necessary for every study, but should be the goals of a *program* of research. 
+-   Other types of validity (internal, external) are not necessary for every study, but should be the goals of a *program* of research.
 
 ------------------------------------------------------------------------
 
 ## Representativeness
 
-- What is this? What is it useful for?
+-   What is this? What is it useful for?
 
-- When is representativeness counterproductive?
-
+-   When is representativeness counterproductive?
 
 ::: notes
 Rothman argues that representativeness is not a reasonable requirement for scientific research.
@@ -588,9 +585,9 @@ sometimes better to oversample smaller populations
 For each of the following, would you say that representativeness (1) improves the study, (2) weakens the study, or (3) has no effect on the study?
 
 ::: nonincremental
-- polling to determine the frontrunner in the Oregon senatorial race
-- testing whether a new SSRI has side effects
-- developing a self-report measure of athleticism
+-   polling to determine the frontrunner in the Oregon senatorial race
+-   testing whether a new SSRI has side effects
+-   developing a self-report measure of athleticism
 :::
 
 ------------------------------------------------------------------------

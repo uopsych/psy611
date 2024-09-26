@@ -97,7 +97,7 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
     <tr>
       <td></td>
       <td>10/18</td>
-      <td><em>Lab: Functional programming</em></td>
+      <td><em>Lab: Rmarkdown</em></td>
       <td></td>
       <td></td>
       <td></td>
@@ -193,7 +193,7 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
     <tr>
       <td></td>
       <td>11/15</td>
-      <td><em>Lab: No Lab</em></td>
+      <td><em>Lab: Functional programming</em></td>
       <td></td>
       <td></td>
       <td>HW 2 Due</td>
@@ -225,7 +225,7 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
     <tr>
       <td>9</td>
       <td>11/26</td>
-      <td>Something different: RMarkdown</td>
+      <td>Catch up/TBD</td>
       <td></td>
       <td>Quiz 8</td>
       <td></td>
