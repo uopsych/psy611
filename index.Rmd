@@ -36,6 +36,15 @@ Office Hours: TBD
 **Zach Schroeder** -- [zschroe2@uoregon.edu](mailto:zschroe2@uoregon.edu)
 Office Hours: Tue/Thu 12p (Straub 439) [Week 1 held via Zoom](https://uoregon.zoom.us/j/97170375302?pwd=bKuFC2ck508rRtt3vGmlKGBTNTBJ0q.1)
 
+# Course objectives
+
+By the end of this course, students should be able to:
+
+  * Calculate and interpret basic descriptive statistics.
+  * Describe the theory underlying null hypothesis significance testing. 
+  * Conduct and interpret t-tests.
+  * Perform basic data analysis in R.
+
 # Materials
 
 ## Textbook
