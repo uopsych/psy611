@@ -20,15 +20,11 @@ editor_options:
 
 # This is a note for the next GE to teach this lab: there is too much stuff in here to cover! Don't delete anything, but you don't need to include all of this material in your lecture. 
 # 
-# You can skip downloading and installing. Skim the Aritmetic code (adding, multiplying), skim lists
+# You can skip downloading and installing. Skim the Arithmetic code (adding, multiplying), skim lists
 # 
-# Spend more time on projects and features of RStudios.
+# Spend more time on projects and features of RStudio.
 
 # Change the package that is installed and loaded the rio package -- make this the loading data into R section. Move packages/loading data to after functions and before Help.
-
-# Make sure you get to importing data into R!!
-
-# Change the package that is installed and loaded the rio package -- make this the loading data into R section
 
 # Make sure you get to importing data into R!!
 
