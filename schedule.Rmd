@@ -4,7 +4,7 @@ output:
   html_document:
     toc: TRUE
     toc_depth: 2
-    toc_float: FALSE
+    toc_float: TRUE
     theme: cosmo
 ---
 
@@ -25,7 +25,7 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 | Week | Date | Topic | Readings | Quiz | HW \| |
 |:-------|:-------|:-----------|:----------------------------|:------:|-------:|
 | 1 | 10/01 | Introduction and overview | LSR Ch 1 & 3 |  |  |
-|  | 10/03 | Research Methods | LSR CH 2 & 4, [Rothman et al. (2013)](readings/Rothman_2013.pdf)[\^1] |  |  |
+|  | 10/03 | Research Methods | LSR CH 2 & 4, [Rothman et al. (2013)](readings/Rothman_2013.pdf) |  |  |
 |  | 10/04 | *Lab: Introduction to R* WEEK 1 LAB HELD ON [ZOOM](https://uoregon.zoom.us/j/97575417905?pwd=j4qTO3a3mgSqvbIeNed81F4wibN8eP.1) |  |  |  |
 | 2 | 10/08 | Latent variables and psychometrics | Podcast: [Quantitude, S1E09 -- Grumpy Old Man & Village Idiot Argue About Reliability](https://quantitudepod.org/episode-9-grumpy-old-man-village-idiot-argue-about-reliability/), [Bringmann et al., 2022](readings/bringmann_etal_2022.pdf) | Quiz 1 |  |
 |  | 10/10 | Describing data | LSR Ch 5 & 6 |  |  |
@@ -54,7 +54,9 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 | 10 | 12/03 | Comparing two means (independent) |  |  |  |
 |  | 12/05 | Effect sizes and assumptions |  | Quiz 9 |  |
 |  | 12/06 | *Lab: Independent-samples t-tests* |  |  |  |
-| Finals | 12/09 |  |  |  | HW 3 Due[\^2] 9am |
+| Finals | 12/09 |  |  |  | HW 3 Due [^1] 9am |
+
+[^1]: Final grades are due the following Tuesday, so there are limited opportunities to redo this particular assignment for points. I will do my best to grade these within 24 hours of receipt so you have a chance to retry any missed points. Consider Friday 12/13 at 9am PT the last possible time to submit this assignment.
 
 **Final:** Oral exam will take place the week of December 9.
 
@@ -85,6 +87,8 @@ Late assignments will receive 50% of the points earned. For example, if you corr
 
 You may discuss homework assignments with your classmates; however, it is important that you complete each assignment on your own and do not simply copy someone else's code. If I believe one student has copied another's work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points.
 
+Homework assignments are submited on Canvas. To access our course Canvas site, log into canvas.uoregon.edu using your DuckID. If you have questions about using Canvas, visit the [Canvas support page](https://service.uoregon.edu/TDClient/2030/Portal/Requests/ServiceDet?ID=38635). Canvas and Technology Support also is available by phone (541-346-4357) or by [live chat on the Live Help webpage](http://livehelp.uoregon.edu/). 
+
 ## Journal entries
 
 Each week you'll complete a short journal entry on Canvas. To earn full points, you'll have to write at least 200 words about anything at all. This can include content related to the course, such as how well you feel you understand the material or how you see the material come up in other work. This can also include anything related to your personal life or mental health that you would like for me to know, such as whether you are struggling to balance classes and research, having trouble creating a workspace at home, or whether you can balance time spent on campus and off. This can also be completely random things, like a news article you can't stop thinking about, or musings on the mist-downpour continuum of Oregon weather. The content of what you write has *no impact* on your grade. In addition, what you write will be kept confidential.
@@ -110,6 +114,13 @@ Final grades (percentages) will be recorded with the registrar as the following 
 
 (Grades are rounded to the nearest whole number.)
 
+# Absences
+
+Attendance and participation is not required in this course. You do not need to alert the instructors if you will miss a class period. It is your responsibility to make up any missed quizzes. Quizzes can be taken at the end of the next class period or scheduled for a different time. 
+
+Difficult or complex situations that may impact attendance occur for many of us during a term. If you experience extended absence (6 class periods or 2 week) during the term, I may meet with you to gauge whether you are adequately mastering the course content or need a new plan to accommodate extraordinary circumstances. Your success is genuinely important to me. If challenges come up for you this term around attendance, please contact me as soon as you can. Together we can identify what resources or strategies might be available to support you and your learning. 
+
+
 # Materials needed
 
 We will be using R for all data wrangling, visualization, and analysis. You may not use another statistical program in this course. Students must have the latest version of R, which can be downloaded [here](https://ftp.osuosl.org/pub/cran/). It is strongly recommended that students also download the RStudio GUI, available [here](https://www.rstudio.com/products/rstudio/download/#download). Both softwares are free.
@@ -118,14 +129,84 @@ All reading assignments will be posted online.
 
 # Policies
 
-**Cheating and plagiarism.** Any student caught cheating on an assignment, quiz, or exam will receive a 0 on that assignment. Frankly, you're in graduate school, and the purpose of work is to create opportunities to learn and improve. Even if cheating helps you in the short term, you'll quickly find yourself ill-prepared for the career you have chosen. If you find yourself tempted to cheat, please come speak to Dr. Weston about an extension and developing tools to improve your success.
+## Communication
 
-**Students with special needs.** The UO works to create inclusive learning environments. If there are aspects of the instruction or design of this course that result in disability-related barriers to your participation, please notify me as soon as possible. You may also wish to contact Disability Services in 164 Oregon Hall at 541-346-1155 or [disabsrv\@uoregon.edu](mailto:disabsrv@uoregon.edu).
+If you have questions about course policies, have trouble submitting an assignment, or want to schedule a meeting with us, please email. We will make an effort to respond to emails wtihin one business day. Note that we neither plan nor commit to checking email outside of normal business hours (9am-5pm, Mon-Fri). 
 
-**COVID-19 related.** Masks are optional. Please be respectful of your peers' choices regarding masks. I (Sara) will be monitoring the university and county case counts and am prepared to update either the mask policy or the format of the course in response to rising cases. I will not be wearing a mask while lecturing in order to prioritize my being understood by students. We'll open windows whenever possible. Lectures will be recorded for students who would prefer more flexibility. If you are feeling unwell, please mask or stay home and use the recordings to keep up with the course.
+If you are having trouble understanding a concept covered in class, please come to office hours, schedule a meeting with us, or ask for clarification during class periods. We will not explain course concepts over email.  
 
-# Basic needs
+Occasionally, we will send out announcements to the entire class via Canvas announcements. These will typically appear when you open Canvas, but you can update your Canvas settings to receive these announcements as emails. It is strongly recommended that you do so.
 
-Any student who has difficulty affording groceries or accessing sufficient food to eat every day, or who lacks a safe and stable place to live and believes this may affect their performance in this course is urged to contact the Dean of Students Office (346-3216, 164 Oregon Hall) for support.
+Finally, you will receive feedback on homework assignments via Canvas.
 
-This UO web page includes resources for food, housing, health care, childcare, transportation, technology, finances, and legal support: <https://blogs.uoregon.edu/basicneeds/food/>
+
+## Classroom expectations
+
+All members of the class (both students and instructors) can expect to:
+
+_Participate and Contribute:_ All students are expected to participate by sharing ideas and contributing to the learning environment. This entails preparing, following instructions, and engaging respectfully and thoughtfully with others. 
+
+While all students should participate, participation is not just talking, and a range of participation activities support learning. Participation might look like speaking aloud in the full class and in small groups, writing in your weekly journal, and collaborating on homework assignments.
+
+
+_Expect and Respect Diversity:_ All classes at the University of Oregon welcome and respect diverse experiences, perspectives, and approaches. What is not welcome are behaviors or contributions that undermine, demean, or marginalize others based on race, ethnicity, gender, sex, age, sexual orientation, religion, ability, or socioeconomic status. We will value differences and communicate disagreements with respect.  
+
+_Help Everyone Learn:_ Part of how we learn together is by learning from one another. To do this effectively, we need to be patient with each other, identify ways we can assist others, and be open-minded to receiving help and feedback from others. Don’t hesitate to contact me to ask for assistance or offer suggestions that might help us learn better.
+
+## Workload
+
+This is a 4-credit hour course, so you should expect to complete 120 hours of work for the course—an average of about 12 hours each week (this includes time in-class).
+
+## Generative AI
+
+While generative AI tools (such as ChatGPT, DALL-E, or other language and image models) can be useful for assisting with certain tasks, it’s important to use these technologies responsibly and ethically.
+
+Good uses of AI: 
+
+  * exploring concepts, generating code ideas, and providing explanations for topics covered in the course. These tools can help clarify difficult concepts, debug code, or suggest alternative approaches to data analysis.
+  * create preliminary drafts of code, data analysis plans, or written reports. However, all AI-generated output must be reviewed, tested, and critically evaluated by the student. You are responsible for ensuring the accuracy and appropriateness of all content before submitting it.
+  * brainstorm research questions, identify key terms, or help summarize complex literature related to data analysis. However, students should verify any factual claims independently by consulting primary sources.
+
+Bad uses of AI: 
+
+* generate entire assignments, projects, or reports. This includes writing whole essays, coding entire projects, or automating data analysis tasks without manual oversight. Any such use will be considered academic misconduct.
+* be used in place of collaborating with peers.
+* submitting AI-generated content without proper attribution or passing it off as entirely your own work.
+
+Students who use AI tools in their coursework must include a brief statement at the end of their submission describing how and where the tool was used. For example: _Generative AI was used to suggest the structure of the code in the data visualization section._ Failure to disclose AI use may result in a grade reduction or further disciplinary action.
+
+Generative AI can be a helpful resource when used responsibly, but students must actively engage in their learning process. Reliance on AI at the expense of developing your own analytical skills will likely lead to poor performance, not just in this course, but your career more broadly.
+
+[Note: Generative AI was used to suggest the components of this policy.]
+
+
+## Cheating and plagiarism
+
+Any student caught cheating on an assignment, quiz, or exam will receive a 0 on that assignment. Frankly, you're in graduate school, and the purpose of work is to create opportunities to learn and improve. Even if cheating helps you in the short term, you'll quickly find yourself ill-prepared for the career you have chosen. If you find yourself tempted to cheat, please come speak to Dr. Weston about an extension and developing tools to improve your success.
+
+
+## Accessibility
+
+The University of Oregon and I are dedicated to fostering inclusive learning environments for all students and welcomes students with disabilities into all of the University's educational programs. The Accessible Education Center (AEC) assists students with disabilities in reducing campus-wide and classroom-related barriers. If you have or think you have a disability (https://aec.uoregon.edu/content/what-disability) and experience academic barriers, please contact the AEC to discuss appropriate accommodations or support. Visit 360 Oregon Hall or aec.uoregon.edu for more information. You can contact AEC at 541-346-1155 or via email at uoaec@uoregon.edu.
+
+## Basic needs
+
+Being able to meet your basic needs is foundational to your success as a student at the University of Oregon. If you are having difficulty affording food, don’t have a stable, safe place to live, or are struggling to meet another need, visit the [UO Basic Needs Resource page](https://blogs.uoregon.edu/basicneeds) for information on how to get support. They have information food, housing, healthcare, childcare, transportation, technology, finances (including emergency funds), and legal support.
+
+If your need is urgent, please contact the Care and Advocacy Program by calling 541-346-3216, filling out the [Community Care and Support form](https://cm.maxient.com/reportingform.php?UnivofOregon&layout_id=1), or by [scheduling an appointment](https://outlook.office365.com/owa/calendar/CareandAdvocacyProgram@uoregon.edu/bookings/) with an advocate.
+
+## Reporting obligations
+
+I am a designated reporter. For information about my reporting obligations as an employee, please see [Employee Reporting Obligations](https://investigations.uoregon.edu/employee-responsibilities) on the Office of Investigations and Civil Rights Compliance (OICRC) website. Students experiencing sex- or gender-based discrimination, harassment or violence should call the 24-7 hotline 541-346-SAFE [7244] or visit [safe.uoregon.edu](https://safe.uoregon.edu/) for help. Students experiencing all forms of prohibited discrimination or harassment may contact the Dean of Students Office at 541-346-3216 or the non-confidential Title IX Coordinator/OICRC at 541-346-3123 to request information and resources. Students are not required to participate in an investigation to receive support, including requesting academic supportive measures. Additional resources are available at [investigations.uoregon.edu/how-get-support](https://investigations.uoregon.edu/how-get-support).
+
+I am also a mandatory reporter of child abuse. Please find more information at [Mandatory Reporting of Child Abuse and Neglect](https://hr.uoregon.edu/mandatory-reporting-child-abuse-and-neglect).
+
+Pregnancy Modifications. Pregnant and parenting students are eligible for academic and work modifications related to pregnancy, childbirth, loss of pregnancy, termination of pregnancy, lactation, and related medical conditions. To request pregnancy-related modifications, students should complete the [Request for Pregnancy Modifications form](https://cm.maxient.com/reportingform.php?UnivofOregon&layout_id=108) on the OICRC website. OICRC coordinates academic and other modifications for pregnant and parenting students to ensure students can continue to access their education and university programs and activities.
+
+## Academic disruption due to campus emergency
+
+In the event of a campus emergency that disrupts academic activities, course requirements, deadlines, and grading percentages are subject to change. Information about changes in this course will be communicated as soon as possible by email, and on Canvas. If we are not able to meet face-to-face, students should immediately log onto Canvas and read any announcements and/or access alternative assignments. Students are also expected to continue coursework as outlined in this syllabus or other instructions on Canvas.
+
+## Inclement weather
+
+It is generally expected that class will meet unless the University is officially closed for inclement weather. If it becomes necessary to cancel class while the University remains open, this will be announced on Canvas and by email. Updates on inclement weather and closure are also communicated as described on the [Inclement Weather webpage](https://hr.uoregon.edu/inclement-weather-immediate-updates).

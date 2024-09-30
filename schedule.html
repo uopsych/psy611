@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -221,6 +224,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -228,6 +294,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -320,27 +396,6 @@ $(document).ready(function () {
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#weekly-schedule" id="toc-weekly-schedule">Weekly
-schedule</a></li>
-<li><a href="#graded-materials" id="toc-graded-materials">Graded
-materials</a>
-<ul>
-<li><a href="#quizzes" id="toc-quizzes">Quizzes</a></li>
-<li><a href="#homework-assignments"
-id="toc-homework-assignments">Homework assignments</a></li>
-<li><a href="#journal-entries" id="toc-journal-entries">Journal
-entries</a></li>
-<li><a href="#oral-exam" id="toc-oral-exam">Oral exam</a></li>
-</ul></li>
-<li><a href="#grades" id="toc-grades">Grades</a></li>
-<li><a href="#materials-needed" id="toc-materials-needed">Materials
-needed</a></li>
-<li><a href="#policies" id="toc-policies">Policies</a></li>
-<li><a href="#basic-needs" id="toc-basic-needs">Basic needs</a></li>
-</ul>
-</div>
 
 <style>
 table {
@@ -395,7 +450,7 @@ version</a> of the book.</p>
 <td align="left">10/03</td>
 <td align="left">Research Methods</td>
 <td align="left">LSR CH 2 &amp; 4, <a
-href="readings/Rothman_2013.pdf">Rothman et al. (2013)</a>[^1]</td>
+href="readings/Rothman_2013.pdf">Rothman et al. (2013)</a></td>
 <td align="center"></td>
 <td align="right"></td>
 </tr>
@@ -642,7 +697,8 @@ Thirty Eight</a>, <a href="https://datacolada.org/64">Simmons, Nelson,
 <td align="left"></td>
 <td align="left"></td>
 <td align="center"></td>
-<td align="right">HW 3 Due[^2] 9am</td>
+<td align="right">HW 3 Due <a href="#fn1" class="footnote-ref"
+id="fnref1"><sup>1</sup></a> 9am</td>
 </tr>
 </tbody>
 </table>
@@ -699,6 +755,13 @@ simply copy someone else’s code. If I believe one student has copied
 another’s work, both students will receive a 0 on the homework
 assignment and will not be allowed to resubmit the assignment for
 points.</p>
+<p>Homework assignments are submited on Canvas. To access our course
+Canvas site, log into canvas.uoregon.edu using your DuckID. If you have
+questions about using Canvas, visit the <a
+href="https://service.uoregon.edu/TDClient/2030/Portal/Requests/ServiceDet?ID=38635">Canvas
+support page</a>. Canvas and Technology Support also is available by
+phone (541-346-4357) or by <a href="http://livehelp.uoregon.edu/">live
+chat on the Live Help webpage</a>.</p>
 </div>
 <div id="journal-entries" class="section level2">
 <h2>Journal entries</h2>
@@ -773,6 +836,23 @@ following letter grades:</p>
 </table>
 <p>(Grades are rounded to the nearest whole number.)</p>
 </div>
+<div id="absences" class="section level1">
+<h1>Absences</h1>
+<p>Attendance and participation is not required in this course. You do
+not need to alert the instructors if you will miss a class period. It is
+your responsibility to make up any missed quizzes. Quizzes can be taken
+at the end of the next class period or scheduled for a different
+time.</p>
+<p>Difficult or complex situations that may impact attendance occur for
+many of us during a term. If you experience extended absence (6 class
+periods or 2 week) during the term, I may meet with you to gauge whether
+you are adequately mastering the course content or need a new plan to
+accommodate extraordinary circumstances. Your success is genuinely
+important to me. If challenges come up for you this term around
+attendance, please contact me as soon as you can. Together we can
+identify what resources or strategies might be available to support you
+and your learning.</p>
+</div>
 <div id="materials-needed" class="section level1">
 <h1>Materials needed</h1>
 <p>We will be using R for all data wrangling, visualization, and
@@ -786,45 +866,216 @@ Both softwares are free.</p>
 </div>
 <div id="policies" class="section level1">
 <h1>Policies</h1>
-<p><strong>Cheating and plagiarism.</strong> Any student caught cheating
-on an assignment, quiz, or exam will receive a 0 on that assignment.
-Frankly, you’re in graduate school, and the purpose of work is to create
-opportunities to learn and improve. Even if cheating helps you in the
-short term, you’ll quickly find yourself ill-prepared for the career you
-have chosen. If you find yourself tempted to cheat, please come speak to
-Dr. Weston about an extension and developing tools to improve your
-success.</p>
-<p><strong>Students with special needs.</strong> The UO works to create
-inclusive learning environments. If there are aspects of the instruction
-or design of this course that result in disability-related barriers to
-your participation, please notify me as soon as possible. You may also
-wish to contact Disability Services in 164 Oregon Hall at 541-346-1155
-or <a href="mailto:disabsrv@uoregon.edu">disabsrv@uoregon.edu</a>.</p>
-<p><strong>COVID-19 related.</strong> Masks are optional. Please be
-respectful of your peers’ choices regarding masks. I (Sara) will be
-monitoring the university and county case counts and am prepared to
-update either the mask policy or the format of the course in response to
-rising cases. I will not be wearing a mask while lecturing in order to
-prioritize my being understood by students. We’ll open windows whenever
-possible. Lectures will be recorded for students who would prefer more
-flexibility. If you are feeling unwell, please mask or stay home and use
-the recordings to keep up with the course.</p>
+<div id="communication" class="section level2">
+<h2>Communication</h2>
+<p>If you have questions about course policies, have trouble submitting
+an assignment, or want to schedule a meeting with us, please email. We
+will make an effort to respond to emails wtihin one business day. Note
+that we neither plan nor commit to checking email outside of normal
+business hours (9am-5pm, Mon-Fri).</p>
+<p>If you are having trouble understanding a concept covered in class,
+please come to office hours, schedule a meeting with us, or ask for
+clarification during class periods. We will not explain course concepts
+over email.</p>
+<p>Occasionally, we will send out announcements to the entire class via
+Canvas announcements. These will typically appear when you open Canvas,
+but you can update your Canvas settings to receive these announcements
+as emails. It is strongly recommended that you do so.</p>
+<p>Finally, you will receive feedback on homework assignments via
+Canvas.</p>
 </div>
-<div id="basic-needs" class="section level1">
-<h1>Basic needs</h1>
-<p>Any student who has difficulty affording groceries or accessing
-sufficient food to eat every day, or who lacks a safe and stable place
-to live and believes this may affect their performance in this course is
-urged to contact the Dean of Students Office (346-3216, 164 Oregon Hall)
-for support.</p>
-<p>This UO web page includes resources for food, housing, health care,
-childcare, transportation, technology, finances, and legal support: <a
-href="https://blogs.uoregon.edu/basicneeds/food/"
-class="uri">https://blogs.uoregon.edu/basicneeds/food/</a></p>
+<div id="classroom-expectations" class="section level2">
+<h2>Classroom expectations</h2>
+<p>All members of the class (both students and instructors) can expect
+to:</p>
+<p><em>Participate and Contribute:</em> All students are expected to
+participate by sharing ideas and contributing to the learning
+environment. This entails preparing, following instructions, and
+engaging respectfully and thoughtfully with others.</p>
+<p>While all students should participate, participation is not just
+talking, and a range of participation activities support learning.
+Participation might look like speaking aloud in the full class and in
+small groups, writing in your weekly journal, and collaborating on
+homework assignments.</p>
+<p><em>Expect and Respect Diversity:</em> All classes at the University
+of Oregon welcome and respect diverse experiences, perspectives, and
+approaches. What is not welcome are behaviors or contributions that
+undermine, demean, or marginalize others based on race, ethnicity,
+gender, sex, age, sexual orientation, religion, ability, or
+socioeconomic status. We will value differences and communicate
+disagreements with respect.</p>
+<p><em>Help Everyone Learn:</em> Part of how we learn together is by
+learning from one another. To do this effectively, we need to be patient
+with each other, identify ways we can assist others, and be open-minded
+to receiving help and feedback from others. Don’t hesitate to contact me
+to ask for assistance or offer suggestions that might help us learn
+better.</p>
+</div>
+<div id="workload" class="section level2">
+<h2>Workload</h2>
+<p>This is a 4-credit hour course, so you should expect to complete 120
+hours of work for the course—an average of about 12 hours each week
+(this includes time in-class).</p>
+</div>
+<div id="generative-ai" class="section level2">
+<h2>Generative AI</h2>
+<p>While generative AI tools (such as ChatGPT, DALL-E, or other language
+and image models) can be useful for assisting with certain tasks, it’s
+important to use these technologies responsibly and ethically.</p>
+<p>Good uses of AI:</p>
+<ul>
+<li>exploring concepts, generating code ideas, and providing
+explanations for topics covered in the course. These tools can help
+clarify difficult concepts, debug code, or suggest alternative
+approaches to data analysis.</li>
+<li>create preliminary drafts of code, data analysis plans, or written
+reports. However, all AI-generated output must be reviewed, tested, and
+critically evaluated by the student. You are responsible for ensuring
+the accuracy and appropriateness of all content before submitting
+it.</li>
+<li>brainstorm research questions, identify key terms, or help summarize
+complex literature related to data analysis. However, students should
+verify any factual claims independently by consulting primary
+sources.</li>
+</ul>
+<p>Bad uses of AI:</p>
+<ul>
+<li>generate entire assignments, projects, or reports. This includes
+writing whole essays, coding entire projects, or automating data
+analysis tasks without manual oversight. Any such use will be considered
+academic misconduct.</li>
+<li>be used in place of collaborating with peers.</li>
+<li>submitting AI-generated content without proper attribution or
+passing it off as entirely your own work.</li>
+</ul>
+<p>Students who use AI tools in their coursework must include a brief
+statement at the end of their submission describing how and where the
+tool was used. For example: <em>Generative AI was used to suggest the
+structure of the code in the data visualization section.</em> Failure to
+disclose AI use may result in a grade reduction or further disciplinary
+action.</p>
+<p>Generative AI can be a helpful resource when used responsibly, but
+students must actively engage in their learning process. Reliance on AI
+at the expense of developing your own analytical skills will likely lead
+to poor performance, not just in this course, but your career more
+broadly.</p>
+<p>[Note: Generative AI was used to suggest the components of this
+policy.]</p>
+</div>
+<div id="cheating-and-plagiarism" class="section level2">
+<h2>Cheating and plagiarism</h2>
+<p>Any student caught cheating on an assignment, quiz, or exam will
+receive a 0 on that assignment. Frankly, you’re in graduate school, and
+the purpose of work is to create opportunities to learn and improve.
+Even if cheating helps you in the short term, you’ll quickly find
+yourself ill-prepared for the career you have chosen. If you find
+yourself tempted to cheat, please come speak to Dr. Weston about an
+extension and developing tools to improve your success.</p>
+</div>
+<div id="accessibility" class="section level2">
+<h2>Accessibility</h2>
+<p>The University of Oregon and I are dedicated to fostering inclusive
+learning environments for all students and welcomes students with
+disabilities into all of the University’s educational programs. The
+Accessible Education Center (AEC) assists students with disabilities in
+reducing campus-wide and classroom-related barriers. If you have or
+think you have a disability (<a
+href="https://aec.uoregon.edu/content/what-disability"
+class="uri">https://aec.uoregon.edu/content/what-disability</a>) and
+experience academic barriers, please contact the AEC to discuss
+appropriate accommodations or support. Visit 360 Oregon Hall or
+aec.uoregon.edu for more information. You can contact AEC at
+541-346-1155 or via email at <a href="mailto:uoaec@uoregon.edu"
+class="email">uoaec@uoregon.edu</a>.</p>
+</div>
+<div id="basic-needs" class="section level2">
+<h2>Basic needs</h2>
+<p>Being able to meet your basic needs is foundational to your success
+as a student at the University of Oregon. If you are having difficulty
+affording food, don’t have a stable, safe place to live, or are
+struggling to meet another need, visit the <a
+href="https://blogs.uoregon.edu/basicneeds">UO Basic Needs Resource
+page</a> for information on how to get support. They have information
+food, housing, healthcare, childcare, transportation, technology,
+finances (including emergency funds), and legal support.</p>
+<p>If your need is urgent, please contact the Care and Advocacy Program
+by calling 541-346-3216, filling out the <a
+href="https://cm.maxient.com/reportingform.php?UnivofOregon&amp;layout_id=1">Community
+Care and Support form</a>, or by <a
+href="https://outlook.office365.com/owa/calendar/CareandAdvocacyProgram@uoregon.edu/bookings/">scheduling
+an appointment</a> with an advocate.</p>
+</div>
+<div id="reporting-obligations" class="section level2">
+<h2>Reporting obligations</h2>
+<p>I am a designated reporter. For information about my reporting
+obligations as an employee, please see <a
+href="https://investigations.uoregon.edu/employee-responsibilities">Employee
+Reporting Obligations</a> on the Office of Investigations and Civil
+Rights Compliance (OICRC) website. Students experiencing sex- or
+gender-based discrimination, harassment or violence should call the 24-7
+hotline 541-346-SAFE [7244] or visit <a
+href="https://safe.uoregon.edu/">safe.uoregon.edu</a> for help. Students
+experiencing all forms of prohibited discrimination or harassment may
+contact the Dean of Students Office at 541-346-3216 or the
+non-confidential Title IX Coordinator/OICRC at 541-346-3123 to request
+information and resources. Students are not required to participate in
+an investigation to receive support, including requesting academic
+supportive measures. Additional resources are available at <a
+href="https://investigations.uoregon.edu/how-get-support">investigations.uoregon.edu/how-get-support</a>.</p>
+<p>I am also a mandatory reporter of child abuse. Please find more
+information at <a
+href="https://hr.uoregon.edu/mandatory-reporting-child-abuse-and-neglect">Mandatory
+Reporting of Child Abuse and Neglect</a>.</p>
+<p>Pregnancy Modifications. Pregnant and parenting students are eligible
+for academic and work modifications related to pregnancy, childbirth,
+loss of pregnancy, termination of pregnancy, lactation, and related
+medical conditions. To request pregnancy-related modifications, students
+should complete the <a
+href="https://cm.maxient.com/reportingform.php?UnivofOregon&amp;layout_id=108">Request
+for Pregnancy Modifications form</a> on the OICRC website. OICRC
+coordinates academic and other modifications for pregnant and parenting
+students to ensure students can continue to access their education and
+university programs and activities.</p>
+</div>
+<div id="academic-disruption-due-to-campus-emergency"
+class="section level2">
+<h2>Academic disruption due to campus emergency</h2>
+<p>In the event of a campus emergency that disrupts academic activities,
+course requirements, deadlines, and grading percentages are subject to
+change. Information about changes in this course will be communicated as
+soon as possible by email, and on Canvas. If we are not able to meet
+face-to-face, students should immediately log onto Canvas and read any
+announcements and/or access alternative assignments. Students are also
+expected to continue coursework as outlined in this syllabus or other
+instructions on Canvas.</p>
+</div>
+<div id="inclement-weather" class="section level2">
+<h2>Inclement weather</h2>
+<p>It is generally expected that class will meet unless the University
+is officially closed for inclement weather. If it becomes necessary to
+cancel class while the University remains open, this will be announced
+on Canvas and by email. Updates on inclement weather and closure are
+also communicated as described on the <a
+href="https://hr.uoregon.edu/inclement-weather-immediate-updates">Inclement
+Weather webpage</a>.</p>
+</div>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>Final grades are due the following Tuesday, so there are
+limited opportunities to redo this particular assignment for points. I
+will do my best to grade these within 24 hours of receipt so you have a
+chance to retry any missed points. Consider Friday 12/13 at 9am PT the
+last possible time to submit this assignment.<a href="#fnref1"
+class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -857,6 +1108,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
