@@ -1,11 +1,10 @@
 ---
 title: 'Lab 1: Introduction to R and RStudio'
 output:
-  html_document:
+  html_document: 
     theme: cosmo
-    toc: yes
-    toc_depth: 3
-    toc_float: yes
+    toc: true
+    toc_float: true
   pdf_document:
     toc: yes
     toc_depth: '3'
@@ -15,25 +14,6 @@ output:
 editor_options:
   chunk_output_type: console
 ---
-
-```{r, eval = F}
-
-# This is a note for the next GE to teach this lab: there is too much stuff in here to cover! Don't delete anything, but you don't need to include all of this material in your lecture. 
-# 
-# You can skip downloading and installing. Skim the Aritmetic code (adding, multiplying), skim lists
-# 
-# Spend more time on projects and features of RStudios.
-
-# Change the package that is installed and loaded the rio package -- make this the loading data into R section. Move packages/loading data to after functions and before Help.
-
-# Make sure you get to importing data into R!!
-
-# Change the package that is installed and loaded the rio package -- make this the loading data into R section
-
-# Make sure you get to importing data into R!!
-
-```
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -83,21 +63,19 @@ A second piece of software that is not required to use R but is nonetheless usef
 
 1. Navigate to the webpage for the [Comprehensive R Archive Network](https://cran.r-project.org) (commonly referred to as CRAN).
 1. Under "Download and Install R" click the appropriate link for your operating system. For example, if you are using a Mac, you would click on [Download R for (Mac) OS X](https://cran.r-project.org/bin/macosx/).
-1. Click the link for the latest release. As of writing this (September, 2021), the newest version is `R 4.1.1. "Kick Things"` (all version nicknames are references to the [Peanuts comic strip](https://twitter.com/snoopy/status/976452382480531458)). I would click `R-4.1.1.pkg` to start the download.
+1. Click the link for the latest release. As of writing this (September, 2021), the newest version is `"4.4.1 "Race for Your Life" released on 2024/06/14"` (all version nicknames are references to the [Peanuts comic strip](https://twitter.com/snoopy/status/976452382480531458)). I would click `R-4.4.1.pkg` to start the download.
 1. Once the file is downloaded, click on it to open it. Your operating system should guide you through the rest of the installation process. 
 
 *Note.* The same steps are used to update the R Engine: You install a new version and replace the old version in the process. 
 
 ## Downloading RStudio {#download_rstudio}
-<!--1. Navigate to the webpage for [RStudio](https://www.rstudio.com).
-1. Click [Download RStudio](https://www.rstudio.com/products/rstudio/download/).
-1. Click the [Download](https://www.rstudio.com/products/rstudio/download/#download) listed under the free version. For our purposes (and, in fact, for most people's purposes) the free version is all that is needed.-->
+
 1. Navigate to the webpage for the free version of [RStudio](https://www.rstudio.com/products/rstudio/download/#download). For our purposes (and for most people's purposes) the free version of [RStudio](https://www.rstudio.com/products/rstudio/download/#download) is all that you need. The available installers are listed at the bottom of the page under the header "Installers for Supported Platforms."
-1. Select the installer for your operating system. Since I am using a macOS, I would click `RStudio-1.4.1717.dmg`.
-If you are using Windows 10, you would click `RStudio-1.4.1717.exe`.
+1. Select the installer for your operating system. Since I am using a macOS, I would click `RStudio-2024.09.0-375.dmg`.
+If you are using Windows 10, you would click `RStudio-2024.09.0-375.exe`.
 1. Once the file is downloaded, click on it to open it. Your operating system should guide you through the rest of the installation process. 
 
-*Note.* To update [RStudio](https://www.rstudio.com) after it is already installed, all you have to do is navigate to `Help > Check for Updates` in the menubar. 
+*Note.* To update [RStudio](https://www.rstudio.com) after it is already installed, all you have to do is navigate to `Help > Check for Updates` in the menu bar. 
 
 ***
 
@@ -190,7 +168,7 @@ knitr::include_graphics(here::here("labs", "resources", "lab1", "rmarkdown", "la
 
 The content of `R Markdown` documents can be split into two main types. I will call the first type *simple text*. Simple text will not be evaluated by the computer other than to be formatted according to markdown syntax. If you are answering a homework question or interpreting the results of an analysis, you will likely be using simple text. 
 
-Markdown syntax is used to format the simple text, such as italicizing words by enclosing them in asterisks (e.g., `*this is italicized*` becomes *this is italicized*) or bolding words by enclosing them in double-asterisks (e.g., `**this is bold**` becomes **this is bold**). For a quick rundown of what you can do with R Markdown formatting, I suggest you check out the Markdown section of the [R Markdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf). 
+Markdown syntax is used to format the simple text, such as italicizing words by enclosing them in asterisks (e.g., `*this is italicized*` becomes *this is italicized*) or bolding words by enclosing them in double-asterisks (e.g., `**this is bold**` becomes **this is bold**). For a quick rundown of what you can do with R Markdown formatting, I suggest you check out the Markdown section of the [R Markdown Cheat Sheet](https://rmarkdown.rstudio.com/lesson-15.html). 
 
 In addition to simple text, `R Markdown` documents support blocks (also called chunks) of R code. In contrast to simple text, the R code chunks **are** evaluated by the computer. The chunks are surrounded by ` ```{r} ` and ` ``` `. In the example image below, the `1 + 2` in the R Code chunk will be evaluated when the document is "knitted" (rendered). For your homeworks, you will want to include your analyses in these chunks. 
 
@@ -207,6 +185,19 @@ In order to knit an R Markdown document, you can either use the shortcut `comman
 </center>
 
 As shown in the above image, the simple text in the `R Markdown` document on the left was rendered into a formatted in the knitted document on the right. The equation in the code chunk was also evaluated in the knitted document, returning the value `3`.
+
+## Changing RStudio Theme
+
+RStudio has a wide collection of background and font colors. 
+From the top menu bar, click *Tools > Global Options > Appearance*. This will lead you to a screen that looks like this.
+
+<center>
+![](`r here::here("labs", "resources", "lab1", "rstudio", "lab1_rstudio_changefont.jpg")` "R Markdown Appearance Customization")
+</center>
+
+As a warning, choose your editor theme wisely, as once you get used to it, changing appearances can totally throw you off.
+
+Note: I use the custom font [firacode-retina](https://github.com/tonsky/FiraCode). This has unique symbols for many of the multi-character symbols we use. It just looks a little cleaner, but is totally personal preference.  
 
 ***
 
@@ -563,7 +554,7 @@ seq(from = 10, to = 50, by = 5)
 
 4. Using `mean()` and dollar sign notation (`data$column`), calculate the average number of appearances for all of the Marvel characters. Assign the result to a variable called `mean_appearances`.
 
-5. Install and load the package `ggplot2`.
+5. Install and load the package `ggplot2`. If you have installed the `tidyverse` package as part of the R bootcamp, `ggplot2` should already be installed.
 
 6. If you successfully completed the proceeding steps, you should be able to run the following code without producing an error. If you get an error, try to figure out why you are receiving the error. 
 
