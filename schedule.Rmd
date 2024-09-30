@@ -47,7 +47,7 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
     <tr>
       <td></td>
       <td>10/04</td>
-      <td><em>Lab: Introduction to R</em></td>
+      <td><em>Lab: Introduction to R</em> WEEK 1 LAB HELD ON <a href = "https://uoregon.zoom.us/j/97575417905?pwd=j4qTO3a3mgSqvbIeNed81F4wibN8eP.1">ZOOM</a></td>
       <td></td>
       <td></td>
       <td></td>
