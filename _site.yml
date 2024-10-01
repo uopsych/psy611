@@ -7,12 +7,12 @@ navbar:
       href: schedule.html
     - text: Lectures
       menu:
-      - text: "1-Intro"
-        href: "lectures/01-intro.html"
+        - text: "1-Intro"
+          href: "lectures/01-intro.html"
     - text: Labs
       menu:
-      - text: "Lab 1"
-	href: "labs/lab-1.html"
+        - text: "Lab 1"
+          href: "labs/lab-1.html"
     - text: Homework
       href: homework.html
     - text: Useful Material
@@ -23,14 +23,14 @@ navbar:
   right:
     - text: Previous Years
       menu:
-      - text: 2022
-        href: "https://uopsych.github.io/psy611_2022/"
-      - text: 2021
-        href: "https://uopsych.github.io/psy611_2021/"
-      - text: 2020
-        href: "https://uopsych.github.io/psy611_2020/"
-      - text: 2019
-        href: "https://uopsych.github.io/psy611_2019/"
+        - text: 2022
+          href: "https://uopsych.github.io/psy611_2022/"
+        - text: 2021
+          href: "https://uopsych.github.io/psy611_2021/"
+        - text: 2020
+          href: "https://uopsych.github.io/psy611_2020/"
+        - text: 2019
+          href: "https://uopsych.github.io/psy611_2019/"
     - icon: fa-github
       href: https://github.com/uopsych/psy611
 output:
