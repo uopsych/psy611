@@ -115,6 +115,18 @@ The final pane---the files/plots/packages/help pane--includes a number of helpfu
 
 Whenever you start a new research project, you should create a new *R Project.* The R project is a working directory where your `.RProj` file, scripts, data, images, etc. will live. Creating a folder that contains all of the files for your new research project will keep you organized and make it easy for others to download and reproduce your work. We will open up a new project for this class and call it `psy611`. 
 
+## Why Use R Projects?
+
+**1. Organization and Clarity**: R Projects help you keep everything in one place. By having a single folder for all your files, you minimize the risk of losing important pieces of your work. It also makes your workflow more structured since every file related to the project is easily accessible.
+
+**2. Portability**: If you need to work on another machine or share your project with collaborators, R Projects ensure that all paths are relative to your project directory. This means that anyone who has your project folder can immediately run your code without needing to manually adjust file paths.
+
+**3. Reproducibility**: Having a dedicated project folder with consistent file organization facilitates reproducibility, which is critical in academic research. Anyone accessing your project can quickly recreate your analyses by running your scripts within the project environment.
+
+**4. Automatic Setting of Working Directory**: When you work within an R Project, RStudio automatically sets your working directory to the project folder, reducing the need to manually set file paths each time you work on your code.
+
+**5. Version Control Compatibility**: If you're using Git or another version control system, R Projects make it easier to track changes across scripts and ensure smooth collaboration with other researchers.
+
 ## Creating a new project {#create_project}
 
 1. In order to create a new project in RStudio, click on the R icon with the plus sign in the top left corner of RStudio.
@@ -134,6 +146,20 @@ Whenever you start a new research project, you should create a new *R Project.* 
 2. You can nest folders within folders. For example, inside the `labs` folder, I want to create two more folders: a `scripts` folder and a `data` folder. 
 
 ![](`r here::here("labs", "resources", "lab1", "new_project", "psy611_labs_folder.JPG")` "Nested folders")
+
+### Tips for Organizing a Project
+
+- **Use Descriptive Folder Names**: Within your project folder, create subfolders with clear, descriptive names. For example, create folders like `data`, `scripts`, `figures`, and `output` to store different types of files.
+
+- **Naming Conventions**: Use consistent and descriptive names for your files and folders. This will help you keep track of your work and make it easier to find specific files when your project grows.
+
+- **Backups and Version Control**: Regularly back up your project folder. Consider using version control tools like Git to track changes and collaborate with others.
+
+- **Scripts vs. Output Separation**: Keep your analysis scripts in a separate folder from your data and output files. This ensures that scripts are reusable, and that your data and results stay uncluttered.
+
+### Accessing Your Project
+
+Once a project is set up, you can open it by clicking the `.Rproj` file located in your project folder. RStudio will open with all your settings and files as they were the last time you worked on the project.
 
 ***
 
@@ -162,7 +188,6 @@ knitr::include_graphics(here::here("labs", "resources", "lab1", "rmarkdown", "la
 <center>
 ![](`r here::here("labs", "resources", "lab1", "rmarkdown", "save_rmarkdown.JPG")` "Save RMarkdown")
 </center>
-
 
 ## Using an R Markdown Document
 
@@ -207,68 +232,95 @@ Note: I use the custom font [firacode-retina](https://github.com/tonsky/FiraCode
 
 As mentioned above, you can pass commands to the R-engine via the console. R has arithmetic commands for doing basic math operations, including addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`), and exponentiation (`^`).
 
-```{r, echo = FALSE, out.width = "175px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_addition.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_subtraction.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_multiplication.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_division.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_exponentiation.png"))
+```{r, echo = TRUE}
+10 + 5
+10 - 5
+10 * 5
+10 / 5
+10^5
 ```
 
 R will automatically follow the PEMDAS order of operations (BEDMAS if you are from Canada or New Zealand or India). Parentheses can be used to tell R what parts of the equation should be evaluated first. As shown below and as expected, `(10 + 5) * 2` is not equivalent to `10 + 5 * 2`.
 
-```{r, echo = FALSE, out.width = "175px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_paren.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "arithmetic", "lab1_noparen.png"))
+```{r}
+(10 + 5) * 2
+
+10 + 5 * 2
 ```
 
 ## Creating Variables {#variables}
 
 You can create variables using the assignment operator (`<-`). Whatever is on the left of the assignment operator is saved to name specified on the right of the assignment operator. I like to imagine that there is a box with a name on it and you are placing a value, inside of the box. For example, if we wanted to place `10` into a variable called `my_number`, we would write:
 
-```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_assign.png"))
+```{r}
+my_number <- 10
 ```
+
+##### Variables with a single numeric value are called `scalars`
 
 If we want to see what is stored in `my_number`, we can simply type `my_number` into the console and press `enter`. We are essentially asking the computer, "What's in the box with `my_number` written on it?"
 
-```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_peek.png"))
+```{r}
+my_number
 ```
 
 If we want to overwrite `my_number` with a new value, we simply assign a new value to `my_number`.
 
-```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_reassign.png"))
+```{r}
+my_number <- 20
 ```
 
 Looking at `my_number` again, we can see that it is now `20`.
 
-```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_peek2.png"))
+```{r}
+my_number
 ```
 
 We can treat variables just like we would the underlying values. For example, we can add `5` to `my_number` by using `+`.
 
-```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_var_add.png"))
+```{r}
+my_number + 5
 ```
+
 
 Keep in mind, the above operation does not save the result of `my_number + 5` to `my_number`. To do that, we would have to assign the result of `my_number + 5` to `my_number`.
 
-```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_reassign_add.png"))
+```{r}
+my_number <- my_number + 5
+
+my_number
 ```
 
 If we want to remove a variable from our environment, we can use `rm()`.
 
 ```{r, echo = FALSE, out.width = "450px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "lab1_rm.png"))
+rm(my_number)
 ```
+
+We can create multiple variables that are stored in the `environment` as long as they have different names.
+
+```{r}
+my_number_1 <- 1
+my_number_2 <- 2
+my_number_3 <- 3
+
+ls()  # This function calls everything in your environment
+```
+
+If you want to clear your `environment`, you can use the following function:
+
+```{r}
+rm(list = ls())  # Note that this uses the ls() function described above.
+
+ls()  # Check what's currently in the environment
+```
+
+
+There are generally agreed-upon style guidelines for how to name variables, files, and functions in R. For example, variables are usually named in *snake case*, where words are separated by an underscore (e.g., my_number). Functions are usually named in *camel case* where words are joined together but capitalized (e.g., writeNewFunction). I highly recommend looking at the [Tidyverse](https://style.tidyverse.org/index.html) guidelines and following them from the beginning of your journey in R - it'll save you a big headache in a few years.
 
 ### Types of Variables
 
-<!--If a variable only has one value associated with it, we call it a `scalar`.-->In R, there are four basic types of data: (1) `logical` values (also called `booleans`), which can either be `TRUE` or `FALSE`, (2) `integer` values, which can be any whole number (i.e.., a number without digits after the decimal place), (3) `double` values, which can be any number with digits before and after the decimal place, and (4) `character` values (also called `strings`), which are pieces of text enclosed in quotation marks (`"`).
+In R, there are four basic types of data: (1) `logical` values (also called `booleans`), which can either be `TRUE` or `FALSE`, (2) `integer` values, which can be any whole number (i.e.., a number without digits after the decimal place), (3) `double` values, which can be any number with digits before and after the decimal place, and (4) `character` values (also called `strings`), which are pieces of text enclosed in quotation marks (`"`).
 
 | Type            | Examples             |
 |-----------------|----------------------|   
@@ -277,56 +329,65 @@ knitr::include_graphics(here::here("labs", "resources", "lab1", "assignment", "l
 | Double          |   `10.50`,  `-10.50` |
 | Character       | `"Hello"`, `"World"` |
 
+###### The "L" after the number in integers comes from the C programming language, where it stands for *long*.
+
 ### Vectors
 
 #### Atomic Vectors
 
 A collection of values is called a `vector`. If they are all of the same type, we call them `atomic vectors`. In R, we use the `c()` command to concatenate (or combine) values into an `atomic vector`.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vector.png"))
+```{r, out.width = "350px"}
+c(10, 20, 20, 40, 50, 60)
 ```
 
 Just as we did with the `scalar` values above, we can assign a vector to a variable.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_assign.png"))
+```{r, out.width = "350px"}
+my_vector <- c(10, 20, 20, 40, 50, 60)
 ```
 
 To print out the entire vector, we simply type `my_vector` into the console.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_print.png"))
+```{r, out.width = "350px"}
+my_vector
 ```
 
 In order to select just one value from the vector, we use square brackets (`[]`). For example, if we wanted the third value from `my_vector` we would type `my_vector[3]`^[1](#foot_vector)^. 
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_index.png"))
+```{r, out.width = "350px"}
+my_vector[3]
 ```
 
 If we want to replace a specific value in a vector, we use the assignment operator (`<-`) in conjunction with the square brackets (`[]`).
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_index_assign.png"))
+```{r, out.width = "350px"}
+my_vector[3] <- 30
+my_vector
 ```
 
-As with single-value objects we can perform arithmetic operations on vectors, but the behaviour is not identical. If the vectors are the same length, each value from one vector will be paired with a corresponding value from the other vector. See below for an example of this in action.
+As with single-value objects we can perform arithmetic operations on vectors, but the behavior is not identical. If the vectors are the same length, each value from one vector will be paired with a corresponding value from the other vector. See below for an example of this in action.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_add.png"))
+```{r, out.width = "350px"}
+my_vector_2 <- c(1, 2, 3, 4, 5, 6)
+
+my_vector + my_vector_2
 ```
 
 If the vectors of different lengths, the shorter vector will be recycled (i.e., repeated) to be the same length as the longer vector.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_recycle.png"))
+```{r, out.width = "350px"}
+my_vector_3 <- c(1000, 2000)
+
+my_vector + my_vector_3
 ```
 
 This also works when the longer vector is not a multiple of the shorter vector, but you will get the warning: `longer object length is not a multiple of shorter object length`.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_vec_recycle_odd.png"))
+```{r, out.width = "350px"}
+my_vector_4 <- c(1000, 2000, 3000, 4000)
+
+my_vector + my_vector_4
 ```
 
 ***
@@ -339,8 +400,8 @@ knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1
 
 A vector that can accomodate more than one type of value (e.g., a `double` AND a `character`) is called a `list`. To create a `list`, we use `list()` instead of `c()`. If we wanted to create a vector with the values `5L`, `10`, `"fifteen"`, and `FALSE` we would use `list(5L, 10, "fifteen", FALSE)`.
 
-```{r, echo = FALSE, out.width = "300px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "vectors", "lab1_lists.png"))
+```{r, out.width = "300px"}
+list(5L, 10, "fifteen", FALSE)
 ```
 
 Although `lists` are an incredibly powerful type of data structure, dealing with them can be quite frustrating (especially for beginning coders). Since you are unlikely to need to know the inner workings of `list`s for anything we will be doing in this course, I have chosen not to include much about them here. However, as you become a more advanced user, learning to leverage lists will allow you to write code that is far more efficient.
@@ -352,89 +413,99 @@ In R you will mostly be working with `data frames`. A `data frame` is technicall
 Let's look at a `data frame` that is automatically loaded when you open R, `mtcars`. Type `mtcars` to print out the data frame. 
 
 ```{r, echo = FALSE, out.width = "600px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_mtcars.png"))
+print(mtcars)
+mtcars <- mtcars
 ```
 
 The data frame `mtcars` has a row for 32 cars featured in the *1974 Motor Trend* magazine. There is a column for the car's miles per gallon (`mpg`), number of cylinders (`cyl`), engine displacement (`disp`), horse power (`hp`), rear axle ratio (`drat`), weight in thousands of pounds (`wt`), quarter-mile time (`qsec`), engine shape (`vs`), transmission type (`am`), number of forward gears (`gear`), and number of carburetors (`carb`).
 
 With data frames, you can extract a value by including `[row, col]` immediately after the object. For example, if we wanted to extract the number of gears in the `Datsun 710` we could use `mtcars[3, 10]` to extract the value stored in the third row, tenth column.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_extract.png"))
+```{r, out.width = "350px"}
+mtcars[3, 10]
 ```
 
 Since the rows and columns have names, we can also be explicit and use the name of the row (`"Datsun  710"`) and the name of the column (`"gear"`) instead of the row and column indices.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_extract_explicit.png"))
+```{r, out.width = "350px"}
+mtcars["Datsun 710", "gear"]
 ```
 
 We can also extract an entire column by dropping the index value for the row. Since you don't specify a given row, the computer assumes you want all of the values in the column. For example, to extract all values stored in the gear column, we could use `[, 10]` or `[, "gear"]`.
 
-```{r, echo = FALSE, out.width = "700px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_col_extract.png"))
+```{r, out.width = "700px"}
+mtcars[, 10]
+
+mtcars[, "gear"]
 ```
 
 To extract an entire row, we drop the column index. To extract all of the values associated with the `Datsun 710`, we would drop the column index (e.g., `[3, ]` or `["Datsun 710", ]`)
 
-```{r, echo = FALSE, out.width = "700px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_row_extract.png"))
+```{r, out.width = "700px"}
+mtcars[3, ]
+
+mtcars["Datsun 710", ]
 ```
 
 You can also extract columns using `$` followed by the column name without quotes.
 
-```{r, echo = FALSE, out.width = "700px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_col_dollar.png"))
+```{r, out.width = "700px"}
+mtcars$gear
 ```
+
 
 If we want to extract multiple columns (or multiple rows) we use vectors. For example, if we wanted the number of gears and carburetors in the `Datsun 710` and the `Duster 360` we would use `[c("Datsun 710", "Duster 360"), c("gear", "carb")]` or `[c(3, 7), c(10:11)]`.
 
-```{r, echo = FALSE, out.width = "550px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "dataframes", "lab1_extract_vector.png"))
+```{r, out.width = "550px"}
+mtcars[c("Datsun 710", "Duster 360"), c("gear", "carb")]
+```
+
+```{r, out.width = "550px"}
+print(mtcars[c(3, 7), c(10:11)])
 ```
 
 ## Functions {#functions}
 
 Up to this point, we have been more-or-less directly telling R what we want it to do. This is great if we want to understand the processes that underlie R, but it can be incredibly time-consuming. Thankfully, we have functions. Functions are essentially pre-packaged snippets of code that take one or more pieces of input (called `arguments`) and return one or more pieces of output (called `values`). For example, `length()` is a function that takes a vector as its sole argument and returns the length of the vector as its sole value. 
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_length.png"))
+```{r, out.width = "350px"}
+length(c(10, 20, 30, 40, 50, 60))
 ```
 
 The function `unique()` also takes a vector as its primary argument, but---instead of returning the length of the vector as its value---it returns only the unique values of that vector.
 
-```{r, echo = FALSE, out.width = "600px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_unique.png"))
+```{r, out.width = "600px"}
+unique(c("cond_a", "cond_a", "cond_b", "cond_a", "cond_b"))
 ```
 
 The `mean()` function and `sd()` function are two functions that you will end up using a lot. The former (`mean()`) takes a numeric vector and returns the average of the vector.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_mean.png"))
+```{r, out.width = "350px"}
+mean(c(10, 20, 30, 40, 50, 60))
 ```
 
 The latter (`sd()`) also takes a numeric vector, but it returns the standard deviation of the vector instead.
 
-```{r, echo = FALSE, out.width = "350px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_sd.png"))
+```{r,out.width = "350px"}
+sd(c(10, 20, 30, 40, 50, 60))
 ```
 
 Although it is more conceptual, it is also useful to mention the `typeof()` function here. The function `typeof()` takes any object and tells you what type of variable it is.
 
-```{r, echo = FALSE, out.width = "225px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_type_int.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_type_double.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_type_character.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_type_logical.png"))
+```{r, out.width = "225px"}
+typeof(10L)
+typeof(10)
+typeof("hello")
+typeof(TRUE)
 ```
 
 Using the suite of `as.*()` functions (e.g., `as.numeric()`, `as.character()`, `as.logical()`, `as.integer()`), we can likewise coerce objects to other types.
 
-```{r, echo = FALSE, out.width = "225px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_as_num.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_as_char.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_as_logical.png"))
-knitr::include_graphics(here::here("labs", "resources", "lab1", "functions", "lab1_as_integer.png"))
+```{r, out.width = "225px"}
+as.numeric("10")
+as.character(10)
+as.logical(1)
+as.integer(10.30)
 ```
 
 ## Help Documentation
@@ -451,31 +522,27 @@ From the help documentation we can see that `sd()` takes two arguments: (1) An R
 
 Typically R will infer, based on the order of the arguments, what values correspond to which arguments. For example, since `sd()` expects that the argument `x` will be provided first and the argument `na.rm` will be provided second, the following works:
 
-```{r, echo = FALSE, out.width = "500px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "help_documentation", "lab1_sd.png"))
+```{r}
+sd(c(10, 20, 30, 40, 50, 60), FALSE)
 ```
 
 However, we can also explicitly tell R what values are associated with which arguments.
 
-```{r, echo = FALSE, out.width = "500px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "help_documentation", "lab1_sd_explicit.png"))
+```{r}
+sd(c(10, 20, 30, 40, 50, 60), na.rm = FALSE)
 ```
 
 The help documentation for a function often also includes an example of how to use the function and details on what the expected output will be.
-
 
 ## Googling your error message
 
 You will come across many messages in your time using RStudio. Some messages are error messages and some are warning messages. If a message says `warning message` then R was able to run the code but not as it was intended. An `error message` means that R was not able to run the code at all. Here is an example of code that would produce a warning message.
 
-```{r,eval=FALSE,out.width = "500px"}
+```{r,eval=TRUE, out.width = "500px"}
 
 mean(c(4,5,"6",7,5))
 
 ```
-
-
-![](`r here::here("labs", "resources", "lab1", "googling_error", "error_message_3.JPG")` "Google error message")
 
 When you get a warning or error message, and you aren't sure what it means, you should first try googling the message. Oftentimes, others have encountered your problem and have asked for help deciphering the message.
 
@@ -492,19 +559,25 @@ mean(c(4,5,as.numeric("6"),7,5))
 
 ```
 
-
 ## Comments
 
 Comments are pieces of code text that are not interpreted by the computer. In R we use the octothorpe/pound sign/hashtag (`#`) at the beginning of a line to denote a comment. The first and third line of code below are not evaluated, whereas the second and fourth line are.
 
 ```{r, echo = FALSE, out.width = "225px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "comments", "lab1_comment.png"))
+# 1 + 1
+2 + 2
+# 3 + 3
+4 + 4
 ```
 
 Comments are mostly used to remind yourself (or other people) *what* a piece of code does and *why* the code is written the way that it is. Below is a piece of code that checks if a string is a valid phone number. We can see that the comments explain, not only what each piece of code is doing, but also why the second piece of code was written the way that it was. 
 
-```{r, echo = FALSE, out.width = "900px"}
-knitr::include_graphics(here::here("labs", "resources", "lab1", "comments", "lab1_validate.png"))
+```{r}
+# assign the phone number
+phone_number <- "(541)-346-4921"
+
+# validate the phone number; I did not account for country codes because all of the numbers are either from the US or Canada
+grepl("^\\(?(\\d{3})\\)?(-| )*(\\d{3})(-| )*(\\d{4})$", phone_number)
 ```
 
 
