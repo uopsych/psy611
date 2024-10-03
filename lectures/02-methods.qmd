@@ -1,5 +1,5 @@
 ---
-title: "Research Methods"
+title: "Validity"
 format: 
   revealjs:
     multiplex: true
@@ -585,7 +585,8 @@ sometimes better to oversample smaller populations
 For each of the following, would you say that representativeness (1) improves the study, (2) weakens the study, or (3) has no effect on the study?
 
 ::: nonincremental
--   polling to determine the frontrunner in the Oregon senatorial race
+-   polling to determine the front runner in the Oregon senatorial race
+-   polling to determine the front runner in the presidential election
 -   testing whether a new SSRI has side effects
 -   developing a self-report measure of athleticism
 :::

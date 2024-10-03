@@ -20,7 +20,7 @@ See the [home page](https://uopsych.github.io/psy611) for course objectives and 
 
 # Weekly schedule
 
-LSR readings can be found in the free, online textbook, [*Learning Statistics with R*](https://learningstatisticswithr-bookdown.netlify.com/index.html) by Danielle Navarro. For those interested in taking notes, I recommend the use of the [Hypothes.is](http://Hypothes.is) app to annotate webpages. I will note that the formatting of the book online is wonky in a few places. If this bothers you, or you prefer to work offline, you can download a [PDF version](https://learningstatisticswithr.com/lsr-0.6.pdf) of the book.
+LSR readings can be found in the free, online textbook, [*Learning Statistics with R*](https://learningstatisticswithr.com/) by Danielle Navarro. For those interested in taking notes, I recommend the use of the [Hypothes.is](http://Hypothes.is) app to annotate webpages. I will note that the formatting of the book online is wonky in a few places. If this bothers you, or you prefer to work offline, you can download a [PDF version]https://learningstatisticswithr.com/lsr-0.6.pdf) of the book.
 
 | Week | Date | Topic | Readings | Quiz | HW \| |
 |:-------|:-------|:-----------|:----------------------------|:------:|-------:|

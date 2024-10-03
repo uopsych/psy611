@@ -49,7 +49,7 @@ By the end of this course, students should be able to:
 
 ## Textbook
 
-We will primarily be referring to chapters in [_Learning Statistics with R_](https://learningstatisticswithr-bookdown.netlify.com/index.html) by Danielle Navarro. This textbook is available for free online. You may choose to purchase a paper copy if you wish, but it is not required. Additional readings assignments will be posted here. 
+We will primarily be referring to chapters in [_Learning Statistics with R_](https://learningstatisticswithr.com/) by Danielle Navarro. This textbook is available for free online. You may choose to purchase a paper copy if you wish, but it is not required. Additional readings assignments will be posted here. 
 
 ## R and RStudio
 
