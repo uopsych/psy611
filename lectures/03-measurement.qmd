@@ -76,28 +76,14 @@ Once a concept has been clarified, the next step is to measure it. Usually, we f
 
 ## Quantitude podcast
 
--   According to Curran and Hancock, what is a latent variable?
-
--   What are some examples of latent variables in the podcast?
-
-::: notes
-From C&H
-
-Latent variables -- the things we cannot directly observe Variable -- individual differences on it A placeholder for the covariation among a set of variables.
-
-Is it missing for at least some of the observations in your dataset?
-
-Examples: depression, anxiety, the economy, the quality of a college/uni, Pandora music station, gravity, disease or underlying conditions
-:::
-
 ------------------------------------------------------------------------
 
 ### [Bollen (2002)](../readings/Bollen_2002.pdf)
 
 Definitions of latent variables:
 
-::: columns
-::: {.column width="50%"}
+::::::: columns
+:::: {.column width="50%"}
 Informal
 
 ::: nonincremental
@@ -105,9 +91,9 @@ Informal
 -   Unmeasureable
 -   Data reduction
 :::
-:::
+::::
 
-::: {.column width="50%"}
+:::: {.column width="50%"}
 Formal
 
 ::: nonincremental
@@ -115,8 +101,8 @@ Formal
 -   Expected value
 -   Nondeterministic function
 :::
-:::
-:::
+::::
+:::::::
 
 ::: notes
 Underlying assumption of these definitions: we measure latent variables using multiple observed variables
@@ -124,7 +110,7 @@ Underlying assumption of these definitions: we measure latent variables using mu
 
 ------------------------------------------------------------------------
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 Sample realization definition: A latent random (or nonrandom) variable is a random (or nonrandom) variable for which there is no sample realization for at least some observations in a given sample.
 :::
@@ -132,7 +118,7 @@ Sample realization definition: A latent random (or nonrandom) variable is a rand
 ::: {.column width="50%"}
 ![](images/sanjay_twitter.png)
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -235,7 +221,7 @@ Go through assumptions
 
 ### IAT
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 <img src="images/original_iat.png" height="500px"/>
 :::
@@ -243,7 +229,7 @@ Go through assumptions
 ::: {.column width="50%"}
 From Greenwald, McGhee, & Schwartz ([1998](https://pubmed.ncbi.nlm.nih.gov/9654756/))
 :::
-:::
+:::::
 
 ::: notes
 -   No exploration or tests of whether more captures latent variable
@@ -433,7 +419,7 @@ What is your conclusion?
 
 ------------------------------------------------------------------------
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ```{r, echo = F}
 expand.grid(
@@ -479,7 +465,7 @@ expand.grid(
   
 ```
 :::
-:::
+:::::
 
 Both panels are generated from the exact same monotonic curve, but with items of different difficulties.
 

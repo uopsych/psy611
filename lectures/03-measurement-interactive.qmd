@@ -1,0 +1,161 @@
+---
+title: "Measurement"
+format: 
+  revealjs:
+    multiplex: true
+    slide-number: true
+    theme: simple
+    incremental: true
+    touch: true
+editor: visual
+---
+
+```{r, include = F}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ggpubr)
+library(directlabels)
+options(knitr.kable.NA = '')
+```
+
+## Last time
+
+Validity (4 types)
+
+-   Construct
+-   Statistical Conclusion
+-   Internal
+-   External
+
+------------------------------------------------------------------------
+
+## Today
+
+More about construct validity and its role in scale development.
+
+-   BUT before we talk about construct validity, we must first discuss conceptual clarity.
+
+------------------------------------------------------------------------
+
+## Conceptual clarity ([Bringmann, Elmer, & Eronen, 2022](../readings/bringmann_etal_2022.pdf))
+
+-   Identifying and characterizing the concept of study
+    -   This is independent of measurement and must happen before measurement
+-   Why is conceptual clarity important?
+
+::: notes
+-   Especially with concepts from everyday life, there are often many ways to define the concept. (Bringmann and co describe friendship, but think of others)
+    -   Must have consistency when evaluating a concept in a systematic way (e.g., science)
+-   Importantly, statistics cannot provide evidence for conceptual clarity
+:::
+
+------------------------------------------------------------------------
+
+## How to evaluate and improve conceptual clarity
+
+-   Iterate, iterate, iterate
+-   Explicitly discuss in empirical (and non-empirical) work
+-   Justify the use of measures for concept
+-   Use multiple measures (multiverse analysis)
+
+------------------------------------------------------------------------
+
+## How to evaluate and improve conceptual clarity
+
+-   Conduct studies on concepts before studying how they relate to over variables, change over time, can be manipulated, etc.
+-   Use qualitative methods to understand how participants interpret measures.
+
+------------------------------------------------------------------------
+
+Once a concept has been clarified, the next step is to measure it.
+
+It wasn't assigned, but please read a great article by [Len Simms](https://uopsych.github.io/psy611/readings/Simms_2008.pdf)[^1]. This article focuses on the measurement using **survey** methods, but this logic extends to any measurement in which you aggregate multiple responses or scores.
+
+I'm going to use this article as a template for developing a new scale with you.
+
+------------------------------------------------------------------------
+
+## Phases of scale development
+
+:::::: columns
+:::: {.column width="25%"}
+::: columns
+As written by Jane Loevinger (1957) and summarized by Len Simms (2008)
+:::
+::::
+
+::: {.column width="75%"}
+![](images/scale-dev.png){width="593"}
+:::
+::::::
+
+------------------------------------------------------------------------
+
+Let's develop a scale for "academic stress."
+
+What are some specific aspects of academic stress?
+
+**Write the item pool**
+
+-   Items should be relevant and representative
+-   Seek to be over-inclusive
+
+::: notes
+...coursework pressure, deadlines, fear of failure, workload
+:::
+
+------------------------------------------------------------------------
+
+## Guidelines for good items:
+
+::::: columns
+::: {.column width="50%"}
+-   Simple and straight forward
+-   No double-barrels
+-   Avoid slang
+-   Phrase items generally
+-   Phrase items about sensitive topics using matter-of-fact and nonperjorative language
+:::
+
+::: {.column width="50%"}
+-   Choose response format carefully
+    -   Dichotomous vs polytomous
+    -   Number of options
+    -   Response categories
+    -   Phrasing of items should be consistent with response format
+:::
+:::::
+
+------------------------------------------------------------------------
+
+
+Add items here: <https://shorturl.at/rGg7m>
+
+
+------------------------------------------------------------------------
+
+## Next steps:
+
+* Take scale
+* Discuss items
+* Basic descriptives (mean and variance)
+* Item-total correlations
+* Alpha/Omega
+* Factor analysis
+
+
+------------------------------------------------------------------------
+
+Takeaways:
+* Be able to perform psychometric analysis from memory. 
+* (Kidding)
+* Scale development takes time, thought, iteration, and data. 
+
+------------------------------------------------------------------------
+
+## Next time...
+
+Describing data
+
+[^1]: Simms, L. J. (2008). Classical and modern methods of psychological scale construction. *Social and Personality Psychology Compass*, *2*(1), 414-433.

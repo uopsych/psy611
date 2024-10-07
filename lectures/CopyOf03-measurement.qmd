@@ -1,0 +1,194 @@
+---
+title: "Measurement"
+format: 
+  revealjs:
+    multiplex: true
+    slide-number: true
+    theme: simple
+    incremental: true
+    touch: true
+editor: visual
+---
+
+```{r, include = F}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ggpubr)
+library(directlabels)
+options(knitr.kable.NA = '')
+```
+
+## Last time
+
+Validity (4 types)
+
+-   Construct
+-   Statistical Conclusion
+-   Internal
+-   External
+
+------------------------------------------------------------------------
+
+## Today
+
+More about construct validity and its role in scale development.
+
+-   BUT before we talk about construct validity, we must first discuss conceptual clarity.
+
+------------------------------------------------------------------------
+
+## Conceptual clarity ([Bringmann, Elmer, & Eronen, 2022](../readings/bringmann_etal_2022.pdf))
+
+-   Identifying and characterizing the concept of study
+    -   This is independent of measurement and must happen before measurement
+-   Why is conceptual clarity important?
+
+::: notes
+-   Especially with concepts from everyday life, there are often many ways to define the concept. (Bringmann and co describe friendship, but think of others)
+    -   Must have consistency when evaluating a concept in a systematic way (e.g., science)
+-   Importantly, statistics cannot provide evidence for conceptual clarity
+:::
+
+------------------------------------------------------------------------
+
+## How to evaluate and improve conceptual clarity
+
+-   Iterate, iterate, iterate
+-   Explicitly discuss in empirical (and non-empirical) work
+-   Justify the use of measures for concept
+-   Use multiple measures (multiverse analysis)
+
+------------------------------------------------------------------------
+
+## How to evaluate and improve conceptual clarity
+
+-   Conduct studies on concepts before studying how they relate to over variables, change over time, can be manipulated, etc.
+-   Use qualitative methods to understand how participants interpret measures.
+
+------------------------------------------------------------------------
+
+Once a concept has been clarified, the next step is to measure it.
+
+Classical test theory states that:
+
+$$
+X = T + E
+$$
+
+X: Observed Score
+
+T: True Score
+
+E: error (random and unpredictable)
+
+------------------------------------------------------------------------
+
+Error is random and unpredictable.
+
+  * assumes that it has a mean of error approaches 0 as number of measurements increases.
+  * Thus, if we measure people enough "times", we can get a good sense of their true score.
+  
+How many times?
+
+------------------------------------------------------------------------
+
+Measuring people multiple times is often impractical and inefficient (and potentially theoretically wrong), so how can we remove measurement error during a single assessment?
+
+How many items we do we need? 
+
+------------------------------------------------------------------------
+
+## Reliability (Quantitude podcast)
+
+* Measure of the consistency of a single test or scale. (Like measuring the person many times in a single session.)
+
+* Not validity! You can have a reliable measure that is not valid. 
+
+* Which items?
+
+------------------------------------------------------------------------
+
+I will summarize a great article by [Len Simms](https://uopsych.github.io/psy611/readings/Simms_2008.pdf)[^1] but you should read it on your own. This article focuses on the measurement using **survey** methods, but this logic extends to any measurement in which you aggregate multiple responses or scores.
+
+Self-report methods are efficient, but prone to challenges in reliability and validity.
+
+------------------------------------------------------------------------
+
+## Traditional methods of scale construction
+
+-   Rational-Theoretical Approach
+    -   based on developer’s theoretical understanding of the construct (e.g., creating items that "feel" right for measuring extraversion)
+
+    -   often results in poor discriminant validity
+
+    -   over-reliance on assumption that theory is correct
+
+<!-- -->
+::: notes
+    Discriminant validity: the extent to which a test is **not** related to other tests that measure different constructs
+:::
+
+------------------------------------------------------------------------
+
+## Traditional methods of scale construction
+
+-   Empirical Criterion Keying
+    -   selects items that differentiate between groups (e.g., patients with depression versus a control group), without necessarily considering the content of the items
+    -   example: MMPI
+    -   good convergent validity
+    -   poor internal consistency and theoretical grounding
+
+::: notes
+convergent validity: how closely a test is related to other tests that measure the same (or similar) constructs
+
+internal consistency: how much the different items are like each other
+:::
+
+------------------------------------------------------------------------
+
+## Traditional methods of scale construction
+
+-   Internal Consistency and Factor-Analytic Approach
+    -   identify dimensions that show internal consistency
+    -   useful for identifying distinct factors within a construct
+    -   without strong theoretical input, it may lead to ambiguous labeling of the factors
+    -   assumes homogeneity in the construct being measured
+
+------------------------------------------------------------------------
+
+## Construct validity as guiding framework
+
+-   the degree to which a test measures what it claims to be measuring
+-   Should combine traditional methods of scale construction with modern psychometric analysis
+-   Simms highlights Loevinger’s (1957) approach
+
+------------------------------------------------------------------------
+
+![](images/scale-dev.png){fig-align="center"}
+
+::: notes
+Item pool:
+
+-   items should be relevant and representative
+
+-   purposefully over-inclusive
+:::
+
+------------------------------------------------------------------------
+
+# Modern Psychometric Methods
+
+-   Item Response Theory (IRT): Unlike classical test theory, which assumes uniform precision across all levels of a trait, IRT provides conditional precision based on how well items discriminate along the trait continuum.
+
+    -   IRT allows us to assess item difficulty and discrimination, helping create scales that work well across different levels of a trait (e.g., measuring both high and low aggression accurately).
+
+    Differential Item Functioning (DIF): IRT methods can also be used to identify biased items, for example, by gender or culture. This ensures fairness in psychological testing.
+
+------------------------------------------------------------------------
+
+## Next time...
+
+Describing data
+
+[^1]: Simms, L. J. (2008). Classical and modern methods of psychological scale construction. *Social and Personality Psychology Compass*, *2*(1), 414-433.
