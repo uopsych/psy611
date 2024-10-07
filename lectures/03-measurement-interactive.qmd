@@ -34,8 +34,6 @@ Validity (4 types)
 
 More about construct validity and its role in scale development.
 
--   BUT before we talk about construct validity, we must first discuss conceptual clarity.
-
 ------------------------------------------------------------------------
 
 ## Conceptual clarity ([Bringmann, Elmer, & Eronen, 2022](../readings/bringmann_etal_2022.pdf))
@@ -52,23 +50,47 @@ More about construct validity and its role in scale development.
 
 ------------------------------------------------------------------------
 
-## How to evaluate and improve conceptual clarity
-
--   Iterate, iterate, iterate
--   Explicitly discuss in empirical (and non-empirical) work
--   Justify the use of measures for concept
--   Use multiple measures (multiverse analysis)
-
-------------------------------------------------------------------------
-
-## How to evaluate and improve conceptual clarity
-
--   Conduct studies on concepts before studying how they relate to over variables, change over time, can be manipulated, etc.
--   Use qualitative methods to understand how participants interpret measures.
-
-------------------------------------------------------------------------
-
 Once a concept has been clarified, the next step is to measure it.
+
+Classical test theory states that:
+
+$$
+X = T + E
+$$
+
+X: Observed Score
+
+T: True Score
+
+E: error (random and unpredictable)
+
+------------------------------------------------------------------------
+
+Error is random and unpredictable.
+
+assumes that it has a mean of error approaches 0 as number of measurements increases.
+
+Thus, if we measure people enough "times", we can get a good sense of their true score.
+
+How many times?
+
+------------------------------------------------------------------------
+
+Measuring people multiple times is often impractical and inefficient (and potentially theoretically wrong), so how can we remove measurement error during a single assessment?
+
+How many items we do we need?
+
+------------------------------------------------------------------------
+
+### Reliability (Quantitude podcast)
+
+Measure of the consistency of a single test or scale. (Like measuring the person many times in a single session.)
+
+Not validity! You can have a reliable measure that is not valid.
+
+Which items?
+
+------------------------------------------------------------------------
 
 It wasn't assigned, but please read a great article by [Len Simms](https://uopsych.github.io/psy611/readings/Simms_2008.pdf)[^1]. This article focuses on the measurement using **survey** methods, but this logic extends to any measurement in which you aggregate multiple responses or scores.
 
@@ -144,6 +166,11 @@ Add items here: <https://shorturl.at/rGg7m>
 * Alpha/Omega
 * Factor analysis
 
+------------------------------------------------------------------------
+
+Concepts to know:
+
+* Classical test theory
 
 ------------------------------------------------------------------------
 
