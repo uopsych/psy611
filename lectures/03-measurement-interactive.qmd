@@ -50,6 +50,27 @@ More about construct validity and its role in scale development.
 
 ------------------------------------------------------------------------
 
+## Quantitative fallacy
+
+[See this article.](readings/quantitative-fallacy.pdf)
+
+Applicant selection for medical residency positions. 
+* Subtest of medical licensing exam is best predictor of residency success. 
+* Great! 
+* Right?
+
+------------------------------------------------------------------------
+
+## Quantitative fallacy
+Fallacy:
+
+  1. Measure whatever can be easily measured.
+  2. Disregard things that cannot be measured easily. 
+  3. Presume things that cannot be measured easily are not important.
+  4. Presume that things that are not measured easily
+do not exist.
+------------------------------------------------------------------------
+
 Once a concept has been clarified, the next step is to measure it.
 
 Classical test theory states that:
