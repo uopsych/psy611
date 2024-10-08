@@ -23,10 +23,10 @@ options(knitr.kable.NA = '')
 
 Validity (4 types)
 
--   Construct
 -   Statistical Conclusion
 -   Internal
 -   External
+-   Construct(?)
 
 ------------------------------------------------------------------------
 
@@ -68,11 +68,11 @@ E: error (random and unpredictable)
 
 Error is random and unpredictable.
 
-assumes that it has a mean of error approaches 0 as number of measurements increases.
+* assumes that it has a mean of error approaches 0 as number of measurements increases.
 
 Thus, if we measure people enough "times", we can get a good sense of their true score.
 
-How many times?
+* How many times?
 
 ------------------------------------------------------------------------
 
@@ -95,6 +95,8 @@ Which items?
 It wasn't assigned, but please read a great article by [Len Simms](https://uopsych.github.io/psy611/readings/Simms_2008.pdf)[^1]. This article focuses on the measurement using **survey** methods, but this logic extends to any measurement in which you aggregate multiple responses or scores.
 
 I'm going to use this article as a template for developing a new scale with you.
+
+There are many more articles worth reading on this (see [Bonus Materials](https://uopsych.github.io/psy611/bonus.html)), and frankly, you should look for a class in measurement/psychometrics. 
 
 ------------------------------------------------------------------------
 
@@ -166,17 +168,14 @@ Add items here: <https://shorturl.at/rGg7m>
 * Alpha/Omega
 * Factor analysis
 
-------------------------------------------------------------------------
 
-Concepts to know:
-
-* Classical test theory
 
 ------------------------------------------------------------------------
 
 Takeaways:
 * Be able to perform psychometric analysis from memory. 
 * (Kidding)
+* Classical test theory
 * Scale development takes time, thought, iteration, and data. 
 
 ------------------------------------------------------------------------
