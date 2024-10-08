@@ -62,6 +62,7 @@ Applicant selection for medical residency positions.
 ------------------------------------------------------------------------
 
 ## Quantitative fallacy
+
 Fallacy:
 
   1. Measure whatever can be easily measured.
@@ -69,6 +70,7 @@ Fallacy:
   3. Presume things that cannot be measured easily are not important.
   4. Presume that things that are not measured easily
 do not exist.
+
 ------------------------------------------------------------------------
 
 Once a concept has been clarified, the next step is to measure it.
