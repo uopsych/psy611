@@ -18,7 +18,10 @@ Measurement
 
 ::: nonincremental
 -   Conceptual clarity
--   Latent variables
+-   Measurement
+    -   Be able to perform psychometric analysis from memory. (Kidding)
+    -   Classical test theory
+    -   Scale development takes time, thought, iteration, and data.
 :::
 
 ------------------------------------------------------------------------
@@ -26,10 +29,6 @@ Measurement
 ## Today...
 
 Describing data![^1]
-
-[^1]: Here's where you start seeing `R` code in lecture slides. You should be able to copy and paste if you want to follow along. Although please note that I may not share all the code I use. You can always see the code on the GitHub page.
-
-\
 
 ```{r, warning=FALSE, message=FALSE}
 library(tidyverse)  # for pipes and plots
@@ -55,8 +54,6 @@ library(here)       # for working directory
 Examples today are based on data from the [2015 World Happiness Report](https://worldhappiness.report/ed/2015/), which is an annual survey part of the [Gallup World Poll](https://www.gallup.com/178667/gallup-world-poll-work.aspx).
 
 The dataset is available on [GitHub](https://raw.githubusercontent.com/uopsych/psy611/master/data/world_happiness_2015.csv) for those interested in trying at home.[^2]
-
-[^2]: To save this file to your computer, copy all the text on the linked webpage, then paste the text into a new text file (which you can create inside RStudio). Save this file as .csv type file, like `world_happiness_2015.csv` and load using `rio::import`.
 
 ------------------------------------------------------------------------
 
@@ -112,7 +109,7 @@ glimpse(world) # tidyverse
 
 ## Distributions
 
-A **distribution** often refers to a description of the \[relative\] number of times a variable X will take each of its unique values.
+A **distribution** is a description of the \[relative\] number of times a variable X will take each of its unique values.
 
 ```{r, fig.height=4}
 hist(world$Happiness, breaks = 30, 
@@ -303,7 +300,7 @@ world %>% ggplot(aes(x = Happiness)) +
              label = "mean") +
   geom_label(aes(x = median(Happiness), y = maxFreq(Happiness)*2), 
              label = "median") +
-  labs(x = "Happiness", y = "Frequency") +
+  labs(y = "Frequency") +
   theme_bw()
 ```
 
@@ -321,7 +318,7 @@ world %>% ggplot(aes(x = Corruption)) +
   geom_vline(aes(xintercept = median(Corruption, na.rm=T))) + 
   geom_label(aes(x = mean(Corruption, na.rm=T), y = maxFreq(Corruption)), label = "mean") +
   geom_label(aes(x = median(Corruption, na.rm=T), y = maxFreq(Corruption)*2), label = "median") +
-  labs(x = "Happiness", y = "Frequency") +
+  labs(y = "Frequency") +
   theme_bw()
 ```
 
@@ -351,8 +348,17 @@ Most inferential statistics assume distributions are not skewed and are mesokurt
 ```{r, warning = FALSE, message=FALSE}
 #| code-fold: true
 #| 
+world %>% ggplot(aes(x = Corruption)) +
+    geom_histogram(aes(y = ..density..)) +
+    stat_function(fun = dnorm, 
+        args = list(mean = mean(world$Corruption, na.rm = TRUE), 
+                    sd = sd(world$Corruption, na.rm = TRUE)), 
+        colour = 'black', size = 1) +
+    labs(
+      title = "Negative skew",
+      y = NULL)  + 
+  theme_bw()
 
-world %>% ggplot(aes(Corruption)) + geom_histogram() + ggtitle("Negative skew") + theme_bw()
 ```
 
 ------------------------------------------------------------------------
@@ -361,25 +367,25 @@ world %>% ggplot(aes(Corruption)) + geom_histogram() + ggtitle("Negative skew") 
 
 Where do the names come from?
 
-::: columns
-::: {.column width="50%"}
-::: nonincremental
+::::::::: columns
+::::: {.column width="50%"}
+:::: nonincremental
 ::: {style="font-size: .65em"}
 1.  First moment: Mean $$\mu = \frac{\Sigma(x_i)}{N}$$
 2.  Second moment: Variance $$\sigma^2 = \frac{\Sigma(X_i-\mu)^2}{N}$$
 :::
-:::
-:::
+::::
+:::::
 
-::: {.column width="50%"}
-::: nonincremental
+::::: {.column width="50%"}
+:::: nonincremental
 ::: {style="font-size: .65em"}
 3.  Third moment: Skew $$skewness(X) = \frac{1}{N\sigma^3}\Sigma(X_i-\mu)^3$$
 4.  Fourth moment: Kurtosis $$kurtosis(X) = \frac{1}{N\sigma^4}\Sigma(X_i-\mu)^4-3$$
 :::
-:::
-:::
-:::
+::::
+:::::
+:::::::::
 
 ::: notes
 If you're calculating sample statistics for skewness and kurtosis, replace the $\sigma$ with $s$ and $\mu$ with $\bar{X}$.
@@ -532,7 +538,7 @@ var(x)
 
 ## Population versus sample
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ### Variance
 
@@ -548,7 +554,7 @@ var(x)
 
 *Sample* $$s = \hat{\sigma} = \sqrt{\frac{\Sigma(X_i-\bar{X})^2}{N-1}}$$
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -630,7 +636,7 @@ Scores interpreted as distance from the mean, in standard deviations.
 
 ### Properties of z-scores
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 -   $\Large \Sigma z = 0$
 -   $\Large \Sigma z^2 = N$
@@ -639,7 +645,7 @@ Scores interpreted as distance from the mean, in standard deviations.
 ::: {.column width="50%"}
 -   $\Large s_z = \frac{\Sigma z^2}{N}$
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -684,3 +690,7 @@ world %>%
 ## Next time...
 
 describing relationships
+
+[^1]: Here's where you start seeing `R` code in lecture slides. You should be able to copy and paste if you want to follow along. Although please note that I may not share all the code I use. You can always see the code on the GitHub page.
+
+[^2]: To save this file to your computer, copy all the text on the linked webpage, then paste the text into a new text file (which you can create inside RStudio). Save this file as .csv type file, like `world_happiness_2015.csv` and load using `rio::import`.
