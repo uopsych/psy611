@@ -1,14 +1,14 @@
 ---
 title: 'PSY 611 Homework #1'
-author: YOUR NAME HERE
-output: 
-  html_document:
-    toc: TRUE
+author: "YOUR NAME HERE"
+output:
+  word_document:
+    toc: true
 ---
 
 # Instructions
 
-Please complete this assignment using the RMarkdown file provided. Be sure to (1) include your name in the preamble, (2) save the file, including your last name (e.g., "weston_homework_1.Rmd"). When you turn in the assignment, include both the .Rmd and knitted .html files.  
+Please complete this assignment using the RMarkdown file provided [Link to Rmarkdown file here]. Once you download the RMarkdown file please (1) include your name in the preamble, (2) rename the file to include your last name (e.g., "weston-homework-1.Rmd"). When you turn in the assignment, include both the .Rmd and knitted .doc files.  
 
 To receive full credit on this homework assignment, you must earn **30 points**. You may notice that the total number of points available to earn on this assignment is 65 -- this means you do not have to answer all of the questions. You may choose which questions to answer. You cannot earn more than 30 points, but it may be worth attempting many questions. Here are a couple things to keep in mind:
 
@@ -16,15 +16,11 @@ To receive full credit on this homework assignment, you must earn **30 points**.
 
 2. After the homework has been graded, you may retry questions to earn full credit, but you may only retry the questions you attempted on the first round. 
 
-3. The first time you complete this assignment, it must be turned in by 9am on the due date (October 22). Late assignments will receive 50% of the points earned. For example, if you correctly answer questions totaling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points.
+3. The first time you complete this assignment, it must be turned in by 9am on the due date (October 25). Late assignments will receive 50% of the points earned. For example, if you correctly answer questions totalling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points.
 
 4. You may discuss homework assignments with your classmates; however, it is important that you complete each assignment on your own and do not simply copy someone else’s code. If we believe one student has copied another’s work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points.
 
-5. Some of the homework problems can be completed using only the functions covered in lab. Some will require functions covered in the textbook. Some will require a combination of creativity and Google. Have fun!
-
 **Data:** Some of the questions in this homework assignment use the dataset referred to as `homework-world`. [Link to data goes here.] This dataset is similar to one you've seen in class and contains a new variable called `World`. So-called "first world" countries (coded 1) are those that were aligned with the United States after World War II (e.g., members of NATO) or were considered to be clearly in the U.S. sphere of influence. "Second world" countries (coded 2) are former members of the Soviet Union or countries considered to have been clearly in the Soviet Union’s sphere of influence. "Third world" countries (coded 3) include those considered by the United Nations to be among the least developed countries in the world. The remaining countries are coded 4 for this variable.
-
-
 
 # 2-point questions
 
@@ -34,132 +30,85 @@ This question is about order of operations:
 
 4 divided by 2 plus 2 times 5
 
-* Using `R`, show that this value equals 12.
-* Using `R`, show that this value equals 5.
-* Using `R`, show that this value equals 20. 
+  - Using `R`, show that this value equals 12. 
+  - Using `R`, show that this value equals 5.
+  - Using `R`, show that this value equals 20. 
 
 ### Question 2
 
-Calculate descriptive statistics separately for the four groups (`World`) in the `homework-world` dataset. 
-
+Calculate descriptive statistics (mean, standard deviation, median, min, max, range, skew, and kurtosis) for all continuous variables in the `homework-world` dataset. 
 
 ### Question 3
 
-In class, you were shown a formula for variance as a function of expected values, $\sigma^2 = E(X^2) - E(X)^2$. 
-
-  - Create a variable in **R** called X and give it the values 4, 2, 5, 3, 2, 4, 5, 1, 1, 5. 
-  
-  - Calculate the variance of this variable as if it represents an entire population.
-  
-  - Calculate the variance as if this variable is a sample. 
-  
-  - Using the formula of expected values, calculate the variance. (Treat `E` as if it means "take the mean.") 
-  
-  - Which formula, population parameter or sample statistic, does the expected value formula calculate?
-
+Calculate descriptive statistics (mean, standard deviation, median, min, max, range, skew, and kurtosis) for all continuous variables in the `homework-world` dataset, but only for the "second world" countries. 
 
 ### Question 4
 
-Using the `homework-world` dataset, create a boxplot graph for the `Corruption` variable, with separate boxplots for the four groups defined by the new variable, World. What does this graph tell you, in broad strokes, about:
+Using the `homework-world` dataset, create a boxplot graph for the Corruption variable, with separate boxplots for the four groups defined by the new variable, World. What does this graph tell you, in broad strokes, about:
 
   - group differences in corruption central tendency?
   - group differences in corruption variability?
   - the presence of outliers within each group?
 
+### Question 5 
 
-### Question 5
-
-Consider the following function:
-
-```{r}
-mystery = function(x,y){
-  if(!is.numeric(x)) stop("x is not numeric")
-  if(!is.numeric(y)) stop("y is not numeric")
-  est = cor(x,y, use = "pairwise")
-  abs_est = abs(est)
-  if(abs_est < .3) message = "This is small"
-  if(abs_est >= .3 & abs_est < .5) message = "This is medium"
-  if(abs_est >= .5) message = "This is large"
-  return(message)
-}
-```
-
-* What are the formals in this function?
-* What is the environment of this function?
-* What is the this function trying to do? What is its purpose?
-* Apply this function to the set of variables, Corruption and GDP. What do you learn about the relationship between these two variables?
-  
 
 # 5-point questions
 
 ### Question 1
-Using the `homework-world` dataset, create a histogram of the life expectancy variable (`Life`) that includes the following:
 
-  - a vertical line at the mean
-  - a vertical line at the median
-  - the normal distribution density curve
-  - Is this distribution skewed? How can you tell?
+In class, you were shown a formula for variance as a function of expected values, $\sigma^2 = E(X^2) - E(X)^2$. 
 
+  - Create a variable in **R** called X and give it the values 4, 2, 5, 3, 2, 4, 5, 1, 1, 5. 
+  - Calculate the variance of this variable as if it represents an entire population.
+  - Calculate the variance as if this variable is a sample. 
+  - Using the formula of expected values, calculate the variance. (Treat `E` as if it means "take the mean.") 
+  - Which formula, population parameter or sample statistic, does the expected value formula calculate?
 
 ### Question 2
-Using the `homework-world` dataset, create a matrix of scatterplots for the variables `Happiness`, `Freedom`, and `Support`. The scatterplot for each pair should include the linear best fit line (a straight line). (You may need to consult the help page for a particular function.)
 
+Using the `homework-world` dataset, create a matrix of scatterplots for the happiness, freedom, and support variables. The scatterplot for each pair should include the linear best fit line (a straight line). (You may need to consult the help page for a particular function.)
 
   - Does a linear relationship seem to describe any of the pairwise relationships?
-
   - Are there any countries that stand out as being unusual by their distance from the remaining countries in these plots? [Identify these countries by name and describe how they differ from the others.]
-
-
 
 ### Question 3 
 
 Using the `homework-world` dataset:
 
-   - Calculate the correlation between freedom and generosity. 
-
+   - Calculate the correlation between the average perception of freedom in a country and the typical generosity of its citizens. 
 
   - Create a scatterplot showing the relationship between freedom and generosity. 
   
-
-  - Referencing the scatterplot, consider the different threats to statistical conclusion validity. Are there any that you are concerned about? Are there any that you don't think are a problem?
+  - Referencing the scatterplot, consider the different threats to the validity of a correlation. Are there any that you are concerned about? Are there any that you don't think are a problem?
   
-  - If you had to guess, do you think the correlation you calculated (a) underestimates the strength of the true relationship between freedom and generosity, (b) overestimates this relationship, or (c) does a good job representing the relationship?
+  - If you had to guess, do you think the correlation you calculated (a) underestimate the strength of the true relationship between freedom and generosity, (b) overestimates this relationship, or (c) does a good job representing the relationship?
 
 # 10-point questions
 
 ### Question 1
-Create a composite score for the non-categorical variables (`Happiness`, `GDP`, `Life`, `Support`, `Generosity`, `Freedom`, and `Corruption`) and answer some questions using that composite:
+
+Use the following steps to create a composite score for the non-categorical variables (Happiness, GDP, Life, Support, Generosity, Freedom, and Corruption) and answer some questions using that composite:
 
   - The variables are scored in a consistent direction (higher is "better") with one exception: Corruption. Begin by reversing the direction of this variable.
-
   - The variables are in different metrics, so transform them to Z scores.
-
-  - Calculate the mean of each country's Z-scores; in other words, for each country, take the average of these standardized variables. Note that there are missing data for some countries. Average the variables that are available for each country.
-  
+  - Create a mean of the Z scores. Note that there are missing data for some countries. Average the variables that are available for each country.
   - Create a figure (or two?) for this new variable. Is it normally distributed? Any outliers?
-  
   - Identify the 10 countries with the highest scores and the 10 countries with the lowest scores.
-  
   - By collapsing all of these variables into one composite score we are claiming them to be good proxies for some "thing." What might you name that thing and how would you justify it quantitatively?
   
 ### Question 2
 
-In class, we discussed the differences between calculating the variance of the sample versus calculating the _estimated_ variance of the population from the sample. 
+Using the `homework-world` dataset, create a histogram of the life expectancy variable (Life) that includes the following:
 
-* Write a function that, when given a numeric variable, computes the _population_ variance (i.e., the formula used when you have the entire population). Test it on the following vector:
+  - a vertical line at the mean
+  - a vertical line at the median
+  - the normal distribution density curve (not the density of the data in hand)
 
-```{r}
-x = c(25, 26, 15, 27, 23, 27, 18, 35, 18, 23)
-```
+Is this distribution skewed? What are two ways you can tell?
 
-* Write a function that, when given a numeric variable, computes the _estimated population_ variance. Test it on the vector above.
+Apply a transformation to the Life variable to try and make it more normal ([see here for some common ones.](https://bookdown.org/mike/data_analysis/variable-transformation.html#variable-transformation)) Plot the transformed variable with the same vertical lines and density curve. Is your transformed variable skewed? What are two ways you can tell?
 
-* Use the `var` function to estimate the variance of the vector above. Which of your functions does the `var` function match? Why do you think this is the formula assigned to the `var` function?
-
-* Now write a function that estimates the mean absolute deviation (from the mean). Test it on the above vector.
-
-* Does your function estimate the same quality as the function `mad`? If not, why not?
-  
 # 20-point questions
 
 ### Question 1
@@ -170,11 +119,10 @@ We evaluate statistics on the degree that they are biased and efficient. We disc
   
       $$Efficiency = \frac{\sigma^2_{mean}}{\sigma^2_{median}}$$
 
-  - What does an efficiency value of 1 mean? What does an efficiency value of less than one mean?
+  - What does the an efficiency value of 1 mean? What does an efficiency value of less than one mean?
 
   - Create a figure to visually display these results; include a description of this figure, including any key takeaway points.
     
-
 
  
 
