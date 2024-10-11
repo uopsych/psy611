@@ -252,7 +252,7 @@ Ok, so now that we know how to visualize a basic distribution, let's think about
 For a given set of observations, measures of central tendency allow us to get the "gist" of the data. They tell us about where the "average" or the "mid-point" of the data lies. Let's take a really simple example first. We'll use a vector of integers as our dataset. 
 
 ```{r}
-
+simple_vector <- c(1, 2, 3, 4, 5)
 ```
 
 ### Mean
