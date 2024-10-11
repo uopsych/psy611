@@ -52,6 +52,12 @@ Using the `homework-world` dataset, create a boxplot graph for the Corruption va
 
 ### Question 5 
 
+Calculate the correlations between the following variables in the `homework-world` dataset:
+
+- Generosity
+- Corruption
+- Support
+- GDP
 
 # 5-point questions
 

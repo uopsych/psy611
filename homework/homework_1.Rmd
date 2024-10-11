@@ -2,8 +2,6 @@
 title: 'PSY 611 Homework #1'
 author: "YOUR NAME HERE"
 output:
-  word_document:
-    toc: true
   html_document:
     toc: true
 ---
@@ -54,6 +52,12 @@ Using the `homework-world` dataset, create a boxplot graph for the Corruption va
 
 ### Question 5 
 
+Calculate the correlations between the following variables in the `homework-world` dataset:
+
+- Generosity
+- Corruption
+- Support
+- GDP
 
 # 5-point questions
 
