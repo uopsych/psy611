@@ -24,6 +24,7 @@ library(tidyverse)
 library(here)
 library(rio)
 library(psych)
+
 ```
 
 
@@ -65,7 +66,7 @@ Because I'm using a Mac, sub-folders are separated by `/`. If you use a PC, sub-
 
 You can access the sub folders inside the working directory using relative path: it starts with a `.`, representing the current location (the working directory). Then it follows by a `/{name of the sub-folder}` (mac) or `\{{name of the sub-folder}}` (PC). 
 
-```{r error = FALSE}
+```{r, eval = FALSE}
 # examples of using relative file directory
 df <- import("./labs/resources/lab2/world_happiness_2015.csv")
 ```
@@ -226,7 +227,7 @@ You can use the `boxplot.stats` function to identify specific outliers. We're sp
 So far we have been plotting in base R. However, the [ggplot2 package](https://www.rdocumentation.org/packages/ggplot2/versions/3.2.1){target="_blank"} is generally a much better tool for plotting. For now we'll stick with base plotting to keep things simple, but in a future class you will learn how to use `ggplot` to make better-looking plots, such as this:
 
 ```{r echo = FALSE}
-ggplot(world_happiness_df, aes(x = Happiness)) +
+ggplot(df, aes(x = Happiness)) +
   geom_histogram(fill = "darkorange",
                  color = "white",
                  alpha = 0.7,
