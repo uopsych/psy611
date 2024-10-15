@@ -34,45 +34,37 @@ library(psych) # for dataset showing content overlap
 
 ------------------------------------------------------------------------
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 #### Population variability
 
-**Sums of squares** 
-$$
+**Sums of squares** $$
 \small SS = \Sigma(X_i-\bar{X})^2
-$$ 
-
-**Variance** 
 $$
+
+**Variance** $$
 \small \sigma^2 = \frac{\Sigma(X_i-\bar{X})^2}{N} = \frac{SS}{N}
-$$ 
-
-**Standard deviation** 
 $$
+
+**Standard deviation** $$
 \scriptsize \sigma = \sqrt{\frac{\Sigma(X_i-\bar{X})^2}{N}}= \sqrt{\frac{SS}{N}} = \sqrt{\sigma^2}
 $$
-
 :::
 
 ::: {.column width="50%"}
 #### Sample variability
 
-**Sums of squares** 
-$$
+**Sums of squares** $$
 \small SS = \Sigma(X_i-\bar{X})^2
-$$ 
+$$
 
-**Variance** 
-$$
+**Variance** $$
 \small \hat{\sigma}^2 = s^2 = \frac{\Sigma(X_i-\bar{X})^2}{N-1} = \frac{SS}{N-1}
-$$ 
-**Standard deviation** 
-$$
+$$ **Standard deviation** $$
 \scriptsize \hat{\sigma} = s = \sqrt{\frac{\Sigma(X_i-\bar{X})^2}{N-1}}= \sqrt{\frac{SS}{N-1}} = \sqrt{s^2}
 $$
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -84,8 +76,7 @@ $$
 
 ### Population
 
-$$SP_{XY} =\Sigma(X_i−\mu_X)(Y_i−\mu_Y)$$
-### Sample
+$$SP_{XY} =\Sigma(X_i−\mu_X)(Y_i−\mu_Y)$$ \### Sample
 
 $$ SP_{XY} =\Sigma(X_i−\bar{X})(Y_i−\bar{Y})$$
 
@@ -156,7 +147,7 @@ Pearson product moment correlation
 
 $$\rho_{XY} = \frac{\Sigma z_Xz_Y}{N} = \frac{SP}{\sqrt{SS_X}\sqrt{SS_Y}} = \frac{\sigma_{XY}}{\sigma_X \sigma_Y}$$
 
-### Sample $$r_{XY} = \frac{\Sigma z_Xz_Y}{n-1} = \frac{SP}{\sqrt{SS_X}\sqrt{SS_Y}} = \frac{s_{XY}}{s_X s_Y}$$ 
+### Sample $$r_{XY} = \frac{\Sigma z_Xz_Y}{n-1} = \frac{SP}{\sqrt{SS_X}\sqrt{SS_Y}} = \frac{s_{XY}}{s_X s_Y}$$
 
 ::: notes
 **Why is it called the Pearson Product Moment correlation?** Pearson = Karl Pearson Product = multiply Moment = variance is the second moment of a distribution
@@ -239,10 +230,12 @@ Correlation = `r round(cor(data$x, data$y),2)`
 
 ## What is a large correlation?
 
-| \- [Cohen (1988)](http://www.utstat.toronto.edu/~brunner/oldclass/378f16/readings/CohenPower.pdf): .1 (small), .3 (medium), .5 (large) 
-- Often forgot: Cohen said only to use them when you had nothing else to go on, and has since regretted even suggesting benchmarks to begin with. |
+| - [Cohen (1988)](http://www.utstat.toronto.edu/~brunner/oldclass/378f16/readings/CohenPower.pdf): .1 (small), .3 (medium), .5 (large)
+
+-   Often forgot: Cohen said only to use them when you had nothing else to go on, and has since regretted even suggesting benchmarks to begin with. \|
 
 -   [Rosenthal & Rubin (1982)](https://psycnet.apa.org/fulltext/1982-22591-001.pdf): life and death (the Binomial Effect Size Display)
+
     -   treatment success rate $= .50 + .5(r)$ and the control success rate $= .50 - .5(r)$.
 
 ------------------------------------------------------------------------
@@ -513,7 +506,7 @@ x = rnorm(n = 10); y = rnorm(n = 10) #randomly generate 10 numbers from normal d
 
 Here are two ways to analyze these data
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ```{r}
 head(cbind(x,y))
@@ -527,7 +520,7 @@ head(cbind(x,y, rank(x), rank(y)))
 cor(x,y, method = "spearman")
 ```
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -542,7 +535,7 @@ head(cbind(x,y))
 
 Here are two ways to analyze these data
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ```{r}
 cor(x,y, method = "pearson")
@@ -554,7 +547,7 @@ cor(x,y, method = "pearson")
 ltm::biserial.cor(x,y)
 ```
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -566,10 +559,9 @@ If [artificially dichotomize data](../readings/Cohen_1983.pdf), there can be big
 x = rnorm(n = 10); y = rnorm(n = 10)
 ```
 
-
 Here are two ways to analyze these data
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ```{r}
 head(cbind(x,y))
@@ -585,7 +577,7 @@ head(cbind(x,y, d_y))
 ltm::biserial.cor(x, d_y)
 ```
 :::
-:::
+:::::
 
 ### Don't use median splits!
 
