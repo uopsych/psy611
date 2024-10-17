@@ -43,6 +43,10 @@ The language of how rare or unusual (or common or typical) the data might be is 
 
 ------------------------------------------------------------------------
 
+## Sara's bag 'o treats
+
+------------------------------------------------------------------------
+
 ## Some terminology
 
 An **elementary event** is a member of the mutually exclusive and exhaustive outcomes that can happen when we make an observation.
@@ -164,7 +168,7 @@ Once we know the parameters, we know everything we need to construct the sample 
 
 $$ \text{not A} = P(\neg A) = 1-P(A)$$
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 Simple experiment: draw a marble from this jar.
 
@@ -175,35 +179,32 @@ What is the probability of drawing a blue marble?
 What is the probability of not drawing a blue marble?
 
 -   p(not blue) = 1-p(blue) = 1-.6 = .4
-
 :::
 
 ::: {.column width="50%"}
 <img src="images/jar.jpg" width="300"/>
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
 ## Rules of probabilities
 
-$$ P(A|B)$$ 
+$$ P(A|B)$$
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 Simple experiment: draw a marble from this jar.
 
 What is the probability of drawing a blue marble given that I drew a small marble?
 
--   p(blue|small) = 1/4 = .25
-
-
+-   p(blue\|small) = 1/4 = .25
 :::
 
 ::: {.column width="50%"}
 <img src="images/jar.jpg" width="300"/>
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -211,52 +212,52 @@ What is the probability of drawing a blue marble given that I drew a small marbl
 
 $$ \text{A and B}= P (A \cap B) = P(A|B)P(B)$$
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
-<span style="font-size:30px;">Simple experiment: draw a marble from this jar.</span>
+[Simple experiment: draw a marble from this jar.]{style="font-size:30px;"}
 
-<span style="font-size:30px;">What is the probability of drawing a blue and small marble?</span>
+[What is the probability of drawing a blue and small marble?]{style="font-size:30px;"}
 
-- \begin{aligned}
-    & p(blue \cap small) \\
-  =  & p(blue|small)p(small) \\
-  =  & (1/4)(4/10) = .1
-  \end{aligned}
+-   
 
+    \begin{aligned}
+      & p(blue \cap small) \\
+    =  & p(blue|small)p(small) \\
+    =  & (1/4)(4/10) = .1
+    \end{aligned}
 :::
 
 ::: {.column width="50%"}
 <img src="images/jar.jpg" width="300"/>
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
 ## Rules of probabilities
 
-$$ \text{A or B} = P(A \cup B) = P(A) + P(B) - P(A \cap B)$$ 
+$$ \text{A or B} = P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 Simple experiment: draw a marble from this jar.
 
 What is the probability of drawing a blue or small marble?
 
--   \begin{aligned}
-& p(blue \cup small) \\
-= &p(blue) + p(small) - p(blue|small)p(small) \\
-= & .6 + .4 - .1 = .9 \\
-\end{aligned}
+-   
 
-
+    \begin{aligned}
+    & p(blue \cup small) \\
+    = &p(blue) + p(small) - p(blue|small)p(small) \\
+    = & .6 + .4 - .1 = .9 \\
+    \end{aligned}
 :::
 
 ::: {.column width="50%"}
-
 <img src="images/jar.jpg" width="300"/>
+:::
+:::::
 
-:::
-:::
 ------------------------------------------------------------------------
 
 If the outcomes are mutually exclusive, then:
@@ -312,10 +313,6 @@ The more common **frequentist** view is sometimes called the "in the long run" v
 We know that a fair coin will come up heads 50% of the time: $P(H) = .5$.
 
 -   A coin flipped a couple of times might come up heads both times, but a head flipped 1000 times would not likely come up heads 1000 times. *In the long run, the proportion of heads will converge on the expected probability.*
-
-------------------------------------------------------------------------
-
-## Sara's bag 'o treats
 
 ------------------------------------------------------------------------
 
@@ -671,7 +668,7 @@ $P(S|\neg B) = .3$
 
 $$\text{Bayesian | Smug} = P(B|S) = \frac{(.8)(.1)}{(.8)(.1) + (.3)(.9)} = `r round((.8*.1)/(.8*.1 + .3*.9),3)`$$
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 $P(B) = .1$
 
@@ -685,7 +682,7 @@ $P(B|S) = `r round((.8*.1)/(.8*.1 + .3*.9),3)`$
 ::: {.column width="50%"}
 From a pure base rate standpoint I should assume the probability is .1 that this person is a Bayesian. Bayesian reasoning tells me to take my prior beliefs into account given what I believe to be true about the relation of smugness to Bayesian status.
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
