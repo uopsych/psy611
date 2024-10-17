@@ -14,7 +14,7 @@ Homework assignments will appear here. You'll be able to access the assignment, 
 
 **Due October 25, 9am**
 
-<!-- - [Download files.](homework/homework-1.zip) -->
+- [Download files.](homework/homework-1.zip)
 
 
 <!-- ### [**Homework 2**](homework/homework_2.html) -->
