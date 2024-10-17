@@ -61,7 +61,7 @@ Functions in R have three components:
  * `environment()` - location of the function
 
 Let's consider an example of a function. 
-![](`r here::here("labs", "resources", "lab3", "function_components.JPG")` "Compunents of Function")
+![](`r here::here("labs", "resources", "lab3", "function_components.JPG")` "Components of Function")
 
 The two arguments in this function are `vector` and `power_value`. The function takes inputs for these arguments and spits out the output based on the directions specified in the function. These arguments consist the $formals$. Next we will need to specify how the inputs of the arguments will be manipulated. The part which specifies the tasks that the function does with the inputs is the $body$ of the function. The location wherein the function is mapped is the $environment$. We won't go into the details of the environment in this lab. 
 
@@ -247,7 +247,7 @@ Create a function that multiplies 2 numbers together and divides by a 3rd number
 ```{r eval=FALSE}
 
 test_function <- function(x, y, z=1) {
-  x * y / z
+  return(x * y / z)
 }
 
 #test
@@ -269,7 +269,7 @@ This is a function that computes confidence intervals for the mean of a variable
 ```{r include=TRUE, eval=FALSE}
 mean_ci <- function(x, alpha) {
   se = sd(x) / sqrt(length(x))
-  mean(x) + se * qnorm(c(alpha / 2, 1 - alpha / 2))
+  return(mean(x) + se * qnorm(c(alpha / 2, 1 - alpha / 2)))
 }
 ```
 
@@ -351,13 +351,13 @@ z_scores(x)
 ```
 - Does the function work? Why?
 - Try fixing the bug in this function. Modify the functions so that it ignores NAs, and computes z-scores for all other values in the vector. *Hint* - Look up `?mean` and `?sd`, use the `na.rm` argument. 
-- **BONUS**: add an additonal formal, `na.rm` which handles NAs in an appropriate way if set to `TRUE` and gives an error message if set to `FALSE` and there are NAs present. Make sure to test that your function handles vectors with no NAs the same regardless of what `na.rm` is set to. Also, make sure to set a default value for `na.rm`.
+- **BONUS**: add an additional formal, `na.rm` which handles NAs in an appropriate way if set to `TRUE` and gives an error message if set to `FALSE` and there are NAs present. Make sure to test that your function handles vectors with no NAs the same regardless of what `na.rm` is set to. Also, make sure to set a default value for `na.rm`.
 
 
 ```{r eval=FALSE}
 z_scores <- function(x){
-                 m = mean(x, na.rm = T)
-                 s = sd(x, na.rm = T)
+                 m = mean(x, na.rm = TRUE)
+                 s = sd(x, na.rm = TRUE)
                  z = ((x - m)/s)
                return(z)
 }
