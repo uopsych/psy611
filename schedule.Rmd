@@ -32,7 +32,7 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 |  | 10/11 | *Lab: R basics and descriptives* |  |  |  |
 | 3 | 10/15 | Describing data | [Ozer & Funder (2019)](readings/Ozer_Funder_2019.pdf) | Quiz 2 |  |
 |  | 10/17 | Probability | LSR Intro to Part IV and Ch 9.1-9.3, [Wetzels et al. (2011)](readings/Wetzels_etal_2011.pdf) |  |  |
-|  | 10/18 | *Lab: Rmarkdown* |  |  |  |
+|  | 10/18 | *Lab: Functional programming* |  |  |  |
 | 4 | 10/22 | Probability | LSR Ch 9.4 | Quiz 3 |  |
 |  | 10/24 | Probability | LSR Ch 9.5-9.6 |  |  |
 |  | 10/25 | *Lab: Probability distributions* |  |  | HW 1 Due |
@@ -44,7 +44,7 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 |  | 11/08 | *Lab: Graphing with ggplot2* |  |  |  |
 | 7 | 11/12 | Critiques of hypothesis testing | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf), [Cumming (2014)](readings/Cumming_2014.pdf) | Quiz 6 |  |
 |  | 11/14 | Open Science and Wrap-up | [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/), [Simmons, Nelson, & Simonshon, 2016 (blog)](https://datacolada.org/64) |  |  |
-|  | 11/15 | *Lab: Functional programming* |  |  | HW 2 Due |
+|  | 11/15 | *Lab: RMarkdown* |  |  | HW 2 Due |
 | 8 | 11/19 | One-sample tests | LSR Ch 13.1-13.2 | Quiz 7 |  |
 |  | 11/21 | Comparing two means (paired) | LSR Ch 13.3-13.11 |  |  |
 |  | 11/22 | *Lab: One- and paired-samples t-tests* |  |  |  |
