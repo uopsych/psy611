@@ -103,11 +103,13 @@ In the formula above you need to compute *mean* and *sd* in order to compute the
 
 ```{r eval=FALSE}
 #Your code here
+
 ```
 
 Now, you can compute the *z-scores*
 ```{r eval=FALSE}
 #Your code here
+
 ```
 
 At this point you can see that you have all the elements you need to build a function for computing z-scores.  
@@ -124,6 +126,7 @@ At this stage you create the function object and name the function object.
 
 ```{r eval=FALSE}
 #Your code here
+
 ```
 You have a working function! 
 
@@ -256,7 +259,7 @@ Build a function to estimate the $mean$ of a variable in R.
 $$\mu = \frac{\Sigma_{i=1}^N(x_i)}{N}$$
   
   
-  *  First generate a vector `random_var` which takes values from 1 to 10. *Hint*: You can use `cbind` to do this or look up the `seq` function.   
+  *  First generate a vector `random_var` which takes values from 1 to 10. *Hint*: You can use `c()` to do this or look up the `seq` function.   
   *  Build an object vector `col_sum` which contains the sum of all the values in `random_var`.  
   *  Build an object `col_length` which contains the total number of values in vector `random_var`. *Hint*: Look up `length` function.   
   *  Build the vector `m` which will contain the mean of all values in vector `random_var`. Hint: use the objects `col_sum` and `col_length` to do this.  
