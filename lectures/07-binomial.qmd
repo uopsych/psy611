@@ -20,10 +20,8 @@ knitr::opts_chunk$set(message = F, warning = F)
 ### Annoucements
 
 ::: nonincremental
-
 -   Homework #1 due Friday at 9 am
-    -   attach both .RMD and .html files to submission on Canvas
-
+    -   attach both .RMD and .docx files to submission on Canvas
 :::
 
 ```{r, warning=FALSE, message=FALSE, results='hide'}
@@ -78,6 +76,8 @@ The probability distribution for X is defined by the following **probability mas
 
 $$\large P(X|\theta,N) = \frac{N!}{X!(N-X)!}\theta^X(1-\theta)^{N-X}$$
 
+------------------------------------------------------------------------
+
 The probability mass function tells us what to expect for any particular X in the sample space.
 
 All theoretical distributions have a mass function (if discrete) or a density function (if continuous). These are the defining equations that tells us the generating process for the behavior of X.
@@ -90,7 +90,7 @@ $$ P(X|\theta,N) = \frac{N!}{X!(N-X)!}p^X(q)^{N-X}$$
 
 ------------------------------------------------------------------------
 
-$$P(X|\theta,N) = \frac{N!}{X!(N-X)!}\theta^X(1-\theta)^{N-X}$$
+$$P(X|\theta,N)\color{grey}{ = \frac{N!}{X!(N-X)!}\theta^X(1-\theta)^{N-X}}$$
 
 $\mathbf{P(X|\theta,N)}$ is a conditional probability: the probability of X given $\theta$ and $N$.
 
@@ -100,7 +100,7 @@ $\mathbf{P(X|\theta,N)}$ is a conditional probability: the probability of X give
 
 ------------------------------------------------------------------------
 
-$$\large P(X|\theta,N) = \frac{N!}{X!(N-X)!}\theta^X(1-\theta)^{N-X}$$
+$$\large\color{grey}{P(X|\theta,N) = \frac{N!}{X!(N-X)!}}\theta^X(1-\theta)^{N-X}$$
 
 $\mathbf{\theta^X(1-\theta)^{N-X}}$ is the probability of any particular instance of X.
 
@@ -128,7 +128,7 @@ $$P(6)^3P(Not6)^2 = (\frac{1}{6})^3(\frac{5}{6})^2 = `r round(((1/6)^3)*((5/6)^2
 
 ------------------------------------------------------------------------
 
-$$P(X|\theta,N) = \frac{N!}{X!(N-X)!}\theta^X(1-\theta)^{N-X}$$
+$$\color{grey}{P(X|\theta,N) = }\frac{N!}{X!(N-X)!}\color{grey}{\theta^X(1-\theta)^{N-X}}$$
 
 But a specific sequence of independent outcomes is just one way we could have X successful trials out of N.
 
@@ -136,13 +136,11 @@ We need to know **how many possible ways** we could get X successes in N trials.
 
 The remaining part of the equation (the combination rule from probability theory, $_XC_N$), tells us how many different ways that can happen.
 
-$$\frac{N!}{X!(N-X)!}$$
-
 ------------------------------------------------------------------------
 
 Returning to our dice example, how many ways are there to roll a six 3 times out of 5?
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 `6  6  6  Not6 Not6`
 
@@ -166,7 +164,7 @@ Returning to our dice example, how many ways are there to roll a six 3 times out
 
 `Not6  Not6  6  6  6`
 :::
-:::
+:::::
 
 $$\large \frac{5!}{3!(5-3)!} = \frac{5\times4\times3\times2\times1}{3\times2\times1(2\times1)}=10$$
 
@@ -174,7 +172,7 @@ $$\large \frac{5!}{3!(5-3)!} = \frac{5\times4\times3\times2\times1}{3\times2\tim
 
 Putting the pieces together:
 
-$$\large P(X = \text{a }6, \text{three times}|\theta_6, N= 5)\\
+$$\large P(X = \text{''6''}, 3\text{ times}|\theta_6, N= 5)\\
 = \frac{N!}{X!(N-X)!}\theta^X(1-\theta)^{N-X}\\=
 \frac{5!}{3!(5-3)!}(\frac{1}{6})^3(\frac{5}{6})^2\\
 = (10)(.0032) \\
@@ -184,9 +182,7 @@ $$\large P(X = \text{a }6, \text{three times}|\theta_6, N= 5)\\
 
 A note about notation:
 
-Many texts refer to the probability of success as $p$ and the probability of not success (or failure) as $q$.
-
-In some ways, this makes the formula easier to understand:
+Many texts refer to the probability of success as $p$ and the probability of not success (or failure) as $q$:
 
 $$P(X|p, N)= \frac{N!}{X!(N-X)!}p^Xq^{(N-X)}$$
 
@@ -216,6 +212,15 @@ Each probability distribution also has a variance. For the binomial:
 
 $$Var(X) = N\theta(1-\theta)$$
 
+::: notes
+```{r}
+#mean
+5*(1/6)
+#var
+5*(1/6)*(5/6)
+```
+:::
+
 ------------------------------------------------------------------------
 
 Importantly, this means our mean and variance are related in the binomial distribution, because they both depend on $\theta$. How are they related?
@@ -232,7 +237,7 @@ Sensible mean = number of arms example
 
 ------------------------------------------------------------------------
 
-::: columns
+::::: columns
 ::: {.column width="30%"}
 The mean, .835, does not exist in the sample space, and rounding up to 1 and claiming that to be the most typical outcome is not quite right either.
 :::
@@ -242,7 +247,7 @@ The mean, .835, does not exist in the sample space, and rounding up to 1 and cla
 
 ```
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -273,7 +278,7 @@ data.frame(num = 0:5, p = dbinom(x = 0:5, size = 5, prob = 1/6)) %>% ggplot(aes(
 
 What proportion of outcomes in the sample space that fall at or below a given outcome?
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ```{r ref.label = 'binom-plot', echo = FALSE}
 
@@ -285,7 +290,7 @@ What proportion of outcomes in the sample space that fall at or below a given ou
 data.frame(num = 0:5, p = pbinom(q = 0:5, size = 5, prob = 1/6)) %>% ggplot(aes(x=num, y=p)) + geom_bar(stat="identity") + scale_x_continuous("Number of sixes (X) in five rolls (N)", breaks=c(0:5)) +scale_y_continuous("Probability")+ggtitle("Cumulative Distribution")
 ```
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -351,6 +356,60 @@ Seems safe to assume that, practically speaking, all guessers will fall below th
 
 ------------------------------------------------------------------------
 
+### Coke vs Pepsi
+
+::::: columns
+::: {.column width="50%"}
+PSY 302 students test whether Coke and Pepsi taste different.
+
+  - 18 students participate in the experiment.
+
+  - How can we use the binomial to test a hypothesis?
+:::
+
+::: {.column width="50%"}
+![](images/dalle-is-bad.jpg){fig-align="right" width="500"}
+:::
+:::::
+
+------------------------------------------------------------------------
+
+```{r}
+N = 18
+p = (1/3)
+data.frame(num = 0:N, p = dbinom(x = 0:N, size = N, prob = p)) %>% ggplot(aes(x=num, y=p)) + geom_bar(stat="identity") + scale_x_continuous("Number of correct guesses") +scale_y_continuous("Probability")+ggtitle("Testing Coke vs Pepsi") + theme_bw()
+```
+
+------------------------------------------------------------------------
+
+```{r, echo = F}
+N = 18
+p = (1/3)
+result = 9
+data.frame(num = 0:N, p = dbinom(x = 0:N, size = N, prob = p)) %>% 
+  mutate(color = ifelse(num >= result, "n", "y")) %>% 
+  ggplot(aes(x=num, y=p, fill = color)) + 
+  geom_bar(stat="identity") + 
+  scale_x_continuous("Number of correct guesses") +
+  scale_y_continuous("Probability")+
+  guides(fill = "none") +
+  ggtitle("Testing Coke vs Pepsi") + 
+  theme_bw()
+```
+
+------------------------------------------------------------------------
+
+```{r}
+dbinom(x = 9:18, size = 18, p = (1/3)) %>% round(3)
+sum(dbinom(x = 9:18, size = 18, p = (1/3)))
+
+pbinom(q = 8, size = 18, prob = 1/3) #eight or fewer
+1- pbinom(q = 8, size = 18, prob = 1/3)
+```
+
+
+------------------------------------------------------------------------
+
 ### There's always a but
 
 But, what assumptions are we making and what consequences will they have?
@@ -375,7 +434,6 @@ We might have viable alternative models:
     -   "how many times do I start my computer before it fails to start at all?"
 
 ------------------------------------------------------------------------
-
 
 We might have viable alternative models:
 
