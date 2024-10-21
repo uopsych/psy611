@@ -16,11 +16,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r, echo = F, eval = F}
-# hey future GE -- you can take out the stuff about environments!
-# change the name to writing functions?
-```
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -40,7 +35,7 @@ In today's lab we will focus on understanding and building functions. Functions 
 # Why use functions
 
 1. You don't need to reinvent the wheel.
-1. Functions help to organize your thinking into descrete units/operations.
+1. Functions help to organize your thinking into discrete units/operations.
 1. Functions help in organizing your workflow. They reduce errors and help keep a track of complex tasks.
 
 
@@ -134,11 +129,15 @@ z_scores(x)
 **Step** **4** - Decide how you want to output the data.
 
 ```{r eval=FALSE}
-z_scores <- function(x){
-                 m = mean(x)
-                 s = sd(x)
-                 z = ((x - m)/s)
+z_scores <- function(not_z_scored){
+                 m = mean(not_z_scored)
+                 s = sd(not_z_scored)
+                 z = ((not_z_scored - m)/s)
                return(z)
+}
+
+z_scores <- function(not_z_scored){
+  return((not_z_scored-mean(not_z_scored))/sd(not_z_scored))
 }
 
 z_scores(x)
@@ -183,7 +182,8 @@ z_scores(x= c("apple", "banana"))
 `scale` function in the `{base}` package can carry out the same task. 
 
 ```{r eval=FALSE}
-scale(x = c(5, 9, 8, 10, 14, 18, 19, 24, 35))
+library(tidyverse)
+scale(x = c(5, 9, 8, 10, 14, 18, 19, 24, 35)) %>% as.vector()
 
 scale(x= c("apple", "banana"))
 ```
@@ -205,7 +205,14 @@ z_scores <- function(x){
     m = mean(x)
     s = sd(x)
     z = ((x - m)/s)
+    
+    
     return(z)
+}
+
+#this is a one line code that does the same thing, but may run faster (not going to make a noticeable difference here, but in more complex function it might - however, this comes at the cost of being less legible)
+z_score_short <- function(x){
+  return(((x - mean(x))/sd(x)))
 }
 ```
 
@@ -253,6 +260,8 @@ test_function <- function(x, y, z=1) {
 #test
 test_function(3, 5, 4)
 test_function(3, 5)
+test_function(x = 3, y = 5)
+
 test_function(3, 5, 0)
 
 
@@ -314,7 +323,7 @@ my_mean <- function(random_var) {
   #calculate mean
   m <- col_sum/col_length
   #return mean
-  m
+  return(m)
 }
 #create vector to test with
 random_var <- c(1:10)
@@ -333,8 +342,9 @@ Sara mentioned $sum$ $of$ $squares$ $(SS)$ in the [class](https://uopsych.github
 library(tidyverse)
 SS <- function(x) {
   #takes numeric vector, and returns sum of squares
-  (x - mean(x))**2 %>% #get deviations and square
+  sum_of_sq <- (x - mean(x))^2 %>% #get deviations and square
     sum() #get sum of squared deviations
+  return(sum_of_sq)
 }
 #test 
 potato_weights <- rnorm(10, 1, 1)
@@ -355,14 +365,16 @@ z_scores(x)
 
 
 ```{r eval=FALSE}
-z_scores <- function(x){
-                 m = mean(x, na.rm = TRUE)
-                 s = sd(x, na.rm = TRUE)
+z_scores <- function(x, na.rm = TRUE){
+                 m = mean(x, na.rm = na.rm)
+                 s = sd(x, na.rm = na.rm)
                  z = ((x - m)/s)
                return(z)
 }
 #test function
 z_scores(x)
+z_scores(x, na.rm = FALSE)
+
 ```
 
 
@@ -372,6 +384,7 @@ z_scores(x)
 * Before running it, what do you think this code will output?
 
 ```{r eval=FALSE}
+
 x <- 1
 strange_function <- function() {
   x
@@ -403,6 +416,7 @@ strange_function <- function(x) {
 }
 x <- 4
 strange_function(5)
+strange_function(10)
 
 
 ```
