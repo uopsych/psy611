@@ -28,6 +28,7 @@ knitr::opts_chunk$set(message = F, warning = F)
 # packages in this lecture
 library(tidyverse)
 library(gganimate)
+library(here)
 ```
 
 ------------------------------------------------------------------------
@@ -450,7 +451,7 @@ We might have viable alternative models:
 
 As N increases...
 
-```{r, echo = F, results = 'asis'}
+```{r, echo = F, results = FALSE}
 #| code-fold: true
 #| 
 
@@ -459,7 +460,7 @@ plot = data.frame(N = 5:50, theta = 1/6) %>%
          density = map2(N, theta, ~dbinom(0:.x, size = .x, prob = .y))) %>%
   unnest(c(X, density)) 
 
-plot %>%
+gif = plot %>%
   ggplot(aes(x=X, y=density, frame=N)) + 
   geom_bar(stat="identity") + 
   labs(x = "Number of sixes (X) in N rolls",
@@ -469,7 +470,11 @@ plot %>%
                     transition_length = 10,
                     state_length = 2)
 
+anim_save(here("lectures/images", "binom_to_norm.gif"), gif)
+
 ```
+
+![](images/binom_to_norm.gif){fig-align="center"}
 
 ::: notes
 As N increases, the binomial becomes more normal in appearance.
