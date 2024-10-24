@@ -874,22 +874,29 @@
 <section class="slide level2">
 
 <p>As N increases…</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>plot <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">N =</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">50</span>, <span class="at">theta =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">X =</span> <span class="fu">map</span>(N, <span class="sc">~</span><span class="dv">0</span><span class="sc">:</span>.x),</span>
+<span id="cb20-3"><a href=""></a>         <span class="at">density =</span> <span class="fu">map2</span>(N, theta, <span class="sc">~</span><span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span>.x, <span class="at">size =</span> .x, <span class="at">prob =</span> .y))) <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href=""></a>  <span class="fu">unnest</span>(<span class="fu">c</span>(X, density)) </span>
+<span id="cb20-5"><a href=""></a></span>
+<span id="cb20-6"><a href=""></a>gif <span class="ot">=</span> plot <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>X, <span class="at">y=</span>density, <span class="at">frame=</span>N)) <span class="sc">+</span> </span>
+<span id="cb20-8"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> </span>
+<span id="cb20-9"><a href=""></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of sixes (X) in N rolls"</span>,</span>
+<span id="cb20-10"><a href=""></a>       <span class="at">y =</span> <span class="st">"Probability"</span>,</span>
+<span id="cb20-11"><a href=""></a>       <span class="at">title =</span> <span class="st">"N = {closest_state}"</span>) <span class="sc">+</span></span>
+<span id="cb20-12"><a href=""></a>  <span class="fu">transition_states</span>(N,</span>
+<span id="cb20-13"><a href=""></a>                    <span class="at">transition_length =</span> <span class="dv">10</span>,</span>
+<span id="cb20-14"><a href=""></a>                    <span class="at">state_length =</span> <span class="dv">2</span>)</span>
+<span id="cb20-15"><a href=""></a></span>
+<span id="cb20-16"><a href=""></a><span class="fu">anim_save</span>(<span class="fu">here</span>(<span class="st">"lectures/images"</span>, <span class="st">"binom_to_norm.gif"</span>), gif)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 
-<img data-src="images/binom_to_norm.gif" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes">
-<p>As N increases, the binomial becomes more normal in appearance.</p>
-<p>Because of the difficulties in calculating large factorials, there is a large-sample normal approximation to the binomial. The normal distribution is useful for a lot of other reasons too.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
+<img data-src="images/binom_to_norm.gif" class="r-stretch"></section>
 <section id="next-time" class="slide level2">
 <h2>Next time…</h2>
 <p>the normal distribution</p>

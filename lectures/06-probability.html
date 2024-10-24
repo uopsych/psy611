@@ -411,7 +411,8 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href=""></a><span class="fu">library</span>(gganimate)</span>
-<span id="cb1-3"><a href=""></a><span class="fu">library</span>(RColorBrewer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href=""></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb1-4"><a href=""></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
@@ -825,6 +826,7 @@
 <section class="slide level2">
 
 <p>Notably, the examples plotted show one possibility of what may happen in a given experiment with repeated trials. But as statisticians, we have to contend with all possible outcomes…</p>
+<div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>plot <span class="ot">=</span> <span class="fu">expand_grid</span>(<span class="at">N =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">toss =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2000</span>, <span class="at">prob =</span> .<span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
@@ -837,10 +839,11 @@
 <span id="cb11-8"><a href=""></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
 <span id="cb11-9"><a href=""></a>  <span class="fu">transition_manual</span>(N)</span>
 <span id="cb11-10"><a href=""></a></span>
-<span id="cb11-11"><a href=""></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-11"><a href=""></a><span class="fu">anim_save</span>(<span class="fu">here</span>(<span class="st">"lectures/images"</span>, <span class="st">"repeated_trials.gif"</span>), plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<p>NULL</p>
-</section>
+</div>
+
+<img data-src="images/repeated_trials.gif" class="r-stretch"></section>
 <section class="slide level2">
 
 <p>The frequentist view is popular because it is objective. The events in question are observable and the definition of probability (proportion of an event in the long run) is calculated in the same way by everyone.</p>

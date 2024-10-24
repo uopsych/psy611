@@ -451,7 +451,7 @@ We might have viable alternative models:
 
 As N increases...
 
-```{r, echo = F, results = FALSE}
+```{r, echo = T, results = FALSE}
 #| code-fold: true
 #| 
 
@@ -474,13 +474,8 @@ anim_save(here("lectures/images", "binom_to_norm.gif"), gif)
 
 ```
 
-![](images/binom_to_norm.gif){fig-align="center"}
+![](images/binom_to_norm.gif)
 
-::: notes
-As N increases, the binomial becomes more normal in appearance.
-
-Because of the difficulties in calculating large factorials, there is a large-sample normal approximation to the binomial. The normal distribution is useful for a lot of other reasons too.
-:::
 
 ------------------------------------------------------------------------
 

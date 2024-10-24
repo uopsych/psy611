@@ -31,6 +31,7 @@ knitr::opts_chunk$set(message = F, warning = F)
 library(tidyverse)
 library(gganimate)
 library(RColorBrewer)
+library(here)
 ```
 
 ------------------------------------------------------------------------
@@ -397,7 +398,7 @@ The binomial distribution will formally define this behavior.
 
 Notably, the examples plotted show one possibility of what may happen in a given experiment with repeated trials. But as statisticians, we have to contend with all possible outcomes...
 
-```{r, results = 'asis', fig.show='animate'}
+```{r, results = FALSE}
 #| code-fold: true
 plot = expand_grid(N = 1:30, toss = 1:2000, prob = .5) %>% 
   mutate(coin = map_dbl(prob, ~rbinom(n = 1, size = 1, prob = .))) %>% 
@@ -409,8 +410,11 @@ plot = plot %>%
   geom_line() + 
   transition_manual(N)
 
-plot
+anim_save(here("lectures/images", "repeated_trials.gif"), plot)
+
 ```
+
+![](images/repeated_trials.gif)
 
 ------------------------------------------------------------------------
 
