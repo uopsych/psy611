@@ -189,7 +189,7 @@ ggplot(data.frame(x = seq(0, 1)), aes(x)) +
 ::: {.column width="30%"}
 [We can keep shrinking the distance between Z and 0, never reaching 0, and still calculate an area.]{style="font-size:30px;"}
 
-[It will be very, very small. ]{style="font-size:30px;"}
+[It will be very, very small.]{style="font-size:30px;"}
 :::
 
 ::: {.column width="70%"}
@@ -325,7 +325,7 @@ There is only one (1) standard normal distribution.
 
 -   [Given any two *z*-scores, we can calculate the probability of getting a value between these scores. *(Or outside those z*-scores)]{style="font-size:35px;"}
 
--   [Given a probability $p$, we can identify the *z*-score at which the proportion of scores below *(or above)* $p$ falls. ]{style="font-size:35px;"}
+-   [Given a probability $p$, we can identify the *z*-score at which the proportion of scores below *(or above)* $p$ falls.]{style="font-size:35px;"}
 
 -   [Given a probability $p$, we can identify the *z*-score at which the proportion of scores that fall above $-Z$ and below $Z$ is equal to $p$.]{style="font-size:35px;"}
 
@@ -510,7 +510,7 @@ The sampling distribution of the mean will also follow a $t$ distribution.
 
 ::::: columns
 ::: {.column width="30%"}
-[The $t$ distribution is used when data are normally distributed but we do not know the population mean or standard deviation. ]{style="font-size:26px;"}
+[The $t$ distribution is used when data are normally distributed but we do not know the population mean or standard deviation.]{style="font-size:26px;"}
 
 [This must be estimated from the sample and the added uncertainty produces a distribution with heavier tails. As sample size increases, the $t$ distribution converges on the normal distribution.]{style="font-size:26px;"}
 :::
@@ -552,7 +552,7 @@ Just like with the standard normal (Z) distribution, there are 1-1 relationships
 
 $$\text{If } Z \sim N(0,1), \\\text{then }Z^2 \sim \chi^2_1 \\\text{ and } \sum_{i=1}^{N}Z^2 \sim \chi^2_N$$
 
-[In other words, the sum of squared standard normal variables will have a $\chi^2$ distribution. Therefore, we can also assume that variance is $\chi^2$ distributed. ]{style="font-size:30px;"}
+[In other words, the sum of squared standard normal variables will have a $\chi^2$ distribution. Therefore, we can also assume that variance is $\chi^2$ distributed.]{style="font-size:30px;"}
 
 ::: notes
 Tell students here that we're just previewing and over-viewing future topics -- don't worry about knowing this.
