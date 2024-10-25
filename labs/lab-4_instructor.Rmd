@@ -78,6 +78,9 @@ data_binom %>%
          x       = "",
          caption = "Number of coin flips: {frame_along}")
 
+
+
+
 ```
 
 As you might recall from class, our intuition about the outcome of the 100 coin flips can be described in terms of a binomial distribution. Essentially, the binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when (1) the outcome on every trial is binary (e.g., a coin landed on a `heads` or a `tails`; a dice was either a `6` or `not a 6`) and the probability of the outcome on every trial is the same (e.g., the probability of getting a `heads` on flip `1` is the same as the probability of getting a `heads` on flip `100`).
@@ -342,7 +345,7 @@ plot3 <- ggplot(sim, aes(x = sample)) +
   transition_states(sample_size, state_length = 2, wrap = FALSE) +
   view_follow(fixed_x = TRUE)
 
-animate(plot3, nframes = 180, fps = 12)
+animate(plot3, nframes = 180, fps = 10)
 ```
 
 *How would you sample `10` observations from a normal distribution with a mean of `100` and a standard deviation of `10`?*
