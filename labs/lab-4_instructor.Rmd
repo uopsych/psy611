@@ -1,5 +1,5 @@
 ---
-title: "Lab 4: Probability Distributions"
+title: "Lab 4: Probability Distributions - Instructor Version"
 output: 
   html_document: 
     theme: cosmo
@@ -9,6 +9,8 @@ output:
 editor_options: 
   chunk_output_type: console
 ---
+
+You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-4.Rmd).
 
 ```{r setup, include = FALSE}
 # set chunk options
@@ -20,10 +22,8 @@ options(scipen = 999)
 
 # load packages
 library(tidyverse)
-library(magrittr)
 library(psych)
-library(gganimate)
-#library(panoply)
+library(ggpubr)
 ```
 
 # Purpose
@@ -40,112 +40,119 @@ To quickly navigate to the desired section, click one of the following links:
 
 # Binomial Distributions {#binomial}
 
-Imagine you are flipping a coin. If it is a fair coin, you would expect a 50% chance of the coin landing on heads and a 50% chance of the coin landing on heads. However, as shown in the animation below, every heads is not always paired with a tails. Sometimes there is a run of heads and sometimes there is a run of tails. Still, we would probably expect that, overall, there would be the same number of heads as tails. In other words, we would expect that if we flipped a single coin 100 times, the most likely outcome would be 50 heads and 50 tails.
+The binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when 
+* (1) the outcome on every trial is binary (e.g., a coin landed on a `heads` or a `tails`; a dice was either a `6` or `not a 6`) 
+* (2) the probability of the outcome on every trial is the same (e.g., the probability of getting a `heads` on flip `1` is the same as the probability of getting a `heads` on flip `100`).
+* (3) the outcomes are independent of each other
+
+Imagine you are flipping a coin. If it is a fair coin, you would expect a 50% chance of the coin landing on heads and a 50% chance of the coin landing on tails. However, every heads is not always paired with a tails. Sometimes there is a run of heads and sometimes there is a run of tails. Still, we would probably expect that, overall, there would be the same number of heads as tails. In other words, we would expect that if we flipped a single coin 100 times, the most likely outcome would be 50 heads and 50 tails.
 
 ```{r, echo = FALSE}
-# set seed
-set.seed(2)
+# create probability curve
 
-# flip first coin
-data_binom <- data.frame(event  = 1,
-                         flip   = 1, 
-                         result = rbinom(1, 1, 1/2))
+binom_dist <- data.frame(x = seq(1, 100, 1)) %>% #for the x axis, number of heads that we want to get the probability for
+  mutate(prob = dbinom(x, size = 100, prob = 1/2)) #probability of any number of heads
 
+ggplot(binom_dist, aes(x = x, y = prob))+
+  geom_bar(stat = "identity", width = 0.7, fill = "white", color = "black")+
+  geom_hline(yintercept = 0)+
+  labs(x = "# Heads",
+       y = "Probability")+
+  theme_classic()
 
-# flip 99 other coins and repeat the data frame each time
-for (i in 2:100) {
-  data_binom <- rbind(data_binom,
-                        data.frame(event  = rep(i, i),
-                                   flip   = 1:i, 
-                                   result = c(subset(data_binom, 
-                                                     event == i - 1)$result,
-                                              rbinom(1, 1, 1/2))))
+```
+
+Integrating our knowledge from last week about functions, we can turn this command into a function such that when we provide the number of trials and the probability for a success, we can almost instantly draw a binomial distribution.
+
+```{r}
+draw_binomial <- function(size, prob){
+  
+  #size: the number of trials
+  #prob: probability of success
+
+  binom_dist <- data.frame(x = 0:size) %>% #for the x axis, all possible successes for the x axis
+    mutate(prob = dbinom(x, size = size, prob = prob)) #probability of any number of heads
+  
+  (plt <- ggplot(binom_dist, aes(x = x, y = prob))+
+      geom_bar(stat = "identity", width = 0.7, fill = "white", color = "black")+
+      geom_hline(yintercept = 0)+
+      labs(x = "# Successes",
+           y = "Probability")+
+      theme_classic())
+  
+  return(plt)
 }
 
-# plot and animate the results of the flips 
-data_binom %>%
-  mutate(result = if_else(result == 1, "Heads", "Tails")) %>%
-  ggplot(aes(x = result, fill = result)) +
-    geom_bar(width = .5, alpha = .8) +
-    scale_fill_manual(values = c("turquoise3",
-                                 "darkorchid4")) +
-    scale_y_continuous(breaks = seq(0, 50, 10)) + 
-    transition_reveal(event) +
-    theme_bw(base_size = 16) +
-    theme(legend.position = "none") +
-    labs(title   = "Outcome of 100 coin flips",
-         y       = "Count",
-         x       = "",
-         caption = "Number of coin flips: {frame_along}")
-
-
-
-
+draw_binomial(100, 0.5)
 ```
 
-As you might recall from class, our intuition about the outcome of the 100 coin flips can be described in terms of a binomial distribution. Essentially, the binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when (1) the outcome on every trial is binary (e.g., a coin landed on a `heads` or a `tails`; a dice was either a `6` or `not a 6`) and the probability of the outcome on every trial is the same (e.g., the probability of getting a `heads` on flip `1` is the same as the probability of getting a `heads` on flip `100`).
-
-```{r, echo = FALSE}
-# set seed
-set.seed(2)
-
-# create probability curve
-data_binom <- data.frame(flip = seq(1, 100, 1),
-                         prob = dbinom(seq(1, 100, 1), 100, 1/2))
-
-# plot probability curve
-ggplot(data_binom, aes(x = flip, y = prob)) +
-  geom_line(size   = 1.5, 
-            colour = "turquoise3",
-            alpha  = .8) +
-  labs(title = "Binomial Probability Distribution",
-       x       = "Number of Heads in 100 Flips",
-       y       = "Probability") +
-  theme_bw(base_size = 15) 
-```
-
-If we plot the probability distribution of the example above, two things are apparent: (1) the most probable outcome of flipping `100` coins is `50` `heads` and (2) there are additional outcomes that are, although less probable, also possible. For instance, one could even expect to get `0` `heads` `r round(dbinom(0, 100, 1/2) * 100, 29)`% of the time.
-
-```{r, include = FALSE}
-# set seed
-set.seed(2)
-
-# create data
-data_binom <- data.frame(flips = seq(1, 1000, 1), 
-                         prop  = map_dbl(seq(1, 1000, 1), 
-                                         ~mean(rbinom(n    = .x, 
-                                                      size = 1, 
-                                                      prob = 1/2))))
-
-# plot proportion of heads by number of flips
-ggplot(data_binom, aes(x = flips, y = prop, colour = prop)) +
-  geom_line(size = 1) +
-  labs(x = "Number of Flips",
-       y = "Proportion of Heads") +
-  scale_colour_gradient2(low      = "turquoise3", 
-                         mid      = "turquoise",
-                         high     = "turquoise3", 
-                         midpoint = 0.5) +
-  scale_y_continuous(limits = c(0, 1)) +
-  theme_bw(base_size = 15) +
-  theme(legend.position = "none")
-
-```
 
 ## rbinom
 
 If we want to randomly sample trials from a binomial distribution, we can use the `rbinom()` function in R. The function takes three arguments. The first argument (`n`) is the number of trials to sample. If we wanted to flip `2` coins `10` times, we would include the argument `n = 10`. The second argument (`size`) is the number of events associated with each trial. If we are flipping `2` coins, we would include `size = 2`. The third argument (`prob`) is the probability of success on a given trial. If we consider a `heads` a success and everything else a failure, we would include the argument `prob = 1/2`. Putting all of that together, we get `rbinom(n = 10, size = 2, prob = 1/2)`.
 
+With random processes, I recommend that you use `set.seed([any number that you like])` to make your code reproducible across computers. If you don't use this function, the same code will produce different results on different computers.
+
 ```{r, include = FALSE}
-set.seed(3)
+set.seed(1)
 ```
+
+Let's make the computer flip a coin 10 times.
 
 ```{r}
-rbinom(n = 10, size = 2, prob = 1/2)
+#side note: if we wrap a command in parentheses, it will assign the output of a function to the object and still print it at the same time!
+(flip <- rbinom(n = 10, #trials
+       size = 1, #number of coins per trial
+       prob = 0.5)) #probability of success (1)
 ```
 
-From the results, we can see we got `0` `heads` on the first toss of our `2` coins, `2` `heads` on the second toss our `2` coins, and `1` `head` on the third through sixth tosses of our `2` coins.
+What's your expectation of how many heads we should get? How many heads did we end up getting?
 
+```{r}
+mean(flip)
+```
+
+How about we make the computer do this 10000 times? 😈
+
+```{r}
+flip <- rbinom(n = 10000, #trials
+       size = 1, #number of coins per trial
+       prob = 0.5) #probability of success (1)
+
+mean(flip)
+```
+
+We can also ask the computer to flip two coins per trial.
+```{r}
+rbinom(n = 10, size = 2, prob = 1/2) 
+```
+
+
+Now, the proportion of heads might be closer to the expectation. `rbinom` can be helpful for running simulations. Let's see how the variance of the proportion of heads depends on the number of flips.
+
+```{r}
+
+flip_simulation <- data.frame(N_flips = seq(1, 10000, by = 10), #this is the number of flips we want to look at
+                              prop_head = NA) #just a placeholder, we're going to fill this with the proportions iteratively
+
+#Don't worry too much about the code below, but this is a for loop, implementing an iterative process
+for (i in 1:nrow(flip_simulation)){ #this is telling R to go through each row of our data frame
+  #and then we fill the proportion of head column with the proportion of heads from the result of the binomial process
+  flip_simulation$prop_head[i] <- mean(rbinom(n = flip_simulation$N_flips[i], size = 1, prob = 0.5))
+}
+
+ggplot(flip_simulation, aes(x  = N_flips, y = prop_head))+
+  geom_line()+
+  geom_hline(yintercept = 0.5, color = "red")+
+  labs(x = "Number of flips",
+       y = "Proportion of Heads")+
+  theme_classic()
+```
+
+The more trials we have for a random process, the more the proportion of successes converges on the expected value
+
+
+*Now, run the following simulations:*
 *How would we change this if we were flipping `3` coins `10` times?*
 
 ```{r}
@@ -172,6 +179,7 @@ To get the probability of getting `1` `heads` by flipping `2` coins, we could ru
 
 ```{r}
 dbinom(x = 1, size = 2, prob = .5)
+draw_binomial(size = 2, prob = .5) #that checks out!
 ```
 
 There is a `.50` probability of getting `1` `heads` when you flip `2` coins. We can investigate why this is the case by looking at the probability of every outcome. 
@@ -179,6 +187,15 @@ There is a `.50` probability of getting `1` `heads` when you flip `2` coins. We 
 ```{r}
 # HT + TH
 (.5 * .5) + (.5 * .5)
+```
+I think it might be helpful to look at some visualization of this. Another way of looking at `dbinom()` for, let's say, a binomial distribution of 50 trials and probability for success of 0.5:
+
+```{r}
+dbinom(x = 20, size = 50, prob = 0.5)
+
+draw_binomial(size = 50, prob = 0.5)+
+  geom_segment(aes(x = 20-1, xend = 20, y = dbinom(x = 20, size = 50, prob = 0.5)+0.01, yend = dbinom(x = 20, size = 50, prob = 0.5)))+
+  geom_label(aes(x = 20-1, y = dbinom(x = 20, size = 50, prob = 0.5)+0.01, label = round(dbinom(x = 20, size = 50, prob = 0.5), 3)))
 ```
 
 *What's the probability of getting `1` head when you flip `3` coins?*
@@ -189,7 +206,7 @@ dbinom(x = 1, size = 3, prob = .5)
 (.5 * .5 * .5) + (.5 * .5 * .5) + (.5 * .5 * .5)
 ```
 
-*When drawing a card from a deck of cards twice (with replacement), what's the probability of drawing `2` `aces`?*
+*What's the probability of drawing `2` `aces` out of `1` deck of cards (with replacement) when drawing twice?*
 ```{r}
 dbinom(x = 2, size = 2, prob = 1/13)
 
@@ -197,7 +214,7 @@ dbinom(x = 2, size = 2, prob = 1/13)
 (1 / 13) * (1 / 13)
 ```
 
-*When drawing a card from a deck of cards twice (with replacement), what's the probability of drawing `0` `aces`?*
+*What's the probability of drawing `0` Aces out of a deck of cards twice (with replacement)?*
 ```{r}
 # method 1
 dbinom(x = 0, size = 2, prob = 1/13)
@@ -208,6 +225,8 @@ dbinom(x = 2, size = 2, prob = 12/13)
 # 00
 (12 / 13) * (12 / 13)
 ```
+
+
 
 ## pbinom
 
@@ -226,18 +245,6 @@ The result is `.75`. Again, this makes sense if we look at the probability of ev
 (.5 * .5) + (.5 * .5) + (.5 * .5)
 ```
 
-*What's the probability of getting `1 or less` `heads` when flipping `10` coins?*
-
-```{r}
-pbinom(q = 1, size = 10, prob = 1/2)
-```
-
-*What's the probability of getting `1 or less` `6`s when  rolling `1` dice?*
-
-```{r}
-pbinom(q = 1, size = 1, prob = 1/6)
-```
-
 The function `pbinom()` can also take the argument `lower.tail` (defaults to `TRUE`). The argument `lower.tail` is what specifies what side of the probability distribution we should be testing from. In practical terms, it is what decided that we wanted `1 or less` heads rather than `greather than 1` `heads`.
 
 For instance, if we wanted to test the probability of getting `greater than 1` `heads` when flipping `2` coins, we would specify `lower.tail = FALSE`.
@@ -246,9 +253,43 @@ For instance, if we wanted to test the probability of getting `greater than 1` `
 pbinom(q = 1, size = 2, prob = 1/2, lower.tail = FALSE)
 ```
 
+This figure tries to illustrate cumulative probability:
+
+```{r}
+#this is just for instruction purposes, no need to fully understand this code
+q <- 20
+size <- 50
+prob <- 0.5
+
+draw_binomial(size = size, prob = prob)+
+  geom_bracket(xmin = 0, xmax = q, 
+               y.position = (dbinom(x = q, size = size, prob = prob)+0.01), 
+               label = paste0("lower.tail = TRUE: ", round(pbinom(q = q, size = size, prob = prob, lower.tail = TRUE), 3)), color = "red")+
+  geom_bracket(xmin = q+1, xmax = size, 
+               y.position = (dbinom(x = q+1, size = size, prob = prob)+0.01), 
+               label = paste0("lower.tail = FALSE: ", round(pbinom(q = q, size = size, prob = prob, lower.tail = FALSE), 3)), color = "red")
+```
+
+
+*What's the probability of getting `1 or less` `heads` when flipping `10` coins?*
+
+```{r}
+# your code here
+pbinom(q = 1, size = 10, prob = 1/2)
+```
+
+*What's the probability of getting `1 or less` `6`s when  rolling `1` dice?*
+
+```{r}
+# your code here
+pbinom(q = 1, size = 1, prob = 1/6)
+```
+
+
 *What's the probability of getting `greater than 3` `6`s when  rolling `9` dice?*
 
 ```{r}
+# your code here
 pbinom(q = 3, size = 9, prob = 1/6, lower.tail = FALSE)
 ```
 
@@ -259,29 +300,83 @@ The function `qbinom()` essentially does the opposite of `pbinom`. Instead of ta
 For instance if we wanted the value for which there is `100`% probability of getting that `value or less` on `10` coin flips, we would enter `qbinom(p = 1.00, size = 10, prob = 1/2)`.
 
 ```{r}
-qbinom(p = 1.00, size = 10, prob = 1/2)
+qbinom(p = 1.00, size = 10, prob = 1/2, lower.tail = TRUE)
 ```
 
 Unsurprisingly, `10 or less` `heads` has a 100% chance of occurring when you flip `10` coins.
 
+
+```{r}
+
+q <- 1
+size <- 2
+prob <- 0.5
+
+#this is just for instruction purposes, no need to fully understand this code
+draw_binomial(size = size, prob = prob)+
+  geom_bracket(xmin = 0, xmax = q, 
+               y.position = (dbinom(x = q, size = size, prob = prob)+0.01), 
+               label = paste0("lower.tail = TRUE: ", round(pbinom(q = q, size = size, prob = prob, lower.tail = TRUE), 3)), color = "red")+
+  geom_bracket(xmin = q+1, xmax = size, 
+               y.position = (dbinom(x = q+1, size = size, prob = prob)+0.01), 
+               label = paste0("lower.tail = FALSE: ", round(pbinom(q = q, size = size, prob = prob, lower.tail = FALSE), 3)), color = "red")
+
+#At what number of successes (or less) is X% of the distribution covered?
+qbinom(p = 0.75, size = size, prob = prob, lower.tail = TRUE)
+
+#Above (!) what number of successes is X% of the distribution covered?
+qbinom(p = 0.75, size = size, prob = prob, lower.tail = FALSE)
+
+```
+
+
 *With `100` coin flips, what is the number of `heads` (or less) that has a `.50` probability of occurring?*
 ```{r}
+#your code here
 qbinom(p = .50, size = 100, prob = 1/2)
 ```
 
 *With `100` coin flips, what is the number of `heads` (or less) that has a `.25` probability of occurring?*
 ```{r}
+#your code here
 qbinom(p = .25, size = 100, prob = 1/2)
 ```
 
 *With `100` coin flips, what is the number of `heads` (or greater) that has a `.25` probability of occurring?*
 ```{r}
+#your code here
 qbinom(p = .25, size = 100, prob = 1/2, lower.tail = FALSE)
 ```
 
 # Normal Distributions {#normal}
 
-Recall from class that a `normal distribution` is a continuous probability distribution that is defined by a mean ($\mu$) and a standard deviation ($\sigma$). Whereas the binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when the outcome of every trial is binary, the normal distribution describe the theoretical probability of obtaining a certain outcome from a continuous distribution that has a certain mean ($\mu$) and standard deviation ($\sigma$).
+Recall from class that a `normal distribution` is a continuous probability distribution that is defined by a mean ($\mu$) and a standard deviation ($\sigma$). Whereas the binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when the outcome of every trial is binary, the normal distribution describes the theoretical probability of obtaining a certain outcome from a continuous distribution that has a certain mean ($\mu$) and standard deviation ($\sigma$).
+
+A function to create a quick plot might be helpful...
+```{r}
+
+draw_normal <- function(M, SD){
+  
+  #M = mean of the normal distribution we want to draw
+  #SD = sd of the normal distribution we want to draw
+  
+  x = seq(M - 4*SD, M + 4*SD, 0.1) #this is for the x axis, we're plotting a range from M +/- 4 SD, that covers most of the interesting part of the distribution
+  
+  norm_dist <- data.frame(x = x) %>% 
+    mutate(prob = dnorm(x, mean = M, sd = SD)) #probability of any number of heads
+  
+  (plt <- ggplot(norm_dist, aes(x = x, y = prob))+
+    geom_line()+
+    labs(x = "x",
+         y = "Density")+
+    theme_classic())
+  
+  return(plt)
+  
+}
+
+```
+
 
 ## rnorm
 
@@ -298,134 +393,59 @@ x <- rnorm(n = 5, mean = 0, sd = 1)
 x
 ```
 
-The five values were `-0.8969145`, `0.1848492`, `1.5878453`, `-1.13037567` and `-0.08025176`. Calculating the `mean()` and `sd()` of our `5` numbers can serve as a bit of a sanity check. 
+Calculating the `mean()` and `sd()` of our `5` numbers can serve as a bit of a sanity check. 
 
 ```{r}
 mean(x)
 sd(x)
 ```
 
-If we plot a histogram of the data, it doesn't look normally distributed. 
-
-```{r, include = FALSE}
-# create simulated data
-set.seed(2)
-sample_size <- c(1, 5, 10, 15, 25, 50, 100, 250, 500, 750, 1000, 5000, 10000)
-
-sim <- map_df(sample_size, function(sample_size) {
-  set.seed(2)
-  data_frame(sample_size = rep(sample_size, sample_size), 
-             sample      = rnorm(sample_size, mean = 0, sd = 1))
-  })
-```
-
-```{r, echo = FALSE}
-sim %>%
-  filter(sample_size == 5) %>%
-  ggplot(aes(x = sample)) +
-    geom_histogram(fill = "turquoise3", colour = "white", alpha = .7) +
-    theme_bw(base_size = 16) +
-    labs(x        = "x",
-         y        = "Frequency",
-         title    = "Sample Histogram") + 
-    scale_x_continuous(limits = c(-4, 4)) 
-```
-
-Not to worry! As illustrated in the animation below, many samples do not appear normal until samples of sufficient size are taken from the population.
-
-```{r, echo = FALSE}
-plot3 <- ggplot(sim, aes(x = sample)) +
-  geom_histogram(fill = "turquoise3", colour = "white", alpha = .7) +
-  theme_bw(base_size = 16) +
-  labs(x        = "x",
-       y        = "Frequency",
-       title    = "Sample Histogram",
-       subtitle = "Sample Size: {closest_state}") + 
-  scale_x_continuous(limits = c(-4, 4))  + 
-  transition_states(sample_size, state_length = 2, wrap = FALSE) +
-  view_follow(fixed_x = TRUE)
-
-animate(plot3, nframes = 180, fps = 10)
-```
+With only 5 samples drawn, the distribution may not look normal, but with a sufficiently large sample size, it will start to resemble the true distribution.
 
 *How would you sample `10` observations from a normal distribution with a mean of `100` and a standard deviation of `10`?*
 
 ```{r}
+# your code here
 x <- rnorm(n = 100, mean = 50, sd = 15)
 x
 ```
 
 *Are the descriptives for this sample what we would expect?*
 ```{r}
+# your code here
 mean(x)
 sd(x)
 ```
 
+
+
 ## dnorm
 
-The normal distribution counterpart of `dbinom()` is `dnorm()`. Similar to `rnorm()`, it takes a mean (`mean`) and a standard deviation (`sd`), but instead of an argument for the number of observations you want to sample (`n`) you provide it a value (`x`). As mentioned in class, the probability of any one value in a normal distribution is `0.00` because the total probability of the distribution is `1.00` and there are infinite values in any continuous distribution. The reason `dnorm()` exists is mostly mathematical, but we can use it to calculate the height of the probability curve for any one value.
-
-```{r, include = FALSE}
-# create data
-x          <- seq(-4, 4, 0.001)
-likelihood <- dnorm(x, 0, 1)
-sim        <- data.frame(x, likelihood)
-```
-
-```{r, include = FALSE}
-# create dnorm plotting function
-dnorm_plot <- function(value) {
-  ggplot(sim, aes(x, likelihood)) +
-  geom_line(size = 1.2) +
-  geom_segment(x = -4, 
-               xend = value, 
-               y = dnorm(value, mean = 0, sd = 1),
-               yend = dnorm(value, mean = 0, sd = 1), 
-               color = "turquoise3", 
-               linetype = 2, 
-               size = 1.4) +
-  geom_segment(x = value, 
-               xend = value, 
-               y = 0,
-               yend = dnorm(value, mean = 0, sd = 1), 
-               color = "turquoise3", 
-               linetype = 2, 
-               size = 1.4) +
-  annotate(geom = "label", x = value + .8, y = dnorm(value, mean = 0, sd = 1), label = round(dnorm(value, mean = 0, sd = 1), 3), colour = "turquoise3", size = 5) +
-  geom_point(aes(x = value, y = dnorm(value, mean = 0, sd = 1)), size = 5, colour = "turquoise3") +
-  scale_x_continuous(limits = c(-4, 4)) +
-  theme_bw(base_size = 15) + 
-  labs(y = "Probability")
-}
-```
-
-```{r}
-dnorm(x = 0, mean = 0, sd = 1)
-```
+The normal distribution counterpart of `dbinom()` is `dnorm()`. Similar to `rnorm()`, it takes a mean (`mean`) and a standard deviation (`sd`), but instead of an argument for the number of observations you want to sample (`n`) you provide it a value (`x`). The reason `dnorm()` exists is to calculate the height of the probability curve for any one value.
 
 For example, if we enter the value `0` with a mean of `0` and a standard deviation `1`, we get `0.3989423`
+```{r}
+dnorm(x = 0, mean = 0, sd = 1)
 
-```{r, echo = FALSE}
-dnorm_plot(0)
+draw_normal(M = 0, SD = 1) +
+  geom_segment(x = 0, xend = -Inf, y = dnorm(x = 0, mean = 0, sd = 1), yend = dnorm(x = 0, mean = 0, sd = 1))+
+  geom_segment(x = 0, xend = 0, y = -Inf, yend = dnorm(x = 0, mean = 0, sd = 1))+
+  geom_label(label = round(dnorm(x = 0, mean = 0, sd = 1), 3), x = 0, y = dnorm(x = 0, mean = 0, sd = 1), hjust = 0)
+
 ```
 
-As shown in the plot above, the height of the probability curve at a value of `0` is `.399`. 
 
 Likewise, if we calculate the height of the probability plot at an `x` value of `1`, we see the result `0.2419707.`
 
 ```{r}
-dnorm(1, mean = 0, sd = 1)
+dnorm(x = 1, mean = 0, sd = 1)
 ```
 
-Looking at the plotted normal distribution, this is also expected.
 
-```{r, echo = FALSE}
-dnorm_plot(1)
-```
-
-*What would be the height of the probability line at a value of -2 when the `mean` is `0` and the `sd` is `1`?*
+*What would be the height of the probability line at a value of -1 when the `mean` is `0` and the `sd` is `1`?*
 
 ```{r}
+# your code here
 dnorm(x = -2, mean = 0, sd = 1)
 ```
 
@@ -435,89 +455,47 @@ dnorm(x = -2, mean = 0, sd = 1)
 
 Like `pbinom()`, `pnorm()` tells you the probability of getting a certain value (or less) in a given normal distribution. Once again, you can set the mean and standard deviation of the distribution using `mean` and `sd`. Instead of taking its value using the `x` argument, it takes its argument using the `q` argument. 
 
-```{r, echo = FALSE}
-ggplot(sim, aes(x, likelihood)) +
-    stat_function(fun = dnorm, 
-                xlim = c(-5,0),
-                geom = "area",
-                fill = "turquoise3") +
-  xlim(-3.5, 3.5) +
-  labs(y = "Probability") +
-  geom_line(size = 1.2) +
-  theme_bw()
-```
-
-If we wanted to calculate the probability of getting a value in the shaded region above, we would use `pnorm(q = 0, mean = 0, sd = 1)`.
+If we wanted to calculate the probability of getting a value below 0 from a normal distribution with a mean of 0 and sd of 1, we would use: 
 
 ```{r}
-pnorm(q = 0, mean = 0, sd = 1)
-```
+pnorm(q = 0, mean = 0, sd = 1, lower.tail = TRUE)
 
-As would be expected, we have a 50% probability of getting a value in the shaded region of the plot. However, for most  of us, it is not easy to try to convert the shaded region under a curve to a probability value. An easier way to visualize it is through the use of a cumulative probability plot, where each shaded ball represents a .01 (1.00%) probability.
+q <- 0
+M <- 0
+SD <- 1
 
-```{r, include = FALSE}
-ball_plot <- function(q, mean = 0, sd = 1, lower.tail = TRUE){
-  if (lower.tail == TRUE) {
-  discretized <- data.frame(x = qnorm(ppoints(100), mean, sd)) %>% 
-  mutate(include = ifelse(x <= q, "no", "yes"))
-  } else {
-  discretized <- data.frame(x = qnorm(ppoints(100), mean, sd)) %>% 
-  mutate(include = ifelse(x >= q, "no", "yes"))
-  }
-  ggplot(discretized, aes(x)) +
-    geom_dotplot(aes(fill = include), binwidth = 0.29 * sd, alpha = .7, colour = "white") +
-    geom_vline(xintercept = q, color = "firebrick", linetype = 2, size = 1.4) +
-    scale_fill_manual(
-      values = c("turquoise3", "gray40"),
-      guide = "none") +
-    theme_bw() +
-    scale_y_continuous(name = "", 
-                       breaks = NULL)
-}
+draw_normal(M = M, SD = SD)+
+  geom_vline(xintercept = q)+
+  geom_label(x = q, y = 0, label = q)+
+  geom_bracket(xmin = -4, xmax = q, 
+               y.position = (dnorm(x = q, mean = M, sd = SD)+0.01), 
+               label = paste0("lower.tail = TRUE: ", round(pnorm(q = q, mean = 0, sd = 1, lower.tail = TRUE), 3)), color = "red")+
+  geom_bracket(xmin = q+0.01, xmax = Inf, 
+               y.position = (dnorm(x = q, mean = M, sd = SD)+0.03), 
+               label = paste0("lower.tail = FALSE: ", round(pnorm(q = q, mean = 0, sd = 1, lower.tail = FALSE), 3)), color = "red")
 
 ```
 
-```{r, echo = FALSE}
-ball_plot(0)
-```
-
-If we were to count every shaded ball on the left of the vertical line below, we would see that there are `50` balls to the left of the red line. In other words, there is a 50% probability of getting a `0 or less` in our distribution.
 
 So, what's the probability of getting `40 or less` when the mean is `50` and the standard deviation is `10`?
 
-```{r, echo = FALSE}
-ball_plot(q = 40, mean = 50, sd = 10)
-```
-
-Looking at our cumulative probability plot, it looks like `16` balls are on the left of the dashed red line. We can check this with `pnorm()`.
-
 ```{r}
-pnorm(q = 40, mean = 50, sd = 10)
+pnorm(q = 40, mean = 50, sd = 10, lower.tail = TRUE)
 ```
 
 Looks like the probability of getting a value of `40 or less` is slightly less than `.16`. 
 
 We can also work through this mathematically. We expect that 68% of values on a normal distribution will fall between plus or minus one standard deviation. In our example, `40` is one standard deviation below the mean. As such, the probability of getting `40` or a value less than `40` would be $\frac{1 - 0.68}{2} = \frac{.32}{2} = .16$.
 
-*What's the probability of getting a value of `60` or less`, when the mean of the distribution is `30` and the standard deviation is `15?`*
-```{r, echo = FALSE}
-ball_plot(q = 60, mean = 30, sd = 15)
-```
-
+*What's the probability of getting a value of `60 or less`, when the mean of the distribution is `30` and the standard deviation is `15?`*
 ```{r}
+# your code here
 pnorm(q = 60, mean = 30, sd = 15)
 ```
 
-```{r}
-((1 - .9545) / 2) + .9545
-```
-
 *What's the probability of getting a value greater than `-5` when the mean is `0` and the sd is `5`?*
-```{r, echo = FALSE}
-ball_plot(q = -5, mean = 0, sd = 5,  lower.tail = FALSE)
-```
-
 ```{r}
+# your code here
 pnorm(q = -5, mean = 0, sd = 5, lower.tail = FALSE)
 ```
 
@@ -536,12 +514,14 @@ As we can see, the value is just about `-3.00`. This makes sense if we consider 
 *What value or less is associated with a `.51` cumulative probability in a normal distribution with a mean of `100` and a standard deviation of `10`?*
 
 ```{r}
+# your code here
 qnorm(p = .51, mean = 100, sd = 10)
 ```
 
 *What value or greater is associated with a `.51` probability in a normal distribution with a mean of `100` and a standard deviation of `10`?*
 
 ```{r}
+# your code here
 qnorm(p = .51, mean = 100, sd = 10, lower.tail = FALSE)
 ```
 
@@ -581,12 +561,19 @@ This isn't a concern in this case though because qbinom() essentially "rounds up
 To check my work, I added up each of the discrete probabilities using dbinom():
 
 ```{r}
-dbinom(5, size = 5, prob = 1/20) + dbinom(4, size = 5, prob = 1/20) + dbinom(3, size = 5, prob = 1/20) + dbinom(2, size = 5, prob = 1/20) 
+dbinom(5, size = 5, prob = 1/20) + 
+  dbinom(4, size = 5, prob = 1/20) + 
+  dbinom(3, size = 5, prob = 1/20) + 
+  dbinom(2, size = 5, prob = 1/20) 
 #OR
 pbinom(1, size = 5, prob = 1/20, lower.tail = FALSE)
 #The probabilities of 2 and above is .023--insufficient to reach the .1 threshold I set.
 
-dbinom(5, size = 5, prob = 1/20) + dbinom(4, size = 5, prob = 1/20) + dbinom(3, size = 5, prob = 1/20) + dbinom(2, size = 5, prob = 1/20) + dbinom(1, size = 5, prob = 1/20)
+dbinom(5, size = 5, prob = 1/20) + 
+  dbinom(4, size = 5, prob = 1/20) + 
+  dbinom(3, size = 5, prob = 1/20) + 
+  dbinom(2, size = 5, prob = 1/20) + 
+  dbinom(1, size = 5, prob = 1/20)
 #OR
 pbinom(0, size = 5, prob = 1/20, lower.tail = FALSE)
 #The probabilities of 1 and above is .226, therefore this is the minimum I need.

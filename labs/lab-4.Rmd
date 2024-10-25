@@ -437,7 +437,7 @@ If we wanted to calculate the probability of getting a value below 0 from a norm
 ```{r}
 pnorm(q = 0, mean = 0, sd = 1, lower.tail = TRUE)
 
-q <- 2
+q <- 0
 M <- 0
 SD <- 1
 
