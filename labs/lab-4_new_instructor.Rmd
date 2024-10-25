@@ -188,6 +188,15 @@ There is a `.50` probability of getting `1` `heads` when you flip `2` coins. We 
 # HT + TH
 (.5 * .5) + (.5 * .5)
 ```
+I think it might be helpful to look at some visualization of this. Another way of looking at `dbinom()` for, let's say, a binomial distribution of 50 trials and probability for success of 0.5:
+
+```{r}
+dbinom(x = 20, size = 50, prob = 0.5)
+
+draw_binomial(size = 50, prob = 0.5)+
+  geom_segment(aes(x = 20-1, xend = 20, y = dbinom(x = 20, size = 50, prob = 0.5)+0.01, yend = dbinom(x = 20, size = 50, prob = 0.5)))+
+  geom_label(aes(x = 20-1, y = dbinom(x = 20, size = 50, prob = 0.5)+0.01, label = round(dbinom(x = 20, size = 50, prob = 0.5), 3)))
+```
 
 *What's the probability of getting `1` head when you flip `3` coins?*
 ```{r}
@@ -217,15 +226,6 @@ dbinom(x = 2, size = 2, prob = 12/13)
 (12 / 13) * (12 / 13)
 ```
 
-I think it might be helpful to look at some visualization of this. Another way of looking at `dbinom()` for, let's say, a binomial distribution of 50 trials and probability for success of 0.5:
-
-```{r}
-dbinom(x = 20, size = 50, prob = 0.5)
-
-draw_binomial(size = 50, prob = 0.5)+
-  geom_segment(aes(x = 20-1, xend = 20, y = dbinom(x = 20, size = 50, prob = 0.5)+0.01, yend = dbinom(x = 20, size = 50, prob = 0.5)))+
-  geom_label(aes(x = 20-1, y = dbinom(x = 20, size = 50, prob = 0.5)+0.01, label = round(dbinom(x = 20, size = 50, prob = 0.5), 3)))
-```
 
 
 ## pbinom

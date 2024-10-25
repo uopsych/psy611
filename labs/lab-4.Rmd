@@ -91,7 +91,7 @@ draw_binomial(100, 0.5)
 
 If we want to randomly sample trials from a binomial distribution, we can use the `rbinom()` function in R. The function takes three arguments. The first argument (`n`) is the number of trials to sample. If we wanted to flip `2` coins `10` times, we would include the argument `n = 10`. The second argument (`size`) is the number of events associated with each trial. If we are flipping `2` coins, we would include `size = 2`. The third argument (`prob`) is the probability of success on a given trial. If we consider a `heads` a success and everything else a failure, we would include the argument `prob = 1/2`. Putting all of that together, we get `rbinom(n = 10, size = 2, prob = 1/2)`.
 
-With random processes, I recommend that you use `set.seed([any number that you like])` to make your code reproducible across computers. If you don't use this function, the same code will produce different results on different computers.
+With random processes, I recommend that you use `set.seed([any number that you like])` to make your code reproducible and spit out the same result across computers and every time you run it. If you don't use this function, the same code will produce different results on different computers and every time you run it.
 
 ```{r, include = FALSE}
 set.seed(1)
@@ -189,6 +189,17 @@ There is a `.50` probability of getting `1` `heads` when you flip `2` coins. We 
 (.5 * .5) + (.5 * .5)
 ```
 
+I think it might be helpful to look at some visualization of this. Another way of looking at `dbinom()` for, let's say, a binomial distribution of 50 trials and probability for success of 0.5:
+
+```{r}
+dbinom(x = 20, size = 50, prob = 0.5)
+
+draw_binomial(size = 50, prob = 0.5)+
+  geom_segment(aes(x = 20-1, xend = 20, y = dbinom(x = 20, size = 50, prob = 0.5)+0.01, yend = dbinom(x = 20, size = 50, prob = 0.5)))+
+  geom_label(aes(x = 20-1, y = dbinom(x = 20, size = 50, prob = 0.5)+0.01, label = round(dbinom(x = 20, size = 50, prob = 0.5), 3)))
+```
+
+
 *What's the probability of getting `1` head when you flip `3` coins?*
 ```{r}
 # your code here
@@ -202,16 +213,6 @@ There is a `.50` probability of getting `1` `heads` when you flip `2` coins. We 
 *What's the probability of drawing `0` Aces out of a deck of cards twice (with replacement)?*
 ```{r}
 # your code here
-```
-
-I think it might be helpful to look at some visualization of this. Another way of looking at `dbinom()` for, let's say, a binomial distribution of 50 trials and probability for success of 0.5:
-
-```{r}
-dbinom(x = 20, size = 50, prob = 0.5)
-
-draw_binomial(size = 50, prob = 0.5)+
-  geom_segment(aes(x = 20-1, xend = 20, y = dbinom(x = 20, size = 50, prob = 0.5)+0.01, yend = dbinom(x = 20, size = 50, prob = 0.5)))+
-  geom_label(aes(x = 20-1, y = dbinom(x = 20, size = 50, prob = 0.5)+0.01, label = round(dbinom(x = 20, size = 50, prob = 0.5), 3)))
 ```
 
 
@@ -405,8 +406,8 @@ For example, if we enter the value `0` with a mean of `0` and a standard deviati
 dnorm(x = 0, mean = 0, sd = 1)
 
 draw_normal(M = 0, SD = 1) +
-  geom_segment(x = 0, xend = -Inf, y = dnorm(x = 0, mean = 0, sd = 1), yend = dnorm(x = 0, mean = 0, sd = 1))+
-  geom_segment(x = 0, xend = 0, y = -Inf, yend = dnorm(x = 0, mean = 0, sd = 1))+
+  geom_segment(x = 0, xend = -Inf, y = dnorm(x = 0, mean = 0, sd = 1), color = "red")+
+  geom_segment(x = 0, y = -Inf, yend = dnorm(x = 0, mean = 0, sd = 1))+
   geom_label(label = round(dnorm(x = 0, mean = 0, sd = 1), 3), x = 0, y = dnorm(x = 0, mean = 0, sd = 1), hjust = 0)
 
 ```
@@ -436,7 +437,7 @@ If we wanted to calculate the probability of getting a value below 0 from a norm
 ```{r}
 pnorm(q = 0, mean = 0, sd = 1, lower.tail = TRUE)
 
-q <- 0
+q <- 2
 M <- 0
 SD <- 1
 
@@ -481,7 +482,7 @@ Finally, we can use `qnorm()` to get the value that corresponds to a particular 
 To get the value or less that has a probability of `0.00135` of occurring in a distribution with a mean of `0` and a standard deviation of `1` is calculated using `qnorm(p = .00135, mean = 0, sd = 1)`.
 
 ```{r}
-qnorm(p = .00135, mean = 0, sd = 1)
+qnorm(p = .00135, mean = 0, sd = 1, lower.tail = TRUE)
 ```
 
 As we can see, the value is just about `-3.00`. This makes sense if we consider that `99.73`% of values in a normal distribution are between three standard deviations below and above the mean; probability of getting `-3.00` would be $\frac{1-.9973}{2} = 0.00135$.
