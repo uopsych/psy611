@@ -1,0 +1,653 @@
+---
+title: "Lab 4: Probability Distributions"
+output: 
+  html_document: 
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: TRUE
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+# set chunk options
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+# suppress scientific notation
+options(scipen = 999)
+
+# load packages
+library(tidyverse)
+library(magrittr)
+library(psych)
+library(gganimate)
+#library(panoply)
+```
+
+# Purpose
+
+The purpose of today's lab is to introduce tools for sampling from and calculating statistics for different types of distributions in R. The content of the lab will be split into two sections. The first section will focus on [binomial distributions](#binomial) and the second section will focus on [normal distributions](#normal). The [Minihacks](#minihacks) will test your knowledge of both types of distributions, as well as some distributions that are not discussed in the lab but are nonetheless important.
+
+To quickly navigate to the desired section, click one of the following links:
+
+1. [Binomial Distributions](#binomial)
+1. [Normal Distributions](#normal)
+1. [Minihacks](#minihacks)
+
+***
+
+# Binomial Distributions {#binomial}
+
+Imagine you are flipping a coin. If it is a fair coin, you would expect a 50% chance of the coin landing on heads and a 50% chance of the coin landing on heads. However, as shown in the animation below, every heads is not always paired with a tails. Sometimes there is a run of heads and sometimes there is a run of tails. Still, we would probably expect that, overall, there would be the same number of heads as tails. In other words, we would expect that if we flipped a single coin 100 times, the most likely outcome would be 50 heads and 50 tails.
+
+```{r, echo = FALSE}
+# set seed
+set.seed(2)
+
+# flip first coin
+data_binom <- data.frame(event  = 1,
+                         flip   = 1, 
+                         result = rbinom(1, 1, 1/2))
+
+
+# flip 99 other coins and repeat the data frame each time
+for (i in 2:100) {
+  data_binom <- rbind(data_binom,
+                        data.frame(event  = rep(i, i),
+                                   flip   = 1:i, 
+                                   result = c(subset(data_binom, 
+                                                     event == i - 1)$result,
+                                              rbinom(1, 1, 1/2))))
+}
+
+# plot and animate the results of the flips 
+data_binom %>%
+  mutate(result = if_else(result == 1, "Heads", "Tails")) %>%
+  ggplot(aes(x = result, fill = result)) +
+    geom_bar(width = .5, alpha = .8) +
+    scale_fill_manual(values = c("turquoise3",
+                                 "darkorchid4")) +
+    scale_y_continuous(breaks = seq(0, 50, 10)) + 
+    transition_reveal(event) +
+    theme_bw(base_size = 16) +
+    theme(legend.position = "none") +
+    labs(title   = "Outcome of 100 coin flips",
+         y       = "Count",
+         x       = "",
+         caption = "Number of coin flips: {frame_along}")
+
+
+
+
+```
+
+As you might recall from class, our intuition about the outcome of the 100 coin flips can be described in terms of a binomial distribution. Essentially, the binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when (1) the outcome on every trial is binary (e.g., a coin landed on a `heads` or a `tails`; a dice was either a `6` or `not a 6`) and the probability of the outcome on every trial is the same (e.g., the probability of getting a `heads` on flip `1` is the same as the probability of getting a `heads` on flip `100`).
+
+```{r, echo = FALSE}
+# set seed
+set.seed(2)
+
+# create probability curve
+data_binom <- data.frame(flip = seq(1, 100, 1),
+                         prob = dbinom(seq(1, 100, 1), 100, 1/2))
+
+# plot probability curve
+ggplot(data_binom, aes(x = flip, y = prob)) +
+  geom_line(size   = 1.5, 
+            colour = "turquoise3",
+            alpha  = .8) +
+  labs(title = "Binomial Probability Distribution",
+       x       = "Number of Heads in 100 Flips",
+       y       = "Probability") +
+  theme_bw(base_size = 15) 
+```
+
+If we plot the probability distribution of the example above, two things are apparent: (1) the most probable outcome of flipping `100` coins is `50` `heads` and (2) there are additional outcomes that are, although less probable, also possible. For instance, one could even expect to get `0` `heads` `r round(dbinom(0, 100, 1/2) * 100, 29)`% of the time.
+
+```{r, include = FALSE}
+# set seed
+set.seed(2)
+
+# create data
+data_binom <- data.frame(flips = seq(1, 1000, 1), 
+                         prop  = map_dbl(seq(1, 1000, 1), 
+                                         ~mean(rbinom(n    = .x, 
+                                                      size = 1, 
+                                                      prob = 1/2))))
+
+# plot proportion of heads by number of flips
+ggplot(data_binom, aes(x = flips, y = prop, colour = prop)) +
+  geom_line(size = 1) +
+  labs(x = "Number of Flips",
+       y = "Proportion of Heads") +
+  scale_colour_gradient2(low      = "turquoise3", 
+                         mid      = "turquoise",
+                         high     = "turquoise3", 
+                         midpoint = 0.5) +
+  scale_y_continuous(limits = c(0, 1)) +
+  theme_bw(base_size = 15) +
+  theme(legend.position = "none")
+
+```
+
+## rbinom
+
+If we want to randomly sample trials from a binomial distribution, we can use the `rbinom()` function in R. The function takes three arguments. The first argument (`n`) is the number of trials to sample. If we wanted to flip `2` coins `10` times, we would include the argument `n = 10`. The second argument (`size`) is the number of events associated with each trial. If we are flipping `2` coins, we would include `size = 2`. The third argument (`prob`) is the probability of success on a given trial. If we consider a `heads` a success and everything else a failure, we would include the argument `prob = 1/2`. Putting all of that together, we get `rbinom(n = 10, size = 2, prob = 1/2)`.
+
+```{r, include = FALSE}
+set.seed(3)
+```
+
+```{r}
+rbinom(n = 10, size = 2, prob = 1/2)
+```
+
+From the results, we can see we got `0` `heads` on the first toss of our `2` coins, `2` `heads` on the second toss our `2` coins, and `1` `head` on the third through sixth tosses of our `2` coins.
+
+*How would we change this if we were flipping `3` coins `10` times?*
+
+```{r}
+rbinom(n = 10, size = 3, prob = .5)
+```
+
+*What about rolling `5` `6`-sided dice `10` times where getting a `6` is considered a successful outcome?*
+
+```{r}
+rbinom(n = 10, size = 5, prob = 1/6)
+```
+
+*What about pulling an `Ace` out of `1` deck of cards `100` times?*
+
+```{r}
+rbinom(n = 100, size = 1, prob = 1/13)
+```
+
+## dbinom
+
+The function `dbinom()` gives us the probability of getting any one result. It takes four arguments, but we will only concern ourselves with the first three: (1) `x` - the number of successful outcomes expected, (2) `size` - the number of events, and (3) `prob` - the probability of success on a given event. 
+
+To get the probability of getting `1` `heads` by flipping `2` coins, we could run the following code.
+
+```{r}
+dbinom(x = 1, size = 2, prob = .5)
+```
+
+There is a `.50` probability of getting `1` `heads` when you flip `2` coins. We can investigate why this is the case by looking at the probability of every outcome. 
+
+```{r}
+# HT + TH
+(.5 * .5) + (.5 * .5)
+```
+
+*What's the probability of getting `1` head when you flip `3` coins?*
+```{r}
+dbinom(x = 1, size = 3, prob = .5)
+
+# HTT + THT + TTH
+(.5 * .5 * .5) + (.5 * .5 * .5) + (.5 * .5 * .5)
+```
+
+*When drawing a card from a deck of cards twice (with replacement), what's the probability of drawing `2` `aces`?*
+```{r}
+dbinom(x = 2, size = 2, prob = 1/13)
+
+# AA
+(1 / 13) * (1 / 13)
+```
+
+*When drawing a card from a deck of cards twice (with replacement), what's the probability of drawing `0` `aces`?*
+```{r}
+# method 1
+dbinom(x = 0, size = 2, prob = 1/13)
+
+# method 2
+dbinom(x = 2, size = 2, prob = 12/13)
+
+# 00
+(12 / 13) * (12 / 13)
+```
+
+## pbinom
+
+If we want to calculate the cumulative probability of getting a certain result (i.e., the probability of getting a result equal to or less than what we expect), we would use the function `pbinom()`. Cumulative probability may not sound important, but it is when you consider that a p-value is the probability of getting a result equal to or more extreme than that observed in the sample. The function `pbinom()` takes essentially the same arguments as `dbinom()`, but instead of the first argument being called `x` it is called `q`.
+
+Returning to the example from above, if we wanted to get the probability of getting `1 or less` `heads` when we flip `2` coins, we would use `pbinom(q = 1, size = 2, prob = 1/2)`.
+
+```{r}
+pbinom(q = 1, size = 2, prob = 1/2)
+```
+
+The result is `.75`. Again, this makes sense if we look at the probability of every outcome.
+
+```{r}
+# HT + TH + TT
+(.5 * .5) + (.5 * .5) + (.5 * .5)
+```
+
+*What's the probability of getting `1 or less` `heads` when flipping `10` coins?*
+
+```{r}
+pbinom(q = 1, size = 10, prob = 1/2)
+```
+
+*What's the probability of getting `1 or less` `6`s when  rolling `1` dice?*
+
+```{r}
+pbinom(q = 1, size = 1, prob = 1/6)
+```
+
+The function `pbinom()` can also take the argument `lower.tail` (defaults to `TRUE`). The argument `lower.tail` is what specifies what side of the probability distribution we should be testing from. In practical terms, it is what decided that we wanted `1 or less` heads rather than `greather than 1` `heads`.
+
+For instance, if we wanted to test the probability of getting `greater than 1` `heads` when flipping `2` coins, we would specify `lower.tail = FALSE`.
+
+```{r}
+pbinom(q = 1, size = 2, prob = 1/2, lower.tail = FALSE)
+```
+
+*What's the probability of getting `greater than 3` `6`s when  rolling `9` dice?*
+
+```{r}
+pbinom(q = 3, size = 9, prob = 1/6, lower.tail = FALSE)
+```
+
+## qbinom
+
+The function `qbinom()` essentially does the opposite of `pbinom`. Instead of taking an outcome (`q`) and returning the cumulative probability, it returns the value that corresponds to the cumulative probability (`p`).
+
+For instance if we wanted the value for which there is `100`% probability of getting that `value or less` on `10` coin flips, we would enter `qbinom(p = 1.00, size = 10, prob = 1/2)`.
+
+```{r}
+qbinom(p = 1.00, size = 10, prob = 1/2)
+```
+
+Unsurprisingly, `10 or less` `heads` has a 100% chance of occurring when you flip `10` coins.
+
+*With `100` coin flips, what is the number of `heads` (or less) that has a `.50` probability of occurring?*
+```{r}
+qbinom(p = .50, size = 100, prob = 1/2)
+```
+
+*With `100` coin flips, what is the number of `heads` (or less) that has a `.25` probability of occurring?*
+```{r}
+qbinom(p = .25, size = 100, prob = 1/2)
+```
+
+*With `100` coin flips, what is the number of `heads` (or greater) that has a `.25` probability of occurring?*
+```{r}
+qbinom(p = .25, size = 100, prob = 1/2, lower.tail = FALSE)
+```
+
+# Normal Distributions {#normal}
+
+Recall from class that a `normal distribution` is a continuous probability distribution that is defined by a mean ($\mu$) and a standard deviation ($\sigma$). Whereas the binomial distribution describes the theoretical probability of obtaining a certain outcome over a number of trials when the outcome of every trial is binary, the normal distribution describe the theoretical probability of obtaining a certain outcome from a continuous distribution that has a certain mean ($\mu$) and standard deviation ($\sigma$).
+
+## rnorm
+
+In order to randomly sample observations from a normal distribution, we use the function `rnorm()`. Similar to `rbinom()`, `rnorm()` takes three arguments: (1) `n` - the number of observations to sample from the normal distribution, (2) `mean` - the mean of the normal distribution, and (3) `sd` - the standard deviation of the normal distribution. 
+
+Below we sample `5` values from a normal distribution with a `mean` of `0` and a `sd` of `1`.
+
+```{r, include = FALSE}
+set.seed(2)
+```
+
+```{r}
+x <- rnorm(n = 5, mean = 0, sd = 1)
+x
+```
+
+The five values were `-0.8969145`, `0.1848492`, `1.5878453`, `-1.13037567` and `-0.08025176`. Calculating the `mean()` and `sd()` of our `5` numbers can serve as a bit of a sanity check. 
+
+```{r}
+mean(x)
+sd(x)
+```
+
+If we plot a histogram of the data, it doesn't look normally distributed. 
+
+```{r, include = FALSE}
+# create simulated data
+set.seed(2)
+sample_size <- c(1, 5, 10, 15, 25, 50, 100, 250, 500, 750, 1000, 5000, 10000)
+
+sim <- map_df(sample_size, function(sample_size) {
+  set.seed(2)
+  data_frame(sample_size = rep(sample_size, sample_size), 
+             sample      = rnorm(sample_size, mean = 0, sd = 1))
+  })
+```
+
+```{r, echo = FALSE}
+sim %>%
+  filter(sample_size == 5) %>%
+  ggplot(aes(x = sample)) +
+    geom_histogram(fill = "turquoise3", colour = "white", alpha = .7) +
+    theme_bw(base_size = 16) +
+    labs(x        = "x",
+         y        = "Frequency",
+         title    = "Sample Histogram") + 
+    scale_x_continuous(limits = c(-4, 4)) 
+```
+
+Not to worry! As illustrated in the animation below, many samples do not appear normal until samples of sufficient size are taken from the population.
+
+```{r, echo = FALSE}
+plot3 <- ggplot(sim, aes(x = sample)) +
+  geom_histogram(fill = "turquoise3", colour = "white", alpha = .7) +
+  theme_bw(base_size = 16) +
+  labs(x        = "x",
+       y        = "Frequency",
+       title    = "Sample Histogram",
+       subtitle = "Sample Size: {closest_state}") + 
+  scale_x_continuous(limits = c(-4, 4))  + 
+  transition_states(sample_size, state_length = 2, wrap = FALSE) +
+  view_follow(fixed_x = TRUE)
+
+animate(plot3, nframes = 180, fps = 10)
+```
+
+*How would you sample `10` observations from a normal distribution with a mean of `100` and a standard deviation of `10`?*
+
+```{r}
+x <- rnorm(n = 100, mean = 50, sd = 15)
+x
+```
+
+*Are the descriptives for this sample what we would expect?*
+```{r}
+mean(x)
+sd(x)
+```
+
+## dnorm
+
+The normal distribution counterpart of `dbinom()` is `dnorm()`. Similar to `rnorm()`, it takes a mean (`mean`) and a standard deviation (`sd`), but instead of an argument for the number of observations you want to sample (`n`) you provide it a value (`x`). As mentioned in class, the probability of any one value in a normal distribution is `0.00` because the total probability of the distribution is `1.00` and there are infinite values in any continuous distribution. The reason `dnorm()` exists is mostly mathematical, but we can use it to calculate the height of the probability curve for any one value.
+
+```{r, include = FALSE}
+# create data
+x          <- seq(-4, 4, 0.001)
+likelihood <- dnorm(x, 0, 1)
+sim        <- data.frame(x, likelihood)
+```
+
+```{r, include = FALSE}
+# create dnorm plotting function
+dnorm_plot <- function(value) {
+  ggplot(sim, aes(x, likelihood)) +
+  geom_line(size = 1.2) +
+  geom_segment(x = -4, 
+               xend = value, 
+               y = dnorm(value, mean = 0, sd = 1),
+               yend = dnorm(value, mean = 0, sd = 1), 
+               color = "turquoise3", 
+               linetype = 2, 
+               size = 1.4) +
+  geom_segment(x = value, 
+               xend = value, 
+               y = 0,
+               yend = dnorm(value, mean = 0, sd = 1), 
+               color = "turquoise3", 
+               linetype = 2, 
+               size = 1.4) +
+  annotate(geom = "label", x = value + .8, y = dnorm(value, mean = 0, sd = 1), label = round(dnorm(value, mean = 0, sd = 1), 3), colour = "turquoise3", size = 5) +
+  geom_point(aes(x = value, y = dnorm(value, mean = 0, sd = 1)), size = 5, colour = "turquoise3") +
+  scale_x_continuous(limits = c(-4, 4)) +
+  theme_bw(base_size = 15) + 
+  labs(y = "Probability")
+}
+```
+
+```{r}
+dnorm(x = 0, mean = 0, sd = 1)
+```
+
+For example, if we enter the value `0` with a mean of `0` and a standard deviation `1`, we get `0.3989423`
+
+```{r, echo = FALSE}
+dnorm_plot(0)
+```
+
+As shown in the plot above, the height of the probability curve at a value of `0` is `.399`. 
+
+Likewise, if we calculate the height of the probability plot at an `x` value of `1`, we see the result `0.2419707.`
+
+```{r}
+dnorm(1, mean = 0, sd = 1)
+```
+
+Looking at the plotted normal distribution, this is also expected.
+
+```{r, echo = FALSE}
+dnorm_plot(1)
+```
+
+*What would be the height of the probability line at a value of -2 when the `mean` is `0` and the `sd` is `1`?*
+
+```{r}
+dnorm(x = -2, mean = 0, sd = 1)
+```
+
+***
+
+## pnorm
+
+Like `pbinom()`, `pnorm()` tells you the probability of getting a certain value (or less) in a given normal distribution. Once again, you can set the mean and standard deviation of the distribution using `mean` and `sd`. Instead of taking its value using the `x` argument, it takes its argument using the `q` argument. 
+
+```{r, echo = FALSE}
+ggplot(sim, aes(x, likelihood)) +
+    stat_function(fun = dnorm, 
+                xlim = c(-5,0),
+                geom = "area",
+                fill = "turquoise3") +
+  xlim(-3.5, 3.5) +
+  labs(y = "Probability") +
+  geom_line(size = 1.2) +
+  theme_bw()
+```
+
+If we wanted to calculate the probability of getting a value in the shaded region above, we would use `pnorm(q = 0, mean = 0, sd = 1)`.
+
+```{r}
+pnorm(q = 0, mean = 0, sd = 1)
+```
+
+As would be expected, we have a 50% probability of getting a value in the shaded region of the plot. However, for most  of us, it is not easy to try to convert the shaded region under a curve to a probability value. An easier way to visualize it is through the use of a cumulative probability plot, where each shaded ball represents a .01 (1.00%) probability.
+
+```{r, include = FALSE}
+ball_plot <- function(q, mean = 0, sd = 1, lower.tail = TRUE){
+  if (lower.tail == TRUE) {
+  discretized <- data.frame(x = qnorm(ppoints(100), mean, sd)) %>% 
+  mutate(include = ifelse(x <= q, "no", "yes"))
+  } else {
+  discretized <- data.frame(x = qnorm(ppoints(100), mean, sd)) %>% 
+  mutate(include = ifelse(x >= q, "no", "yes"))
+  }
+  ggplot(discretized, aes(x)) +
+    geom_dotplot(aes(fill = include), binwidth = 0.29 * sd, alpha = .7, colour = "white") +
+    geom_vline(xintercept = q, color = "firebrick", linetype = 2, size = 1.4) +
+    scale_fill_manual(
+      values = c("turquoise3", "gray40"),
+      guide = "none") +
+    theme_bw() +
+    scale_y_continuous(name = "", 
+                       breaks = NULL)
+}
+
+```
+
+```{r, echo = FALSE}
+ball_plot(0)
+```
+
+If we were to count every shaded ball on the left of the vertical line below, we would see that there are `50` balls to the left of the red line. In other words, there is a 50% probability of getting a `0 or less` in our distribution.
+
+So, what's the probability of getting `40 or less` when the mean is `50` and the standard deviation is `10`?
+
+```{r, echo = FALSE}
+ball_plot(q = 40, mean = 50, sd = 10)
+```
+
+Looking at our cumulative probability plot, it looks like `16` balls are on the left of the dashed red line. We can check this with `pnorm()`.
+
+```{r}
+pnorm(q = 40, mean = 50, sd = 10)
+```
+
+Looks like the probability of getting a value of `40 or less` is slightly less than `.16`. 
+
+We can also work through this mathematically. We expect that 68% of values on a normal distribution will fall between plus or minus one standard deviation. In our example, `40` is one standard deviation below the mean. As such, the probability of getting `40` or a value less than `40` would be $\frac{1 - 0.68}{2} = \frac{.32}{2} = .16$.
+
+*What's the probability of getting a value of `60` or less`, when the mean of the distribution is `30` and the standard deviation is `15?`*
+```{r, echo = FALSE}
+ball_plot(q = 60, mean = 30, sd = 15)
+```
+
+```{r}
+pnorm(q = 60, mean = 30, sd = 15)
+```
+
+```{r}
+((1 - .9545) / 2) + .9545
+```
+
+*What's the probability of getting a value greater than `-5` when the mean is `0` and the sd is `5`?*
+```{r, echo = FALSE}
+ball_plot(q = -5, mean = 0, sd = 5,  lower.tail = FALSE)
+```
+
+```{r}
+pnorm(q = -5, mean = 0, sd = 5, lower.tail = FALSE)
+```
+
+## qnorm 
+
+Finally, we can use `qnorm()` to get the value that corresponds to a particular cumulative probability. Once again, we can set the mean (`mean`) and standard deviation (`sd`) of the distribution, but we use `p` to set the target probability.
+
+To get the value or less that has a probability of `0.00135` of occurring in a distribution with a mean of `0` and a standard deviation of `1` is calculated using `qnorm(p = .00135, mean = 0, sd = 1)`.
+
+```{r}
+qnorm(p = .00135, mean = 0, sd = 1)
+```
+
+As we can see, the value is just about `-3.00`. This makes sense if we consider that `99.73`% of values in a normal distribution are between three standard deviations below and above the mean; probability of getting `-3.00` would be $\frac{1-.9973}{2} = 0.00135$.
+
+*What value or less is associated with a `.51` cumulative probability in a normal distribution with a mean of `100` and a standard deviation of `10`?*
+
+```{r}
+qnorm(p = .51, mean = 100, sd = 10)
+```
+
+*What value or greater is associated with a `.51` probability in a normal distribution with a mean of `100` and a standard deviation of `10`?*
+
+```{r}
+qnorm(p = .51, mean = 100, sd = 10, lower.tail = FALSE)
+```
+
+# Minihacks {#minihacks}
+
+You are welcome to work with a partner or in a small group of 2-3 people. Please feel free to ask the lab leader any questions you might have!
+
+## Minihack 1: Binomial Distributions
+
+You are playing Dungeons and Dragons and, to the Dungeon Master's displeasure, you run immediately to the dragon that is meant to be encountered at the end of her carefully-crafted campaign.
+
+1. To defeat the dragon, you must roll `5` `20`-sided dice, and get a `20` on each die. What is the probability of getting this result?
+
+```{r}
+dbinom(x = 5, size = 5, prob = 1/20)
+```
+
+2. Your dungeon master decides to take pity on you. She tells you, if you roll greater than `2` (i.e., `3` or more) `20`s she will let you slay the dragon. What is the probability of getting more than `2` `20`s when rolling `5` `20`-sided dice?
+
+```{r}
+pbinom(q = 2, size = 5, prob = 1/20, lower.tail = FALSE)
+```
+
+Note that with the default setting of lower.tail=TRUE, you include the specified q value and below. When you set lower.tail=FALSE, you are including only q values above what you specified. So this line of code give you the cumulative probability of of all outputs above (and not including) 2 20's.
+
+3. You begin to cry. Between your sobs you tell her you will only roll if the probability is greater than `.10`. She acquiesces. What number of `20`s or greater is associated with a cumulative probability of `.10` when rolling `5` `20`-sided dice?
+
+
+```{r}
+qbinom(p = .10, size = 5, prob = 1/20, lower.tail = FALSE) 
+```
+
+We are drawing from the same distribution, so size and prob should stay the same. In this case we want to find the output (number of times out of 5 you rolled a 20) where the cumulative probability of that output and all outputs above that (because it's ok to go above the minimum needed) is at least .1. As noted above, using lower.tail=FALSE can be kinda tricky because it performs its calculations for above and not including the output value. 
+
+This isn't a concern in this case though because qbinom() essentially "rounds up" (note that since we have lower.tail=FALSE, that by "rounding up" I mean summing up the probability from right to left). In the case of a continuous distribution, there is a continuous change in cumulative probability, but because the binomial distribution is discrete, with each change in outcome, the cumulative probability jumps up. Therefore the output of qbinom() gives you the outcome needed to get at least the specified probability.
+
+To check my work, I added up each of the discrete probabilities using dbinom():
+
+```{r}
+dbinom(5, size = 5, prob = 1/20) + dbinom(4, size = 5, prob = 1/20) + dbinom(3, size = 5, prob = 1/20) + dbinom(2, size = 5, prob = 1/20) 
+#OR
+pbinom(1, size = 5, prob = 1/20, lower.tail = FALSE)
+#The probabilities of 2 and above is .023--insufficient to reach the .1 threshold I set.
+
+dbinom(5, size = 5, prob = 1/20) + dbinom(4, size = 5, prob = 1/20) + dbinom(3, size = 5, prob = 1/20) + dbinom(2, size = 5, prob = 1/20) + dbinom(1, size = 5, prob = 1/20)
+#OR
+pbinom(0, size = 5, prob = 1/20, lower.tail = FALSE)
+#The probabilities of 1 and above is .226, therefore this is the minimum I need.
+```
+
+
+
+
+## Minihack 2: Normal Distributions
+
+From data released from the Graduate Coffee Drinkers Association (GCDA), you know coffee consumption is normally distributed among graduate students, with the average student drinking `5` cups of coffee per day and 68% of students drinking between `4` and `6` cups of coffee per day (i.e., the distribution has a standard deviation of `1`).
+
+1. What is the probability that a randomly selected graduate student will drink `2 or less` cups of coffee per day?
+
+```{r}
+pnorm(q = 2, mean = 5, sd = 1)
+```
+
+2. Sample `50` graduate students from the distribution three times. Plot each of these samples as a histogram. Are the histograms identical? Why or why not?
+
+```{r}
+hist(rnorm(n = 50, mean = 5, sd = 1))
+hist(rnorm(n = 50, mean = 5, sd = 1))
+hist(rnorm(n = 50, mean = 5, sd = 1))
+```
+
+3. Ever since finding the data from the GCDA, you have begun to worry about how much coffee you are drinking compared to the average graduate student. Calculate the probability that a graduate student would drink exactly `10` cups of coffee per day.
+
+```{r}
+dnorm(x = 10, mean = 5, sd = 1)
+#this is the probability density
+
+#One thing I can do to get a estimate of probability is to consider values between 9.5 and 10.5 to be 10 cups of coffee. I can then calculate the area under the curve for that range through subtraction:
+dnorm(x = 10.5, mean = 5, sd = 1) - dnorm(x = 9.5, mean = 5, sd = 1)
+
+#Still quit small, because we're in the range of outliers, but I think a more meaningful value.
+
+```
+
+4. Using your large and highly-caffeinated brain, you remember that the probability of any one value in a continuous distribution is `0.00`. Calculate the probability that a graduate student would drink `10 or more` cups of coffee a day.
+
+```{r}
+pnorm(q = 9, mean = 5, sd = 1, lower.tail = FALSE)
+```
+
+## Minihack 3: Other Distributions to Extend your Knowledge
+
+1. A magician accosts you in the street, and demands you think of a number between `1` and `100`. You think of `37` and the magician guesses `37`. Assuming the choice of numbers follows a uniform distribution, what is the probability that the magician guessed your number at random? Use `dunif()` to prove your intuition is correct.
+
+```{r}
+dunif(x = 1, min = 0, max = 100)
+```
+
+2. Shortly after your run in with the magician, an advocate of null hypothesis testing approaches you and demands that you calculate the probability of getting a $\chi^2$-value of greater than `3.00` with `10` degrees of freedom. Use `pchisq()` to calculate the probability.
+
+```{r}
+pchisq(q = 3.00, df = 10, lower.tail = FALSE)
+```
+
+3. Seeing that their test statistic was non-significant, the null hypothesis tester becomes irate and demands you calculate the probability of getting `3.00 or greater` with `10` degrees of freedom from a t-distribution. Google (or use your intuition) to determine how to calculate a cumulative probability from a t-distribution.
+
+```{r}
+pt(q = 3, df = 10, lower.tail = FALSE)
+```
