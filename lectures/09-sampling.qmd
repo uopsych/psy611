@@ -18,6 +18,8 @@ editor: visual
 
 -   The console doesn't come with you
 
+-   Make sure your answer shows up in the knitted file.
+
 -   knit early and often
 
 -   Homework is for learning, not for testing
