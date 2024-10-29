@@ -400,7 +400,7 @@ ggarrange(p1,p2,p3,p4, ncol =2, nrow = 2)
 
 ::::: columns
 ::: {.column width="30%"}
-[The statistics from a large number of samples also have a distribution: the **sampling distribution**. ]{style="font-size:30px;"}
+[The statistics from a large number of samples also have a distribution: the **sampling distribution**.]{style="font-size:30px;"}
 
 [By the **Central Limit Theorem**, this distribution will be normal as sample size increases.]{style="font-size:30px;"}
 :::
@@ -443,7 +443,7 @@ Made by Geoff Cumming
 
 ::::: columns
 ::: {.column width="30%"}
-[We don’t actually have to take a large number of random samples to construct the sampling distribution. It is a theoretical result of the Central Limit Theorem. We just need an estimate of the population parameter, $s$, which we can get from the sample. ]{style="font-size:30px;"}
+[We don’t actually have to take a large number of random samples to construct the sampling distribution. It is a theoretical result of the Central Limit Theorem. We just need an estimate of the population parameter, $s$, which we can get from the sample.]{style="font-size:30px;"}
 :::
 
 ::: {.column width="70%"}
@@ -458,7 +458,7 @@ Made by Geoff Cumming
 
 ::::: columns
 ::: {.column width="30%"}
-[We don’t actually have to take a large number of random samples to construct the sampling distribution. It is a theoretical result of the Central Limit Theorem. We just need an estimate of the population parameter, $s$, which we can get from the sample. ]{style="font-size:30px;"}
+[We don’t actually have to take a large number of random samples to construct the sampling distribution. It is a theoretical result of the Central Limit Theorem. We just need an estimate of the population parameter, $s$, which we can get from the sample.]{style="font-size:30px;"}
 :::
 
 ::: {.column width="70%"}
@@ -522,7 +522,7 @@ $$CI_{95} = \bar{X} \pm [1.96\frac{\hat{\sigma}}{\sqrt{N}}]$$
 
 ::::: columns
 ::: {.column width="30%"}
-[What if N is not “sufficiently large?” The normal distribution assumes we know the population mean and standard deviation. But we don’t. We only know the sample mean and standard deviation, and those have some uncertainty about them. ]{style="font-size:30px;"}
+[What if N is not “sufficiently large?” The normal distribution assumes we know the population mean and standard deviation. But we don’t. We only know the sample mean and standard deviation, and those have some uncertainty about them.]{style="font-size:30px;"}
 :::
 
 ::: {.column width="70%"}
