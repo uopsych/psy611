@@ -12,16 +12,17 @@ execute:
 editor: visual
 ---
 
-
 ## Lessons from HW1
 
-* Getting data into R is surprisingly hard
-* The console doesn't come with you
-* knit early and often
+-   Getting data into R is surprisingly hard
 
-* Homework is for learning, not for testing
+-   The console doesn't come with you
 
-* Work together
+-   knit early and often
+
+-   Homework is for learning, not for testing
+
+-   Work together
 
 ```{r}
 library(tidyverse) #plotting
@@ -29,46 +30,38 @@ library(ggforce) # for plotting circles
 library(ggpubr) #prettier figures
 ```
 
-
 ------------------------------------------------------------------------
 
 ## Last time...
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
-
 Normal distributions!
+:::
 
-::: 
 ::: {.column width="50%"}
-
 Why is the normal distribution useful?
+:::
+:::::
 
-::: 
-::: 
-
-::: columns
+::::: columns
 ::: {.column width="50%"}
+-   Follows a specific shape
+-   Defined by 2 parameters
+:::
 
-* Follows a specific shape
-* Defined by 2 parameters
-
-::: 
 ::: {.column width="50%"}
+-   Area under the curve = 1
+-   Law of Total Probability
+-   How likely is any range of values?
+:::
+:::::
 
-* Area under the curve = 1
-* Law of Total Probability
-* How likely is any range of values?
-
-::: 
-::: 
-
-Cool, but can we assume our statistics follow a normal distribution?
-Today... sampling!
+Cool, but can we assume our statistics follow a normal distribution? Today... sampling!
 
 ------------------------------------------------------------------------
 
-To this point, we have assumed that features of the population -- the parameters -- are known.  That is rarely the case.
+To this point, we have assumed that features of the population -- the parameters -- are known. That is rarely the case.
 
 The major goal that we have in statistical inference is to make confident claims about the population based on a small representation of it, the sample.
 
@@ -80,52 +73,50 @@ Our confidence in the sample as a representation of the population relies on sam
 
 **Sample**: The particular units from a population on which measures are collected (the data).
 
-**Population**: The complete set of units (e.g., people, countries, etc.) from which a sample is selected.  
+**Population**: The complete set of units (e.g., people, countries, etc.) from which a sample is selected.
 
 **Sampling method**: The procedure used to create a sample.
 
 ------------------------------------------------------------------------
 
-Ideally we would like to believe that there is nothing special about a sample.  Any other sample from the same population should be *interchangeable* with the one we have in hand. Any sample should be able to “stand for” or be a good proxy for the population.
+Ideally we would like to believe that there is nothing special about a sample. Any other sample from the same population should be *interchangeable* with the one we have in hand. Any sample should be able to “stand for” or be a good proxy for the population.
 
-- Interchangeable or **representative** samples allow us to make confident claims about the population. 
+-   Interchangeable or **representative** samples allow us to make confident claims about the population.
 
-- Samples are **representative** to the extent the population is clearly defined and the sample is selected using an appropriate sampling method.
+-   Samples are **representative** to the extent the population is clearly defined and the sample is selected using an appropriate sampling method.
 
 ------------------------------------------------------------------------
 
-**Probability sampling methods** maintain a defensible link between a sample and population.  This link is based on statistical theory and rules of probability.
+**Probability sampling methods** maintain a defensible link between a sample and population. This link is based on statistical theory and rules of probability.
 
-**Nonprobability sampling methods** provide only a weak link between a sample and population.  This link is based on appeals to common sense and reason. Maybe only blind faith.
+**Nonprobability sampling methods** provide only a weak link between a sample and population. This link is based on appeals to common sense and reason. Maybe only blind faith.
 
-Despite the clear distinction, it is not unusual for researchers to use a nonprobability sampling method and then draw inferences in a way that implies a strong link from the sample to some population.  
+Despite the clear distinction, it is not unusual for researchers to use a nonprobability sampling method and then draw inferences in a way that implies a strong link from the sample to some population.
 
 ------------------------------------------------------------------------
 
 Probability sampling methods have the following simple features:
 
-- Define the population so that all population units can be identified (i.e., become candidates for selection).
+-   Define the population so that all population units can be identified (i.e., become candidates for selection).
 
-- Select a sample from among those units using a random selection method. 
+-   Select a sample from among those units using a random selection method.
 
 ------------------------------------------------------------------------
 
 Common random sampling methods:
 
-- **Simple** random sampling: Each of the units in the population has an equal chance of being selected.
+-   **Simple** random sampling: Each of the units in the population has an equal chance of being selected.
 
-- **Stratified** random sampling: Identify nonoverlapping strata and carry out simple random sampling within each strata. 
+-   **Stratified** random sampling: Identify nonoverlapping strata and carry out simple random sampling within each strata.
 
-- **Cluster** random sampling: Divide the population into nonoverlapping clusters. Randomly select clusters and use all of the units within the selected clusters.
+-   **Cluster** random sampling: Divide the population into nonoverlapping clusters. Randomly select clusters and use all of the units within the selected clusters.
 
-- **Multistage** random sampling: A combination of the other random sampling methods (stratified random sampling within clusters).
+-   **Multistage** random sampling: A combination of the other random sampling methods (stratified random sampling within clusters).
 
 ::: notes
-
 In stratified random sampling, the sample sizes within strata can be defined to maintain proportionality or not.
 
 Additional concern: with replacement or without replacement
-
 :::
 
 ------------------------------------------------------------------------
@@ -161,14 +152,12 @@ for(i in 2:n){ # for the rest of the circles
 circles = data.frame(x = x, y = y, r = r)
 ```
 
-::: columns
+::::: columns
 ::: {.column width="30%"}
+[In **simple random sampling**, each object would have an equal probability of being selected (1/100). For simple random sampling, any object characteristics (e.g., color) are irrelevant.]{style="font-size:30px;"}
+:::
 
-<span style="font-size:30px;">In **simple random sampling**, each object would have an equal probability of being selected (1/100). For simple random sampling, any object characteristics (e.g., color) are irrelevant.</span>
-
-::: 
 ::: {.column width="70%"}
-
 ```{r, message = F, warning = F, echo = F, fig.height=6.5, fig.width = 6.5}
 
 circles %>%
@@ -176,10 +165,8 @@ circles %>%
   geom_circle(aes(x0 = x, y0 = y, r = r)) +
   theme_no_axes() + theme(panel.border = element_blank())
 ```
-
-::: 
-::: 
-
+:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -199,15 +186,12 @@ tab_color = table(color_circles$color)
 
 ```
 
-
-::: columns
+::::: columns
 ::: {.column width="30%"}
+[In **stratified random sampling**, the objects are first categorized into strata (e.g., color) and random sampling occurs within strata. The probability of being selected depends on the size of the strata (1/`r tab_color["1"]` in the red strata; 1/`r tab_color["5"]` in the purple strata).]{style="font-size:30px;"}
+:::
 
-<span style="font-size:30px;">In **stratified random sampling**, the objects are first categorized into strata (e.g., color) and random sampling occurs within strata. The probability of being selected depends on the size of the strata (1/`r tab_color["1"]` in the red strata; 1/`r tab_color["5"]` in the purple strata).</span>
-
-::: 
 ::: {.column width="70%"}
-
 ```{r, message = F, warning = F, echo = F, fig.height=6.5, fig.width = 6.5}
 
 color_circles %>%
@@ -216,23 +200,19 @@ color_circles %>%
   guides(fill = "none") +
   theme_no_axes() + theme(panel.border = element_blank())
 ```
-
-::: 
-::: 
-
+:::
+:::::
 
 ------------------------------------------------------------------------
 
 ### Cluster Random Sampling
 
-::: columns
+::::: columns
 ::: {.column width="30%"}
+[In **cluster random sampling**, clusters of units are selected at random and then all of the units within the chosen clusters are part of the sample. The probability of a particular unit being sampled is a function of the number of clusters.]{style="font-size:30px;"}
+:::
 
-<span style="font-size:30px;">In **cluster random sampling**, clusters of units are selected at random and then all of the units within the chosen clusters are part of the sample. The probability of a particular unit being sampled is a function of the number of clusters.</span>
-
-::: 
 ::: {.column width="70%"}
-
 ```{r, message = F, warning = F, echo = F, fig.height=6.5, fig.width = 6.5}
 
 set.seed(1029191)
@@ -296,70 +276,60 @@ new_circles %>%
   theme_no_axes() + theme(panel.border = element_blank())
 
 ```
-
-::: 
-::: 
-
+:::
+:::::
 
 ------------------------------------------------------------------------
 
 No matter what probability method we use, we know the probability that a unit from the population will be selected. This allows us to determine the **sampling error** so that we can know how well the sample represents the population.
 
-Any sample will be off the mark in how well it captures the important features of the population. With probability sampling methods we can estimate how far off the mark we are likely to be.  
+Any sample will be off the mark in how well it captures the important features of the population. With probability sampling methods we can estimate how far off the mark we are likely to be.
 
 ::: notes
-
 The sampling error is the difference between a sample statistic used to estimate a population parameter and the actual but unknown value of the parameter
-
 :::
 
 ------------------------------------------------------------------------
 
 ## Nonprobability sampling methods
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
-
 **Nonprobability sampling methods** select the sample on some basis other than a random process. As a consequence, how well the sample represents the population can be difficult to know and the argument depends on common sense and appeals to reason. These methods include:
+:::
 
-::: 
 ::: {.column width="50%"}
-
-- Convenience sampling
-- Purposive sampling
-- Modal instance sampling 
-- Expert sampling
-- Quota sampling
-- Heterogeneity sampling
-- Snowball sampling
-
-::: 
-::: 
-
+-   Convenience sampling
+-   Purposive sampling
+-   Modal instance sampling
+-   Expert sampling
+-   Quota sampling
+-   Heterogeneity sampling
+-   Snowball sampling
+:::
+:::::
 
 ::: notes
-
 Purposive -- selection based on chracteristics (e.g., trying to maximize heterogeneity, experts). *Example: Terman study*
 
 Modal -- most typical members. *Example: typical voters*
 
 snowball -- members of the study help you recruit additional members. (pyramid scheme sampling?). Useful for hard to reach populations (sex workers, members of support groups)
-
 :::
 
 ------------------------------------------------------------------------
 
-The strength of probability sampling methods is that the representativeness of a sample can be known with precision.  Probability sampling methods, however, are often quite costly.  
+The strength of probability sampling methods is that the representativeness of a sample can be known with precision. Probability sampling methods, however, are often quite costly.
 
-Under what circumstances are we safe in generalizing from a sample to a population if a nonprobability method was used (e.g., convenience sampling)?  We need to give this careful consideration because statistical inference, strictly speaking, assumes random sampling from a clearly defined population.
+Under what circumstances are we safe in generalizing from a sample to a population if a nonprobability method was used (e.g., convenience sampling)? We need to give this careful consideration because statistical inference, strictly speaking, assumes random sampling from a clearly defined population.
 
 How is random sampling different from random assignment? In what sense are they alike (besides the “random” part)?
 
 ------------------------------------------------------------------------
 
-We use features of the sample (*statistics*) to inform us about features of the population (*parameters*).  The quality of this information goes up as sample size goes up -- **the Law of Large Numbers**.  The quality of this information is easier to defend with random samples.
+We use features of the sample (*statistics*) to inform us about features of the population (*parameters*). The quality of this information goes up as sample size goes up -- **the Law of Large Numbers**. The quality of this information is easier to defend with random samples.
 
-All sample statistics are wrong (they do not match the population parameters exactly) but they become more useful (better matches) as sample size increases. 
+All sample statistics are wrong (they do not match the population parameters exactly) but they become more useful (better matches) as sample size increases.
 
 An important practical question is “how big does the sample need to be?” Stated another way, “for a given sample size, how precise is a sample statistic as a representation of the population?”
 
@@ -367,17 +337,14 @@ The sampling distribution provides the answers.
 
 ------------------------------------------------------------------------
 
-::: columns
+::::: columns
 ::: {.column width="30%"}
-
 *Population distribution*
 
 The parameters of this distribution are unknown. We use the sample to inform us about the likely characteristics of the population.
+:::
 
-::: 
 ::: {.column width="70%"}
-
-
 ```{r,  warning = F, message = F}
 #| code-fold: true
 ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
@@ -388,27 +355,21 @@ ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
   theme(text = element_text(size = 20))
 
 ```
-
-::: 
-::: 
-
+:::
+:::::
 
 ------------------------------------------------------------------------
 
-::: columns
+::::: columns
 ::: {.column width="30%"}
-
-
 *Samples from the population.*
 
+[Each sample distribution will resemble the population. That resemblance will be better as sample size increases: The Law of Large Numbers.]{style="font-size:30px;"}
 
-<span style="font-size:30px;">Each sample distribution will resemble the population. That resemblance will be better as sample size increases: The Law of Large Numbers.</span>
+[Statistics (e.g., mean) can be calculated for any sample.]{style="font-size:30px;"}
+:::
 
-<span style="font-size:30px;">Statistics (e.g., mean) can be calculated for any sample.</span>
-
-::: 
 ::: {.column width="70%"}
-
 ```{r, warning=F, message=F, fig.height = 6.5}
 #| code-fold: true
 library(ggpubr) #for multiple plots
@@ -432,22 +393,19 @@ for(i in 1:4){
 
 ggarrange(p1,p2,p3,p4, ncol =2, nrow = 2)
 ```
-
-::: 
-::: 
+:::
+:::::
 
 ------------------------------------------------------------------------
 
-::: columns
+::::: columns
 ::: {.column width="30%"}
+[The statistics from a large number of samples also have a distribution: the **sampling distribution**. ]{style="font-size:30px;"}
 
-<span style="font-size:30px;">The statistics from a large number of samples also have a distribution: the **sampling distribution**. </span>
+[By the **Central Limit Theorem**, this distribution will be normal as sample size increases.]{style="font-size:30px;"}
+:::
 
-
-<span style="font-size:30px;">By the **Central Limit Theorem**, this distribution will be normal as sample size increases.</span>
-::: 
 ::: {.column width="70%"}
-
 ```{r sampling, warning = F, message = F}
 #| code-fold: true
 reps = 5000
@@ -464,68 +422,53 @@ data.frame(mean = means) %>%
                  color = "white") +  
   stat_function(fun = function(x) dnorm(x, mean = 0, sd = se), inherit.aes = F, size = 1.5) 
 ```
-
-::: 
 :::
+:::::
 
-
-<span style="font-size:30px;">This distribution has a standard deviation, called the **standard error of the mean**. *Its mean converges on $\mu$.*</span>
-
+[This distribution has a standard deviation, called the **standard error of the mean**. *Its mean converges on* $\mu$.]{style="font-size:30px;"}
 
 ::: notes
-
 Sampling distributions can be constructed around any statistic -- ranges, standard deviations, difference scores. The standard errors of those distributions are also standard errors. (E.g., the standard error of the difference.)
-
 :::
 
 ------------------------------------------------------------------------
 
-[The most exciting Excel spreadsheet ever](../demo/Sampling Demo.xlsm)
+[The most exciting Excel spreadsheet ever](../demo/Sampling%20Demo.xlsm)
 
 Made by Geoff Cumming
 
-* Be sure to enable macros. 
+-   Be sure to enable macros.
 
 ------------------------------------------------------------------------
 
-::: columns
+::::: columns
 ::: {.column width="30%"}
+[We don’t actually have to take a large number of random samples to construct the sampling distribution. It is a theoretical result of the Central Limit Theorem. We just need an estimate of the population parameter, $s$, which we can get from the sample. ]{style="font-size:30px;"}
+:::
 
-<span style="font-size:30px;">We don’t actually have to take a large number of random samples to construct the sampling distribution.  It is a theoretical result of the Central Limit Theorem. We just need an estimate of the population parameter, $s$, which we can get from the sample. </span>
-
-::: 
 ::: {.column width="70%"}
-
-
 ```{r ref.label="sampling", message = F, warning = F}
 #| code-fold: true
 
 ```
-
-::: 
-::: 
-
+:::
+:::::
 
 ------------------------------------------------------------------------
 
-::: columns
+::::: columns
 ::: {.column width="30%"}
+[We don’t actually have to take a large number of random samples to construct the sampling distribution. It is a theoretical result of the Central Limit Theorem. We just need an estimate of the population parameter, $s$, which we can get from the sample. ]{style="font-size:30px;"}
+:::
 
-<span style="font-size:30px;">We don’t actually have to take a large number of random samples to construct the sampling distribution.  It is a theoretical result of the Central Limit Theorem. We just need an estimate of the population parameter, $s$, which we can get from the sample. </span>
-
-::: 
 ::: {.column width="70%"}
-
-
 ```{r, message = F, warning = F}
 #| code-fold: true
 ggplot(data.frame(x = seq(min(means), max(means), by = .05)), aes(x)) +
   stat_function(fun = function(x) dnorm(x, mean = 0, sd = se), size = 1.5) 
 ```
-
-::: 
-::: 
-
+:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -533,7 +476,7 @@ The sampling distribution of means can be used to make probabilistic statements 
 
 For example, we can determine the range within which the population mean is likely to be with a particular level of confidence.
 
-Or, we can propose different values for the population mean and ask how typical or rare the sample mean would be if that population value were true.  We can then compare the plausibility of different such “models” of the population.
+Or, we can propose different values for the population mean and ask how typical or rare the sample mean would be if that population value were true. We can then compare the plausibility of different such “models” of the population.
 
 ------------------------------------------------------------------------
 
@@ -545,15 +488,13 @@ We do not know $\sigma$ but we can estimate it based on the sample statistic:
 
 $$\hat{\sigma} = s = \sqrt{\frac{1}{N-1}\sum_{i=1}^N(X-\bar{X})^2}$$
 
-
 ------------------------------------------------------------------------
 
 $$\hat{\sigma} = s = \sqrt{\frac{1}{N-1}\sum_{i=1}^N(X-\bar{X})^2}$$
 
-This is the sample estimate of the population standard deviation.  This is an unbiased estimate of $\sigma$ and relies on the sample mean, which is an unbiased estimate of $\mu$.
+This is the sample estimate of the population standard deviation. This is an unbiased estimate of $\sigma$ and relies on the sample mean, which is an unbiased estimate of $\mu$.
 
-$$SEM = \sigma_M = \frac{\hat{\sigma}}{\sqrt{N}} = \frac{\text{Estimate of pop SD}}{\sqrt{N}}$$
-(Most methods of calculating standard deviation assume you're estimating the population $\sigma$ from a sample and correct for bias.)
+$$SEM = \sigma_M = \frac{\hat{\sigma}}{\sqrt{N}} = \frac{\text{Estimate of pop SD}}{\sqrt{N}}$$ (Most methods of calculating standard deviation assume you're estimating the population $\sigma$ from a sample and correct for bias.)
 
 ------------------------------------------------------------------------
 
@@ -571,23 +512,20 @@ $$\bar{X} - (1.96\times SEM) \leq \mu \leq \bar{X} + (1.96\times SEM) $$
 
 $$\bar{X} - (1.96\times SEM) \leq \mu \leq \bar{X} + (1.96\times SEM) $$
 
-This is referred to as a **95% confidence interval (CI)**.  Note the assumption of normality, which should hold by the Central Limit Theorem, if N is sufficiently large.
+This is referred to as a **95% confidence interval (CI)**. Note the assumption of normality, which should hold by the Central Limit Theorem, if N is sufficiently large.
 
 The 95% CI is sometimes represented as:
 
 $$CI_{95} = \bar{X} \pm [1.96\frac{\hat{\sigma}}{\sqrt{N}}]$$
 
-
 ------------------------------------------------------------------------
 
-::: columns
+::::: columns
 ::: {.column width="30%"}
+[What if N is not “sufficiently large?” The normal distribution assumes we know the population mean and standard deviation. But we don’t. We only know the sample mean and standard deviation, and those have some uncertainty about them. ]{style="font-size:30px;"}
+:::
 
-<span style="font-size:30px;">What if N is not “sufficiently large?”  The normal distribution assumes we know the population mean and standard deviation. But we don’t. We only know the sample mean and standard deviation, and those have some uncertainty about them. </span>
-
-::: 
 ::: {.column width="70%"}
-
 ```{r,  fig.width = 7}
 #| code-fold: true
 ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
@@ -610,23 +548,17 @@ ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
   ggtitle("The Normal and t Distributions") +
   theme(text = element_text(size=20),legend.position = "bottom")
 ```
-
-::: 
-::: 
-
-
+:::
+:::::
 
 ------------------------------------------------------------------------
 
-
-::: columns
+::::: columns
 ::: {.column width="30%"}
+[That uncertainty is reduced with large samples, so that the normal is “close enough.” In small samples, the t distribution provides a better approximation.]{style="font-size:30px;"}
+:::
 
-<span style="font-size:30px;">That uncertainty is reduced with large samples, so that the normal is “close enough.”  In small samples, the t distribution provides a better approximation.</span>
-
-::: 
 ::: {.column width="70%"}
-
 ```{r,  fig.width = 7}
 #| code-fold: true
 ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
@@ -649,16 +581,12 @@ ggplot(data.frame(x = seq(-4, 4)), aes(x)) +
   ggtitle("The Normal and t Distributions") +
   theme(text = element_text(size=20),legend.position = "bottom")
 ```
-
-::: 
-::: 
-
-
+:::
+:::::
 
 ------------------------------------------------------------------------
 
-<span style="font-size:30px;">For small samples, we need to use the t distribution with its fatter tails. This produces wider confidence intervals—the penalty we have to pay for our ignorance about the population. <br> The form of the confidence interval remains the same. We simply substitute a corresponding value from the t distribution (using df = $N -1$).</span>
-
+[For small samples, we need to use the t distribution with its fatter tails. This produces wider confidence intervals—the penalty we have to pay for our ignorance about the population. <br> The form of the confidence interval remains the same. We simply substitute a corresponding value from the t distribution (using df = $N -1$).]{style="font-size:30px;"}
 
 $$CI_{95} = \bar{X} \pm [1.96\frac{\hat{\sigma}}{\sqrt{N}}]$$
 
@@ -678,30 +606,22 @@ It means that if we carried out random sampling from the population a large numb
 
 Maybe less tortured: We have good reason to believe the true mean lies in this interval because 95% of the time such intervals contain the true mean.
 
-  - And even that interpretation is problematic, because it assumes our estimate of the standard deviation is error-free.
-  
+-   And even that interpretation is problematic, because it assumes our estimate of the standard deviation is error-free.
+
 ::: notes
-
 As Hays (1988) notes, the confidence limits based on the sample estimate of the population standard deviation are approximately correct, especially as sample size increases. They are approximately correct because there is uncertainty in the calculation of the SEM based on the sample estimate of the standard deviation.
-
 :::
 
 ------------------------------------------------------------------------
 
-::: columns
+::::: columns
 ::: {.column width="30%"}
-
 *Simulation*
 
-<span style="font-size:30px;">At each sample size, draw 5000 samples from known population ( $\mu = 0$ , $\sigma = 1$ ). 
-<br> 
-Calculate CI for each sample using $s$ and record whether or not 0 was in that interval.
-<br>
-Calculate CI using for each sample using $\sigma$.</span>
+[At each sample size, draw 5000 samples from known population ( $\mu = 0$ , $\sigma = 1$ ). <br> Calculate CI for each sample using $s$ and record whether or not 0 was in that interval. <br> Calculate CI using for each sample using $\sigma$.]{style="font-size:30px;"}
+:::
 
-::: 
 ::: {.column width="70%"}
-
 ```{r,  message = F, fig.height = 6.5}
 #| code-fold: true
 reps = 5000
@@ -750,17 +670,14 @@ data.frame(n = sizes, p = prop, ps = prop_sig) %>%
   theme(text = element_text(size = 25), legend.position = "bottom")
 
 ```
-
-::: 
-::: 
-
+:::
+:::::
 
 ------------------------------------------------------------------------
 
 In the past, my classroom exams (aggregating over many classes) have a mean of 90 and a standard deviation of 8.
 
 My next class will have 100 students. What range of exam means would be plausible if this class is similar to past classes (comes from the same population)?
-
 
 ```{r}
 M = 90
@@ -809,4 +726,3 @@ print(c(ci_lb_z, ci_ub_z))
 ## Next time...
 
 Null Hypothesis Significance Testing
-
