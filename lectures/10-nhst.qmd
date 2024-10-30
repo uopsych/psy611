@@ -112,7 +112,7 @@ qnorm(.975)
 
 ::::: columns
 ::: {.column width="30%"}
-[The normal distribution assumes we know the population mean and standard deviation. But we don’t. We only know the sample mean and standard deviation, and those have some uncertainty about them. ]{style="font-size:30px;line-height: .5em"}
+[The normal distribution assumes we know the population mean and standard deviation. But we don’t. We only know the sample mean and standard deviation, and those have some uncertainty about them.]{style="font-size:30px;line-height: .5em"}
 :::
 
 ::: {.column width="70%"}

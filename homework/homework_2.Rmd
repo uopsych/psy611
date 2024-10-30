@@ -73,12 +73,10 @@ Use the `homework-avengers` to answer the following questions (Note: you may cho
 
 ### Question 1
 
+You are studying whether an SSRI is effective for 80% of patients. You randomly sample 12 patients. 
 
-Robert Downey Jr. has been on tour recently bragging that his presence alone brought millions of dollars to Marvel. (Not really, just for the sake of the homework example.) Use the `homework-avengers` dataset to answer the following questions.
-
-* Do the movies featuring Iron Man (the character played by RDJ) make more money on average than movies that do not feature Iron Man?
-
-* RDJ charges a lot of money for his acting services. Maybe we're less interested in the gross and more interested in the profit. Do the movies with Iron Man profit more than movies that don't? Create a figure to represent this, including the mean and 95% confidence intervals around the outcome(s). (Note that budget is reported in millions of dollars and gross is reported in dollars.) Interpret this graph: do movies with Iron Man have greater profit?
+* How many patients you expect to report that the medication is effective? 
+* You find that only 3 of your 12 patients report the medication is effective. How likely is this finding if the SSRI is indeed effective for 80% of patients?
 
 ### Question 2
 
