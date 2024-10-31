@@ -261,6 +261,7 @@ world_happiness %>%
   + `<` (less than)
   + `<=` (less than or equal to)
   + `!=` (not equal to)
+  + `%in%` (tests whether the element on left side of `%in%` is inside a vector on the right side)
 
 \n
 * You can combine multiple arguments to `filter()` with Boolean operators. The figure below from [*R for Data Science*](https://r4ds.had.co.nz/transform.html#logical-operators){target="_blank"} shows the complete set of Boolean operators.
@@ -434,6 +435,16 @@ world_happiness %>%
          life_int = round(life, 0)) # round `life` variable to a whole number
 ```
 
+* We can also determine the place where new variables should be added in the dataframe with the argument `.before = [column name]` or `.after = [column name]`. However, this refers to the placement of all new variables as they are created within a single `mutate()` function: 
+
+```{r eval = FALSE, echo=TRUE}
+world_happiness %>% 
+  mutate(corruption_z = scale(corruption), # z-score `corruption` variable
+         life_int = round(life, 0),# round `life` variable to a whole number
+         .before = life) %>%  #place the two new variables before life
+  head()
+```
+
 * Change existing variables
 
 When we imported our data, the `world` variable was automatically categorized as an `integer`.
@@ -593,7 +604,7 @@ Answer the questions below using functions from `{dplyr}`. Think about the order
   * number of observations (`n`)
   * standard error of the mean (`sem`)
   * 95% confidence interval (lower and upper bounds) around the mean (calculated using a *t* distribution). (`ci_lower` and `ci_upper`)
-    + Hint: Refer to [this slide from class](https://uopsych.github.io/psy611/lectures/09-sampling.html#36){target="_blank"} for an example
+    + Hint: Refer to [this slide from class](https://uopsych.github.io/psy611/lectures/09-sampling.html#/29){target="_blank"} for an example
     
   ***In your final summary output only include `color`, `mean`, `ci_lower` and `ci_upper`
   

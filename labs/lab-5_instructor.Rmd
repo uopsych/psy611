@@ -33,7 +33,6 @@ library(janitor)
 ```
 
 You can download the .Rmd file [here](lab-5.Rmd).
-You can download the .doc file [here](lab-5.docx).
 
 # Purpose
 
@@ -273,6 +272,7 @@ world_happiness %>%
   + `<` (less than)
   + `<=` (less than or equal to)
   + `!=` (not equal to)
+  + `%in%` (tests whether the element on left side of `%in%` is inside a vector on the right side)
 
 \n
 * You can combine multiple arguments to `filter()` with Boolean operators. The figure below from [*R for Data Science*](https://r4ds.had.co.nz/transform.html#logical-operators){target="_blank"} shows the complete set of Boolean operators.
@@ -306,11 +306,6 @@ world_happiness %>%
 ### You try
 
 * Filter for observations that are greater than the mean of `happiness`
-```{r}
-# your code here
-```
-
-
 ```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
   filter(happiness > mean(happiness, na.rm= TRUE))
@@ -320,19 +315,19 @@ world_happiness %>%
 ```{r}
 # your code here
 world_happiness %>% 
-  filter(happiness>mean(happiness, na.rm = T) &
-         gdp<mean(gdp, na.rm = T))
+  filter(happiness>mean(happiness, na.rm = TRUE) &
+         gdp<mean(gdp, na.rm = TRUE))
 
 world_happiness %>% 
-  filter(happiness>mean(happiness, na.rm = T), 
-         gdp<mean(gdp, na.rm = T))
+  filter(happiness>mean(happiness, na.rm = TRUE) &
+         gdp<mean(gdp, na.rm = TRUE))
 
 ```
 
 
 ```{r eval = FALSE, echo=TRUE}
 world_happiness %>% 
-  filter(happiness > mean(happiness, na.rm= TRUE), 
+  filter(happiness > mean(happiness, na.rm = TRUE), 
          gdp < mean(gdp, na.rm = TRUE)) 
 ```
 
@@ -434,7 +429,7 @@ world_happiness %>%
 world_happiness %>% 
   janitor::clean_names() %>% 
   select(country, gdp, happiness) %>% 
-  filter(gdp>mean(gdp, na.rm = T)) %>% 
+  filter(gdp>mean(gdp, na.rm = TRUE)) %>% 
   head()
 
 #mean(as.numeric(world_happiness$GDP), na.rm = TRUE)
@@ -495,6 +490,16 @@ world_happiness %>%
 world_happiness %>% 
   mutate(corruption_z = scale(corruption), # z-score `corruption` variable
          life_int = round(life, 0)) %>%  # round `life` variable to a whole number
+  head()
+```
+
+* We can also determine the place where new variables should be added in the dataframe with the argument `.before = [column name]` or `.after = [column name]`. However, this refers to the placement of all new variables as they are created within a single `mutate()` function: 
+
+```{r eval = FALSE, echo=TRUE}
+world_happiness %>% 
+  mutate(corruption_z = scale(corruption), # z-score `corruption` variable
+         life_int = round(life, 0),# round `life` variable to a whole number
+         .before = life) %>%  #place the two new variables before life
   head()
 ```
 
@@ -663,24 +668,6 @@ diamonds %>%
 
 2. Which is more expensive on average, a diamond that is `Fair` and `IF` (worst cut, best clarity), or a diamond that is `Ideal` and `I1`(best cut, worst clarity)?
 
-```{r}
-# your code here
-diamonds %>% 
-  filter(cut =="Fair", clarity == "IF") %>% 
-  summarize(mean_price = mean(price, na.rm = T))
-
-diamonds %>% 
-  filter(cut =="Ideal", clarity == "I1") %>% 
-  summarize(mean_price = mean(price, na.rm = T))
-
-diamonds %>% 
-  group_by(cut, clarity) %>% 
-  summarize (mean_price = mean(price, na.rm = T)) %>% 
-  filter(cut =="Fair" & clarity == "IF"|
-         cut =="Ideal" & clarity == "I1")
-```
-
-
 ```{r eval = FALSE, echo=TRUE}
 # two steps
 diamonds %>% 
@@ -711,7 +698,7 @@ diamonds %>%
   * number of observations (`n`)
   * standard error of the mean (`sem`)
   * 95% confidence interval (lower and upper bounds) around the mean (calculated using a *t* distribution). (`ci_lower` and `ci_upper`)
-    + Hint: Refer to [this slide from class](https://uopsych.github.io/psy611/lectures/9-sampling.html#40){target="_blank"} for an example
+    + Hint: Refer to [this slide from class](https://uopsych.github.io/psy611/lectures/09-sampling.html#/29){target="_blank"} for an example
     
   ***In your final summary output only include `color`, `mean`, `ci_lower` and `ci_upper`
   
