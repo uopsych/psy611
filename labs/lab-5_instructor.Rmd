@@ -318,10 +318,21 @@ world_happiness %>%
   filter(happiness>mean(happiness, na.rm = TRUE) &
          gdp<mean(gdp, na.rm = TRUE))
 
+#why is this returning a different output than the output from the code above?
+#Because the mean of gdp is computed on the data frame that is already filtered for above avg happiness
 world_happiness %>% 
-  filter(happiness>mean(happiness, na.rm = TRUE) &
-         gdp<mean(gdp, na.rm = TRUE))
+  filter(happiness>mean(happiness, na.rm = TRUE)) %>%
+  filter(gdp<mean(gdp, na.rm = TRUE))
 
+#Let's do this in two steps:
+above_avg_happiness <- world_happiness %>%
+  filter(happiness > mean(happiness, na.rm = TRUE))
+
+#this is the mean of gdp on the unfiltered world_happiness dataframe:
+mean_gdp_unfiltered <- mean(world_happiness$gdp, na.rm = TRUE)
+mean_gdp_above_avg_happy <- mean(above_avg_happiness$gdp, na.rm = TRUE)
+
+#These two are not the same! In the first command of this code chunk, the means for happiness and gdp are calculated before any filtering happens!
 ```
 
 
