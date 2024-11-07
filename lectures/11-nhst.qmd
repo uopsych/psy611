@@ -582,7 +582,7 @@ z_a = (cv-mean)/sem
 $\text{CV} = `r mu` + 1.96\frac{`r s`}{\sqrt{`r n`}} = `r round(cv,2)`$ $$Z_1 = \frac{`r round(cv,2)` - `r mean`}{\frac{`r s`}{\sqrt{`r n`}}} = `r round(z_a,2)`$$
 
 ```{r}
-1-pnorm(-1.57) 
+1-pnorm(-1.58) 
 ```
 :::
 :::::
