@@ -17,7 +17,6 @@ You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-6
 knitr::opts_chunk$set(message = FALSE,
                       warning = FALSE)
 
-# suppress scientific notation
 
 #load required packages
 library(tidyverse) # includes ggplot2
@@ -267,6 +266,8 @@ ggplot(CPS85_clean,
   facet_wrap(~race)
 ```
 
+
+
 # Scales
 
 ## Categorical Variables 
@@ -425,6 +426,55 @@ wage_age_plot <- ggplot(CPS85_clean,
 plot_grid(wage_hist, wage_age_plot)
 ```
 
+## Plotting more than one data frame
+Sometimes, you need to plot data from multiple sources and overlay them. When you work with repeated-measures designs, you often want to plot individual traces of data, but then aggregate statistics on top. Here, we're using the ChickWeight data built into R, which measures chicken weight of individual chickens over time as a function of Diet and Time.
+
+```{r}
+ChickWeight_df <- ChickWeight #not necessary, but I prefer to re-assign the data frame
+
+#now, we're aggregating so that we can compute aggregate statistics like the mean for Time X Diet
+ChickWeight_agg <- ChickWeight_df %>% 
+  group_by(Time, Diet) %>% 
+  summarize(M_weight = mean(weight))
+
+ggplot(mapping = aes(x = Time, color = Diet))+
+  geom_line(data = ChickWeight, aes(y = weight, group = Chick), alpha = 0.3)+ #first, we're plotting the data frame for the individual lines
+  geom_point(data = ChickWeight, aes(y = weight, group = Chick), alpha = 0.3)+ #first, we're plotting the data frame for the individual lines
+  geom_line(data = ChickWeight_agg, aes(y = M_weight, group = Diet), linewidth = 1.5)+ #next, referencing the data frmae with aggregate statistics
+  geom_point(data = ChickWeight_agg, aes(y = M_weight), size = 3)+ #next, referencing the data frmae with aggregate statistics
+  labs(x = "Days",
+       y = "Weight (g)",
+       title = "Chicken Weight as a function of Time and Diet")+
+  theme_classic()
+
+
+#to make it look a bit nicer, binarize into high vs. low
+ChickWeight_bi <- ChickWeight %>% 
+  filter(Time < 5 | Time > 16) %>% #filter only high and low time points
+  mutate(Time_bi = ifelse(Time < 5, "T1", "T2")) %>%#binarize
+  group_by(Chick, Time_bi, Diet) %>%
+  summarize(weight = mean(weight))
+            
+ChickWeight_bi_agg <- ChickWeight_bi %>%
+  group_by(Time_bi, Diet) %>%
+  summarize(M_weight = mean(weight),
+            SE_weight = sd(weight)/n())
+
+ggplot(mapping = aes(x = Time_bi, color = Diet))+
+  geom_line(data = ChickWeight_bi, aes(y = weight, group = Chick), alpha = 0.3)+
+  geom_point(data = ChickWeight_bi, aes(y = weight, group = Chick), alpha = 0.3)+
+  geom_line(data = ChickWeight_bi_agg, aes(y = M_weight, group = Diet), linewidth = 1.5)+
+  geom_point(data = ChickWeight_bi_agg, aes(y = M_weight))+
+  geom_errorbar(data = ChickWeight_bi_agg, aes(ymin = M_weight-SE_weight, ymax = M_weight+SE_weight), width = 0.3)+
+  labs(x = "Days",
+       y = "Weight (g)",
+       title = "Chicken Weight as a function of Time and Diet")+
+  facet_wrap(~Diet)+
+  theme_classic()
+
+```
+
+
 # Yes, you can customize EVERYTHING!
 
 ggplot gives you the flexibility to customize almost everything. Data visualization is an art, but also it's an important way of communication. Therefore, even if I would like to spend hours on finding the perfect color combination, increase the clarity and interpretability of your data should always be your priority. So, before deciding the colors, you may want to make sure the color palettes you use have sufficient contrast and are color-blind friendly. 
@@ -433,6 +483,92 @@ ggplot gives you the flexibility to customize almost everything. Data visualizat
    
 [A guide for finding color blind friendly colors](https://cran.r-project.org/web/packages/colorBlindness/vignettes/colorBlindness.html
 )
+
+# Selecting specific colors
+
+Want to use colors that perfectly match your slide design? In Powerpoint and many other programs, you can use an eyedropper tool to determine the exact color of any object. There are multiple color codes you can use to then match colors exactly. Most commonly, people use HEX or RGB codes. Hex codes can be directly pasted as a string for color or fill arguments in ggplot. RGB colors have to be converted first. See the example below:
+
+```{r}
+mtcars <- mtcars
+
+mtcars %>% 
+  mutate(cyl = factor(cyl)) %>%
+  ggplot(aes(x = cyl, y = hp))+
+  geom_boxplot(aes(fill = cyl))+
+  scale_fill_manual(values = c("4" = "green",
+                               "6" = "blue",
+                               "8" = "red"))+
+  labs(x = "# Cylinders",
+       y = "Horsepower",
+       title = "Engine Horsepower as a Function of the Number of Cylinders")+
+  theme_classic()
+
+
+mtcars %>% 
+  mutate(cyl = factor(cyl)) %>%
+  ggplot(aes(x = cyl, y = hp))+
+  geom_boxplot(aes(fill = cyl))+
+  scale_fill_manual(values = c("4" = rgb(0, 100, 120, maxColorValue = 255),
+                               "6" = rgb(0, 50, 120, maxColorValue = 255),
+                               "8" = rgb(100, 100, 50, maxColorValue = 255)))+
+  labs(x = "# Cylinders",
+       y = "Horsepower",
+       title = "Engine Horsepower as a Function of the Number of Cylinders")+
+  theme_classic()
+```
+
+
+# Saving plots
+
+I recommend saving ggplots for publications as .svg. This is a vector graphic format, which means that rather than saving pixels and their associated colors in a fixed dimension and size, it saves the relative position and size of objects. The result is that you can zoom into svg as much as you like and still don't see pixels - graphics will also be crystal-clear. This will not work for standard formats like .png and .jpg. If you zoom into these types of images, they will eventually become pixelated.
+
+Additionally, when you specify the size of text elements within the `theme()` command, you specify them in `pt` units (like the font size in Word, for instance). The effective font size will change when you manually increase the size of the graphic in your final document. If you like to be precise about this, I recommend that in the document where you want to insert a graphic, you do the following:
+1. Insert a placeholder shape that has the dimensions of the graphic you would like to add 
+1. Note the dimensions of that graphic.
+1. Use the dimensions to create a figure in R using the `ggsave()` command, like so:
+
+```{r}
+#Create a simple plot:
+
+mtcars_plot1 <- 
+  mtcars %>% 
+  mutate(cyl = factor(cyl)) %>%
+  ggplot(aes(x = cyl, y = hp))+
+  geom_boxplot()+
+  labs(x = "# Cylinders",
+       y = "Horsepower",
+       title = "Engine Horsepower as a Function of the Number of Cylinders")+
+  theme_classic()
+
+mtcars_plot1
+#let's make a png plot first
+ggsave(here("labs/lab6_plots/mtcars_plot.png"), width = 6, height = 2, units = "in")
+#let's make an svg plot next
+ggsave(here("labs/lab6_plots/mtcars_plot.svg"), width = 6, height = 2, units = "in")
+
+
+```
+
+
+`ggsave()` assumes you want to save the most recent plot you made. But the first argument can also be a plot that you saved into an object somewhere in your document.
+
+```{r}
+
+mtcars_plot <- mtcars %>% 
+  mutate(cyl = factor(cyl)) %>%
+  ggplot(aes(x = cyl, y = hp))+
+  geom_boxplot()+
+  labs(x = "# Cylinders",
+       y = "Horsepower",
+       title = "Engine Horsepower as a Function of the Number of Cylinders")+
+  theme_classic()
+
+mtcars_plot
+
+#let's make an svg plot next
+ggsave(mtcars_plot, filename = here("labs/lab6_plots/mtcars_plot2.svg"), width = 6, height = 2, units = "in")
+```
+
 
 # Minihacks
 
