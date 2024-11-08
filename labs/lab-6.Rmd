@@ -95,7 +95,7 @@ CPS85_clean %>%
 * specify grouping variable
 * specify color, shape and size of the geometric objects
 
-## One Categorical Varialbe (geom_bar)
+## One Categorical Variable (geom_bar)
 
 ```{r}
 ggplot(data = CPS85_clean, mapping = aes(x = sex)) +
@@ -104,10 +104,10 @@ ggplot(data = CPS85_clean, mapping = aes(x = sex)) +
 
 ### Adjust color
 
-add filled color by specifying the `fill` parameter, and shaple color by specifying the `color` parameter
+add filled color by specifying the `fill` parameter, and shape color by specifying the `color` parameter
 ```{r}
 ggplot(data = CPS85_clean, mapping = aes(x = sex)) +
-  geom_bar(fill = 'darkorange', color = 'black')
+  geom_bar(fill = 'cornflowerblue', color = 'black')
 ```
 
 Fill the bars with colors based on the levels of a categorical variable by assigning the catigorical variable to `fill`. 
@@ -123,6 +123,7 @@ ggplot(data = CPS85_clean, mapping = aes(x = sex, fill = sex)) +
 # this works
 ggplot(data = CPS85_clean) +
   geom_bar(aes(x = sex, fill = sex), color = 'black')
+
 ```
 
 ## One Continous Variable(geom_histogram)
@@ -143,7 +144,7 @@ ggplot(CPS85_clean,aes(x = wage)) +
 
 ```{r}
 ggplot(CPS85_clean,aes(x = wage)) +
-  geom_histogram(fill = "darkorange", color = "black", bins = 10, alpha = 0.7)
+  geom_histogram(fill = "darkorange", color = "black", bins = 10, alpha = 0.3)
 ```
 
 ## Bivariate: Categorical & Categorical(geom_bar)
@@ -174,7 +175,8 @@ Do you find anything wrong with this figure?
 ```{r}
 ggplot(CPS85_clean, aes(x = sector,fill = sex)) +
   geom_bar(position = "fill") + 
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1L)) +   labs(y = "Percentage")
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +   
+  labs(y = "Percentage")
 ```
 
 ## Bivariate: Categorical & Continuous
@@ -185,6 +187,10 @@ specify the continuous variable on the y-axis with `y=` and specify `stat = "ide
 ```{r}
 ggplot(CPS85_clean, aes(x = sector, y = exper)) +
   geom_col(fill = "darkorange", alpha = 0.7)
+
+
+ggplot(CPS85_clean, aes(x = sector, y = exper)) +
+  geom_bar(fill = "darkorange", alpha = 0.7, stat = "identity")
 ```
 
 ### Grouped kernel density plots (geom_density)
@@ -228,7 +234,7 @@ ggplot(CPS85_clean,
        aes(x = age, 
            y = exper)) +
   geom_point(color= "darkorange") + 
-  geom_smooth(method = "lm")
+  geom_smooth(se = TRUE)
 ```
 
 # Grouping
@@ -283,16 +289,19 @@ ggplot(data = CPS85_clean, mapping = aes(x = race, fill = race)) +
   geom_bar() + 
   scale_x_discrete(limits = c("W", "NW"), # need to match the levels of the factor 
                    labels = c("White", "Non-White")) # need to match the order of the limits
+
 ```
 
 ### Customize legend
-Customize lagend by specify parameters inside `scale_fill_discrete`
+Customize legend by specify parameters inside `scale_fill_discrete`
 ```{r}
 ggplot(data = CPS85_clean, mapping = aes(x = race, fill = race)) +
   geom_bar() + 
   scale_x_discrete(limits = c("W", "NW"), # need to match the levels of the factor 
                    labels = c("White", "Non-White")) + # need to match the order of the limits
-  scale_fill_discrete(name = "Race", labels = c("Non-White", "White"))
+  scale_fill_discrete(name = "Race", labels = c("Non-White", "White"))+
+  labs(x = "Race")
+
 ```
 
 ## Continuous Variables
@@ -302,7 +311,7 @@ ggplot(data = CPS85_clean, mapping = aes(x = race, fill = race)) +
 specify the min, max and interval with `scale_x_continuous(breaks = seq())`
 ```{r}
 # check the range 
-range(CPS85_clean$age)
+x_range <- range(CPS85_clean$age, na.rm = TRUE)
 
 ggplot(CPS85_clean,
        aes(x = age, 
@@ -310,7 +319,7 @@ ggplot(CPS85_clean,
            color = sex)) +
   geom_point() + 
   geom_smooth(method = "lm") + 
-  scale_x_continuous(breaks = seq(18, 64, 5)) # have to be within range 
+  scale_x_continuous(breaks = seq(x_range[1], x_range[2], 5)) # have to be within range 
 ```
 
 ### Specify the unit
@@ -353,7 +362,7 @@ ggplot(CPS85_clean,
 # Themes
 
 * Specify a general layout
-* Costomize the font
+* Customize the font
 
 
 Specify text_settings
@@ -398,7 +407,7 @@ ggplot(CPS85_clean,aes(x = wage, y = ..density..)) +
 ```
 
 ## Organize figures into grid
-Assign figures into variables, then orangize multiple figures using `plot_grid`
+Assign figures into variables, then organize multiple figures using `plot_grid`
 ```{r}
 library(cowplot)
 
@@ -438,15 +447,14 @@ ChickWeight_agg <- ChickWeight_df %>%
   summarize(M_weight = mean(weight))
 
 ggplot(mapping = aes(x = Time, color = Diet))+
-  geom_line(data = ChickWeight, aes(y = weight, group = Chick), alpha = 0.3)+ #first, we're plotting the data frame for the individual lines
-  geom_point(data = ChickWeight, aes(y = weight, group = Chick), alpha = 0.3)+ #first, we're plotting the data frame for the individual lines
+  geom_line(data = ChickWeight_df, aes(y = weight, group = Chick), alpha = 0.3)+ #first, we're plotting the data frame for the individual lines
+  geom_point(data = ChickWeight_df, aes(y = weight, group = Chick), alpha = 0.3)+ #first, we're plotting the data frame for the individual lines
   geom_line(data = ChickWeight_agg, aes(y = M_weight, group = Diet), linewidth = 1.5)+ #next, referencing the data frmae with aggregate statistics
   geom_point(data = ChickWeight_agg, aes(y = M_weight), size = 3)+ #next, referencing the data frmae with aggregate statistics
   labs(x = "Days",
        y = "Weight (g)",
        title = "Chicken Weight as a function of Time and Diet")+
   theme_classic()
-
 
 #to make it look a bit nicer, binarize into high vs. low
 ChickWeight_bi <- ChickWeight %>% 
@@ -495,9 +503,9 @@ mtcars %>%
   mutate(cyl = factor(cyl)) %>%
   ggplot(aes(x = cyl, y = hp))+
   geom_boxplot(aes(fill = cyl))+
-  scale_fill_manual(values = c("4" = "green",
-                               "6" = "blue",
-                               "8" = "red"))+
+  scale_fill_manual(values = c("4" = "navy",
+                               "6" = "maroon",
+                               "8" = "gold"))+
   labs(x = "# Cylinders",
        y = "Horsepower",
        title = "Engine Horsepower as a Function of the Number of Cylinders")+
@@ -508,7 +516,10 @@ mtcars %>%
   mutate(cyl = factor(cyl)) %>%
   ggplot(aes(x = cyl, y = hp))+
   geom_boxplot(aes(fill = cyl))+
-  scale_fill_manual(values = c("4" = rgb(0, 100, 120, maxColorValue = 255),
+  # scale_fill_manual(values = c("4" = rgb(10, 122, 64, maxColorValue = 255),
+  #                              "6" = rgb(0, 50, 120, maxColorValue = 255),
+  #                              "8" = rgb(100, 100, 50, maxColorValue = 255)))+
+    scale_fill_manual(values = c("4" = "#0A7A40",
                                "6" = rgb(0, 50, 120, maxColorValue = 255),
                                "8" = rgb(100, 100, 50, maxColorValue = 255)))+
   labs(x = "# Cylinders",
