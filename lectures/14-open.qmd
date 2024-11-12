@@ -72,7 +72,8 @@ Conceptually, psychologists have struggled with the [interpretation of p-values]
 
 Even worse, we seemed to forget some of the most basic assumptions of our statistical tests.
 
--   What must be true about our trials to use a binomial distribution? .small\[Remember p-curve?\]
+-   What must be true about our trials to use a binomial distribution?
+    -   Remember p-curve?
 
 ------------------------------------------------------------------------
 
@@ -98,7 +99,9 @@ And what's the problem with meta-analyses?
 
 [The Reproducibility Project (2015)](https://www.theatlantic.com/science/archive/2015/08/psychology-studies-reliability-reproducability-nosek/402466/) finds that most findings in psychological science don't replicate.
 
-Also, [new methods](../readings/Meta-analyses-are-f.pdf) for approaching meta-analyses are studied and popularized. - There is a growing realization that meta-analyses cannot fix the problem -- publication bias (and p-hacking) have polluted the waters.
+Also, [new methods](../readings/Meta-analyses-are-f.pdf) for approaching meta-analyses are studied and popularized.
+
+-   There is a growing realization that meta-analyses cannot fix the problem -- publication bias (and p-hacking) have polluted the waters.
 
 ------------------------------------------------------------------------
 
@@ -115,11 +118,11 @@ Also, [new methods](../readings/Meta-analyses-are-f.pdf) for approaching meta-an
 
 ### Developing norms (not new)
 
--   A *major* challenge to both reproducibility and robust science is how opaque other peoples' data and analsyes are.
+-   A *major* challenge to both reproducibility and robust science is how opaque data and analyses are.
 
 -   Fix by having standards and developing methods for communicating details.
 
--   Brain Imaging Data Structure (new!) **([BIDS](https://bids.neuroimaging.io/))**
+-   Brain Imaging Data Structure **([BIDS](https://bids.neuroimaging.io/))**
 
 -   [codebook](https://cran.r-project.org/web/packages/codebook/index.html) R package
 
@@ -127,7 +130,7 @@ Also, [new methods](../readings/Meta-analyses-are-f.pdf) for approaching meta-an
 
 ### R (not new)
 
-::: columns
+::::: columns
 ::: {.column width="60%"}
 -   Use of scripts -- data analysis is **reproducible**
 
@@ -143,7 +146,7 @@ Also, [new methods](../readings/Meta-analyses-are-f.pdf) for approaching meta-an
 ::: {.column width="40%"}
 ![](images/Rconsole.png)
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -213,7 +216,7 @@ By combining Markdown with R...
 
 ### Reducing file drawer: PsyArXiv
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ![](images/psyarxiv.png)
 :::
@@ -223,7 +226,7 @@ By combining Markdown with R...
 
 -   journals have different policies regarding what you can post. It's always a good idea to [check](http://sherpa.ac.uk/romeo/index.php).
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -259,6 +262,14 @@ OSF also allows you to preregister a project.
 
 ------------------------------------------------------------------------
 
+### Preregistration
+
+A note: not everything needs to be preregistered. Only confirmatory work.
+
+It's ok to deviate from preregistrations if you transparently document those deviations. (See this very helpful [tutorial by Willroth & Atherton (2024)](../readings/willroth_atherton_2024.pdf)]
+
+------------------------------------------------------------------------
+
 ### Limit p-hacking and publication bias: Registered reports
 
 **Registered reports (RR)** are a special kind of journal article
@@ -273,9 +284,13 @@ image credit: [Doropthy Bishop](https://blog.wellcomeopenresearch.org/2018/12/04
 
 ## 5. Development of new(ish) analytic techniques
 
-More psychologists have embraced **machine learning methods** - These largely move us away from traditional p-values and decision making becomes predicated on the ability of theoretical models to predict new sets of data. - How accurate does your model need to be for you to accept a relationship?
+More psychologists have embraced **machine learning.** 
 
--   Most machine learning techniques adjust for over-fitting, or essentially capitalizing on the random error in your sample
+- These largely move us away from traditional p-values and decision making becomes predicated on the ability of theoretical models to predict new sets of data. 
+
+  - How accurate does your model need to be for you to accept a relationship?
+
+  - Most machine learning techniques adjust for over-fitting, or essentially capitalizing on the random error in your sample
 
 ------------------------------------------------------------------------
 
@@ -290,6 +305,8 @@ More psychologists have embraced **machine learning methods** - These largely mo
 Certainly there are some who argue that open science methods are broadly harmful: stifle creativity, slow down research, incentivize *ad hominem* attacks and "methodological terrorists", and encourage data parasites.
 
 It is worth admitting that, unless incentive structures don't change, there can be harm done with adoption of these methods. But part of the goal is to change the overall system.
+
+------------------------------------------------------------------------
 
 A more legitimate criticism is that adoption of these methods can fool researchers into believing that all research using these methods is "good" and all research not using them are "bad."
 
