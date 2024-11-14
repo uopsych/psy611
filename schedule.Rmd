@@ -40,10 +40,10 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 |  | 10/31 | Hypothesis testing | LSR Ch 11 |  |  |
 |  | 11/01 | *Lab: Data wrangling* |  |  |  |
 | 6 | 11/05 | Hypothesis testing | [Sainani (2012)](readings/Sainani_2012.pdf) | Quiz 5 |  |
-|  | 11/07 | Hypothesis testing |  |  |  |
+|  | 11/07 | Critiques of hypothesis testing |  |  |  |
 |  | 11/08 | *Lab: Graphing with ggplot2* |  |  |  |
 | 7 | 11/12 | Critiques of hypothesis testing | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf), [Cumming (2014)](readings/Cumming_2014.pdf) | Quiz 6 |  |
-|  | 11/14 | Open Science and Wrap-up | [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/), [Simmons, Nelson, & Simonshon, 2016 (blog)](https://datacolada.org/64) |  |  |
+|  | 11/14 | Open Science | [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/), [Simmons, Nelson, & Simonshon, 2016 (blog)](https://datacolada.org/64) |  |  |
 |  | 11/15 | *Lab: RMarkdown* |  |  | HW 2 Due |
 | 8 | 11/19 | One-sample tests | LSR Ch 13.1-13.2 | Quiz 7 |  |
 |  | 11/21 | Comparing two means (paired) | LSR Ch 13.3-13.11 |  |  |

@@ -31,7 +31,7 @@ navbar:
           href: "lectures/11-nhst.html"
         - text: "12/13-Critiques of NHST"
           href: "lectures/12-critiques.html"
-        - text: "13(?)-Open science"
+        - text: "14-Open science"
           href: "lectures/14-open.html"
 
     - text: Labs
