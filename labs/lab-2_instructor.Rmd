@@ -67,7 +67,7 @@ You can access the sub folders inside the working directory using relative path:
 
 ```{r error = FALSE}
 # examples of using relative file directory
-df <- import("./labs/resources/lab2/world_happiness_2015.csv")
+df <- import(here::here("labs/resources/lab2/world_happiness_2015.csv"))
 ```
 
 or you can use function `here` to locate the directory of a file by adding names of the sub-folders
@@ -563,7 +563,7 @@ corruption_std <- import('https://github.com/uopsych/psy611/raw/master/labs/reso
 hist(x = corruption_std$Corruption, main = "Histogram of Corruption Scores", xlab = "Corruption")
 ```
 
-Corrumption is negatively skewed. 
+Corruption is negatively skewed. 
 
 3. View `corruption_std`. Based on the z-scores (i.e. `Corruption_scaled`), which countries would be considered outliers on the `Corruption` variable?
 
@@ -645,7 +645,8 @@ world_happiness_num <- subset(world_happiness_df, select = -Country)
 2. Use `cor()` to generate a correlation matrix for all the variables in `world_happiness_num`. Use listwise deletion by specifying `use = "complete.obs"`. 
 
 ```{r}
-(cor_mx <- cor(world_happiness_num, use = "complete.obs"))
+cor_mx <- cor(world_happiness_num, use = "complete.obs")
+print(cor_mx)
 ```
 
 

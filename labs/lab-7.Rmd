@@ -1,0 +1,499 @@
+---
+title: 'Lab 7: RMarkdown'
+output:
+  html_document: 
+    theme: cosmo
+    toc: true
+    toc_float: true
+    code_download: true
+  word_document:
+    toc: yes
+    toc_depth: '3'
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# suppress scientific notation
+options(scipen = 999)
+
+library(ggplot2)
+library(tidyverse)
+library(kableExtra)
+```
+
+# Purpose
+
+The purpose of today's lab is to get more familiar with RMarkdown. RMarkdown is a file format that allows us to produce reports. You can use RMarkdown to produce html files (as we have been doing), but also word documents, pdfs, slideshows, websites, and more. In 612, we will be using RMarkdown to create APA manuscripts in R.
+
+Here are two resources about RMarkdown that I recommend bookmarking: this [cheatsheet](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) and this [book](https://bookdown.org/yihui/rmarkdown/).
+
+<br />
+
+------------------------------------------------------------------------
+
+# YAML
+
+The YAML is the header of your RMarkdown file that starts and ends with `---`. When you open a new RMarkdown file, it will automatically create a default YAML with a title, author, date, and output. You can set the output to which file type you want the report to print out in (`html_document`, `pdf_document`, `word_document`, `ioslides_presentation`, etc.)
+
+``` yaml
+---
+title: Lab 7: RMarkdown
+author: Zach Schroeder
+date: November 15, 2024
+output: 
+  html_document
+---
+```
+
+For an html document, you can add a table of contents by specifying `toc: true` under `html_document`. If you like how the table of contents is floating to the left like it is on the course website, you can also add `toc_float: true`. Additionally, you can customize your theme, change the width and height of figures for the whole report, number your sections, and so on. For how to do these, refer [here](https://bookdown.org/yihui/rmarkdown/html-document.html).
+
+``` yaml
+---
+title: 'Lab 7: RMarkdown'
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+```
+
+------------------------------------------------------------------------
+
+# Code chunks
+
+You can create a new code chunk with the shortcut `Ctrl + Alt + I` (or `Cmd + Option + I` if you have a Mac). This keyboard shortcut will also split a code chunk at the cursor.
+
+```{r}
+
+
+```
+
+## Code chunk options
+
+Code chunks have the default setting that all code will be evaluated and all code and results of the code will be printed out in your report when you knit it. But you may want to override the defaults. For example, you may want your final report to show **only** your figures but not the code that created the figures. You would edit the code chunk, inside the brackets, like this:
+
+``` markdown
+`r ''````{r, echo = FALSE}
+```
+
+Here are some more useful options.
+
+| Option | Purpose | Useful for... |
+|:-----------------------|:-----------------------|:-----------------------|
+| `echo = FALSE` | The results will print but not the code chunk | If you want to hide your code |
+| `eval = FALSE` | The code chunk will print but is not evaluated | If you want to showcase sample code |
+| `include = FALSE` | The code chunk is evaluated but nothing is printed | You are loading libraries |
+| `warning = FALSE` | Warning messages will not be displayed | You want to get rid of a warning message in your report but you still want it to print the rest of your results out (if it is not a warning message try `message = FALSE`) |
+| `error = TRUE` | The error message will display in your report instead of in the console | You can use this to knit even when you have an error message |
+| `fig.path = figures/` | Predetermines where the figure is saved. If the folder named in the chunk doesn't exist, it will create one | If you are knitting a document with many figures, this will allow you to move the important figures to a unique folder (and keep your source folder neater) |
+
+Refer [here](https://bookdown.org/yihui/rmarkdown/r-code.html) for more options. To change the settings for all of the code chunks in your report, you can set a global option. For example, if I wanted only the results and no code to print out for my entire report, I would put the code `knitr::opts_chunk$set(echo = FALSE)` in my first code chunk.
+
+To keep your chunk options clean, you can use `#|` to add chunk options inside the chunk itself. This example from [posit](https://posit.co/blog/r-markdown-tips-tricks-2-cleaning-up-your-code/) illustrates the option well.
+
+```{r cars-plot, echo = FALSE, message = FALSE, fig.width = 6, fig.height = 6, fig.path = "figures/", fig.cap = "This is a long caption that fits better inside of a code chunk.", fig.alt = "This is a long description that conveys the meaning of the visual."}
+ggplot(data = mtcars, aes(x = wt, y = mpg)) +
+  geom_point()
+
+```
+
+```{r cars-plot-short}
+
+#| echo = FALSE,
+#| message = FALSE,
+#| fig.width = 6, fig.height = 6,
+#| fig.path = "figures/",
+#| fig.caption = "This is a long caption that fits better inside of a code chunk"
+#| fig.alt = "This is a long description that conveys the meaning of the visual."
+
+ggplot(data = mtcars, aes(x = wt, y = mpg)) +
+  geom_point()
+```
+
+## Naming code chunks
+
+I highly recommend naming your code chunks. The rationale is outlined in [this](https://masalmon.eu/2017/08/08/chunkpets/) blog post. In brief, the benefits to naming chunks are:
+
+1.  It makes your document easier to navigate. You can navigate to chunks by selecting the dropdown menu from the bottom of the code pane.
+
+2.  It makes it easier to debug knitting errors. When knitting a document, you may receive an error message that refers to the chunk that caused the knit to abort. It may be easier to locate `regression dv emotion` than `chunk 12`.
+
+3.  It makes caching more efficient. If you have a code chunk that takes a long time to load, you can set `cache = TRUE` in the chunk options. This will only re-run the chunk *if* the chunk changes. Otherwise, knitting will use a prior, cached version of the chunk output.
+
+<br />
+
+------------------------------------------------------------------------
+
+# Tables and tabbed sections {.tabset .tabset-fade .tabset-pills}
+
+Tabbed sections are a way to organize your html file a little better. Follow this format exactly to make a tabbed section. Your first line will be the header of the section `# header title {.tabset .tabset-fade .tabset-pills}` followed by tab names `## tab 1`, `## tab 2`, and so on. In this section, we will also be exploring how to make a table using the `kableExtra` package.
+
+<br />
+
+## Table 1
+
+Here is a summary table without `kableExtra`.
+
+```{r, message = FALSE}
+(table_1 <- ggplot2::diamonds %>% 
+  group_by(cut) %>% 
+  summarize(n = n(),
+          m_carat = mean(carat),
+          sd_carat = sd(carat),
+          m_depth = mean(depth),
+          sd_depth = sd(depth),
+          m_price = mean(price),
+          sd_price = sd(price)))
+```
+
+------------------------------------------------------------------------
+
+## Table 2
+
+This is a simple table using the `kableExtra::kbl` function. The `kbl` function makes very simple tables and is equivalent to `knitr::kable` that Sara used in class. If you need to make a nice table quickly, `kbl` is a good function to use.
+
+```{r}
+#Creating a kable table where each digit is rounded to two decimal places
+table_1 %>% 
+  kbl(digits= 2)
+```
+
+<br />
+
+This is technically a little better but we can further customize it.
+
+------------------------------------------------------------------------
+
+## Table 3
+
+With the `kableExtra::kbl` function, you can add a table caption, change the column names, and format the table so that it's a little easier to read.
+
+```{r}
+table_1 %>% 
+  kbl(format = "simple",
+      digits = 2, #rounds all values to two decimal places
+      col.names = c("Cut", "N", "M Carat", "SD Carat",
+                    "M Depth", "SD Depth",
+                    "M Price", "SD Price"), #column names
+      caption = "Table 1. A summary table for Carat, Depth, and Price by Cut of diamond.") #add table caption
+  
+```
+
+------------------------------------------------------------------------
+
+## Table 4
+
+If you want to style your table further, you would need to use other functions from the `kableExtra` package. For example, I can use the `kable_classic` function to create a "classic" style table.
+
+```{r}
+table_1 %>% 
+  kbl(col.names = c("Cut", "N", "M Carat", "SD Carat",
+                    "M Depth", "SD Depth",
+                    "M Price", "SD Price"),
+      digits = 2,
+      caption = "<b>Table 1</b><br /> <i>A summary table for Carat, Depth, and Price by Cut of diamond.</i>") %>% # This is html code that says bold "Table 1", enter, then italicize the rest
+  kable_classic(full_width = FALSE) # make a classic table
+```
+
+------------------------------------------------------------------------
+
+## Table 5
+
+Now, I am adding headers with the `kableExtra::add_header_above` function and a footnote with the `kableExtra::footnote` function.
+
+```{r}
+(table_2 <- table_1 %>% 
+  kbl(col.names = c("Cut", "N", "M", "SD",
+                    "M", "SD",
+                    "M", "SD"), # I renamed the columns
+      digits = 2,
+      caption = "<b>Table 1</b><br /> <i>A summary table for Carat, Depth, and Price by Cut of diamond.</i>",
+      align =  "c") %>% #align center 
+  kable_classic(full_width = FALSE) %>% 
+  add_header_above(c(" " = 2, "Carat" = 2, "Depth " = 2, "Price" = 2)) %>% #adds headers called carat, depth, and price. The 2's indicate how many columns are under each header
+  footnote(footnote_as_chunk = TRUE, 
+           general = "Add footnote here.")) #adds a footnote 
+```
+
+------------------------------------------------------------------------
+
+## Table 6
+
+Here I am using the `kableExtra::row_spec` function to highlight the 4th row `Premium` in yellow. There are so many more things that you can do with the kableExtra package. [Here](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) is an excellent resource.
+
+```{r}
+
+table_2 %>% 
+  row_spec(4, background = "#EFF184")
+  
+```
+
+------------------------------------------------------------------------
+
+## Table 7
+
+You can create a scroll box for your tables using the `scroll_box` function. This comes in handy when you have a large output to display. You can adjust the dimensions of the scroll box according to your preferences.
+
+```{r}
+table_2 %>% 
+  kable_paper() %>%
+  scroll_box(width = "100%", height = "200px")
+```
+
+------------------------------------------------------------------------
+
+# Inline text
+
+Inline text refers to text that is outside of code chunks. I am currently writing in inline text. In order to format the text that you write outside of code chunks, you have to abide by Markdown syntax. For example, you may want to **bold**, *italicize*, or ~~strikethrough~~ a word. You also may want to insert a list, table, headers, link, image, blockquote, or equation. Refer to the RMarkdown [cheatsheet](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) for how to format in Markdown syntax.
+
+## Visual editor
+
+Clicking the settings cog and selecting `Use Visual Editor` will let you see most of the RMarkdown formatting while you are typing. This may be useful if you are formatting a document but don't want to knit every time you make a small change. If editing a markdown document in the visual editor, common shortcuts (e.g., `cmd + B` to bold) can be used to edit text lieu of typing out `**bold**`. All editing shortcuts can be found [here](https://rstudio.github.io/visual-markdown-editing/shortcuts.html).
+
+## Search insert-able elements
+
+Using `cmd + /` will open a search menu that includes all items that can be inserted into a markdown document. These include code chunks, bullet/numbered lists, and the different levels of headings. It can also insert code chunks for other programming languages (e.g., `python` or / `SQL`)
+
+<br />
+
+<br />
+
+------------------------------------------------------------------------
+
+## Inline code {.tabset .tabset-fade .tabset-pills}
+
+### Inline code
+
+Sometimes you may want to code outside of a code chunk. The most common reason for this is to report statistics in your inline text. For example, let's say you are writing a manuscript in R and you need to report the mean and standard deviation for a variable. You can calculate the mean and standard deviation of the variable in the code chunk, then call the answer in the in-line text. This will reduce human transfer errors.
+
+```{r}
+#Descriptive stats for diamond price 
+
+range_price_low <- range(diamonds$price)[1]
+
+range_price_high <- range(diamonds$price)[2]
+
+m_price <- mean(diamonds$price)
+
+sd_price <- sd(diamonds$price)
+
+```
+
+Now, I can call the variables inline, like this: The price of diamonds ranged from `r range_price_low` to `r range_price_high` (*M* = `r m_price`, *SD* = `r sd_price`).
+
+<br />
+
+------------------------------------------------------------------------
+
+### Advanced code
+
+You can do more than call a variable outside of the code chunks. For example, here is some code that will make the sentence look a little nicer. However, when you code outside of the code chunks, the code becomes really difficult to read, so I recommend keeping complicated code inside of the code chunks.
+
+The price of diamonds ranged from `r paste0("$", format(as.double(range_price_low), nsmall = 2))` to `r paste0("$", format(as.double(range_price_high), nsmall = 2, big.mark = ","))` (*M* = `r paste0("$", format(m_price, big.mark = ",", nsmall = 2))`, *SD* = `r paste0("$",format(sd_price, big.mark= ","))`).
+
+Instead of this mess, you want to first create your variables:
+
+```{r}
+range_price_low <- range(diamonds$price)[1] %>%
+  as.double() %>% #makes range_price_low a double (rather than an integer)
+  format(nsmall = 2) %>% #format it to two decimal places
+  paste0("$", .) #add a dollar sign before the number
+
+range_price_high <- range(diamonds$price)[2] %>% 
+  as.double() %>% 
+  format(nsmall = 2, big.mark = ",") %>% #big.mark adds a comma for large numbers
+  paste0("$", .)
+
+m_price <- diamonds$price %>%
+  mean() %>% 
+  format(nsmall = 2, big.mark = ",") %>% 
+  paste0("$", .)
+
+sd_price <- diamonds$price %>%
+  sd() %>% 
+  format(nsmall = 2, big.mark = ",") %>% 
+  paste0("$", .)
+
+```
+
+And then you can print your sentence: The price of diamonds ranged from `r range_price_low` to `r range_price_high` (*M* = `r m_price`, *SD* = `r sd_price`).
+
+<br />
+
+------------------------------------------------------------------------
+
+### Creating a function
+
+```{r}
+#To remove redundancy in your code, you may want to create a function instead
+#Here I've created a function with one argument "x" that converts numbers into money formatted numbers
+money_format <- function(x){
+  x %>%
+  as.double() %>% 
+  format(nsmall = 2, big.mark = ",") %>% 
+  paste0("$", .)
+}
+
+#testing the function
+money_format(23948234)
+
+money_format(23)
+
+diamonds$price %>% 
+  mean() %>% 
+  money_format() 
+```
+
+Your new function will work inline too: `r money_format(32334)`
+
+------------------------------------------------------------------------
+
+# Style
+
+After you complete a long day of coding, you may realize that some of your code is difficult to read. Installing the `styler` package creates an `Addin` (located in the Addins menu on the menu bar) that will apply the `tidy` style guide (from the `tidyverse`) to your a section or all of your code. While the content of your code will not change, it will do things to make it more readable, such as create line breaks after pipes (`%>%`)
+
+# Knitting errors
+
+Knitting errors are particularly frustrating error messages if you thought you were done with your project and the code had worked up to the point of knitting. Plus, the messages can be vague and confusing. Here's our advice:
+
+-   Knit early and knit often. If you're working on the homework, it's a good idea to knit at least once after every problem.
+
+-   When you get an error, you first want to try to locate where the error is. If you think you found it, you can comment out the entire code chunk by highlighting the code and typing `Ctrl + Shift + C` (or `Cmd + Shift + C` on a Mac), or you can change the code chunk options to `error = TRUE`. You should be able to knit now if the error message is coming from the code chunk that you just disabled. Otherwise, disable more code chunks, one at a time until it knits.
+
+-   Once you've established where the error is, you may still not understand why the code isn't working. The most common reasons are...
+
+    -   Your data set wasn't imported properly.
+    -   You haven't loaded the proper libraries and you need to add at least one `library()` command.
+    -   You are referring to a variable that hasn't been assigned yet. It probably worked before because it was assigned in your global environment, but it needs to be assigned before the line of code in order for it to knit.
+
+-   The function `knit_exit()` will exit the knitting process when run inline or in a code chunk. If you are debugging your code, using this will let you examine line-by-line to identify where the problem originates.
+
+## Caching code
+
+You may run into code that takes *forever* to run. It is most common when importing large .csv files but may arise elsewhere. If you set `cache = TRUE` in the chunk options, it will save the last output of that code chunk and not rerun it until the code is edited. If you want to cache chunks that *depend* on the cached chunk, include the `dependson` argument. This lets you reference the cached chunk (*hint*: this is why you may want to name chunks!), which will rerun that code if the prior cached code is edited.
+
+```{r cached-chunk}
+#| cache = TRUE
+x <- 500
+x
+
+```
+
+```{r dependent-chunk}
+#| cache = TRUE,
+
+x + 5
+
+```
+
+If you edit the `cached-chunk` (e.g., by replacing `500` with `600`) the dependent-chunk would *not* update properly. However, if you add the argument `dependson = cached-chunk` to the `dependent-chunk`, the cache *would* update any time the `cached-chunk` is edited.
+
+------------------------------------------------------------------------
+
+# Minihacks
+
+For today's minihacks, you will be using RMarkdown to create your own html file.
+
+1.  Open up a new RMarkdown file and erase everything but the YAML. Edit the YAML in the following ways:
+    -   Change the title to "Lab 7 Minihacks."
+    -   Remove the author and date.
+    -   Under output, add a table of contents, numbered sections, and choose a theme. You should be outputting to an html file. Some html themes you may want to try are `cerulean`, `journal`, `flatly`, `lumen`, `paper`, and `readable`.
+    -   Knit the file. You should only see the title. The color and font will depend on which theme you chose.
+2.  Create a new code chunk and load the following libraries: `tidyverse`, `ggplot2`, `kableExtra`, `rio` and `here`.
+    -   Change the default chunk option so that the code is evaluated, but neither the code nor any resulting messages will show up in your report. You can do this all by changing one default option.
+    -   In the same code chunk, using the `rio` and `here` packages, import the data set [us_contagious_diseases.csv](resources/lab7/us_contagious_diseases.csv) and store it in a data frame called data.
+    -   Finally, in this code chunk, add the code `options(scipen = 999)`, which will turn off scientific notation
+3.  The `us_contagious_diseases` data set has the yearly counts for seven contagious diseases for the years 1928 - 2011. I have created three tables and called them `data_1`, `data_2`, and `data_3`.
+    -   Create a new level 1 header called "Tables."
+    -   Under the Tables header, copy and paste the three chunks of code written below.
+
+```{r, eval = FALSE}
+data_1 <- data %>% 
+  group_by(disease) %>% 
+  summarise(sum_count = sum(count)) 
+
+data_1 %>% 
+  kbl()
+```
+
+```{r, eval = FALSE}
+data_2 <- data %>% 
+  filter(disease == "Measles") %>% 
+  group_by(year) %>% 
+  summarise(sum_count = sum(count))
+
+data_2 %>% 
+  kbl()
+```
+
+```{r, eval = FALSE}
+data_3 <- data %>% 
+  filter(disease == "Measles" & year == "1938") %>%
+  mutate(per_measles = count/population * 100) %>% 
+  select(state, count, population, per_measles) 
+
+data_3 %>% 
+  kbl()
+```
+
+-   Create three subheaders "Table 1", "Table 2", and "Table 3" between the code chunks so that each code chunk is under the respective subheader.
+    -   Now, edit the code to make better tables. Using the `kableExtra` package, for each table, add a table title and edit the column names.
+    -   For each table, change the table format to classic with the `kable_classic` function.
+    -   For the second and third tables, try using the `kableExtra::scroll_box` function to limit the amount of space it takes up.
+    -   For the third table, highlight the Oregon row (row 38).
+    -   Change the chunk options on the tables so that you can only see the tables (not the code).
+    -   Knit to make sure that everything shows up how you want it.
+
+4.  Create a **tabbed** section called "Figures". You should have three tabs: "Figure 1", "Figure 2" and "Figure 3".
+    -   Copy and paste the code for these three figures into your RMarkdown file.
+
+```{r, eval = FALSE}
+data_1 %>% 
+  ggplot(aes(x = disease, y = sum_count)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(x = "Type of disease", y= "Death count") + 
+  coord_flip()
+```
+
+```{r, eval = FALSE}
+data_2 %>% 
+  ggplot(aes(x = year, y = sum_count)) +
+  geom_point() +
+  theme_minimal() +
+  labs(x = "Year", y= "Death count") +
+  geom_vline(xintercept = 1963, color = "red", linetype = "dashed") + 
+  geom_text(x = 1980, y = 600000, label = "Vaccine invented in 1963", 
+            color = "red")
+```
+
+```{r, eval = FALSE}
+#install.packages("maps")
+library(maps)
+data_3 <- data_3 %>% 
+  mutate(region = tolower(state))
+states_map <- map_data("state")
+disease_map <- left_join(states_map, data_3, by = "region")
+ggplot(disease_map, aes(long, lat, group= group)) +
+  geom_polygon(aes(fill = per_measles), color = "white") +
+  labs(fill = "% Measles") +
+  theme_minimal()
+```
+
+-   Next,
+
+    -   Change the default chunk options so that you can only see the figures (no code).
+
+    -   Use chunk options to change the widths of the figures to 8 inches.
+
+    -   Knit and familiarize yourself with what information these graphs are presenting.
+
+5.  Create one last level 1 header called "Questions". Create three subheadings "Question 1", "Question 2", and "Question 3". **Using in-line code**, answer the following questions under the respective subheading:
+    -   Question 1) Measles had the highest number of infections in the US during this time span. What was the number of infections? Answer this question using `data_1`.
+    -   Question 2) What was the average number of Measles cases per year in the US from 1928 to 2011? Round this number to two decimal places. Answer this question using `data_2`.
+    -   Question 3) In 1938, Wisconsin had the highest number of Measles cases per capita. What percent of Wisconsin's population contracted Measles in 1938? Answer this question using `data_3`.
+
+## 
