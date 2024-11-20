@@ -131,7 +131,7 @@ Human-wildlife conflict in urban areas endangers wildlife species. One species u
 ------------------------------------------------------------------------
 
 ```{r}
-gulls = read.delim(here("data/gulls/pairs.txt"))
+gulls = read.delim("https://raw.githubusercontent.com/uopsych/psy611/refs/heads/master/data/gulls/pairs.txt")
 gulls
 ```
 
@@ -322,9 +322,15 @@ People differ in their optimal time of day to perform a task (morning people = l
 For this example, we'll be ignoring individual differences (weep) and focus only on the mind-wandering task variable. 
 
 ```{r}
-lao = read_csv()
+lao = read.csv("https://raw.githubusercontent.com/uopsych/psy611/refs/heads/master/data/Larks%20and%20Owls.csv")
 ```
 
+------------------------------------------------------------------------
+
+```{r}
+lao %>% select(Subject, TimeOfDay, MWCount) %>% head()
+lsr::pairedSamplesTTest(formula = MWCount~TimeOfDay, data = lao, id = "Subject")
+```
 
 ------------------------------------------------------------------------
 
@@ -342,52 +348,15 @@ What is important to convey in a visualization of these data?
 ```{r, fig.height=8}
 #| code-fold: true
 
-gulls %>% 
-  pivot_longer(cols = c(At, Away)) %>% 
-  ggpubr::ggbarplot(data = .,
-                    x = "name", 
-                    y = "value", 
+ggpubr::ggbarplot(data = lao,
+                    x = "TimeOfDay", 
+                    y = "MWCount", 
                     add = "mean", 
-                    fill = "name",
-                    color = "name",
+                    fill = "TimeOfDay",
+                    color = "TimeOfDay",
                     palette = "Paired", 
-                    xlab = "Condition",
-                    ylab = "Mean Number of Seconds") +
-  rremove("legend") +
-  theme(
-    axis.title = element_text(size = 30),
-    axis.text = element_text(size = 30))
-```
-:::
-:::::
-
-------------------------------------------------------------------------
-
-## Visualizing this test
-
-::::: columns
-::: {.column width="40%"}
-What is important to convey in a visualization of these data?
-
--   The most obvious piece of information are means. (This is a test of the difference of means).
--   Why is this a bad plot?
-:::
-
-::: {.column width="60%"}
-```{r, fig.height=8}
-#| code-fold: true
-
-gulls %>% 
-  pivot_longer(cols = c(At, Away)) %>% 
-  ggpubr::ggbarplot(data = .,
-                    x = "name", 
-                    y = "value", 
-                    add = "mean", 
-                    fill = "name",
-                    color = "name",
-                    palette = "Paired", 
-                    xlab = "Condition",
-                    ylab = "Mean Number of Seconds") +
+                    xlab = "Time of Day",
+                    ylab = "Frequency of Mind Wandering") +
   rremove("legend") +
   theme(
     axis.title = element_text(size = 30),
@@ -403,29 +372,30 @@ gulls %>%
 ```{r}
 #| code-fold: true
 
-gulls = gulls %>% 
-  mutate(diff = At-Away) 
+lao_wide = lao %>% 
+  select(Subject, TimeOfDay, MWCount) %>% 
+  pivot_wider(names_from = TimeOfDay, values_from = MWCount) %>% 
+  mutate(diff = Evening-Morning) 
 
-se = sd(gulls$diff)/sqrt(nrow(gulls))
-moe = se*qt(p = .975, df = nrow(gulls) - 1)
-lower_ci = mean(gulls$diff) - moe
-upper_ci = mean(gulls$diff) + moe
+se = sd(lao_wide$diff)/sqrt(nrow(lao_wide))
+moe = se*qt(p = .975, df = nrow(lao_wide) - 1)
+lower_ci = mean(lao_wide$diff) - moe
+upper_ci = mean(lao_wide$diff) + moe
 
-gulls %>% 
+lao_wide %>% 
   ggplot(aes(x = diff)) +
   geom_rect(aes(xmin = lower_ci,
                 xmax = upper_ci,
                 ymin = -Inf,
                 ymax = Inf),
-            fill = "#85D4C8",
-            alpha = .5) +
+            fill = "#85D4C8") +
   geom_histogram(fill = "grey70",
                  color = "black") +
   geom_vline(
     aes(xintercept = mean(diff)),
     linetype = "dashed") +
   labs(
-    x = "Difference (in seconds)",
+    x = "Difference in Mind Wandering",
     y = "Count"
   ) +
   theme_minimal()
@@ -434,16 +404,15 @@ gulls %>%
 
 ------------------------------------------------------------------------
 
-### Viz: show the individual gulls
+### Viz: show the individual people
 
 ```{r}
 #| code-fold: true
-ggpubr::ggpaired(data = gulls, 
-                 cond1 = "At", 
-                 cond2 = "Away", 
+ggpubr::ggpaired(data = lao_wide, 
+                 cond1 = "Morning", 
+                 cond2 = "Evening", 
                  line.color = "grey",
-                 ylab = "Time to approach (seconds)", 
-                 title = "Some gulls approach food more quickly when \npeople look away from them")
+                 ylab = "Frequency of\nMind Wandering")
 ```
 
 ------------------------------------------------------------------------
@@ -454,16 +423,15 @@ ggpubr::ggpaired(data = gulls,
 library(ggdist)
 library(gghalves)
 
-gulls_long = gulls %>% 
-  pivot_longer(cols = c(At, Away), 
-               names_to = "condition", 
-               values_to = "seconds")
+#without this line of code, R will organize things alphabetically.
+# but i think it makes more sense for morning to come first
+lao$TimeOfDay = factor(lao$TimeOfDay, levels = c("Morning", "Evening"))
 
 # Create plot
-ggplot(gulls_long, aes(x = condition, y = seconds)) +
+ggplot(lao, aes(x = TimeOfDay, y = MWCount)) +
   # Add violin plots on opposite sides
   stat_halfeye(
-    data = subset(gulls_long, condition == "At"),
+    data = subset(lao, TimeOfDay == "Morning"),
     adjust = 0.5,
     width = 0.6,
     justification = 1.5,
@@ -473,7 +441,7 @@ ggplot(gulls_long, aes(x = condition, y = seconds)) +
     side = "left"
   ) +
   stat_halfeye(
-    data = subset(gulls_long, condition == "Away"),
+    data = subset(lao, TimeOfDay == "Evening"),
     adjust = 0.5,
     width = 0.6,
     justification = -0.5,
@@ -483,25 +451,27 @@ ggplot(gulls_long, aes(x = condition, y = seconds)) +
   ) +
   # Add boxplots
   geom_boxplot(
-    data = subset(gulls_long, condition == "At"),
-    aes(fill = condition, color = condition),
+    data = subset(lao, TimeOfDay == "Morning"),
+    aes(fill = TimeOfDay, color = TimeOfDay),
     position = position_nudge(x = -.15),
     width = 0.15,
     outlier.shape = NA,
     alpha = 0.5
   ) +
   geom_boxplot(
-    data = subset(gulls_long, condition == "Away"),
-    aes(fill = condition, color = condition),
+    data = subset(lao, TimeOfDay == "Evening"),
+    aes(fill = TimeOfDay, color = TimeOfDay),
     position = position_nudge(x = .15),
     width = 0.15,
     outlier.shape = NA,
     alpha = 0.5
   ) +
   # Add points and lines
-  geom_point(aes(group = GullID, color = condition),
-             size = 2) +
-  geom_line(aes(group = GullID),
+  geom_point(aes(group = Subject, color = TimeOfDay),
+             size = 2,
+             position = position_jitter(width = 0.05, height = 0, seed = 123)) +
+  geom_line(aes(group = Subject),
+            position = position_jitter(width = 0.05, height = 0, seed = 123),
             alpha = 0.2) +
   # Customize theme
   scale_fill_manual(values = c("#85D4C8", "grey70")) +
@@ -514,8 +484,8 @@ ggplot(gulls_long, aes(x = condition, y = seconds)) +
     axis.title.y = element_text(margin = margin(r = 10))
   ) +
   labs(
-    x = "Condition",
-    y = "Seconds"
+    x = "Time of Day",
+    y = "Frequency of Mind Wandering"
   ) +
   guides(
     fill = "none",
@@ -523,6 +493,16 @@ ggplot(gulls_long, aes(x = condition, y = seconds)) +
   )
 ```
 
+
+------------------------------------------------------------------------
+
+## Visualizing paired-samples t-test
+
+There's a choice between displaying the statistics being tested (the mean and standard error of the difference scores) and displaying the data in its original units (two points per subject, means of individual conditions). You can't have both. Pick the one that best conveys the information you want a reader to walk away with. 
+
+Better yet, put one in your manuscript and the other in supplemental material!
+
+Also, making good data visualizations can take some work. But it's really worth it. This is where AI can be a great friend!
 
 ------------------------------------------------------------------------
 
@@ -633,8 +613,4 @@ take away: likely to find differences when two measures are positively associate
 
 ### Next time...
 
-RMarkdown
-
-::: nonincremental
-Bring laptops to class
-:::
+Dealer's choice!
