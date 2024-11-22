@@ -159,7 +159,7 @@ As part of the output, you are provided the mean of cooperation, the *t*-statist
 The `oneSampleTTest()` function from the the `{lsr}` package includes Cohen's *d* automatically, but the downside is that you have to load the package separately.
 
 ```{r}
-oneSampleTTest(x = data$cooperation, mu = 60)
+lsr::oneSampleTTest(x = data$cooperation, mu = 60)
 ```
 
 As you can see from the output, `oneSampleTTest()` provides you all of the information that `t.test()` did, but it also includes Cohen's *d*. 

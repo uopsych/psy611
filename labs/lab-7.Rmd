@@ -94,7 +94,7 @@ Refer [here](https://bookdown.org/yihui/rmarkdown/r-code.html) for more options.
 
 To keep your chunk options clean, you can use `#|` to add chunk options inside the chunk itself. This example from [posit](https://posit.co/blog/r-markdown-tips-tricks-2-cleaning-up-your-code/) illustrates the option well.
 
-```{r cars-plot, echo = FALSE, message = FALSE, fig.width = 6, fig.height = 6, fig.path = "figures/", fig.cap = "This is a long caption that fits better inside of a code chunk.", fig.alt = "This is a long description that conveys the meaning of the visual."}
+```{r cars-plot, echo = TRUE, message = FALSE, fig.width = 6, fig.height = 6, fig.path = "figures/", fig.cap = "This is a long caption that fits better inside of a code chunk.", fig.alt = "This is a long description that conveys the meaning of the visual."}
 ggplot(data = mtcars, aes(x = wt, y = mpg)) +
   geom_point()
 
@@ -112,6 +112,8 @@ ggplot(data = mtcars, aes(x = wt, y = mpg)) +
 ggplot(data = mtcars, aes(x = wt, y = mpg)) +
   geom_point()
 ```
+
+#|
 
 ## Naming code chunks
 
@@ -377,13 +379,13 @@ You may run into code that takes *forever* to run. It is most common when import
 
 ```{r cached-chunk}
 #| cache = TRUE
-x <- 500
+x <- 600
 x
 
 ```
 
 ```{r dependent-chunk}
-#| cache = TRUE,
+#| cache = TRUE
 
 x + 5
 
@@ -402,6 +404,7 @@ For today's minihacks, you will be using RMarkdown to create your own html file.
     -   Remove the author and date.
     -   Under output, add a table of contents, numbered sections, and choose a theme. You should be outputting to an html file. Some html themes you may want to try are `cerulean`, `journal`, `flatly`, `lumen`, `paper`, and `readable`.
     -   Knit the file. You should only see the title. The color and font will depend on which theme you chose.
+    - *Hint* if you are having issues knitting, check that the tabs and spaces are correctly formatted
 2.  Create a new code chunk and load the following libraries: `tidyverse`, `ggplot2`, `kableExtra`, `rio` and `here`.
     -   Change the default chunk option so that the code is evaluated, but neither the code nor any resulting messages will show up in your report. You can do this all by changing one default option.
     -   In the same code chunk, using the `rio` and `here` packages, import the data set [us_contagious_diseases.csv](resources/lab7/us_contagious_diseases.csv) and store it in a data frame called data.
