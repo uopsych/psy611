@@ -44,6 +44,7 @@ library(tidyverse)
 Imagine you had a sample of 6 people: Rachel, Monica, Phoebe, Joey, Chandler, and Ross. To bootstrap their heights, you would draw from this group many samples of 6 people *with replacement*, each time calculating the average height of the sample.
 
 ```{r, echo = F}
+set.seed(112224)
 friends = c("Rachel", "Monica", "Phoebe", "Joey", "Chandler", "Ross")
 heights = c(65, 65, 68, 70, 72, 73)
 names(heights) = friends
