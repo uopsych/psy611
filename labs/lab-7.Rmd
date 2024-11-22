@@ -397,6 +397,8 @@ If you edit the `cached-chunk` (e.g., by replacing `500` with `600`) the depende
 
 # Minihacks
 
+> Minihack answers can be found [here](https://uopsych.github.io/psy611/labs/lab-7_minihacks.Rmd)
+
 For today's minihacks, you will be using RMarkdown to create your own html file.
 
 1.  Open up a new RMarkdown file and erase everything but the YAML. Edit the YAML in the following ways:

@@ -1,0 +1,164 @@
+---
+title: "Lab 7 Minihacks"
+output:
+  html_document: 
+    theme: readable
+    toc: true
+    toc_float: true
+    code_download: true
+---
+
+# Minihacks
+
+For today's minihacks, you will be using RMarkdown to create your own html file.
+
+1.  Open up a new RMarkdown file and erase everything but the YAML. Edit the YAML in the following ways:
+    -   Change the title to "Lab 7 Minihacks."
+    -   Remove the author and date.
+    -   Under output, add a table of contents, numbered sections, and choose a theme. You should be outputting to an html file. Some html themes you may want to try are `cerulean`, `journal`, `flatly`, `lumen`, `paper`, and `readable`.
+    -   Knit the file. You should only see the title. The color and font will depend on which theme you chose.
+    -   *Hint* if you are having issues knitting, check that the tabs and spaces are correctly formatted
+2.  Create a new code chunk and load the following libraries: `tidyverse`, `ggplot2`, `kableExtra`, `rio` and `here`.
+    -   Change the default chunk option so that the code is evaluated, but neither the code nor any resulting messages will show up in your report. You can do this all by changing one default option.
+
+    -   In the same code chunk, using the `rio` and `here` packages, import the data set [us_contagious_diseases.csv](resources/lab7/us_contagious_diseases.csv) and store it in a data frame called data.
+
+    -   Finally, in this code chunk, add the code `options(scipen = 999)`, which will turn off scientific notation
+    
+
+```{r Question-2, include=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(kableExtra)
+library(rio)
+library(here)
+
+data <- rio::import(here::here("labs/resources/lab7/us_contagious_diseases.csv"))
+
+options(scipen = 999)
+```
+
+3.  The `us_contagious_diseases` data set has the yearly counts for seven contagious diseases for the years 1928 - 2011. I have created three tables and called them `data_1`, `data_2`, and `data_3`.
+    -   Create a new level 1 header called "Tables."
+    -   Under the Tables header, copy and paste the three chunks of code written below.
+    -   Create three subheaders "Table 1", "Table 2", and "Table 3" between the code chunks so that each code chunk is under the respective subheader.
+    -   Now, edit the code to make better tables. Using the `kableExtra` package, for each table, add a table title and edit the column names.
+    -   For each table, change the table format to classic with the `kable_classic` function.
+    -   For the second and third tables, try using the `kableExtra::scroll_box` function to limit the amount of space it takes up.
+    -   For the third table, highlight the Oregon row (row 38).
+    -   Change the chunk options on the tables so that you can only see the tables (not the code).
+    -   Knit to make sure that everything shows up how you want it.
+    
+# Tables
+
+## Table 1
+
+```{r, echo = FALSE}
+data_1 <- data %>% 
+  group_by(disease) %>% 
+  summarise(sum_count = sum(count)) 
+
+data_1 %>% 
+  kbl(col.names = c("Disease", "Sum")) %>% 
+  kable_classic(full_width = FALSE)
+```
+
+## Table 2
+
+```{r, echo = FALSE}
+data_2 <- data %>% 
+  filter(disease == "Measles") %>% 
+  group_by(year) %>% 
+  summarise(sum_count = sum(count))
+
+data_2 %>% 
+  kbl(col.names = c("Year", "Sum")) %>% 
+  kable_classic(full_width = FALSE) %>% 
+  scroll_box(width = "100%", height = "400px")
+```
+
+## Table 3
+
+```{r, echo = FALSE}
+data_3 <- data %>% 
+  filter(disease == "Measles" & year == "1938") %>%
+  mutate(per_measles = count/population * 100) %>% 
+  select(state, count, population, per_measles) 
+
+data_3 %>% 
+  kbl(col.names = c("State", "Count", "Population", "Measles Rate"),
+      digits = 2) %>% 
+  kable_classic(full_width = FALSE) %>% 
+  row_spec(38, background = "#EFF184") %>% 
+  scroll_box(width = "100%", height = "400px")
+```
+
+# Figures {.tabset .tabset-fade .tabset-pills}
+     
+4.  Create a **tabbed** section called "Figures". You should have three tabs: "Figure 1", "Figure 2" and "Figure 3".
+    -   Copy and paste the code for these three figures into your RMarkdown file.
+    -   Change the default chunk options so that you can only see the figures (no code).
+
+    -   Use chunk options to change the widths of the figures to 8 inches.
+
+    -   Knit and familiarize yourself with what information these graphs are presenting.
+
+
+## Figure 1
+
+```{r, echo = FALSE, fig.width=8}
+data_1 %>% 
+  ggplot(aes(x = disease, y = sum_count)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(x = "Type of disease", y= "Cases") + 
+  coord_flip()
+```
+
+## Figure 2
+
+```{r, echo = FALSE, fig.width=8}
+data_2 %>% 
+  ggplot(aes(x = year, y = sum_count)) +
+  geom_point() +
+  theme_minimal() +
+  labs(x = "Year", y= "Cases") +
+  geom_vline(xintercept = 1963, color = "red", linetype = "dashed") + 
+  geom_text(x = 1980, y = 600000, label = "Vaccine invented in 1963", 
+            color = "red")
+```
+
+## Figure 3
+
+```{r, echo = FALSE, message=FALSE, fig.width=8}
+#install.packages("maps")
+library(maps)
+data_3 <- data_3 %>% 
+  mutate(region = tolower(state))
+states_map <- map_data("state")
+disease_map <- left_join(states_map, data_3, by = "region")
+ggplot(disease_map, aes(long, lat, group= group)) +
+  geom_polygon(aes(fill = per_measles), color = "white") +
+  labs(fill = "% Measles") +
+  theme_minimal()
+```
+
+# Questions
+
+5.  Create one last level 1 header called "Questions". Create three subheadings "Question 1", "Question 2", and "Question 3". **Using in-line code**, answer the following questions under the respective subheading:
+    -   Question 1) Measles had the highest number of infections in the US during this time span. What was the number of infections? Answer this question using `data_1`.
+    -   Question 2) What was the average number of Measles cases per year in the US from 1928 to 2011? Round this number to two decimal places. Answer this question using `data_2`.
+    -   Question 3) In 1938, Wisconsin had the highest number of Measles cases per capita. What percent of Wisconsin's population contracted Measles in 1938? Answer this question using `data_3`.
+
+## Question 1
+
+There were `r formattable::comma(data_1[2,2], digits = 0)` measles infections in the US.
+
+## Question 2
+
+On average, there were `r formattable::comma(mean(data_2$sum_count), digits = 2)` cases per year.
+
+## Question 3
+
+`r formattable::comma((data_3[data_3$state == "Wisconsin", "count"] / data_3[data_3$state == "Wisconsin", "population"] * 100), digits = 2)`% of the state of Wisconsin contracted measles in 1938
+
