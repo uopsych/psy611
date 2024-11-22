@@ -29,7 +29,8 @@ library(here) # for finding image paths
 library(ggpubr) # for making an error line plot
 library(rio) # for importing data
 library(psych) # for descriptives
-library(broom)
+library(broom) # for cleaning text
+library(kableExtra) # for tables
 ```
 
 Unquote the following install line to install the papaja package, which is used for preparing APA style reports.
@@ -302,7 +303,7 @@ pairedtoutput  <- t.test(x = chico_wide$grade_test1,
 apa_print(pairedtoutput)
 ```
 
--   Practice using the output from 'apa_print' to write your results here:
+-   Practice using the output from 'apa_print' to write your results inline here:
 
 ## Plotting paired-samples data
 
