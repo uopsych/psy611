@@ -1,0 +1,307 @@
+---
+title: "Bonus lecture"
+format: 
+  revealjs:
+    multiplex: true
+    slide-number: true
+    incremental: true
+    touch: true
+    code-overflow: wrap
+execute: 
+  echo: true
+editor: visual
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = F, 
+                      message = F)
+options(scipen = 999)
+```
+
+## Last time
+
+Paired-samples *t*-tests
+
+-   aka one-sample *t*-tests on difference scores
+
+```{r}
+library(tidyverse)
+```
+
+------------------------------------------------------------------------
+
+## Today
+
+-   Bootstrapping
+-   Intro to text analysis
+-   HLM?
+
+------------------------------------------------------------------------
+
+## Bootstrapping
+
+Imagine you had a sample of 6 people: Rachel, Monica, Phoebe, Joey, Chandler, and Ross. To bootstrap their heights, you would draw from this group many samples of 6 people *with replacement*, each time calculating the average height of the sample.
+
+```{r, echo = F}
+friends = c("Rachel", "Monica", "Phoebe", "Joey", "Chandler", "Ross")
+heights = c(65, 65, 68, 70, 72, 73)
+names(heights) = friends
+(sample1 = sample(friends, size = 6, replace = T)); mean(heights[sample1])
+(sample1 = sample(friends, size = 6, replace = T)); mean(heights[sample1])
+(sample1 = sample(friends, size = 6, replace = T)); mean(heights[sample1])
+(sample1 = sample(friends, size = 6, replace = T)); mean(heights[sample1])
+(sample1 = sample(friends, size = 6, replace = T)); mean(heights[sample1])
+(sample1 = sample(friends, size = 6, replace = T)); mean(heights[sample1])
+(sample1 = sample(friends, size = 6, replace = T)); mean(heights[sample1])
+(sample1 = sample(friends, size = 6, replace = T)); mean(heights[sample1])
+```
+
+::: notes
+
+```{r} 
+heights
+```
+
+:::
+
+------------------------------------------------------------------------
+
+```{r}
+boot = 10000 # number of bootstraps
+# make named vector (names not necessary)
+heights = c("Rachel" = 65, "Monica" = 65, "Phoebe" = 68, 
+            "Joey" = 70, "Chandler" = 72, "Ross" = 73)
+heights
+
+#a vector to store values
+sample_means = numeric(length = boot)
+
+for(i in 1:boot){ #loop through bootstraps
+  # draw new sample with replacement
+  this_sample = sample(heights, size = length(heights), replace = T)
+  # store mean in empty vector
+  sample_means[i] = mean(this_sample)
+}
+
+sample_means
+```
+
+------------------------------------------------------------------------
+
+```{r, echo = F, message = F, fig.width = 10, fig.height=6, warning = F}
+library(ggpubr)
+mu = mean(heights)
+sem = sd(heights)/sqrt(length(heights))
+cv_t = qt(p = .975, df = length(heights)-1)
+
+bootstrapped = data.frame(means = sample_means) %>%
+  ggplot(aes(x = means)) + 
+  geom_histogram(color = "white") +
+  geom_density() +
+  geom_vline(aes(xintercept = mean(sample_means), color = "mean"), size = 2) +
+  geom_vline(aes(xintercept = median(sample_means), color = "median"), size = 2) +
+  geom_vline(aes(xintercept = quantile(sample_means, probs = .025), color = "Lower 2.5%"), size = 2) +
+    geom_vline(aes(xintercept = quantile(sample_means, probs = .975), color = "Upper 2.5%"), size = 2) +
+  scale_x_continuous(limits = c(mu-3*sem, mu+3*sem))+
+  ggtitle("Bootstrapped sampling distribution") +
+  cowplot::theme_cowplot()
+
+
+from_prob = data.frame(means = seq(from = min(sample_means), to = max(sample_means))) %>%
+  ggplot(aes(x = means)) +
+  stat_function(fun = function(x) dnorm(x, m = mu, sd = sem)) + 
+  geom_vline(aes(xintercept = mean(heights), color = "mean"), size = 2) +
+  geom_vline(aes(xintercept = mean(heights), color = "median"), size = 2) +
+  geom_vline(aes(xintercept = mu-cv_t*sem, color = "Lower 2.5%"), size = 2) +
+  geom_vline(aes(xintercept = mu+cv_t*sem, color = "Upper 2.5%"), size = 2) +scale_x_continuous(limits = c(mu-3*sem, mu+3*sem))+  
+  ggtitle("Theoretical sampling distribution") +
+  cowplot::theme_cowplot()
+
+ggarrange(bootstrapped, from_prob, ncol = 1)
+```
+
+------------------------------------------------------------------------
+
+::::: columns
+::: {.column width="50%"}
+Hypothetical example:
+
+A researcher examines the effect of caffeine on reaction times. Twenty-five participants had their reaction times measured before and after consuming caffeine. The units are in milliseconds, with baseline (pre-caffeine) reactions ranging roughly from 200-800ms.
+:::
+
+::: {.column width="50%"}
+Code to simulate data
+
+```{r}
+# Set random seed
+set.seed(112224)
+
+# Generate skewed data using chi-square distributions
+n <- 25
+pre_caffeine <- rchisq(n, df=3) * 100 + 200
+post_caffeine <- pre_caffeine - rchisq(n, df=2) * 20
+
+# Create data frame
+data <- data.frame(
+  pre_caffeine = pre_caffeine,
+  post_caffeine = post_caffeine,
+  difference = pre_caffeine - post_caffeine
+)
+```
+:::
+:::::
+
+------------------------------------------------------------------------
+
+Assumptions of t-tests?
+
+-   Independence
+
+-   **Normality**
+
+------------------------------------------------------------------------
+
+::::: columns
+::: {.column width="50%"}
+```{r, echo = F, fig.height = 10}
+data %>% 
+  ggplot(aes(x = difference)) +
+  geom_histogram(
+    aes(y = ..density..),
+    color = "white", 
+    binwidth = 30
+    ) +
+  geom_density() +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+Not only are these data skewed, but we would expect the population distribution (reaction times) to be skewed as well.
+
+Furthermore, our sample size (25) is small enough for us to give pause before applying the CLT.
+:::
+::::: 
+
+------------------------------------------------------------------------
+
+We can't reasonably meet the assumptions of a _t_-test, so we cannot use this test. Instead, we'll use bootstrapping. 
+
+```{r}
+# how many simulations?
+n_boots = 1000
+# create an empty vector to hold results
+boot_diff = numeric(length = 1000)
+set.seed(112224) # set seed to ensure the random results are the same every time
+for(i in 1:n_boots){
+  # sample with replacement. new dataset is the same size as the original
+  bootdata = data[sample(1:nrow(data), size = nrow(data), replace = T), ]
+  # calculate mean in new dataset
+  mean_diff = mean(bootdata$difference)
+  # add to empty vector
+  boot_diff[i] = mean_diff
+}
+head(boot_diff)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+data.frame(boot_diff = boot_diff) %>% 
+  ggplot(aes(x = boot_diff)) +
+  geom_histogram(
+    aes(y = ..density..),
+    color = "white"
+    ) +
+  geom_density() +
+  theme_minimal()
+```
+
+------------------------------------------------------------------------
+
+::::: columns
+
+::: {.column width="50%"}
+What's the median bootstrapped difference?
+
+```{r}
+median(boot_diff)
+```
+
+What's the empirical 95% CI?
+
+```{r}
+quantile(boot_diff, probs = c(.025, .975))
+```
+
+Note: there is NO _p_-value for this test. 
+
+:::
+
+:::{.column width="50%"}
+
+How does this compare to the t-test?
+
+```{r}
+t.test(data$difference)
+```
+
+:::
+:::::
+
+------------------------------------------------------------------------
+
+
+Bootstrapping can be used for any statistic you care about. 
+
+```{r}
+#| code-fold: true
+data %>% 
+  pivot_longer(cols = contains("caff")) %>% 
+  ggplot(aes(x = value, fill = name)) +
+  geom_histogram(
+    position = position_dodge(), 
+    color = "white",
+    binwidth = 100) +
+  guides(fill = "none") +
+  facet_wrap(~name) +
+  theme_minimal()
+```
+
+Are the variances of these groups different?
+
+------------------------------------------------------------------------
+
+```{r}
+n_boots = 1000
+boot_var_diff  = numeric(length = 1000)
+set.seed(112224)
+for(i in 1:n_boots){
+  bootdata = data[sample(1:nrow(data), size = nrow(data), replace = T), ]
+  
+  var_pre  = var(bootdata$pre_caffeine)
+  var_post = var(bootdata$post_caffeine)
+
+  boot_var_diff[i] = var_post - var_pre
+}
+head(boot_var_diff)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+data.frame(boot_var_diff = boot_var_diff) %>% 
+  ggplot(aes(x = boot_var_diff)) +
+  geom_histogram(
+    aes(y = ..density..),
+    color = "white"
+    ) +
+  geom_density() +
+  theme_minimal()
+```
+
+```{r}
+quantile(boot_var_diff, probs = c(.025, .50, .975))
+```
+
