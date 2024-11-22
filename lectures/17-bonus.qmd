@@ -305,3 +305,168 @@ data.frame(boot_var_diff = boot_var_diff) %>%
 quantile(boot_var_diff, probs = c(.025, .50, .975))
 ```
 
+------------------------------------------------------------------------
+
+## Text analysis
+
+Data came from a [study of parents of young children](https://journals.sagepub.com/doi/full/10.1177/25152459231160105), collected during 2020. 
+
+Parents answered the question: "How do you feel about the COVID-19 vaccine in terms of its safety and effectiveness, and what are your plans in terms of whether or not to get it?"
+
+```{r}
+# Required packages - install if needed
+# install.packages(c("textdata", "tidytext", "wordcloud"))
+library(tidytext)
+library(textdata)
+library(wordcloud)
+rapid = read_csv("https://raw.githubusercontent.com/uopsych/psy611/refs/heads/master/data/rapid.csv")
+```
+
+------------------------------------------------------------------------
+
+### Data Preparation
+
+Let's examine and clean our text data:
+
+```{r data_prep}
+#| echo: true
+
+# Look at the structure of our data
+glimpse(rapid)
+
+# Create a clean text column
+rapid_clean <- rapid %>%
+  mutate(
+    response = HEALTH.030,
+    # Convert to lowercase
+    response = tolower(response),
+    # Remove punctuation
+    response = str_replace_all(response, "[[:punct:]]", " "),
+    # Remove extra whitespace
+    response = str_squish(response)
+  )
+```
+
+------------------------------------------------------------------------
+
+### Breaking Text into Words 
+
+We'll use `tidytext` to tokenize our responses:
+
+```{r tokenize}
+#| echo: true
+
+words_df <- rapid_clean %>%
+  unnest_tokens(word, response) %>%
+  # Remove stop words
+  anti_join(stop_words)
+
+# View most common words
+words_df %>%
+  count(word, sort = TRUE) %>%
+  slice_head(n = 10) %>%
+  knitr::kable()
+```
+
+------------------------------------------------------------------------
+
+### Visualizing Common Words
+
+Let's create a word cloud:
+
+```{r wordcloud}
+#| echo: true
+#| fig.height: 5
+
+words_df %>%
+  count(word) %>%
+  with(wordcloud(word, n, 
+                max.words = 50, 
+                colors = brewer.pal(8, "Dark2")))
+```
+
+------------------------------------------------------------------------
+
+### Finding Themes: Bigrams {.smaller}
+
+Let's look at word pairs to understand context better:
+
+```{r bigrams}
+#| echo: true
+
+bigrams_df <- rapid_clean %>%
+  unnest_tokens(bigram, response, token = "ngrams", n = 2) %>%
+  separate(bigram, c("word1", "word2"), sep = " ") %>%
+  filter(!word1 %in% stop_words$word,
+         !word2 %in% stop_words$word)
+
+# View top bigrams
+bigrams_df %>%
+  unite(bigram, word1, word2, sep = " ") %>%
+  count(bigram, sort = TRUE) %>%
+  slice_head(n = 10) %>%
+  knitr::kable()
+```
+
+------------------------------------------------------------------------
+
+### Sentiment Analysis {.smaller}
+
+Let's analyze the emotional content of responses:
+
+```{r sentiment}
+#| echo: true
+
+# Add sentiment scores
+sentiment_df <- words_df %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(CaregiverID, sentiment) %>%
+  pivot_wider(names_from = sentiment, 
+              values_from = n, 
+              values_fill = 0) %>%
+  mutate(sentiment_score = positive - negative)
+
+# View distribution of sentiment
+ggplot(sentiment_df, aes(x = sentiment_score)) +
+  geom_histogram(binwidth = 1, fill = "steelblue", alpha = 0.7) +
+  labs(title = "Distribution of Sentiment Scores",
+       x = "Sentiment Score (Positive - Negative)",
+       y = "Count") +
+  theme_minimal()
+```
+
+------------------------------------------------------------------------
+
+### Key Findings
+
+- Most common words reveal attitudes about vaccine safety and effectiveness
+- Common bigrams show personal experiences ("already got", "fully vaccinated")
+- Sentiment analysis reveals mixed but generally positive attitudes
+
+------------------------------------------------------------------------
+
+### Practical Applications
+
+- Analyze open-ended survey responses
+- Identify themes in interview transcripts
+- Track sentiment in social media data
+- Process clinical notes or patient feedback
+
+------------------------------------------------------------------------
+
+### Resources for Learning More
+
+- tidytext documentation: https://www.tidytextmining.com/
+- Text Mining with R (free online book)
+- R for Data Science: https://r4ds.had.co.nz/
+
+------------------------------------------------------------------------
+
+### Questions?
+
+Remember to:
+- Start simple
+- Document your process
+- Consider context
+- Validate findings
+
