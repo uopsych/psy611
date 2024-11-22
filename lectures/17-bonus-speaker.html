@@ -1969,7 +1969,7 @@ mean of x
 <span id="cb40-3"><a href=""></a><span class="fu">library</span>(tidytext)</span>
 <span id="cb40-4"><a href=""></a><span class="fu">library</span>(textdata)</span>
 <span id="cb40-5"><a href=""></a><span class="fu">library</span>(wordcloud)</span>
-<span id="cb40-6"><a href=""></a>rapid <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/uopsych/psy611/refs/heads/master/data/rapid.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb40-6"><a href=""></a>rapid <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/uopsych/psy611/refs/heads/master/data/rapid_short.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
@@ -1980,16 +1980,21 @@ mean of x
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a><span class="co"># Look at the structure of our data</span></span>
 <span id="cb41-2"><a href=""></a><span class="fu">glimpse</span>(rapid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 46,793
+<pre><code>Rows: 6,557
 Columns: 7
-$ ...1         &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
-$ CaregiverID  &lt;chr&gt; "R3ID00001", "R3ID00001", "R3ID00001", "R3ID00001", "R3ID…
-$ StartDate    &lt;dttm&gt; 2020-04-06 15:06:46, 2020-04-16 13:51:41, 2020-04-20 17:…
-$ CaregiverAge &lt;dbl&gt; 1, NA, NA, NA, NA, NA, NA, 3, 3, 1, NA, NA, NA, 4, 2, 5, …
-$ DEMO.006.a   &lt;dbl&gt; 1, NA, NA, NA, NA, NA, NA, 1, 1, 1, NA, NA, NA, 1, 1, 1, …
+$ ...1         &lt;dbl&gt; 23435, 23436, 23437, 23439, 23440, 23444, 23445, 23451, 2…
+$ CaregiverID  &lt;chr&gt; "R3ID00020", "R3ID00032", "R3ID00032", "R3ID00036", "R3ID…
+$ StartDate    &lt;dttm&gt; 2021-06-11 08:15:52, 2021-06-09 10:59:01, 2021-11-10 09:…
+$ CaregiverAge &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ DEMO.006.a   &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
 $ DEMO.014     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-$ HEALTH.030   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</code></pre>
+$ HEALTH.030   &lt;chr&gt; "I am not planning on it right now but i am open to the f…</code></pre>
 </div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href=""></a><span class="co"># Create a clean text column</span></span>
 <span id="cb43-2"><a href=""></a>rapid_clean <span class="ot">&lt;-</span> rapid <span class="sc">%&gt;%</span></span>
 <span id="cb43-3"><a href=""></a>  <span class="fu">mutate</span>(</span>
@@ -2006,6 +2011,8 @@ $ HEALTH.030   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <section class="slide level2">
 
 <h3 id="breaking-text-into-words">Breaking Text into Words</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
 <p>We’ll use <code>tidytext</code> to tokenize our responses:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href=""></a>words_df <span class="ot">&lt;-</span> rapid_clean <span class="sc">%&gt;%</span></span>
@@ -2018,6 +2025,9 @@ $ HEALTH.030   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <span id="cb44-8"><a href=""></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb44-9"><a href=""></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb44-10"><a href=""></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top">
 <thead>
@@ -2028,68 +2038,83 @@ $ HEALTH.030   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">40236</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">vaccine</td>
 <td style="text-align: right;">1791</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">safe</td>
 <td style="text-align: right;">1747</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">vaccinated</td>
 <td style="text-align: right;">1457</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">feel</td>
 <td style="text-align: right;">1210</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">received</td>
 <td style="text-align: right;">976</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">effective</td>
 <td style="text-align: right;">952</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">covid</td>
 <td style="text-align: right;">514</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">don</td>
 <td style="text-align: right;">478</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">booster</td>
 <td style="text-align: right;">463</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">plan</td>
+<td style="text-align: right;">460</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+</div></div>
 </section>
 <section class="slide level2">
 
 <h3 id="visualizing-common-words">Visualizing Common Words</h3>
 <p>Let’s create a word cloud:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href=""></a>words_df <span class="sc">%&gt;%</span></span>
 <span id="cb45-2"><a href=""></a>  <span class="fu">count</span>(word) <span class="sc">%&gt;%</span></span>
 <span id="cb45-3"><a href=""></a>  <span class="fu">with</span>(<span class="fu">wordcloud</span>(word, n, </span>
 <span id="cb45-4"><a href=""></a>                <span class="at">max.words =</span> <span class="dv">50</span>, </span>
 <span id="cb45-5"><a href=""></a>                <span class="at">colors =</span> <span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"Dark2"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
 </div>
-<img data-src="17-bonus_files/figure-revealjs/wordcloud-1.png" width="960" class="r-stretch"></section>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="17-bonus_files/figure-revealjs/unnamed-chunk-20-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
 <section class="slide level2">
 
 <h3 class="smaller" id="finding-themes-bigrams">Finding Themes: Bigrams</h3>
 <p>Let’s look at word pairs to understand context better:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href=""></a>bigrams_df <span class="ot">&lt;-</span> rapid_clean <span class="sc">%&gt;%</span></span>
 <span id="cb46-2"><a href=""></a>  <span class="fu">unnest_tokens</span>(bigram, response, <span class="at">token =</span> <span class="st">"ngrams"</span>, <span class="at">n =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb46-3"><a href=""></a>  <span class="fu">separate</span>(bigram, <span class="fu">c</span>(<span class="st">"word1"</span>, <span class="st">"word2"</span>), <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span></span>
@@ -2102,6 +2127,7 @@ $ HEALTH.030   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <span id="cb46-10"><a href=""></a>  <span class="fu">count</span>(bigram, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb46-11"><a href=""></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb46-12"><a href=""></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <table class="caption-top">
 <thead>
@@ -2112,16 +2138,16 @@ $ HEALTH.030   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">NA NA</td>
-<td style="text-align: right;">40324</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">term effects</td>
 <td style="text-align: right;">154</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">covid 19</td>
 <td style="text-align: right;">118</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NA NA</td>
+<td style="text-align: right;">88</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">feel confident</td>
@@ -2164,22 +2190,48 @@ $ HEALTH.030   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href=""></a><span class="co"># Add sentiment scores</span></span>
 <span id="cb47-2"><a href=""></a>sentiment_df <span class="ot">&lt;-</span> words_df <span class="sc">%&gt;%</span></span>
 <span id="cb47-3"><a href=""></a>  <span class="fu">inner_join</span>(<span class="fu">get_sentiments</span>(<span class="st">"bing"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb47-4"><a href=""></a>  <span class="fu">count</span>(CaregiverID, sentiment) <span class="sc">%&gt;%</span></span>
+<span id="cb47-4"><a href=""></a>  <span class="fu">count</span>(CaregiverID, StartDate, sentiment) <span class="sc">%&gt;%</span></span>
 <span id="cb47-5"><a href=""></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> sentiment, </span>
 <span id="cb47-6"><a href=""></a>              <span class="at">values_from =</span> n, </span>
 <span id="cb47-7"><a href=""></a>              <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-8"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">sentiment_score =</span> positive <span class="sc">-</span> negative)</span>
-<span id="cb47-9"><a href=""></a></span>
-<span id="cb47-10"><a href=""></a><span class="co"># View distribution of sentiment</span></span>
-<span id="cb47-11"><a href=""></a><span class="fu">ggplot</span>(sentiment_df, <span class="fu">aes</span>(<span class="at">x =</span> sentiment_score)) <span class="sc">+</span></span>
-<span id="cb47-12"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb47-13"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Sentiment Scores"</span>,</span>
-<span id="cb47-14"><a href=""></a>       <span class="at">x =</span> <span class="st">"Sentiment Score (Positive - Negative)"</span>,</span>
-<span id="cb47-15"><a href=""></a>       <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
-<span id="cb47-16"><a href=""></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb47-8"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">sentiment_score =</span> positive <span class="sc">-</span> negative)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 class="smaller" id="sentiment-analysis-1">Sentiment Analysis</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href=""></a><span class="co"># View distribution of sentiment</span></span>
+<span id="cb48-2"><a href=""></a><span class="fu">ggplot</span>(sentiment_df, <span class="fu">aes</span>(<span class="at">x =</span> sentiment_score)) <span class="sc">+</span></span>
+<span id="cb48-3"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb48-4"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Sentiment Scores"</span>,</span>
+<span id="cb48-5"><a href=""></a>       <span class="at">x =</span> <span class="st">"Sentiment Score (Positive - Negative)"</span>,</span>
+<span id="cb48-6"><a href=""></a>       <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb48-7"><a href=""></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="17-bonus_files/figure-revealjs/sentiment-1.png" width="960" class="r-stretch"></section>
+<img data-src="17-bonus_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="does-sentiment-change-over-time">Does sentiment change over time?</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href=""></a>sentiment_df <span class="sc">%&gt;%</span> </span>
+<span id="cb49-2"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> StartDate)) <span class="sc">+</span></span>
+<span id="cb49-3"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y =</span> positive, <span class="at">color =</span> <span class="st">"positive sentiment"</span>)) <span class="sc">+</span></span>
+<span id="cb49-4"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y =</span> negative, <span class="at">color =</span> <span class="st">"negative sentiment"</span>)) <span class="sc">+</span></span>
+<span id="cb49-5"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#1B4965"</span>, <span class="st">"#FF9F1C"</span>)) <span class="sc">+</span></span>
+<span id="cb49-6"><a href=""></a>  <span class="fu">labs</span>(</span>
+<span id="cb49-7"><a href=""></a>    <span class="at">x =</span> <span class="st">"Time (2020)"</span>,</span>
+<span id="cb49-8"><a href=""></a>    <span class="at">y =</span> <span class="st">"Sentiment score"</span></span>
+<span id="cb49-9"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb49-10"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb49-11"><a href=""></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="17-bonus_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <h3 id="key-findings">Key Findings</h3>
@@ -2191,27 +2243,17 @@ $ HEALTH.030   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </section>
 <section class="slide level2">
 
-<h3 id="practical-applications">Practical Applications</h3>
-<ul>
-<li class="fragment">Analyze open-ended survey responses</li>
-<li class="fragment">Identify themes in interview transcripts</li>
-<li class="fragment">Track sentiment in social media data</li>
-<li class="fragment">Process clinical notes or patient feedback</li>
-</ul>
-</section>
-<section class="slide level2">
-
 <h3 id="resources-for-learning-more">Resources for Learning More</h3>
 <ul>
 <li class="fragment">tidytext documentation: https://www.tidytextmining.com/</li>
-<li class="fragment">Text Mining with R (free online book)</li>
-<li class="fragment">R for Data Science: https://r4ds.had.co.nz/</li>
+<li class="fragment"><a href="https://www.tidytextmining.com/">Text Mining with R</a> (free online book)</li>
+<li class="fragment"><a href="https://guides.library.upenn.edu/penntdm/r">UPenn Library</a></li>
+<li class="fragment"><a href="https://m-clark.github.io/text-analysis-with-R/intro.html">Michael Clark workshop</a></li>
 </ul>
 </section>
 <section class="slide level2">
 
 <h3 id="questions">Questions?</h3>
-<p>Remember to: - Start simple - Document your process - Consider context - Validate findings</p>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 

@@ -2,7 +2,7 @@
 title: 'PSY 611 Homework #3'
 author: "YOUR NAME HERE"
 output:
-  html_document:
+  word_document:
     toc: yes
 editor_options: 
   chunk_output_type: console
@@ -203,7 +203,7 @@ lenient. After all, some countries in the survey are quite well-off and would ha
 
 ### Question 2
 
-Recall from [lab 4](https://uopsych.github.io/psy611/labs/lab-4.html#minihacks) the data released by the Graduate Coffee Drinkers Association (GCDA) that the average graduate student drinks 5 cups of coffee a day and the standard deviation in the population is 1. You suspect that graduate students at the University of Oregon is unusual, in part because of the number of independent coffee roasters in the state and in part because they have to complete such arduous statistics assignments. You poll 10 of your fellow graduate students and find the average number of cups of coffee consumed is 5.7. 
+The Graduate Coffee Drinkers Association (GCDA) reports that the average graduate student drinks 5 cups of coffee a day and the standard deviation in the population is 1. You suspect that graduate students at the University of Oregon are unusual, in part because of the number of independent coffee roasters in the state and in part because they have to complete quite arduous statistics assignments. You poll 10 of your fellow graduate students and find the average number of cups of coffee consumed is 5.7. 
 
 In this problem, you'll use the concept of power to calculate how many participants are needed in a research study. Assume the true mean of the grad student population is 5.7 (the null hypothesis remains the same), your Type I error rate is .05, and your minimum level of acceptable power is .80. Calculate the needed sample size using three different methods:
 

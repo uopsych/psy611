@@ -59,11 +59,9 @@ names(heights) = friends
 ```
 
 ::: notes
-
-```{r} 
+```{r}
 heights
 ```
-
 :::
 
 ------------------------------------------------------------------------
@@ -183,11 +181,11 @@ Not only are these data skewed, but we would expect the population distribution 
 
 Furthermore, our sample size (25) is small enough for us to give pause before applying the CLT.
 :::
-::::: 
+:::::
 
 ------------------------------------------------------------------------
 
-We can't reasonably meet the assumptions of a _t_-test, so we cannot use this test. Instead, we'll use bootstrapping. 
+We can't reasonably meet the assumptions of a *t*-test, so we cannot use this test. Instead, we'll use bootstrapping.
 
 ```{r}
 # how many simulations?
@@ -222,7 +220,6 @@ data.frame(boot_diff = boot_diff) %>%
 ------------------------------------------------------------------------
 
 ::::: columns
-
 ::: {.column width="50%"}
 What's the median bootstrapped difference?
 
@@ -236,25 +233,21 @@ What's the empirical 95% CI?
 quantile(boot_diff, probs = c(.025, .975))
 ```
 
-Note: there is NO _p_-value for this test. 
-
+Note: there is NO *p*-value for this test.
 :::
 
-:::{.column width="50%"}
-
+::: {.column width="50%"}
 How does this compare to the t-test?
 
 ```{r}
 t.test(data$difference)
 ```
-
 :::
 :::::
 
 ------------------------------------------------------------------------
 
-
-Bootstrapping can be used for any statistic you care about. 
+Bootstrapping can be used for any statistic you care about.
 
 ```{r}
 #| code-fold: true
@@ -310,7 +303,7 @@ quantile(boot_var_diff, probs = c(.025, .50, .975))
 
 ## Text analysis
 
-Data came from a [study of parents of young children](https://journals.sagepub.com/doi/full/10.1177/25152459231160105), collected during 2020. 
+Data came from a [study of parents of young children](https://journals.sagepub.com/doi/full/10.1177/25152459231160105), collected during 2020.
 
 Parents answered the question: "How do you feel about the COVID-19 vaccine in terms of its safety and effectiveness, and what are your plans in terms of whether or not to get it?"
 
@@ -320,7 +313,7 @@ Parents answered the question: "How do you feel about the COVID-19 vaccine in te
 library(tidytext)
 library(textdata)
 library(wordcloud)
-rapid = read_csv("https://raw.githubusercontent.com/uopsych/psy611/refs/heads/master/data/rapid.csv")
+rapid = read_csv("https://raw.githubusercontent.com/uopsych/psy611/refs/heads/master/data/rapid_short.csv")
 ```
 
 ------------------------------------------------------------------------
@@ -334,7 +327,11 @@ Let's examine and clean our text data:
 
 # Look at the structure of our data
 glimpse(rapid)
+```
 
+------------------------------------------------------------------------
+
+```{r}
 # Create a clean text column
 rapid_clean <- rapid %>%
   mutate(
@@ -350,12 +347,15 @@ rapid_clean <- rapid %>%
 
 ------------------------------------------------------------------------
 
-### Breaking Text into Words 
+### Breaking Text into Words
 
+::::: columns
+::: {.column width="50%"}
 We'll use `tidytext` to tokenize our responses:
 
 ```{r tokenize}
 #| echo: true
+#| eval: false
 
 words_df <- rapid_clean %>%
   unnest_tokens(word, response) %>%
@@ -369,15 +369,30 @@ words_df %>%
   knitr::kable()
 ```
 
+:::
+
+::: {.column width="50%"}
+```{r ref.label="tokenize"}
+#| echo: false
+```
+
+:::
+:::::
+
+
+
 ------------------------------------------------------------------------
 
 ### Visualizing Common Words
 
 Let's create a word cloud:
 
+::::: columns
+::: {.column width="50%"}
+
 ```{r wordcloud}
 #| echo: true
-#| fig.height: 5
+#| eval: false
 
 words_df %>%
   count(word) %>%
@@ -386,6 +401,16 @@ words_df %>%
                 colors = brewer.pal(8, "Dark2")))
 ```
 
+:::
+::: {.column width="50%"}
+```{r ref.label="wordcloud"}
+#| echo: false
+#| fig-height: 8
+#| fig-width: 5
+```
+
+:::
+:::::
 ------------------------------------------------------------------------
 
 ### Finding Themes: Bigrams {.smaller}
@@ -394,6 +419,7 @@ Let's look at word pairs to understand context better:
 
 ```{r bigrams}
 #| echo: true
+#| code-fold: true
 
 bigrams_df <- rapid_clean %>%
   unnest_tokens(bigram, response, token = "ngrams", n = 2) %>%
@@ -421,12 +447,18 @@ Let's analyze the emotional content of responses:
 # Add sentiment scores
 sentiment_df <- words_df %>%
   inner_join(get_sentiments("bing")) %>%
-  count(CaregiverID, sentiment) %>%
+  count(CaregiverID, StartDate, sentiment) %>%
   pivot_wider(names_from = sentiment, 
               values_from = n, 
               values_fill = 0) %>%
   mutate(sentiment_score = positive - negative)
+```
 
+------------------------------------------------------------------------
+
+### Sentiment Analysis {.smaller}
+
+```{r}
 # View distribution of sentiment
 ggplot(sentiment_df, aes(x = sentiment_score)) +
   geom_histogram(binwidth = 1, fill = "steelblue", alpha = 0.7) +
@@ -438,36 +470,48 @@ ggplot(sentiment_df, aes(x = sentiment_score)) +
 
 ------------------------------------------------------------------------
 
-### Key Findings
+### Does sentiment change over time?
 
-- Most common words reveal attitudes about vaccine safety and effectiveness
-- Common bigrams show personal experiences ("already got", "fully vaccinated")
-- Sentiment analysis reveals mixed but generally positive attitudes
+```{r}
+#| code-fold: true
+sentiment_df %>% 
+  ggplot(aes(x = StartDate)) +
+  geom_smooth(aes(y = positive, color = "positive sentiment")) +
+  geom_smooth(aes(y = negative, color = "negative sentiment")) +
+  scale_color_manual(values = c("#1B4965", "#FF9F1C")) +
+  labs(
+    x = "Time (2020)",
+    y = "Sentiment score"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+
+```
+
+
+
 
 ------------------------------------------------------------------------
 
-### Practical Applications
+### Key Findings
 
-- Analyze open-ended survey responses
-- Identify themes in interview transcripts
-- Track sentiment in social media data
-- Process clinical notes or patient feedback
+-   Most common words reveal attitudes about vaccine safety and effectiveness
+-   Common bigrams show personal experiences ("already got", "fully vaccinated")
+-   Sentiment analysis reveals mixed but generally positive attitudes
 
 ------------------------------------------------------------------------
 
 ### Resources for Learning More
 
-- tidytext documentation: https://www.tidytextmining.com/
-- Text Mining with R (free online book)
-- R for Data Science: https://r4ds.had.co.nz/
+-   tidytext documentation: https://www.tidytextmining.com/
+-   [Text Mining with R](https://www.tidytextmining.com/) (free online book)
+-   [UPenn Library](https://guides.library.upenn.edu/penntdm/r)
+-   [Michael Clark workshop](https://m-clark.github.io/text-analysis-with-R/intro.html)
+
 
 ------------------------------------------------------------------------
 
 ### Questions?
 
-Remember to:
-- Start simple
-- Document your process
-- Consider context
-- Validate findings
 

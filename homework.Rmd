@@ -24,8 +24,8 @@ Homework assignments will appear here. You'll be able to access the assignment, 
 - [Download files.](homework/homework-2.zip)
 
 
-<!-- ### [**Homework 3**](homework/homework_3.html) -->
+### [**Homework 3**](homework/homework_3.html)
 
-<!-- **Due December 7, 9am** -->
+**Due December 9 (Monday), 9am**
 
-<!-- - [Download files.](homework/homework-3.zip) -->
+- [Download files.](homework/homework-3.zip)
