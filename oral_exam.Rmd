@@ -10,13 +10,11 @@ output:
 
 
 
-<!-- ### [**Download the oral exam questions here.**](oral exam.docx) -->
+### [**Download the oral exam questions here.**](oral exam.docx)
 
 The oral exam will take place between December 9 and December 13.
+[Sign up for a time slot here.](https://calendar.app.google/yhF1Gj5JtDARguy5A)
 
-More information about the oral exam will be posted here in Week 8. 
-
-<!-- <!-- [Sign up for a time slot here.](https://calendly.com/sara-weston/oral-exam?month=2022-12&date=2022-12-05) This link is only available between November 20 and 26 (Thanksgiving week). --> -->
 <!-- If you have not already signed up for a time to take the oral exam, please email Sara. -->
 
-<!-- Questions for the oral exam will be made available in late November. -->
+Questions for the oral exam will be made available in late November.

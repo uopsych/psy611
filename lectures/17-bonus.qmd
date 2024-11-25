@@ -33,11 +33,447 @@ library(tidyverse)
 
 ## Today
 
--   Bootstrapping
+-   Repeated measures
 -   Intro to text analysis
--   HLM?
+-   Bootstrapping?
 
 ------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------
+
+## Repeated Measures 
+
+- How does the number of trials per participant affect statistical power?
+- Can more trials compensate for fewer participants?
+- How do we analyze experiments with multiple trials per participant?
+
+------------------------------------------------------------------------
+
+## Key Concepts {.smaller}
+
+- In cognitive experiments, we have:
+  - Multiple participants (n)
+  - Multiple trials per participant (k)
+  - Two or more conditions
+- Each trial produces a measurement
+- Multiple trials can:
+  1. Improve measurement precision
+  2. Reduce within-subject variability
+  3. Increase reliability
+  
+------------------------------------------------------------------------
+
+## Simulation: Effect of Trials
+
+
+
+```{r}
+#| echo: true
+
+# Simulation parameters
+set.seed(112424)
+n_participants <- 20
+trials_few <- 20
+trials_many <- 100
+true_effect <- 0.5  # Effect size in seconds
+
+# Function to simulate one participant's data
+simulate_participant <- function(n_trials, effect) {
+  # Condition A: mean = 0, sd = 1
+  cond_a <- rnorm(n_trials, mean = 0, sd = 1)
+  # Condition B: mean = effect, sd = 1
+  cond_b <- rnorm(n_trials, mean = effect, sd = 1)
+  
+  # Return participant means
+  c(cond_a, cond_b)
+}
+
+# Simulate study with few trials
+results_few <- replicate(n_participants, 
+                        simulate_participant(trials_few, true_effect))
+
+# Simulate study with many trials
+results_many <- replicate(n_participants, 
+                         simulate_participant(trials_many, true_effect))
+
+# T-test results
+t.test(results_few[1,], results_few[2,], paired = TRUE)$p.value
+t.test(results_many[1,], results_many[2,], paired = TRUE)$p.value
+```
+
+------------------------------------------------------------------------
+
+## Why More Trials Help {.smaller}
+
+1. **Law of Large Numbers**
+   - Individual trial measurements are noisy
+   - Mean of many trials is more stable
+   - Reduces measurement error
+
+2. **Standard Error Formula**
+   - SE = σ / √n
+   - More trials → smaller SE of participant means
+   - Smaller SE → More power
+
+------------------------------------------------------------------------
+
+## Practical Guidelines
+
+- More trials generally help, but with diminishing returns
+- Consider:
+  - Participant fatigue
+  - Practice effects
+  - Time constraints
+  - Resource limitations
+
+------------------------------------------------------------------------
+
+(Simulation function here.)
+
+```{r}
+#| code-fold: true
+simulate_cognitive_experiment <- function(
+    n_participants = 20,    # number of participants
+    n_trials = 50,         # trials per condition per participant
+    true_effect = 0.5,     # mean difference between conditions
+    participant_sd = 0.5,   # between-participant variability
+    trial_sd = 1.0,        # within-participant (trial) variability
+    seed = 123             # for reproducibility
+) {
+  
+  set.seed(seed)
+  
+  # Generate participant random effects (individual differences)
+  participant_effects <- rnorm(n_participants, mean = 0, sd = participant_sd)
+  
+  # Create a data frame with all combinations of participants and trials
+  experiment_data <- expand_grid(
+    participant = 1:n_participants,
+    trial = 1:n_trials,
+    condition = c("A", "B")
+  ) %>%
+    # Add participant-level random effects
+    mutate(
+      participant_effect = rep(participant_effects, each = n_trials * 2),
+      # Add condition effect (only for condition B)
+      condition_effect = if_else(condition == "B", true_effect, 0),
+      # Generate trial-level noise
+      trial_noise = rnorm(n(), mean = 0, sd = trial_sd),
+      # Compute response time (or other DV)
+      response = 0.5 + participant_effect + condition_effect + trial_noise
+    ) %>%
+    # Reorder columns for clarity
+    select(participant, condition, trial, response, everything())
+  
+  return(experiment_data)
+}
+```
+
+```{r}
+# Generate example data
+data <- simulate_cognitive_experiment(
+  n_participants = 20,
+  n_trials = 50,
+  true_effect = 0.5,
+  participant_sd = 0.5,
+  trial_sd = 1.0
+)
+
+# View first few rows
+head(data)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Basic summary statistics
+data %>%
+  group_by(condition) %>%
+  summarise(
+    mean_rt = mean(response),
+    sd_rt = sd(response),
+    n_trials = n()
+  )
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Participant-level summary
+data %>%
+  group_by(participant, condition) %>%
+  summarise(
+    mean_rt = mean(response),
+    sd_rt = sd(response),
+    n_trials = n(),
+    .groups = "drop"
+  ) %>%
+  head(10)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Calculate effect size for each participant
+participant_effects <- data %>%
+  group_by(participant, condition) %>%
+  summarise(
+    mean_rt = mean(response),
+    .groups = "drop"
+  ) %>%
+  pivot_wider(
+    names_from = condition,
+    values_from = mean_rt
+  ) %>%
+  mutate(effect_size = B - A)
+head(participant_effects)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Basic paired t-test on participant means
+t.test(
+  participant_effects$B,
+  participant_effects$A,
+  paired = TRUE
+)
+```
+  
+------------------------------------------------------------------------
+
+## Analysis Approaches {.smaller}
+
+1. **Participant-level Analysis**
+   - Average trials for each participant
+   - Run paired t-test on participant means
+   - Simple but may lose information
+
+------------------------------------------------------------------------
+
+## Coming Soon (PSY 613)...
+
+- Mixed-effects models
+  - Account for trial-level variation
+  - Handle missing data
+  - Model individual differences
+- Power analysis for repeated measures
+
+------------------------------------------------------------------------
+
+```{r}
+library(lme4)
+lmer(response ~ 1 + condition + (1|participant),
+    data = data) %>% 
+  summary()
+```
+
+
+------------------------------------------------------------------------
+
+## Text analysis
+
+Data came from a [study of parents of young children](https://journals.sagepub.com/doi/full/10.1177/25152459231160105), collected during 2020.
+
+Parents answered the question: "How do you feel about the COVID-19 vaccine in terms of its safety and effectiveness, and what are your plans in terms of whether or not to get it?"
+
+```{r}
+# Required packages - install if needed
+# install.packages(c("textdata", "tidytext", "wordcloud"))
+library(tidytext)
+library(textdata)
+library(wordcloud)
+rapid = read_csv("https://raw.githubusercontent.com/uopsych/psy611/refs/heads/master/data/rapid_short.csv")
+```
+
+------------------------------------------------------------------------
+
+### Data Preparation
+
+Let's examine and clean our text data:
+
+```{r data_prep}
+#| echo: true
+
+# Look at the structure of our data
+glimpse(rapid)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Create a clean text column
+rapid_clean <- rapid %>%
+  mutate(
+    response = HEALTH.030,
+    # Convert to lowercase
+    response = tolower(response),
+    # Remove punctuation
+    response = str_replace_all(response, "[[:punct:]]", " "),
+    # Remove extra whitespace
+    response = str_squish(response)
+  )
+```
+
+------------------------------------------------------------------------
+
+### Breaking Text into Words
+
+::::: columns
+::: {.column width="50%"}
+We'll use `tidytext` to tokenize our responses:
+
+```{r tokenize}
+#| echo: true
+#| eval: false
+
+words_df <- rapid_clean %>%
+  unnest_tokens(word, response) %>%
+  # Remove stop words
+  anti_join(stop_words)
+
+# View most common words
+words_df %>%
+  count(word, sort = TRUE) %>%
+  slice_head(n = 10) %>%
+  knitr::kable()
+```
+:::
+
+::: {.column width="50%"}
+```{r ref.label="tokenize"}
+#| echo: false
+```
+:::
+:::::
+
+------------------------------------------------------------------------
+
+### Visualizing Common Words
+
+Let's create a word cloud:
+
+::::: columns
+::: {.column width="50%"}
+```{r wordcloud}
+#| echo: true
+#| eval: false
+
+words_df %>%
+  count(word) %>%
+  with(wordcloud(word, n, 
+                max.words = 50, 
+                colors = brewer.pal(8, "Dark2")))
+```
+:::
+
+::: {.column width="50%"}
+```{r ref.label="wordcloud"}
+#| echo: false
+#| fig-height: 8
+#| fig-width: 5
+```
+:::
+:::::
+
+------------------------------------------------------------------------
+
+### Finding Themes: Bigrams {.smaller}
+
+Let's look at word pairs to understand context better:
+
+```{r bigrams}
+#| echo: true
+#| code-fold: true
+
+bigrams_df <- rapid_clean %>%
+  unnest_tokens(bigram, response, token = "ngrams", n = 2) %>%
+  separate(bigram, c("word1", "word2"), sep = " ") %>%
+  filter(!word1 %in% stop_words$word,
+         !word2 %in% stop_words$word)
+
+# View top bigrams
+bigrams_df %>%
+  unite(bigram, word1, word2, sep = " ") %>%
+  count(bigram, sort = TRUE) %>%
+  slice_head(n = 10) %>%
+  knitr::kable()
+```
+
+------------------------------------------------------------------------
+
+### Sentiment Analysis {.smaller}
+
+Let's analyze the emotional content of responses:
+
+```{r sentiment}
+#| echo: true
+
+# Add sentiment scores
+sentiment_df <- words_df %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(CaregiverID, StartDate, sentiment) %>%
+  pivot_wider(names_from = sentiment, 
+              values_from = n, 
+              values_fill = 0) %>%
+  mutate(sentiment_score = positive - negative)
+```
+
+------------------------------------------------------------------------
+
+### Sentiment Analysis {.smaller}
+
+```{r}
+# View distribution of sentiment
+ggplot(sentiment_df, aes(x = sentiment_score)) +
+  geom_histogram(binwidth = 1, fill = "steelblue", alpha = 0.7) +
+  labs(title = "Distribution of Sentiment Scores",
+       x = "Sentiment Score (Positive - Negative)",
+       y = "Count") +
+  theme_minimal()
+```
+
+------------------------------------------------------------------------
+
+### Does sentiment change over time?
+
+```{r}
+#| code-fold: true
+sentiment_df %>% 
+  ggplot(aes(x = StartDate)) +
+  geom_smooth(aes(y = positive, color = "positive sentiment")) +
+  geom_smooth(aes(y = negative, color = "negative sentiment")) +
+  scale_color_manual(values = c("#1B4965", "#FF9F1C")) +
+  labs(
+    x = "Time (2020)",
+    y = "Sentiment score"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+
+```
+
+------------------------------------------------------------------------
+
+### Key Findings
+
+-   Most common words reveal attitudes about vaccine safety and effectiveness
+-   Common bigrams show personal experiences ("already got", "fully vaccinated")
+-   Sentiment analysis reveals mixed but generally positive attitudes
+
+------------------------------------------------------------------------
+
+### Resources for Learning More
+
+-   tidytext documentation: https://www.tidytextmining.com/
+-   [Text Mining with R](https://www.tidytextmining.com/) (free online book)
+-   [UPenn Library](https://guides.library.upenn.edu/penntdm/r)
+-   [Michael Clark workshop](https://m-clark.github.io/text-analysis-with-R/intro.html)
+
+------------------------------------------------------------------------
+
 
 ## Bootstrapping
 
@@ -299,219 +735,4 @@ data.frame(boot_var_diff = boot_var_diff) %>%
 quantile(boot_var_diff, probs = c(.025, .50, .975))
 ```
 
-------------------------------------------------------------------------
-
-## Text analysis
-
-Data came from a [study of parents of young children](https://journals.sagepub.com/doi/full/10.1177/25152459231160105), collected during 2020.
-
-Parents answered the question: "How do you feel about the COVID-19 vaccine in terms of its safety and effectiveness, and what are your plans in terms of whether or not to get it?"
-
-```{r}
-# Required packages - install if needed
-# install.packages(c("textdata", "tidytext", "wordcloud"))
-library(tidytext)
-library(textdata)
-library(wordcloud)
-rapid = read_csv("https://raw.githubusercontent.com/uopsych/psy611/refs/heads/master/data/rapid_short.csv")
-```
-
-------------------------------------------------------------------------
-
-### Data Preparation
-
-Let's examine and clean our text data:
-
-```{r data_prep}
-#| echo: true
-
-# Look at the structure of our data
-glimpse(rapid)
-```
-
-------------------------------------------------------------------------
-
-```{r}
-# Create a clean text column
-rapid_clean <- rapid %>%
-  mutate(
-    response = HEALTH.030,
-    # Convert to lowercase
-    response = tolower(response),
-    # Remove punctuation
-    response = str_replace_all(response, "[[:punct:]]", " "),
-    # Remove extra whitespace
-    response = str_squish(response)
-  )
-```
-
-------------------------------------------------------------------------
-
-### Breaking Text into Words
-
-::::: columns
-::: {.column width="50%"}
-We'll use `tidytext` to tokenize our responses:
-
-```{r tokenize}
-#| echo: true
-#| eval: false
-
-words_df <- rapid_clean %>%
-  unnest_tokens(word, response) %>%
-  # Remove stop words
-  anti_join(stop_words)
-
-# View most common words
-words_df %>%
-  count(word, sort = TRUE) %>%
-  slice_head(n = 10) %>%
-  knitr::kable()
-```
-
-:::
-
-::: {.column width="50%"}
-```{r ref.label="tokenize"}
-#| echo: false
-```
-
-:::
-:::::
-
-
-
-------------------------------------------------------------------------
-
-### Visualizing Common Words
-
-Let's create a word cloud:
-
-::::: columns
-::: {.column width="50%"}
-
-```{r wordcloud}
-#| echo: true
-#| eval: false
-
-words_df %>%
-  count(word) %>%
-  with(wordcloud(word, n, 
-                max.words = 50, 
-                colors = brewer.pal(8, "Dark2")))
-```
-
-:::
-::: {.column width="50%"}
-```{r ref.label="wordcloud"}
-#| echo: false
-#| fig-height: 8
-#| fig-width: 5
-```
-
-:::
-:::::
-------------------------------------------------------------------------
-
-### Finding Themes: Bigrams {.smaller}
-
-Let's look at word pairs to understand context better:
-
-```{r bigrams}
-#| echo: true
-#| code-fold: true
-
-bigrams_df <- rapid_clean %>%
-  unnest_tokens(bigram, response, token = "ngrams", n = 2) %>%
-  separate(bigram, c("word1", "word2"), sep = " ") %>%
-  filter(!word1 %in% stop_words$word,
-         !word2 %in% stop_words$word)
-
-# View top bigrams
-bigrams_df %>%
-  unite(bigram, word1, word2, sep = " ") %>%
-  count(bigram, sort = TRUE) %>%
-  slice_head(n = 10) %>%
-  knitr::kable()
-```
-
-------------------------------------------------------------------------
-
-### Sentiment Analysis {.smaller}
-
-Let's analyze the emotional content of responses:
-
-```{r sentiment}
-#| echo: true
-
-# Add sentiment scores
-sentiment_df <- words_df %>%
-  inner_join(get_sentiments("bing")) %>%
-  count(CaregiverID, StartDate, sentiment) %>%
-  pivot_wider(names_from = sentiment, 
-              values_from = n, 
-              values_fill = 0) %>%
-  mutate(sentiment_score = positive - negative)
-```
-
-------------------------------------------------------------------------
-
-### Sentiment Analysis {.smaller}
-
-```{r}
-# View distribution of sentiment
-ggplot(sentiment_df, aes(x = sentiment_score)) +
-  geom_histogram(binwidth = 1, fill = "steelblue", alpha = 0.7) +
-  labs(title = "Distribution of Sentiment Scores",
-       x = "Sentiment Score (Positive - Negative)",
-       y = "Count") +
-  theme_minimal()
-```
-
-------------------------------------------------------------------------
-
-### Does sentiment change over time?
-
-```{r}
-#| code-fold: true
-sentiment_df %>% 
-  ggplot(aes(x = StartDate)) +
-  geom_smooth(aes(y = positive, color = "positive sentiment")) +
-  geom_smooth(aes(y = negative, color = "negative sentiment")) +
-  scale_color_manual(values = c("#1B4965", "#FF9F1C")) +
-  labs(
-    x = "Time (2020)",
-    y = "Sentiment score"
-  ) +
-  theme_minimal() +
-  theme(legend.position = "top")
-
-
-```
-
-
-
-
-------------------------------------------------------------------------
-
-### Key Findings
-
--   Most common words reveal attitudes about vaccine safety and effectiveness
--   Common bigrams show personal experiences ("already got", "fully vaccinated")
--   Sentiment analysis reveals mixed but generally positive attitudes
-
-------------------------------------------------------------------------
-
-### Resources for Learning More
-
--   tidytext documentation: https://www.tidytextmining.com/
--   [Text Mining with R](https://www.tidytextmining.com/) (free online book)
--   [UPenn Library](https://guides.library.upenn.edu/penntdm/r)
--   [Michael Clark workshop](https://m-clark.github.io/text-analysis-with-R/intro.html)
-
-
-------------------------------------------------------------------------
-
 ### Questions?
-
-
