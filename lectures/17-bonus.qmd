@@ -30,16 +30,13 @@ library(tidyverse)
 ```
 
 ------------------------------------------------------------------------
-
+  
 ## Today
-
--   Repeated measures
--   Intro to text analysis
--   Bootstrapping?
-
-------------------------------------------------------------------------
-
-
+  
+  -   Repeated measures
+  -   Intro to text analysis
+  -   Bootstrapping?
+  
 ------------------------------------------------------------------------
 
 ## Repeated Measures 
@@ -51,93 +48,30 @@ library(tidyverse)
 ------------------------------------------------------------------------
 
 ## Key Concepts {.smaller}
-
-- In cognitive experiments, we have:
-  - Multiple participants (n)
-  - Multiple trials per participant (k)
-  - Two or more conditions
-- Each trial produces a measurement
-- Multiple trials can:
-  1. Improve measurement precision
-  2. Reduce within-subject variability
-  3. Increase reliability
   
+- In cognitive experiments, we have:
+    - Multiple participants (n)
+    - Multiple trials per participant (k)
+    - Two or more conditions
+    - Each trial produces a measurement
+    
+- Multiple trials can:
+    1. Improve measurement precision
+    2. Reduce within-subject variability
+    3. Increase reliability
+
 ------------------------------------------------------------------------
 
 ## Simulation: Effect of Trials
 
-
-
-```{r}
-#| echo: true
-
-# Simulation parameters
-set.seed(112424)
-n_participants <- 20
-trials_few <- 20
-trials_many <- 100
-true_effect <- 0.5  # Effect size in seconds
-
-# Function to simulate one participant's data
-simulate_participant <- function(n_trials, effect) {
-  # Condition A: mean = 0, sd = 1
-  cond_a <- rnorm(n_trials, mean = 0, sd = 1)
-  # Condition B: mean = effect, sd = 1
-  cond_b <- rnorm(n_trials, mean = effect, sd = 1)
-  
-  # Return participant means
-  c(cond_a, cond_b)
-}
-
-# Simulate study with few trials
-results_few <- replicate(n_participants, 
-                        simulate_participant(trials_few, true_effect))
-
-# Simulate study with many trials
-results_many <- replicate(n_participants, 
-                         simulate_participant(trials_many, true_effect))
-
-# T-test results
-t.test(results_few[1,], results_few[2,], paired = TRUE)$p.value
-t.test(results_many[1,], results_many[2,], paired = TRUE)$p.value
-```
-
-------------------------------------------------------------------------
-
-## Why More Trials Help {.smaller}
-
-1. **Law of Large Numbers**
-   - Individual trial measurements are noisy
-   - Mean of many trials is more stable
-   - Reduces measurement error
-
-2. **Standard Error Formula**
-   - SE = σ / √n
-   - More trials → smaller SE of participant means
-   - Smaller SE → More power
-
-------------------------------------------------------------------------
-
-## Practical Guidelines
-
-- More trials generally help, but with diminishing returns
-- Consider:
-  - Participant fatigue
-  - Practice effects
-  - Time constraints
-  - Resource limitations
-
-------------------------------------------------------------------------
-
-(Simulation function here.)
-
+(Function to simulate experiment here)
 ```{r}
 #| code-fold: true
 simulate_cognitive_experiment <- function(
     n_participants = 20,    # number of participants
     n_trials = 50,         # trials per condition per participant
     true_effect = 0.5,     # mean difference between conditions
-    participant_sd = 0.5,   # between-participant variability
+    participant_sd = 0.25,   # between-participant variability
     trial_sd = 1.0,        # within-participant (trial) variability
     seed = 123             # for reproducibility
 ) {
@@ -164,7 +98,7 @@ simulate_cognitive_experiment <- function(
       response = 0.5 + participant_effect + condition_effect + trial_noise
     ) %>%
     # Reorder columns for clarity
-    select(participant, condition, trial, response, everything())
+    select(participant, condition, trial, response)
   
   return(experiment_data)
 }
@@ -174,14 +108,14 @@ simulate_cognitive_experiment <- function(
 # Generate example data
 data <- simulate_cognitive_experiment(
   n_participants = 20,
-  n_trials = 50,
+  n_trials = 100,
   true_effect = 0.5,
-  participant_sd = 0.5,
+  participant_sd = 0.25,
   trial_sd = 1.0
 )
 
 # View first few rows
-head(data)
+data
 ```
 
 ------------------------------------------------------------------------
@@ -196,7 +130,6 @@ data %>%
     n_trials = n()
   )
 ```
-
 ------------------------------------------------------------------------
 
 ```{r}
@@ -208,12 +141,11 @@ data %>%
     sd_rt = sd(response),
     n_trials = n(),
     .groups = "drop"
-  ) %>%
-  head(10)
+  ) 
 ```
 
 ------------------------------------------------------------------------
-
+  
 ```{r}
 # Calculate effect size for each participant
 participant_effects <- data %>%
@@ -227,33 +159,118 @@ participant_effects <- data %>%
     values_from = mean_rt
   ) %>%
   mutate(effect_size = B - A)
-head(participant_effects)
+
+```
+
+```{r, echo = F}
+participant_effects
+```
+
+
+------------------------------------------------------------------------
+
+```{r}
+# Aggregating across different trial numbers
+participant_effects20 <- data %>%
+  filter(trial <= 20) %>% 
+  group_by(participant, condition) %>%
+  summarise(
+    mean_rt = mean(response),
+    .groups = "drop"
+  ) %>%
+  pivot_wider(
+    names_from = condition,
+    values_from = mean_rt
+  ) %>%
+  mutate(effect_size = B - A)
+```
+
+```{r, echo = F}
+participant_effects20
 ```
 
 ------------------------------------------------------------------------
 
 ```{r}
-# Basic paired t-test on participant means
-t.test(
-  participant_effects$B,
-  participant_effects$A,
-  paired = TRUE
-)
+t.test(participant_effects20$A, participant_effects20$B, 
+       paired = TRUE)$statistic
+t.test(participant_effects$A, participant_effects$B, 
+       paired = TRUE)$statistic
 ```
+
+------------------------------------------------------------------------
+  
+## Why More Trials Help {.smaller}
+  
+**Law of Large Numbers**
+
+  - Individual trial measurements are noisy
+  - Mean of many trials is more stable
+  - Reduces measurement error
+
+**Standard Error Formula**
+
+  - SE = σ / √n
+  - More trials → smaller SE of participant means
+  - Smaller SE → More power
   
 ------------------------------------------------------------------------
 
-## Analysis Approaches {.smaller}
-
-1. **Participant-level Analysis**
-   - Average trials for each participant
-   - Run paired t-test on participant means
-   - Simple but may lose information
+```{r}
+#| code-fold: true
+participant_effects %>% 
+  mutate(Trials = 100) %>% 
+  full_join(
+    mutate(participant_effects20, Trials = 20)
+  ) %>% 
+  pivot_longer(cols = c("A", "B"),
+               names_to = "condition",
+               values_to = "avg_response") %>% 
+  ggplot(., aes(x = condition, 
+                     y = avg_response, 
+                     fill = as.factor(Trials))) +
+  geom_boxplot() +
+  labs(title = "Reduced Variability with More Trials", 
+       y = "Mean Score", 
+       fill = "Number of Trials") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
 
 ------------------------------------------------------------------------
+  
+## Practical Guidelines
+  
+- More trials generally help, but with diminishing returns
+- Consider:
+  - Participant fatigue
+  - Practice effects
+  - Time constraints
+  - Resource limitations
 
+------------------------------------------------------------------------
+  
+## Analysis Approaches {.smaller}
+
+Summary by [Dan McNeish](../readings/mcneish_2023.pdf)
+  
+- **Participant-level Analysis**
+  - Average trials for each participant
+  - Run paired t-test on participant means
+  - Simple but may lose information
+- **Multilevel modeling**
+  - Use all information
+  - Especially useful when interested in individual differences
+- **Clustered errors and GEE**
+  - Don't care about individual differences
+- **Fixed effects models**
+  - Useful when relevant contextual factors are not measured 
+
+
+------------------------------------------------------------------------
+  
 ## Coming Soon (PSY 613)...
-
+  
 - Mixed-effects models
   - Account for trial-level variation
   - Handle missing data
@@ -261,25 +278,23 @@ t.test(
 - Power analysis for repeated measures
 
 ------------------------------------------------------------------------
-
+  
 ```{r}
 library(lme4)
 lmer(response ~ 1 + condition + (1|participant),
-    data = data) %>% 
+     data = data) %>% 
   summary()
 ```
 
-
 ------------------------------------------------------------------------
-
+  
 ## Text analysis
-
+  
 Data came from a [study of parents of young children](https://journals.sagepub.com/doi/full/10.1177/25152459231160105), collected during 2020.
 
 Parents answered the question: "How do you feel about the COVID-19 vaccine in terms of its safety and effectiveness, and what are your plans in terms of whether or not to get it?"
 
 ```{r}
-# Required packages - install if needed
 # install.packages(c("textdata", "tidytext", "wordcloud"))
 library(tidytext)
 library(textdata)
@@ -288,9 +303,9 @@ rapid = read_csv("https://raw.githubusercontent.com/uopsych/psy611/refs/heads/ma
 ```
 
 ------------------------------------------------------------------------
-
+  
 ### Data Preparation
-
+  
 Let's examine and clean our text data:
 
 ```{r data_prep}
@@ -302,6 +317,8 @@ glimpse(rapid)
 
 ------------------------------------------------------------------------
 
+Cleaning text requires the use of "regular expressions." This is like a sub-dialect of coding. The website [regex101.com](https://regex101.com/) is very useful for navigating this code, but of course, AI is great too.
+
 ```{r}
 # Create a clean text column
 rapid_clean <- rapid %>%
@@ -310,10 +327,13 @@ rapid_clean <- rapid %>%
     # Convert to lowercase
     response = tolower(response),
     # Remove punctuation
+    response = str_remove_all(response, "\\?"),
     response = str_replace_all(response, "[[:punct:]]", " "),
     # Remove extra whitespace
     response = str_squish(response)
   )
+
+head(rapid_clean$response) # show first few responses
 ```
 
 ------------------------------------------------------------------------
@@ -323,7 +343,7 @@ rapid_clean <- rapid %>%
 ::::: columns
 ::: {.column width="50%"}
 We'll use `tidytext` to tokenize our responses:
-
+  
 ```{r tokenize}
 #| echo: true
 #| eval: false
@@ -340,7 +360,7 @@ words_df %>%
   knitr::kable()
 ```
 :::
-
+  
 ::: {.column width="50%"}
 ```{r ref.label="tokenize"}
 #| echo: false
@@ -348,10 +368,11 @@ words_df %>%
 :::
 :::::
 
+  
 ------------------------------------------------------------------------
-
+  
 ### Visualizing Common Words
-
+  
 Let's create a word cloud:
 
 ::::: columns
@@ -382,16 +403,18 @@ words_df %>%
 ### Finding Themes: Bigrams {.smaller}
 
 Let's look at word pairs to understand context better:
-
+  
 ```{r bigrams}
 #| echo: true
 #| code-fold: true
 
 bigrams_df <- rapid_clean %>%
   unnest_tokens(bigram, response, token = "ngrams", n = 2) %>%
-  separate(bigram, c("word1", "word2"), sep = " ") %>%
+  separate(bigram, c("word1", "word2"), sep = " ") %>% 
   filter(!word1 %in% stop_words$word,
-         !word2 %in% stop_words$word)
+         !word2 %in% stop_words$word) %>%
+  filter(!is.na(word1)) %>%
+  filter(!is.na(word2))
 
 # View top bigrams
 bigrams_df %>%
@@ -402,14 +425,23 @@ bigrams_df %>%
 ```
 
 ------------------------------------------------------------------------
-
+  
 ### Sentiment Analysis {.smaller}
-
+  
 Let's analyze the emotional content of responses:
 
 ```{r sentiment}
 #| echo: true
 
+get_sentiments("bing") %>% 
+  sample_n(10)
+```
+
+------------------------------------------------------------------------
+  
+### Sentiment Analysis {.smaller}
+
+```{r}
 # Add sentiment scores
 sentiment_df <- words_df %>%
   inner_join(get_sentiments("bing")) %>%
@@ -418,6 +450,8 @@ sentiment_df <- words_df %>%
               values_from = n, 
               values_fill = 0) %>%
   mutate(sentiment_score = positive - negative)
+
+sentiment_df
 ```
 
 ------------------------------------------------------------------------
@@ -425,9 +459,11 @@ sentiment_df <- words_df %>%
 ### Sentiment Analysis {.smaller}
 
 ```{r}
+#| code-fold: true
 # View distribution of sentiment
 ggplot(sentiment_df, aes(x = sentiment_score)) +
   geom_histogram(binwidth = 1, fill = "steelblue", alpha = 0.7) +
+  geom_vline(aes(xintercept = 0), linetype = "dashed") +
   labs(title = "Distribution of Sentiment Scores",
        x = "Sentiment Score (Positive - Negative)",
        y = "Count") +
@@ -653,17 +689,19 @@ data.frame(boot_diff = boot_diff) %>%
   theme_minimal()
 ```
 
+
 ------------------------------------------------------------------------
 
 ::::: columns
 ::: {.column width="50%"}
 What's the median bootstrapped difference?
-
+  
 ```{r}
 median(boot_diff)
 ```
 
 What's the empirical 95% CI?
+
 
 ```{r}
 quantile(boot_diff, probs = c(.025, .975))
@@ -736,3 +774,6 @@ quantile(boot_var_diff, probs = c(.025, .50, .975))
 ```
 
 ### Questions?
+
+
+
