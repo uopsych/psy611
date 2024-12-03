@@ -35,10 +35,12 @@ navbar:
           href: "lectures/14-open.html"
         - text: "15-One-sample tests"
           href: "lectures/15-one_sample.html"
-        - text: "16-Paired samples"
+        - text: "16-Paired-samples t-tests"
           href: "lectures/16-paired_sample.html"
         - text: "17-Bonus lecture"
           href: "lectures/17-bonus.html"
+        - text: "18-Independent-samples t-tests"
+          href: "lectures/18-independent.html"
 
     - text: Labs
       menu:
