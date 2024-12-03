@@ -41,6 +41,8 @@ navbar:
           href: "lectures/17-bonus.html"
         - text: "18-Independent-samples t-tests"
           href: "lectures/18-independent.html"
+        - text: "19-Assumptions, bootstrapping"
+          href: "lectures/19-assumptions.html"
 
     - text: Labs
       menu:
