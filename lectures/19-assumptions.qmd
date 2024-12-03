@@ -822,6 +822,6 @@ PSY 612 in 2023
 -   All revisions due Friday (5pm)
 :::
 
-[^1]: Westfall, J. (2016). [Five different "Cohen's d" statistics for within-subject designs](http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/)
+[^1]: Westfall, J. (2016). [Five different "Cohen's d" statistics for within-subject designs](http://web.archive.org/web/20230617232522/http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/)
 
-[^2]: Westfall, J. (2016). [Five different "Cohen's d" statistics for within-subject designs](http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/)
+[^2]: Westfall, J. (2016). [Five different "Cohen's d" statistics for within-subject designs](http://web.archive.org/web/20230617232522/http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/)
