@@ -62,6 +62,8 @@ navbar:
           href: "labs/lab-7.html"
         - text: "Lab 8"
           href: "labs/lab-8.html"
+        - text: "Lab 9"
+          href: "labs/lab-9_ist.html"
     - text: Homework
       href: homework.html
     - text: Useful Material
