@@ -449,7 +449,7 @@ heights
 ------------------------------------------------------------------------
 
 ```{r}
-boot = 10000 # number of bootstraps
+boot = 1000000 # number of bootstraps
 # make named vector (names not necessary)
 heights = c("Rachel" = 65, "Monica" = 65, "Phoebe" = 68, 
             "Joey" = 70, "Chandler" = 72, "Ross" = 73)
@@ -810,7 +810,7 @@ Your job is to
 
 ## Next time...
 
-PSY 612 in 2023
+PSY 612 in 2025
 
 (But first):
 
