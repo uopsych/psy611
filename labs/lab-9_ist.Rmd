@@ -270,7 +270,8 @@ ggplot(data, aes(x = condition, y = cooperation)) + #create canvas
                fun.data = mean_ci, #specify a function to run on your data
         geom="errorbar",  #here is where you specify what geom to use
         width = .2) + #here is where you make the error bars a normal width
-  papaja::theme_apa() # Makes it APA themed :)
+  papaja::theme_apa(
+    base_family = "Times New Roman") # Makes it APA themed :)
 ```
 
 ## Power Calculations
