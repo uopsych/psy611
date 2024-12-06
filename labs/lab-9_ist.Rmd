@@ -196,7 +196,7 @@ independentSamplesTTest(formula   = cooperation ~ condition,
 Your turn! What if the research question was 'do cooperation levels vary by sex?'
 
 ```{r}
-#Your code here
+t.test(cooperation ~ sex, data = data, var.equal = TRUE)
 ```
 
 ## Interpretation and Write-Up
@@ -277,6 +277,8 @@ ggplot(data, aes(x = condition, y = cooperation)) + #create canvas
 
 In order to calculate power, one way is to use the 'pwr' package. This package has several similar functions for different statistical tests that follow the same general logic. Today we'll be using 'pwr.t.test'. This function takes a sample size (n), an effect size estimate (d), an alpha level (sig.level), and a power (power). The key thing is to fill in a value for 1 of those 4 things and then leave the 4th one out to calculate it. You can then specify the type of t-test (type), and whether it is a two-sided or directional test (alternative).
 
+Cool power visualization [here](https://rpsychologist.com/d3/nhst/)
+
 Here I will make a post-hoc power calculation.
 
 ### Equal sample sizes
@@ -312,15 +314,25 @@ pwr.t2n.test(n1=10, #n of group 1
 Your turn! What sample size do we need to replicate this same effect size with a power of .95?
 
 ```{r}
-#Your code here
-
+pwr.t.test(n = NULL, #sample size (per group)
+           d = 1.19, #Cohen's d
+           sig.level = .05, # alpha level
+           power = 0.95, # Set what you want to calculate to NULL or leave out entirely
+           type = 'two.sample', #independent sample t-test
+           alternative = 'two.sided'  #two-tailed test
+     )
 ```
 
 One more! What effect size do we need to achieve a power of .9, with 30 participants per group, and an alpha level of .01?
 
 ```{r}
-#Your code here
-
+pwr.t.test(n = 30, #sample size (per group)
+           d = NULL, #Cohen's d
+           sig.level = .01, # alpha level
+           power = 0.9 , # Set what you want to calculate to NULL or leave out entirely
+           type = 'two.sample', #independent sample t-test
+           alternative = 'two.sided'  #two-tailed test
+     )
 ```
 
 ------------------------------------------------------------------------
