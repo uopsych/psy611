@@ -1,5 +1,5 @@
 ---
-title: "Lab 8: Independent Samples *t*-tests"
+title: "Lab 9: Independent Samples *t*-tests"
 output: 
   html_document: 
     theme: cosmo
