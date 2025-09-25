@@ -24,37 +24,37 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 
 | Week | Date | Topic | Readings | Quiz | HW \| |
 |:-------|:-------|:-----------|:----------------------------|:------:|-------:|
-| 1 | 10/01 | Introduction and overview | LSR Ch 1 & 3 |  |  |
-|  | 10/03 | Research Methods | LSR CH 2 & 4, [Rothman et al. (2013)](readings/Rothman_2013.pdf) |  |  |
-|  | 10/04 | *Lab: Introduction to R* WEEK 1 LAB HELD ON [ZOOM](https://uoregon.zoom.us/j/97575417905?pwd=j4qTO3a3mgSqvbIeNed81F4wibN8eP.1) |  |  |  |
-| 2 | 10/08 | Latent variables and psychometrics | Podcast: [Quantitude, S1E09 -- Grumpy Old Man & Village Idiot Argue About Reliability](https://quantitudepod.org/episode-9-grumpy-old-man-village-idiot-argue-about-reliability/), [Bringmann et al., 2022](readings/bringmann_etal_2022.pdf) | Quiz 1 |  |
-|  | 10/10 | Describing data | LSR Ch 5 & 6 |  |  |
-|  | 10/11 | *Lab: R basics and descriptives* |  |  |  |
-| 3 | 10/15 | Describing data | [Ozer & Funder (2019)](readings/Ozer_Funder_2019.pdf) | Quiz 2 |  |
-|  | 10/17 | Probability | LSR Intro to Part IV and Ch 9.1-9.3, [Wetzels et al. (2011)](readings/Wetzels_etal_2011.pdf) |  |  |
-|  | 10/18 | *Lab: Functional programming* |  |  |  |
-| 4 | 10/22 | Probability | LSR Ch 9.4 | Quiz 3 |  |
-|  | 10/24 | Probability | LSR Ch 9.5-9.6 |  |  |
-|  | 10/25 | *Lab: Probability distributions* |  |  | HW 1 Due |
-| 5 | 10/29 | Sampling | LSR Ch 10 | Quiz 4 |  |
-|  | 10/31 | Hypothesis testing | LSR Ch 11 |  |  |
-|  | 11/01 | *Lab: Data wrangling* |  |  |  |
-| 6 | 11/05 | Hypothesis testing | [Sainani (2012)](readings/Sainani_2012.pdf) | Quiz 5 |  |
-|  | 11/07 | Critiques of hypothesis testing |  |  |  |
-|  | 11/08 | *Lab: Graphing with ggplot2* |  |  |  |
-| 7 | 11/12 | Critiques of hypothesis testing | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf), [Cumming (2014)](readings/Cumming_2014.pdf) | Quiz 6 |  |
-|  | 11/14 | Open Science | [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/), [Simmons, Nelson, & Simonshon, 2016 (blog)](https://datacolada.org/64) |  |  |
-|  | 11/15 | *Lab: RMarkdown* |  |  | HW 2 Due |
-| 8 | 11/19 | One-sample tests | LSR Ch 13.1-13.2 | Quiz 7 |  |
-|  | 11/21 | Comparing two means (paired) | LSR Ch 13.3-13.11 |  |  |
-|  | 11/22 | *Lab: One- and paired-samples t-tests* |  |  |  |
-| 9 | 11/26 | Catch up/TBD |  | Quiz 8 |  |
-|  | 11/28 | **Thanksgiving** |  |  |  |
-|  | 11/29 | **Lab: No Lab** |  |  |  |
-| 10 | 12/03 | Comparing two means (independent) |  |  |  |
-|  | 12/05 | Effect sizes and assumptions |  | Quiz 9 |  |
-|  | 12/06 | *Lab: Independent-samples t-tests* |  |  |  |
-| Finals | 12/09 |  |  |  | HW 3 Due [^1] 9am |
+| 1 | 09/30 | Introduction and overview | LSR Ch 1 & 3 |  |  |
+|  | 10/02 | Research Methods | LSR CH 2 & 4, [Rothman et al. (2013)](readings/Rothman_2013.pdf) |  |  |
+|  | 10/03 | *Lab: Introduction to R* WEEK 1 LAB HELD ON [ZOOM](https://uoregon.zoom.us/j/97575417905?pwd=j4qTO3a3mgSqvbIeNed81F4wibN8eP.1) |  |  |  |
+| 2 | 10/07 | Latent variables and psychometrics | Podcast: [Quantitude, S1E09 -- Grumpy Old Man & Village Idiot Argue About Reliability](https://quantitudepod.org/episode-9-grumpy-old-man-village-idiot-argue-about-reliability/), [Bringmann et al., 2022](readings/bringmann_etal_2022.pdf) | Quiz 1 |  |
+|  | 10/09 | Describing data | LSR Ch 5 & 6 |  |  |
+|  | 10/10 | *Lab: R basics and descriptives* |  |  |  |
+| 3 | 10/14 | Describing data | [Ozer & Funder (2019)](readings/Ozer_Funder_2019.pdf) | Quiz 2 |  |
+|  | 10/16 | Probability | LSR Intro to Part IV and Ch 9.1-9.3, [Wetzels et al. (2011)](readings/Wetzels_etal_2011.pdf) |  |  |
+|  | 10/17 | *Lab: Functional programming* |  |  |  |
+| 4 | 10/21 | Probability | LSR Ch 9.4 | Quiz 3 |  |
+|  | 10/23 | Probability | LSR Ch 9.5-9.6 |  |  |
+|  | 10/24 | *Lab: Probability distributions* |  |  | HW 1 Due |
+| 5 | 10/28 | Sampling | LSR Ch 10 | Quiz 4 |  |
+|  | 10/30 | Hypothesis testing | LSR Ch 11 |  |  |
+|  | 10/31 | *Lab: Data wrangling* |  |  |  |
+| 6 | 11/04 | Hypothesis testing | [Sainani (2012)](readings/Sainani_2012.pdf) | Quiz 5 |  |
+|  | 11/06 | Critiques of hypothesis testing |  |  |  |
+|  | 11/07 | *Lab: Graphing with ggplot2* |  |  |  |
+| 7 | 11/11 | Critiques of hypothesis testing | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf), [Cumming (2014)](readings/Cumming_2014.pdf) | Quiz 6 |  |
+|  | 11/13 | Open Science | [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/), [Simmons, Nelson, & Simonshon, 2016 (blog)](https://datacolada.org/64) |  |  |
+|  | 11/14 | *Lab: RMarkdown* |  |  | HW 2 Due |
+| 8 | 11/18 | One-sample tests | LSR Ch 13.1-13.2 | Quiz 7 |  |
+|  | 11/20 | Comparing two means (paired) | LSR Ch 13.3-13.11 |  |  |
+|  | 11/21 | *Lab: One- and paired-samples t-tests* |  |  |  |
+| 9 | 11/25 | Catch up/TBD |  | Quiz 8 |  |
+|  | 11/27 | **Thanksgiving** |  |  |  |
+|  | 11/28 | **Lab: No Lab** |  |  |  |
+| 10 | 12/02 | Comparing two means (independent) |  |  |  |
+|  | 12/04 | Effect sizes and assumptions |  | Quiz 9 |  |
+|  | 12/05 | *Lab: Independent-samples t-tests* |  |  |  |
+| Finals | 12/08 |  |  |  | HW 3 Due [^1] 9am |
 
 [^1]: Final grades are due the following Tuesday, so there are limited opportunities to redo this particular assignment for points. I will do my best to grade these within 24 hours of receipt so you have a chance to retry any missed points. Consider Friday 12/13 at 9am PT the last possible time to submit this assignment.
 
@@ -66,7 +66,7 @@ Your final grade is comprised of three components:
 
 -   Quizzes: 35%
 -   Homework: 40%
--   Journal entries: 5%
+-   Journal entries: 5% (PSY only)
 -   Oral exam: 20%
 
 ## Quizzes
@@ -89,13 +89,13 @@ You may discuss homework assignments with your classmates; however, it is import
 
 Homework assignments are submited on Canvas. To access our course Canvas site, log into canvas.uoregon.edu using your DuckID. If you have questions about using Canvas, visit the [Canvas support page](https://service.uoregon.edu/TDClient/2030/Portal/Requests/ServiceDet?ID=38635). Canvas and Technology Support also is available by phone (541-346-4357) or by [live chat on the Live Help webpage](http://livehelp.uoregon.edu/). 
 
-## Journal entries
+## Journal entries (PSY students only)
 
 Each week you'll complete a short journal entry on Canvas. To earn full points, you'll have to write at least 200 words about anything at all. This can include content related to the course, such as how well you feel you understand the material or how you see the material come up in other work. This can also include anything related to your personal life or mental health that you would like for me to know, such as whether you are struggling to balance classes and research, having trouble creating a workspace at home, or whether you can balance time spent on campus and off. This can also be completely random things, like a news article you can't stop thinking about, or musings on the mist-downpour continuum of Oregon weather. The content of what you write has *no impact* on your grade. In addition, what you write will be kept confidential.
 
 You may skip 2 journal entries with no penalty.
 
-The purpose of this assignment is to help facilitate communication between you and me. I have used this assignment since Spring 2020 and found it an excellent way to build relationships with students. Plus, I found that many students were more comfortable discussing questions and concerns in their journal assignments rather than through email.
+The purpose of this assignment is to help facilitate communication between you and me. I have used this assignment since Spring 2020 and found it an excellent way to build relationships with students. This is especially important because I am your Director of Graduate Studies, and it helps me to know what is and is not working in the early days of our program.
 
 ## Oral exam
 
@@ -159,12 +159,11 @@ This is a 4-credit hour course, so you should expect to complete 120 hours of wo
 
 ## Generative AI
 
-While generative AI tools (such as ChatGPT, DALL-E, or other language and image models) can be useful for assisting with certain tasks, it’s important to use these technologies responsibly and ethically.
+While generative AI tools (such as ChatGPT, Claude, Gemini, and others) can be useful for assisting with certain tasks, it’s important to use these technologies responsibly and ethically.
 
 Good uses of AI: 
 
   * exploring concepts, generating code ideas, and providing explanations for topics covered in the course. These tools can help clarify difficult concepts, debug code, or suggest alternative approaches to data analysis.
-  * create preliminary drafts of code, data analysis plans, or written reports. However, all AI-generated output must be reviewed, tested, and critically evaluated by the student. You are responsible for ensuring the accuracy and appropriateness of all content before submitting it.
   * brainstorm research questions, identify key terms, or help summarize complex literature related to data analysis. However, students should verify any factual claims independently by consulting primary sources.
 
 Bad uses of AI: 
@@ -173,9 +172,7 @@ Bad uses of AI:
 * be used in place of collaborating with peers.
 * submitting AI-generated content without proper attribution or passing it off as entirely your own work.
 
-Students who use AI tools in their coursework must include a brief statement at the end of their submission describing how and where the tool was used. For example: _Generative AI was used to suggest the structure of the code in the data visualization section._ Failure to disclose AI use may result in a grade reduction or further disciplinary action.
-
-Generative AI can be a helpful resource when used responsibly, but students must actively engage in their learning process. Reliance on AI at the expense of developing your own analytical skills will likely lead to poor performance, not just in this course, but your career more broadly.
+**You may not use generative AI to help you with your homework assignments, with one exception.** Each assignment will have one 10-point question that helps you work through a problem collaboratively with generative AI. It is on this, and _only_ this question that you may use AI.
 
 [Note: Generative AI was used to suggest the components of this policy.]
 
