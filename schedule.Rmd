@@ -66,7 +66,7 @@ Your final grade is comprised of three components:
 
 -   Quizzes: 35%
 -   Homework: 40%
--   Journal entries: 5%
+-   Journal entries: 5% (PSY only)
 -   Oral exam: 20%
 
 ## Quizzes
@@ -89,13 +89,13 @@ You may discuss homework assignments with your classmates; however, it is import
 
 Homework assignments are submited on Canvas. To access our course Canvas site, log into canvas.uoregon.edu using your DuckID. If you have questions about using Canvas, visit the [Canvas support page](https://service.uoregon.edu/TDClient/2030/Portal/Requests/ServiceDet?ID=38635). Canvas and Technology Support also is available by phone (541-346-4357) or by [live chat on the Live Help webpage](http://livehelp.uoregon.edu/). 
 
-## Journal entries
+## Journal entries (PSY students only)
 
 Each week you'll complete a short journal entry on Canvas. To earn full points, you'll have to write at least 200 words about anything at all. This can include content related to the course, such as how well you feel you understand the material or how you see the material come up in other work. This can also include anything related to your personal life or mental health that you would like for me to know, such as whether you are struggling to balance classes and research, having trouble creating a workspace at home, or whether you can balance time spent on campus and off. This can also be completely random things, like a news article you can't stop thinking about, or musings on the mist-downpour continuum of Oregon weather. The content of what you write has *no impact* on your grade. In addition, what you write will be kept confidential.
 
 You may skip 2 journal entries with no penalty.
 
-The purpose of this assignment is to help facilitate communication between you and me. I have used this assignment since Spring 2020 and found it an excellent way to build relationships with students. Plus, I found that many students were more comfortable discussing questions and concerns in their journal assignments rather than through email.
+The purpose of this assignment is to help facilitate communication between you and me. I have used this assignment since Spring 2020 and found it an excellent way to build relationships with students. This is especially important because I am your Director of Graduate Studies, and it helps me to know what is and is not working in the early days of our program.
 
 ## Oral exam
 
@@ -159,12 +159,11 @@ This is a 4-credit hour course, so you should expect to complete 120 hours of wo
 
 ## Generative AI
 
-While generative AI tools (such as ChatGPT, DALL-E, or other language and image models) can be useful for assisting with certain tasks, it’s important to use these technologies responsibly and ethically.
+While generative AI tools (such as ChatGPT, Claude, Gemini, and others) can be useful for assisting with certain tasks, it’s important to use these technologies responsibly and ethically.
 
 Good uses of AI: 
 
   * exploring concepts, generating code ideas, and providing explanations for topics covered in the course. These tools can help clarify difficult concepts, debug code, or suggest alternative approaches to data analysis.
-  * create preliminary drafts of code, data analysis plans, or written reports. However, all AI-generated output must be reviewed, tested, and critically evaluated by the student. You are responsible for ensuring the accuracy and appropriateness of all content before submitting it.
   * brainstorm research questions, identify key terms, or help summarize complex literature related to data analysis. However, students should verify any factual claims independently by consulting primary sources.
 
 Bad uses of AI: 
@@ -173,9 +172,7 @@ Bad uses of AI:
 * be used in place of collaborating with peers.
 * submitting AI-generated content without proper attribution or passing it off as entirely your own work.
 
-Students who use AI tools in their coursework must include a brief statement at the end of their submission describing how and where the tool was used. For example: _Generative AI was used to suggest the structure of the code in the data visualization section._ Failure to disclose AI use may result in a grade reduction or further disciplinary action.
-
-Generative AI can be a helpful resource when used responsibly, but students must actively engage in their learning process. Reliance on AI at the expense of developing your own analytical skills will likely lead to poor performance, not just in this course, but your career more broadly.
+**You may not use generative AI to help you with your homework assignments, with one exception.** Each assignment will have one 10-point question that helps you work through a problem collaboratively with generative AI. It is on this, and _only_ this question that you may use AI.
 
 [Note: Generative AI was used to suggest the components of this policy.]
 
