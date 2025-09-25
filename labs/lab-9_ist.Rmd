@@ -97,7 +97,9 @@ We'll first talk about how to calculate standard error of the sampling distribut
 
 The *standard error of the difference*, aka the standard deviation of the sampling distribution of differences between means, is calculated as:
 
-$$\sigma_{d} = \hat{\sigma_{p}} \sqrt{(\frac{1}{N_{1}} + \frac{1}{N_{2}})}$$ For student's t-test (which assumes the standard deviations of the two populations are equal), $\hat{\sigma_{p}}$ is the *pooled estimate of the population standard deviation* and is calculated as:
+$$\sigma_{d} = \hat{\sigma_{p}} \sqrt{(\frac{1}{N_{1}} + \frac{1}{N_{2}})}$$ 
+
+For student's t-test (which assumes the standard deviations of the two populations are equal), $\hat{\sigma_{p}}$ is the *pooled estimate of the population standard deviation* and is calculated as:
 
 $$\hat{\sigma_{p}} = \sqrt{\frac{{{(N_{1} - 1)\hat{\sigma_{1}^{2}} + (N_{2} - 1)\hat{\sigma_{2}^{2}}}}} {N_{1} + N_{2} - 2}}$$
 
