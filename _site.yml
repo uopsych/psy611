@@ -9,61 +9,9 @@ navbar:
       menu:
         - text: "1-Intro"
           href: "lectures/01-intro.html"
-        - text: "2-Validity"
-          href: "lectures/02-methods.html"
-        - text: "3-Measurement"
-          href: "lectures/03-measurement-interactive.html"
-        - text: "4-Describing Data I"
-          href: "lectures/04-describing-data.html"
-        - text: "5-Describing Data II"
-          href: "lectures/05-describing-data.html"
-        - text: "6-Probability"
-          href: "lectures/06-probability.html"
-        - text: "7-Binomial Distribution"
-          href: "lectures/07-binomial.html"
-        - text: "8-Normal Distribution"
-          href: "lectures/08-normal.html"
-        - text: "9-Sampling"
-          href: "lectures/09-sampling.html"
-        - text: "10-NHST I"
-          href: "lectures/10-nhst.html"
-        - text: "11-NHST II"
-          href: "lectures/11-nhst.html"
-        - text: "12/13-Critiques of NHST"
-          href: "lectures/12-critiques.html"
-        - text: "14-Open science"
-          href: "lectures/14-open.html"
-        - text: "15-One-sample tests"
-          href: "lectures/15-one_sample.html"
-        - text: "16-Paired-samples t-tests"
-          href: "lectures/16-paired_sample.html"
-        - text: "17-Bonus lecture"
-          href: "lectures/17-bonus.html"
-        - text: "18-Independent-samples t-tests"
-          href: "lectures/18-independent.html"
-        - text: "19-Assumptions, bootstrapping"
-          href: "lectures/19-assumptions.html"
-
     - text: Labs
       menu:
-        - text: "Lab 1"
-          href: "labs/lab-1.html"
-        - text: "Lab 2"
-          href: "labs/lab-2_student.html"
-        - text: "Lab 3"
-          href: "labs/lab-3_student.html"
-        - text: "Lab 4"
-          href: "labs/lab-4.html"
-        - text: "Lab 5"
-          href: "labs/lab-5.html"
-        - text: "Lab 6"
-          href: "labs/lab-6.html"
-        - text: "Lab 7"
-          href: "labs/lab-7.html"
-        - text: "Lab 8"
-          href: "labs/lab-8.html"
-        - text: "Lab 9"
-          href: "labs/lab-9_ist.html"
+        - text: "Lab 1 (Coming soon)"
     - text: Homework
       href: homework.html
     - text: Useful Material
@@ -74,6 +22,7 @@ navbar:
   right:
     - text: Previous Years
       menu:
+        - text: 2024 (Coming soon)
         - text: 2022
           href: "https://uopsych.github.io/psy611_2022/"
         - text: 2021
