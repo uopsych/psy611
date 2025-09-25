@@ -22,7 +22,6 @@ navbar:
   right:
     - text: Previous Years
       menu:
-        - text: 2024 (Coming soon)
         - text: 2022
           href: "https://uopsych.github.io/psy611_2022/"
         - text: 2021
