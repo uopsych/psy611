@@ -86,6 +86,51 @@ Goal: don't just do the test, understand what the test does, why you might want 
 
 ------------------------------------------------------------------------
 
+## Generative AI (a different kind of challenge)
+
+Why would someone want an employee with a graduate degree?
+
+::: incremental
+- Because they are an expert in the role of trait neuroticism in the psychological stress -- physiological response -- chronic disease progression cycle? 
+
+     - (No, not even at a university.)
+:::
+
+------------------------------------------------------------------------
+
+## Generative AI (a different kind of challenge)
+
+::: incremental
+- Because they have a wide range of skills.
+    - End-to-end research project execution.
+    - Data analysis and visualization. 
+    - Communication of complex and abstract concepts to non-expets. (Read: teaching and conference presentations)
+    - Managerial experience (read: mentoring undergraduates)
+    - Stakeholder alignment (read: collaboration and service)
+:::
+
+------------------------------------------------------------------------
+
+## Generative AI (a different kind of challenge)
+
+::: incremental
+- Because they can figure things out on their own. 
+    - Independence!
+- What does this have to do with AI?
+:::
+
+------------------------------------------------------------------------
+
+## Generative AI (a different kind of challenge)
+
+Generative AI is a great tool for productivity. Think of it like a car: if the goal is to get from point A to point B, a car will get you there fast. 
+
+- Coursework is not about getting from point A to point B; it's about the journey. If you're training for a marathon, the point isn't to _go_ 26 miles, it's to _run_ 26 miles. 
+
+Good uses of AI in this class: developing personalized quizzes to test knowledge, explaining concepts that I didn't explain well, generating questions similar to the ones on the homework for additional practice, etc. 
+
+------------------------------------------------------------------------
+
 ## Road map
 
 | Week(s) | Topics                                           |
@@ -164,7 +209,7 @@ Goal: don't just do the test, understand what the test does, why you might want 
 ::: incremental
 -   Demonstrate mastery
     -   Oral exam
--   Get support
+-   Get support (PSY only)
     -   Journals (10 total)
 :::
 ::::
