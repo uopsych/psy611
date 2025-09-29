@@ -26,7 +26,7 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 |:-------|:-------|:-----------|:----------------------------|:------:|-------:|
 | 1 | 09/30 | Introduction and overview | LSR Ch 1 & 3 |  |  |
 |  | 10/02 | Research Methods | LSR CH 2 & 4, [Rothman et al. (2013)](readings/Rothman_2013.pdf) |  |  |
-|  | 10/03 | *Lab: Introduction to R* WEEK 1 LAB HELD ON [ZOOM](https://uoregon.zoom.us/j/97575417905?pwd=j4qTO3a3mgSqvbIeNed81F4wibN8eP.1) |  |  |  |
+|  | 10/03 | *Lab: Introduction to R*  |  |  |  |
 | 2 | 10/07 | Latent variables and psychometrics | Podcast: [Quantitude, S1E09 -- Grumpy Old Man & Village Idiot Argue About Reliability](https://quantitudepod.org/episode-9-grumpy-old-man-village-idiot-argue-about-reliability/), [Bringmann et al., 2022](readings/bringmann_etal_2022.pdf) | Quiz 1 |  |
 |  | 10/09 | Describing data | LSR Ch 5 & 6 |  |  |
 |  | 10/10 | *Lab: R basics and descriptives* |  |  |  |
