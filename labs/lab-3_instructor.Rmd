@@ -14,7 +14,7 @@ output:
     toc_depth: '3'
 editor_options:
   chunk_output_type: console
---- 
+---
 
 
 ```{r setup, include=FALSE}
