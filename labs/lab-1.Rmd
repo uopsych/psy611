@@ -1,16 +1,16 @@
 ---
 title: 'Lab 1: Introduction to R and RStudio'
 output:
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
   html_document: 
     theme: cosmo
     toc: true
     toc_float: true
-  pdf_document:
-    toc: yes
-    toc_depth: '3'
-  word_document:
-    toc: yes
-    toc_depth: '3'
 editor_options:
   chunk_output_type: console
 ---
@@ -49,7 +49,7 @@ After we have covered the content of the lab, we will move on to [Minihacks](#mi
 
 # Getting Started {#gs}
 
-So what is R? 
+So what is R?
 
 In the simplest possible terms, R is a programming language used for conducting analyses and producing graphics. It is substantially more flexible than GUI-based statistics programs (e.g., SPSS, LISREL) but less flexible than other programming languages. This lack of flexibility is on purpose; it allows the code to be written in a far more efficient and intuitive way than other programming languages.
 
