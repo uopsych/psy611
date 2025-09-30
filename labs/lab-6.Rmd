@@ -32,7 +32,7 @@ library(mosaicData)
 # Introduction to Data Visualization
 
 ggplot2 follows a theory of data visualization called the *grammar of graphics*. You can summarize this grammar as:
-
+ 
 ![](`r here::here("labs", "resources", "lab6","intro-graphing.JPG")`)
 
 Each graph has the following components:
