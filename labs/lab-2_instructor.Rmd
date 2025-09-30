@@ -13,7 +13,7 @@ editor_options:
 You can download the rmd file [here](lab-2_instructor.Rmd). 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE) 
 knitr::opts_chunk$set(error = TRUE)
 
 # suppress scientific notation
