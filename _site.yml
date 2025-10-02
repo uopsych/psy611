@@ -13,7 +13,8 @@ navbar:
           href: "lectures/02-methods.html"
     - text: Labs
       menu:
-        - text: "Lab 1 (Coming soon)"
+        - text: "Lab 1"
+          href: "labs/lab-1.html"
     - text: Homework
       href: homework.html
     - text: Useful Material
