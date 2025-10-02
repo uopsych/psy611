@@ -15,11 +15,8 @@ editor: visual
 ::: nonincremental
 -   Complete your journal assignment on Canvas by the end of Monday.
 -   Download and install R/Rstudio before lab tomorrow.
+-   Heads up...
 :::
-
-From the library:
-
-The library also offers free short workshops. This term, we are offering workshops on R, Python, GitHub, using Zotero to manage your citations, and more. Our Friday lunch chats (Coffee + Data && Code) offer a great opportunity to meet folks interested in data and code from across the university.
 
 ------------------------------------------------------------------------
 
@@ -599,9 +596,9 @@ For each of the following, would you say that representativeness (1) improves th
 
 -   Representativeness may or may not be useful. *It depends!*
 
--   Often, it's better to either recruit a homogenous sample (to minimize differences between groups or reduce noise)...
+-   Often, it's better to either recruit a homogeneous sample (to minimize differences between groups or reduce noise)...
 
--   ... or overrecruit from smaller groups to test for differences.
+-   ... or over-sample from smaller groups to test for differences.
 
 -   But the biggest takeaway should be that these principles do not apply equally to all studies! You should consider what the goals of YOUR study are and how best to meet those goals.
 
@@ -636,7 +633,3 @@ For each of the following, would you say that representativeness (1) improves th
 ## Next time...
 
 Variables, measurement, constructs
-
-Reminder:
-
--   Complete your journal entry by Monday night!
