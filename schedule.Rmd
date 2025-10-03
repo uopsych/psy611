@@ -42,13 +42,13 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 | 6 | 11/04 | Hypothesis testing | [Sainani (2012)](readings/Sainani_2012.pdf) | Quiz 5 |  |
 |  | 11/06 | Critiques of hypothesis testing |  |  |  |
 |  | 11/07 | *Lab: Graphing with ggplot2* |  |  |  |
-| 7 | 11/11 | Critiques of hypothesis testing | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf), [Cumming (2014)](readings/Cumming_2014.pdf) | Quiz 6 |  |
-|  | 11/13 | Open Science | [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/), [Simmons, Nelson, & Simonshon, 2016 (blog)](https://datacolada.org/64) |  |  |
+| 7 | 11/11 | _Veterans Day - No Class_ |  |  |  |
+|  | 11/13 | Critiques of hypothesis testing | [Simmons et al. (2011)](readings/Simmons_etal_2011.pdf), [Cumming (2014)](readings/Cumming_2014.pdf) | Quiz 6 |  |
 |  | 11/14 | *Lab: RMarkdown* |  |  | HW 2 Due |
-| 8 | 11/18 | One-sample tests | LSR Ch 13.1-13.2 | Quiz 7 |  |
-|  | 11/20 | Comparing two means (paired) | LSR Ch 13.3-13.11 |  |  |
+| 8 | 11/18 | Open Science | [Five Thirty Eight](https://fivethirtyeight.com/features/science-isnt-broken/), [Simmons, Nelson, & Simonshon, 2016 (blog)](https://datacolada.org/64) | Quiz 7 |  |
+|  | 11/20 | One-sample tests | LSR Ch 13.1-13.2 |  |  |
 |  | 11/21 | *Lab: One- and paired-samples t-tests* |  |  |  |
-| 9 | 11/25 | Catch up/TBD |  | Quiz 8 |  |
+| 9 | 11/25 | Comparing two means (paired) | LSR Ch 13.3-13.11 | Quiz 8 |  |
 |  | 11/27 | **Thanksgiving** |  |  |  |
 |  | 11/28 | **Lab: No Lab** |  |  |  |
 | 10 | 12/02 | Comparing two means (independent) |  |  |  |
