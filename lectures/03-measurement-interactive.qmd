@@ -19,6 +19,13 @@ library(directlabels)
 options(knitr.kable.NA = '')
 ```
 
+## Annoucements
+
+- Attendance
+- Feeling lost?
+
+---
+
 ## Last time
 
 Validity (4 types)
