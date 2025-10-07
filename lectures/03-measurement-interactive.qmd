@@ -59,7 +59,7 @@ More about construct validity and its role in scale development.
 
 ## Quantitative fallacy
 
-[See this article.](readings/quantitative-fallacy.pdf)
+[See this article.](../readings/quantitative-fallacy.pdf)
 
 Applicant selection for medical residency positions.
 
