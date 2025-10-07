@@ -39,7 +39,7 @@ Validity (4 types)
 
 More about construct validity and its role in scale development.
 
-**Interactive focus**: We'll develop a scale together and learn what makes measurement good (or bad).
+**Interactive focus**: We'll "develop" a scale together and learn what makes measurement good (or bad).
 
 ---
 
@@ -110,7 +110,7 @@ $$
 
 ## Today's exercise: Developing a scale
 
-We're going to develop a scale for **"academic stress"**
+We're going to "develop" a scale for **"academic stress"**
 
 What are some specific aspects of academic stress?
 
@@ -276,9 +276,9 @@ Let's look at what this actually looks like...
 
 ---
 
-## Real data: Academic stress scale
+## Hypothetical data: Academic stress scale
 
-I collected data from 75 students using 10 items.
+I collected data from 75 students using 6 items.
 
 Let's analyze it together and see:
 
