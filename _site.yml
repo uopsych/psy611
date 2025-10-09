@@ -15,12 +15,14 @@ navbar:
           href: "lectures/03-measurement-interactive.html"
         - text: "4-Describing data" 
           href: "lectures/04-describing-data.html" 
+          
     - text: Labs
       menu:
         - text: "Lab 1"
           href: "labs/lab-1.html"
         - text: "Lab 2"
           href: "labs/lab-2_student.html"
+          
     - text: Homework
       href: homework.html
     - text: Useful Material
