@@ -13,7 +13,7 @@ navbar:
           href: "lectures/02-methods.html"
         - text: "3-Measurement"
           href: "lectures/03-measurement-interactive.html"
-        - text: "4-Describing data"
+        - text: "4-Describing data" 
           href: "lectures/04-describing-data.html"
     - text: Labs
       menu:
