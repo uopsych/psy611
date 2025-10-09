@@ -19,6 +19,8 @@ navbar:
       menu:
         - text: "Lab 1"
           href: "labs/lab-1.html"
+        - text: "Lab 2"
+          href: "labs/lab-2_student.html"
     - text: Homework
       href: homework.html
     - text: Useful Material
