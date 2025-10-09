@@ -10,7 +10,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-2.Rmd). 
+You can download the rmd file [here](https://uopsych.github.io/psy611/labs/lab-2_student.Rmd). 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
