@@ -4,6 +4,7 @@ author: "YOUR NAME HERE"
 output:
   html_document:
     toc: true
+    toc_float: true
 ---
 
 # Instructions
