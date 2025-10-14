@@ -10,13 +10,13 @@ output:
 
 Please complete this assignment using the RMarkdown file provided (download Markdown file and data [here](https://uopsych.github.io/psy611/homework.html)) . Once you download the RMarkdown file please (1) include your name in the preamble, (2) rename the file to include your last name (e.g., "weston-homework-1.Rmd"). When you turn in the assignment, include both the .Rmd and knitted .doc files.  
 
-To receive full credit on this homework assignment, you must earn **30 points**. You may notice that the total number of points available to earn on this assignment is 65 -- this means you do not have to answer all of the questions. You may choose which questions to answer. You cannot earn more than 30 points, but it may be worth attempting many questions. Here are a couple things to keep in mind:
+To receive full credit on this homework assignment, you must earn **30 points**. You may notice that the total number of points available to earn on this assignment is 75 -- this means you do not have to answer all of the questions. You may choose which questions to answer. You cannot earn more than 30 points, but it may be worth attempting many questions. Here are a couple things to keep in mind:
 
 1. Points are all-or-nothing, meaning you cannot receive partial credit if you correctly answer only some of the bullet points for a question. All must be answered correctly.
 
 2. After the homework has been graded, you may retry questions to earn full credit, but you may only retry the questions you attempted on the first round. 
 
-3. The first time you complete this assignment, it must be turned in by 9am on the due date (October 25). Late assignments will receive 50% of the points earned. For example, if you correctly answer questions totalling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points.
+3. The first time you complete this assignment, it must be turned in by 9am on the due date. Late assignments will receive 50% of the points earned. For example, if you correctly answer questions totalling 28 points, the assignment will receive 14 points. If you resubmit this assignment with corrected answers (a total of 30 points), the assignment will receive 15 points.
 
 4. You may discuss homework assignments with your classmates; however, it is important that you complete each assignment on your own and do not simply copy someone else’s code. If we believe one student has copied another’s work, both students will receive a 0 on the homework assignment and will not be allowed to resubmit the assignment for points.
 
@@ -114,6 +114,37 @@ Using the `homework-world` dataset, create a histogram of the life expectancy va
 Is this distribution skewed? What are two ways you can tell?
 
 Apply a transformation to the Life variable to try and make it more normal ([see here for some common ones.](https://bookdown.org/mike/data_analysis/variable-transformation.html#variable-transformation)) Plot the transformed variable with the same vertical lines and density curve. Is your transformed variable skewed? What are two ways you can tell?
+
+### Question 3
+
+A colleague has shared an R script (see [`buggy_script.R`](buggy_script.R)) that analyzes the `homework-world` dataset. Unfortunately, they provided no documentation, and the script contains errors that prevent it from running correctly. Use an AI assistant (such as Claude, ChatGPT, or another LLM) to help you with the following:
+
+1. Understand the script's purpose.
+   - Copy the script into your AI tool and ask it to explain what the script is attempting to do overall
+   - Ask it to explain what each major section/block of code accomplishes
+   - In your homework submission, provide a 2-3 paragraph summary (in your own words) of what this script does and what insights it's trying to generate from the data
+
+2. Add comprehensive comments.
+   - Work with the AI to add clear, informative comments throughout the script
+   - Comments should explain both *what* the code does and *why* (i.e., the analytical purpose)
+   - Ensure comments are appropriate for someone at your skill level who might use this script in the future
+
+3. Identify and fix all errors.
+   - Ask the AI to help you identify any errors in the script
+   - For each error found, document:
+     - What the error is
+     - Why it causes a problem
+     - How to fix it
+   - Apply the fixes to create a working version of the script.
+
+_Paste a working and commented version of the script here._
+
+4. Reflect on the AI interaction
+   - Describe your process: What prompts/questions worked well? What didn't?
+   - Did the AI catch all errors on the first pass, or did you need to probe further?
+   - What did you learn about effective ways to interact with AI for code debugging?
+   - Were there any instances where you needed to verify or question the AI's suggestions?
+
 
 # 20-point questions
 
