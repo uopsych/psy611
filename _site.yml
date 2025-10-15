@@ -25,7 +25,7 @@ navbar:
         - text: "Lab 2"
           href: "labs/lab-2_student.html"
         - text: "Lab 3"
-          href: "Labs/lab-3_student.html"
+          href: "labs/lab-3_student.html"
           
     - text: Homework
       href: homework.html
