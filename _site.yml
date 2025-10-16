@@ -17,6 +17,8 @@ navbar:
           href: "lectures/04-describing-data.html" 
         - text: "5-Describing data" 
           href: "lectures/05-describing-data.html" 
+        - text: "6-Probability" 
+          href: "lectures/06-probability.html" 
           
     - text: Labs
       menu:
