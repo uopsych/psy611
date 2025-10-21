@@ -359,7 +359,7 @@ Seems safe to assume that, practically speaking, all guessers will fall below th
 
 ### Coke vs Pepsi
 
-::::: columns
+:::: columns
 ::: {.column width="50%"}
 PSY 302 students test whether Coke and Pepsi taste different.
 
@@ -367,11 +367,9 @@ PSY 302 students test whether Coke and Pepsi taste different.
 
 -   How can we use the binomial to test a hypothesis?
 :::
+::::
 
-::: {.column width="50%"}
-![](images/dalle-is-bad.jpg){fig-align="right" width="500"}
-:::
-:::::
+![](images/paste-1.png)
 
 ------------------------------------------------------------------------
 
@@ -475,7 +473,6 @@ anim_save(here("lectures/images", "binom_to_norm.gif"), gif)
 ```
 
 ![](images/binom_to_norm.gif)
-
 
 ------------------------------------------------------------------------
 
