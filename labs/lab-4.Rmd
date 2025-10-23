@@ -157,21 +157,18 @@ The more trials we have for a random process, the more the proportion of success
 
 ```{r}
 # your code here
-rbinom(n = 10, size = 3, prob = 0.5)
 ```
 
 *What about rolling `5` `6`-sided dice `10` times where getting a `6` is considered a successful outcome?*
 
 ```{r}
 # your code here
-rbinom(n = 10, size = 5, prob = 1/6)
 ```
 
 *What about pulling an `Ace` out of `1` deck of cards `100` times?*
 
 ```{r}
 # your code here
-rbinom(n = 100, size = 1, prob = 1/13)
 ```
 
 ## dbinom
@@ -206,20 +203,16 @@ draw_binomial(size = 50, prob = 0.5)+
 *What's the probability of getting `1` head when you flip `3` coins?*
 ```{r}
 # your code here
-dbinom(x = 1, size = 3, prob = 0.5)
-draw_binomial(size = 3, prob = 0.5)
 ```
 
 *What's the probability of drawing `2` `aces` out of `1` deck of cards (with replacement) when drawing twice?*
 ```{r}
 # your code here
-dbinom(x = 2, size = 2, prob = 1/13)
 ```
 
 *What's the probability of drawing `0` Aces out of a deck of cards twice (with replacement)?*
 ```{r}
 # your code here
-dbinom(x = 0, size = 2, prob = 1/13)
 ```
 
 
@@ -271,15 +264,12 @@ draw_binomial(size = size, prob = prob)+
 
 ```{r}
 # your code here
-pbinom(q = 1, size = 10, prob = 0.5, lower.tail = TRUE)
 ```
 
 *What's the probability of getting `1 or less` `6`s when  rolling `1` dice?*
 
 ```{r}
 # your code here
-pbinom(q = 1, size = 1, prob = 1/6, lower.tail = TRUE)
-draw_binomial(size = 1, prob = 1/6)
 ```
 
 
@@ -306,8 +296,8 @@ Unsurprisingly, `10 or less` `heads` has a 100% chance of occurring when you fli
 
 ```{r}
 
-q <- 1
-size <- 2
+q <- 10
+size <- 10
 prob <- 0.5
 
 #this is just for instruction purposes, no need to fully understand this code
@@ -344,22 +334,6 @@ qbinom(p = 0.25, size = 100, prob = 0.5, lower.tail = TRUE)
 *With `100` coin flips, what is the number of `heads` (or greater) that has a `.25` probability of occurring?*
 ```{r}
 # your code here
-qbinom(p = 0.25, size = 100, prob = 0.5, lower.tail = FALSE)
-
-q <- 53
-size <- 100
-prob <- 0.5
-
-#this is just for instruction purposes, no need to fully understand this code
-draw_binomial(size = size, prob = prob)+
-  geom_bracket(xmin = 0, xmax = q, 
-               y.position = (dbinom(x = q, size = size, prob = prob)+0.01), 
-               label = paste0("lower.tail = TRUE: ", round(pbinom(q = q, size = size, prob = prob, lower.tail = TRUE), 3)), color = "red")+
-  geom_bracket(xmin = q+1, xmax = size, 
-               y.position = (dbinom(x = q+1, size = size, prob = prob)+0.01), 
-               label = paste0("lower.tail = FALSE: ", round(pbinom(q = q, size = size, prob = prob, lower.tail = FALSE), 3)), color = "red")
-
-pbinom(q = 53, size = 100, prob = 0.5, lower.tail = FALSE)
 ```
 
 # Normal Distributions {#normal}
@@ -469,7 +443,7 @@ If we wanted to calculate the probability of getting a value below 0 from a norm
 ```{r}
 pnorm(q = 0, mean = 0, sd = 1, lower.tail = TRUE)
 
-q <- 1
+q <- 0
 M <- 0
 SD <- 1
 
@@ -499,7 +473,6 @@ We can also work through this mathematically. We expect that 68% of values on a 
 *What's the probability of getting a value of `60 or less`, when the mean of the distribution is `30` and the standard deviation is `15?`*
 ```{r}
 # your code here
-
 ```
 
 *What's the probability of getting a value greater than `-5` when the mean is `0` and the sd is `5`?*
