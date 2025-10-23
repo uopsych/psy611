@@ -21,6 +21,8 @@ navbar:
           href: "lectures/06-probability.html" 
         - text: "7-Binomial"
           href: "lectures/07-binomial.html"
+        - text: "8-Normal Distribution"
+          href: "lectures/08-normal.html"
           
     - text: Labs
       menu:
