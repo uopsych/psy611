@@ -84,6 +84,8 @@ draw_binomial <- function(size, prob){
 }
 
 draw_binomial(size = 50, prob = 1/6)
+
+
 ```
 
 
@@ -101,7 +103,7 @@ Let's make the computer flip a coin 10 times.
 
 ```{r}
 #side note: if we wrap a command in parentheses, it will assign the output of a function to the object and still print it at the same time!
-(flip <- rbinom(n = 10, #trials
+(flip <- rbinom(n = 50, #trials
        size = 1, #number of coins per trial
        prob = 0.5)) #probability of success (1)
 ```
@@ -157,18 +159,27 @@ The more trials we have for a random process, the more the proportion of success
 
 ```{r}
 # your code here
+
+rbinom(n = 10, size = 3, prob = 0.5)
+
 ```
 
 *What about rolling `5` `6`-sided dice `10` times where getting a `6` is considered a successful outcome?*
 
 ```{r}
 # your code here
+rbinom(n = 10, size = 5, prob = 1/6)
+
 ```
+
 
 *What about pulling an `Ace` out of `1` deck of cards `100` times?*
 
 ```{r}
 # your code here
+
+rbinom(n = 100, size = 1, prob = 1/13)
+
 ```
 
 ## dbinom
@@ -203,16 +214,26 @@ draw_binomial(size = 50, prob = 0.5)+
 *What's the probability of getting `1` head when you flip `3` coins?*
 ```{r}
 # your code here
+
+dbinom(x = 1, size = 3, prob = 0.5)
+draw_binomial(size = 3, prob = 0.5)
+
 ```
 
 *What's the probability of drawing `2` `aces` out of `1` deck of cards (with replacement) when drawing twice?*
 ```{r}
 # your code here
+
+dbinom(x = 2, size = 2, prob = 1/13)
+
 ```
 
 *What's the probability of drawing `0` Aces out of a deck of cards twice (with replacement)?*
 ```{r}
 # your code here
+
+dbinom(x = 0, size = 2, prob = 1/13)
+
 ```
 
 
@@ -223,7 +244,7 @@ If we want to calculate the cumulative probability of getting a certain result (
 Returning to the example from above, if we wanted to get the probability of getting `1 or less` `heads` when we flip `2` coins, we would use `pbinom(q = 1, size = 2, prob = 1/2)`.
 
 ```{r}
-pbinom(q = 1, size = 2, prob = 1/2)
+pbinom(q = 100, size = 100, prob = 1/2)
 draw_binomial(size = 2, prob = 0.5)
 ```
 
@@ -239,6 +260,7 @@ The function `pbinom()` can also take the argument `lower.tail` (defaults to `TR
 For instance, if we wanted to test the probability of getting `greater than 1` `heads` when flipping `2` coins, we would specify `lower.tail = FALSE`.
 
 ```{r}
+pbinom(q = 1, size = 2, prob = 1/2, lower.tail = TRUE)
 pbinom(q = 1, size = 2, prob = 1/2, lower.tail = FALSE)
 ```
 
@@ -246,8 +268,8 @@ This figure tries to illustrate cumulative probability:
 
 ```{r}
 #this is just for instruction purposes, no need to fully understand this code
-q <- 20
-size <- 50
+q <- 10
+size <- 20
 prob <- 0.5
 
 draw_binomial(size = size, prob = prob)+
@@ -257,6 +279,12 @@ draw_binomial(size = size, prob = prob)+
   geom_bracket(xmin = q+1, xmax = size, 
                y.position = (dbinom(x = q+1, size = size, prob = prob)+0.01), 
                label = paste0("lower.tail = FALSE: ", round(pbinom(q = q, size = size, prob = prob, lower.tail = FALSE), 3)), color = "red")
+
+
+
+draw_binomial(size = 100, prob = 0.5)
+pbinom(q = 2, size = 100, prob = 0.50)
+
 ```
 
 
@@ -264,12 +292,20 @@ draw_binomial(size = size, prob = prob)+
 
 ```{r}
 # your code here
+
+pbinom(q = 1, size = 10, prob = 0.5)
+draw_binomial(size = 10, prob = 0.5)
+
 ```
 
 *What's the probability of getting `1 or less` `6`s when  rolling `1` dice?*
 
 ```{r}
 # your code here
+
+pbinom(q = 1, size = 1, prob = 1/6)
+draw_binomial(size = 1, prob = 1/6)
+
 ```
 
 
@@ -277,7 +313,9 @@ draw_binomial(size = size, prob = prob)+
 
 ```{r}
 # your code here
+
 pbinom(q = 3, size = 9, prob = 1/6, lower.tail = FALSE)
+
 ```
 
 ## qbinom
@@ -321,19 +359,24 @@ qbinom(p = 0.75, size = size, prob = prob, lower.tail = FALSE)
 *With `100` coin flips, what is the number of `heads` (or less) that has a `.50` probability of occurring?*
 ```{r}
 # your code here
-qbinom(p = 0.5, size = 100, prob = 0.5, lower.tail = TRUE)
-draw_binomial(100, prob = 0.5)
+
+qbinom(p = 0.5, size = 100, prob = 0.5)
+
 ```
 
 *With `100` coin flips, what is the number of `heads` (or less) that has a `.25` probability of occurring?*
 ```{r}
 # your code here
-qbinom(p = 0.25, size = 100, prob = 0.5, lower.tail = TRUE)
+qbinom(p = .25, size = 100, prob = 0.5)
+
 ```
 
 *With `100` coin flips, what is the number of `heads` (or greater) that has a `.25` probability of occurring?*
 ```{r}
 # your code here
+
+qbinom(p = .25, size = 100, prob = 0.5, lower.tail = FALSE)
+
 ```
 
 # Normal Distributions {#normal}
@@ -363,6 +406,8 @@ draw_normal <- function(M, SD){
   
 }
 
+draw_normal(M = 0, SD = 1)
+
 ```
 
 
@@ -379,6 +424,8 @@ set.seed(2)
 ```{r}
 x <- rnorm(n = 5000, mean = 0, sd = 1)
 x
+
+hist(x)
 ```
 
 Calculating the `mean()` and `sd()` of our `5` numbers can serve as a bit of a sanity check. 
@@ -394,11 +441,16 @@ With only 5 samples drawn, the distribution may not look normal, but with a suff
 
 ```{r}
 # your code here
+rnorm(n = 10, mean = 100, sd = 1)
 ```
 
 *Are the descriptives for this sample what we would expect?*
 ```{r}
 # your code here
+
+mean(x)
+sd(x)
+
 ```
 
 
@@ -430,6 +482,8 @@ dnorm(x = 1, mean = 0, sd = 1)
 
 ```{r}
 # your code here
+dnorm(x = -1, mean = 0, sd = 1)
+
 ```
 
 ***
@@ -443,7 +497,7 @@ If we wanted to calculate the probability of getting a value below 0 from a norm
 ```{r}
 pnorm(q = 0, mean = 0, sd = 1, lower.tail = TRUE)
 
-q <- 0
+q <- -2
 M <- 0
 SD <- 1
 
@@ -473,11 +527,18 @@ We can also work through this mathematically. We expect that 68% of values on a 
 *What's the probability of getting a value of `60 or less`, when the mean of the distribution is `30` and the standard deviation is `15?`*
 ```{r}
 # your code here
+
+pnorm(q = 60, mean = 30, sd = 15)
+draw_normal(M = 30, SD = 15)
+
 ```
 
 *What's the probability of getting a value greater than `-5` when the mean is `0` and the sd is `5`?*
 ```{r}
 # your code here
+
+pnorm(q = -5, mean = 0, sd = 5, lower.tail = FALSE)
+
 ```
 
 ## qnorm 
@@ -487,7 +548,7 @@ Finally, we can use `qnorm()` to get the value that corresponds to a particular 
 To get the value or less that has a probability of `0.00135` of occurring in a distribution with a mean of `0` and a standard deviation of `1` is calculated using `qnorm(p = .00135, mean = 0, sd = 1)`.
 
 ```{r}
-qnorm(p = .00135, mean = 0, sd = 1, lower.tail = TRUE)
+qnorm(p = 0.025, mean = 0, sd = 1, lower.tail = TRUE)
 ```
 
 As we can see, the value is just about `-3.00`. This makes sense if we consider that `99.73`% of values in a normal distribution are between three standard deviations below and above the mean; probability of getting `-3.00` would be $\frac{1-.9973}{2} = 0.00135$.
@@ -496,12 +557,15 @@ As we can see, the value is just about `-3.00`. This makes sense if we consider 
 
 ```{r}
 # your code here
+qnorm(p = 0.51, mean = 100, sd = 10)
 ```
 
 *What value or greater is associated with a `.51` probability in a normal distribution with a mean of `100` and a standard deviation of `10`?*
 
 ```{r}
 # your code here
+qnorm(p = 0.51, mean = 100, sd = 10, lower.tail = FALSE)
+
 ```
 
 # Minihacks {#minihacks}
