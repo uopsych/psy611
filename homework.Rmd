@@ -17,14 +17,14 @@ Homework assignments will appear here. You'll be able to access the assignment, 
 - [Download files.](homework/homework-1.zip)
 
 
-<!-- ### [**Homework 2**](homework/homework_2.html)
+### [**Homework 2**](homework/homework_2.html)
 
 **Due November 14, 9am**
 
 - [Download files.](homework/homework-2.zip)
 
 
-### [**Homework 3**](homework/homework_3.html)
+<!-- ### [**Homework 3**](homework/homework_3.html)
 
 **Due December 8 (Monday), 9am**
 
