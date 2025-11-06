@@ -12,12 +12,10 @@ execute:
 editor: visual
 ---
 
-```{r, include = F}
+```{r}
 library(tidyverse)
 library(ggpubr)
 ```
-
-I just discovered this [nice blog post](https://richarddmorey.medium.com/power-and-precision-47f644ddea5e) about power & confidence intervals.
 
 ------------------------------------------------------------------------
 
@@ -276,6 +274,8 @@ $$Z_1 = \frac{CV_0 - \mu_1}{\frac{\sigma}{\sqrt{N}}}$$
 -   [reduce $\sigma$]{style="font-size:30px;"}
 :::
 :::::
+
+Here is a [nice blog post](https://richarddmorey.medium.com/power-and-precision-47f644ddea5e) about power & confidence intervals.
 
 ------------------------------------------------------------------------
 
