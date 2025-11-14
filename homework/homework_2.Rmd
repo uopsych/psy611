@@ -136,7 +136,27 @@ Use the distribution functions for the Poisson (`dpois`, `ppois`, `qpois` and `r
 
 * Are the mean and variance of the Poisson distribution independent from each other?
 
-# 20-point questions
+### Question 3
+
+This question is designed to help you learn and practice ethical and useful ways of using AI as a statistical thinking and coding tool. You will use an AI tool to deepen your conceptual understanding of when and how to use different probability distributions.
+
+**Tasks:**
+
+* **Use AI to explore distribution concepts**: Use an AI tool (such as ChatGPT, Claude, or another tool of your choice) to help you understand: "What are the key assumptions and appropriate use cases for chi-square and Poisson distributions? How do they relate to other distributions I've learned about (normal, binomial)?" Include a screenshot or copy-paste of the AI's response in your homework.
+
+* **Create a decision guide**: Based on the AI's response and your own understanding, create a brief "decision tree" or flowchart showing when to use each of the following distributions: normal, binomial, chi-square, and Poisson. This can be hand-drawn and photographed, created in R, or made with any other tool. The key is that it should help someone decide which distribution to use for a given scenario.
+
+* **Identify potential pitfalls**: Identify 2-3 potential misunderstandings or misuses of chi-square and/or Poisson distributions that the AI mentioned (or that you can think of after consulting the AI).
+
+* **Generate new examples**: Create one example scenario (that's NOT in the homework) where the chi-square distribution would be appropriate, and one where the Poisson distribution would be appropriate. For each scenario, explain why that distribution is the right choice.
+
+* **Reflection**: Write a few sentences addressing the following: 
+  - What connections between distributions did the AI help you understand that you hadn't fully grasped before?
+  - Were there any explanations that seemed incorrect, incomplete, or that you needed to verify with other sources (like your textbook or course notes)? If so, what were they?
+  - How has this deeper understanding changed how you think about choosing appropriate statistical tests or distributions?
+  - What did you learn about using AI as a tool for statistical learning? What are its strengths and limitations?
+  
+  # 20-point questions
 
 ### Question 1
 

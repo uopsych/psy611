@@ -234,7 +234,7 @@ ggplot(CPS85_clean,
        aes(x = age, 
            y = exper)) +
   geom_point(color= "darkorange") + 
-  geom_smooth(se = TRUE)
+  geom_smooth(se = TRUE, method = "lm")
 ```
 
 # Grouping
@@ -299,7 +299,8 @@ ggplot(data = CPS85_clean, mapping = aes(x = race, fill = race)) +
   geom_bar() + 
   scale_x_discrete(limits = c("W", "NW"), # need to match the levels of the factor 
                    labels = c("White", "Non-White")) + # need to match the order of the limits
-  scale_fill_discrete(name = "Race", labels = c("Non-White", "White"))+
+  scale_fill_discrete(name = "Race", labels = c("NW" = "Non-White", 
+                                                "W" = "White"))+
   labs(x = "Race")
 
 ```
@@ -353,7 +354,7 @@ ggplot(CPS85_clean,
   geom_point(color= "darkorange") + 
   geom_smooth(method = "lm") + 
   labs(title    = "A positive correlation between age and experience",
-       subtitle = "Arrrrrrr matey!",
+       subtitle = "lm(Experience ~ Age)",
        x        = "Age",
        y        = "Experience (year)",
        caption  = "Data taken from the `mosaicData` package.")
@@ -385,7 +386,7 @@ ggplot(CPS85_clean,
   geom_point(color= "darkorange") + 
   geom_smooth(method = "lm") + 
   labs(title    = "A positive correlation between age and experience",
-       subtitle = "Arrrrrrr matey!",
+       subtitle = "lm(Experience ~ Age)",
        x        = "Age",
        y        = "Experience (year)",
        caption  = "Data taken from the `mosaicData` package.") + 
@@ -449,7 +450,7 @@ ChickWeight_agg <- ChickWeight_df %>%
 ggplot(mapping = aes(x = Time, color = Diet))+
   geom_line(data = ChickWeight_df, aes(y = weight, group = Chick), alpha = 0.3)+ #first, we're plotting the data frame for the individual lines
   geom_point(data = ChickWeight_df, aes(y = weight, group = Chick), alpha = 0.3)+ #first, we're plotting the data frame for the individual lines
-  geom_line(data = ChickWeight_agg, aes(y = M_weight, group = Diet), linewidth = 1.5)+ #next, referencing the data frmae with aggregate statistics
+  geom_line(data = ChickWeight_agg, aes(y = M_weight, group = Diet), linewidth = 1.5)+ #next, referencing the data frame with aggregate statistics
   geom_point(data = ChickWeight_agg, aes(y = M_weight), size = 3)+ #next, referencing the data frmae with aggregate statistics
   labs(x = "Days",
        y = "Weight (g)",

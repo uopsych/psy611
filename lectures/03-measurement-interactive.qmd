@@ -19,59 +19,68 @@ library(directlabels)
 options(knitr.kable.NA = '')
 ```
 
+## Annoucements
+
+- Attendance
+- Feeling lost?
+
+---
+
 ## Last time
 
 Validity (4 types)
 
--   Statistical Conclusion
--   Internal
--   External
--   Construct(?)
-
-------------------------------------------------------------------------
+- Statistical Conclusion
+- Internal
+- External
+- Construct(?)
 
 ## Today
 
 More about construct validity and its role in scale development.
 
-------------------------------------------------------------------------
+**Interactive focus**: We'll "develop" a scale together and learn what makes measurement good (or bad).
 
-## Conceptual clarity ([Bringmann, Elmer, & Eronen, 2022](../readings/bringmann_etal_2022.pdf))
+---
 
--   Identifying and characterizing the concept of study
-    -   This is independent of measurement and must happen before measurement
--   Why is conceptual clarity important?
+## Conceptual clarity (Bringmann, Elmer, & Eronen, 2022)
 
-::: notes
--   Especially with concepts from everyday life, there are often many ways to define the concept. (Bringmann and co describe friendship, but think of others)
-    -   Must have consistency when evaluating a concept in a systematic way (e.g., science)
--   Importantly, statistics cannot provide evidence for conceptual clarity
+- Identifying and characterizing the concept of study
+  - This is independent of measurement and must happen before measurement
+- Why is conceptual clarity important?
+
+::: {.notes}
+- Especially with concepts from everyday life, there are often many ways to define the concept
+- Must have consistency when evaluating a concept in a systematic way (e.g., science)
+- Importantly, statistics cannot provide evidence for conceptual clarity
 :::
 
-------------------------------------------------------------------------
+---
 
 ## Quantitative fallacy
 
-[See this article.](readings/quantitative-fallacy.pdf)
+[See this article.](../readings/quantitative-fallacy.pdf)
 
-Applicant selection for medical residency positions. 
-* Subtest of medical licensing exam is best predictor of residency success. 
-* Great! 
-* Right?
+Applicant selection for medical residency positions.
 
-------------------------------------------------------------------------
+- Subtest of medical licensing exam is best predictor of residency success.
+- Great!
+- Right?
+
+---
 
 ## Quantitative fallacy
 
 Fallacy:
 
-  1. Measure whatever can be easily measured.
-  2. Disregard things that cannot be measured easily. 
-  3. Presume things that cannot be measured easily are not important.
-  4. Presume that things that are not measured easily
-do not exist.
+1. Measure whatever can be easily measured.
+2. Disregard things that cannot be measured easily.
+3. Presume things that cannot be measured easily are not important.
+4. Presume that things that are not measured easily do not exist.
 
-------------------------------------------------------------------------
+---
+
+## From concept to measurement
 
 Once a concept has been clarified, the next step is to measure it.
 
@@ -81,132 +90,367 @@ $$
 X = T + E
 $$
 
-X: Observed Score
+- X: Observed Score
+- T: True Score
+- E: Error (random and unpredictable)
 
-T: True Score
+---
 
-E: error (random and unpredictable)
+## Reliability
 
-------------------------------------------------------------------------
+**Reliability** = consistency of measurement
 
-Error is random and unpredictable.
+- We use multiple items/measurements to reduce error
+- Like measuring the person many times in a single session
+- Not the same as validity! (You can have reliable measures that aren't valid)
 
-* assumes that it has a mean of error approaches 0 as number of measurements increases.
+**Key question**: How many items? Which items?
 
-Thus, if we measure people enough "times", we can get a good sense of their true score.
+---
 
-* How many times?
+## Today's exercise: Developing a scale
 
-------------------------------------------------------------------------
-
-Measuring people multiple times is often impractical and inefficient (and potentially theoretically wrong), so how can we remove measurement error during a single assessment?
-
-How many items we do we need?
-
-------------------------------------------------------------------------
-
-### Reliability (Quantitude podcast)
-
-Measure of the consistency of a single test or scale. (Like measuring the person many times in a single session.)
-
-Not validity! You can have a reliable measure that is not valid.
-
-Which items?
-
-------------------------------------------------------------------------
-
-It wasn't assigned, but please read a great article by [Len Simms](https://uopsych.github.io/psy611/readings/Simms_2008.pdf)[^1]. This article focuses on the measurement using **survey** methods, but this logic extends to any measurement in which you aggregate multiple responses or scores.
-
-I'm going to use this article as a template for developing a new scale with you.
-
-There are many more articles worth reading on this (see [Bonus Materials](https://uopsych.github.io/psy611/bonus.html)), and frankly, you should look for a class in measurement/psychometrics. 
-
-------------------------------------------------------------------------
-
-## Phases of scale development
-
-:::::: columns
-:::: {.column width="25%"}
-::: columns
-As written by Jane Loevinger (1957) and summarized by Len Simms (2008)
-:::
-::::
-
-::: {.column width="75%"}
-![](images/scale-dev.png){width="593"}
-:::
-::::::
-
-------------------------------------------------------------------------
-
-Let's develop a scale for "academic stress."
+We're going to "develop" a scale for **"academic stress"**
 
 What are some specific aspects of academic stress?
 
-**Write the item pool**
-
--   Items should be relevant and representative
--   Seek to be over-inclusive
-
-::: notes
-...coursework pressure, deadlines, fear of failure, workload
+::: {.fragment}
+Examples: coursework pressure, deadlines, fear of failure, workload, exams, research demands, imposter syndrome...
 :::
 
-------------------------------------------------------------------------
+---
 
+## But first: What makes a BAD item?
 
-Add items here: <https://shorturl.at/rGg7m>
+Let's look at some problematic items for our academic stress scale.
 
-------------------------------------------------------------------------
+**What's wrong with these?**
 
-## Guidelines for good items:
+---
 
-::::: columns
+## Bad Item #1
+
+*"I feel stressed about my coursework and my relationships with classmates."*
+
+::: {.fragment}
+
+**Problem**: Double-barreled! 
+
+  - Asks about two different things
+  - What if stressed about coursework but NOT relationships?
+  - Can't interpret the response
+
+:::
+
+---
+
+## Bad Item #2
+
+*"Sometimes I'm like totally freaking out about school stuff, you know?"*
+
+::: {.fragment}
+
+**Problem**: Slang and vague language
+
+- "freaking out" = ? (different meanings for different people)
+- "school stuff" = ? (too broad)
+- "you know?" = unnecessary filler
+
+:::
+
+---
+
+## Bad Item #3
+
+*"On Thursday evening when I was studying for my statistics exam, I felt anxious."*
+
+::: {.fragment}
+
+**Problem**: Too specific
+
+- What about people who don't take statistics?
+- What about other days/times?
+- We want general patterns, not specific instances
+
+:::
+
+---
+
+## Bad Item #4
+
+*"Are you worried about your academic performance impacting your future career prospects and disappointing your family?"*
+
+::: {.fragment}
+
+**Problem**: Multiple problems!
+
+- Double-barreled (career AND family)
+- Sensitive topic phrased judgmentally ("disappointing")
+- Leading/assumes family expectations exist
+
+:::
+
+---
+
+## Guidelines for GOOD items
+
+:::: {.columns}
 ::: {.column width="50%"}
--   Simple and straight forward
--   No double-barrels
--   Avoid slang
--   Phrase items generally
--   Phrase items about sensitive topics using matter-of-fact and nonperjorative language
+
+**Content**:
+
+- Simple and straightforward
+- No double-barrels
+- Avoid slang
+- Phrase items generally
+- Use matter-of-fact language for sensitive topics
+
 :::
 
 ::: {.column width="50%"}
--   Choose response format carefully
-    -   Dichotomous vs polytomous
-    -   Number of options
-    -   Response categories
-    -   Phrasing of items should be consistent with response format
+
+**Format**:
+
+- Choose response format carefully
+  - Dichotomous vs. polytomous
+  - Number of options (5? 7?)
+  - Response categories (agree/disagree? frequency?)
+- Match phrasing to format
+
 :::
-:::::
+::::
 
+---
 
+## Good Item Examples
 
+Compare these to our bad examples:
 
-------------------------------------------------------------------------
+✓ *"I feel overwhelmed by my academic workload."*
 
-## Next steps:
+✓ *"I worry about my academic performance."*
 
-* Take scale
-* Discuss items
-* Basic descriptives (mean and variance)
-* Item-total correlations
-* Alpha/Omega
-* Factor analysis
+✓ *"I feel pressure to meet academic deadlines."*
 
+What makes these better?
 
+---
 
-------------------------------------------------------------------------
+## Activity: Write items (10 min)
 
-Takeaways:
-* Be able to perform psychometric analysis from memory. 
-* (Kidding)
-* Classical test theory
-* Scale development takes time, thought, iteration, and data. 
+**Break into small groups (3-4 people)**
 
-------------------------------------------------------------------------
+Your task:
+
+1. Choose ONE specific aspect of academic stress from the list
+2. Write 3 items measuring that aspect
+3. Check each item against the guidelines
+4. Identify potential problems in your own items
+
+**Aspects**: coursework pressure, deadlines, fear of failure, workload, exam anxiety, research stress, imposter syndrome
+
+---
+
+## Share & discuss (5 min)
+
+Each group shares:
+
+- Your best item
+- One problem you caught and fixed
+
+---
+
+## Moving from items to scales
+
+You've written items... now what?
+
+Next steps:
+
+1. Collect data from a sample
+2. Examine item properties
+3. Assess reliability
+4. Test dimensionality (factor analysis)
+5. Iterate!
+
+Let's look at what this actually looks like...
+
+---
+
+## Hypothetical data: Academic stress scale
+
+I collected data from 75 students using 6 items.
+
+Let's analyze it together and see:
+
+- Which items work well?
+- Which items are problematic?
+- How do we decide what to keep?
+
+---
+
+## Item descriptives
+
+| Item | Mean | SD | Skew |
+|------|------|-----|------|
+| 1. I feel overwhelmed by workload | 4.2 | 1.1 | -0.8 |
+| 2. I worry about my performance | 3.9 | 1.3 | -0.5 |
+| 3. Deadlines stress me out | 4.5 | 0.9 | -1.2 |
+| 4. Sometimes I'm stressed | 4.8 | 0.5 | -2.1 |
+| 5. I feel confident in my abilities* | 3.2 | 1.2 | 0.3 |
+| 6. I have trouble sleeping due to stress | 3.1 | 1.4 | 0.2 |
+
+*reverse-coded
+
+**What do you notice?**
+
+---
+
+## Red flags in the data
+
+**Item 4**: "Sometimes I'm stressed"
+
+- Mean = 4.8 (on 1-5 scale)
+- SD = 0.5
+- Skew = -2.1
+
+**Problem**: No variance! Everyone agrees.
+
+- Too general/vague
+- Doesn't discriminate between people
+- Won't correlate with anything
+- Should be removed
+
+---
+
+## Item-total correlations
+
+How well does each item correlate with the total score (excluding that item)?
+
+| Item | r (item-total) |
+|------|----------------|
+| 1. Overwhelmed by workload | .72 |
+| 2. Worry about performance | .68 |
+| 3. Deadlines stress me out | .75 |
+| 4. Sometimes I'm stressed | .23 |
+| 5. Confident in abilities* | .41 |
+| 6. Trouble sleeping | .59 |
+
+**Rule of thumb**: r > .30 (ideally > .50)
+
+---
+
+## What do these correlations tell us?
+
+**Strong correlations** (.68-.75):
+
+- Items measuring the same construct
+- Good indicators of academic stress
+
+**Weak correlation** (.23):
+
+- Item 4: Too general, not useful
+
+**Moderate correlation** (.41):
+
+- Item 5 (confidence): Related but different construct?
+- Might be tapping self-efficacy, not stress
+- Decision: Keep or remove?
+
+---
+
+## Reliability: Cronbach's alpha
+
+$$\alpha = \frac{k}{k-1}\left(1 - \frac{\sum s_i^2}{s_T^2}\right)$$
+
+Don't worry about the formula. What matters:
+
+- α ranges from 0 to 1
+- Measures internal consistency (assumes unidimensionality!)
+- **Rule of thumb**: α > .70 (adequate), α > .80 (good)
+
+**Our scale**: α = .83 (with all items)
+
+---
+
+## What happens if we remove bad items?
+
+**Original scale** (10 items): α = .83
+
+**Remove Item 4** (too general): α = .85
+
+**Remove Item 4 & 5** (general + confidence): α = .87
+
+**Key insight**: Sometimes removing items *improves* reliability!
+
+- Bad items add noise, not signal
+- Quality > quantity
+
+---
+
+## Factor analysis preview
+
+Do all items measure ONE construct, or multiple?
+
+**Our data**: Factor analysis suggests 2 dimensions
+
+1. **Performance anxiety** (worry, deadlines, overwhelm)
+2. **Physical symptoms** (sleep, physical stress responses)
+
+**Implications**:
+
+- Might need subscales
+- Or might narrow construct definition
+- This is why iteration matters!
+
+---
+
+## The iterative process
+
+Scale development isn't one-and-done:
+
+1. ✓ Conceptualize construct
+2. ✓ Write item pool
+3. ✓ Collect data
+4. ✓ Analyze items
+5. → Revise items
+6. → Collect new data
+7. → Re-analyze
+8. → Repeat until satisfactory
+
+**Published scales often go through 3-5 iterations**
+
+---
+
+## Construct validity revisited
+
+Good measurement = good construct validity
+
+**Requires**:
+
+- Clear conceptualization
+- Well-written items
+- Adequate reliability
+- Evidence the scale measures what you think it measures
+  - Correlates with related constructs (convergent validity)
+  - Doesn't correlate with unrelated constructs (discriminant validity)
+  - Predicts relevant outcomes (predictive validity)
+
+---
+
+## Key takeaways
+
+1. **Conceptual clarity before measurement** (avoid quantitative fallacy)
+2. **Good items are harder to write than you think**
+   - Simple, clear, general, one idea at a time
+3. **Data tells you what works**
+   - Look at distributions, correlations, reliability
+   - Be willing to cut items
+4. **Scale development takes time**
+   - Multiple iterations
+   - Validation across samples
+
+---
 
 ## Next time...
 
 Describing data
-
-[^1]: Simms, L. J. (2008). Classical and modern methods of psychological scale construction. *Social and Personality Psychology Compass*, *2*(1), 414-433.
