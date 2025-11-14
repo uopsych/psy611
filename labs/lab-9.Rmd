@@ -30,6 +30,7 @@ library(ggpubr) # for making an error line plot
 library(pwr) # for power calculations
 library(papaja) # for reporting results
 library(car) # to perform Levene's test
+library(ggplot2)
 ```
 
 To quickly navigate to the desired section, click one of the following links:
