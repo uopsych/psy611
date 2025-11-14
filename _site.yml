@@ -48,6 +48,12 @@ navbar:
           href: "labs/lab-5.html"
         - text: "Lab 6"
           href: "labs/lab-6.html"
+        - text: "Lab 7"
+          href: "labs/lab-7.html"
+        - text: "Lab 8"
+          href: "labs/lab-8.html"
+        - text: "Lab 9"
+          href: "labs/lab-9.html"
           
     - text: Homework
       href: homework.html
