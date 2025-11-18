@@ -192,8 +192,6 @@ By combining Markdown with R...
 
     -   Pair GitHub and R to make websites!
 
-(Interested? Have 4 hours to kill? I recommend looking through [Alison Hill's workshop on blogdown](https://arm.rbind.io/days/day1/blogdown/) and the [tutorial prepared by Dani Cosme and Sam Chavez](https://robchavez.github.io/datascience_gallery/html_only/websites.html)).
-
 ------------------------------------------------------------------------
 
 ### Open Science Framework (OSF.io)
@@ -266,7 +264,7 @@ OSF also allows you to preregister a project.
 
 A note: not everything needs to be preregistered. Only confirmatory work.
 
-It's ok to deviate from preregistrations if you transparently document those deviations. (See this very helpful [tutorial by Willroth & Atherton (2024)](../readings/willroth_atherton_2024.pdf)]
+It's ok to deviate from preregistrations if you transparently document those deviations. (See this very helpful [tutorial by Willroth & Atherton (2024)](../readings/willroth_atherton_2024.pdf)\]
 
 ------------------------------------------------------------------------
 
@@ -284,19 +282,23 @@ image credit: [Doropthy Bishop](https://blog.wellcomeopenresearch.org/2018/12/04
 
 ## 5. Development of new(ish) analytic techniques
 
-More psychologists have embraced **machine learning.** 
+More psychologists have embraced **machine learning.**
 
-- These largely move us away from traditional p-values and decision making becomes predicated on the ability of theoretical models to predict new sets of data. 
+-   These largely move us away from traditional p-values and decision making becomes predicated on the ability of theoretical models to predict new sets of data.
 
-  - How accurate does your model need to be for you to accept a relationship?
+    -   How accurate does your model need to be for you to accept a relationship?
 
-  - Most machine learning techniques adjust for over-fitting, or essentially capitalizing on the random error in your sample
+    -   Most machine learning techniques adjust for over-fitting, or essentially capitalizing on the random error in your sample
 
 ------------------------------------------------------------------------
 
 ## 5. Development of new(ish) analytic techniques
 
 **Sensitivity analyses** and [**multiverse analyses**](https://www.psychologicalscience.org/observer/run-all-the-models-dealing-with-data-analytic-flexibility) test the robustness of a finding. These often including testing every possible set of covariates or subgroups, to see whether a particular finding is just because of a unique combination of variables and people.
+
+------------------------------------------------------------------------
+
+![Rohrer (2018)](images/annotated_fig-Rohrer.jpg)
 
 ------------------------------------------------------------------------
 
