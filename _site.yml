@@ -33,6 +33,8 @@ navbar:
           href: "lectures/12-critiques.html"
         - text: "14-Open Science"
           href: "lectures/14-open.html"
+        - text: "15-One sample tests"
+          href: "lectures/15-one-sample.html"
           
     - text: Labs
       menu:
