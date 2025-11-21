@@ -2,7 +2,7 @@
 title: 'PSY 611 Homework #3'
 author: "YOUR NAME HERE"
 output:
-  word_document:
+  html_document:
     toc: yes
 editor_options: 
   chunk_output_type: console
@@ -213,6 +213,16 @@ In this problem, you'll use the concept of power to calculate how many participa
 
 
 3. Calculate the precise number of participants needed using the formulas provided in class for NHST and power. 
+
+### Question 3
+
+Using the `homework-world-2.csv` dataset, you want to create a specific visualization, but you forgot the ggplot2 syntax.
+You want a violin plot overlaid with a boxplot (width 0.1) showing `Happiness` (y-axis) by `World` (development status, x-axis), and you want each development status to be a different color. Write a natural language prompt to an AI asking it to generate this specific plot code. Be as specific as possible about the dataset variable names. Paste your prompt here.
+
+Paste the code the AI generated and the resulting plot.
+
+AI generated plots often look "default" or slightly cluttered. Ask the AI to make one aesthetic improvement (e.g., "Remove the gray background," "Add a title," or "Jitter the raw points on top"). Paste the updated code and the final polished graph.
+
 
 # 20-point questions
 
