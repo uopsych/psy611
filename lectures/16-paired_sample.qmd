@@ -21,9 +21,8 @@ options(scipen = 999)
 
 ## Announcements
 
--   Oral Exam questions posted next week
--   Oral exam time slots open next week -- please sign up before Monday Dec 2!
--   Send requests for Tuesday's lecture.
+-   Oral Exam questions posted
+-   Oral exam time slots open now -- please sign up before Monday!
 
 ------------------------------------------------------------------------
 
@@ -319,7 +318,7 @@ lsr::pairedSamplesTTest(formula = ~Away + At, data = gulls)
 
 People differ in their optimal time of day to perform a task (morning people = larks, evening people = owls). [One study tested whether mind-wandering was more likely at one time of day](https://online.ucpress.edu/collabra/article/8/1/57536/195006/Mind-wandering-in-Larks-and-Owls-The-Effects-of) and as a function of chronotype. Participants completed an attention task twice: once in the morning and once in the evening.
 
-For this example, we'll be ignoring individual differences (weep) and focus only on the mind-wandering task variable. 
+For this example, we'll be ignoring individual differences (weep) and focus only on the mind-wandering task variable.
 
 ```{r}
 lao = read.csv("https://raw.githubusercontent.com/uopsych/psy611/refs/heads/master/data/Larks%20and%20Owls.csv")
@@ -400,7 +399,6 @@ lao_wide %>%
   ) +
   theme_minimal()
 ```
-
 
 ------------------------------------------------------------------------
 
@@ -493,12 +491,11 @@ ggplot(lao, aes(x = TimeOfDay, y = MWCount)) +
   )
 ```
 
-
 ------------------------------------------------------------------------
 
 ## Visualizing paired-samples t-test
 
-There's a choice between displaying the statistics being tested (the mean and standard error of the difference scores) and displaying the data in its original units (two points per subject, means of individual conditions). You can't have both. Pick the one that best conveys the information you want a reader to walk away with. 
+There's a choice between displaying the statistics being tested (the mean and standard error of the difference scores) and displaying the data in its original units (two points per subject, means of individual conditions). You can't have both. Pick the one that best conveys the information you want a reader to walk away with.
 
 Better yet, put one in your manuscript and the other in supplemental material!
 
@@ -613,4 +610,4 @@ take away: likely to find differences when two measures are positively associate
 
 ### Next time...
 
-Dealer's choice!
+Independent-samples t-tests
