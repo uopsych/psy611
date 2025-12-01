@@ -56,7 +56,7 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 |  | 12/05 | *Lab: Independent-samples t-tests* |  |  |  |
 | Finals | 12/08 |  |  |  | HW 3 Due [^1] 9am |
 
-[^1]: Final grades are due the following Tuesday, so there are limited opportunities to redo this particular assignment for points. I will do my best to grade these within 24 hours of receipt so you have a chance to retry any missed points. Consider Friday 12/13 at 9am PT the last possible time to submit this assignment.
+[^1]: Final grades are due the following Tuesday, so there are limited opportunities to redo this particular assignment for points. I will do my best to grade these within 24 hours of receipt so you have a chance to retry any missed points. Consider Friday 12/12 at 9am PT the last possible time to submit this assignment.
 
 **Final:** Oral exam will take place the week of December 9.
 
