@@ -16,7 +16,8 @@ editor: visual
 
 -   Quiz 9 is Thursday
 -   Homework 3 is on the website. Enjoy!
--   Due next Monday (9 am),
+-   Due next Monday (9 am).
+-   All quiz and homework revisions are due next Friday at 9am
 
 ```{r setup}
 library(tidyverse)

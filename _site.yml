@@ -37,6 +37,8 @@ navbar:
           href: "lectures/15-one_sample.html"
         - text: "16-Paired-samples t-tests"
           href: "lectures/16-paired_sample.html"
+        - text: "17-Independent-samples t-tests"
+          href: "lectures/18-independent.html"
           
     - text: Labs
       menu:
