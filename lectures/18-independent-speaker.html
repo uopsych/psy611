@@ -527,57 +527,49 @@ mean in group Female   mean in group Male
 
 <h3 id="confidence-intervals-around-estimates-of-the-mean">Confidence intervals around estimates of the mean</h3>
 <p>In addition to calculating precision of the estimate in difference in means, you may also want to calculate the precision of the mean estimates themselves.</p>
-<p>In this case, you should use the standard deviation of the group sample as your estimate of population sd, instead of merging them.</p>
-<p><span class="math display">\[CI_{\text{Mean}} = {X} \pm \sigma_M(CV)\]</span> <span class="math display">\[= {X} \pm \frac{\hat{\sigma}}{\sqrt{N}}(CV)\]</span></p>
+<p>In this case, you should use the pooled standard deviation as your estimate.</p>
+<p><span class="math display">\[CI_{\text{Mean}} = {X} \pm \sigma_M(CV)\]</span> <span class="math display">\[= {X} \pm \frac{\hat{\sigma}_p}{\sqrt{N}}(CV)\]</span></p>
 </section>
 <section class="slide level2">
 
-<p><span class="math display">\[= {X} \pm \frac{\hat{\sigma}}{\sqrt{N}}(CV)\]</span></p>
+<p><span class="math display">\[= {X} \pm \frac{\hat{\sigma}_p}{\sqrt{N}}(CV)\]</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Females</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">sd</span>(school_new<span class="sc">$</span>friends[school_new<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">"Female"</span>], <span class="at">na.rm=</span>T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 21.43591</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">122-1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">122-1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.979764</code></pre>
 </div>
 </div>
-<p><span class="math display">\[18.31 \pm \frac{21.44}{\sqrt{122}}(1.98)\]</span> <span class="math display">\[[14.47, 22.15]\]</span></p>
+<p><span class="math display">\[18.31 \pm \frac{19.39}{\sqrt{122}}(1.98)\]</span> <span class="math display">\[[14.83, 21.79]\]</span></p>
 </div><div class="column" style="width:50%;">
 <p><strong>Males</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">sd</span>(school_new<span class="sc">$</span>friends[school_new<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">"Male"</span>], <span class="at">na.rm=</span>T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 15.90772</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">83-1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">83-1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.989319</code></pre>
 </div>
 </div>
-<p><span class="math display">\[12.34 \pm \frac{15.91}{\sqrt{83}}(1.99)\]</span> <span class="math display">\[[8.87, 15.81]\]</span></p>
+<p><span class="math display">\[12.34 \pm \frac{19.39}{\sqrt{83}}(1.99)\]</span> <span class="math display">\[[8.10, 16.58]\]</span></p>
 </div></div>
 </section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="fu">ggerrorplot</span>(school_new, <span class="at">x =</span> <span class="st">"Gender"</span>, <span class="at">y =</span> <span class="st">"friends"</span>, </span>
-<span id="cb31-2"><a href=""></a>            <span class="at">desc_stat =</span> <span class="st">"mean_ci"</span>, <span class="at">color =</span> <span class="st">"Gender"</span>, </span>
-<span id="cb31-3"><a href=""></a>            <span class="at">ylab =</span> <span class="st">"Hours spent with friends (per week)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">ggerrorplot</span>(school_new, <span class="at">x =</span> <span class="st">"Gender"</span>, <span class="at">y =</span> <span class="st">"friends"</span>, </span>
+<span id="cb27-2"><a href=""></a>            <span class="at">desc_stat =</span> <span class="st">"mean_ci"</span>, <span class="at">color =</span> <span class="st">"Gender"</span>, </span>
+<span id="cb27-3"><a href=""></a>            <span class="at">ylab =</span> <span class="st">"Hours spent with friends (per week)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="18-independent_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="fu">ggerrorplot</span>(school_new, <span class="at">x =</span> <span class="st">"Gender"</span>, <span class="at">y =</span> <span class="st">"friends"</span>, </span>
-<span id="cb32-2"><a href=""></a>            <span class="at">desc_stat =</span> <span class="st">"mean_ci"</span>, <span class="at">color =</span> <span class="st">"Gender"</span>, </span>
-<span id="cb32-3"><a href=""></a>            <span class="at">ylim=</span><span class="fu">range</span>(school_new<span class="sc">$</span>friends, <span class="at">na.rm=</span>T),</span>
-<span id="cb32-4"><a href=""></a>            <span class="at">ylab =</span> <span class="st">"Hours spent with friends (per week)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">ggerrorplot</span>(school_new, <span class="at">x =</span> <span class="st">"Gender"</span>, <span class="at">y =</span> <span class="st">"friends"</span>, </span>
+<span id="cb28-2"><a href=""></a>            <span class="at">desc_stat =</span> <span class="st">"mean_ci"</span>, <span class="at">color =</span> <span class="st">"Gender"</span>, </span>
+<span id="cb28-3"><a href=""></a>            <span class="at">ylim=</span><span class="fu">range</span>(school_new<span class="sc">$</span>friends, <span class="at">na.rm=</span>T),</span>
+<span id="cb28-4"><a href=""></a>            <span class="at">ylab =</span> <span class="st">"Hours spent with friends (per week)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="18-independent_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
@@ -591,10 +583,10 @@ mean in group Female   mean in group Male
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a><span class="fu">ggerrorplot</span>(school_new, <span class="at">x =</span> <span class="st">"Gender"</span>, <span class="at">y =</span> <span class="st">"friends"</span>, </span>
-<span id="cb33-2"><a href=""></a>            <span class="at">desc_stat =</span> <span class="st">"mean_ci"</span>, <span class="at">color =</span> <span class="st">"Gender"</span>, </span>
-<span id="cb33-3"><a href=""></a>            <span class="at">ylab =</span> <span class="st">"Hours spent with friends (per week)"</span>) <span class="sc">+</span></span>
-<span id="cb33-4"><a href=""></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">10</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">ggerrorplot</span>(school_new, <span class="at">x =</span> <span class="st">"Gender"</span>, <span class="at">y =</span> <span class="st">"friends"</span>, </span>
+<span id="cb29-2"><a href=""></a>            <span class="at">desc_stat =</span> <span class="st">"mean_ci"</span>, <span class="at">color =</span> <span class="st">"Gender"</span>, </span>
+<span id="cb29-3"><a href=""></a>            <span class="at">ylab =</span> <span class="st">"Hours spent with friends (per week)"</span>) <span class="sc">+</span></span>
+<span id="cb29-4"><a href=""></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">10</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 
 </div>

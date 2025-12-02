@@ -357,35 +357,33 @@ $$CI_{\text{Difference}} = \\(18.31 -12.34) \pm 2.76(1.97)$$ $$[0.53, 11.41]$$
 
 In addition to calculating precision of the estimate in difference in means, you may also want to calculate the precision of the mean estimates themselves.
 
-In this case, you should use the standard deviation of the group sample as your estimate of population sd, instead of merging them.
+In this case, you should use the pooled standard deviation as your estimate.
 
-$$CI_{\text{Mean}} = {X} \pm \sigma_M(CV)$$ $$= {X} \pm \frac{\hat{\sigma}}{\sqrt{N}}(CV)$$
+$$CI_{\text{Mean}} = {X} \pm \sigma_M(CV)$$ $$= {X} \pm \frac{\hat{\sigma}_p}{\sqrt{N}}(CV)$$
 
 ------------------------------------------------------------------------
 
-$$= {X} \pm \frac{\hat{\sigma}}{\sqrt{N}}(CV)$$
+$$= {X} \pm \frac{\hat{\sigma}_p}{\sqrt{N}}(CV)$$
 
 ::::: columns
 ::: {.column width="50%"}
 **Females**
 
 ```{r}
-sd(school_new$friends[school_new$Gender == "Female"], na.rm=T)
 qt(.975, df = 122-1)
 ```
 
-$$18.31 \pm \frac{21.44}{\sqrt{122}}(1.98)$$ $$[14.47, 22.15]$$
+$$18.31 \pm \frac{19.39}{\sqrt{122}}(1.98)$$ $$[14.83, 21.79]$$
 :::
 
 ::: {.column width="50%"}
 **Males**
 
 ```{r}
-sd(school_new$friends[school_new$Gender == "Male"], na.rm=T)
 qt(.975, df = 83-1)
 ```
 
-$$12.34 \pm \frac{15.91}{\sqrt{83}}(1.99)$$ $$[8.87, 15.81]$$
+$$12.34 \pm \frac{19.39}{\sqrt{83}}(1.99)$$ $$[8.10, 16.58]$$
 :::
 :::::
 
