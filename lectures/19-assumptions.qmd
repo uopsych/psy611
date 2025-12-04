@@ -225,6 +225,8 @@ How do we interpret this? Is this a large effect?
 
 Cohen[^1] suggests the following guidelines for interpreting the size of d:
 
+[^1]: Westfall, J. (2016). [Five different "Cohen's d" statistics for within-subject designs](http://web.archive.org/web/20230617232522/http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/)
+
 ::: nonincremental
 -   .2 = Small
 -   .5 = Medium
@@ -288,6 +290,8 @@ Most often, textbooks will argue for the within-pairs version, because this mirr
 **Which one should you use?**
 
 Some[^2] argue the between-conditions version is actually better because the paired-design is used to reduce noise by adjusting our calculation of the standard error. But that shouldn't make our effect bigger, just easier to detect. The other argument is that using the same formula (the between-conditions version) allows us to compare effect sizes across many different designs, which are all trying to capture the same effect.
+
+[^2]: Westfall, J. (2016). [Five different "Cohen's d" statistics for within-subject designs](http://web.archive.org/web/20230617232522/http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/)
 
 ------------------------------------------------------------------------
 
@@ -599,19 +603,17 @@ data.frame(boot_diff = boot_diff) %>%
   theme_minimal()
 ```
 
-
 ------------------------------------------------------------------------
 
 ::::: columns
 ::: {.column width="50%"}
 What's the median bootstrapped difference?
-  
+
 ```{r}
 median(boot_diff)
 ```
 
 What's the empirical 95% CI?
-
 
 ```{r}
 quantile(boot_diff, probs = c(.025, .975))
@@ -816,12 +818,8 @@ PSY 612 in 2025
 
 ::: nonincremental
 -   Quiz 9 now
--   Journal 10 due Monday night
+-   Journal 10 due Monday night (PSY only)
 -   Oral exams next week
 -   Homework 3 due Monday (9am)
--   All revisions due Friday (5pm)
+-   All revisions due Friday (9am)
 :::
-
-[^1]: Westfall, J. (2016). [Five different "Cohen's d" statistics for within-subject designs](http://web.archive.org/web/20230617232522/http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/)
-
-[^2]: Westfall, J. (2016). [Five different "Cohen's d" statistics for within-subject designs](http://web.archive.org/web/20230617232522/http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/)

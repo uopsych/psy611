@@ -39,6 +39,8 @@ navbar:
           href: "lectures/16-paired_sample.html"
         - text: "17-Independent-samples t-tests"
           href: "lectures/18-independent.html"
+        - text: "18-Assumptions and effect sizes"
+          href: "lectures/19-assumptions.html"
           
     - text: Labs
       menu:
